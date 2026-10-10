@@ -42,7 +42,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   const [activeNav, setActiveNav] = useState('search');
   const [topTab, setTopTab] = useState('people');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isJobChangesActive, setIsJobChangesActive] = useState(false);
   const { showToast } = useToast();
 
   // Saved searches in state/storage
@@ -145,21 +144,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
 
   const handleToggleSaveLead = (lead: Lead) => {
     toggleSaveMutation.mutate({ leadId: lead.id, saved: !lead.saved });
-  };
-
-  // Job Changes Trigger
-  const handleToggleJobChanges = () => {
-    if (isJobChangesActive) {
-      setIsJobChangesActive(false);
-      removeFilterItem('status', 'NET NEW');
-    } else {
-      setIsJobChangesActive(true);
-      applyFilters({
-        ...filters,
-        status: ['NET NEW'],
-        page: 1,
-      });
-    }
   };
 
   // Load preset search
@@ -401,9 +385,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       searchQuery={isJfllCategory ? jfllFilters.q || '' : filters.q || ''}
       onSearchChange={(q) => (isJfllCategory ? setJfllSearch(q) : setSearch(q))}
       onSearchSubmit={(q) => (isJfllCategory ? setJfllSearch(q) : setSearch(q))}
-      jobChangesCount={237}
-      onJobChangesClick={handleToggleJobChanges}
-      isJobChangesActive={isJobChangesActive}
       savedSearchesCount={savedSearches.length}
       onOpenSettings={() => setIsSettingsOpen(true)}
       onLogout={onLogout}

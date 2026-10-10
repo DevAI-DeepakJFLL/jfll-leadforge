@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Briefcase, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 
 export interface TopNavTab {
   id: string;
@@ -14,9 +14,6 @@ export interface TopHeaderProps {
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   onSearchSubmit?: (query: string) => void;
-  jobChangesCount?: number;
-  onJobChangesClick?: () => void;
-  isJobChangesActive?: boolean;
   className?: string;
 }
 
@@ -34,9 +31,6 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   searchQuery = '',
   onSearchChange,
   onSearchSubmit,
-  jobChangesCount = 237,
-  onJobChangesClick,
-  isJobChangesActive = false,
   className = '',
 }) => {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
@@ -125,24 +119,6 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         </div>
       </div>
 
-      {/* Right Tools: Functional 237 New Job Changes Trigger */}
-      <div className="flex items-center space-x-3 shrink-0">
-        <button
-          onClick={onJobChangesClick}
-          className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs rounded-full border transition-all ${
-            isJobChangesActive
-              ? 'bg-blue-50 text-apollo border-apollo font-semibold shadow-xs ring-1 ring-apollo/30'
-              : 'text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border-slate-200'
-          }`}
-          title={isJobChangesActive ? 'Showing job change prospects (Click to reset)' : 'Filter prospects who recently changed roles'}
-        >
-          <Briefcase className="w-3.5 h-3.5 text-apollo" />
-          <span>{jobChangesCount} New Job Changes</span>
-          {isJobChangesActive && (
-            <X className="w-3 h-3 text-slate-400 hover:text-slate-600 ml-0.5" />
-          )}
-        </button>
-      </div>
     </header>
   );
 };

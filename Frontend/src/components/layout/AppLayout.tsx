@@ -11,9 +11,6 @@ export interface AppLayoutProps {
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   onSearchSubmit?: (query: string) => void;
-  jobChangesCount?: number;
-  onJobChangesClick?: () => void;
-  isJobChangesActive?: boolean;
   savedSearchesCount?: number;
   onOpenSettings?: () => void;
   onLogout?: () => void;
@@ -29,9 +26,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   searchQuery = '',
   onSearchChange,
   onSearchSubmit,
-  jobChangesCount = 237,
-  onJobChangesClick,
-  isJobChangesActive = false,
   savedSearchesCount = 0,
   onOpenSettings,
   onLogout,
@@ -57,9 +51,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           searchQuery={searchQuery}
           onSearchChange={onSearchChange}
           onSearchSubmit={onSearchSubmit}
-          jobChangesCount={jobChangesCount}
-          onJobChangesClick={onJobChangesClick}
-          isJobChangesActive={isJobChangesActive}
         />
 
         {/* Content Viewport */}
