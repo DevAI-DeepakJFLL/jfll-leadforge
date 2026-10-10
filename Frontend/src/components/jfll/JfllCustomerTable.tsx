@@ -10,6 +10,7 @@ import {
   Eye,
 } from 'lucide-react';
 import { JfllCustomer } from '@/types/jfllCustomer';
+import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
 import { useToast } from '@/components/ui';
 
 export interface JfllCustomerTableProps {
@@ -144,11 +145,12 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               <th className="py-3 px-3 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>
-              <th className="py-3 px-4 min-w-[280px]">Company Name</th>
-              <th className="py-3 px-3.5 min-w-[100px]">Status</th>
-              <th className="py-3 px-3.5 min-w-[160px]">Contact Person</th>
-              <th className="py-3 px-3.5 min-w-[160px]">Phone Number</th>
-              <th className="py-3 px-3.5 min-w-[200px]">Email</th>
+              <th className="py-3 px-4 min-w-[260px]">Company Name</th>
+              <th className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
+              <th className="py-3 px-3.5 min-w-[95px]">Status</th>
+              <th className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
+              <th className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
+              <th className="py-3 px-3.5 min-w-[190px]">Email</th>
               <th className="py-3 px-4 w-20 text-center">Action</th>
             </tr>
           </thead>
@@ -194,7 +196,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         {initials || <Building2 className="w-3.5 h-3.5 text-slate-400" />}
                       </div>
                       <div className="min-w-0">
-                        <div className="font-semibold text-slate-900 truncate max-w-[260px] lg:max-w-[360px]">
+                        <div className="font-semibold text-slate-900 truncate max-w-[240px] lg:max-w-[340px]">
                           {c.fullName}
                         </div>
                         <div className="text-[11px] text-slate-400 truncate">
@@ -202,6 +204,11 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         </div>
                       </div>
                     </div>
+                  </td>
+
+                  {/* Customer Group (Design 1: Micro-Dot Pill) */}
+                  <td className="py-3 px-3.5">
+                    <JfllCustomerGroupBadge group={c.customerGroup} />
                   </td>
 
                   {/* Status */}
