@@ -16,6 +16,9 @@ function parseArrayParam(url: URL, key: string): string[] {
     return values;
   }
   if (values.length === 1 && values[0].length > 0) {
+    if (key === 'locations') {
+      return [values[0].trim()];
+    }
     return values[0].includes(',')
       ? values[0].split(',').map((s) => s.trim()).filter(Boolean)
       : [values[0]];
