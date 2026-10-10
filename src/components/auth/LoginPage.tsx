@@ -15,9 +15,6 @@ import {
 
 import { UserSession, DEMO_CREDENTIALS } from '@/types/auth';
 
-export type { UserSession };
-export { DEMO_CREDENTIALS };
-
 export interface LoginPageProps {
   onLoginSuccess: (session: UserSession) => void;
 }

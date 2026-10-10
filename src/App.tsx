@@ -12,7 +12,8 @@ import {
   EmailRevealDialog,
 } from '@/components/leads';
 import { ToastProvider, useToast } from '@/components/ui';
-import { LoginPage, UserSession } from '@/components/auth/LoginPage';
+import { LoginPage } from '@/components/auth/LoginPage';
+import { UserSession } from '@/types/auth';
 import { useLeadsFilter, serializeFiltersToUrl } from '@/hooks/useLeadsFilter';
 import { LeadsResponse, Lead, FilterParams } from '@/types/lead';
 
