@@ -6,11 +6,11 @@ import {
   Phone,
   User,
   Copy,
-  MapPin,
   ShieldCheck,
 } from 'lucide-react';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
+import { IndiaFlagIcon, formatPhoneNumber } from './JfllCustomerTable';
 import { useToast } from '@/components/ui';
 
 export interface JfllCustomerDetailDrawerProps {
@@ -132,27 +132,35 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
               )}
 
               {/* Mobile Phone */}
+              {/* Mobile Phone */}
               <div className="flex items-center justify-between py-2 border-t border-slate-200/60">
                 <div className="flex items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-slate-400" />
                   <span className="text-slate-600">Mobile Phone:</span>
                 </div>
                 {customer.mobileNumber ? (
-                  <div className="flex items-center gap-1.5">
-                    <a
-                      href={`tel:${customer.mobileNumber}`}
-                      className="font-mono text-apollo hover:underline"
-                    >
-                      {customer.mobileNumber}
-                    </a>
-                    <button
-                      onClick={() => handleCopyText(customer.mobileNumber!, 'Phone')}
-                      className="p-1 text-slate-400 hover:text-slate-700 rounded"
-                      title="Copy phone"
-                    >
-                      <Copy className="w-3 h-3" />
-                    </button>
-                  </div>
+                  (() => {
+                    const phoneData = formatPhoneNumber(customer.mobileNumber);
+                    if (!phoneData) return <span className="text-slate-400">—</span>;
+                    return (
+                      <div className="flex items-center gap-1.5">
+                        <IndiaFlagIcon className="w-4 h-3 shrink-0" />
+                        <a
+                          href={`tel:${phoneData.raw}`}
+                          className="font-mono text-apollo hover:underline"
+                        >
+                          {phoneData.number}
+                        </a>
+                        <button
+                          onClick={() => handleCopyText(phoneData.raw, 'Phone')}
+                          className="p-1 text-slate-400 hover:text-slate-700 rounded"
+                          title="Copy phone"
+                        >
+                          <Copy className="w-3 h-3" />
+                        </button>
+                      </div>
+                    );
+                  })()
                 ) : (
                   <span className="text-slate-400">—</span>
                 )}
@@ -202,13 +210,6 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                 <div className="p-3 flex justify-between items-center">
                   <span className="text-slate-500">Registration Type</span>
                   <span className="font-medium text-slate-900">{customer.type}</span>
-                </div>
-                <div className="p-3 flex justify-between items-center">
-                  <span className="text-slate-500">Logistics Territory</span>
-                  <div className="flex items-center gap-1 font-medium text-slate-900">
-                    <MapPin className="w-3 h-3 text-slate-400" />
-                    <span>{customer.territory}</span>
-                  </div>
                 </div>
                 <div className="p-3 flex justify-between items-center">
                   <span className="text-slate-500">Account Status</span>

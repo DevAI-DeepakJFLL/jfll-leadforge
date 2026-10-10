@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
 import { queryJfllCustomers, exportJfllCustomersCsv } from '@/services/jfllCustomerService';
+import { formatPhoneNumber } from '@/components/jfll/JfllCustomerTable';
 
 describe('JFLL Customers Dataset & Query Service', () => {
   it('loads 881 deduplicated active customer records with complete schemas', () => {
@@ -102,5 +103,12 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(text).toContain('"\'=SUM(A1:A10)"');
     expect(text).toContain('"\'=SUM(A1:A10)"');
     expect(text).toContain('"\'@malicious.com"');
+  });
+
+  it('formats phone numbers by stripping +91 prefix consistently', () => {
+    expect(formatPhoneNumber('+91-9821230317')?.number).toBe('9821230317');
+    expect(formatPhoneNumber('+91 9821230317')?.number).toBe('9821230317');
+    expect(formatPhoneNumber('91-9821230317')?.number).toBe('9821230317');
+    expect(formatPhoneNumber(null)).toBeNull();
   });
 });

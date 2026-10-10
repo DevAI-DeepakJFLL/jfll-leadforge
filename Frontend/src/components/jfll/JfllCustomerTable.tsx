@@ -3,16 +3,13 @@ import { RowSelectionState } from '@tanstack/react-table';
 import {
   Building2,
   Mail,
-  Phone,
   Copy,
   ChevronLeft,
   ChevronRight,
   SearchX,
   Eye,
-  MapPin,
 } from 'lucide-react';
 import { JfllCustomer } from '@/types/jfllCustomer';
-import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
 import { useToast } from '@/components/ui';
 
 export interface JfllCustomerTableProps {
@@ -28,6 +25,57 @@ export interface JfllCustomerTableProps {
   onPageChange: (page: number) => void;
   onClearFilters?: () => void;
   className?: string;
+}
+
+/**
+ * High-definition Indian Flag SVG icon (Ashoka Chakra on white band)
+ */
+export const IndiaFlagIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-3' }) => (
+  <span
+    className={`inline-flex shrink-0 items-center justify-center rounded-[2px] overflow-hidden border border-slate-300 shadow-2xs leading-none ${className}`}
+    title="India (+91)"
+    aria-label="India (+91)"
+  >
+    <svg viewBox="0 0 640 480" className="w-full h-full object-cover">
+      <path fill="#f93" d="M0 0h640v160H0z" />
+      <path fill="#fff" d="M0 160h640v160H0z" />
+      <path fill="#128807" d="M0 320h640v160H0z" />
+      <g transform="matrix(3.2 0 0 3.2 320 240)">
+        <circle r="20" fill="#008" />
+        <circle r="17.5" fill="#fff" />
+        <circle r="3.5" fill="#008" />
+        <g id="d">
+          <g id="c">
+            <g id="b">
+              <g id="a">
+                <circle r=".875" cy="-17.5" fill="#008" />
+                <path fill="#008" d="M0-17.5L.6-3.5 0 0l-.6-3.5z" />
+              </g>
+              <use href="#a" transform="rotate(15)" />
+            </g>
+            <use href="#b" transform="rotate(30)" />
+          </g>
+          <use href="#c" transform="rotate(60)" />
+        </g>
+        <use href="#d" transform="rotate(120)" />
+        <use href="#d" transform="rotate(240)" />
+      </g>
+    </svg>
+  </span>
+);
+
+/**
+ * Normalizes phone numbers by stripping +91 prefix for pairing with the Indian flag icon
+ */
+export function formatPhoneNumber(phone: string | null | undefined): { number: string; raw: string } | null {
+  if (!phone || !phone.trim()) return null;
+  const raw = phone.trim();
+  // Strip leading +91-, +91, 91-, or +
+  const cleaned = raw.replace(/^(\+91[-\s]?|91[-\s]?|\+)/, '').trim();
+  return {
+    number: cleaned || raw,
+    raw,
+  };
 }
 
 export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
@@ -70,7 +118,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
           No JFLL Customers match your filters
         </h3>
         <p className="text-xs text-slate-500 max-w-sm mb-4">
-          Try loosening your search keywords or resetting your Customer Group and Legal Form filters.
+          Try loosening your search keywords or resetting your filters.
         </p>
         {onClearFilters && (
           <button
@@ -86,26 +134,25 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-xl border border-slate-200/90 overflow-hidden shadow-xs flex flex-col ${className}`}
+      className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex flex-col ${className}`}
     >
       {/* Table Container */}
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-500 font-semibold text-[11px] uppercase tracking-wider">
-              <th className="py-3 px-3.5 w-12 text-center">
+            <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+              <th className="py-3 px-3 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>
               <th className="py-3 px-4 min-w-[280px]">Company Name</th>
-              <th className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
               <th className="py-3 px-3.5 min-w-[100px]">Status</th>
               <th className="py-3 px-3.5 min-w-[160px]">Contact Person</th>
-              <th className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
-              <th className="py-3 px-3.5 min-w-[200px]">Email Address</th>
-              <th className="py-3 px-4 w-24 text-center">Action</th>
+              <th className="py-3 px-3.5 min-w-[160px]">Phone Number</th>
+              <th className="py-3 px-3.5 min-w-[200px]">Email</th>
+              <th className="py-3 px-4 w-20 text-center">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100/90">
+          <tbody className="divide-y divide-slate-100">
             {customers.map((c) => {
               const isSelected = !!rowSelection[c.id];
               const initials = c.fullName
@@ -116,138 +163,125 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                 .join('')
                 .toUpperCase();
 
+              const phoneData = formatPhoneNumber(c.mobileNumber);
+
               return (
                 <tr
                   key={c.id}
                   onClick={() => onCustomerClick(c)}
-                  className={`hover:bg-slate-50/70 transition-colors cursor-pointer group ${
-                    isSelected ? 'bg-blue-50/35' : ''
+                  className={`hover:bg-slate-50/80 transition-colors cursor-pointer group ${
+                    isSelected ? 'bg-blue-50/30' : ''
                   }`}
                 >
                   {/* Selection Checkbox */}
                   <td
-                    className="py-3.5 px-3.5 text-center"
+                    className="py-3 px-3 text-center"
                     onClick={(e) => handleToggleRow(c.id, e)}
                   >
                     <input
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => {}}
-                      className="w-4 h-4 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer"
+                      className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer"
                       aria-label={`Select ${c.fullName}`}
                     />
                   </td>
 
-                  {/* Company Name & Metadata */}
-                  <td className="py-3.5 px-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-slate-100 to-slate-200/80 border border-slate-200/80 flex items-center justify-center font-bold text-xs text-slate-700 shrink-0 shadow-2xs group-hover:border-apollo/30 transition-colors">
-                        {initials || <Building2 className="w-4 h-4 text-slate-400" />}
+                  {/* Company Name */}
+                  <td className="py-3 px-4">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-md bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-[11px] text-slate-700 shrink-0">
+                        {initials || <Building2 className="w-3.5 h-3.5 text-slate-400" />}
                       </div>
                       <div className="min-w-0">
-                        <div className="font-semibold text-slate-900 truncate max-w-[240px] lg:max-w-[340px] group-hover:text-apollo transition-colors">
+                        <div className="font-semibold text-slate-900 truncate max-w-[260px] lg:max-w-[360px]">
                           {c.fullName}
                         </div>
-                        <div className="flex items-center gap-1.5 text-[11px] text-slate-500 mt-0.5">
-                          <span className="font-medium text-slate-600 bg-slate-100 px-1.5 py-0.2 rounded text-[10px]">
-                            {c.type}
-                          </span>
-                          <span className="text-slate-300">•</span>
-                          <span className="flex items-center gap-0.5 text-slate-400">
-                            <MapPin className="w-2.5 h-2.5" />
-                            {c.territory}
-                          </span>
+                        <div className="text-[11px] text-slate-400 truncate">
+                          {c.type}
                         </div>
                       </div>
                     </div>
                   </td>
 
-                  {/* Customer Group */}
-                  <td className="py-3.5 px-3.5">
-                    <JfllCustomerGroupBadge group={c.customerGroup} />
-                  </td>
-
                   {/* Status */}
-                  <td className="py-3.5 px-3.5">
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 shadow-2xs">
+                  <td className="py-3 px-3.5">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       Active
                     </span>
                   </td>
 
                   {/* Contact Person */}
-                  <td className="py-3.5 px-3.5">
+                  <td className="py-3 px-3.5">
                     {c.contactPersonName ? (
-                      <div className="flex items-center gap-2 text-slate-900 font-medium truncate max-w-[150px]">
-                        <div className="w-5 h-5 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-600 shrink-0">
-                          {c.contactPersonName[0].toUpperCase()}
-                        </div>
-                        <span className="truncate">{c.contactPersonName}</span>
-                      </div>
+                      <span className="text-slate-800 font-medium truncate max-w-[150px] inline-block">
+                        {c.contactPersonName}
+                      </span>
                     ) : (
-                      <span className="text-slate-400 italic text-[11px] pl-1">Unassigned</span>
+                      <span className="text-slate-400 italic text-[11px]">—</span>
                     )}
                   </td>
 
-                  {/* Mobile Phone */}
-                  <td className="py-3.5 px-3.5">
-                    {c.mobileNumber ? (
-                      <div className="inline-flex items-center gap-1.5 bg-slate-50/80 hover:bg-white border border-slate-200 px-2 py-1 rounded-md transition-colors group/tel">
-                        <Phone className="w-3 h-3 text-emerald-600 shrink-0" />
+                  {/* Phone Number with Indian Flag Icon */}
+                  <td className="py-3 px-3.5">
+                    {phoneData ? (
+                      <div className="flex items-center gap-1.5 text-slate-800">
+                        <IndiaFlagIcon className="w-4 h-3 shrink-0" />
                         <a
-                          href={`tel:${c.mobileNumber}`}
+                          href={`tel:${phoneData.raw}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="font-mono text-[11px] text-slate-800 hover:text-apollo transition-colors"
+                          className="font-mono text-xs hover:text-apollo hover:underline"
                         >
-                          {c.mobileNumber}
+                          {phoneData.number}
                         </a>
                         <button
-                          onClick={(e) => handleCopy(c.mobileNumber!, 'Phone', e)}
-                          className="p-0.5 text-slate-400 hover:text-slate-700 rounded transition-colors ml-0.5"
+                          onClick={(e) => handleCopy(phoneData.raw, 'Phone', e)}
+                          className="p-0.5 text-slate-400 hover:text-slate-700 rounded opacity-0 group-hover:opacity-100 transition-opacity"
                           title="Copy phone"
                         >
                           <Copy className="w-3 h-3" />
                         </button>
                       </div>
                     ) : (
-                      <span className="text-slate-400 italic text-[11px] pl-1">—</span>
+                      <span className="text-slate-400 italic text-[11px]">—</span>
                     )}
                   </td>
 
                   {/* Email */}
-                  <td className="py-3.5 px-3.5">
+                  <td className="py-3 px-3.5">
                     {c.email ? (
-                      <div className="inline-flex items-center gap-1.5 bg-slate-50/80 hover:bg-white border border-slate-200 px-2 py-1 rounded-md transition-colors group/mail max-w-[190px]">
-                        <Mail className="w-3 h-3 text-blue-600 shrink-0" />
+                      <div className="flex items-center gap-1 text-slate-700">
+                        <Mail className="w-3 h-3 text-slate-400 shrink-0" />
                         <a
                           href={`mailto:${c.email}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="truncate text-[11px] text-slate-700 hover:text-apollo transition-colors"
+                          className="truncate max-w-[160px] text-[11px] font-mono text-slate-600 hover:text-apollo hover:underline"
                           title={c.email}
                         >
                           {c.email}
                         </a>
                         <button
                           onClick={(e) => handleCopy(c.email!, 'Email', e)}
-                          className="p-0.5 text-slate-400 hover:text-slate-700 rounded transition-colors shrink-0 ml-0.5"
+                          className="p-0.5 text-slate-400 hover:text-slate-700 rounded opacity-0 group-hover:opacity-100 transition-opacity"
                           title="Copy email"
                         >
                           <Copy className="w-3 h-3" />
                         </button>
                       </div>
                     ) : (
-                      <span className="text-slate-400 italic text-[11px] pl-1">—</span>
+                      <span className="text-slate-400 italic text-[11px]">—</span>
                     )}
                   </td>
 
-                  {/* Action CTA: Clear "View" button */}
-                  <td className="py-3.5 px-4 text-center">
+                  {/* Action CTA: View Button */}
+                  <td className="py-3 px-4 text-center">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         onCustomerClick(c);
                       }}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded transition-all shadow-2xs group/btn"
                       title={`View details for ${c.fullName}`}
                     >
                       <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
