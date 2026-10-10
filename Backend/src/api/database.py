@@ -1,14 +1,15 @@
 import duckdb
 from src.api.config import settings
 
-
 def get_db_connection() -> duckdb.DuckDBPyConnection:
     """Instantiate a DuckDB connection configured with S3 httpfs credentials."""
-    con = duckdb.connect()
-    con.execute("INSTALL httpfs; LOAD httpfs;")
+    con = duckdb.connect(":memory:")
+    try:
+        con.execute("LOAD httpfs;")
+    except Exception:
+        con.execute("INSTALL httpfs; LOAD httpfs;")
 
     if settings.env == "local":
-        # Floci AWS Emulator settings
         con.execute(f"""
             SET s3_endpoint = '{settings.floci_endpoint}';
             SET s3_use_ssl = false;
@@ -17,7 +18,7 @@ def get_db_connection() -> duckdb.DuckDBPyConnection:
             SET s3_secret_access_key = '{settings.aws_secret_access_key}';
         """)
     else:
-        # Production AWS IAM authentication
         con.execute(f"SET s3_region = '{settings.aws_region}';")
 
     return con
+

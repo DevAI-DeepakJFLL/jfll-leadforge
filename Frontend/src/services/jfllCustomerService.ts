@@ -5,6 +5,17 @@ import {
   JfllCustomersResponse,
 } from '@/types/jfllCustomer';
 
+interface ApiLeadRecord {
+  full_name?: string;
+  territory?: string;
+  contact_person_name?: string | null;
+  mobile_number?: string | null;
+  email?: string | null;
+  status?: string;
+  customer_group?: string;
+  type?: string;
+}
+
 /**
  * Asynchronously query the Backend REST API (DuckDB over S3 Parquet / Lambda)
  * with graceful fallback to local data if offline.
@@ -45,7 +56,7 @@ export async function fetchJfllCustomersFromApi(
     }
 
     const payload = await res.json();
-    const items: JfllCustomer[] = (payload.data || []).map((row: any, idx: number) => ({
+    const items: JfllCustomer[] = (payload.data || []).map((row: ApiLeadRecord, idx: number) => ({
       id: `jfll-${(page - 1) * limit + idx + 1}`,
       fullName: row.full_name || '',
       territory: row.territory || 'All Territories',

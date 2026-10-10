@@ -1,5 +1,6 @@
 from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query
+from fastapi.params import Query as QueryType
 from src.api.config import settings
 from src.api.database import get_db_connection
 from src.api.models import PaginatedResponse, AudienceCounts
@@ -7,6 +8,7 @@ from src.api.models import PaginatedResponse, AudienceCounts
 router = APIRouter(prefix="/api/v1", tags=["Leads"])
 
 ALLOWED_STATUSES = {"Active", "Not Active"}
+ALLOWED_TABS = {"all", "shippers", "subagents", "overseas", "with-contacts"}
 
 
 @router.get("/leads", response_model=PaginatedResponse, summary="Retrieve paginated customer leads")
@@ -24,7 +26,6 @@ def list_leads(
     search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search company, contact person or email"),
 ):
     # Normalize Query objects when invoked directly in tests/scripts
-    from fastapi.params import Query as QueryType
     if isinstance(page, QueryType): page = 1
     if isinstance(page_size, QueryType): page_size = 25
     if isinstance(status, QueryType): status = None
@@ -41,6 +42,12 @@ def list_leads(
         raise HTTPException(
             status_code=400,
             detail=f"Invalid status '{status}'. Must be one of: {list(ALLOWED_STATUSES)}",
+        )
+
+    if tab and tab not in ALLOWED_TABS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid tab '{tab}'. Must be one of: {list(ALLOWED_TABS)}",
         )
 
     offset = (page - 1) * page_size
@@ -104,13 +111,23 @@ def list_leads(
     count_query = f"SELECT count(*) FROM '{settings.s3_uri}' WHERE {where_sql}"
     total_records = con.execute(count_query, params).fetchone()[0]
 
-    # 2. Audience Tab Aggregate Counts
+    # 2. Audience Tab Aggregate Counts (Single-pass table scan)
+    agg_row = con.execute(f"""
+        SELECT 
+            count(*) as all_count,
+            count(CASE WHEN "Customer Group" = 'Shipper / Consignee' THEN 1 END) as shippers,
+            count(CASE WHEN "Customer Group" = 'Subagent' THEN 1 END) as subagents,
+            count(CASE WHEN "Customer Group" = 'Overseas Agent' THEN 1 END) as overseas,
+            count(CASE WHEN ("Contact Person Name" IS NOT NULL OR "Email" IS NOT NULL OR "Mobile Number" IS NOT NULL) THEN 1 END) as with_contacts
+        FROM '{settings.s3_uri}'
+    """).fetchone()
+
     audience_counts = AudienceCounts(
-        all=con.execute(f"SELECT count(*) FROM '{settings.s3_uri}'").fetchone()[0],
-        shippers=con.execute(f"SELECT count(*) FROM '{settings.s3_uri}' WHERE \"Customer Group\" = 'Shipper / Consignee'").fetchone()[0],
-        subagents=con.execute(f"SELECT count(*) FROM '{settings.s3_uri}' WHERE \"Customer Group\" = 'Subagent'").fetchone()[0],
-        overseas=con.execute(f"SELECT count(*) FROM '{settings.s3_uri}' WHERE \"Customer Group\" = 'Overseas Agent'").fetchone()[0],
-        with_contacts=con.execute(f"SELECT count(*) FROM '{settings.s3_uri}' WHERE (\"Contact Person Name\" IS NOT NULL OR \"Email\" IS NOT NULL OR \"Mobile Number\" IS NOT NULL)").fetchone()[0],
+        all=agg_row[0],
+        shippers=agg_row[1],
+        subagents=agg_row[2],
+        overseas=agg_row[3],
+        with_contacts=agg_row[4],
     )
 
     # 3. Paginated Data Query
