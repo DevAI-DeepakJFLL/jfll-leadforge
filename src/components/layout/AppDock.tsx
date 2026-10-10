@@ -15,6 +15,7 @@ export interface AppDockProps {
   onNavChange?: (navId: string) => void;
   savedSearchesCount?: number;
   onOpenSettings?: () => void;
+  onLogout?: () => void;
   className?: string;
 }
 
@@ -30,6 +31,7 @@ export const AppDock: React.FC<AppDockProps> = ({
   onNavChange,
   savedSearchesCount = 0,
   onOpenSettings,
+  onLogout,
   className = '',
 }) => {
   const [avatarError, setAvatarError] = useState(false);
@@ -361,7 +363,10 @@ export const AppDock: React.FC<AppDockProps> = ({
                   <span>Preferences</span>
                 </button>
                 <button
-                  onClick={() => setShowProfileMenu(false)}
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    onLogout?.();
+                  }}
                   className="text-red-600 hover:text-red-700 font-medium"
                 >
                   Sign out

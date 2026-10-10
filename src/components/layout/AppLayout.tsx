@@ -16,6 +16,7 @@ export interface AppLayoutProps {
   isJobChangesActive?: boolean;
   savedSearchesCount?: number;
   onOpenSettings?: () => void;
+  onLogout?: () => void;
   className?: string;
 }
 
@@ -33,6 +34,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   isJobChangesActive = false,
   savedSearchesCount = 0,
   onOpenSettings,
+  onLogout,
   className = '',
 }) => {
   return (
@@ -43,6 +45,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onNavChange={onNavChange}
         savedSearchesCount={savedSearchesCount}
         onOpenSettings={onOpenSettings}
+        onLogout={onLogout}
       />
 
       {/* Main Workspace Frame */}

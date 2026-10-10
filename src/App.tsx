@@ -12,6 +12,7 @@ import {
   EmailRevealDialog,
 } from '@/components/leads';
 import { ToastProvider, useToast } from '@/components/ui';
+import { LoginPage, UserSession } from '@/components/auth/LoginPage';
 import { useLeadsFilter, serializeFiltersToUrl } from '@/hooks/useLeadsFilter';
 import { LeadsResponse, Lead, FilterParams } from '@/types/lead';
 
@@ -21,7 +22,11 @@ interface SavedSearchPreset {
   filters: Partial<FilterParams>;
 }
 
-const AppContent: React.FC = () => {
+interface AppContentProps {
+  onLogout: () => void;
+}
+
+const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   const [activeNav, setActiveNav] = useState('search');
   const [topTab, setTopTab] = useState('people');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -306,6 +311,7 @@ const AppContent: React.FC = () => {
       isJobChangesActive={isJobChangesActive}
       savedSearchesCount={savedSearches.length}
       onOpenSettings={() => setIsSettingsOpen(true)}
+      onLogout={onLogout}
     >
       {/* Main Container: Left FilterSidebar + Right Leads Content Viewport */}
       <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
@@ -423,9 +429,35 @@ const AppContent: React.FC = () => {
 };
 
 export const App: React.FC = () => {
+  const [session, setSession] = useState<UserSession | null>(() => {
+    try {
+      const stored = sessionStorage.getItem('apollo_leads_session');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const handleLoginSuccess = (newSession: UserSession) => {
+    setSession(newSession);
+  };
+
+  const handleLogout = () => {
+    try {
+      sessionStorage.removeItem('apollo_leads_session');
+    } catch {
+      // Ignored
+    }
+    setSession(null);
+  };
+
+  if (!session) {
+    return <LoginPage onLoginSuccess={handleLoginSuccess} />;
+  }
+
   return (
     <ToastProvider>
-      <AppContent />
+      <AppContent onLogout={handleLogout} />
     </ToastProvider>
   );
 };
