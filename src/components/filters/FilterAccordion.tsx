@@ -57,7 +57,7 @@ export const FilterAccordion: React.FC<FilterAccordionProps> = ({
 
           {/* Active count badge */}
           {activeCount > 0 && (
-            <span className="inline-flex items-center justify-center px-1.5 py-0.2 text-[10px] font-semibold text-apollo bg-apollo-50 border border-apollo-200 rounded-full shrink-0">
+            <span className="inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-semibold text-apollo bg-apollo-50 border border-apollo-200 rounded-full shrink-0">
               {activeCount}
             </span>
           )}
