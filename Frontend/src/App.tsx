@@ -16,6 +16,17 @@ import { LoginPage } from '@/components/auth/LoginPage';
 import { UserSession } from '@/types/auth';
 import { useLeadsFilter, serializeFiltersToUrl } from '@/hooks/useLeadsFilter';
 import { LeadsResponse, Lead, FilterParams } from '@/types/lead';
+import {
+  JfllCustomerAudienceTabs,
+  JfllCustomerFilterSidebar,
+  JfllCustomerActionBar,
+  JfllCustomerTable,
+  JfllCustomerDetailDrawer,
+} from '@/components/jfll';
+import { useJfllCustomersFilter } from '@/hooks/useJfllCustomersFilter';
+import { queryJfllCustomers, exportJfllCustomersCsv } from '@/services/jfllCustomerService';
+import { JfllCustomer } from '@/types/jfllCustomer';
+import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
 
 interface SavedSearchPreset {
   id: string;
@@ -284,29 +295,112 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     return items.find((l) => l.id === selectedDrawerLead.id) || selectedDrawerLead;
   }, [items, selectedDrawerLead]);
 
+  // JFLL Customers filter and state management
+  const {
+    filters: jfllFilters,
+    setSearch: setJfllSearch,
+    setTab: setJfllTab,
+    setPage: setJfllPage,
+    toggleCustomerGroup: toggleJfllCustomerGroup,
+    toggleType: toggleJfllType,
+    toggleContactOption: toggleJfllContactOption,
+    clearAllFilters: clearAllJfllFilters,
+  } = useJfllCustomersFilter();
+
+  const jfllQuery = useMemo(() => queryJfllCustomers(jfllFilters), [jfllFilters]);
+  const [jfllRowSelection, setJfllRowSelection] = useState<RowSelectionState>({});
+  const [selectedJfllCustomer, setSelectedJfllCustomer] = useState<JfllCustomer | null>(null);
+  const [isExportingJfll, setIsExportingJfll] = useState(false);
+
+  // JFLL Selection calculations
+  const jfllItems = jfllQuery.items;
+  const selectedJfllIds = useMemo(
+    () => Object.keys(jfllRowSelection).filter((id) => jfllRowSelection[id]),
+    [jfllRowSelection]
+  );
+  const selectedJfllCount = selectedJfllIds.length;
+  const isAllJfllOnPageSelected =
+    jfllItems.length > 0 && jfllItems.every((c) => jfllRowSelection[c.id]);
+  const isSomeJfllOnPageSelected =
+    jfllItems.some((c) => jfllRowSelection[c.id]) && !isAllJfllOnPageSelected;
+
+  const handleToggleSelectAllJfllPage = () => {
+    if (isAllJfllOnPageSelected) {
+      setJfllRowSelection({});
+    } else {
+      const next: RowSelectionState = {};
+      jfllItems.forEach((c) => {
+        next[c.id] = true;
+      });
+      setJfllRowSelection(next);
+    }
+  };
+
+  const handleDeselectAllJfll = () => {
+    setJfllRowSelection({});
+  };
+
+  const handleExportJfllCsv = () => {
+    try {
+      setIsExportingJfll(true);
+      const selected = selectedJfllIds
+        .map((id) => jfllItems.find((c) => c.id === id) || JFLL_CUSTOMERS_DATA.find((c) => c.id === id))
+        .filter(Boolean) as JfllCustomer[];
+      const exportList = selected.length > 0 ? selected : jfllItems;
+      const blob = exportJfllCustomersCsv(exportList);
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'jfll_active_customers_export.csv');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      showToast(`Exported ${exportList.length} JFLL active customers to CSV`);
+    } catch {
+      showToast('Export failed. Please check network connection.', 'error');
+    } finally {
+      setIsExportingJfll(false);
+    }
+  };
+
+  const isJfllCategory = topTab === 'jfll-customers';
+
   return (
     <AppLayout
       activeNav={activeNav}
       onNavChange={(navId) => {
         setActiveNav(navId);
-        if (navId === 'home') {
+        if (navId === 'jfll-customers') {
+          setTopTab('jfll-customers');
+        } else if (navId === 'home') {
+          setTopTab('people');
           clearAllFilters();
+        } else if (navId === 'search') {
+          setTopTab('people');
         } else if (navId === 'saved-searches') {
+          setTopTab('people');
           handleLoadPresetSearch();
         }
       }}
       activeTab={topTab}
       onTabChange={(tabId) => {
         setTopTab(tabId);
-        if (tabId === 'saved-searches') {
+        if (tabId === 'jfll-customers') {
+          setActiveNav('jfll-customers');
+        } else if (tabId === 'saved-searches') {
+          setActiveNav('search');
           handleLoadPresetSearch();
         } else if (tabId === 'saved-lists') {
+          setActiveNav('search');
           setTab('saved');
+        } else {
+          setActiveNav('search');
         }
       }}
-      searchQuery={filters.q || ''}
-      onSearchChange={(q) => setSearch(q)}
-      onSearchSubmit={(q) => setSearch(q)}
+      searchQuery={isJfllCategory ? jfllFilters.q || '' : filters.q || ''}
+      onSearchChange={(q) => (isJfllCategory ? setJfllSearch(q) : setSearch(q))}
+      onSearchSubmit={(q) => (isJfllCategory ? setJfllSearch(q) : setSearch(q))}
       jobChangesCount={237}
       onJobChangesClick={handleToggleJobChanges}
       isJobChangesActive={isJobChangesActive}
@@ -314,81 +408,131 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       onOpenSettings={() => setIsSettingsOpen(true)}
       onLogout={onLogout}
     >
-      {/* Main Container: Left FilterSidebar + Right Leads Content Viewport */}
-      <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
-        {/* Left Filter Sidebar matching Ref.jpg */}
-        <FilterSidebar
-          filters={filters}
-          onToggleArrayFilter={toggleArrayFilter}
-          onToggleStatusFilter={toggleStatusFilter}
-          onClearCategory={clearFilterCategory}
-          onSaveSearch={handleSaveSearch}
-          onLoadSearch={handleLoadPresetSearch}
-        />
-
-        {/* Right Leads Prospecting Area */}
-        <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
-          {/* Subheader: Audience Tabs matching Ref.jpg */}
-          <AudienceTabs
-            activeTab={filters.tab}
-            onTabChange={setTab}
-            counts={data?.audienceCounts}
-            rightContent={
-              <span>
-                Total Prospects:{' '}
-                <strong className="text-slate-800">{data?.totalFormatted || '2.5m'}</strong>
-              </span>
-            }
+      {isJfllCategory ? (
+        /* Dedicated JFLL Customers (Organic Internal Master) Category View */
+        <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
+          <JfllCustomerFilterSidebar
+            filters={jfllFilters}
+            onToggleCustomerGroup={toggleJfllCustomerGroup}
+            onToggleType={toggleJfllType}
+            onToggleContactOption={toggleJfllContactOption}
+            onClearAll={clearAllJfllFilters}
           />
 
-          {/* Table Bulk Action Bar */}
-          <TableActionBar
-            selectedCount={selectedCount}
-            totalOnPage={items.length}
-            totalCount={data?.totalEstimate}
-            isAllOnPageSelected={isAllOnPageSelected}
-            isIndeterminate={isSomeOnPageSelected}
-            onToggleSelectAllPage={handleToggleSelectAllPage}
-            onSelectAllPage={handleSelectAllPage}
-            onSelectAllTotal={handleSelectAllTotal}
-            onDeselectAll={handleDeselectAll}
-            onSave={handleBatchSave}
-            onAddToList={handleAddToList}
-            onExport={handleExportCsv}
-            isExporting={isExporting}
-            savedLists={savedLists}
-          />
-
-          {/* Active Filter Chips Bar */}
-          <ActiveFilterChips
-            filters={filters}
-            onRemoveFilter={removeFilterItem}
-            onClearAll={clearAllFilters}
-          />
-
-          {/* Central Leads Table Viewport */}
-          <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
-            <LeadsTable
-              leads={items}
-              isLoading={isLoading}
-              isError={isError}
-              error={error as Error}
-              onRetry={() => refetch()}
-              rowSelection={rowSelection}
-              onRowSelectionChange={setRowSelection}
-              onLeadClick={handleLeadClick}
-              onViewEmail={handleViewEmail}
-              currentPage={data?.page || 1}
-              totalPages={data?.totalPages || 1}
-              pageSize={data?.limit || 25}
-              totalItems={data?.totalEstimate || 0}
-              totalFormatted={data?.totalFormatted}
-              onPageChange={setPage}
-              onClearFilters={clearAllFilters}
+          <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
+            <JfllCustomerAudienceTabs
+              activeTab={jfllFilters.tab}
+              onTabChange={setJfllTab}
+              counts={jfllQuery.audienceCounts}
+              totalFormatted={jfllQuery.totalFormatted}
             />
+
+            <JfllCustomerActionBar
+              selectedCount={selectedJfllCount}
+              totalOnPage={jfllItems.length}
+              totalCount={jfllQuery.totalEstimate}
+              isAllOnPageSelected={isAllJfllOnPageSelected}
+              isIndeterminate={isSomeJfllOnPageSelected}
+              onToggleSelectAllPage={handleToggleSelectAllJfllPage}
+              onDeselectAll={handleDeselectAllJfll}
+              onExport={handleExportJfllCsv}
+              isExporting={isExportingJfll}
+            />
+
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
+              <JfllCustomerTable
+                customers={jfllItems}
+                rowSelection={jfllRowSelection}
+                onRowSelectionChange={setJfllRowSelection}
+                onCustomerClick={(c) => setSelectedJfllCustomer(c)}
+                currentPage={jfllQuery.page}
+                totalPages={jfllQuery.totalPages}
+                pageSize={jfllQuery.limit}
+                totalItems={jfllQuery.totalEstimate}
+                totalFormatted={jfllQuery.totalFormatted}
+                onPageChange={setJfllPage}
+                onClearFilters={clearAllJfllFilters}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        /* Existing Apollo Prospects Category View - 100% UNCHANGED */
+        <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
+          {/* Left Filter Sidebar matching Ref.jpg */}
+          <FilterSidebar
+            filters={filters}
+            onToggleArrayFilter={toggleArrayFilter}
+            onToggleStatusFilter={toggleStatusFilter}
+            onClearCategory={clearFilterCategory}
+            onSaveSearch={handleSaveSearch}
+            onLoadSearch={handleLoadPresetSearch}
+          />
+
+          {/* Right Leads Prospecting Area */}
+          <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
+            {/* Subheader: Audience Tabs matching Ref.jpg */}
+            <AudienceTabs
+              activeTab={filters.tab}
+              onTabChange={setTab}
+              counts={data?.audienceCounts}
+              rightContent={
+                <span>
+                  Total Prospects:{' '}
+                  <strong className="text-slate-800">{data?.totalFormatted || '2.5m'}</strong>
+                </span>
+              }
+            />
+
+            {/* Table Bulk Action Bar */}
+            <TableActionBar
+              selectedCount={selectedCount}
+              totalOnPage={items.length}
+              totalCount={data?.totalEstimate}
+              isAllOnPageSelected={isAllOnPageSelected}
+              isIndeterminate={isSomeOnPageSelected}
+              onToggleSelectAllPage={handleToggleSelectAllPage}
+              onSelectAllPage={handleSelectAllPage}
+              onSelectAllTotal={handleSelectAllTotal}
+              onDeselectAll={handleDeselectAll}
+              onSave={handleBatchSave}
+              onAddToList={handleAddToList}
+              onExport={handleExportCsv}
+              isExporting={isExporting}
+              savedLists={savedLists}
+            />
+
+            {/* Active Filter Chips Bar */}
+            <ActiveFilterChips
+              filters={filters}
+              onRemoveFilter={removeFilterItem}
+              onClearAll={clearAllFilters}
+            />
+
+            {/* Central Leads Table Viewport */}
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
+              <LeadsTable
+                leads={items}
+                isLoading={isLoading}
+                isError={isError}
+                error={error as Error}
+                onRetry={() => refetch()}
+                rowSelection={rowSelection}
+                onRowSelectionChange={setRowSelection}
+                onLeadClick={handleLeadClick}
+                onViewEmail={handleViewEmail}
+                currentPage={data?.page || 1}
+                totalPages={data?.totalPages || 1}
+                pageSize={data?.limit || 25}
+                totalItems={data?.totalEstimate || 0}
+                totalFormatted={data?.totalFormatted}
+                onPageChange={setPage}
+                onClearFilters={clearAllFilters}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Slide-over Lead Detail Drawer */}
       <LeadDetailDrawer
@@ -400,6 +544,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         onAddToSequence={(_l) => {}}
         onAddToList={(_l) => {}}
         onComposeEmail={(_l) => {}}
+      />
+
+      {/* Slide-over JFLL Customer Dossier Drawer */}
+      <JfllCustomerDetailDrawer
+        isOpen={!!selectedJfllCustomer}
+        customer={selectedJfllCustomer}
+        onClose={() => setSelectedJfllCustomer(null)}
       />
 
       {/* Quick Email Reveal Dialog */}

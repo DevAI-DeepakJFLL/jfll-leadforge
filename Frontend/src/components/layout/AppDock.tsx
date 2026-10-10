@@ -8,6 +8,7 @@ import {
   X,
   SlidersHorizontal,
   Trash2,
+  Building2,
 } from 'lucide-react';
 
 export interface AppDockProps {
@@ -70,10 +71,11 @@ export const AppDock: React.FC<AppDockProps> = ({
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
-  // Streamlined navigation items focused on prospecting
+  // Streamlined navigation items focused on prospecting and internal customer master
   const PRIMARY_NAV_ITEMS: NavItem[] = [
     { id: 'home', label: 'Prospecting Overview', icon: Home },
     { id: 'search', label: 'Leads Explorer', icon: Search },
+    { id: 'jfll-customers', label: 'JFLL Customers', icon: Building2 },
     {
       id: 'saved-searches',
       label: 'Saved Searches',

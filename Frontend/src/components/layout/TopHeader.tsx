@@ -5,6 +5,7 @@ export interface TopNavTab {
   id: string;
   label: string;
   count?: number;
+  badge?: string | number;
 }
 
 export interface TopHeaderProps {
@@ -22,6 +23,7 @@ export interface TopHeaderProps {
 const TOP_NAV_TABS: TopNavTab[] = [
   { id: 'people', label: 'People' },
   { id: 'companies', label: 'Companies' },
+  { id: 'jfll-customers', label: 'JFLL Customers', badge: '881' },
   { id: 'saved-searches', label: 'Saved Searches' },
   { id: 'saved-lists', label: 'Saved Lists' },
 ];
@@ -73,6 +75,17 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 aria-current={isActive ? 'page' : undefined}
               >
                 <span>{tab.label}</span>
+                {tab.badge && (
+                  <span
+                    className={`ml-1.5 text-[10px] font-mono font-semibold px-1.5 py-0.2 rounded-full border ${
+                      isActive
+                        ? 'bg-blue-50 text-apollo border-apollo/30'
+                        : 'bg-slate-100 text-slate-500 border-slate-200'
+                    }`}
+                  >
+                    {tab.badge}
+                  </span>
+                )}
                 {isActive && (
                   <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-apollo rounded-t-sm" />
                 )}
