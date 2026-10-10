@@ -9,6 +9,10 @@ import {
   SlidersHorizontal,
 } from 'lucide-react';
 import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
+import {
+  getCustomerGroupFacetCounts,
+  getLegalTypeFacetCounts,
+} from '@/services/jfllCustomerService';
 
 export interface JfllCustomerFilterSidebarProps {
   filters: JfllCustomerFilterParams;
@@ -19,24 +23,8 @@ export interface JfllCustomerFilterSidebarProps {
   className?: string;
 }
 
-const CUSTOMER_GROUPS = [
-  { label: 'Subagent', count: 474 },
-  { label: 'Shipper / Consignee', count: 339 },
-  { label: 'Overseas Agent', count: 49 },
-  { label: 'GSA', count: 8 },
-  { label: 'NVOCC / Coloader', count: 6 },
-  { label: 'Airline', count: 1 },
-  { label: 'Custom Broker', count: 1 },
-];
-
-const LEGAL_TYPES = [
-  { label: 'Company', count: 443 },
-  { label: 'Private Limited', count: 238 },
-  { label: 'Individual / Proprietorship', count: 118 },
-  { label: 'Partnership', count: 39 },
-  { label: 'Public Limited', count: 21 },
-  { label: 'LLP', count: 20 },
-];
+const CUSTOMER_GROUPS = getCustomerGroupFacetCounts();
+const LEGAL_TYPES = getLegalTypeFacetCounts();
 
 export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps> = ({
   filters,

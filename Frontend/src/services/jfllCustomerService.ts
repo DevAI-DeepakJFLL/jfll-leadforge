@@ -142,3 +142,34 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
   const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
   return new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
 }
+
+/**
+ * Dynamically compute actual Customer Group facet counts from dataset
+ */
+export function getCustomerGroupFacetCounts(): { label: string; count: number }[] {
+  const counts: Record<string, number> = {};
+  for (const c of JFLL_CUSTOMERS_DATA) {
+    if (c.customerGroup) {
+      counts[c.customerGroup] = (counts[c.customerGroup] || 0) + 1;
+    }
+  }
+  return Object.entries(counts)
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+}
+
+/**
+ * Dynamically compute actual Legal Type facet counts from dataset
+ */
+export function getLegalTypeFacetCounts(): { label: string; count: number }[] {
+  const counts: Record<string, number> = {};
+  for (const c of JFLL_CUSTOMERS_DATA) {
+    if (c.type) {
+      counts[c.type] = (counts[c.type] || 0) + 1;
+    }
+  }
+  return Object.entries(counts)
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+}
+

@@ -36,6 +36,18 @@ export const JfllCustomerGroupBadge: React.FC<JfllCustomerGroupBadgeProps> = ({
     case 'airline':
       dotColor = 'bg-emerald-500';
       break;
+    case 'other agent':
+      dotColor = 'bg-teal-500';
+      break;
+    case 'transporter':
+      dotColor = 'bg-orange-500';
+      break;
+    case 'shipping line':
+      dotColor = 'bg-sky-600';
+      break;
+    case 'general expense':
+      dotColor = 'bg-slate-500';
+      break;
     case 'custom broker':
       dotColor = 'bg-rose-500';
       break;

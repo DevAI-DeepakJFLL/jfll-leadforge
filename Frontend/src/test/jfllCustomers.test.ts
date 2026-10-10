@@ -111,4 +111,32 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(formatPhoneNumber('91-9821230317')?.number).toBe('9821230317');
     expect(formatPhoneNumber(null)).toBeNull();
   });
+
+  it('computes exact dynamic facet counts matching dataset records', async () => {
+    const { getCustomerGroupFacetCounts, getLegalTypeFacetCounts } = await import('@/services/jfllCustomerService');
+    const groupFacets = getCustomerGroupFacetCounts();
+    const typeFacets = getLegalTypeFacetCounts();
+
+    // Verify Customer Groups
+    const groupLabels = groupFacets.map((g) => g.label);
+    expect(groupLabels).not.toContain('Custom Broker');
+    expect(groupLabels).toContain('Subagent');
+    expect(groupLabels).toContain('Shipper / Consignee');
+    expect(groupLabels).toContain('Other Agent');
+    expect(groupLabels).toContain('Transporter');
+    expect(groupLabels).toContain('Shipping Line');
+    expect(groupLabels).toContain('General Expense');
+
+    const subagent = groupFacets.find((g) => g.label === 'Subagent');
+    expect(subagent?.count).toBe(474);
+
+    // Sum of group facet counts should equal total dataset count
+    const totalGroupCount = groupFacets.reduce((acc, g) => acc + g.count, 0);
+    expect(totalGroupCount).toBe(881);
+
+    // Verify Legal Types
+    const totalTypeCount = typeFacets.reduce((acc, t) => acc + t.count, 0);
+    expect(totalTypeCount).toBe(881);
+  });
 });
+
