@@ -296,26 +296,30 @@ export const AppDock: React.FC<AppDockProps> = ({
 
         {/* User Profile Avatar with Popover */}
         <div className="pt-1 relative">
-          <button
-            onClick={() => {
-              setShowProfileMenu(!showProfileMenu);
-              setShowNotifications(false);
-            }}
-            className="relative w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-apollo-400 group overflow-hidden bg-white p-0.5 border border-slate-600"
-            title="User Profile: Roberto Orci"
-            aria-label="User Account"
-          >
-            <img
-              src="/assets/jfll-logo.jpeg"
-              alt="JFLL User Profile"
-              className="w-full h-full object-contain"
-            />
-            {/* Live Green Ring Indicator */}
+          <div className="relative inline-block">
+            <button
+              onClick={() => {
+                setShowProfileMenu(!showProfileMenu);
+                setShowNotifications(false);
+              }}
+              className="relative w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-apollo-400 group bg-white p-0.5 border border-slate-600 shadow-sm transition-transform active:scale-95"
+              title="User Profile: JFLL"
+              aria-label="User Account"
+            >
+              <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-white">
+                <img
+                  src="/assets/jfll-logo.jpeg"
+                  alt="JFLL User Profile"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </button>
+            {/* Live Green Ring Indicator - unclipped outside the button */}
             <span
-              className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-dock"
+              className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-dock pointer-events-none z-10"
               title="Online"
             />
-          </button>
+          </div>
 
           {/* Profile Menu Flyout */}
           {showProfileMenu && (
@@ -329,14 +333,14 @@ export const AppDock: React.FC<AppDockProps> = ({
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="font-semibold text-slate-900 truncate">Roberto Orci</div>
+                  <div className="font-semibold text-slate-900 truncate">JFLL</div>
                   <div className="text-[11px] text-slate-400 truncate">leads@jfll.com</div>
                 </div>
               </div>
 
               <div className="py-2 space-y-1">
                 <div className="flex items-center justify-between py-1 px-1.5 text-slate-600 rounded">
-                  <span>Role</span>
+                  <span>Internal Team</span>
                   <span className="font-semibold text-slate-900 bg-slate-100 px-1.5 py-0.5 rounded text-[10px]">
                     Lead Sourcing Admin
                   </span>
