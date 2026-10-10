@@ -176,4 +176,4 @@ src/
 
 ## 📖 Visual Alignment & Review Log
 
-A detailed, itemized comparison between the target reference design (`Ref.jpg`) and this implementation is maintained in [docs/REVIEW_LOG.md](docs/REVIEW_LOG.md).
+A detailed, itemized comparison between the target reference design (`Ref.jpg`) and this implementation is maintained in [docs/reference/REVIEW_LOG.md](docs/reference/REVIEW_LOG.md).
