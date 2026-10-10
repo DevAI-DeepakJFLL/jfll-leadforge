@@ -76,22 +76,19 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       <div className="w-full max-w-md bg-slate-800/90 backdrop-blur-xl border border-slate-700/80 rounded-2xl shadow-2xl p-8 z-10">
         {/* Top Brand Logo */}
         <div className="flex flex-col items-center text-center space-y-3 mb-8">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-b from-[#18264D] to-[#0F1A3A] border border-[#273B70] flex items-center justify-center text-white shadow-lg">
-            <svg
-              viewBox="0 0 24 24"
-              className="w-6 h-6 text-white"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M12 2.75L2.5 20.75H7.2L12 11.4L16.8 20.75H21.5L12 2.75Z" />
-            </svg>
+          <div className="w-16 h-16 rounded-2xl bg-white p-2 border border-slate-700 shadow-xl flex items-center justify-center">
+            <img
+              src="/assets/jfll-logo.jpeg"
+              alt="Jet Freight Logistics Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           <div>
             <h1 className="text-xl font-bold text-white tracking-tight">
               Jet Freight Logistics
             </h1>
             <p className="text-xs text-slate-400 mt-0.5">
-              Lead Sourcing & Prospecting Tool
+              Lead Sourcing & Prospecting Portal
             </p>
           </div>
         </div>

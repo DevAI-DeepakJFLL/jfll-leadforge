@@ -34,7 +34,6 @@ export const AppDock: React.FC<AppDockProps> = ({
   onLogout,
   className = '',
 }) => {
-  const [avatarError, setAvatarError] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [notifications, setNotifications] = useState([
@@ -90,21 +89,18 @@ export const AppDock: React.FC<AppDockProps> = ({
     >
       {/* Top Section: Brand Logo & Navigation */}
       <div className="flex flex-col items-center w-full space-y-4">
-        {/* Apollo Stylized Chevron Logo Mark */}
+        {/* Jet Freight Logistics Brand Logo */}
         <button
           onClick={() => onNavChange?.('search')}
-          className="w-10 h-10 rounded-xl bg-gradient-to-b from-[#18264D] to-[#0F1A3A] border border-[#273B70]/50 flex items-center justify-center text-white shadow-md hover:border-apollo-400/50 hover:shadow-apollo-500/20 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-apollo-400"
-          title="Leads Sourcing Tool"
-          aria-label="Apollo Home"
+          className="w-10 h-10 rounded-xl bg-white p-1 border border-slate-700/80 flex items-center justify-center shadow-md hover:border-apollo-400/50 hover:shadow-apollo-500/20 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-apollo-400"
+          title="Jet Freight Logistics - Sourcing Portal"
+          aria-label="Jet Freight Home"
         >
-          <svg
-            viewBox="0 0 24 24"
-            className="w-5 h-5 text-white transform group-hover:scale-105 transition-transform duration-200"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M12 2.75L2.5 20.75H7.2L12 11.4L16.8 20.75H21.5L12 2.75Z" />
-          </svg>
+          <img
+            src="/assets/jfll-logo.jpeg"
+            alt="Jet Freight Logistics"
+            className="w-full h-full object-contain"
+          />
         </button>
 
         {/* Primary Functional Navigation Icons */}
@@ -305,22 +301,15 @@ export const AppDock: React.FC<AppDockProps> = ({
               setShowProfileMenu(!showProfileMenu);
               setShowNotifications(false);
             }}
-            className="relative w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-apollo-400 group"
+            className="relative w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-apollo-400 group overflow-hidden bg-white p-0.5 border border-slate-600"
             title="User Profile: Roberto Orci"
             aria-label="User Account"
           >
-            {!avatarError ? (
-              <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face"
-                alt="User Profile"
-                onError={() => setAvatarError(true)}
-                className="w-8 h-8 rounded-full object-cover ring-1 ring-white/20 group-hover:ring-apollo-400 transition-all"
-              />
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-slate-700 text-slate-100 font-semibold text-xs flex items-center justify-center ring-1 ring-white/20">
-                RO
-              </div>
-            )}
+            <img
+              src="/assets/jfll-logo.jpeg"
+              alt="JFLL User Profile"
+              className="w-full h-full object-contain"
+            />
             {/* Live Green Ring Indicator */}
             <span
               className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-dock"
@@ -332,8 +321,12 @@ export const AppDock: React.FC<AppDockProps> = ({
           {showProfileMenu && (
             <div className="absolute left-16 bottom-0 w-64 bg-white rounded-xl shadow-2xl border border-slate-200 z-50 p-3 text-slate-800 text-xs animate-in fade-in zoom-in-95 duration-150">
               <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
-                <div className="w-9 h-9 rounded-full bg-apollo text-white font-semibold flex items-center justify-center text-xs">
-                  RO
+                <div className="w-10 h-10 rounded-full bg-white p-1 border border-slate-200 shadow-2xs flex items-center justify-center shrink-0">
+                  <img
+                    src="/assets/jfll-logo.jpeg"
+                    alt="JFLL Logo"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="font-semibold text-slate-900 truncate">Roberto Orci</div>

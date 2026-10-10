@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Sliders, Database } from 'lucide-react';
+import { X, Database } from 'lucide-react';
 
 export interface SettingsModalProps {
   isOpen: boolean;
@@ -27,13 +27,17 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       >
         {/* Header */}
         <div className="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 bg-apollo/10 text-apollo rounded-lg">
-              <Sliders className="w-5 h-5" />
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-white p-1 border border-slate-200 shadow-2xs flex items-center justify-center shrink-0">
+              <img
+                src="/assets/jfll-logo.jpeg"
+                alt="JFLL Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
-              <h2 className="text-base font-semibold text-slate-900">Prospecting Preferences</h2>
-              <p className="text-xs text-slate-500">Configure your leads explorer environment</p>
+              <h2 className="text-base font-semibold text-slate-900">Jet Freight Prospecting Preferences</h2>
+              <p className="text-xs text-slate-500">Configure your internal leads explorer environment</p>
             </div>
           </div>
           <button
