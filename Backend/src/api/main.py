@@ -37,6 +37,7 @@ app.include_router(leads_router)
 
 
 @app.get("/health", response_model=HealthResponse, tags=["Health"])
+@app.get("/api/v1/health", response_model=HealthResponse, tags=["Health"])
 def health_check():
     """Service health and Floci emulator connectivity probe."""
     return {
