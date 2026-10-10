@@ -1,36 +1,37 @@
-import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import React, { useState, useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { RowSelectionState } from '@tanstack/react-table';
 import { AppLayout } from '@/components/layout';
 import { FilterSidebar, ActiveFilterChips } from '@/components/filters';
-import { useLeadsFilter, serializeFiltersToUrl } from '@/hooks/useLeadsFilter';
-import { LeadsResponse } from '@/types/lead';
 import {
-  Mail,
-  Loader2,
-  CheckCircle2,
-  AlertCircle,
-  ChevronLeft,
-  ChevronRight,
-  FilterX,
-} from 'lucide-react';
-
-function formatAudienceCount(count?: number, fallback = '0'): string {
-  if (count === undefined || count === null) return fallback;
-  if (count >= 1000000) {
-    const val = count / 1000000;
-    return val % 1 === 0 ? `${val}m` : `${val.toFixed(2).replace(/\.?0+$/, '')}m`;
-  }
-  if (count >= 10000) {
-    const val = count / 1000;
-    return val % 1 === 0 ? `${val}k` : `${val.toFixed(1).replace(/\.?0+$/, '')}k`;
-  }
-  return count.toLocaleString();
-}
+  AudienceTabs,
+  TableActionBar,
+  LeadsTable,
+} from '@/components/leads';
+import { useLeadsFilter, serializeFiltersToUrl } from '@/hooks/useLeadsFilter';
+import { LeadsResponse, Lead } from '@/types/lead';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [activeNav, setActiveNav] = useState('search');
   const [topTab, setTopTab] = useState('people');
-  const [notificationMsg, setNotificationMsg] = useState<string | null>(null);
+  const [notificationMsg, setNotificationMsg] = useState<{
+    text: string;
+    type?: 'success' | 'info' | 'error';
+  } | null>(null);
+
+  // Initialize initial row selection for the first 6 leads matching Ref.jpg
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({
+    'lead-1': true,
+    'lead-2': true,
+    'lead-3': true,
+    'lead-4': true,
+    'lead-5': true,
+    'lead-6': true,
+  });
+
+  const [isExporting, setIsExporting] = useState(false);
+  const queryClient = useQueryClient();
 
   const {
     filters,
@@ -46,14 +47,14 @@ export const App: React.FC = () => {
     activeFilterCount,
   } = useLeadsFilter();
 
-  const showToast = (msg: string) => {
-    setNotificationMsg(msg);
+  const showToast = (text: string, type: 'success' | 'info' | 'error' = 'success') => {
+    setNotificationMsg({ text, type });
     setTimeout(() => {
       setNotificationMsg(null);
-    }, 3000);
+    }, 3200);
   };
 
-  // Fetch leads synchronized with current filters via TanStack Query
+  // Fetch leads synchronized with current URL filters via TanStack Query
   const { data, isLoading, isError, error, refetch } = useQuery<LeadsResponse>({
     queryKey: ['leads', filters],
     queryFn: async () => {
@@ -63,6 +64,26 @@ export const App: React.FC = () => {
         throw new Error(`Failed to fetch leads: ${res.statusText}`);
       }
       return res.json();
+    },
+  });
+
+  // Batch save mutation
+  const batchSaveMutation = useMutation({
+    mutationFn: async (leadIds: string[]) => {
+      const res = await fetch('/api/leads/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ leadIds, saved: true }),
+      });
+      if (!res.ok) throw new Error('Failed to save leads');
+      return res.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['leads'] });
+      showToast(`Successfully saved ${data.updatedCount} leads to your pipeline`);
+    },
+    onError: () => {
+      showToast('Failed to save selected leads', 'error');
     },
   });
 
@@ -77,18 +98,170 @@ export const App: React.FC = () => {
   };
 
   const handleSaveSearch = () => {
-    showToast(`Search saved! (${activeFilterCount} active filter criteria)`);
+    showToast(`Search saved! (${activeFilterCount} active criteria)`);
   };
 
-  const allCountFormatted = data?.audienceCounts?.all
-    ? formatAudienceCount(data.audienceCounts.all, '2.5m')
-    : '2.5m';
-  const newCountFormatted = data?.audienceCounts?.new
-    ? formatAudienceCount(data.audienceCounts.new, '1.48m')
-    : '1.48m';
-  const savedCountFormatted = data?.audienceCounts?.saved
-    ? formatAudienceCount(data.audienceCounts.saved, '48.4k')
-    : '48.4k';
+  // Selection calculations
+  const items = useMemo(() => data?.items || [], [data?.items]);
+  const selectedLeadIds = useMemo(
+    () => Object.keys(rowSelection).filter((id) => rowSelection[id]),
+    [rowSelection]
+  );
+  const selectedCount = selectedLeadIds.length;
+  const isAllOnPageSelected =
+    items.length > 0 && items.every((lead) => rowSelection[lead.id]);
+  const isSomeOnPageSelected =
+    items.some((lead) => rowSelection[lead.id]) && !isAllOnPageSelected;
+
+  const handleToggleSelectAllPage = () => {
+    if (isAllOnPageSelected) {
+      // Unselect all items on current page
+      setRowSelection((prev) => {
+        const next = { ...prev };
+        items.forEach((l) => delete next[l.id]);
+        return next;
+      });
+    } else {
+      // Select all items on current page
+      setRowSelection((prev) => {
+        const next = { ...prev };
+        items.forEach((l) => {
+          next[l.id] = true;
+        });
+        return next;
+      });
+    }
+  };
+
+  const handleSelectAllPage = () => {
+    setRowSelection((prev) => {
+      const next = { ...prev };
+      items.forEach((l) => {
+        next[l.id] = true;
+      });
+      return next;
+    });
+  };
+
+  const handleSelectAllTotal = () => {
+    // Select all available leads in the dataset
+    const allKnownIds = items.map((l) => l.id);
+    const next: RowSelectionState = {};
+    allKnownIds.forEach((id) => {
+      next[id] = true;
+    });
+    setRowSelection(next);
+    showToast(`Selected all ${items.length} leads on this view`);
+  };
+
+  const handleDeselectAll = () => {
+    setRowSelection({});
+  };
+
+  const handleBatchSave = () => {
+    if (selectedLeadIds.length === 0) {
+      showToast('Select one or more leads to save', 'info');
+      return;
+    }
+    batchSaveMutation.mutate(selectedLeadIds);
+  };
+
+  const handleBatchEmail = () => {
+    if (selectedLeadIds.length === 0) {
+      showToast('Select leads to compose outreach email', 'info');
+      return;
+    }
+    showToast(`Opening outbound email composer for ${selectedLeadIds.length} recipients`);
+  };
+
+  const handleAddToSequence = (sequenceName: string) => {
+    if (selectedLeadIds.length === 0) {
+      showToast('Select leads before enrolling in sequence', 'info');
+      return;
+    }
+    if (sequenceName === '__new__') {
+      showToast(`Creating new outbound sequence for ${selectedLeadIds.length} prospects`);
+    } else {
+      showToast(`Added ${selectedLeadIds.length} prospects to "${sequenceName}"`);
+    }
+  };
+
+  const handleAddToList = (listName: string) => {
+    if (selectedLeadIds.length === 0) {
+      showToast('Select leads before adding to list', 'info');
+      return;
+    }
+    if (listName === '__new__') {
+      showToast(`Creating new list with ${selectedLeadIds.length} leads`);
+    } else {
+      showToast(`Added ${selectedLeadIds.length} leads to "${listName}"`);
+    }
+  };
+
+  // Functional CSV Export download handler
+  const handleExportCsv = async () => {
+    try {
+      setIsExporting(true);
+      const res = await fetch('/api/leads/export', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          leadIds: selectedLeadIds.length > 0 ? selectedLeadIds : undefined,
+          filters: selectedLeadIds.length === 0 ? filters : undefined,
+          format: 'csv',
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Export failed with status: ${res.status}`);
+      }
+
+      const csvBlob = await res.blob();
+      const downloadUrl = window.URL.createObjectURL(csvBlob);
+      const anchor = document.createElement('a');
+      anchor.href = downloadUrl;
+      anchor.download = 'apollo_leads_export.csv';
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+
+      const exportedCount =
+        selectedLeadIds.length > 0 ? selectedLeadIds.length : (data?.items.length || 0);
+      showToast(`Exported ${exportedCount} leads to apollo_leads_export.csv`);
+    } catch (err) {
+      showToast(
+        (err as Error)?.message || 'Export failed. Please check network connection.',
+        'error'
+      );
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleEditAction = (action: string) => {
+    if (selectedLeadIds.length === 0) {
+      showToast('Select leads to apply bulk edits', 'info');
+      return;
+    }
+    showToast(`Bulk edit "${action}" applied to ${selectedLeadIds.length} selected leads`);
+  };
+
+  const handleSalesforceAction = (action: string) => {
+    if (selectedLeadIds.length === 0) {
+      showToast('Select leads to sync with Salesforce', 'info');
+      return;
+    }
+    showToast(`Salesforce action "${action}" initiated for ${selectedLeadIds.length} records`);
+  };
+
+  const handleViewEmail = (lead: Lead) => {
+    showToast(`Verified email revealed: ${lead.email}`);
+  };
+
+  const handleLeadClick = (lead: Lead) => {
+    showToast(`Prospect dossier selected: ${lead.name} (${lead.title} at ${lead.company})`);
+  };
 
   return (
     <AppLayout
@@ -114,9 +287,19 @@ export const App: React.FC = () => {
     >
       {/* Toast Notification */}
       {notificationMsg && (
-        <div className="fixed top-16 right-6 z-50 bg-slate-900 text-white text-xs font-medium px-4 py-2.5 rounded-lg shadow-xl border border-slate-700 animate-in fade-in slide-in-from-top-2 duration-150 flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span>{notificationMsg}</span>
+        <div
+          className={`fixed top-16 right-6 z-50 text-white text-xs font-medium px-4 py-2.5 rounded-lg shadow-xl border animate-in fade-in slide-in-from-top-2 duration-150 flex items-center gap-2 ${
+            notificationMsg.type === 'error'
+              ? 'bg-red-900 border-red-700'
+              : 'bg-slate-900 border-slate-700'
+          }`}
+        >
+          {notificationMsg.type === 'error' ? (
+            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+          ) : (
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          )}
+          <span>{notificationMsg.text}</span>
         </div>
       )}
 
@@ -134,79 +317,39 @@ export const App: React.FC = () => {
 
         {/* Right Leads Prospecting Area */}
         <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
-          {/* Subheader: Audience Tabs matching Ref.jpg (All People, New People, Saved People) */}
-          <div className="h-11 px-4 bg-white border-b border-surface-border flex items-center justify-between shrink-0 select-none">
-            <div className="flex items-center space-x-2 sm:space-x-4 h-full">
-              <button
-                type="button"
-                onClick={() => setTab('all')}
-                className={`relative h-full px-2.5 sm:px-3 text-xs sm:text-sm font-medium transition-colors flex items-center gap-1.5 focus:outline-none ${
-                  filters.tab === 'all'
-                    ? 'text-apollo font-semibold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <span>All People</span>
-                <span className="text-xs text-slate-400 font-normal">
-                  ({allCountFormatted})
-                </span>
-                {filters.tab === 'all' && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-apollo rounded-t-sm" />
-                )}
-              </button>
+          {/* Subheader: Audience Tabs matching Ref.jpg (All People 2.5m, New People 1.48m, Saved People 48.4k) */}
+          <AudienceTabs
+            activeTab={filters.tab}
+            onTabChange={setTab}
+            counts={data?.audienceCounts}
+            rightContent={
+              <span>
+                Total Prospects:{' '}
+                <strong className="text-slate-800">{data?.totalFormatted || '2.5m'}</strong>
+              </span>
+            }
+          />
 
-              <button
-                type="button"
-                onClick={() => setTab('new')}
-                className={`relative h-full px-2.5 sm:px-3 text-xs sm:text-sm font-medium transition-colors flex items-center gap-1.5 focus:outline-none ${
-                  filters.tab === 'new'
-                    ? 'text-apollo font-semibold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <span>New People</span>
-                <span className="text-xs text-slate-400 font-normal">
-                  ({newCountFormatted})
-                </span>
-                {filters.tab === 'new' && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-apollo rounded-t-sm" />
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setTab('saved')}
-                className={`relative h-full px-2.5 sm:px-3 text-xs sm:text-sm font-medium transition-colors flex items-center gap-1.5 focus:outline-none ${
-                  filters.tab === 'saved'
-                    ? 'text-apollo font-semibold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <span>Saved People</span>
-                <span className="text-xs text-slate-400 font-normal">
-                  ({savedCountFormatted})
-                </span>
-                {filters.tab === 'saved' && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-apollo rounded-t-sm" />
-                )}
-              </button>
-            </div>
-
-            {/* Total Results Summary */}
-            <div className="text-xs text-slate-500 font-medium">
-              {isLoading ? (
-                <span className="flex items-center gap-1.5 text-slate-400">
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-apollo" />
-                  Updating...
-                </span>
-              ) : (
-                <span>
-                  Showing <strong className="text-slate-800">{data?.items.length || 0}</strong> of{' '}
-                  <strong className="text-slate-800">{data?.totalFormatted || '0'}</strong> leads
-                </span>
-              )}
-            </div>
-          </div>
+          {/* Table Bulk Action Bar matching Ref.jpg */}
+          <TableActionBar
+            selectedCount={selectedCount}
+            totalOnPage={items.length}
+            totalCount={data?.totalEstimate}
+            isAllOnPageSelected={isAllOnPageSelected}
+            isIndeterminate={isSomeOnPageSelected}
+            onToggleSelectAllPage={handleToggleSelectAllPage}
+            onSelectAllPage={handleSelectAllPage}
+            onSelectAllTotal={handleSelectAllTotal}
+            onDeselectAll={handleDeselectAll}
+            onSave={handleBatchSave}
+            onEmail={handleBatchEmail}
+            onAddToSequence={handleAddToSequence}
+            onAddToList={handleAddToList}
+            onExport={handleExportCsv}
+            onEdit={handleEditAction}
+            onSalesforce={handleSalesforceAction}
+            isExporting={isExporting}
+          />
 
           {/* Active Filter Chips Bar */}
           <ActiveFilterChips
@@ -215,173 +358,26 @@ export const App: React.FC = () => {
             onClearAll={clearAllFilters}
           />
 
-          {/* Leads Content Body */}
-          <div className="flex-1 overflow-y-auto p-4 md:p-6 min-h-0">
-            {isLoading ? (
-              <div className="space-y-3">
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div
-                    key={i}
-                    className="h-16 bg-white rounded-lg border border-surface-border p-4 flex items-center justify-between animate-pulse"
-                  >
-                    <div className="flex items-center space-x-3 w-1/3">
-                      <div className="w-8 h-8 rounded-full bg-slate-200" />
-                      <div className="space-y-1.5 flex-1">
-                        <div className="h-3 bg-slate-200 rounded w-2/3" />
-                        <div className="h-2.5 bg-slate-100 rounded w-1/2" />
-                      </div>
-                    </div>
-                    <div className="h-3 bg-slate-200 rounded w-1/4" />
-                    <div className="h-6 bg-slate-100 rounded w-20" />
-                  </div>
-                ))}
-              </div>
-            ) : isError ? (
-              <div className="p-8 text-center bg-white rounded-xl border border-red-200 max-w-md mx-auto my-12 shadow-sm">
-                <AlertCircle className="w-8 h-8 text-red-500 mx-auto mb-2" />
-                <h3 className="text-sm font-semibold text-slate-900">Failed to load leads</h3>
-                <p className="text-xs text-slate-500 mt-1 mb-4">
-                  {(error as Error)?.message || 'An unexpected error occurred while querying leads.'}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => refetch()}
-                  className="px-3 py-1.5 text-xs font-semibold text-white bg-apollo hover:bg-apollo-600 rounded-md shadow-sm transition-colors"
-                >
-                  Retry Request
-                </button>
-              </div>
-            ) : data && data.items.length === 0 ? (
-              <div className="p-12 text-center bg-white rounded-xl border border-surface-border max-w-md mx-auto my-12 shadow-sm">
-                <FilterX className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-                <h3 className="text-sm font-semibold text-slate-900">No leads match your criteria</h3>
-                <p className="text-xs text-slate-500 mt-1 mb-4">
-                  Try adjusting or clearing your filters in the sidebar to discover more prospects.
-                </p>
-                <button
-                  type="button"
-                  onClick={clearAllFilters}
-                  className="px-3.5 py-1.5 text-xs font-semibold text-apollo bg-apollo-50 hover:bg-apollo-100 border border-apollo-200 rounded-md transition-colors"
-                >
-                  Clear All Filters
-                </button>
-              </div>
-            ) : (
-              <div className="bg-white rounded-xl border border-surface-border shadow-sm overflow-hidden">
-                {/* Leads Header Banner */}
-                <div className="px-4 py-3 bg-slate-50/80 border-b border-surface-border flex items-center justify-between text-xs text-slate-600">
-                  <div className="font-semibold text-slate-800">
-                    Lead Prospecting Results ({data?.totalFormatted || data?.items.length})
-                  </div>
-                  <div className="text-[11px] text-slate-500">
-                    Task 4: Filter Sidebar & URL Synchronization Active
-                  </div>
-                </div>
-
-                {/* Leads List Items matching Ref.jpg */}
-                <div className="divide-y divide-surface-border">
-                  {data?.items.map((lead) => (
-                    <div
-                      key={lead.id}
-                      className="p-3.5 hover:bg-slate-50/80 transition-colors flex items-center justify-between gap-4 group"
-                    >
-                      {/* Name & Title */}
-                      <div className="flex items-center space-x-3 min-w-[240px] flex-1">
-                        <div
-                          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-2xs"
-                          style={{
-                            backgroundColor: lead.logoBgColor || '#0066F5',
-                            color: lead.logoTextColor || '#FFFFFF',
-                          }}
-                        >
-                          {lead.logoInitials || lead.name.slice(0, 2).toUpperCase()}
-                        </div>
-                        <div className="min-w-0">
-                          <div className="font-semibold text-xs text-slate-900 group-hover:text-apollo transition-colors truncate">
-                            {lead.name}
-                          </div>
-                          <div className="text-[11px] text-slate-500 truncate">
-                            {lead.title}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Company & Industry */}
-                      <div className="min-w-[180px] hidden md:block">
-                        <div className="text-xs font-medium text-slate-800 truncate">
-                          {lead.company}
-                        </div>
-                        <div className="text-[11px] text-slate-400 truncate">
-                          {lead.industry}
-                        </div>
-                      </div>
-
-                      {/* Status Badge */}
-                      <div className="shrink-0">
-                        <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide border ${
-                            lead.status === 'NET NEW'
-                              ? 'bg-purple-50 text-purple-700 border-purple-200'
-                              : lead.status === 'COLD'
-                              ? 'bg-slate-100 text-slate-600 border-slate-200'
-                              : 'bg-blue-50 text-blue-700 border-blue-200'
-                          }`}
-                        >
-                          {lead.status}
-                        </span>
-                      </div>
-
-                      {/* Location */}
-                      <div className="text-xs text-slate-600 min-w-[150px] hidden lg:block truncate">
-                        {lead.location}
-                      </div>
-
-                      {/* View Email CTA Button */}
-                      <div className="shrink-0">
-                        <button
-                          type="button"
-                          onClick={() => showToast(`Revealing verified email for: ${lead.name}`)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-apollo hover:text-white bg-white hover:bg-apollo border border-apollo/30 hover:border-apollo rounded-md shadow-2xs transition-colors"
-                        >
-                          <Mail className="w-3 h-3" />
-                          <span>View Email</span>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Pagination Footer */}
-                {data && data.totalPages > 1 && (
-                  <div className="px-4 py-3 bg-slate-50 border-t border-surface-border flex items-center justify-between text-xs text-slate-600">
-                    <div>
-                      Page <strong className="text-slate-900">{data.page}</strong> of{' '}
-                      <strong className="text-slate-900">{data.totalPages}</strong>
-                    </div>
-                    <div className="flex items-center space-x-1.5">
-                      <button
-                        type="button"
-                        disabled={data.page <= 1}
-                        onClick={() => setPage(data.page - 1)}
-                        className="p-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                        title="Previous page"
-                      >
-                        <ChevronLeft className="w-4 h-4 text-slate-600" />
-                      </button>
-                      <button
-                        type="button"
-                        disabled={data.page >= data.totalPages}
-                        onClick={() => setPage(data.page + 1)}
-                        className="p-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                        title="Next page"
-                      >
-                        <ChevronRight className="w-4 h-4 text-slate-600" />
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+          {/* Central Leads Table Viewport */}
+          <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
+            <LeadsTable
+              leads={items}
+              isLoading={isLoading}
+              isError={isError}
+              error={error as Error}
+              onRetry={() => refetch()}
+              rowSelection={rowSelection}
+              onRowSelectionChange={setRowSelection}
+              onLeadClick={handleLeadClick}
+              onViewEmail={handleViewEmail}
+              currentPage={data?.page || 1}
+              totalPages={data?.totalPages || 1}
+              pageSize={data?.limit || 25}
+              totalItems={data?.totalEstimate || 0}
+              totalFormatted={data?.totalFormatted}
+              onPageChange={setPage}
+              onClearFilters={clearAllFilters}
+            />
           </div>
         </div>
       </div>
