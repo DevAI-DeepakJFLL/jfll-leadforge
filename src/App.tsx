@@ -46,7 +46,6 @@ const AppContent: React.FC = () => {
     removeFilterItem,
     clearFilterCategory,
     clearAllFilters,
-    activeFilterCount,
   } = useLeadsFilter();
 
   // Fetch leads synchronized with current URL filters via TanStack Query
@@ -119,11 +118,10 @@ const AppContent: React.FC = () => {
       industries: ['Marketing & Advertising'],
       page: 1,
     });
-    showToast('Loaded preset search: "LA Marketing & Advertising" matching Ref.jpg');
   };
 
   const handleSaveSearch = () => {
-    showToast(`Search saved! (${activeFilterCount} active criteria)`);
+    // Saved filter presets can be stored in browser or backend
   };
 
   // Selection calculations
@@ -176,7 +174,6 @@ const AppContent: React.FC = () => {
       next[id] = true;
     });
     setRowSelection(next);
-    showToast(`Selected all ${items.length} leads on this view`);
   };
 
   const handleDeselectAll = () => {
@@ -184,43 +181,20 @@ const AppContent: React.FC = () => {
   };
 
   const handleBatchSave = () => {
-    if (selectedLeadIds.length === 0) {
-      showToast('Select one or more leads to save', 'info');
-      return;
-    }
+    if (selectedLeadIds.length === 0) return;
     batchSaveMutation.mutate(selectedLeadIds);
   };
 
   const handleBatchEmail = () => {
-    if (selectedLeadIds.length === 0) {
-      showToast('Select leads to compose outreach email', 'info');
-      return;
-    }
-    showToast(`Opening outbound email composer for ${selectedLeadIds.length} recipients`);
+    // Lead generation UI only: outbound email composer is not connected to a mailing service
   };
 
-  const handleAddToSequence = (sequenceName: string) => {
-    if (selectedLeadIds.length === 0) {
-      showToast('Select leads before enrolling in sequence', 'info');
-      return;
-    }
-    if (sequenceName === '__new__') {
-      showToast(`Creating new outbound sequence for ${selectedLeadIds.length} prospects`);
-    } else {
-      showToast(`Added ${selectedLeadIds.length} prospects to "${sequenceName}"`);
-    }
+  const handleAddToSequence = (_sequenceName: string) => {
+    // Outbound email sequence management is out of scope for lead sourcing tool
   };
 
-  const handleAddToList = (listName: string) => {
-    if (selectedLeadIds.length === 0) {
-      showToast('Select leads before adding to list', 'info');
-      return;
-    }
-    if (listName === '__new__') {
-      showToast(`Creating new list with ${selectedLeadIds.length} leads`);
-    } else {
-      showToast(`Added ${selectedLeadIds.length} leads to "${listName}"`);
-    }
+  const handleAddToList = (_listName: string) => {
+    // Custom lists management
   };
 
   // Functional CSV Export download handler
@@ -264,20 +238,12 @@ const AppContent: React.FC = () => {
     }
   };
 
-  const handleEditAction = (action: string) => {
-    if (selectedLeadIds.length === 0) {
-      showToast('Select leads to apply bulk edits', 'info');
-      return;
-    }
-    showToast(`Bulk edit "${action}" applied to ${selectedLeadIds.length} selected leads`);
+  const handleEditAction = (_action: string) => {
+    // Bulk edit metadata placeholder
   };
 
-  const handleSalesforceAction = (action: string) => {
-    if (selectedLeadIds.length === 0) {
-      showToast('Select leads to sync with Salesforce', 'info');
-      return;
-    }
-    showToast(`Salesforce action "${action}" initiated for ${selectedLeadIds.length} records`);
+  const handleSalesforceAction = (_action: string) => {
+    // Salesforce CRM integration is out of scope for lead sourcing tool
   };
 
   // Open Email Reveal Modal
@@ -301,21 +267,18 @@ const AppContent: React.FC = () => {
       activeNav={activeNav}
       onNavChange={(navId) => {
         setActiveNav(navId);
-        showToast(`Navigated to: ${navId}`);
       }}
       activeTab={topTab}
       onTabChange={(tabId) => {
         setTopTab(tabId);
-        showToast(`Switched view to tab: ${tabId}`);
       }}
       searchQuery={filters.q || ''}
       onSearchChange={(q) => setSearch(q)}
       onSearchSubmit={(q) => {
         setSearch(q);
-        showToast(`Searching leads matching: "${q}"`);
       }}
       jobChangesCount={237}
-      onJobChangesClick={() => showToast('Viewing 237 New Job Changes')}
+      onJobChangesClick={() => {}}
       onImportClick={() => {}}
     >
       {/* Main Container: Left FilterSidebar + Right Leads Content Viewport */}
@@ -403,18 +366,10 @@ const AppContent: React.FC = () => {
         lead={activeDrawerLead}
         onClose={() => setSelectedDrawerLead(null)}
         onSaveToggle={handleToggleSaveLead}
-        onCopy={(text, type) =>
-          showToast(`Copied ${type === 'email' ? 'email' : 'phone'} to clipboard: ${text}`)
-        }
-        onAddToSequence={(l) => {
-          showToast(`Enrolled ${l.name} in Outbound Sequence`);
-        }}
-        onAddToList={(l) => {
-          showToast(`Added ${l.name} to Target Prospect List`);
-        }}
-        onComposeEmail={(l) => {
-          showToast(`Opening outreach composer for ${l.name} (${l.email})`);
-        }}
+        onCopy={(_text, _type) => {}}
+        onAddToSequence={(_l) => {}}
+        onAddToList={(_l) => {}}
+        onComposeEmail={(_l) => {}}
       />
 
       {/* Quick Email Reveal Dialog */}
@@ -422,15 +377,9 @@ const AppContent: React.FC = () => {
         isOpen={!!selectedEmailLead}
         lead={selectedEmailLead}
         onClose={() => setSelectedEmailLead(null)}
-        onCopy={(text, type) =>
-          showToast(`Copied ${type === 'email' ? 'email' : 'phone'} to clipboard: ${text}`)
-        }
-        onComposeEmail={(l) => {
-          showToast(`Opening outreach composer for ${l.name} (${l.email})`);
-        }}
-        onAddToSequence={(l) => {
-          showToast(`Enrolled ${l.name} in Outbound Sequence`);
-        }}
+        onCopy={(_text, _type) => {}}
+        onComposeEmail={(_l) => {}}
+        onAddToSequence={(_l) => {}}
         onViewProfile={(l) => {
           setSelectedEmailLead(null);
           setSelectedDrawerLead(l);
