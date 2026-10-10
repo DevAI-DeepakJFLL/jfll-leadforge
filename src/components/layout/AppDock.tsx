@@ -192,7 +192,7 @@ export const AppDock: React.FC<AppDockProps> = ({
                 className="w-8 h-8 rounded-full object-cover ring-1 ring-white/20 group-hover:ring-apollo-400 transition-all"
               />
             ) : (
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-semibold text-xs flex items-center justify-center ring-1 ring-white/20">
+              <div className="w-8 h-8 rounded-full bg-slate-700 text-slate-100 font-semibold text-xs flex items-center justify-center ring-1 ring-white/20">
                 RO
               </div>
             )}
