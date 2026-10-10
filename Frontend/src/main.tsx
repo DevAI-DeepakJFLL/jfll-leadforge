@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from '@/App';
 import '@/styles/globals.css';
 import { initMocks } from '@/mocks/browser';
+import { initGlobalErrorLogging } from '@/utils/logger';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,6 +16,7 @@ const queryClient = new QueryClient({
 });
 
 async function renderApp() {
+  initGlobalErrorLogging();
   await initMocks();
 
   ReactDOM.createRoot(document.getElementById('root')!).render(

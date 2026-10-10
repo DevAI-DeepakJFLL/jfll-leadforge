@@ -295,7 +295,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     clearAllFilters: clearAllJfllFilters,
   } = useJfllCustomersFilter();
 
-  const { data: jfllData, isLoading: isJfllLoading } = useQuery({
+  const {
+    data: jfllData,
+    isLoading: isJfllLoading,
+    isError: isJfllError,
+    error: jfllError,
+    refetch: refetchJfll,
+  } = useQuery({
     queryKey: ['jfll-customers', jfllFilters],
     queryFn: () => fetchJfllCustomersFromApi(jfllFilters),
     placeholderData: (prev) => prev,
@@ -434,6 +440,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
               <JfllCustomerTable
                 customers={jfllItems}
                 isLoading={isJfllLoading}
+                isError={isJfllError}
+                error={jfllError as Error}
+                onRetry={() => refetchJfll()}
                 rowSelection={jfllRowSelection}
                 onRowSelectionChange={setJfllRowSelection}
                 onCustomerClick={(c) => setSelectedJfllCustomer(c)}

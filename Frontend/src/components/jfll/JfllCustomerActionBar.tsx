@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, Bookmark, CheckSquare, Square, MinusSquare } from 'lucide-react';
+import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2 } from 'lucide-react';
 
 export interface JfllCustomerActionBarProps {
   selectedCount: number;
@@ -84,10 +84,14 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
         <button
           onClick={onExport}
           disabled={isExporting}
-          className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-white bg-apollo hover:bg-apollo-600 rounded shadow-xs transition-colors disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-white bg-apollo hover:bg-apollo-600 rounded shadow-xs transition-colors disabled:opacity-50 cursor-pointer"
           title="Export filtered records to clean CSV"
         >
-          <Download className="w-3.5 h-3.5" />
+          {isExporting ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+          ) : (
+            <Download className="w-3.5 h-3.5" />
+          )}
           <span>{isExporting ? 'Exporting...' : 'Export CSV'}</span>
         </button>
       </div>

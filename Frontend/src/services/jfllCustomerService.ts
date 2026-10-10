@@ -4,6 +4,7 @@ import {
   JfllCustomerFilterParams,
   JfllCustomersResponse,
 } from '@/types/jfllCustomer';
+import { logger } from '@/utils/logger';
 
 interface ApiLeadRecord {
   full_name?: string;
@@ -35,6 +36,7 @@ export async function fetchJfllCustomersFromApi(
     limit = 25,
   } = params;
 
+  const startTime = performance.now();
   const urlParams = new URLSearchParams();
   urlParams.set('page', String(page));
   urlParams.set('page_size', String(limit));
@@ -49,8 +51,14 @@ export async function fetchJfllCustomersFromApi(
   customerGroups.forEach((g) => urlParams.append('customer_groups', g));
   types.forEach((t) => urlParams.append('types', t));
 
+  const endpoint = `/api/v1/leads?${urlParams.toString()}`;
+  logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups });
+
   try {
-    const res = await fetch(`/api/v1/leads?${urlParams.toString()}`);
+    const res = await fetch(endpoint);
+    const durationMs = performance.now() - startTime;
+    logger.apiCall('GET', '/api/v1/leads', durationMs, res.status, { page, limit, tab });
+
     if (!res.ok) {
       throw new Error(`API returned HTTP ${res.status}: ${res.statusText}`);
     }
@@ -88,7 +96,7 @@ export async function fetchJfllCustomersFromApi(
       },
     };
   } catch (err) {
-    console.warn('API query failed, falling back to local dataset:', err);
+    logger.warn('API', 'Backend query failed, activating offline dataset fallback', { error: String(err) });
     return queryJfllCustomers(params);
   }
 }

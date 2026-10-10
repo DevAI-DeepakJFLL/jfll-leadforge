@@ -4,6 +4,7 @@ from fastapi.params import Query as QueryType
 from src.api.config import settings
 from src.api.database import get_db_connection
 from src.api.models import PaginatedResponse, AudienceCounts
+from src.api.logger import logger
 
 router = APIRouter(prefix="/api/v1", tags=["Leads"])
 
@@ -151,8 +152,18 @@ def list_leads(
     columns = [desc[0] for desc in result_cursor.description]
     rows = result_cursor.fetchall()
     clean_records = [dict(zip(columns, row)) for row in rows]
-
     total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
+
+    logger.info(
+        "Executed DuckDB analytical query",
+        extra={
+            "total_records": total_records,
+            "page": page,
+            "page_size": page_size,
+            "returned_count": len(clean_records),
+            "tab": tab,
+        },
+    )
 
     return {
         "page": page,

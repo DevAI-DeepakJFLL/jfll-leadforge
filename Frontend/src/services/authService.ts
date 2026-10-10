@@ -1,4 +1,5 @@
 import { UserSession, DEMO_CREDENTIALS } from '@/types/auth';
+import { logger } from '@/utils/logger';
 
 export interface LoginCredentials {
   email: string;
@@ -20,6 +21,8 @@ export interface BackendAuthResponse {
  */
 export async function loginUser(credentials: LoginCredentials): Promise<UserSession> {
   const { email, password } = credentials;
+  const startTime = performance.now();
+  logger.info('AUTH', 'Initiating user authentication', { email: email.trim() });
 
   try {
     const res = await fetch('/api/v1/auth/login', {
@@ -30,19 +33,30 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
       body: JSON.stringify({ email: email.trim(), password }),
     });
 
+    const durationMs = performance.now() - startTime;
+    logger.apiCall('POST', '/api/v1/auth/login', durationMs, res.status);
+
     if (res.status === 401) {
       const errData = await res.json().catch(() => ({}));
-      throw new Error(
-        errData.detail || 'Invalid work email or password. Please verify your credentials.'
-      );
+      const message = errData.detail || 'Invalid work email or password. Please verify your credentials.';
+      logger.warn('AUTH', 'Authentication rejected: Invalid credentials', { email, status: 401 });
+      throw new Error(message);
     }
 
     if (!res.ok) {
       const errData = await res.json().catch(() => ({}));
-      throw new Error(errData.detail || `Authentication failed with status HTTP ${res.status}`);
+      const message = errData.detail || `Authentication failed with status HTTP ${res.status}`;
+      logger.error('AUTH', 'Authentication server error', undefined, { email, status: res.status });
+      throw new Error(message);
     }
 
     const data: BackendAuthResponse = await res.json();
+    logger.info('AUTH', 'Authentication successful', {
+      email: data.email,
+      role: data.role,
+      tokenIssued: !!data.token,
+    });
+
     return {
       email: data.email,
       name: data.name,

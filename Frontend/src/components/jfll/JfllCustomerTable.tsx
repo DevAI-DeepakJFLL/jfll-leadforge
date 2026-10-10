@@ -8,6 +8,8 @@ import {
   ChevronRight,
   SearchX,
   Eye,
+  AlertCircle,
+  RotateCcw,
 } from 'lucide-react';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
@@ -26,6 +28,9 @@ export interface JfllCustomerTableProps {
   onPageChange: (page: number) => void;
   onClearFilters?: () => void;
   isLoading?: boolean;
+  isError?: boolean;
+  error?: Error | null;
+  onRetry?: () => void;
   className?: string;
 }
 
@@ -93,6 +98,9 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
   onPageChange,
   onClearFilters,
   isLoading = false,
+  isError = false,
+  error = null,
+  onRetry,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -144,6 +152,30 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
             </tbody>
           </table>
         </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className={`p-8 text-center bg-white rounded-xl border border-red-200 max-w-md mx-auto my-12 shadow-sm ${className}`}>
+        <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-red-500 mx-auto mb-3">
+          <AlertCircle className="w-6 h-6" />
+        </div>
+        <h3 className="text-sm font-semibold text-slate-900">Failed to load JFLL customers</h3>
+        <p className="text-xs text-slate-500 mt-1 mb-4 leading-relaxed">
+          {error?.message || 'A network error occurred while querying the customer database.'}
+        </p>
+        {onRetry && (
+          <button
+            type="button"
+            onClick={onRetry}
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-apollo hover:bg-apollo-600 rounded-lg shadow-sm transition-colors cursor-pointer"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>Retry Query</span>
+          </button>
+        )}
       </div>
     );
   }

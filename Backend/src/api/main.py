@@ -4,6 +4,7 @@ from src.api.config import settings
 from src.api.models import HealthResponse
 from src.api.routes import router as leads_router
 from src.api.auth import router as auth_router
+from src.api.logger import CloudWatchLoggingMiddleware
 
 app = FastAPI(
     title="Customer Lead Master Service",
@@ -12,6 +13,9 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+# CloudWatch & CloudFront Structured Request Telemetry Middleware
+app.add_middleware(CloudWatchLoggingMiddleware)
 
 # CORS configuration
 app.add_middleware(
