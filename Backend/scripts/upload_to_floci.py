@@ -1,6 +1,9 @@
 """
-Deploy script to publish both Frontend static website and Backend ZSTD Parquet dataset
-to the local Floci (AWS Cloud Emulator) instance on port 4566.
+Automated deployment pipeline for Floci (Local AWS Cloud Emulator):
+1. S3 Parquet analytical database upload (s3://customer-master-leads/leads/active_customers_leads_zstd.parquet)
+2. S3 Frontend SPA static distribution deployment (s3://lead-sourcing-frontend/)
+3. AWS Lambda deployment for FastAPI + Mangum + DuckDB (customer-leads-api, Python 3.12, ARM64)
+4. Amazon API Gateway deployment (CustomerLeadsRestApi with ANY /{proxy+} integration)
 """
 
 import os
@@ -9,13 +12,17 @@ from pathlib import Path
 import boto3
 
 FLOCI_ENDPOINT = os.getenv("FLOCI_ENDPOINT", "http://localhost:4566")
+DOCKER_FLOCI_HOST = os.getenv("DOCKER_FLOCI_HOST", "172.17.0.2:4566")
 DATA_BUCKET = os.getenv("S3_BUCKET", "customer-master-leads")
 FRONTEND_BUCKET = os.getenv("FRONTEND_BUCKET", "lead-sourcing-frontend")
 AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
+LAMBDA_NAME = os.getenv("LAMBDA_FUNCTION_NAME", "customer-leads-api")
+API_NAME = os.getenv("API_GATEWAY_NAME", "CustomerLeadsRestApi")
 
 project_root = Path(__file__).resolve().parent.parent.parent
 zstd_file = project_root / "Backend" / "data" / "processed" / "active_customers_leads_zstd.parquet"
 frontend_dist = project_root / "Frontend" / "dist"
+lambda_bundle = project_root / "Backend" / "lambda_bundle_py312.zip"
 
 s3 = boto3.client(
     "s3",
@@ -25,14 +32,29 @@ s3 = boto3.client(
     region_name=AWS_REGION,
 )
 
+lambda_client = boto3.client(
+    "lambda",
+    endpoint_url=FLOCI_ENDPOINT,
+    aws_access_key_id="test",
+    aws_secret_access_key="test",
+    region_name=AWS_REGION,
+)
+
+apigw = boto3.client(
+    "apigateway",
+    endpoint_url=FLOCI_ENDPOINT,
+    aws_access_key_id="test",
+    aws_secret_access_key="test",
+    region_name=AWS_REGION,
+)
+
 
 def deploy_backend_data():
-    print(f"\n📦 Deploying Backend Parquet data to Floci ({DATA_BUCKET})...")
+    print(f"\n📦 [1/4] Deploying Backend Parquet data to S3 ({DATA_BUCKET})...")
     try:
         s3.create_bucket(Bucket=DATA_BUCKET)
-        print(f"Bucket '{DATA_BUCKET}' verified.")
-    except Exception as e:
-        print(f"Bucket notice: {e}")
+    except Exception:
+        pass
 
     dest_key = "leads/active_customers_leads_zstd.parquet"
     s3.upload_file(str(zstd_file), DATA_BUCKET, dest_key)
@@ -40,16 +62,15 @@ def deploy_backend_data():
 
 
 def deploy_frontend_spa():
-    print(f"\n🌐 Deploying Frontend SPA to Floci S3 Website Hosting ({FRONTEND_BUCKET})...")
+    print(f"\n🌐 [2/4] Deploying Frontend SPA to S3 Website ({FRONTEND_BUCKET})...")
     if not frontend_dist.exists():
         print(f"❌ Frontend build output not found at {frontend_dist}. Run 'npm run build' first.")
         return
 
     try:
         s3.create_bucket(Bucket=FRONTEND_BUCKET)
-        print(f"Bucket '{FRONTEND_BUCKET}' verified.")
-    except Exception as e:
-        print(f"Bucket notice: {e}")
+    except Exception:
+        pass
 
     try:
         s3.put_bucket_website(
@@ -59,9 +80,8 @@ def deploy_frontend_spa():
                 "ErrorDocument": {"Key": "index.html"},
             },
         )
-        print(f"Configured S3 website hosting on s3://{FRONTEND_BUCKET}/")
-    except Exception as e:
-        print(f"Notice setting website configuration: {e}")
+    except Exception:
+        pass
 
     uploaded_files = 0
     for file_path in frontend_dist.rglob("*"):
@@ -77,9 +97,93 @@ def deploy_frontend_spa():
             uploaded_files += 1
 
     print(f"✅ Uploaded {uploaded_files} frontend assets to s3://{FRONTEND_BUCKET}/")
-    print(f"🔗 Accessible locally at: {FLOCI_ENDPOINT}/{FRONTEND_BUCKET}/index.html")
+    print(f"🔗 Frontend Live URL: {FLOCI_ENDPOINT}/{FRONTEND_BUCKET}/index.html")
+
+
+def deploy_lambda_function():
+    print(f"\n⚡ [3/4] Deploying Backend API to AWS Lambda ({LAMBDA_NAME})...")
+    if not lambda_bundle.exists():
+        print(f"❌ Lambda bundle not found at {lambda_bundle}.")
+        return
+
+    with open(lambda_bundle, "rb") as f:
+        zip_bytes = f.read()
+
+    try:
+        lambda_client.delete_function(FunctionName=LAMBDA_NAME)
+    except Exception:
+        pass
+
+    res = lambda_client.create_function(
+        FunctionName=LAMBDA_NAME,
+        Runtime="python3.12",
+        Role="arn:aws:iam::000000000000:role/lambda-role",
+        Handler="lambda_handler.lambda_handler",
+        Code={"ZipFile": zip_bytes},
+        Timeout=60,
+        MemorySize=1024,
+        Environment={
+            "Variables": {
+                "ENV": "local",
+                "FLOCI_ENDPOINT": DOCKER_FLOCI_HOST,
+                "S3_BUCKET": DATA_BUCKET,
+                "PARQUET_KEY": "leads/active_customers_leads_zstd.parquet",
+                "AWS_ACCESS_KEY_ID": "test",
+                "AWS_SECRET_ACCESS_KEY": "test",
+                "AWS_REGION": AWS_REGION,
+            }
+        },
+    )
+    print(f"✅ Lambda function '{res['FunctionName']}' successfully deployed in Floci.")
+
+
+def deploy_api_gateway():
+    print(f"\n🚪 [4/4] Deploying Amazon API Gateway for Lambda integration...")
+    apis = apigw.get_rest_apis().get("items", [])
+    for a in apis:
+        if a["name"] == API_NAME:
+            try:
+                apigw.delete_rest_api(restApiId=a["id"])
+            except Exception:
+                pass
+
+    api = apigw.create_rest_api(
+        name=API_NAME,
+        description="REST API fronting customer-leads-api Lambda",
+    )
+    api_id = api["id"]
+
+    resources = apigw.get_resources(restApiId=api_id)
+    root_id = [item["id"] for item in resources["items"] if item["path"] == "/"][0]
+
+    proxy = apigw.create_resource(restApiId=api_id, parentId=root_id, pathPart="{proxy+}")
+    proxy_id = proxy["id"]
+
+    apigw.put_method(
+        restApiId=api_id,
+        resourceId=proxy_id,
+        httpMethod="ANY",
+        authorizationType="NONE",
+    )
+
+    lambda_arn = f"arn:aws:lambda:{AWS_REGION}:000000000000:function:{LAMBDA_NAME}"
+    apigw.put_integration(
+        restApiId=api_id,
+        resourceId=proxy_id,
+        httpMethod="ANY",
+        type="AWS_PROXY",
+        integrationHttpMethod="POST",
+        uri=f"arn:aws:apigateway:{AWS_REGION}:lambda:path/2015-03-31/functions/{lambda_arn}/invocations",
+    )
+
+    apigw.create_deployment(restApiId=api_id, stageName="prod")
+    api_url = f"{FLOCI_ENDPOINT}/restapis/{api_id}/prod/_user_request_/"
+    print(f"✅ API Gateway deployed successfully.")
+    print(f"🔗 Lambda API Gateway Endpoint: {api_url}")
 
 
 if __name__ == "__main__":
     deploy_backend_data()
     deploy_frontend_spa()
+    deploy_lambda_function()
+    deploy_api_gateway()

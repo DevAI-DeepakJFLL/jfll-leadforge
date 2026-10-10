@@ -64,6 +64,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+*.zip
+Backend/*.zip
 
 # Virtual Environments
 env/

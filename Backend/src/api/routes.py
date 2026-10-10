@@ -70,19 +70,10 @@ def list_leads(
         LIMIT ? OFFSET ?
     """
     query_params = params + [page_size, offset]
-    df = con.execute(data_query, query_params).fetchdf()
-    raw_records = df.to_dict(orient="records")
-    # Clean all NaN/float('nan') to Python None for Pydantic serialization
-    import math
-    clean_records = []
-    for r in raw_records:
-        clean_row = {}
-        for k, v in r.items():
-            if v is None or (isinstance(v, float) and math.isnan(v)):
-                clean_row[k] = None
-            else:
-                clean_row[k] = str(v)
-        clean_records.append(clean_row)
+    result_cursor = con.execute(data_query, query_params)
+    columns = [desc[0] for desc in result_cursor.description]
+    rows = result_cursor.fetchall()
+    clean_records = [dict(zip(columns, row)) for row in rows]
 
     total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
 

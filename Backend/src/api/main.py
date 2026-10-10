@@ -35,6 +35,15 @@ def health_check():
     }
 
 
+# AWS Lambda Handler using Mangum ASGI Adapter
+try:
+    from mangum import Mangum
+    handler = Mangum(app, lifespan="off")
+except ImportError:
+    handler = None
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("src.api.main:app", host=settings.api_host, port=settings.api_port, reload=False)
+
