@@ -25,6 +25,7 @@ export interface JfllCustomerTableProps {
   totalFormatted?: string;
   onPageChange: (page: number) => void;
   onClearFilters?: () => void;
+  isLoading?: boolean;
   className?: string;
 }
 
@@ -91,6 +92,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
   totalFormatted,
   onPageChange,
   onClearFilters,
+  isLoading = false,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -108,6 +110,43 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
     navigator.clipboard.writeText(text);
     showToast(`Copied ${label} to clipboard`);
   };
+
+  if (isLoading) {
+    return (
+      <div className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex flex-col ${className}`}>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+                <th className="py-3 px-3 w-10 text-center"><span className="sr-only">Select</span></th>
+                <th className="py-3 px-4 min-w-[260px]">Company Name</th>
+                <th className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
+                <th className="py-3 px-3.5 min-w-[95px]">Status</th>
+                <th className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
+                <th className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
+                <th className="py-3 px-3.5 min-w-[190px]">Email</th>
+                <th className="py-3 px-4 w-20 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {Array.from({ length: pageSize || 10 }).map((_, i) => (
+                <tr key={i} className="animate-pulse">
+                  <td className="py-3.5 px-3 text-center"><div className="w-4 h-4 bg-slate-200 rounded mx-auto" /></td>
+                  <td className="py-3.5 px-4"><div className="w-48 h-3.5 bg-slate-200 rounded mb-1.5" /><div className="w-24 h-2.5 bg-slate-100 rounded" /></td>
+                  <td className="py-3.5 px-3.5"><div className="w-24 h-5 bg-slate-150 rounded-full" /></td>
+                  <td className="py-3.5 px-3.5"><div className="w-14 h-4 bg-emerald-100/60 rounded-full" /></td>
+                  <td className="py-3.5 px-3.5"><div className="w-28 h-3 bg-slate-200 rounded" /></td>
+                  <td className="py-3.5 px-3.5"><div className="w-28 h-3 bg-slate-200 rounded" /></td>
+                  <td className="py-3.5 px-3.5"><div className="w-36 h-3 bg-slate-200 rounded" /></td>
+                  <td className="py-3.5 px-4 text-center"><div className="w-12 h-6 bg-slate-100 rounded mx-auto" /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
 
   if (customers.length === 0) {
     return (

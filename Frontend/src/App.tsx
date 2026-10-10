@@ -24,7 +24,11 @@ import {
   JfllCustomerDetailDrawer,
 } from '@/components/jfll';
 import { useJfllCustomersFilter } from '@/hooks/useJfllCustomersFilter';
-import { queryJfllCustomers, exportJfllCustomersCsv } from '@/services/jfllCustomerService';
+import {
+  queryJfllCustomers,
+  fetchJfllCustomersFromApi,
+  exportJfllCustomersCsv,
+} from '@/services/jfllCustomerService';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
 
@@ -291,7 +295,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     clearAllFilters: clearAllJfllFilters,
   } = useJfllCustomersFilter();
 
-  const jfllQuery = useMemo(() => queryJfllCustomers(jfllFilters), [jfllFilters]);
+  const { data: jfllData, isLoading: isJfllLoading } = useQuery({
+    queryKey: ['jfll-customers', jfllFilters],
+    queryFn: () => fetchJfllCustomersFromApi(jfllFilters),
+    placeholderData: (prev) => prev,
+  });
+
+  const jfllQuery = useMemo(() => jfllData || queryJfllCustomers(jfllFilters), [jfllData, jfllFilters]);
   const [jfllRowSelection, setJfllRowSelection] = useState<RowSelectionState>({});
   const [selectedJfllCustomer, setSelectedJfllCustomer] = useState<JfllCustomer | null>(null);
   const [isExportingJfll, setIsExportingJfll] = useState(false);
@@ -423,6 +433,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
             <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
               <JfllCustomerTable
                 customers={jfllItems}
+                isLoading={isJfllLoading}
                 rowSelection={jfllRowSelection}
                 onRowSelectionChange={setJfllRowSelection}
                 onCustomerClick={(c) => setSelectedJfllCustomer(c)}

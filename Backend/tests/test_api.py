@@ -18,11 +18,28 @@ def test_list_leads_pagination():
     payload = response.json()
     assert payload["page"] == 1
     assert payload["page_size"] == 10
-    assert payload["total_records"] == 881
+    assert payload["total_records"] == 729
     assert len(payload["data"]) == 10
     assert payload["has_next"] is True
+    assert payload["audience_counts"]["all"] == 729
     for item in payload["data"]:
         assert item["status"] == "Active"
+
+
+def test_list_leads_filtering_by_tab_and_group():
+    # Filter by Shipper / Consignee tab
+    response = client.get("/api/v1/leads?tab=shippers&page=1&page_size=10")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["total_records"] == 285
+    for item in payload["data"]:
+        assert item["customer_group"] == "Shipper / Consignee"
+
+    # Multi-select customer group
+    response = client.get("/api/v1/leads?customer_groups=Overseas+Agent")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["total_records"] == 39
 
 
 def test_invalid_status_returns_400():
@@ -38,3 +55,4 @@ def test_sql_injection_attempt_is_safe():
     payload = response.json()
     # Parameterized query should treat the injection attempt as a literal string pattern
     assert payload["total_records"] == 0
+

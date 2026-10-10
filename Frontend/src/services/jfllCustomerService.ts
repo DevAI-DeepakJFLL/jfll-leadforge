@@ -6,8 +6,84 @@ import {
 } from '@/types/jfllCustomer';
 
 /**
- * Filter and query JFLL Customers dataset with client-side zero-latency processing
- * and optional backend integration.
+ * Asynchronously query the Backend REST API (DuckDB over S3 Parquet / Lambda)
+ * with graceful fallback to local data if offline.
+ */
+export async function fetchJfllCustomersFromApi(
+  params: JfllCustomerFilterParams = {}
+): Promise<JfllCustomersResponse> {
+  const {
+    q,
+    customerGroups = [],
+    types = [],
+    hasPhone,
+    hasEmail,
+    hasContactPerson,
+    tab = 'all',
+    page = 1,
+    limit = 25,
+  } = params;
+
+  const urlParams = new URLSearchParams();
+  urlParams.set('page', String(page));
+  urlParams.set('page_size', String(limit));
+  urlParams.set('status', 'Active');
+
+  if (q && q.trim()) urlParams.set('search', q.trim());
+  if (tab && tab !== 'all') urlParams.set('tab', tab);
+  if (hasPhone) urlParams.set('has_phone', 'true');
+  if (hasEmail) urlParams.set('has_email', 'true');
+  if (hasContactPerson) urlParams.set('has_contact_person', 'true');
+
+  customerGroups.forEach((g) => urlParams.append('customer_groups', g));
+  types.forEach((t) => urlParams.append('types', t));
+
+  try {
+    const res = await fetch(`/api/v1/leads?${urlParams.toString()}`);
+    if (!res.ok) {
+      throw new Error(`API returned HTTP ${res.status}: ${res.statusText}`);
+    }
+
+    const payload = await res.json();
+    const items: JfllCustomer[] = (payload.data || []).map((row: any, idx: number) => ({
+      id: `jfll-${(page - 1) * limit + idx + 1}`,
+      fullName: row.full_name || '',
+      territory: row.territory || 'All Territories',
+      contactPersonName: row.contact_person_name || null,
+      mobileNumber: row.mobile_number || null,
+      email: row.email || null,
+      status: (row.status as 'Active' | 'Not Active') || 'Active',
+      customerGroup: row.customer_group || '',
+      type: row.type || '',
+      saved: false,
+    }));
+
+    const totalEstimate = payload.total_records ?? items.length;
+    const audience = payload.audience_counts || {};
+
+    return {
+      items,
+      totalEstimate,
+      totalFormatted: totalEstimate.toLocaleString('en-US'),
+      page: payload.page ?? page,
+      limit: payload.page_size ?? limit,
+      totalPages: payload.total_pages ?? Math.max(1, Math.ceil(totalEstimate / limit)),
+      audienceCounts: {
+        all: audience.all ?? 729,
+        shippers: audience.shippers ?? 285,
+        subagents: audience.subagents ?? 390,
+        overseas: audience.overseas ?? 39,
+        withContacts: audience.with_contacts ?? 729,
+      },
+    };
+  } catch (err) {
+    console.warn('API query failed, falling back to local dataset:', err);
+    return queryJfllCustomers(params);
+  }
+}
+
+/**
+ * Filter and query JFLL Customers dataset synchronously (used as reliable offline fallback)
  */
 export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllCustomersResponse {
   const {

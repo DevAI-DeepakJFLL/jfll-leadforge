@@ -13,6 +13,14 @@ class LeadRecord(BaseModel):
     type: str = Field(..., description="Legal registration type")
 
 
+class AudienceCounts(BaseModel):
+    all: int = Field(default=0)
+    shippers: int = Field(default=0)
+    subagents: int = Field(default=0)
+    overseas: int = Field(default=0)
+    with_contacts: int = Field(default=0)
+
+
 class PaginatedResponse(BaseModel):
     page: int = Field(..., ge=1, description="Current page number")
     page_size: int = Field(..., ge=1, description="Number of items returned per page")
@@ -20,6 +28,8 @@ class PaginatedResponse(BaseModel):
     total_pages: int = Field(..., ge=0, description="Total number of pages available")
     has_next: bool = Field(..., description="Whether a subsequent page exists")
     data: List[LeadRecord] = Field(..., description="List of lead records")
+    audience_counts: Optional[AudienceCounts] = Field(default=None, description="Audience quick counts")
+
 
 
 class HealthResponse(BaseModel):
