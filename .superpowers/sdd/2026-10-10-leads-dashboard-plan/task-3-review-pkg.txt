@@ -1,7 +1,0 @@
-e1e0610 feat: implement app dock and top header shell matching ref.jpg
- src/App.tsx                         | 146 ++++++++++++++-------
- src/components/layout/AppDock.tsx   | 215 ++++++++++++++++++++++++++++++
- src/components/layout/AppLayout.tsx |  62 +++++++++
- src/components/layout/TopHeader.tsx | 255 ++++++++++++++++++++++++++++++++++++
- src/components/layout/index.ts      |   8 ++
- 5 files changed, 637 insertions(+), 49 deletions(-)

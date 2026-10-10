@@ -1,5 +1,8 @@
 node_modules
+Frontend/node_modules
 dist
+Frontend/dist
 dist-ssr
 *.local
 .DS_Store
+.superpowers
