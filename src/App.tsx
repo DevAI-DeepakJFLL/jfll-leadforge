@@ -7,18 +7,17 @@ import {
   AudienceTabs,
   TableActionBar,
   LeadsTable,
+  LeadDetailDrawer,
+  EmailRevealDialog,
 } from '@/components/leads';
+import { ToastProvider, useToast } from '@/components/ui';
 import { useLeadsFilter, serializeFiltersToUrl } from '@/hooks/useLeadsFilter';
 import { LeadsResponse, Lead } from '@/types/lead';
-import { CheckCircle2, AlertCircle } from 'lucide-react';
 
-export const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const [activeNav, setActiveNav] = useState('search');
   const [topTab, setTopTab] = useState('people');
-  const [notificationMsg, setNotificationMsg] = useState<{
-    text: string;
-    type?: 'success' | 'info' | 'error';
-  } | null>(null);
+  const { showToast } = useToast();
 
   // Initialize initial row selection for the first 6 leads matching Ref.jpg
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({
@@ -31,6 +30,9 @@ export const App: React.FC = () => {
   });
 
   const [isExporting, setIsExporting] = useState(false);
+  const [selectedDrawerLead, setSelectedDrawerLead] = useState<Lead | null>(null);
+  const [selectedEmailLead, setSelectedEmailLead] = useState<Lead | null>(null);
+
   const queryClient = useQueryClient();
 
   const {
@@ -46,13 +48,6 @@ export const App: React.FC = () => {
     clearAllFilters,
     activeFilterCount,
   } = useLeadsFilter();
-
-  const showToast = (text: string, type: 'success' | 'info' | 'error' = 'success') => {
-    setNotificationMsg({ text, type });
-    setTimeout(() => {
-      setNotificationMsg(null);
-    }, 3200);
-  };
 
   // Fetch leads synchronized with current URL filters via TanStack Query
   const { data, isLoading, isError, error, refetch } = useQuery<LeadsResponse>({
@@ -86,6 +81,36 @@ export const App: React.FC = () => {
       showToast('Failed to save selected leads', 'error');
     },
   });
+
+  // Single lead toggle save handler for drawer & dialog
+  const handleToggleSaveLead = async (lead: Lead) => {
+    try {
+      const res = await fetch(`/api/leads/${lead.id}/save`, {
+        method: 'PATCH',
+      });
+      if (!res.ok) throw new Error('Failed to toggle saved status');
+      const updatedLead: Lead = await res.json();
+
+      // Invalidate queries so table updates
+      queryClient.invalidateQueries({ queryKey: ['leads'] });
+
+      // Update local drawer state if current lead is active
+      if (selectedDrawerLead?.id === updatedLead.id) {
+        setSelectedDrawerLead(updatedLead);
+      }
+      if (selectedEmailLead?.id === updatedLead.id) {
+        setSelectedEmailLead(updatedLead);
+      }
+
+      showToast(
+        updatedLead.saved
+          ? `Saved ${updatedLead.name} to your pipeline`
+          : `Removed ${updatedLead.name} from your pipeline`
+      );
+    } catch {
+      showToast(`Failed to update ${lead.name}`, 'error');
+    }
+  };
 
   const handleLoadPresetSearch = () => {
     applyFilters({
@@ -144,7 +169,7 @@ export const App: React.FC = () => {
   };
 
   const handleSelectAllTotal = () => {
-    // Select all available leads in the dataset
+    // Select all available leads on this view
     const allKnownIds = items.map((l) => l.id);
     const next: RowSelectionState = {};
     allKnownIds.forEach((id) => {
@@ -255,13 +280,21 @@ export const App: React.FC = () => {
     showToast(`Salesforce action "${action}" initiated for ${selectedLeadIds.length} records`);
   };
 
+  // Open Email Reveal Modal
   const handleViewEmail = (lead: Lead) => {
-    showToast(`Verified email revealed: ${lead.email}`);
+    setSelectedEmailLead(lead);
   };
 
+  // Open Lead Detail Slide-Over Drawer
   const handleLeadClick = (lead: Lead) => {
-    showToast(`Prospect dossier selected: ${lead.name} (${lead.title} at ${lead.company})`);
+    setSelectedDrawerLead(lead);
   };
+
+  // Sync drawer lead with latest query data if present
+  const activeDrawerLead = useMemo(() => {
+    if (!selectedDrawerLead) return null;
+    return items.find((l) => l.id === selectedDrawerLead.id) || selectedDrawerLead;
+  }, [items, selectedDrawerLead]);
 
   return (
     <AppLayout
@@ -285,24 +318,6 @@ export const App: React.FC = () => {
       onJobChangesClick={() => showToast('Viewing 237 New Job Changes')}
       onImportClick={() => {}}
     >
-      {/* Toast Notification */}
-      {notificationMsg && (
-        <div
-          className={`fixed top-16 right-6 z-50 text-white text-xs font-medium px-4 py-2.5 rounded-lg shadow-xl border animate-in fade-in slide-in-from-top-2 duration-150 flex items-center gap-2 ${
-            notificationMsg.type === 'error'
-              ? 'bg-red-900 border-red-700'
-              : 'bg-slate-900 border-slate-700'
-          }`}
-        >
-          {notificationMsg.type === 'error' ? (
-            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-          ) : (
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-          )}
-          <span>{notificationMsg.text}</span>
-        </div>
-      )}
-
       {/* Main Container: Left FilterSidebar + Right Leads Content Viewport */}
       <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
         {/* Left Filter Sidebar matching Ref.jpg */}
@@ -381,7 +396,55 @@ export const App: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Slide-over Lead Detail Drawer */}
+      <LeadDetailDrawer
+        isOpen={!!selectedDrawerLead}
+        lead={activeDrawerLead}
+        onClose={() => setSelectedDrawerLead(null)}
+        onSaveToggle={handleToggleSaveLead}
+        onCopy={(text, type) =>
+          showToast(`Copied ${type === 'email' ? 'email' : 'phone'} to clipboard: ${text}`)
+        }
+        onAddToSequence={(l) => {
+          showToast(`Enrolled ${l.name} in Outbound Sequence`);
+        }}
+        onAddToList={(l) => {
+          showToast(`Added ${l.name} to Target Prospect List`);
+        }}
+        onComposeEmail={(l) => {
+          showToast(`Opening outreach composer for ${l.name} (${l.email})`);
+        }}
+      />
+
+      {/* Quick Email Reveal Dialog */}
+      <EmailRevealDialog
+        isOpen={!!selectedEmailLead}
+        lead={selectedEmailLead}
+        onClose={() => setSelectedEmailLead(null)}
+        onCopy={(text, type) =>
+          showToast(`Copied ${type === 'email' ? 'email' : 'phone'} to clipboard: ${text}`)
+        }
+        onComposeEmail={(l) => {
+          showToast(`Opening outreach composer for ${l.name} (${l.email})`);
+        }}
+        onAddToSequence={(l) => {
+          showToast(`Enrolled ${l.name} in Outbound Sequence`);
+        }}
+        onViewProfile={(l) => {
+          setSelectedEmailLead(null);
+          setSelectedDrawerLead(l);
+        }}
+      />
     </AppLayout>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <ToastProvider>
+      <AppContent />
+    </ToastProvider>
   );
 };
 
