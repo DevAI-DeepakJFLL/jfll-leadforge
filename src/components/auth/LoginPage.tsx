@@ -15,8 +15,8 @@ export interface LoginPageProps {
 
 // Hardcoded internal credentials
 export const DEMO_CREDENTIALS = {
-  email: 'admin@jetfreight.com',
-  password: 'Password123!',
+  email: 'leads@jfll.com',
+  password: 'Jet@123',
   name: 'Roberto Orci',
   role: 'Lead Sourcing Admin',
 };
@@ -117,7 +117,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@jetfreight.com"
+                placeholder="leads@jfll.com"
                 required
                 autoComplete="email"
                 className="w-full pl-9 pr-3 py-2 text-sm bg-slate-900/80 border border-slate-700 rounded-lg text-white placeholder:text-slate-500 focus:outline-none focus:border-apollo focus:ring-2 focus:ring-apollo/20 transition-colors"
@@ -180,7 +180,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             title="Click to fill credentials"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-apollo-400" />
-            <span>Use Demo: admin@jetfreight.com / Password123!</span>
+            <span>Use: leads@jfll.com / Jet@123</span>
           </button>
         </div>
       </div>

@@ -337,7 +337,7 @@ export const AppDock: React.FC<AppDockProps> = ({
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="font-semibold text-slate-900 truncate">Roberto Orci</div>
-                  <div className="text-[11px] text-slate-400 truncate">roberto@jetfreight.com</div>
+                  <div className="text-[11px] text-slate-400 truncate">leads@jfll.com</div>
                 </div>
               </div>
 
