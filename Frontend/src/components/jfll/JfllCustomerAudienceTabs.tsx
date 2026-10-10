@@ -88,25 +88,9 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
           </span>
         </div>
 
-        <div className="flex items-center gap-4 text-xs text-slate-500">
-          <div className="flex items-center gap-1.5">
-            <span className="text-slate-400">Total Active:</span>
-            <strong className="text-slate-900 font-semibold">{totalFormatted} Accounts</strong>
-          </div>
-          <span className="text-slate-200">|</span>
-          <div className="flex items-center gap-1.5 hidden sm:flex">
-            <span className="text-slate-400">Direct Contacts:</span>
-            <strong className="text-slate-700 font-medium">
-              {counts.withContacts.toLocaleString()} (82.7%)
-            </strong>
-          </div>
-          <span className="text-slate-200 hidden md:inline">|</span>
-          <div className="flex items-center gap-1.5 hidden md:flex">
-            <span className="text-slate-400">Query Engine:</span>
-            <span className="font-mono text-[11px] text-slate-600 bg-white px-1.5 py-0.5 rounded border border-slate-200">
-              DuckDB OLAP
-            </span>
-          </div>
+        <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          <span className="text-slate-400">Total Active:</span>
+          <strong className="text-slate-900 font-semibold">{totalFormatted} Accounts</strong>
         </div>
       </div>
 
