@@ -13,7 +13,9 @@ export interface AppLayoutProps {
   onSearchSubmit?: (query: string) => void;
   jobChangesCount?: number;
   onJobChangesClick?: () => void;
-  onImportClick?: () => void;
+  isJobChangesActive?: boolean;
+  savedSearchesCount?: number;
+  onOpenSettings?: () => void;
   className?: string;
 }
 
@@ -28,13 +30,20 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onSearchSubmit,
   jobChangesCount = 237,
   onJobChangesClick,
-  onImportClick,
+  isJobChangesActive = false,
+  savedSearchesCount = 0,
+  onOpenSettings,
   className = '',
 }) => {
   return (
     <div className={`flex h-screen w-screen overflow-hidden bg-slate-50 text-slate-900 font-sans antialiased ${className}`}>
       {/* Leftmost 64px Dark Dock */}
-      <AppDock activeNav={activeNav} onNavChange={onNavChange} />
+      <AppDock
+        activeNav={activeNav}
+        onNavChange={onNavChange}
+        savedSearchesCount={savedSearchesCount}
+        onOpenSettings={onOpenSettings}
+      />
 
       {/* Main Workspace Frame */}
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
@@ -47,7 +56,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           onSearchSubmit={onSearchSubmit}
           jobChangesCount={jobChangesCount}
           onJobChangesClick={onJobChangesClick}
-          onImportClick={onImportClick}
+          isJobChangesActive={isJobChangesActive}
         />
 
         {/* Content Viewport */}

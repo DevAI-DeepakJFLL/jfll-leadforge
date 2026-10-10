@@ -1,35 +1,30 @@
-import React, { useState, useRef, useEffect } from 'react';
-import {
-  Search,
-  Briefcase,
-  BookOpen,
-  HelpCircle,
-  UserPlus,
-  ChevronDown,
-  X,
-  FileSpreadsheet,
-  Upload,
-  Database,
-} from 'lucide-react';
+import React from 'react';
+import { Search, Briefcase, X } from 'lucide-react';
+
+export interface TopNavTab {
+  id: string;
+  label: string;
+  count?: number;
+}
 
 export interface TopHeaderProps {
   activeTab?: string;
-  onTabChange?: (tab: string) => void;
+  onTabChange?: (tabId: string) => void;
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   onSearchSubmit?: (query: string) => void;
   jobChangesCount?: number;
   onJobChangesClick?: () => void;
-  onImportClick?: () => void;
+  isJobChangesActive?: boolean;
   className?: string;
 }
 
-export const TOP_NAV_TABS = [
+const TOP_NAV_TABS: TopNavTab[] = [
   { id: 'people', label: 'People' },
   { id: 'companies', label: 'Companies' },
   { id: 'saved-searches', label: 'Saved Searches' },
   { id: 'saved-lists', label: 'Saved Lists' },
-] as const;
+];
 
 export const TopHeader: React.FC<TopHeaderProps> = ({
   activeTab = 'people',
@@ -39,47 +34,10 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   onSearchSubmit,
   jobChangesCount = 237,
   onJobChangesClick,
-  onImportClick,
+  isJobChangesActive = false,
   className = '',
 }) => {
-  const [isImportMenuOpen, setIsImportMenuOpen] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const importDropdownRef = useRef<HTMLDivElement>(null);
-
-  // Global keyboard shortcut: Command/Ctrl + K or "/" to focus search
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        searchInputRef.current?.focus();
-      } else if (
-        e.key === '/' &&
-        document.activeElement?.tagName !== 'INPUT' &&
-        document.activeElement?.tagName !== 'TEXTAREA'
-      ) {
-        e.preventDefault();
-        searchInputRef.current?.focus();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  // Close dropdown on click outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        importDropdownRef.current &&
-        !importDropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsImportMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  const searchInputRef = React.useRef<HTMLInputElement>(null);
 
   const handleClearSearch = () => {
     onSearchChange?.('');
@@ -99,7 +57,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
     >
       {/* Left: Primary Tabs & Inline Global Search */}
       <div className="flex items-center space-x-6 min-w-0 flex-1">
-        {/* Navigation Tabs matching Ref.jpg */}
+        {/* Navigation Tabs */}
         <nav className="flex space-x-1 sm:space-x-2 h-14 items-center shrink-0" aria-label="Audience Entity Tabs">
           {TOP_NAV_TABS.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -138,115 +96,39 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             />
             {searchQuery ? (
               <button
-                type="button"
                 onClick={handleClearSearch}
-                className="absolute right-3 p-0.5 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-200 transition-colors"
+                className="absolute right-2.5 p-0.5 text-slate-400 hover:text-slate-600 rounded"
                 title="Clear search"
+                aria-label="Clear search input"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-3 h-3" />
               </button>
             ) : (
-              <div className="absolute right-2.5 flex items-center pointer-events-none">
-                <kbd className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-medium text-slate-400 bg-white border border-slate-200 rounded shadow-[0_1px_1px_rgba(0,0,0,0.05)]">
-                  ⌘K
-                </kbd>
-              </div>
+              <span className="absolute right-2.5 text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 pointer-events-none">
+                ⌘K
+              </span>
             )}
           </div>
         </div>
       </div>
 
-      {/* Right: Job Changes Badge, Utility Buttons & Import Dropdown */}
-      <div className="flex items-center space-x-2.5 shrink-0">
-        {/* Job Changes Badge matching Ref.jpg (💼 237 New Job Changes) */}
+      {/* Right Tools: Functional 237 New Job Changes Trigger */}
+      <div className="flex items-center space-x-3 shrink-0">
         <button
           onClick={onJobChangesClick}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors border border-transparent hover:border-slate-200"
-          title="View recent lead career and position shifts"
+          className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs rounded-full border transition-all ${
+            isJobChangesActive
+              ? 'bg-blue-50 text-apollo border-apollo font-semibold shadow-xs ring-1 ring-apollo/30'
+              : 'text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border-slate-200'
+          }`}
+          title={isJobChangesActive ? 'Showing job change prospects (Click to reset)' : 'Filter prospects who recently changed roles'}
         >
-          <Briefcase className="w-3.5 h-3.5 text-slate-500" />
+          <Briefcase className="w-3.5 h-3.5 text-apollo" />
           <span>{jobChangesCount} New Job Changes</span>
-        </button>
-
-        {/* Documentation / Knowledgebase Icon */}
-        <button
-          className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors"
-          title="Product Guides & Best Practices"
-          aria-label="Documentation"
-        >
-          <BookOpen className="w-4 h-4" />
-        </button>
-
-        {/* Help / Support Icon */}
-        <button
-          className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors"
-          title="Help Center & Live Chat"
-          aria-label="Help"
-        >
-          <HelpCircle className="w-4 h-4" />
-        </button>
-
-        <div className="h-4 w-px bg-slate-200 mx-0.5" />
-
-        {/* "+ Import ▾" Button with Dropdown matching Ref.jpg */}
-        <div className="relative" ref={importDropdownRef}>
-          <button
-            onClick={() => {
-              setIsImportMenuOpen((prev) => !prev);
-              onImportClick?.();
-            }}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 active:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-md shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-apollo/20"
-            aria-expanded={isImportMenuOpen}
-            aria-haspopup="true"
-          >
-            <UserPlus className="w-3.5 h-3.5 text-slate-600" />
-            <span>+ Import</span>
-            <ChevronDown
-              className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-150 ${
-                isImportMenuOpen ? 'rotate-180' : ''
-              }`}
-            />
-          </button>
-
-          {/* Import Dropdown Menu */}
-          {isImportMenuOpen && (
-            <div className="absolute right-0 mt-1.5 w-56 bg-white rounded-lg shadow-xl border border-slate-200 py-1.5 z-50 text-xs animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-3 py-1.5 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-                Import Leads
-              </div>
-              <button
-                onClick={() => setIsImportMenuOpen(false)}
-                className="w-full text-left px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-2.5 transition-colors"
-              >
-                <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
-                <div>
-                  <div className="font-medium">CSV / Excel File</div>
-                  <div className="text-[11px] text-slate-400">Upload bulk lead spreadsheets</div>
-                </div>
-              </button>
-              <button
-                onClick={() => setIsImportMenuOpen(false)}
-                className="w-full text-left px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-2.5 transition-colors"
-              >
-                <Database className="w-4 h-4 text-apollo" />
-                <div>
-                  <div className="font-medium">CRM Sync (Salesforce / HubSpot)</div>
-                  <div className="text-[11px] text-slate-400">Sync accounts & contacts</div>
-                </div>
-              </button>
-              <button
-                onClick={() => setIsImportMenuOpen(false)}
-                className="w-full text-left px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-slate-900 flex items-center gap-2.5 transition-colors"
-              >
-                <Upload className="w-4 h-4 text-purple-600" />
-                <div>
-                  <div className="font-medium">LinkedIn Sales Navigator</div>
-                  <div className="text-[11px] text-slate-400">Import saved lead searches</div>
-                </div>
-              </button>
-            </div>
+          {isJobChangesActive && (
+            <X className="w-3 h-3 text-slate-400 hover:text-slate-600 ml-0.5" />
           )}
-        </div>
+        </button>
       </div>
     </header>
   );

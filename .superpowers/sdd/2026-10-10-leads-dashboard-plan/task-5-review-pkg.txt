@@ -1,0 +1,9 @@
+1be4371 feat: implement leads table and action toolbar matching ref.jpg
+ src/App.tsx                             | 562 ++++++++++++++++----------------
+ src/components/leads/AudienceTabs.tsx   |  97 ++++++
+ src/components/leads/CompanyAvatar.tsx  | 140 ++++++++
+ src/components/leads/LeadsTable.tsx     | 420 ++++++++++++++++++++++++
+ src/components/leads/StatusBadge.tsx    |  51 +++
+ src/components/leads/TableActionBar.tsx | 461 ++++++++++++++++++++++++++
+ src/components/leads/index.ts           |   5 +
+ 7 files changed, 1453 insertions(+), 283 deletions(-)

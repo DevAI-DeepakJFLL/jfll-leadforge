@@ -1,0 +1,9 @@
+82a6cdd feat: implement filter sidebar with accordions and url sync matching ref.jpg
+ src/App.tsx                                  | 414 ++++++++++---
+ src/components/filters/ActiveFilterChips.tsx | 137 +++++
+ src/components/filters/FilterAccordion.tsx   |  97 +++
+ src/components/filters/FilterSidebar.tsx     | 856 +++++++++++++++++++++++++++
+ src/components/filters/index.ts              |   3 +
+ src/hooks/useLeadsFilter.ts                  | 398 +++++++++++++
+ src/mocks/handlers.ts                        |   3 +
+ 7 files changed, 1841 insertions(+), 67 deletions(-)

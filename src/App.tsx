@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { RowSelectionState } from '@tanstack/react-table';
-import { AppLayout } from '@/components/layout';
+import { AppLayout } from '@/components/layout/AppLayout';
+import { SettingsModal } from '@/components/layout/SettingsModal';
 import { FilterSidebar, ActiveFilterChips } from '@/components/filters';
 import {
   AudienceTabs,
@@ -12,14 +13,42 @@ import {
 } from '@/components/leads';
 import { ToastProvider, useToast } from '@/components/ui';
 import { useLeadsFilter, serializeFiltersToUrl } from '@/hooks/useLeadsFilter';
-import { LeadsResponse, Lead } from '@/types/lead';
+import { LeadsResponse, Lead, FilterParams } from '@/types/lead';
+
+interface SavedSearchPreset {
+  id: string;
+  name: string;
+  filters: Partial<FilterParams>;
+}
 
 const AppContent: React.FC = () => {
   const [activeNav, setActiveNav] = useState('search');
   const [topTab, setTopTab] = useState('people');
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isJobChangesActive, setIsJobChangesActive] = useState(false);
   const { showToast } = useToast();
 
-  // Initialize initial row selection for the first 6 leads matching Ref.jpg
+  // Saved searches in state/storage
+  const [savedSearches, setSavedSearches] = useState<SavedSearchPreset[]>([
+    {
+      id: 'la-marketing',
+      name: 'LA Marketing Executives',
+      filters: {
+        locations: ['Los Angeles, California'],
+        industries: ['Marketing & Advertising'],
+        jobTitles: ['Executive', 'VP', 'Director'],
+      },
+    },
+  ]);
+
+  // Saved custom lists
+  const [savedLists, setSavedLists] = useState<string[]>([
+    'West Coast VIPs',
+    'High Growth Accounts',
+    'Q4 Logistics Prospects',
+  ]);
+
+  // Default row selection for the first 6 leads matching Ref.jpg
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({
     'lead-1': true,
     'lead-2': true,
@@ -69,48 +98,54 @@ const AppContent: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ leadIds, saved: true }),
       });
-      if (!res.ok) throw new Error('Failed to save leads');
+      if (!res.ok) throw new Error('Failed to save selected leads');
       return res.json();
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['leads'] });
-      showToast(`Successfully saved ${data.updatedCount} leads to your pipeline`);
+      showToast(`Saved ${data.updatedCount} leads to your pipeline`);
     },
     onError: () => {
       showToast('Failed to save selected leads', 'error');
     },
   });
 
-  // Single lead toggle save handler for drawer & dialog
-  const handleToggleSaveLead = async (lead: Lead) => {
-    try {
-      const res = await fetch(`/api/leads/${lead.id}/save`, {
+  // Toggle single lead saved status
+  const toggleSaveMutation = useMutation({
+    mutationFn: async ({ leadId, saved }: { leadId: string; saved: boolean }) => {
+      const res = await fetch(`/api/leads/${leadId}/save`, {
         method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ saved }),
       });
-      if (!res.ok) throw new Error('Failed to toggle saved status');
-      const updatedLead: Lead = await res.json();
-
-      // Invalidate queries so table updates
+      if (!res.ok) throw new Error('Failed to update lead');
+      return res.json();
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['leads'] });
+    },
+  });
 
-      // Update local drawer state if current lead is active
-      if (selectedDrawerLead?.id === updatedLead.id) {
-        setSelectedDrawerLead(updatedLead);
-      }
-      if (selectedEmailLead?.id === updatedLead.id) {
-        setSelectedEmailLead(updatedLead);
-      }
+  const handleToggleSaveLead = (lead: Lead) => {
+    toggleSaveMutation.mutate({ leadId: lead.id, saved: !lead.saved });
+  };
 
-      showToast(
-        updatedLead.saved
-          ? `Saved ${updatedLead.name} to your pipeline`
-          : `Removed ${updatedLead.name} from your pipeline`
-      );
-    } catch {
-      showToast(`Failed to update ${lead.name}`, 'error');
+  // Job Changes Trigger
+  const handleToggleJobChanges = () => {
+    if (isJobChangesActive) {
+      setIsJobChangesActive(false);
+      removeFilterItem('status', 'NET NEW');
+    } else {
+      setIsJobChangesActive(true);
+      applyFilters({
+        ...filters,
+        status: ['NET NEW'],
+        page: 1,
+      });
     }
   };
 
+  // Load preset search
   const handleLoadPresetSearch = () => {
     applyFilters({
       ...filters,
@@ -120,8 +155,15 @@ const AppContent: React.FC = () => {
     });
   };
 
+  // Save current search
   const handleSaveSearch = () => {
-    // Saved filter presets can be stored in browser or backend
+    const newPreset: SavedSearchPreset = {
+      id: `search-${Date.now()}`,
+      name: `Search (${new Date().toLocaleDateString()})`,
+      filters: { ...filters },
+    };
+    setSavedSearches((prev) => [...prev, newPreset]);
+    showToast('Search criteria saved to your presets');
   };
 
   // Selection calculations
@@ -138,40 +180,28 @@ const AppContent: React.FC = () => {
 
   const handleToggleSelectAllPage = () => {
     if (isAllOnPageSelected) {
-      // Unselect all items on current page
-      setRowSelection((prev) => {
-        const next = { ...prev };
-        items.forEach((l) => delete next[l.id]);
-        return next;
-      });
+      setRowSelection({});
     } else {
-      // Select all items on current page
-      setRowSelection((prev) => {
-        const next = { ...prev };
-        items.forEach((l) => {
-          next[l.id] = true;
-        });
-        return next;
+      const next: RowSelectionState = {};
+      items.forEach((lead) => {
+        next[lead.id] = true;
       });
+      setRowSelection(next);
     }
   };
 
   const handleSelectAllPage = () => {
-    setRowSelection((prev) => {
-      const next = { ...prev };
-      items.forEach((l) => {
-        next[l.id] = true;
-      });
-      return next;
+    const next: RowSelectionState = {};
+    items.forEach((lead) => {
+      next[lead.id] = true;
     });
+    setRowSelection(next);
   };
 
   const handleSelectAllTotal = () => {
-    // Select all available leads on this view
-    const allKnownIds = items.map((l) => l.id);
     const next: RowSelectionState = {};
-    allKnownIds.forEach((id) => {
-      next[id] = true;
+    items.forEach((l) => {
+      next[l.id] = true;
     });
     setRowSelection(next);
   };
@@ -185,16 +215,11 @@ const AppContent: React.FC = () => {
     batchSaveMutation.mutate(selectedLeadIds);
   };
 
-  const handleBatchEmail = () => {
-    // Lead generation UI only: outbound email composer is not connected to a mailing service
-  };
-
-  const handleAddToSequence = (_sequenceName: string) => {
-    // Outbound email sequence management is out of scope for lead sourcing tool
-  };
-
-  const handleAddToList = (_listName: string) => {
-    // Custom lists management
+  const handleAddToList = (listName: string) => {
+    if (!savedLists.includes(listName)) {
+      setSavedLists((prev) => [...prev, listName]);
+    }
+    showToast(`Added ${selectedLeadIds.length} leads to "${listName}"`);
   };
 
   // Functional CSV Export download handler
@@ -207,28 +232,27 @@ const AppContent: React.FC = () => {
         body: JSON.stringify({
           leadIds: selectedLeadIds.length > 0 ? selectedLeadIds : undefined,
           filters: selectedLeadIds.length === 0 ? filters : undefined,
-          format: 'csv',
         }),
       });
 
       if (!res.ok) {
-        throw new Error(`Export failed with status: ${res.status}`);
+        throw new Error(`Export failed with HTTP status ${res.status}`);
       }
 
-      const csvBlob = await res.blob();
-      const downloadUrl = window.URL.createObjectURL(csvBlob);
-      const anchor = document.createElement('a');
-      anchor.href = downloadUrl;
-      anchor.download = 'apollo_leads_export.csv';
-      document.body.appendChild(anchor);
-      anchor.click();
-      anchor.remove();
-      window.URL.revokeObjectURL(downloadUrl);
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'apollo_leads_export.csv');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
 
       const exportedCount =
-        selectedLeadIds.length > 0 ? selectedLeadIds.length : (data?.items.length || 0);
+        selectedLeadIds.length > 0 ? selectedLeadIds.length : data?.totalEstimate || items.length;
       showToast(`Exported ${exportedCount} leads to apollo_leads_export.csv`);
-    } catch (err) {
+    } catch (err: unknown) {
       showToast(
         (err as Error)?.message || 'Export failed. Please check network connection.',
         'error'
@@ -236,14 +260,6 @@ const AppContent: React.FC = () => {
     } finally {
       setIsExporting(false);
     }
-  };
-
-  const handleEditAction = (_action: string) => {
-    // Bulk edit metadata placeholder
-  };
-
-  const handleSalesforceAction = (_action: string) => {
-    // Salesforce CRM integration is out of scope for lead sourcing tool
   };
 
   // Open Email Reveal Modal
@@ -267,19 +283,29 @@ const AppContent: React.FC = () => {
       activeNav={activeNav}
       onNavChange={(navId) => {
         setActiveNav(navId);
+        if (navId === 'home') {
+          clearAllFilters();
+        } else if (navId === 'saved-searches') {
+          handleLoadPresetSearch();
+        }
       }}
       activeTab={topTab}
       onTabChange={(tabId) => {
         setTopTab(tabId);
+        if (tabId === 'saved-searches') {
+          handleLoadPresetSearch();
+        } else if (tabId === 'saved-lists') {
+          setTab('saved');
+        }
       }}
       searchQuery={filters.q || ''}
       onSearchChange={(q) => setSearch(q)}
-      onSearchSubmit={(q) => {
-        setSearch(q);
-      }}
+      onSearchSubmit={(q) => setSearch(q)}
       jobChangesCount={237}
-      onJobChangesClick={() => {}}
-      onImportClick={() => {}}
+      onJobChangesClick={handleToggleJobChanges}
+      isJobChangesActive={isJobChangesActive}
+      savedSearchesCount={savedSearches.length}
+      onOpenSettings={() => setIsSettingsOpen(true)}
     >
       {/* Main Container: Left FilterSidebar + Right Leads Content Viewport */}
       <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
@@ -295,7 +321,7 @@ const AppContent: React.FC = () => {
 
         {/* Right Leads Prospecting Area */}
         <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
-          {/* Subheader: Audience Tabs matching Ref.jpg (All People 2.5m, New People 1.48m, Saved People 48.4k) */}
+          {/* Subheader: Audience Tabs matching Ref.jpg */}
           <AudienceTabs
             activeTab={filters.tab}
             onTabChange={setTab}
@@ -308,7 +334,7 @@ const AppContent: React.FC = () => {
             }
           />
 
-          {/* Table Bulk Action Bar matching Ref.jpg */}
+          {/* Table Bulk Action Bar */}
           <TableActionBar
             selectedCount={selectedCount}
             totalOnPage={items.length}
@@ -320,13 +346,10 @@ const AppContent: React.FC = () => {
             onSelectAllTotal={handleSelectAllTotal}
             onDeselectAll={handleDeselectAll}
             onSave={handleBatchSave}
-            onEmail={handleBatchEmail}
-            onAddToSequence={handleAddToSequence}
             onAddToList={handleAddToList}
             onExport={handleExportCsv}
-            onEdit={handleEditAction}
-            onSalesforce={handleSalesforceAction}
             isExporting={isExporting}
+            savedLists={savedLists}
           />
 
           {/* Active Filter Chips Bar */}
@@ -383,6 +406,16 @@ const AppContent: React.FC = () => {
         onViewProfile={(l) => {
           setSelectedEmailLead(null);
           setSelectedDrawerLead(l);
+        }}
+      />
+
+      {/* Prospecting Settings Modal */}
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        pageSize={filters.limit || 25}
+        onPageSizeChange={(size) => {
+          applyFilters({ ...filters, limit: size, page: 1 });
         }}
       />
     </AppLayout>

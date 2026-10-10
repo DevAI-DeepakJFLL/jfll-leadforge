@@ -1,0 +1,11 @@
+9877e7e feat: implement lead schemas, synthetic dataset and msw mock api
+ package.json                |   7 +-
+ public/mockServiceWorker.js | 361 +++++++++++++++++++++++++
+ src/main.tsx                |  21 +-
+ src/mocks/browser.ts        |  42 +++
+ src/mocks/fetchFallback.ts  | 201 ++++++++++++++
+ src/mocks/handlers.ts       | 157 +++++++++++
+ src/mocks/leadsData.ts      | 624 ++++++++++++++++++++++++++++++++++++++++++++
+ src/mocks/leadsService.ts   | 327 +++++++++++++++++++++++
+ src/types/lead.ts           |  96 +++++++
+ 9 files changed, 1828 insertions(+), 8 deletions(-)

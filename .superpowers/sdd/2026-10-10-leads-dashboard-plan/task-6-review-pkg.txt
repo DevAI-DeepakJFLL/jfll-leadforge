@@ -1,0 +1,8 @@
+ba4984e feat: implement lead detail drawer and email reveal modal
+ src/App.tsx                                | 131 +++++--
+ src/components/leads/EmailRevealDialog.tsx | 298 +++++++++++++++
+ src/components/leads/LeadDetailDrawer.tsx  | 576 +++++++++++++++++++++++++++++
+ src/components/leads/index.ts              |   2 +
+ src/components/ui/Toast.tsx                | 133 +++++++
+ src/components/ui/index.ts                 |   1 +
+ 6 files changed, 1107 insertions(+), 34 deletions(-)

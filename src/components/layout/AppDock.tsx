@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Home,
   Search,
-  Send,
-  Calendar,
-  DollarSign,
-  RefreshCw,
-  Phone,
+  Bookmark,
   Bell,
   Settings,
+  X,
+  SlidersHorizontal,
+  Trash2,
 } from 'lucide-react';
 
 export interface AppDockProps {
   activeNav?: string;
   onNavChange?: (navId: string) => void;
+  savedSearchesCount?: number;
+  onOpenSettings?: () => void;
   className?: string;
 }
 
@@ -21,52 +22,90 @@ interface NavItem {
   id: string;
   label: string;
   icon: React.ComponentType<{ className?: string }>;
+  badge?: number;
 }
-
-const PRIMARY_NAV_ITEMS: NavItem[] = [
-  { id: 'home', label: 'Dashboard', icon: Home },
-  { id: 'search', label: 'Search & Prospecting', icon: Search },
-  { id: 'sequences', label: 'Sequences & Outreach', icon: Send },
-  { id: 'calendar', label: 'Meetings & Schedule', icon: Calendar },
-  { id: 'deals', label: 'Deals & Pipeline', icon: DollarSign },
-  { id: 'cadence', label: 'Workflows & Cadence', icon: RefreshCw },
-  { id: 'phone', label: 'Dialer & Calls', icon: Phone },
-];
 
 export const AppDock: React.FC<AppDockProps> = ({
   activeNav = 'search',
   onNavChange,
+  savedSearchesCount = 0,
+  onOpenSettings,
   className = '',
 }) => {
-  const [avatarError, setAvatarError] = React.useState(false);
+  const [avatarError, setAvatarError] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [notifications, setNotifications] = useState([
+    {
+      id: '1',
+      title: 'Database Updated',
+      desc: '35 new verified leads added for Los Angeles.',
+      time: '10m ago',
+      read: false,
+    },
+    {
+      id: '2',
+      title: 'CSV Export Ready',
+      desc: 'Export downloaded successfully.',
+      time: '1h ago',
+      read: true,
+    },
+    {
+      id: '3',
+      title: 'Job Change Alerts',
+      desc: '237 prospects changed roles recently.',
+      time: '1d ago',
+      read: true,
+    },
+  ]);
+
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  const markAllRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
+
+  const clearNotification = (id: string) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  };
+
+  // Streamlined navigation items focused on prospecting
+  const PRIMARY_NAV_ITEMS: NavItem[] = [
+    { id: 'home', label: 'Prospecting Overview', icon: Home },
+    { id: 'search', label: 'Leads Explorer', icon: Search },
+    {
+      id: 'saved-searches',
+      label: 'Saved Searches',
+      icon: Bookmark,
+      badge: savedSearchesCount > 0 ? savedSearchesCount : undefined,
+    },
+  ];
 
   return (
     <aside
-      className={`w-16 h-screen flex-shrink-0 bg-dock flex flex-col items-center justify-between py-3.5 z-30 select-none border-r border-[#172244]/60 ${className}`}
+      className={`w-16 h-screen flex-shrink-0 bg-dock flex flex-col items-center justify-between py-3.5 z-30 select-none border-r border-[#172244]/60 relative ${className}`}
       aria-label="Application Dock Navigation"
     >
       {/* Top Section: Brand Logo & Navigation */}
       <div className="flex flex-col items-center w-full space-y-4">
         {/* Apollo Stylized Chevron Logo Mark */}
         <button
-          onClick={() => onNavChange?.('home')}
+          onClick={() => onNavChange?.('search')}
           className="w-10 h-10 rounded-xl bg-gradient-to-b from-[#18264D] to-[#0F1A3A] border border-[#273B70]/50 flex items-center justify-center text-white shadow-md hover:border-apollo-400/50 hover:shadow-apollo-500/20 transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-apollo-400"
-          title="Apollo Prospecting"
+          title="Leads Sourcing Tool"
           aria-label="Apollo Home"
         >
-          {/* Apollo Chevron Mark */}
           <svg
             viewBox="0 0 24 24"
             className="w-5 h-5 text-white transform group-hover:scale-105 transition-transform duration-200"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {/* Sleek Apollo Chevron: A without crossbar / upward geometric chevron */}
             <path d="M12 2.75L2.5 20.75H7.2L12 11.4L16.8 20.75H21.5L12 2.75Z" />
           </svg>
         </button>
 
-        {/* Primary Navigation Icons */}
+        {/* Primary Functional Navigation Icons */}
         <nav className="flex flex-col items-center space-y-1.5 w-full px-2" aria-label="Main Navigation">
           {PRIMARY_NAV_ITEMS.map((item) => {
             const Icon = item.icon;
@@ -91,7 +130,13 @@ export const AppDock: React.FC<AppDockProps> = ({
                   }`}
                 />
 
-                {/* Subtle active indicator pill on left */}
+                {item.badge && item.badge > 0 && (
+                  <span className="absolute top-1 right-1 px-1 min-w-[14px] h-[14px] rounded-full bg-apollo text-[9px] font-bold text-white flex items-center justify-center">
+                    {item.badge}
+                  </span>
+                )}
+
+                {/* Active indicator pill on left */}
                 {isActive && (
                   <span className="absolute -left-2 top-2 bottom-2 w-1 bg-apollo rounded-r" />
                 )}
@@ -106,12 +151,12 @@ export const AppDock: React.FC<AppDockProps> = ({
         </nav>
       </div>
 
-      {/* Bottom Section: Status, Alerts, Settings & User Avatar */}
+      {/* Bottom Section: Live Status, Notifications, Settings & User Profile */}
       <div className="flex flex-col items-center space-y-2 w-full px-2">
-        {/* Live Status Ring Indicator */}
-        <button
-          className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-dock-hover transition-colors relative group focus:outline-none"
-          title="Dialer & Network Status: Online"
+        {/* Live Network Status Ring Indicator */}
+        <div
+          className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-colors relative group"
+          title="Lead Database: Live & Connected"
           aria-label="Status: Connected"
         >
           <div className="relative w-6 h-6 flex items-center justify-center">
@@ -138,50 +183,128 @@ export const AppDock: React.FC<AppDockProps> = ({
                 strokeWidth="2.5"
                 strokeDasharray="28 60"
                 strokeLinecap="round"
-                className="text-emerald-400"
               />
             </svg>
-            <span className="absolute w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping opacity-75" />
-            <span className="absolute w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+            <span className="absolute w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           </div>
 
           <span className="absolute left-14 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 border border-slate-700/60">
-            Dialer Online (Low Latency)
+            Database: Connected & Live
           </span>
-        </button>
+        </div>
 
-        {/* Notifications (Bell with alert dot) */}
-        <button
-          className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-100 hover:bg-dock-hover transition-colors relative group focus:outline-none focus:ring-2 focus:ring-apollo-400"
-          title="Notifications"
-          aria-label="Notifications"
-        >
-          <Bell className="w-5 h-5" />
-          <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-apollo ring-2 ring-dock" />
+        {/* Notifications (Bell with alert popover) */}
+        <div className="relative">
+          <button
+            onClick={() => {
+              setShowNotifications(!showNotifications);
+              setShowProfileMenu(false);
+            }}
+            className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors relative group focus:outline-none focus:ring-2 focus:ring-apollo-400 ${
+              showNotifications ? 'bg-dock-hover text-white' : 'text-slate-400 hover:text-slate-100 hover:bg-dock-hover'
+            }`}
+            title="Notifications"
+            aria-label="Notifications"
+          >
+            <Bell className="w-5 h-5" />
+            {unreadCount > 0 && (
+              <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-apollo ring-2 ring-dock" />
+            )}
 
-          <span className="absolute left-14 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 border border-slate-700/60">
-            3 New Notifications
-          </span>
-        </button>
+            <span className="absolute left-14 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 border border-slate-700/60">
+              {unreadCount > 0 ? `${unreadCount} New Alerts` : 'Notifications'}
+            </span>
+          </button>
+
+          {/* Notifications Dropdown Flyout */}
+          {showNotifications && (
+            <div className="absolute left-16 bottom-0 w-80 bg-white rounded-xl shadow-2xl border border-slate-200 z-50 overflow-hidden text-slate-800 animate-in fade-in zoom-in-95 duration-150">
+              <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-xs text-slate-900">Activity & Alerts</span>
+                  {unreadCount > 0 && (
+                    <span className="px-1.5 py-0.5 text-[10px] font-bold bg-apollo/10 text-apollo rounded-full">
+                      {unreadCount} new
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center gap-2">
+                  {unreadCount > 0 && (
+                    <button
+                      onClick={markAllRead}
+                      className="text-[11px] text-apollo hover:underline font-medium"
+                    >
+                      Mark all read
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setShowNotifications(false)}
+                    className="p-1 text-slate-400 hover:text-slate-600 rounded"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="max-h-72 overflow-y-auto divide-y divide-slate-100">
+                {notifications.length === 0 ? (
+                  <div className="py-8 text-center text-xs text-slate-400">
+                    No new notifications
+                  </div>
+                ) : (
+                  notifications.map((n) => (
+                    <div
+                      key={n.id}
+                      className={`p-3 text-xs hover:bg-slate-50/80 transition-colors flex items-start justify-between gap-2 ${
+                        !n.read ? 'bg-blue-50/30' : ''
+                      }`}
+                    >
+                      <div className="flex-1">
+                        <div className="flex items-center gap-1.5 font-medium text-slate-900">
+                          {!n.read && <span className="w-1.5 h-1.5 rounded-full bg-apollo shrink-0" />}
+                          {n.title}
+                        </div>
+                        <p className="text-slate-500 text-[11px] mt-0.5">{n.desc}</p>
+                        <span className="text-[10px] text-slate-400 mt-1 block">{n.time}</span>
+                      </div>
+                      <button
+                        onClick={() => clearNotification(n.id)}
+                        className="text-slate-300 hover:text-slate-500 p-1 rounded"
+                        title="Dismiss"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Settings */}
         <button
+          onClick={onOpenSettings}
           className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-400 hover:text-slate-100 hover:bg-dock-hover transition-colors relative group focus:outline-none focus:ring-2 focus:ring-apollo-400"
-          title="Settings & Workspace"
+          title="Preferences & Settings"
           aria-label="Settings"
         >
           <Settings className="w-5 h-5 group-hover:rotate-45 transition-transform duration-200" />
 
           <span className="absolute left-14 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 border border-slate-700/60">
-            Workspace Settings
+            Prospecting Settings
           </span>
         </button>
 
-        {/* User Profile Avatar with Online Indicator */}
-        <div className="pt-1">
+        {/* User Profile Avatar with Popover */}
+        <div className="pt-1 relative">
           <button
+            onClick={() => {
+              setShowProfileMenu(!showProfileMenu);
+              setShowNotifications(false);
+            }}
             className="relative w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-apollo-400 group"
-            title="Account: Roberto Orci (Admin)"
+            title="User Profile: Roberto Orci"
             aria-label="User Account"
           >
             {!avatarError ? (
@@ -196,16 +319,56 @@ export const AppDock: React.FC<AppDockProps> = ({
                 RO
               </div>
             )}
-            {/* Live Green Ring / Dot Indicator */}
+            {/* Live Green Ring Indicator */}
             <span
               className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-dock"
               title="Online"
             />
-
-            <span className="absolute left-14 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 border border-slate-700/60">
-              Roberto Orci (Online)
-            </span>
           </button>
+
+          {/* Profile Menu Flyout */}
+          {showProfileMenu && (
+            <div className="absolute left-16 bottom-0 w-64 bg-white rounded-xl shadow-2xl border border-slate-200 z-50 p-3 text-slate-800 text-xs animate-in fade-in zoom-in-95 duration-150">
+              <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
+                <div className="w-9 h-9 rounded-full bg-apollo text-white font-semibold flex items-center justify-center text-xs">
+                  RO
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="font-semibold text-slate-900 truncate">Roberto Orci</div>
+                  <div className="text-[11px] text-slate-400 truncate">roberto@jetfreight.com</div>
+                </div>
+              </div>
+
+              <div className="py-2 space-y-1">
+                <div className="flex items-center justify-between py-1 px-1.5 text-slate-600 rounded">
+                  <span>Role</span>
+                  <span className="font-semibold text-slate-900 bg-slate-100 px-1.5 py-0.5 rounded text-[10px]">
+                    Lead Sourcing Admin
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-1 px-1.5 text-slate-600 rounded">
+                  <span>Workspace</span>
+                  <span className="font-medium text-slate-700">Jet Freight Logistics</span>
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                <button
+                  onClick={onOpenSettings}
+                  className="text-slate-600 hover:text-slate-900 font-medium flex items-center gap-1.5"
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  <span>Preferences</span>
+                </button>
+                <button
+                  onClick={() => setShowProfileMenu(false)}
+                  className="text-red-600 hover:text-red-700 font-medium"
+                >
+                  Sign out
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </aside>

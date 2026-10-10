@@ -1,16 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  Check,
+  ChevronDown,
   Plus,
-  Mail,
-  Play,
   ListPlus,
   Download,
-  Pencil,
-  Cloud,
-  ChevronDown,
   Loader2,
-  Minus,
+  BookmarkCheck,
 } from 'lucide-react';
 
 export interface TableActionBarProps {
@@ -24,13 +19,10 @@ export interface TableActionBarProps {
   onSelectAllTotal?: () => void;
   onDeselectAll?: () => void;
   onSave?: () => void;
-  onEmail?: () => void;
-  onAddToSequence?: (sequenceName: string) => void;
   onAddToList?: (listName: string) => void;
   onExport?: () => void | Promise<void>;
-  onEdit?: (action: string) => void;
-  onSalesforce?: (action: string) => void;
   isExporting?: boolean;
+  savedLists?: string[];
   className?: string;
 }
 
@@ -45,95 +37,83 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
   onSelectAllTotal,
   onDeselectAll,
   onSave,
-  onEmail,
-  onAddToSequence,
   onAddToList,
   onExport,
-  onEdit,
-  onSalesforce,
   isExporting = false,
+  savedLists = ['West Coast VIPs', 'High Growth Accounts', 'Q4 Prospects'],
   className = '',
 }) => {
-  const [activeMenu, setActiveMenu] = useState<
-    'select' | 'sequence' | 'lists' | 'edit' | 'salesforce' | null
-  >(null);
+  const [activeMenu, setActiveMenu] = useState<'select' | 'lists' | null>(null);
+  const [newListName, setNewListName] = useState('');
+  const [isCreatingList, setIsCreatingList] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  const barRef = useRef<HTMLDivElement>(null);
+  const hasSelection = selectedCount > 0;
 
-  // Close menus on outside click
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
-      if (barRef.current && !barRef.current.contains(e.target as Node)) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setActiveMenu(null);
+        setIsCreatingList(false);
       }
     };
     document.addEventListener('mousedown', handleOutsideClick);
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
-  const toggleMenu = (menu: 'select' | 'sequence' | 'lists' | 'edit' | 'salesforce') => {
-    setActiveMenu((prev) => (prev === menu ? null : menu));
+  const handleCreateList = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newListName.trim()) {
+      onAddToList?.(newListName.trim());
+      setNewListName('');
+      setIsCreatingList(false);
+      setActiveMenu(null);
+    }
   };
-
-  const hasSelection = selectedCount > 0;
 
   return (
     <div
-      ref={barRef}
-      className={`h-11 px-4 bg-white border-b border-surface-border flex items-center justify-between gap-2 overflow-x-auto select-none ${className}`}
-      aria-label="Table Bulk Action Bar"
+      ref={menuRef}
+      className={`h-11 border-b border-surface-border bg-slate-50/60 px-4 flex items-center justify-between text-xs select-none transition-colors ${className}`}
+      aria-label="Table Actions Toolbar"
     >
-      <div className="flex items-center space-x-2 shrink-0">
-        {/* 1. Selection Counter Dropdown: "✓ N Selected ▾" */}
-        <div className="relative">
-          <div className="inline-flex items-center rounded-md border border-slate-200 bg-white shadow-2xs hover:bg-slate-50 transition-colors">
-            {/* Direct Checkbox Trigger */}
-            <button
-              type="button"
-              onClick={onToggleSelectAllPage}
-              className="p-1.5 flex items-center justify-center hover:bg-slate-100/80 rounded-l-md transition-colors focus:outline-none"
-              title={
-                isAllOnPageSelected
-                  ? 'Deselect all on this page'
-                  : 'Select all on this page'
-              }
-              aria-label="Toggle page selection"
-            >
-              <div
-                className={`w-3.5 h-3.5 rounded flex items-center justify-center transition-colors ${
-                  isAllOnPageSelected || selectedCount > 0
-                    ? 'bg-apollo text-white'
-                    : 'border border-slate-300 bg-white hover:border-slate-400'
-                }`}
-              >
-                {isAllOnPageSelected ? (
-                  <Check className="w-2.5 h-2.5 stroke-[3]" />
-                ) : isIndeterminate || selectedCount > 0 ? (
-                  <Minus className="w-2.5 h-2.5 stroke-[3]" />
-                ) : null}
-              </div>
-            </button>
+      {/* Left: Bulk Selection & Essential Sourcing Tools */}
+      <div className="flex items-center space-x-2">
+        {/* 1. Selection Checkbox Dropdown */}
+        <div className="relative inline-flex items-center rounded-md border border-slate-200 bg-white shadow-2xs">
+          <label className="flex items-center px-2 py-1 cursor-pointer">
+            <input
+              type="checkbox"
+              aria-label="Select all visible leads"
+              checked={isAllOnPageSelected}
+              ref={(input) => {
+                if (input) input.indeterminate = isIndeterminate;
+              }}
+              onChange={() => onToggleSelectAllPage?.()}
+              className="w-3.5 h-3.5 text-apollo border-slate-300 rounded focus:ring-apollo/30 focus:ring-offset-0 cursor-pointer"
+            />
+          </label>
 
-            {/* Counter Text + Dropdown Arrow */}
-            <button
-              type="button"
-              onClick={() => toggleMenu('select')}
-              className="pl-1 pr-2 py-1 text-xs font-semibold text-slate-800 flex items-center gap-1 hover:text-apollo transition-colors focus:outline-none"
-            >
-              <span>
-                {selectedCount > 0 ? `${selectedCount} Selected` : 'Select'}
-              </span>
-              <ChevronDown
-                className={`w-3 h-3 text-slate-500 transition-transform duration-150 ${
-                  activeMenu === 'select' ? 'rotate-180' : ''
-                }`}
-              />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setActiveMenu(activeMenu === 'select' ? null : 'select')}
+            className="flex items-center pr-2 pl-0.5 py-1 text-slate-600 hover:text-slate-900 focus:outline-none border-l border-slate-100"
+            aria-expanded={activeMenu === 'select'}
+            aria-haspopup="true"
+          >
+            <span className="font-medium mr-1 text-xs">
+              {hasSelection ? `${selectedCount.toLocaleString()} Selected` : 'Select'}
+            </span>
+            <ChevronDown
+              className={`w-3 h-3 text-slate-400 transition-transform duration-150 ${
+                activeMenu === 'select' ? 'rotate-180' : ''
+              }`}
+            />
+          </button>
 
-          {/* Selection Dropdown Menu */}
+          {/* Selection Dropdown */}
           {activeMenu === 'select' && (
-            <div className="absolute left-0 mt-1 w-52 bg-white rounded-lg shadow-xl border border-slate-200 py-1 z-30 text-xs animate-in fade-in zoom-in-95 duration-100">
+            <div className="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-xl border border-slate-200 py-1 z-30 text-xs animate-in fade-in zoom-in-95 duration-100">
               <button
                 type="button"
                 onClick={() => {
@@ -142,7 +122,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
                 }}
                 className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900 flex items-center justify-between"
               >
-                <span>Select all on page</span>
+                <span>Select this page</span>
                 <span className="text-[11px] text-slate-400">({totalOnPage})</span>
               </button>
               {totalCount && totalCount > totalOnPage && (
@@ -177,282 +157,132 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
           )}
         </div>
 
-        {/* 2. "+ Save" */}
+        {/* 2. "+ Save to Pipeline" */}
         <button
           type="button"
           onClick={onSave}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20"
-          title="Save selected leads"
+          disabled={!hasSelection}
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 ${
+            hasSelection
+              ? 'bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 border border-slate-200'
+              : 'bg-slate-100 text-slate-400 border border-slate-200/60 cursor-not-allowed opacity-60'
+          }`}
+          title="Save selected leads to Saved People tab"
         >
-          <Plus className="w-3.5 h-3.5 text-slate-500" />
-          <span>Save</span>
+          <BookmarkCheck className="w-3.5 h-3.5 text-apollo" />
+          <span>Save Leads</span>
         </button>
 
-        {/* 3. "✉ Email" */}
-        <button
-          type="button"
-          onClick={onEmail}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20"
-          title="Compose email to selected leads"
-        >
-          <Mail className="w-3.5 h-3.5 text-slate-500" />
-          <span>Email</span>
-        </button>
-
-        {/* 4. "▷ Sequence ▾" */}
+        {/* 3. "📋 Add to List ▾" */}
         <div className="relative">
           <button
             type="button"
-            onClick={() => toggleMenu('sequence')}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20"
-            title="Add leads to an outbound email sequence"
-          >
-            <Play className="w-3 h-3 text-slate-500 fill-slate-500" />
-            <span>Sequence</span>
-            <ChevronDown
-              className={`w-3 h-3 text-slate-400 transition-transform duration-150 ${
-                activeMenu === 'sequence' ? 'rotate-180' : ''
-              }`}
-            />
-          </button>
-          {activeMenu === 'sequence' && (
-            <div className="absolute left-0 mt-1 w-56 bg-white rounded-lg shadow-xl border border-slate-200 py-1 z-30 text-xs animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Select Sequence
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  onAddToSequence?.('Enterprise Outbound - Q4');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                Enterprise Outbound - Q4
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onAddToSequence?.('LA Tech Executives Nurture');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                LA Tech Executives Nurture
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onAddToSequence?.('Inbound Follow-up Flow');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                Inbound Follow-up Flow
-              </button>
-              <div className="my-1 border-t border-slate-100" />
-              <button
-                type="button"
-                onClick={() => {
-                  onAddToSequence?.('__new__');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 text-apollo font-medium hover:bg-apollo-50"
-              >
-                + Create New Sequence
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* 5. "📋 Lists ▾" */}
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => toggleMenu('lists')}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20"
-            title="Add to lead lists"
+            onClick={() => setActiveMenu(activeMenu === 'lists' ? null : 'lists')}
+            disabled={!hasSelection}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 ${
+              hasSelection
+                ? 'bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 border border-slate-200'
+                : 'bg-slate-100 text-slate-400 border border-slate-200/60 cursor-not-allowed opacity-60'
+            }`}
+            title="Add leads to a targeted prospecting list"
           >
             <ListPlus className="w-3.5 h-3.5 text-slate-500" />
-            <span>Lists</span>
+            <span>Add to List</span>
             <ChevronDown
               className={`w-3 h-3 text-slate-400 transition-transform duration-150 ${
                 activeMenu === 'lists' ? 'rotate-180' : ''
               }`}
             />
           </button>
+
           {activeMenu === 'lists' && (
-            <div className="absolute left-0 mt-1 w-56 bg-white rounded-lg shadow-xl border border-slate-200 py-1 z-30 text-xs animate-in fade-in zoom-in-95 duration-100">
+            <div className="absolute left-0 mt-1 w-56 bg-white rounded-lg shadow-xl border border-slate-200 py-1.5 z-30 text-xs animate-in fade-in zoom-in-95 duration-100">
               <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Target Lists
+                Select Prospect List
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  onAddToList?.('West Coast Marketing VIPs');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                West Coast Marketing VIPs
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onAddToList?.('High Growth Target Accounts');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                High Growth Target Accounts
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onAddToList?.('Strategic Partners 2026');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                Strategic Partners 2026
-              </button>
+              {savedLists.map((name) => (
+                <button
+                  key={name}
+                  type="button"
+                  onClick={() => {
+                    onAddToList?.(name);
+                    setActiveMenu(null);
+                  }}
+                  className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900 flex items-center justify-between"
+                >
+                  <span className="truncate">{name}</span>
+                </button>
+              ))}
+
               <div className="my-1 border-t border-slate-100" />
-              <button
-                type="button"
-                onClick={() => {
-                  onAddToList?.('__new__');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 text-apollo font-medium hover:bg-apollo-50"
-              >
-                + Create New List
-              </button>
+
+              {!isCreatingList ? (
+                <button
+                  type="button"
+                  onClick={() => setIsCreatingList(true)}
+                  className="w-full text-left px-3 py-1.5 text-apollo font-medium hover:bg-apollo-50 flex items-center gap-1"
+                >
+                  <Plus className="w-3 h-3" />
+                  <span>Create New List</span>
+                </button>
+              ) : (
+                <form onSubmit={handleCreateList} className="p-2 space-y-1.5">
+                  <input
+                    type="text"
+                    value={newListName}
+                    onChange={(e) => setNewListName(e.target.value)}
+                    placeholder="List name..."
+                    autoFocus
+                    className="w-full px-2 py-1 text-xs border border-slate-300 rounded focus:outline-none focus:border-apollo"
+                  />
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="submit"
+                      disabled={!newListName.trim()}
+                      className="px-2 py-1 bg-apollo text-white text-[11px] font-medium rounded hover:bg-apollo-600 disabled:opacity-50"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsCreatingList(false)}
+                      className="px-2 py-1 text-slate-500 hover:text-slate-700 text-[11px]"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           )}
         </div>
 
-        {/* 6. "⤓ Export" (Functional CSV Export Trigger) */}
+        {/* 4. "⤓ Export (CSV)" */}
         <button
           type="button"
           onClick={onExport}
           disabled={isExporting}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 disabled:opacity-50"
-          title="Download leads dataset as CSV"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 disabled:opacity-50"
+          title="Download leads dataset as RFC-4180 CSV"
         >
           {isExporting ? (
             <Loader2 className="w-3.5 h-3.5 text-apollo animate-spin" />
           ) : (
-            <Download className="w-3.5 h-3.5 text-slate-500" />
+            <Download className="w-3.5 h-3.5 text-slate-600" />
           )}
-          <span>{isExporting ? 'Exporting...' : 'Export'}</span>
+          <span>{isExporting ? 'Exporting...' : hasSelection ? `Export (${selectedCount})` : 'Export All'}</span>
         </button>
+      </div>
 
-        {/* 7. "✎ Edit ▾" */}
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => toggleMenu('edit')}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20"
-            title="Bulk edit properties"
-          >
-            <Pencil className="w-3.5 h-3.5 text-slate-500" />
-            <span>Edit</span>
-            <ChevronDown
-              className={`w-3 h-3 text-slate-400 transition-transform duration-150 ${
-                activeMenu === 'edit' ? 'rotate-180' : ''
-              }`}
-            />
-          </button>
-          {activeMenu === 'edit' && (
-            <div className="absolute left-0 mt-1 w-52 bg-white rounded-lg shadow-xl border border-slate-200 py-1 z-30 text-xs animate-in fade-in zoom-in-95 duration-100">
-              <button
-                type="button"
-                onClick={() => {
-                  onEdit?.('owner');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                Update Lead Owner
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onEdit?.('stage');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                Update Pipeline Stage
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onEdit?.('status');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                Change Lead Status
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* 8. "☁ Salesforce ▾" */}
-        <div className="relative">
-          <button
-            type="button"
-            onClick={() => toggleMenu('salesforce')}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20"
-            title="Salesforce CRM integration"
-          >
-            <Cloud className="w-3.5 h-3.5 text-slate-500" />
-            <span>Salesforce</span>
-            <ChevronDown
-              className={`w-3 h-3 text-slate-400 transition-transform duration-150 ${
-                activeMenu === 'salesforce' ? 'rotate-180' : ''
-              }`}
-            />
-          </button>
-          {activeMenu === 'salesforce' && (
-            <div className="absolute left-0 mt-1 w-56 bg-white rounded-lg shadow-xl border border-slate-200 py-1 z-30 text-xs animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Salesforce Sync
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  onSalesforce?.('sync');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                Sync to Salesforce CRM
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onSalesforce?.('contacts');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                Push as Contacts
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onSalesforce?.('leads');
-                  setActiveMenu(null);
-                }}
-                className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900"
-              >
-                Push as Leads
-              </button>
-            </div>
-          )}
-        </div>
+      {/* Right: Selected Summary */}
+      <div className="hidden sm:flex items-center text-slate-500 text-[11px] gap-2">
+        {hasSelection ? (
+          <span className="font-medium text-slate-700">
+            {selectedCount} lead{selectedCount > 1 ? 's' : ''} ready for export or list save
+          </span>
+        ) : (
+          <span>Click checkboxes to batch export or save</span>
+        )}
       </div>
     </div>
   );
