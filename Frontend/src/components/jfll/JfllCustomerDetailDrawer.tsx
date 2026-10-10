@@ -97,7 +97,7 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
             <button
               onClick={onClose}
               className="p-1 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors"
-              aria-label="Close customer dossier"
+              aria-label="Close customer profile"
             >
               <X className="w-5 h-5" />
             </button>
