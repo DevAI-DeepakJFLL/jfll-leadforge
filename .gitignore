@@ -6,3 +6,16 @@ dist-ssr
 *.local
 .DS_Store
 .superpowers
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/

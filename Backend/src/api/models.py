@@ -1,0 +1,29 @@
+from typing import List, Optional
+from pydantic import BaseModel, Field
+
+
+class LeadRecord(BaseModel):
+    full_name: str = Field(..., description="Cleaned company name")
+    territory: str = Field(..., description="Geographical territory")
+    contact_person_name: Optional[str] = Field(None, description="Contact person name (title case, no salutations)")
+    mobile_number: Optional[str] = Field(None, description="Cleaned phone with country code")
+    email: Optional[str] = Field(None, description="Cleaned lowercase email")
+    status: str = Field(..., description="Customer status: Active or Not Active")
+    customer_group: str = Field(..., description="Business category")
+    type: str = Field(..., description="Legal registration type")
+
+
+class PaginatedResponse(BaseModel):
+    page: int = Field(..., ge=1, description="Current page number")
+    page_size: int = Field(..., ge=1, description="Number of items returned per page")
+    total_records: int = Field(..., ge=0, description="Total matching records across all pages")
+    total_pages: int = Field(..., ge=0, description="Total number of pages available")
+    has_next: bool = Field(..., description="Whether a subsequent page exists")
+    data: List[LeadRecord] = Field(..., description="List of lead records")
+
+
+class HealthResponse(BaseModel):
+    status: str
+    backend: str
+    floci_endpoint: str
+    s3_target: str
