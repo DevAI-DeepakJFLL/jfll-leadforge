@@ -1,4 +1,4 @@
-// 881 Deduplicated Active Customer Records from Jet Freight Logistics Master Database
+// 729 Deduplicated Active Customer Records from Jet Freight Logistics Master Database (Filtered with at least Phone or Email)
 import { JfllCustomer } from '@/types/jfllCustomer';
 
 export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
@@ -28,18 +28,6 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
   },
   {
     "id": "jfll-3",
-    "fullName": "4G TRANSPORT & LOGISTICS LLP",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-4",
     "fullName": "4S BUSINESS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Customer Care",
@@ -51,7 +39,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-5",
+    "id": "jfll-4",
     "fullName": "7 PEARLS MULTIVENTURE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Akshat Dubey",
@@ -63,7 +51,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-6",
+    "id": "jfll-5",
     "fullName": "A AND D EXPRESS LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Deepak Singh",
@@ -75,19 +63,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-7",
-    "fullName": "A ENTERPRISES HOLDING INC.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-8",
+    "id": "jfll-6",
     "fullName": "A R CREATIONS",
     "territory": "All Territories",
     "contactPersonName": "Suhail",
@@ -99,7 +75,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-9",
+    "id": "jfll-7",
     "fullName": "A STAR SHIPPING AND LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "Ravindra",
@@ -111,7 +87,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-10",
+    "id": "jfll-8",
     "fullName": "A&D GLOBAL FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Amit Bhatt",
@@ -123,7 +99,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-11",
+    "id": "jfll-9",
     "fullName": "A-1 OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Vaibhav Arote",
@@ -135,7 +111,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-12",
+    "id": "jfll-10",
     "fullName": "A-ONE BIOTECH & TISSUE CULTURE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dilip Kisan Jadhav",
@@ -147,7 +123,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-13",
+    "id": "jfll-11",
     "fullName": "A.A EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Shebin Asharf",
@@ -159,7 +135,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-14",
+    "id": "jfll-12",
     "fullName": "A.HARTRODT (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Manjima",
@@ -171,7 +147,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-15",
+    "id": "jfll-13",
     "fullName": "A.J. WORLDWIDE SERVICES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "V Kumar",
@@ -183,7 +159,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-16",
+    "id": "jfll-14",
     "fullName": "A.K LOGISTIC PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Hiren Lajpatrai Jasani",
@@ -195,7 +171,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-17",
+    "id": "jfll-15",
     "fullName": "A.K.CARGO MOVERS",
     "territory": "All Territories",
     "contactPersonName": "Jamuna Prasad",
@@ -207,7 +183,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-18",
+    "id": "jfll-16",
     "fullName": "AARDOUR WORLDWIDE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vikas",
@@ -219,7 +195,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-19",
+    "id": "jfll-17",
     "fullName": "ABAFT WORLDWIDE SERVICES PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Om",
@@ -231,19 +207,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-20",
-    "fullName": "ABHI LOGISTICS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-21",
+    "id": "jfll-18",
     "fullName": "ABHISHEK LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Sree Kumar",
@@ -255,19 +219,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-22",
-    "fullName": "ABHISHEK OVERSEAS.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-23",
+    "id": "jfll-19",
     "fullName": "ABISTAR WORLDWIDE SHIPPING AND LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Santosh Shinde",
@@ -279,7 +231,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-24",
+    "id": "jfll-20",
     "fullName": "ABK SUPPLY CHAIN SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ahmed Aibani",
@@ -291,7 +243,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-25",
+    "id": "jfll-21",
     "fullName": "ABRECO FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pralhad Goriwale",
@@ -303,7 +255,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-26",
+    "id": "jfll-22",
     "fullName": "ACCORD GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mayur",
@@ -315,7 +267,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-27",
+    "id": "jfll-23",
     "fullName": "ACCUREX BIOMEDICAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tukaram Patil",
@@ -327,7 +279,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-28",
+    "id": "jfll-24",
     "fullName": "ACD EXPORTS (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nikhil U",
@@ -339,7 +291,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-29",
+    "id": "jfll-25",
     "fullName": "ACE FORWARDERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kiran Rawat",
@@ -351,7 +303,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-30",
+    "id": "jfll-26",
     "fullName": "ADL LOGISTICS & CARGO",
     "territory": "All Territories",
     "contactPersonName": "Puneet Wadhwa",
@@ -363,7 +315,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-31",
+    "id": "jfll-27",
     "fullName": "ADLOYAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suresh K",
@@ -375,7 +327,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-32",
+    "id": "jfll-28",
     "fullName": "AEGON SHIPPING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Cherian Philip",
@@ -387,7 +339,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-33",
+    "id": "jfll-29",
     "fullName": "AEROSKY FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ankita",
@@ -399,19 +351,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-34",
-    "fullName": "AGE SHIPPING & LOGISITCS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-35",
+    "id": "jfll-30",
     "fullName": "AGNA ORG AGROVILAA INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nischal",
@@ -423,31 +363,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-36",
-    "fullName": "AGRI CHEMICALS LIMITED UK",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-37",
-    "fullName": "AGRIMANIA INTERNATIONAL",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-38",
+    "id": "jfll-31",
     "fullName": "AGRO FRESH TRADING",
     "territory": "All Territories",
     "contactPersonName": "Prarthana Pratik Gupta",
@@ -459,7 +375,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-39",
+    "id": "jfll-32",
     "fullName": "AHMED YOUSIF ABDULHADI ALMAILEM & BROS CO. S.P.C",
     "territory": "All Territories",
     "contactPersonName": "Shailesh",
@@ -471,19 +387,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-40",
-    "fullName": "AIR INDIA LTD",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Airline",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-41",
+    "id": "jfll-33",
     "fullName": "AIR-SEA-LINE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dinesh",
@@ -495,7 +399,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-42",
+    "id": "jfll-34",
     "fullName": "AIR-SHIP LOGISTICS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Sanjay Patel",
@@ -507,7 +411,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-43",
+    "id": "jfll-35",
     "fullName": "AIRSEA WORLDWIDE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rishabh Sharma",
@@ -519,7 +423,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-44",
+    "id": "jfll-36",
     "fullName": "AIRSURGE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sarita Kashyap",
@@ -531,7 +435,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-45",
+    "id": "jfll-37",
     "fullName": "AIRVAULT EXPRESS AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ketans",
@@ -543,7 +447,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-46",
+    "id": "jfll-38",
     "fullName": "AIYER LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anthony Gard",
@@ -555,7 +459,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-47",
+    "id": "jfll-39",
     "fullName": "AJMER INTERNATIONAL TRADE",
     "territory": "All Territories",
     "contactPersonName": "Rahamatulla Molla",
@@ -567,19 +471,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-48",
-    "fullName": "AJWA TRADING COMPANY",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-49",
+    "id": "jfll-40",
     "fullName": "AL EMAAD EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Salim",
@@ -591,7 +483,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-50",
+    "id": "jfll-41",
     "fullName": "AL FOUZAN EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Haneefa A Parathodika",
@@ -603,7 +495,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-51",
+    "id": "jfll-42",
     "fullName": "AL QURESH (AURANGABAD CITY) MODERN ABATTOIR PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shakir Qureshi",
@@ -615,7 +507,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-52",
+    "id": "jfll-43",
     "fullName": "AL RAYAN FRESH FRUIT INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Rehan Fajal",
@@ -627,31 +519,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-53",
-    "fullName": "ALACRITY SHIPPING SERVICES INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-54",
-    "fullName": "ALAM AL NAZZ",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-55",
+    "id": "jfll-44",
     "fullName": "ALEMBIC PHARAMACEUTICALS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arpit",
@@ -663,7 +531,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-56",
+    "id": "jfll-45",
     "fullName": "ALIFF GLOBAL",
     "territory": "All Territories",
     "contactPersonName": "Irshat Ali",
@@ -675,19 +543,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-57",
-    "fullName": "ALITHRA EXIM",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Partnership",
-    "saved": false
-  },
-  {
-    "id": "jfll-58",
+    "id": "jfll-46",
     "fullName": "ALL SEASONS EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Paras Jobanputra",
@@ -699,19 +555,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-59",
-    "fullName": "ALL STAR SHIPPING PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-60",
+    "id": "jfll-47",
     "fullName": "ALL TRANS SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashish Barthwal",
@@ -723,7 +567,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-61",
+    "id": "jfll-48",
     "fullName": "ALLANASONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Samitha.",
@@ -735,7 +579,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-62",
+    "id": "jfll-49",
     "fullName": "ALLCARGO GLOBAL LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Manish Gulati",
@@ -747,7 +591,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-63",
+    "id": "jfll-50",
     "fullName": "ALLIANCE GLOBAL TRADING LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pankaj Khatwani",
@@ -759,7 +603,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-64",
+    "id": "jfll-51",
     "fullName": "ALOK INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Ajit Singh",
@@ -771,7 +615,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-65",
+    "id": "jfll-52",
     "fullName": "ALONSO LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Thainis Raj.c",
@@ -783,7 +627,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-66",
+    "id": "jfll-53",
     "fullName": "ALPHA CARGO EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Verma",
@@ -795,7 +639,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-67",
+    "id": "jfll-54",
     "fullName": "ALPHA GLOBAL PROJECTS",
     "territory": "All Territories",
     "contactPersonName": "Priyanka Gudekar",
@@ -807,19 +651,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-68",
-    "fullName": "ALROA EXPORTS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-69",
+    "id": "jfll-55",
     "fullName": "ALVIK FREIGHT FORWARDERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sharad Shankar Chavan",
@@ -831,7 +663,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-70",
+    "id": "jfll-56",
     "fullName": "AM AGRO FRUITS PRIVAT ELIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ramamurthy S",
@@ -843,31 +675,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-71",
-    "fullName": "AMAR EXPRESS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-72",
-    "fullName": "AMBER LOGISTICS INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-73",
+    "id": "jfll-57",
     "fullName": "AMBEWAY FREIGHT FORWADING LLP",
     "territory": "All Territories",
     "contactPersonName": "Waleed Shaikh",
@@ -879,7 +687,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-74",
+    "id": "jfll-58",
     "fullName": "AMEYAA INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Jaya Nair",
@@ -891,7 +699,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-75",
+    "id": "jfll-59",
     "fullName": "AMI GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjay Sarkar",
@@ -903,7 +711,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-76",
+    "id": "jfll-60",
     "fullName": "AMIGO LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -915,19 +723,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-77",
-    "fullName": "AMIT INTERNATIONAL",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-78",
+    "id": "jfll-61",
     "fullName": "ANANTA MEDICARE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sourabh Kumar",
@@ -939,7 +735,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-79",
+    "id": "jfll-62",
     "fullName": "ANIRUDDHA EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanket Gaikwad",
@@ -951,7 +747,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-80",
+    "id": "jfll-63",
     "fullName": "ANJALIN LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anthony G",
@@ -963,19 +759,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-81",
-    "fullName": "ANSH AGRONOMY PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-82",
+    "id": "jfll-64",
     "fullName": "ANSH ENTERPRISES FZ-LLC",
     "territory": "All Territories",
     "contactPersonName": "Ansh",
@@ -987,7 +771,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-83",
+    "id": "jfll-65",
     "fullName": "APEIRON INTERNATIONAL LOGISTICS SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mahesh",
@@ -999,7 +783,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-84",
+    "id": "jfll-66",
     "fullName": "APPLIED RESEARCH INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Applied",
@@ -1011,7 +795,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-85",
+    "id": "jfll-67",
     "fullName": "AQSA TRADING",
     "territory": "All Territories",
     "contactPersonName": "Sameer",
@@ -1023,7 +807,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-86",
+    "id": "jfll-68",
     "fullName": "ARABIAN TRADING CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "Arabiantradcorp",
@@ -1035,7 +819,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-87",
+    "id": "jfll-69",
     "fullName": "ARADHYA ABRASIVES",
     "territory": "All Territories",
     "contactPersonName": "Santosh Thakur",
@@ -1047,31 +831,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-88",
-    "fullName": "ARAMEX TRANSPORTATION INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-89",
-    "fullName": "ARAMONA CARGO INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-90",
+    "id": "jfll-70",
     "fullName": "ARD LOGISTICS.",
     "territory": "All Territories",
     "contactPersonName": "Ashu",
@@ -1083,7 +843,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-91",
+    "id": "jfll-71",
     "fullName": "AREM LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Balaji Parthsarathy",
@@ -1095,7 +855,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-92",
+    "id": "jfll-72",
     "fullName": "ARIO SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anita Nair",
@@ -1107,7 +867,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-93",
+    "id": "jfll-73",
     "fullName": "ARISHMON CARGO SERVICE",
     "territory": "All Territories",
     "contactPersonName": "Paramasivam",
@@ -1119,7 +879,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-94",
+    "id": "jfll-74",
     "fullName": "AROINT",
     "territory": "All Territories",
     "contactPersonName": "Sangeeta",
@@ -1131,7 +891,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-95",
+    "id": "jfll-75",
     "fullName": "ARRKAY TRANSHIP FORWARDERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mani Murugan",
@@ -1143,19 +903,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-96",
-    "fullName": "ARVIND ADVANCED MATERIALS LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-97",
+    "id": "jfll-76",
     "fullName": "ARVIND LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dipak",
@@ -1167,7 +915,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-98",
+    "id": "jfll-77",
     "fullName": "ARVISHREE GLOBAL LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "Vijay",
@@ -1179,7 +927,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-99",
+    "id": "jfll-78",
     "fullName": "ASHINGREDIENTS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vasanthi D",
@@ -1191,7 +939,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-100",
+    "id": "jfll-79",
     "fullName": "ASHIRWAD SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Bhavna Rathod",
@@ -1203,7 +951,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-101",
+    "id": "jfll-80",
     "fullName": "ASIA SHIPPING INTERNATIONAL TRANSPORT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jagat Singh",
@@ -1215,7 +963,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-102",
+    "id": "jfll-81",
     "fullName": "ASIAN FERROTECH",
     "territory": "All Territories",
     "contactPersonName": "Mr.subramaniam",
@@ -1227,7 +975,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-103",
+    "id": "jfll-82",
     "fullName": "ASIAN WORLDWIDE SERVICES (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ravindra Kadam",
@@ -1239,19 +987,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-104",
-    "fullName": "ASIANIA LOGISTIKA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-105",
+    "id": "jfll-83",
     "fullName": "ASIATIC MARINE EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Zuzar",
@@ -1263,7 +999,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-106",
+    "id": "jfll-84",
     "fullName": "ASPINWALL & CO. LTD",
     "territory": "All Territories",
     "contactPersonName": "Subin Babu",
@@ -1275,7 +1011,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-107",
+    "id": "jfll-85",
     "fullName": "ASR LOGISTICS ( INDIA ) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pradeep",
@@ -1287,7 +1023,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-108",
+    "id": "jfll-86",
     "fullName": "ASR LOGISTICS SOLUTION",
     "territory": "All Territories",
     "contactPersonName": "Samim",
@@ -1299,7 +1035,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-109",
+    "id": "jfll-87",
     "fullName": "ASTRAL LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Bhaarat Vaghashiya",
@@ -1311,7 +1047,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-110",
+    "id": "jfll-88",
     "fullName": "ATC GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Atc Global",
@@ -1323,7 +1059,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-111",
+    "id": "jfll-89",
     "fullName": "ATHENA GLOBAL LOGISTIC PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Trupti Pawar",
@@ -1335,7 +1071,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-112",
+    "id": "jfll-90",
     "fullName": "ATHIYA LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Mr.jigar Somaiya",
@@ -1347,7 +1083,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-113",
+    "id": "jfll-91",
     "fullName": "ATLANTIC TRAVEL AND CARGO PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Mohsin Iqbal",
@@ -1359,19 +1095,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-114",
-    "fullName": "ATLAS ENGINEERING CORPORATION",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-115",
+    "id": "jfll-92",
     "fullName": "ATLAS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tsukasa Hasegawa",
@@ -1383,19 +1107,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-116",
-    "fullName": "ATWELL EXPORT IMPORT & FOUNDATION",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Partnership",
-    "saved": false
-  },
-  {
-    "id": "jfll-117",
+    "id": "jfll-93",
     "fullName": "AVA GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Samir",
@@ -1407,7 +1119,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-118",
+    "id": "jfll-94",
     "fullName": "AVAADA ELECTRO LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sajal Kumar Ghosh",
@@ -1419,19 +1131,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-119",
-    "fullName": "AVANTA INTERNATIONAL",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-120",
+    "id": "jfll-95",
     "fullName": "AVERA GLOBAL LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "Raghuji Phalke 8698166042",
@@ -1443,7 +1143,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-121",
+    "id": "jfll-96",
     "fullName": "AVIOMI LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rohit Sanjay",
@@ -1455,7 +1155,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-122",
+    "id": "jfll-97",
     "fullName": "AVION SHIPPING ENTERPRISES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Surendra Mirjankar",
@@ -1467,7 +1167,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-123",
+    "id": "jfll-98",
     "fullName": "AVISHA OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Dinesh",
@@ -1479,7 +1179,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-124",
+    "id": "jfll-99",
     "fullName": "AVIVA FREIGHT SYSTEMS",
     "territory": "All Territories",
     "contactPersonName": "Rajesh My",
@@ -1491,7 +1191,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-125",
+    "id": "jfll-100",
     "fullName": "AVK TRADEXIM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -1503,7 +1203,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-126",
+    "id": "jfll-101",
     "fullName": "AVM FREIGHT SOLUTIONS LLP",
     "territory": "All Territories",
     "contactPersonName": "Manish Agarwal",
@@ -1515,7 +1215,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-127",
+    "id": "jfll-102",
     "fullName": "AVON GLOBAL LOGISTICS AND SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Irshad Shaikh",
@@ -1527,19 +1227,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-128",
-    "fullName": "B&H LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-129",
+    "id": "jfll-103",
     "fullName": "B&N LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Hiren Gajra",
@@ -1551,7 +1239,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-130",
+    "id": "jfll-104",
     "fullName": "B.H. POLYMERS",
     "territory": "All Territories",
     "contactPersonName": "Devender Singh",
@@ -1563,19 +1251,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-131",
-    "fullName": "BALAJI SHIPCARGO LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Public Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-132",
+    "id": "jfll-105",
     "fullName": "BAM FOODS LLP",
     "territory": "All Territories",
     "contactPersonName": "Altab Mohammed",
@@ -1587,7 +1263,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-133",
+    "id": "jfll-106",
     "fullName": "BANGERA SEAWORLD PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Kishore Mutha Bangera",
@@ -1599,31 +1275,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-134",
-    "fullName": "BELEN LOGISTICS SERVICES",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-135",
-    "fullName": "BELGOD MARINE SERVICES PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-136",
+    "id": "jfll-107",
     "fullName": "BENCHMARK LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Sonal",
@@ -1635,7 +1287,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-137",
+    "id": "jfll-108",
     "fullName": "BERRIO LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sr. Airfreight Manager",
@@ -1647,7 +1299,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-138",
+    "id": "jfll-109",
     "fullName": "BEYOND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arvind Gauda",
@@ -1659,31 +1311,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-139",
-    "fullName": "BHARAT MARCANTILE CORPORATION",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Partnership",
-    "saved": false
-  },
-  {
-    "id": "jfll-140",
-    "fullName": "BHOLANATH FOOD EXPORTS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-141",
+    "id": "jfll-110",
     "fullName": "BIASHARA VENTURES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prakash Murti",
@@ -1695,7 +1323,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-142",
+    "id": "jfll-111",
     "fullName": "BILANDER LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Manoj More",
@@ -1707,7 +1335,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-143",
+    "id": "jfll-112",
     "fullName": "BIORA GLOBAL LLP",
     "territory": "All Territories",
     "contactPersonName": "Prince Shah",
@@ -1719,7 +1347,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-144",
+    "id": "jfll-113",
     "fullName": "BIZ LOGICX FREIGHT SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -1731,7 +1359,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-145",
+    "id": "jfll-114",
     "fullName": "BLISS LOGISTICS AND SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arun",
@@ -1743,7 +1371,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-146",
+    "id": "jfll-115",
     "fullName": "BLUE BELL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Laijo John",
@@ -1755,7 +1383,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-147",
+    "id": "jfll-116",
     "fullName": "BLUE ROCK TRADING",
     "territory": "All Territories",
     "contactPersonName": "Blue Rock Trading",
@@ -1767,7 +1395,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-148",
+    "id": "jfll-117",
     "fullName": "BLUEWAY WORLDWIDE SHIPPING SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Hira Singh Rawat",
@@ -1779,7 +1407,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-149",
+    "id": "jfll-118",
     "fullName": "BNB FREIGHT SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Sagar S Bharati",
@@ -1791,19 +1419,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-150",
-    "fullName": "BONNEX GLOBAL LOGISTICS INDIA PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-151",
+    "id": "jfll-119",
     "fullName": "BOXMAN GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sabih Haider",
@@ -1815,7 +1431,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-152",
+    "id": "jfll-120",
     "fullName": "BREEZONICA LOGISTICS AND WAREHOUSING LLP",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -1827,7 +1443,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-153",
+    "id": "jfll-121",
     "fullName": "BRIDGES EXPRESS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ajit Churi",
@@ -1839,7 +1455,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-154",
+    "id": "jfll-122",
     "fullName": "BROWN BULL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Minal",
@@ -1851,7 +1467,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-155",
+    "id": "jfll-123",
     "fullName": "BTALI INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Zeeshan Khan",
@@ -1863,7 +1479,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-156",
+    "id": "jfll-124",
     "fullName": "BUDDHA SHIPPING AND SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rekha",
@@ -1875,7 +1491,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-157",
+    "id": "jfll-125",
     "fullName": "BUFFER FREIGHT (INDIA) LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajesh",
@@ -1887,7 +1503,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-158",
+    "id": "jfll-126",
     "fullName": "BVEG FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shivam",
@@ -1899,7 +1515,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-159",
+    "id": "jfll-127",
     "fullName": "C B LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Amar Ramchandani",
@@ -1911,19 +1527,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-160",
-    "fullName": "C.S. HAWKLER LOGISTISC PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-161",
+    "id": "jfll-128",
     "fullName": "CALIBER FREIGHT SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anand Mishra",
@@ -1935,7 +1539,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-162",
+    "id": "jfll-129",
     "fullName": "CAPEDO IMPEX LTD",
     "territory": "All Territories",
     "contactPersonName": "Capedo",
@@ -1947,19 +1551,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-163",
-    "fullName": "CAPITAL LOGISTICS S.A.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-164",
+    "id": "jfll-130",
     "fullName": "CAPITALLOG (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shilpa Lanjekar",
@@ -1971,7 +1563,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-165",
+    "id": "jfll-131",
     "fullName": "CAPITALLOG LOGISTICA LTDA",
     "territory": "All Territories",
     "contactPersonName": "Shilpa",
@@ -1983,7 +1575,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-166",
+    "id": "jfll-132",
     "fullName": "CARGO CARTERS & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr.sasikumar",
@@ -1995,7 +1587,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-167",
+    "id": "jfll-133",
     "fullName": "CARGO CREST PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rishi Mohan",
@@ -2007,7 +1599,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-168",
+    "id": "jfll-134",
     "fullName": "CARGO INTERNATIONAL (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajiv Singh",
@@ -2019,7 +1611,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-169",
+    "id": "jfll-135",
     "fullName": "CARGO MARKETING INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ayun Paramanick",
@@ -2031,7 +1623,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-170",
+    "id": "jfll-136",
     "fullName": "CARGO ONE OCEANAIR LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vrukshali Pillai",
@@ -2043,7 +1635,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-171",
+    "id": "jfll-137",
     "fullName": "CARGO WORLD LOGISTICS L.L.C",
     "territory": "All Territories",
     "contactPersonName": "Lalgi Mathew",
@@ -2055,7 +1647,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-172",
+    "id": "jfll-138",
     "fullName": "CARGOKING SHIPPING & LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Akshay Solkar",
@@ -2067,7 +1659,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-173",
+    "id": "jfll-139",
     "fullName": "CARGOMAX SHIPPING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Raj",
@@ -2079,7 +1671,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-174",
+    "id": "jfll-140",
     "fullName": "CARGOSAFE EXPRESS LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Abrar Khaje",
@@ -2091,7 +1683,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-175",
+    "id": "jfll-141",
     "fullName": "CARGOSOL LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vinit",
@@ -2103,7 +1695,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-176",
+    "id": "jfll-142",
     "fullName": "CARGOSOL LOGISTICS LTD",
     "territory": "All Territories",
     "contactPersonName": "Vinit",
@@ -2115,7 +1707,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-177",
+    "id": "jfll-143",
     "fullName": "CAS WEIGHING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjay Kumar",
@@ -2127,7 +1719,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-178",
+    "id": "jfll-144",
     "fullName": "CBX LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Shilpa",
@@ -2139,7 +1731,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-179",
+    "id": "jfll-145",
     "fullName": "CCI WORLDWIDE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Venkat Mohan",
@@ -2151,7 +1743,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-180",
+    "id": "jfll-146",
     "fullName": "CEEKEY GLOBAL TRADING INDIA",
     "territory": "All Territories",
     "contactPersonName": "Mushid Ali",
@@ -2163,19 +1755,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-181",
-    "fullName": "CHAND GLOBAL",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Partnership",
-    "saved": false
-  },
-  {
-    "id": "jfll-182",
+    "id": "jfll-147",
     "fullName": "CHAND INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Abhishk",
@@ -2187,7 +1767,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-183",
+    "id": "jfll-148",
     "fullName": "CHINTAMANI CARGO LOGISTICS SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Janhavi",
@@ -2199,7 +1779,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-184",
+    "id": "jfll-149",
     "fullName": "CIC LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nirmal Gaba",
@@ -2211,7 +1791,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-185",
+    "id": "jfll-150",
     "fullName": "CITY TRANSPORT SYNDICATE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Babu",
@@ -2223,7 +1803,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-186",
+    "id": "jfll-151",
     "fullName": "CLASSIC CLEARING AND FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Srinivasan",
@@ -2235,7 +1815,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-187",
+    "id": "jfll-152",
     "fullName": "CLASSIC LOGISTICS INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sunil K Salian",
@@ -2247,7 +1827,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-188",
+    "id": "jfll-153",
     "fullName": "CLEARSHIP FORWARDERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "D Rajkumar",
@@ -2259,7 +1839,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-189",
+    "id": "jfll-154",
     "fullName": "CM FREIGHT & SHIPPING AB",
     "territory": "All Territories",
     "contactPersonName": "Jeffrey Joslin",
@@ -2271,7 +1851,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-190",
+    "id": "jfll-155",
     "fullName": "COASTAL SHIPPING AND LOGISTICS SERVICES FZE",
     "territory": "All Territories",
     "contactPersonName": "Zaid Ali",
@@ -2283,7 +1863,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-191",
+    "id": "jfll-156",
     "fullName": "COGENT LIFE SCIENCE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Taral Shah",
@@ -2295,7 +1875,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-192",
+    "id": "jfll-157",
     "fullName": "COMMITTED CARGO SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Amar Singh Latwal",
@@ -2307,7 +1887,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-193",
+    "id": "jfll-158",
     "fullName": "CONNECTING LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Makrand .",
@@ -2319,7 +1899,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-194",
+    "id": "jfll-159",
     "fullName": "CONQUEST LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Noel Joseph",
@@ -2331,19 +1911,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-195",
-    "fullName": "CONTECH LOGISTICS SOLUTIONS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-196",
+    "id": "jfll-160",
     "fullName": "CONTICO FAST CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Santosh",
@@ -2355,7 +1923,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-197",
+    "id": "jfll-161",
     "fullName": "CONTICO SHIPPING AGENCY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kumar Kunwar",
@@ -2367,7 +1935,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-198",
+    "id": "jfll-162",
     "fullName": "COSMO FIRST LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sagar Dabhade",
@@ -2379,7 +1947,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-199",
+    "id": "jfll-163",
     "fullName": "COUNTRYSIDE EXPRESS LOGISTICS INC.",
     "territory": "All Territories",
     "contactPersonName": "Harinder Singh",
@@ -2391,7 +1959,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-200",
+    "id": "jfll-164",
     "fullName": "COURAGE USA INC",
     "territory": "All Territories",
     "contactPersonName": "Rupali",
@@ -2403,7 +1971,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-201",
+    "id": "jfll-165",
     "fullName": "COURIER JOURNEY INTERNATIONAL LLC",
     "territory": "All Territories",
     "contactPersonName": "Raj Patel",
@@ -2415,7 +1983,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-202",
+    "id": "jfll-166",
     "fullName": "CREST CONTAINER LINES PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Arif Khan",
@@ -2427,7 +1995,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-203",
+    "id": "jfll-167",
     "fullName": "CRI LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Soumen Nandy",
@@ -2439,7 +2007,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-204",
+    "id": "jfll-168",
     "fullName": "CROSS SEA EXIM",
     "territory": "All Territories",
     "contactPersonName": "Rohit Jaware",
@@ -2451,7 +2019,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-205",
+    "id": "jfll-169",
     "fullName": "CROSSPOLE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sachin Gatadi",
@@ -2463,19 +2031,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-206",
-    "fullName": "CTL LOGISTICS (INDIA) PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-207",
+    "id": "jfll-170",
     "fullName": "CURRYMIA FOODS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mohannad Saleem Siddiqui",
@@ -2487,7 +2043,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-208",
+    "id": "jfll-171",
     "fullName": "D B GROUP INDIA PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Muthumeenakshi Iyer",
@@ -2499,7 +2055,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-209",
+    "id": "jfll-172",
     "fullName": "DACOTRANS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kirti",
@@ -2511,7 +2067,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-210",
+    "id": "jfll-173",
     "fullName": "DARNAX PHARMA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashish Katale",
@@ -2523,7 +2079,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-211",
+    "id": "jfll-174",
     "fullName": "DARSH PRODUCTS",
     "territory": "All Territories",
     "contactPersonName": "Jitesh Patil",
@@ -2535,7 +2091,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-212",
+    "id": "jfll-175",
     "fullName": "DB IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Priyadarshan",
@@ -2547,19 +2103,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-213",
-    "fullName": "DBLS INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-214",
+    "id": "jfll-176",
     "fullName": "DCD LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Deepak Kumar",
@@ -2571,7 +2115,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-215",
+    "id": "jfll-177",
     "fullName": "DEEPBLUE LOGISTICS INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tanvi",
@@ -2583,7 +2127,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-216",
+    "id": "jfll-178",
     "fullName": "DELA INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Samir Goyani",
@@ -2595,7 +2139,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-217",
+    "id": "jfll-179",
     "fullName": "DELEGATE EXIM SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Randhir Singh",
@@ -2607,7 +2151,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-218",
+    "id": "jfll-180",
     "fullName": "DEMIRA FREIGHT LINKERS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Demira",
@@ -2619,7 +2163,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-219",
+    "id": "jfll-181",
     "fullName": "DENON COURIER AND CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sucharita",
@@ -2631,7 +2175,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-220",
+    "id": "jfll-182",
     "fullName": "DESIRE CARGO INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Saritha",
@@ -2643,7 +2187,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-221",
+    "id": "jfll-183",
     "fullName": "DEVDAS SEA FOODS",
     "territory": "All Territories",
     "contactPersonName": "Vighnesh",
@@ -2655,7 +2199,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-222",
+    "id": "jfll-184",
     "fullName": "DEVMAHAVIR SUPPLY LLP",
     "territory": "All Territories",
     "contactPersonName": "Ronak Nagda",
@@ -2667,7 +2211,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-223",
+    "id": "jfll-185",
     "fullName": "DEXTRANS LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pratik",
@@ -2679,7 +2223,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-224",
+    "id": "jfll-186",
     "fullName": "DGR GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mayur Kadam",
@@ -2691,7 +2235,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-225",
+    "id": "jfll-187",
     "fullName": "DHAAN PROCESS",
     "territory": "All Territories",
     "contactPersonName": "Ashishkumar",
@@ -2703,7 +2247,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-226",
+    "id": "jfll-188",
     "fullName": "DHAHINIT FARMS INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Dhaduk Gautham",
@@ -2715,7 +2259,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-227",
+    "id": "jfll-189",
     "fullName": "DHARAMPAL SATYAPAL LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Narendar",
@@ -2727,7 +2271,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-228",
+    "id": "jfll-190",
     "fullName": "DHVANI PRINTS",
     "territory": "All Territories",
     "contactPersonName": "Milan Chandreshbhai Bakraniya",
@@ -2739,7 +2283,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-229",
+    "id": "jfll-191",
     "fullName": "DIA GLOBAL",
     "territory": "All Territories",
     "contactPersonName": "Ashutosh",
@@ -2751,7 +2295,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-230",
+    "id": "jfll-192",
     "fullName": "DIVINE IMPEX SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arshil",
@@ -2763,19 +2307,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-231",
-    "fullName": "DIXONS CARGO CONSOLIDATORS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-232",
+    "id": "jfll-193",
     "fullName": "DOLPHIN LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mandar Phadke",
@@ -2787,19 +2319,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-233",
-    "fullName": "DOMESTIC CASH BOOKING",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-234",
+    "id": "jfll-194",
     "fullName": "DOSANI FROZEN FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suresh Shinde",
@@ -2811,7 +2331,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-235",
+    "id": "jfll-195",
     "fullName": "DRISHTI PHARMA",
     "territory": "All Territories",
     "contactPersonName": "Sangita",
@@ -2823,7 +2343,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-236",
+    "id": "jfll-196",
     "fullName": "DTDC EXPRESS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Narsingh",
@@ -2835,7 +2355,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-237",
+    "id": "jfll-197",
     "fullName": "DUCOM AEROSPACE TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Preethi B.m",
@@ -2847,7 +2367,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-238",
+    "id": "jfll-198",
     "fullName": "DYNAMIKK TRANSCARGO SOLUTIONS LLP",
     "territory": "All Territories",
     "contactPersonName": "Alexander",
@@ -2859,7 +2379,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-239",
+    "id": "jfll-199",
     "fullName": "E-MEDICINE SHOPEE",
     "territory": "All Territories",
     "contactPersonName": "Emedicine",
@@ -2871,19 +2391,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-240",
-    "fullName": "EAST IN MARINE FREIGHT",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-241",
+    "id": "jfll-200",
     "fullName": "EAST WEST FREIGHT CARRIERS LTD",
     "territory": "All Territories",
     "contactPersonName": "Madhu",
@@ -2895,7 +2403,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-242",
+    "id": "jfll-201",
     "fullName": "EASTER SHIPPING & LOGISTICS (I)",
     "territory": "All Territories",
     "contactPersonName": "Ivon",
@@ -2907,7 +2415,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-243",
+    "id": "jfll-202",
     "fullName": "EASY SHIPPING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suman",
@@ -2919,7 +2427,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-244",
+    "id": "jfll-203",
     "fullName": "EASY SOLUTIONS & LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Siddhant Rajput",
@@ -2931,7 +2439,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-245",
+    "id": "jfll-204",
     "fullName": "EAZY SHIPPER CARGO L.L.C",
     "territory": "All Territories",
     "contactPersonName": "Amit Sadu Bangera",
@@ -2943,7 +2451,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-246",
+    "id": "jfll-205",
     "fullName": "ECU LINE SAUDI ARABIA",
     "territory": "All Territories",
     "contactPersonName": "Arsalan",
@@ -2955,7 +2463,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-247",
+    "id": "jfll-206",
     "fullName": "EEG OVERSEAS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shubham Hiwale",
@@ -2967,19 +2475,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-248",
-    "fullName": "ELECTRO POWER SOLUTIONS TRADING COMPANY",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-249",
+    "id": "jfll-207",
     "fullName": "ELEGANT EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Sunil George",
@@ -2991,7 +2487,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-250",
+    "id": "jfll-208",
     "fullName": "ELEVENT GLOBAL PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Prashika Wankhede",
@@ -3003,7 +2499,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-251",
+    "id": "jfll-209",
     "fullName": "ELITE EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Elite Exports",
@@ -3015,19 +2511,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-252",
-    "fullName": "EMBASSY OF SULTANATE OF OMAN",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-253",
+    "id": "jfll-210",
     "fullName": "EMERALD INTEGRATED LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suraj",
@@ -3039,7 +2523,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-254",
+    "id": "jfll-211",
     "fullName": "EMPROS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vikram",
@@ -3051,7 +2535,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-255",
+    "id": "jfll-212",
     "fullName": "EMU LINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tejas",
@@ -3063,7 +2547,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-256",
+    "id": "jfll-213",
     "fullName": "END2END LOGISTICS GLOBAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sumesh",
@@ -3075,7 +2559,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-257",
+    "id": "jfll-214",
     "fullName": "EPT GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vaishali Thakur",
@@ -3087,7 +2571,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-258",
+    "id": "jfll-215",
     "fullName": "ESQUIRE EXPRESS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "K Devi Alamelu",
@@ -3099,7 +2583,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-259",
+    "id": "jfll-216",
     "fullName": "ETA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Deepak",
@@ -3111,7 +2595,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-260",
+    "id": "jfll-217",
     "fullName": "ETERNAL TRADING",
     "territory": "All Territories",
     "contactPersonName": "Eternal Trading",
@@ -3123,7 +2607,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-261",
+    "id": "jfll-218",
     "fullName": "EUROPA AIR AND SEA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Puneet\u200b\u200b\u200b\u200b Mathur",
@@ -3135,7 +2619,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-262",
+    "id": "jfll-219",
     "fullName": "EVERPRIME SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Praseetha",
@@ -3147,7 +2631,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-263",
+    "id": "jfll-220",
     "fullName": "EXCEL FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Khushi",
@@ -3159,7 +2643,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-264",
+    "id": "jfll-221",
     "fullName": "EXCEL INTERNATIONAL-BLR",
     "territory": "All Territories",
     "contactPersonName": "Pralhad",
@@ -3171,7 +2655,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-265",
+    "id": "jfll-222",
     "fullName": "EXCEL WORLDWIDE LOGISTICS LTD.",
     "territory": "All Territories",
     "contactPersonName": "Seeam Mehta",
@@ -3183,7 +2667,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-266",
+    "id": "jfll-223",
     "fullName": "EXCEL WORLDWIDE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Amit",
@@ -3195,7 +2679,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-267",
+    "id": "jfll-224",
     "fullName": "EXCELSOURCE INTERNATIONAL PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Chirag Kanani ( General Manager.)",
@@ -3207,7 +2691,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-268",
+    "id": "jfll-225",
     "fullName": "EXIGENT GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Gitanjali Verma",
@@ -3219,31 +2703,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-269",
-    "fullName": "EXIM PLANNERS & TRAVELS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-270",
-    "fullName": "EXLY GLOBAL LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-271",
+    "id": "jfll-226",
     "fullName": "EXPRESS GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sagar Jagatap",
@@ -3255,7 +2715,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-272",
+    "id": "jfll-227",
     "fullName": "EXPRESS LOGISTICS SOLUTIONS.",
     "territory": "All Territories",
     "contactPersonName": "Santosh Shinde",
@@ -3267,7 +2727,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-273",
+    "id": "jfll-228",
     "fullName": "FAIR EXPORTS (I) PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Ashish",
@@ -3279,7 +2739,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-274",
+    "id": "jfll-229",
     "fullName": "FAIRMACS SHIPPING AND TRANSPORT SERVICES PRIVATE LIMITED .",
     "territory": "All Territories",
     "contactPersonName": "Subrata Mondal",
@@ -3291,7 +2751,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-275",
+    "id": "jfll-230",
     "fullName": "FALCON CONTRACTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jyotsna Arora",
@@ -3303,7 +2763,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-276",
+    "id": "jfll-231",
     "fullName": "FALCON INTERNATIONAL COURIER AND CARGO",
     "territory": "All Territories",
     "contactPersonName": "Nripender Singh",
@@ -3315,19 +2775,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-277",
-    "fullName": "FANTASY CARGO",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-278",
+    "id": "jfll-232",
     "fullName": "FAR LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rudra Moorthy",
@@ -3339,7 +2787,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-279",
+    "id": "jfll-233",
     "fullName": "FAR N PAR INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Snehalatha",
@@ -3351,19 +2799,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-280",
-    "fullName": "FARM FRESH EXPORTS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-281",
+    "id": "jfll-234",
     "fullName": "FEPA SDN BHD",
     "territory": "All Territories",
     "contactPersonName": "Ms.ella Kee",
@@ -3375,7 +2811,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-282",
+    "id": "jfll-235",
     "fullName": "FILIA GLOBAL LLP",
     "territory": "All Territories",
     "contactPersonName": "Rhea Harish Belani",
@@ -3387,7 +2823,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-283",
+    "id": "jfll-236",
     "fullName": "FINE FRESH PRODUCE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sameer Sameer",
@@ -3399,7 +2835,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-284",
+    "id": "jfll-237",
     "fullName": "FIRST FLIGHT AIR GENERAL TRADING",
     "territory": "All Territories",
     "contactPersonName": "Jithin Ap",
@@ -3411,7 +2847,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-285",
+    "id": "jfll-238",
     "fullName": "FIRSTWIN FREIGHT INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chaitanya",
@@ -3423,19 +2859,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-286",
-    "fullName": "FLE FAST LINE EXPRESS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-287",
+    "id": "jfll-239",
     "fullName": "FLEMINGO LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sachin",
@@ -3447,19 +2871,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-288",
-    "fullName": "FLOMIC GLOBAL LOGISTICS LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-289",
+    "id": "jfll-240",
     "fullName": "FLUID GLOBAL LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "Deepak Bhadwarya",
@@ -3471,7 +2883,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-290",
+    "id": "jfll-241",
     "fullName": "FM GLOBAL CONSOLIDATION SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kavita Narayan",
@@ -3483,7 +2895,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-291",
+    "id": "jfll-242",
     "fullName": "FOODI WORLD LTD",
     "territory": "All Territories",
     "contactPersonName": "Imran",
@@ -3495,7 +2907,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-292",
+    "id": "jfll-243",
     "fullName": "FOODLINE TRADERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Asif",
@@ -3507,7 +2919,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-293",
+    "id": "jfll-244",
     "fullName": "FOUR VECTER LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Rajesh Sapkal",
@@ -3519,7 +2931,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-294",
+    "id": "jfll-245",
     "fullName": "FPS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rekha",
@@ -3531,19 +2943,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-295",
-    "fullName": "FREIGHT & LOGISTICS SOLUTIONS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-296",
+    "id": "jfll-246",
     "fullName": "FREIGHT BRIDGE LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -3555,7 +2955,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-297",
+    "id": "jfll-247",
     "fullName": "FREIGHT CONSOL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sumit Finance",
@@ -3567,7 +2967,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-298",
+    "id": "jfll-248",
     "fullName": "FREIGHT LINES (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arulraj",
@@ -3579,7 +2979,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-299",
+    "id": "jfll-249",
     "fullName": "FREIGHT LOGISTIC",
     "territory": "All Territories",
     "contactPersonName": "Manish Sharma",
@@ -3591,19 +2991,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-300",
-    "fullName": "FREIGHT WING LOGISTIC PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-301",
+    "id": "jfll-250",
     "fullName": "FREIGHTAAA SEA AND AIR PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Himanshu Bisht",
@@ -3615,7 +3003,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-302",
+    "id": "jfll-251",
     "fullName": "FREIGHTAGE SHIPPING & LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mohamad Faisal",
@@ -3627,7 +3015,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-303",
+    "id": "jfll-252",
     "fullName": "FREIGHTEX WORLDWIDE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ranjan",
@@ -3639,7 +3027,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-304",
+    "id": "jfll-253",
     "fullName": "FRESH INDIA LTD",
     "territory": "All Territories",
     "contactPersonName": "Jay Prakash",
@@ -3651,19 +3039,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-305",
-    "fullName": "FRESH PRODUCE AND GROCERIES UK LTD",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-306",
+    "id": "jfll-254",
     "fullName": "FRUIT STORY",
     "territory": "All Territories",
     "contactPersonName": "Bhavesh",
@@ -3675,7 +3051,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-307",
+    "id": "jfll-255",
     "fullName": "FW WORLDWIDE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prashant",
@@ -3687,7 +3063,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-308",
+    "id": "jfll-256",
     "fullName": "G MAX LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Gopi",
@@ -3699,7 +3075,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-309",
+    "id": "jfll-257",
     "fullName": "GALAXY SHIPPING AGENCY",
     "territory": "All Territories",
     "contactPersonName": "Deepak",
@@ -3711,7 +3087,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-310",
+    "id": "jfll-258",
     "fullName": "GALEON LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Surya",
@@ -3723,7 +3099,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-311",
+    "id": "jfll-259",
     "fullName": "GAMASHIP INFO TECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Raghunath",
@@ -3735,7 +3111,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-312",
+    "id": "jfll-260",
     "fullName": "GARIMA EXPRESS (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dhruv",
@@ -3747,7 +3123,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-313",
+    "id": "jfll-261",
     "fullName": "GATEWAY MARITIME PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ravindra Singh",
@@ -3759,7 +3135,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-314",
+    "id": "jfll-262",
     "fullName": "GATSO LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ismail",
@@ -3771,7 +3147,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-315",
+    "id": "jfll-263",
     "fullName": "GEETA-SUPREME IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Soham Kadam",
@@ -3783,31 +3159,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-316",
-    "fullName": "GEO MARINE DYNAMICS INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-317",
-    "fullName": "GEOTRANS INTERNATIONAL PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-318",
+    "id": "jfll-264",
     "fullName": "GHAZIABAD ENGINES AND MACHINES P.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Vijay Kumar",
@@ -3819,31 +3171,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-319",
-    "fullName": "GLOBAL CARGO SERVICES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-320",
-    "fullName": "GLOBAL LOGISTICS SERVICES",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-321",
+    "id": "jfll-265",
     "fullName": "GLOBAL LOGISTICS SOLUTIONS INDIA PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Sinto Devassy",
@@ -3855,7 +3183,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-322",
+    "id": "jfll-266",
     "fullName": "GLOBAL SHIPPING SERVICES (PROP) NITYANAND SHRIDHAR GHOLAP",
     "territory": "All Territories",
     "contactPersonName": "Nityanand Shridhar Gholap",
@@ -3867,7 +3195,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-323",
+    "id": "jfll-267",
     "fullName": "GLOBAL TRANSHPHERE SHIPPING",
     "territory": "All Territories",
     "contactPersonName": "Nitesh",
@@ -3879,7 +3207,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-324",
+    "id": "jfll-268",
     "fullName": "GLOBALBRIDGE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Santosh",
@@ -3891,7 +3219,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-325",
+    "id": "jfll-269",
     "fullName": "GLOBELINK W W INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tan",
@@ -3903,7 +3231,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-326",
+    "id": "jfll-270",
     "fullName": "GLOBOTRANS PROLOGISTIX PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Globotrans Prologistix",
@@ -3915,19 +3243,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-327",
-    "fullName": "GLOBOTRANSPRO TERMINAL PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-328",
+    "id": "jfll-271",
     "fullName": "GLORY FREIGHT LINE",
     "territory": "All Territories",
     "contactPersonName": "Pratiksha Rane",
@@ -3939,7 +3255,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-329",
+    "id": "jfll-272",
     "fullName": "GLOSHIPPING AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ankit Naik",
@@ -3951,7 +3267,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-330",
+    "id": "jfll-273",
     "fullName": "GNANAM FOODS",
     "territory": "All Territories",
     "contactPersonName": "Anand Diwani",
@@ -3963,19 +3279,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-331",
-    "fullName": "GNG ELECTRONICS LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Public Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-332",
+    "id": "jfll-274",
     "fullName": "GNG SALES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Menillogistics",
@@ -3987,7 +3291,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-333",
+    "id": "jfll-275",
     "fullName": "GO GAUGE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Maha Krishnan",
@@ -3999,7 +3303,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-334",
+    "id": "jfll-276",
     "fullName": "GOKYUZU FOODS INTERNATIONAL LLP",
     "territory": "All Territories",
     "contactPersonName": "Fatima",
@@ -4011,7 +3315,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-335",
+    "id": "jfll-277",
     "fullName": "GOLDEN EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Golden Exports",
@@ -4023,19 +3327,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-336",
-    "fullName": "GONSAI LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-337",
+    "id": "jfll-278",
     "fullName": "GOODRICH MARITIME PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dharma",
@@ -4047,7 +3339,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-338",
+    "id": "jfll-279",
     "fullName": "GOODWILL AIR AND SEA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Naresh Gulati",
@@ -4059,7 +3351,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-339",
+    "id": "jfll-280",
     "fullName": "GOODWILL FABRICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajendra Baheria",
@@ -4071,7 +3363,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-340",
+    "id": "jfll-281",
     "fullName": "GOVERNMENT MEDICAL STORES DEPOT",
     "territory": "All Territories",
     "contactPersonName": "Government Medical Stores Depot",
@@ -4083,7 +3375,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-341",
+    "id": "jfll-282",
     "fullName": "GPM XPRESS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pratap Vinod",
@@ -4095,7 +3387,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-342",
+    "id": "jfll-283",
     "fullName": "GRATEFIX FASTENING SOLUTIONS PRIVATE LIMITED .",
     "territory": "All Territories",
     "contactPersonName": "Anil Rathod",
@@ -4107,7 +3399,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-343",
+    "id": "jfll-284",
     "fullName": "GREAT FISHERMEN",
     "territory": "All Territories",
     "contactPersonName": "Santanu Sahoo",
@@ -4119,7 +3411,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-344",
+    "id": "jfll-285",
     "fullName": "GREEN AGREVOLUTION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shyam Sunder Singh",
@@ -4131,7 +3423,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-345",
+    "id": "jfll-286",
     "fullName": "GREENOIR EXPORTS LLP",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -4143,7 +3435,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-346",
+    "id": "jfll-287",
     "fullName": "GREENSEAL MARKETING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Greenseal",
@@ -4155,7 +3447,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-347",
+    "id": "jfll-288",
     "fullName": "GRM OVERSEAS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Naveen Chawla",
@@ -4167,7 +3459,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-348",
+    "id": "jfll-289",
     "fullName": "GROVE SYSTEMS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sunil Mathews",
@@ -4179,7 +3471,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-349",
+    "id": "jfll-290",
     "fullName": "GSA IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Ravi",
@@ -4191,7 +3483,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-350",
+    "id": "jfll-291",
     "fullName": "GUHAN INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Gunalan Venkatesan",
@@ -4203,19 +3495,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-351",
-    "fullName": "GULBHILE LOGISTIC",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-352",
+    "id": "jfll-292",
     "fullName": "GULF PIPE LINE TESTING & INSPECTION. LLC",
     "territory": "All Territories",
     "contactPersonName": "Vimal",
@@ -4227,7 +3507,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-353",
+    "id": "jfll-293",
     "fullName": "GURUASHISH LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prateek Randive",
@@ -4239,7 +3519,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-354",
+    "id": "jfll-294",
     "fullName": "GURUJI FOODS INC.",
     "territory": "All Territories",
     "contactPersonName": "Harvinder Singh",
@@ -4251,19 +3531,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-355",
-    "fullName": "GURUKRUPA CORPORATION",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-356",
+    "id": "jfll-295",
     "fullName": "H&C LOGISTICS SERVICES LLP",
     "territory": "All Territories",
     "contactPersonName": "Heena Sharma",
@@ -4275,7 +3543,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-357",
+    "id": "jfll-296",
     "fullName": "HAIKO LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arjun Bhola",
@@ -4287,7 +3555,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-358",
+    "id": "jfll-297",
     "fullName": "HARBOURLINE ENTERPRISES INC",
     "territory": "All Territories",
     "contactPersonName": "Harpreet Singh",
@@ -4299,7 +3567,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-359",
+    "id": "jfll-298",
     "fullName": "HARIOM BANKE BIHARI AND COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Kailash",
@@ -4311,7 +3579,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-360",
+    "id": "jfll-299",
     "fullName": "HARSH CLEARING AND FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Hemangini Subramanyam",
@@ -4323,7 +3591,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-361",
+    "id": "jfll-300",
     "fullName": "HARVEST FOOD EXIM",
     "territory": "All Territories",
     "contactPersonName": "Shahrukh",
@@ -4335,7 +3603,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-362",
+    "id": "jfll-301",
     "fullName": "HARYANA CHEMICAL INDUSTRIES (INDIA)",
     "territory": "All Territories",
     "contactPersonName": "Pramod Saxena",
@@ -4347,19 +3615,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-363",
-    "fullName": "HAWKEYE LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-364",
+    "id": "jfll-302",
     "fullName": "HBI INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jankinath Mali",
@@ -4371,19 +3627,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-365",
-    "fullName": "HEAVEN HEIGHTS INTERNATIONAL",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-366",
+    "id": "jfll-303",
     "fullName": "HECTRONIC INDIA RETAIL AND PARKING AUTOMATION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jayarama, D",
@@ -4395,7 +3639,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-367",
+    "id": "jfll-304",
     "fullName": "HEJAZI FOODSTUFF PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Harshada",
@@ -4407,7 +3651,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-368",
+    "id": "jfll-305",
     "fullName": "HEXALOG GLOBAL SUPPLY CHAINS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Customer",
@@ -4419,7 +3663,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-369",
+    "id": "jfll-306",
     "fullName": "HILIGHT LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ramesh",
@@ -4431,7 +3675,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-370",
+    "id": "jfll-307",
     "fullName": "HIND GLOBAL EXIM LLP",
     "territory": "All Territories",
     "contactPersonName": "Kushal Gohel",
@@ -4443,7 +3687,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-371",
+    "id": "jfll-308",
     "fullName": "HINDUSTAN LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Kunal",
@@ -4455,7 +3699,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-372",
+    "id": "jfll-309",
     "fullName": "HN-ONE FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Manish",
@@ -4467,7 +3711,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-373",
+    "id": "jfll-310",
     "fullName": "HORTICA FOODS LLP",
     "territory": "All Territories",
     "contactPersonName": "Chetan Patel",
@@ -4479,7 +3723,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-374",
+    "id": "jfll-311",
     "fullName": "HSM HYDRO CONTROL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "C Muthu Kumar",
@@ -4491,7 +3735,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-375",
+    "id": "jfll-312",
     "fullName": "HYPERFARMS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Manikandan Pattabiraman",
@@ -4503,7 +3747,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-376",
+    "id": "jfll-313",
     "fullName": "I F E GLOBAL LOGISTICS (LONDON) LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ife",
@@ -4515,7 +3759,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-377",
+    "id": "jfll-314",
     "fullName": "IK OVERSEAS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Subhasish Basu",
@@ -4527,7 +3771,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-378",
+    "id": "jfll-315",
     "fullName": "IKIRAON TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Avneet",
@@ -4539,7 +3783,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-379",
+    "id": "jfll-316",
     "fullName": "IMD COURIER AND CARGO LLP",
     "territory": "All Territories",
     "contactPersonName": "Vidya Jadhav",
@@ -4551,7 +3795,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-380",
+    "id": "jfll-317",
     "fullName": "INDIA WORLDWIDE EXPRESS LLP",
     "territory": "All Territories",
     "contactPersonName": "Dhananjay",
@@ -4563,7 +3807,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-381",
+    "id": "jfll-318",
     "fullName": "INDIAN HYDROCOLLOIDS",
     "territory": "All Territories",
     "contactPersonName": "Piyush Prajapati",
@@ -4575,31 +3819,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-382",
-    "fullName": "INDIAN NATURE FRESH EXPORTS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-383",
-    "fullName": "INDIANA CARGO SERVICES",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-384",
+    "id": "jfll-319",
     "fullName": "INDO EXIM SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Dushyant Singh",
@@ -4611,7 +3831,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-385",
+    "id": "jfll-320",
     "fullName": "INDOLOG LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rakhi",
@@ -4623,7 +3843,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-386",
+    "id": "jfll-321",
     "fullName": "INDOSOL EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Manish Shah",
@@ -4635,7 +3855,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-387",
+    "id": "jfll-322",
     "fullName": "INDUS INTERMODAL CARRIERS",
     "territory": "All Territories",
     "contactPersonName": "Shubhangi Dal",
@@ -4647,7 +3867,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-388",
+    "id": "jfll-323",
     "fullName": "INEXT LOGISTICS & SUPPLY CHAIN (CANADA) PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Amar",
@@ -4659,19 +3879,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-389",
-    "fullName": "INEXT LOGISTICS & SUPPLY CHAIN PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-390",
+    "id": "jfll-324",
     "fullName": "INFINITY FREIGHT SERVICES INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Hitesh Kanse",
@@ -4683,7 +3891,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-391",
+    "id": "jfll-325",
     "fullName": "INT ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "Paresh Shah",
@@ -4695,7 +3903,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-392",
+    "id": "jfll-326",
     "fullName": "INTEGRAL LOGISTICS SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shelain Sondhi",
@@ -4707,7 +3915,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-393",
+    "id": "jfll-327",
     "fullName": "INTER FREIGHT FORWARDERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Yam Thapa",
@@ -4719,19 +3927,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-394",
-    "fullName": "INTER GLOBE LOGISTICS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-395",
+    "id": "jfll-328",
     "fullName": "INTERJAS LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Hemant",
@@ -4743,7 +3939,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-396",
+    "id": "jfll-329",
     "fullName": "INTERNATIONAL CARGO EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mahesh Satam",
@@ -4755,7 +3951,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-397",
+    "id": "jfll-330",
     "fullName": "INTERNATIONAL CARGO MOVERS",
     "territory": "All Territories",
     "contactPersonName": "Ravinder",
@@ -4767,7 +3963,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-398",
+    "id": "jfll-331",
     "fullName": "INTERNATIONAL FREIGHT MOVERS",
     "territory": "All Territories",
     "contactPersonName": "Rajeev",
@@ -4779,7 +3975,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-399",
+    "id": "jfll-332",
     "fullName": "INTERRAIL INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jatin Sain",
@@ -4791,19 +3987,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-400",
-    "fullName": "IQRA SEA FOODS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-401",
+    "id": "jfll-333",
     "fullName": "ISA INCORP WORLDWIDE",
     "territory": "All Territories",
     "contactPersonName": "Rahiz",
@@ -4815,7 +3999,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-402",
+    "id": "jfll-334",
     "fullName": "ISCON BALAJI FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dinesh Sharma",
@@ -4827,19 +4011,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-403",
-    "fullName": "J S B TRADING CO.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-404",
+    "id": "jfll-335",
     "fullName": "J V INTERNATIONAL COURIER AND CARGO SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Jitendra Tengariram Vishwakarma",
@@ -4851,7 +4023,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-405",
+    "id": "jfll-336",
     "fullName": "J-ARK LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chirag",
@@ -4863,19 +4035,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-406",
-    "fullName": "J.P.CORPORATION",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-407",
+    "id": "jfll-337",
     "fullName": "JACS SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suresh Nair",
@@ -4887,19 +4047,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-408",
-    "fullName": "JAGUAR SHIPPING & LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-409",
+    "id": "jfll-338",
     "fullName": "JAI OVERSEAS CHEMICAL LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mohit",
@@ -4911,7 +4059,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-410",
+    "id": "jfll-339",
     "fullName": "JAINAM ENGINEERS",
     "territory": "All Territories",
     "contactPersonName": "Samir Masalia",
@@ -4923,7 +4071,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-411",
+    "id": "jfll-340",
     "fullName": "JAIWEEK GLOBAL VENTURES",
     "territory": "All Territories",
     "contactPersonName": "Nischal",
@@ -4935,7 +4083,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-412",
+    "id": "jfll-341",
     "fullName": "JASCH INDUSTRIES LTD.",
     "territory": "All Territories",
     "contactPersonName": "Devender Jindal",
@@ -4947,7 +4095,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-413",
+    "id": "jfll-342",
     "fullName": "JEELANI MARINE PRODUCTS",
     "territory": "All Territories",
     "contactPersonName": "Jeelani Marine Products",
@@ -4959,55 +4107,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-414",
-    "fullName": "JEEVAMMA JAYA SANKARA RAO IMPORTS AND EXPORTS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-415",
-    "fullName": "JET FREIGHT EXPRESS PRIVATE LIMITED. (OTHERS)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-416",
-    "fullName": "JET LOGISTIX (OPC) PRIVATE LIMITED (MUM)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Other Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-417",
-    "fullName": "JET LOGISTIX (OPC) PRIVATE LIMITED. (OTHERS)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-418",
+    "id": "jfll-343",
     "fullName": "JETSPEED LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nityanand Shukla",
@@ -5019,19 +4119,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-419",
-    "fullName": "JETWAY CARGO",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-420",
+    "id": "jfll-344",
     "fullName": "JEWISH INTERNATIONAL FORWARDING",
     "territory": "All Territories",
     "contactPersonName": "Manohar",
@@ -5043,43 +4131,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-421",
-    "fullName": "JGB AGROFRESH PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-422",
-    "fullName": "JHALAK EXPRESS LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-423",
-    "fullName": "JIC SOLUTIONS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-424",
+    "id": "jfll-345",
     "fullName": "JINDAL INDIA LTD",
     "territory": "All Territories",
     "contactPersonName": "Sourav Das",
@@ -5091,7 +4143,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-425",
+    "id": "jfll-346",
     "fullName": "JKM ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "Avisek Mohanty",
@@ -5103,7 +4155,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-426",
+    "id": "jfll-347",
     "fullName": "JOY LOGISTICS EXIM INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Lalit Mallick",
@@ -5115,7 +4167,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-427",
+    "id": "jfll-348",
     "fullName": "K S R FREIGHT FORWARDERS PRIVATE LIMITED .",
     "territory": "All Territories",
     "contactPersonName": "Vinod",
@@ -5127,7 +4179,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-428",
+    "id": "jfll-349",
     "fullName": "K V EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Vinay",
@@ -5139,7 +4191,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-429",
+    "id": "jfll-350",
     "fullName": "K&K SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Kuldeep Singh",
@@ -5151,7 +4203,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-430",
+    "id": "jfll-351",
     "fullName": "K.K. STAR",
     "territory": "All Territories",
     "contactPersonName": "K.k. Star",
@@ -5163,7 +4215,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-431",
+    "id": "jfll-352",
     "fullName": "K.L. LOGISTICS INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "S.k.manjunath",
@@ -5175,7 +4227,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-432",
+    "id": "jfll-353",
     "fullName": "KALASH GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sonali Gaikwad",
@@ -5187,19 +4239,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-433",
-    "fullName": "KAPALIN LOGICARE LLP",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "LLP",
-    "saved": false
-  },
-  {
-    "id": "jfll-434",
+    "id": "jfll-354",
     "fullName": "KAPIL SETHI",
     "territory": "All Territories",
     "contactPersonName": "Kapil",
@@ -5211,7 +4251,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-435",
+    "id": "jfll-355",
     "fullName": "KAPISH BANSAL",
     "territory": "All Territories",
     "contactPersonName": "Kanwaljeet Singh",
@@ -5223,31 +4263,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-436",
-    "fullName": "KARA EXPRESS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-437",
-    "fullName": "KARUNYA MARINE EXPORTS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-438",
+    "id": "jfll-356",
     "fullName": "KASHISH ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "Jainesh",
@@ -5259,7 +4275,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-439",
+    "id": "jfll-357",
     "fullName": "KAVERI TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Nisar",
@@ -5271,7 +4287,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-440",
+    "id": "jfll-358",
     "fullName": "KEEN EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Jasir Thendath",
@@ -5283,7 +4299,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-441",
+    "id": "jfll-359",
     "fullName": "KEERTI CARGO SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sandesh Ubare",
@@ -5295,7 +4311,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-442",
+    "id": "jfll-360",
     "fullName": "KELP SHIPPING LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Smita Paalav",
@@ -5307,7 +4323,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-443",
+    "id": "jfll-361",
     "fullName": "KENSHINE GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ajay Kumar",
@@ -5319,7 +4335,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-444",
+    "id": "jfll-362",
     "fullName": "KHUSHBOO FORWARDERS",
     "territory": "All Territories",
     "contactPersonName": "Doli",
@@ -5331,7 +4347,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-445",
+    "id": "jfll-363",
     "fullName": "KHUSHI INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Khushi International",
@@ -5343,7 +4359,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-446",
+    "id": "jfll-364",
     "fullName": "KINETICHUB PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Madhushree Manakkattu Veed",
@@ -5355,7 +4371,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-447",
+    "id": "jfll-365",
     "fullName": "KING FREIGHT MARITIME PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jailaxmi Chaubey",
@@ -5367,7 +4383,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-448",
+    "id": "jfll-366",
     "fullName": "KIRAN FOOD EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Tejas",
@@ -5379,7 +4395,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-449",
+    "id": "jfll-367",
     "fullName": "KIRAN PACKAGING INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Amit Singla",
@@ -5391,7 +4407,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-450",
+    "id": "jfll-368",
     "fullName": "KONICA MINOLTA HEALTHCARE INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rahul Hire",
@@ -5403,7 +4419,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-451",
+    "id": "jfll-369",
     "fullName": "KOSURI BALAJI AGRO FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "K Srinivasa Rao",
@@ -5415,7 +4431,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-452",
+    "id": "jfll-370",
     "fullName": "KPB GLOBAL EXPORTERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kpb",
@@ -5427,7 +4443,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-453",
+    "id": "jfll-371",
     "fullName": "KPC FLEXI TUBES PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Sunil",
@@ -5439,7 +4455,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-454",
+    "id": "jfll-372",
     "fullName": "KRISHKO LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ramesh",
@@ -5451,7 +4467,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-455",
+    "id": "jfll-373",
     "fullName": "KRISHLOGIX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pallavi",
@@ -5463,19 +4479,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-456",
-    "fullName": "KRISHNA TRADERS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-457",
+    "id": "jfll-374",
     "fullName": "KUNAL CALCIUM LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rakesh Kumar",
@@ -5487,7 +4491,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-458",
+    "id": "jfll-375",
     "fullName": "KVRM TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Mohan Das Siva Haris",
@@ -5499,7 +4503,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-459",
+    "id": "jfll-376",
     "fullName": "KWALITY VEGETABLES & FRUIT LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjeev",
@@ -5511,7 +4515,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-460",
+    "id": "jfll-377",
     "fullName": "KYODO YUSHI INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Deepak",
@@ -5523,31 +4527,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-461",
-    "fullName": "LALCHAND ENTERPRISES",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-462",
-    "fullName": "LAVINSTAR LOGISITCS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-463",
+    "id": "jfll-378",
     "fullName": "LAXMI LOGISTICS AND TRANS.",
     "territory": "All Territories",
     "contactPersonName": "Santosh Khade",
@@ -5559,7 +4539,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-464",
+    "id": "jfll-379",
     "fullName": "LAXMII FRUIT EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kishan Premji",
@@ -5571,7 +4551,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-465",
+    "id": "jfll-380",
     "fullName": "LEADTIME INTERNATIONAL FREIGHT SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr.shashi Kant Ojha",
@@ -5583,7 +4563,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-466",
+    "id": "jfll-381",
     "fullName": "LEGERO INTERNATIONAL (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Riya Rangawami",
@@ -5595,7 +4575,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-467",
+    "id": "jfll-382",
     "fullName": "LEOSTAR LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sadab Khan",
@@ -5607,7 +4587,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-468",
+    "id": "jfll-383",
     "fullName": "LEYTON SHIPPING",
     "territory": "All Territories",
     "contactPersonName": "Kiran Poojary",
@@ -5619,7 +4599,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-469",
+    "id": "jfll-384",
     "fullName": "LIMBACHIYA EXIM",
     "territory": "All Territories",
     "contactPersonName": "Vaishnav",
@@ -5631,7 +4611,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-470",
+    "id": "jfll-385",
     "fullName": "LINEHAUL EXPRESS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Samruddhi Mahajan",
@@ -5643,7 +4623,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-471",
+    "id": "jfll-386",
     "fullName": "LINK LOGISTICS MANAGMENT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shivam",
@@ -5655,7 +4635,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-472",
+    "id": "jfll-387",
     "fullName": "LION FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rahul Bhasale",
@@ -5667,7 +4647,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-473",
+    "id": "jfll-388",
     "fullName": "LIYANA LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Subhra Chatterjee",
@@ -5679,7 +4659,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-474",
+    "id": "jfll-389",
     "fullName": "LLOYD SHIPPING & FORWARDING AGENCY",
     "territory": "All Territories",
     "contactPersonName": "Melvyn Dsouza",
@@ -5691,7 +4671,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-475",
+    "id": "jfll-390",
     "fullName": "LODESTAR CONTAINER LINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Maheshd",
@@ -5703,7 +4683,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-476",
+    "id": "jfll-391",
     "fullName": "LODESTAR MARITIME",
     "territory": "All Territories",
     "contactPersonName": "Abrar Sait",
@@ -5715,7 +4695,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-477",
+    "id": "jfll-392",
     "fullName": "LOGIBEATS FREIGHT SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Harish Sharma",
@@ -5727,19 +4707,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-478",
-    "fullName": "LOGIFLY LOGISTICS (OPC) PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-479",
+    "id": "jfll-393",
     "fullName": "LOGIFY CARGO SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Bopaiah",
@@ -5751,7 +4719,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-480",
+    "id": "jfll-394",
     "fullName": "LOTS LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Smijul",
@@ -5763,7 +4731,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-481",
+    "id": "jfll-395",
     "fullName": "LOTUS EXPORTS AND IMPORTS",
     "territory": "All Territories",
     "contactPersonName": "Vimal",
@@ -5775,7 +4743,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-482",
+    "id": "jfll-396",
     "fullName": "LUXEDGE TECHNOLOGY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Abdul Bari",
@@ -5787,7 +4755,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-483",
+    "id": "jfll-397",
     "fullName": "LYFT LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "Keten",
@@ -5799,7 +4767,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-484",
+    "id": "jfll-398",
     "fullName": "M 5 CONTINENT LOGISTICS SOLUTION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chirag Singal",
@@ -5811,19 +4779,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-485",
-    "fullName": "M D OVERSEAS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-486",
+    "id": "jfll-399",
     "fullName": "M R SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Palak",
@@ -5835,7 +4791,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-487",
+    "id": "jfll-400",
     "fullName": "M&M MILITZER AND MUENCH (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Samuel Joseph",
@@ -5847,7 +4803,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-488",
+    "id": "jfll-401",
     "fullName": "M.K.EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "M.k.exports",
@@ -5859,7 +4815,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-489",
+    "id": "jfll-402",
     "fullName": "MACHHI CLEARING",
     "territory": "All Territories",
     "contactPersonName": "Rahul Singh",
@@ -5871,7 +4827,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-490",
+    "id": "jfll-403",
     "fullName": "MAHALAXMI OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Shreyas Kapoor",
@@ -5883,7 +4839,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-491",
+    "id": "jfll-404",
     "fullName": "MAHESH AGRO FOOD INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Dhaval Chavd",
@@ -5895,7 +4851,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-492",
+    "id": "jfll-405",
     "fullName": "MAIR LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Radhika Pillai",
@@ -5907,7 +4863,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-493",
+    "id": "jfll-406",
     "fullName": "MANGOPOINT LLC",
     "territory": "All Territories",
     "contactPersonName": "Prasanna",
@@ -5919,19 +4875,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-494",
-    "fullName": "MANMACHINE CAR CARE PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-495",
+    "id": "jfll-407",
     "fullName": "MANTRA INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Lakshmi Raghupathi",
@@ -5943,7 +4887,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-496",
+    "id": "jfll-408",
     "fullName": "MARINE MART LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mayank Tiwari",
@@ -5955,7 +4899,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-497",
+    "id": "jfll-409",
     "fullName": "MARUF INTERNATIONAL SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ahad Maruf",
@@ -5967,7 +4911,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-498",
+    "id": "jfll-410",
     "fullName": "MARUTHI DB TRANS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Manjunath",
@@ -5979,7 +4923,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-499",
+    "id": "jfll-411",
     "fullName": "MASS FREIGHT FORWARDING LLP",
     "territory": "All Territories",
     "contactPersonName": "Aparna Kachwala",
@@ -5991,43 +4935,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-500",
-    "fullName": "MATRIX FREIGHT FORWARDERS PTE LTD",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-501",
-    "fullName": "MAXX FORTUNE LINES PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-502",
-    "fullName": "MCS LOGISITCS INTERNATIONAL PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-503",
+    "id": "jfll-412",
     "fullName": "MEGASTAR SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pooja Pangul",
@@ -6039,7 +4947,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-504",
+    "id": "jfll-413",
     "fullName": "MEHREEN AND NASREEN EXPORTS LLP",
     "territory": "All Territories",
     "contactPersonName": "Mohamed Farook",
@@ -6051,7 +4959,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-505",
+    "id": "jfll-414",
     "fullName": "MEO INTERNATIONAL LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Simran",
@@ -6063,7 +4971,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-506",
+    "id": "jfll-415",
     "fullName": "MERIX CARGO LINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Merixcargo",
@@ -6075,7 +4983,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-507",
+    "id": "jfll-416",
     "fullName": "METCO INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Ashraf Ali",
@@ -6087,7 +4995,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-508",
+    "id": "jfll-417",
     "fullName": "MG RAN LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "K. Saravana Kumar",
@@ -6099,7 +5007,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-509",
+    "id": "jfll-418",
     "fullName": "MGH LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Lokesh",
@@ -6111,19 +5019,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-510",
-    "fullName": "MGX-247 LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-511",
+    "id": "jfll-419",
     "fullName": "MINAL IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Sanjay Ajmera",
@@ -6135,7 +5031,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-512",
+    "id": "jfll-420",
     "fullName": "MINAS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Harish Kumar",
@@ -6147,7 +5043,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-513",
+    "id": "jfll-421",
     "fullName": "MIST AIR COILL COOLERS LLP",
     "territory": "All Territories",
     "contactPersonName": "Mistaircoillcoolersllp",
@@ -6159,19 +5055,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-514",
-    "fullName": "MITALI FREIGHT FORWARDERS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-515",
+    "id": "jfll-422",
     "fullName": "MNR SHIPPING AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sales",
@@ -6183,7 +5067,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-516",
+    "id": "jfll-423",
     "fullName": "MOHAN INFINITY",
     "territory": "All Territories",
     "contactPersonName": "Amit Kumar Golcha",
@@ -6195,7 +5079,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-517",
+    "id": "jfll-424",
     "fullName": "MOL LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ms.sonali Patil",
@@ -6207,7 +5091,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-518",
+    "id": "jfll-425",
     "fullName": "MOREMI MARINE SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Sneha",
@@ -6219,7 +5103,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-519",
+    "id": "jfll-426",
     "fullName": "MOVE FORWARD LOGISTICS & SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Sunny Chauhan",
@@ -6231,7 +5115,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-520",
+    "id": "jfll-427",
     "fullName": "MOVERS GLOBAL LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "Sairam",
@@ -6243,7 +5127,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-521",
+    "id": "jfll-428",
     "fullName": "MOVEX SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Radhika Maheshwari",
@@ -6255,7 +5139,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-522",
+    "id": "jfll-429",
     "fullName": "MRK CARGO AND SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Amit",
@@ -6267,7 +5151,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-523",
+    "id": "jfll-430",
     "fullName": "MS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anjana Palvi",
@@ -6279,7 +5163,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-524",
+    "id": "jfll-431",
     "fullName": "MSHIP CARGO FREIGHT STATION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nitin Pandey",
@@ -6291,19 +5175,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-525",
-    "fullName": "MULTICHEMICAL INDUSTRIES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-526",
+    "id": "jfll-432",
     "fullName": "MULTIVERSE EXIM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Akshay",
@@ -6315,7 +5187,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-527",
+    "id": "jfll-433",
     "fullName": "N.P.AGRO (INDIA) INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Manuj Chugh",
@@ -6327,7 +5199,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-528",
+    "id": "jfll-434",
     "fullName": "NAIK FROZEN FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sangeeta Shetty",
@@ -6339,43 +5211,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-529",
-    "fullName": "NAIK FROZEN FOODS PRIVATE LIMITED( DOMESTIC)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-530",
-    "fullName": "NAMASTE AIR SERVICES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-531",
-    "fullName": "NAMASTE AIRPORT SERVICES PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "GSA",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-532",
+    "id": "jfll-435",
     "fullName": "NATIONAL COOPERATIVE EXPORTS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Surjeet",
@@ -6387,7 +5223,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-533",
+    "id": "jfll-436",
     "fullName": "NAVIGLO LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nafisa",
@@ -6399,7 +5235,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-534",
+    "id": "jfll-437",
     "fullName": "NAVIO SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Hemangi Subramanium",
@@ -6411,7 +5247,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-535",
+    "id": "jfll-438",
     "fullName": "NAVIRE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Puvaneswari",
@@ -6423,7 +5259,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-536",
+    "id": "jfll-439",
     "fullName": "NAVNET SHIPPING AND TRANSPORT FZC LLC",
     "territory": "All Territories",
     "contactPersonName": "Nethra",
@@ -6435,19 +5271,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-537",
-    "fullName": "NEKODA GLOBAL LOGISTICS INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-538",
+    "id": "jfll-440",
     "fullName": "NEL FREIGHT SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Ashwin Swami",
@@ -6459,7 +5283,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-539",
+    "id": "jfll-441",
     "fullName": "NEOWAYS GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Neoways",
@@ -6471,7 +5295,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-540",
+    "id": "jfll-442",
     "fullName": "NETWORK LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Yasir Ahmed",
@@ -6483,7 +5307,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-541",
+    "id": "jfll-443",
     "fullName": "NEW DELUX LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nikhil Raj",
@@ -6495,7 +5319,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-542",
+    "id": "jfll-444",
     "fullName": "NEWTECH MEDICAL DEVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Neeraj",
@@ -6507,7 +5331,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-543",
+    "id": "jfll-445",
     "fullName": "NEXTON FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Krishna Sonawane",
@@ -6519,7 +5343,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-544",
+    "id": "jfll-446",
     "fullName": "NEXUS GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jadeja",
@@ -6531,7 +5355,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-545",
+    "id": "jfll-447",
     "fullName": "NILAVAN LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "George",
@@ -6543,7 +5367,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-546",
+    "id": "jfll-448",
     "fullName": "NORTH STAR CARGO (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kayzad Mojia",
@@ -6555,7 +5379,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-547",
+    "id": "jfll-449",
     "fullName": "NRK FREIGHT FORWARDER PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Maiyappan",
@@ -6567,7 +5391,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-548",
+    "id": "jfll-450",
     "fullName": "NTC LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ruchira Warang",
@@ -6579,7 +5403,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-549",
+    "id": "jfll-451",
     "fullName": "O M R EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Biju Joseph",
@@ -6591,7 +5415,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-550",
+    "id": "jfll-452",
     "fullName": "OCEANBLUES SHIPPING & LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Rishit Mehta",
@@ -6603,7 +5427,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-551",
+    "id": "jfll-453",
     "fullName": "OCHELLE GENERAL TRADING LLC",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -6615,19 +5439,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-552",
-    "fullName": "OCTAGON FREIGHT EXPRESS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-553",
+    "id": "jfll-454",
     "fullName": "OKRAINSIGHT AGRITECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Bakul Chaudhari",
@@ -6639,19 +5451,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-554",
-    "fullName": "OMNI GLOBAL LOGISTICS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-555",
+    "id": "jfll-455",
     "fullName": "ONECLICK LOGISTICS INDIA LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shweta",
@@ -6663,19 +5463,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-556",
-    "fullName": "ONETEAM LOGISTICS INDIA PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-557",
+    "id": "jfll-456",
     "fullName": "ONS EXPRESS AND LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mktg",
@@ -6687,7 +5475,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-558",
+    "id": "jfll-457",
     "fullName": "ORANGE RFID",
     "territory": "All Territories",
     "contactPersonName": "Mukul Sharma",
@@ -6699,7 +5487,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-559",
+    "id": "jfll-458",
     "fullName": "ORANGESPARK TECH SHIPPING LINE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prateek Bindal",
@@ -6711,7 +5499,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-560",
+    "id": "jfll-459",
     "fullName": "ORBIT WORLDWIDE EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "Shishir Rungta",
@@ -6723,7 +5511,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-561",
+    "id": "jfll-460",
     "fullName": "ORCHEV PHARMA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Paresh",
@@ -6735,7 +5523,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-562",
+    "id": "jfll-461",
     "fullName": "ORCHID SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjay Raval",
@@ -6747,7 +5535,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-563",
+    "id": "jfll-462",
     "fullName": "ORIENT MICRO ABRASIVES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rohit",
@@ -6759,7 +5547,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-564",
+    "id": "jfll-463",
     "fullName": "OSMO LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sandeep",
@@ -6771,7 +5559,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-565",
+    "id": "jfll-464",
     "fullName": "OSPRIO EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shiv Prakasam",
@@ -6783,7 +5571,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-566",
+    "id": "jfll-465",
     "fullName": "P N R AGENCY",
     "territory": "All Territories",
     "contactPersonName": "Rajashekar Gowda",
@@ -6795,7 +5583,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-567",
+    "id": "jfll-466",
     "fullName": "P S BEDI AND CO. PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Sunny Dahiya",
@@ -6807,7 +5595,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-568",
+    "id": "jfll-467",
     "fullName": "P S INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mahavir Negi",
@@ -6819,31 +5607,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-569",
-    "fullName": "P.R. POLYMERS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-570",
-    "fullName": "PACE EXPRESS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-571",
+    "id": "jfll-468",
     "fullName": "PANACHAMOOTTIL EXPORTERS",
     "territory": "All Territories",
     "contactPersonName": "Sarath.s",
@@ -6855,7 +5619,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-572",
+    "id": "jfll-469",
     "fullName": "PANTONE FREIGHT",
     "territory": "All Territories",
     "contactPersonName": "Ansif Ka",
@@ -6867,7 +5631,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-573",
+    "id": "jfll-470",
     "fullName": "PANTONE FREIGHT (IND)",
     "territory": "All Territories",
     "contactPersonName": "Jayakrishnan Gopinath",
@@ -6879,7 +5643,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-574",
+    "id": "jfll-471",
     "fullName": "PARTEX AEROMARINE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rohit",
@@ -6891,7 +5655,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-575",
+    "id": "jfll-472",
     "fullName": "PARVATI TRANS GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Komal Ghadigaonkar",
@@ -6903,19 +5667,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-576",
-    "fullName": "PAS FREIGHT SERVICES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-577",
+    "id": "jfll-473",
     "fullName": "PASSIONATE SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suresh Kumar Pathak",
@@ -6927,7 +5679,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-578",
+    "id": "jfll-474",
     "fullName": "PAUL MATTER",
     "territory": "All Territories",
     "contactPersonName": "Rubeena",
@@ -6939,7 +5691,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-579",
+    "id": "jfll-475",
     "fullName": "PAX FREIGHT EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anju",
@@ -6951,7 +5703,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-580",
+    "id": "jfll-476",
     "fullName": "PDS INTERNATIONAL PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Himanshi Garg",
@@ -6963,7 +5715,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-581",
+    "id": "jfll-477",
     "fullName": "PEARL GROCERIES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pearl Groceries",
@@ -6975,7 +5727,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-582",
+    "id": "jfll-478",
     "fullName": "PEEKAY AGENCIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Raghav",
@@ -6987,7 +5739,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-583",
+    "id": "jfll-479",
     "fullName": "PENTAGON INTERNATIONAL FREIGHT SOLUTION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chaitanya Kadlag",
@@ -6999,7 +5751,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-584",
+    "id": "jfll-480",
     "fullName": "PERCEPT MARKETING",
     "territory": "All Territories",
     "contactPersonName": "Mukesh Mishra",
@@ -7011,7 +5763,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-585",
+    "id": "jfll-481",
     "fullName": "PFA LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajesh",
@@ -7023,7 +5775,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-586",
+    "id": "jfll-482",
     "fullName": "PHOENIX GLOBALTRANS SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Uday Patil",
@@ -7035,7 +5787,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-587",
+    "id": "jfll-483",
     "fullName": "PHYTOSOL INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vijay Kumar",
@@ -7047,7 +5799,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-588",
+    "id": "jfll-484",
     "fullName": "PI LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sandesh Badekar",
@@ -7059,7 +5811,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-589",
+    "id": "jfll-485",
     "fullName": "PIONEER LOGISYS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Priyanka Nagpal",
@@ -7071,7 +5823,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-590",
+    "id": "jfll-486",
     "fullName": "POTA GLOBAL LOGISTICS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prabakaran Kaliappan",
@@ -7083,7 +5835,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-591",
+    "id": "jfll-487",
     "fullName": "PR INTEGRATED LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Parag Rode",
@@ -7095,7 +5847,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-592",
+    "id": "jfll-488",
     "fullName": "PRAMAVA SHIPPING & LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Gulabi R",
@@ -7107,7 +5859,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-593",
+    "id": "jfll-489",
     "fullName": "PRASAR INTERNATIONAL TRADING LLP",
     "territory": "All Territories",
     "contactPersonName": "Sarthak",
@@ -7119,7 +5871,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-594",
+    "id": "jfll-490",
     "fullName": "PRATHAM LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Monika Joshi",
@@ -7131,7 +5883,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-595",
+    "id": "jfll-491",
     "fullName": "PRATISTHIT CHEMICALS",
     "territory": "All Territories",
     "contactPersonName": "Swati Jha",
@@ -7143,7 +5895,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-596",
+    "id": "jfll-492",
     "fullName": "PRECISIAN GURJAS ENTERPRISES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ajit Singh",
@@ -7155,7 +5907,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-597",
+    "id": "jfll-493",
     "fullName": "PRESTIGE PULSE CARGO SERVICES L.L.C",
     "territory": "All Territories",
     "contactPersonName": "Mangai Krish",
@@ -7167,7 +5919,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-598",
+    "id": "jfll-494",
     "fullName": "PRIDE GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Anthuraj C",
@@ -7179,19 +5931,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-599",
-    "fullName": "PRIVEE LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-600",
+    "id": "jfll-495",
     "fullName": "PRODEXPO INTERNACIONAL S.R.L.",
     "territory": "All Territories",
     "contactPersonName": "Prodexpo",
@@ -7203,7 +5943,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-601",
+    "id": "jfll-496",
     "fullName": "PROFREIGHT GLOBAL",
     "territory": "All Territories",
     "contactPersonName": "Amarpreet Kaur",
@@ -7215,7 +5955,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-602",
+    "id": "jfll-497",
     "fullName": "PSAFL SPEEDMARK FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Srinivas",
@@ -7227,7 +5967,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-603",
+    "id": "jfll-498",
     "fullName": "PUSHPAK LOGI-SOLUTIONS LLP",
     "territory": "All Territories",
     "contactPersonName": "Pushpak",
@@ -7239,7 +5979,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-604",
+    "id": "jfll-499",
     "fullName": "QAYYUM EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Azfar Qayumm",
@@ -7251,7 +5991,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-605",
+    "id": "jfll-500",
     "fullName": "QUATTRO FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vishnu Sawant",
@@ -7263,19 +6003,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-606",
-    "fullName": "QUICK SILVER FREIGHT SYSTEMS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-607",
+    "id": "jfll-501",
     "fullName": "QUICKLIFT LOGISTIX",
     "territory": "All Territories",
     "contactPersonName": "Tajinder",
@@ -7287,7 +6015,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-608",
+    "id": "jfll-502",
     "fullName": "QURE.AI TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mohammed",
@@ -7299,7 +6027,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-609",
+    "id": "jfll-503",
     "fullName": "QURESHI INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mohammed Saad",
@@ -7311,19 +6039,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-610",
-    "fullName": "R S INTERNATIONAL",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-611",
+    "id": "jfll-504",
     "fullName": "RAHAT CONTINENTAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pradeep Virat",
@@ -7335,7 +6051,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-612",
+    "id": "jfll-505",
     "fullName": "RAIEN FRESH PRODUCE PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Nabeel",
@@ -7347,19 +6063,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-613",
-    "fullName": "RAINBOW INTERNATIONAL",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-614",
+    "id": "jfll-506",
     "fullName": "RAISONI COLD STORAGE INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shubham",
@@ -7371,7 +6075,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-615",
+    "id": "jfll-507",
     "fullName": "RAIYAN GLOBAL",
     "territory": "All Territories",
     "contactPersonName": "Sameer",
@@ -7383,7 +6087,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-616",
+    "id": "jfll-508",
     "fullName": "RAJSAVI SEAIR LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Satya Singh",
@@ -7395,7 +6099,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-617",
+    "id": "jfll-509",
     "fullName": "RAJTILAK METAL",
     "territory": "All Territories",
     "contactPersonName": "Jain Shrenik S",
@@ -7407,31 +6111,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-618",
-    "fullName": "RAPID INDIA LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-619",
-    "fullName": "RARE LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-620",
+    "id": "jfll-510",
     "fullName": "RATHI POLYCHEM LLP",
     "territory": "All Territories",
     "contactPersonName": "Sanjay Mehta",
@@ -7443,31 +6123,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-621",
-    "fullName": "RAY SUN TECHNOLOGIES",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-622",
-    "fullName": "RAYA INTERNATIONAL LOGISTICS LTD",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-623",
+    "id": "jfll-511",
     "fullName": "REBIN INDUSTRY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mohd Umar",
@@ -7479,43 +6135,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-624",
-    "fullName": "REGIUM FOOD EXPORTS LLP",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-625",
-    "fullName": "RELAY LOGISTICS LLC",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-626",
-    "fullName": "REX QUALITY PRODUCTS PRIVATE LIMITED. (OTHERS)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-627",
+    "id": "jfll-512",
     "fullName": "RIDHI ENTERPRISES.",
     "territory": "All Territories",
     "contactPersonName": "Jatin",
@@ -7527,7 +6147,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-628",
+    "id": "jfll-513",
     "fullName": "RIGHT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Senthilkumar M",
@@ -7539,7 +6159,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-629",
+    "id": "jfll-514",
     "fullName": "RIZWAN ICE AND COLD STORAGE",
     "territory": "All Territories",
     "contactPersonName": "Nagaraj",
@@ -7551,7 +6171,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-630",
+    "id": "jfll-515",
     "fullName": "RK FREIGHT MANAGEMENT",
     "territory": "All Territories",
     "contactPersonName": "Yeshwanth Kumar K S",
@@ -7563,7 +6183,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-631",
+    "id": "jfll-516",
     "fullName": "RONS ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Romy Mathew",
@@ -7575,7 +6195,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-632",
+    "id": "jfll-517",
     "fullName": "ROSEMOUNT SHIPPING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kavana",
@@ -7587,7 +6207,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-633",
+    "id": "jfll-518",
     "fullName": "ROTO ENERGY SYSTEMS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prakash Singh Karki",
@@ -7599,7 +6219,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-634",
+    "id": "jfll-519",
     "fullName": "ROTO PUMPS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "J.r. Juyal",
@@ -7611,7 +6231,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-635",
+    "id": "jfll-520",
     "fullName": "ROUND THE CLOCK LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Thomas",
@@ -7623,7 +6243,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-636",
+    "id": "jfll-521",
     "fullName": "ROUTESTAR LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Salman Shaikh",
@@ -7635,7 +6255,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-637",
+    "id": "jfll-522",
     "fullName": "ROYALE INTERNATIONAL COURIERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajkumar",
@@ -7647,7 +6267,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-638",
+    "id": "jfll-523",
     "fullName": "RPRI ESSENCEGLOBAL TRADE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ranjith Kumar Ramasamy",
@@ -7659,7 +6279,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-639",
+    "id": "jfll-524",
     "fullName": "RSA CONTAINER LINE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pooja",
@@ -7671,19 +6291,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-640",
-    "fullName": "RSL FREIGHT INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-641",
+    "id": "jfll-525",
     "fullName": "RUCHA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Dharmraj Balmiki",
@@ -7695,31 +6303,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-642",
-    "fullName": "RUCHI EXPORTS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-643",
-    "fullName": "RUSHIKA FOOD PRODUCTS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-644",
+    "id": "jfll-526",
     "fullName": "Robinsons Cargo & Logistics Private Limited",
     "territory": "All Territories",
     "contactPersonName": "Bhagawan Mestri",
@@ -7731,7 +6315,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-645",
+    "id": "jfll-527",
     "fullName": "S J ELECTRONICS",
     "territory": "All Territories",
     "contactPersonName": "Shilpa G Iter",
@@ -7743,7 +6327,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-646",
+    "id": "jfll-528",
     "fullName": "S J LOGISTICS INDIA LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jeet Rajan Shah",
@@ -7755,7 +6339,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-647",
+    "id": "jfll-529",
     "fullName": "S K AGRO FOODS",
     "territory": "All Territories",
     "contactPersonName": "Shubham Agraval",
@@ -7767,7 +6351,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-648",
+    "id": "jfll-530",
     "fullName": "S M EXPORTS AND IMPORTS",
     "territory": "All Territories",
     "contactPersonName": "Afzal",
@@ -7779,7 +6363,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-649",
+    "id": "jfll-531",
     "fullName": "S R FLEXI PACK.",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -7791,7 +6375,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-650",
+    "id": "jfll-532",
     "fullName": "S S CLEARING & FORWARDING AGENCY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Amit M Pania",
@@ -7803,7 +6387,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-651",
+    "id": "jfll-533",
     "fullName": "S S INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Sreenivasa V",
@@ -7815,7 +6399,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-652",
+    "id": "jfll-534",
     "fullName": "S S M INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Obaid Memon",
@@ -7827,7 +6411,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-653",
+    "id": "jfll-535",
     "fullName": "S-TRANS CONTINENTAL FREIGHT SERVICE INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sourav Kumar Jha",
@@ -7839,7 +6423,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-654",
+    "id": "jfll-536",
     "fullName": "S.K. EXPORTS (HUF)",
     "territory": "All Territories",
     "contactPersonName": "Sugam Karta",
@@ -7851,7 +6435,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-655",
+    "id": "jfll-537",
     "fullName": "S.RAJENDRA AND CO.",
     "territory": "All Territories",
     "contactPersonName": "Ashok Hadawale",
@@ -7863,19 +6447,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-656",
-    "fullName": "S.U. RUGS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-657",
+    "id": "jfll-538",
     "fullName": "SADHI LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Akshay Prajapati",
@@ -7887,7 +6459,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-658",
+    "id": "jfll-539",
     "fullName": "SAFCOM INTERNATIONAL TRADING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nisar Km",
@@ -7899,7 +6471,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-659",
+    "id": "jfll-540",
     "fullName": "SAFE MOVE EXPRESS COURIERS LLC",
     "territory": "All Territories",
     "contactPersonName": "Safemove",
@@ -7911,7 +6483,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-660",
+    "id": "jfll-541",
     "fullName": "SAFE SEA LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Hemant Regmi",
@@ -7923,31 +6495,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-661",
-    "fullName": "SAFNA FRUITS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-662",
-    "fullName": "SAI BALAJI SEA FOOD",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-663",
+    "id": "jfll-542",
     "fullName": "SAI EXIM",
     "territory": "All Territories",
     "contactPersonName": "Kamal Singh Negi",
@@ -7959,7 +6507,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-664",
+    "id": "jfll-543",
     "fullName": "SAI GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Imtiyaz Khan Yasin Khan Pathan",
@@ -7971,7 +6519,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-665",
+    "id": "jfll-544",
     "fullName": "SAI SHIPPING COMPANY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sai Shipping Company Private Limited",
@@ -7983,7 +6531,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-666",
+    "id": "jfll-545",
     "fullName": "SAIRAMAA SUPPLY CHAIN MANAGEMENT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Raj Jetil",
@@ -7995,7 +6543,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-667",
+    "id": "jfll-546",
     "fullName": "SAKAR HEALTHCARE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Paresh",
@@ -8007,7 +6555,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-668",
+    "id": "jfll-547",
     "fullName": "SAL SEA AIR LOGISTICS SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vishal",
@@ -8019,19 +6567,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-669",
-    "fullName": "SAM ASSOCIATES",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-670",
+    "id": "jfll-548",
     "fullName": "SAM COMPOSITES (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sam Composite",
@@ -8043,7 +6579,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-671",
+    "id": "jfll-549",
     "fullName": "SAMARTH LIFE SCIENCES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shreyas",
@@ -8055,7 +6591,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-672",
+    "id": "jfll-550",
     "fullName": "SAMAYAN COMMODITIES",
     "territory": "All Territories",
     "contactPersonName": "Subramanian",
@@ -8067,7 +6603,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-673",
+    "id": "jfll-551",
     "fullName": "SANA FISHERIES",
     "territory": "All Territories",
     "contactPersonName": "Ataullah",
@@ -8079,7 +6615,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-674",
+    "id": "jfll-552",
     "fullName": "SANCTUM WORK WEAR PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashok",
@@ -8091,7 +6627,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-675",
+    "id": "jfll-553",
     "fullName": "SANFREIGHT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Priyanka Kandurkar",
@@ -8103,7 +6639,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-676",
+    "id": "jfll-554",
     "fullName": "SANGUINE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Priya V",
@@ -8115,7 +6651,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-677",
+    "id": "jfll-555",
     "fullName": "SANJOG ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "Parth Tulsibhai Ramani",
@@ -8127,7 +6663,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-678",
+    "id": "jfll-556",
     "fullName": "SAR SWIFT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sunil S Kamerikar",
@@ -8139,7 +6675,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-679",
+    "id": "jfll-557",
     "fullName": "SAR VEN LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sivaraman",
@@ -8151,7 +6687,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-680",
+    "id": "jfll-558",
     "fullName": "SAVY LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Ankit",
@@ -8163,7 +6699,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-681",
+    "id": "jfll-559",
     "fullName": "SCANWELL LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suman Kumar",
@@ -8175,19 +6711,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-682",
-    "fullName": "SCCE SOLUTIONS COMPANY LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-683",
+    "id": "jfll-560",
     "fullName": "SCORPIO FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nagender Shah",
@@ -8199,7 +6723,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-684",
+    "id": "jfll-561",
     "fullName": "SEA HAWK LINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sneha Salian",
@@ -8211,7 +6735,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-685",
+    "id": "jfll-562",
     "fullName": "SEABOY FISHERIES PRIVATE LTD",
     "territory": "All Territories",
     "contactPersonName": "Ashin Francis Thomas",
@@ -8223,7 +6747,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-686",
+    "id": "jfll-563",
     "fullName": "SEAFOOD EXPRESS EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Peter",
@@ -8235,7 +6759,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-687",
+    "id": "jfll-564",
     "fullName": "SEAGULL SHIPPING AGENCY LLP",
     "territory": "All Territories",
     "contactPersonName": "Sandesh Mate",
@@ -8247,7 +6771,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-688",
+    "id": "jfll-565",
     "fullName": "SEASHELL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashwini Kalke",
@@ -8259,7 +6783,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-689",
+    "id": "jfll-566",
     "fullName": "SELFEX LOGISTECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vishal Bhatnagar",
@@ -8271,7 +6795,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-690",
+    "id": "jfll-567",
     "fullName": "SEPIO PRODUCTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sebastian Jose",
@@ -8283,7 +6807,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-691",
+    "id": "jfll-568",
     "fullName": "SEQUEL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Yash Gandhi",
@@ -8295,7 +6819,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-692",
+    "id": "jfll-569",
     "fullName": "SEVEN POINT GOODS WHOLESALERS L.L.C",
     "territory": "All Territories",
     "contactPersonName": "Seven Point Goods Wholesalers L.l.c",
@@ -8307,7 +6831,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-693",
+    "id": "jfll-570",
     "fullName": "SHAH WORLDWIDE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Gunjan",
@@ -8319,7 +6843,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-694",
+    "id": "jfll-571",
     "fullName": "SHAKTI INDIA",
     "territory": "All Territories",
     "contactPersonName": "Rakesh",
@@ -8331,7 +6855,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-695",
+    "id": "jfll-572",
     "fullName": "SHARP CALCHEM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Parbodh",
@@ -8343,7 +6867,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-696",
+    "id": "jfll-573",
     "fullName": "SHEGAR LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Ashish S. Salunkhe",
@@ -8355,7 +6879,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-697",
+    "id": "jfll-574",
     "fullName": "SHELVES TECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Yashoda Chauhan",
@@ -8367,7 +6891,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-698",
+    "id": "jfll-575",
     "fullName": "SHIFTCO SHIPPING & LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prianca Walia",
@@ -8379,7 +6903,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-699",
+    "id": "jfll-576",
     "fullName": "SHIKHAR LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Neeraj Rawat",
@@ -8391,7 +6915,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-700",
+    "id": "jfll-577",
     "fullName": "SHIPROCKET LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kapil Agarwal",
@@ -8403,7 +6927,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-701",
+    "id": "jfll-578",
     "fullName": "SHIVLEELA LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sayali",
@@ -8415,19 +6939,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-702",
-    "fullName": "SHOOLIN SHIPPING SERVICES (INDIA) PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-703",
+    "id": "jfll-579",
     "fullName": "SHREE PUSHKAR CHEMICALS & FERTILISERS LTD.",
     "territory": "All Territories",
     "contactPersonName": "Ruby Kinny",
@@ -8439,19 +6951,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-704",
-    "fullName": "SHREE RANG LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-705",
+    "id": "jfll-580",
     "fullName": "SHREE SHYAM EXIM",
     "territory": "All Territories",
     "contactPersonName": "Prasad Kharde",
@@ -8463,7 +6963,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-706",
+    "id": "jfll-581",
     "fullName": "SHREE TIRUPATI BALAJI SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Eashwari Patil",
@@ -8475,19 +6975,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-707",
-    "fullName": "SHREEJI LOGISTIX",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-708",
+    "id": "jfll-582",
     "fullName": "SHRI HERSHNE (IMPORTS) LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prasanna",
@@ -8499,7 +6987,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-709",
+    "id": "jfll-583",
     "fullName": "SHRI RAADHEY CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "Sumit Bajaj",
@@ -8511,7 +6999,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-710",
+    "id": "jfll-584",
     "fullName": "SIRA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Ramanna Manjunath",
@@ -8523,7 +7011,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-711",
+    "id": "jfll-585",
     "fullName": "SISKO WORLDWIDE LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashish Ahuja",
@@ -8535,7 +7023,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-712",
+    "id": "jfll-586",
     "fullName": "SIVAROMA NATURALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Krishna",
@@ -8547,7 +7035,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-713",
+    "id": "jfll-587",
     "fullName": "SK GM ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "Sk Mofijul",
@@ -8559,19 +7047,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-714",
-    "fullName": "SKL SHIPPING & LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-715",
+    "id": "jfll-588",
     "fullName": "SKV CARGO SYSTEMS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vishal Gade",
@@ -8583,7 +7059,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-716",
+    "id": "jfll-589",
     "fullName": "SKY BLISS SHIPPING AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Saima",
@@ -8595,7 +7071,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-717",
+    "id": "jfll-590",
     "fullName": "SKY CONNECT LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Bhagesh Palekar",
@@ -8607,19 +7083,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-718",
-    "fullName": "SKYBARGE FREIGHT PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-719",
+    "id": "jfll-591",
     "fullName": "SKYLINE FREIGHT & TRAVELS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chandan Singh",
@@ -8631,31 +7095,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-720",
-    "fullName": "SKYLINE LOGISTICS SERVICES",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-721",
-    "fullName": "SKYMAC EXPRESS PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-722",
+    "id": "jfll-592",
     "fullName": "SKYNET EXPRESS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Deepikaben",
@@ -8667,19 +7107,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-723",
-    "fullName": "SKYSTAR SHIPPING AGENCIES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-724",
+    "id": "jfll-593",
     "fullName": "SMARTLINK TRANS-FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kishore Zinjad",
@@ -8691,7 +7119,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-725",
+    "id": "jfll-594",
     "fullName": "SMS MULTIFREIGHT LOGISTICS .",
     "territory": "All Territories",
     "contactPersonName": "Manisha",
@@ -8703,7 +7131,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-726",
+    "id": "jfll-595",
     "fullName": "SMTP GLOBAL LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Ulka Kawji",
@@ -8715,7 +7143,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-727",
+    "id": "jfll-596",
     "fullName": "SOEX FLORA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dolly",
@@ -8727,7 +7155,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-728",
+    "id": "jfll-597",
     "fullName": "SONIGARA JEWELLERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jitendra Sonigara",
@@ -8739,7 +7167,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-729",
+    "id": "jfll-598",
     "fullName": "SOWER IMPEX LLP",
     "territory": "All Territories",
     "contactPersonName": "Sushi Nair",
@@ -8751,19 +7179,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-730",
-    "fullName": "SPEDICON MALDIVES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-731",
+    "id": "jfll-599",
     "fullName": "SPEDITION",
     "territory": "All Territories",
     "contactPersonName": "Hema Padam",
@@ -8775,7 +7191,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-732",
+    "id": "jfll-600",
     "fullName": "SPEDITION INDIA LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kanchan Chouhan",
@@ -8787,7 +7203,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-733",
+    "id": "jfll-601",
     "fullName": "SPEEDLOG FREIGHT AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Puneet Arora",
@@ -8799,7 +7215,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-734",
+    "id": "jfll-602",
     "fullName": "SPRINT 3PL & FORWARDING SOLUTIONS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rani",
@@ -8811,7 +7227,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-735",
+    "id": "jfll-603",
     "fullName": "SPRINT LOGISTECH SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vivek",
@@ -8823,7 +7239,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-736",
+    "id": "jfll-604",
     "fullName": "SRI SIVAGAMI FASHIONS",
     "territory": "All Territories",
     "contactPersonName": "Shivakami Govindaswamy",
@@ -8835,7 +7251,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-737",
+    "id": "jfll-605",
     "fullName": "SRI SRI FOODS",
     "territory": "All Territories",
     "contactPersonName": "Shobhit Jain",
@@ -8847,7 +7263,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-738",
+    "id": "jfll-606",
     "fullName": "SRI VENKATESHWARA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Vishwanath Pawar",
@@ -8859,7 +7275,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-739",
+    "id": "jfll-607",
     "fullName": "SS CARGO SYSTEM INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shiv Prakash Yadav",
@@ -8871,7 +7287,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-740",
+    "id": "jfll-608",
     "fullName": "STAAR EXPORTS & IMPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mansoor Basha",
@@ -8883,7 +7299,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-741",
+    "id": "jfll-609",
     "fullName": "STAR INDIA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Jigar",
@@ -8895,7 +7311,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-742",
+    "id": "jfll-610",
     "fullName": "STARLIT SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Starlit",
@@ -8907,7 +7323,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-743",
+    "id": "jfll-611",
     "fullName": "STEAM HARBOUR LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Minkle Jain",
@@ -8919,7 +7335,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-744",
+    "id": "jfll-612",
     "fullName": "STICHWELL EXPORTS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Arup Sen",
@@ -8931,7 +7347,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-745",
+    "id": "jfll-613",
     "fullName": "STOCKHUT",
     "territory": "All Territories",
     "contactPersonName": "Snehal Pharande",
@@ -8943,19 +7359,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-746",
-    "fullName": "STOP INDIA",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-747",
+    "id": "jfll-614",
     "fullName": "STRANS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tarun",
@@ -8967,7 +7371,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-748",
+    "id": "jfll-615",
     "fullName": "SUBH SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Prateek Chopra",
@@ -8979,7 +7383,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-749",
+    "id": "jfll-616",
     "fullName": "SUCCOUR SHIPPING LINES INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nisha S.",
@@ -8991,19 +7395,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-750",
-    "fullName": "SUKHIN GLOBAL LOGISTICS LLP",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-751",
+    "id": "jfll-617",
     "fullName": "SUMITRA MARINE GLOBAL SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Sumitra",
@@ -9015,7 +7407,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-752",
+    "id": "jfll-618",
     "fullName": "SUN IMPEX CLEARING AND SHIPPING AGENCY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sujeet Sawant",
@@ -9027,7 +7419,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-753",
+    "id": "jfll-619",
     "fullName": "SUNNY IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Sajid",
@@ -9039,7 +7431,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-754",
+    "id": "jfll-620",
     "fullName": "SUNRISE FOODS AND EXPORTERS",
     "territory": "All Territories",
     "contactPersonName": "Siddharth Sujit Mane",
@@ -9051,7 +7443,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-755",
+    "id": "jfll-621",
     "fullName": "SUNRISE INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Pankaj Birdi",
@@ -9063,7 +7455,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-756",
+    "id": "jfll-622",
     "fullName": "SUNSHINE XPRESS COURIER",
     "territory": "All Territories",
     "contactPersonName": "Nikhil Pahwa",
@@ -9075,7 +7467,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-757",
+    "id": "jfll-623",
     "fullName": "SUPER STAR AQUA",
     "territory": "All Territories",
     "contactPersonName": "Ashish Chudasama",
@@ -9087,7 +7479,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-758",
+    "id": "jfll-624",
     "fullName": "SURABHI LOGISTICS EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "Srinivas",
@@ -9099,7 +7491,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-759",
+    "id": "jfll-625",
     "fullName": "SURDHI EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vijay Singh",
@@ -9111,7 +7503,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-760",
+    "id": "jfll-626",
     "fullName": "SUREWAYS SHIPPING SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Mehul Fanasatkar",
@@ -9123,7 +7515,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-761",
+    "id": "jfll-627",
     "fullName": "SURYA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Ravi Bs",
@@ -9135,7 +7527,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-762",
+    "id": "jfll-628",
     "fullName": "SWAREX LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Swarex",
@@ -9147,7 +7539,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-763",
+    "id": "jfll-629",
     "fullName": "SWENLOG SUPPLY CHAIN SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nitheesh",
@@ -9159,7 +7551,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-764",
+    "id": "jfll-630",
     "fullName": "SWISSLOG LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ruchi Singh",
@@ -9171,7 +7563,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-765",
+    "id": "jfll-631",
     "fullName": "SYENA LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Venkat",
@@ -9183,7 +7575,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-766",
+    "id": "jfll-632",
     "fullName": "SYGNIUS GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sygnius",
@@ -9195,7 +7587,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-767",
+    "id": "jfll-633",
     "fullName": "SYMEGA FOOD INGREDIENTS LTD",
     "territory": "All Territories",
     "contactPersonName": "Biju Mathai",
@@ -9207,7 +7599,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-768",
+    "id": "jfll-634",
     "fullName": "SYNERGY SHIPPING & LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Jeetendra K. Bhayde",
@@ -9219,7 +7611,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-769",
+    "id": "jfll-635",
     "fullName": "SYS SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "P. Aditi",
@@ -9231,7 +7623,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-770",
+    "id": "jfll-636",
     "fullName": "TATA ADVANCED SYSTEM LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Deepak Hasan",
@@ -9243,7 +7635,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-771",
+    "id": "jfll-637",
     "fullName": "TEMPCON EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ravindra.",
@@ -9255,7 +7647,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-772",
+    "id": "jfll-638",
     "fullName": "TGL EXPRESS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chandru",
@@ -9267,7 +7659,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-773",
+    "id": "jfll-639",
     "fullName": "THAQWA EXPORTS LLP",
     "territory": "All Territories",
     "contactPersonName": "Shamshad",
@@ -9279,7 +7671,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-774",
+    "id": "jfll-640",
     "fullName": "THE MANGO MART",
     "territory": "All Territories",
     "contactPersonName": "Chetan Mendapara",
@@ -9291,7 +7683,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-775",
+    "id": "jfll-641",
     "fullName": "THOMAS GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sunil",
@@ -9303,7 +7695,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-776",
+    "id": "jfll-642",
     "fullName": "THREE ACES GLOBAL LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Sonpal",
@@ -9315,7 +7707,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-777",
+    "id": "jfll-643",
     "fullName": "THREE CIRCLES AGRO EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Three Circles Agro Exports",
@@ -9327,7 +7719,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-778",
+    "id": "jfll-644",
     "fullName": "THRIVEVIRTUE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rahul Barhate",
@@ -9339,7 +7731,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-779",
+    "id": "jfll-645",
     "fullName": "TIGER LOGISTICS INDIA LTD",
     "territory": "All Territories",
     "contactPersonName": "Abinash Nayak",
@@ -9351,31 +7743,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-780",
-    "fullName": "TIGER TRADEXO PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-781",
-    "fullName": "TIME SAVING COURIERS LLC",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Overseas Agent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-782",
+    "id": "jfll-646",
     "fullName": "TIMESCAN LOGISTICS (INDIA) LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjay Chauhan",
@@ -9387,7 +7755,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-783",
+    "id": "jfll-647",
     "fullName": "TITAN LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr.inderjit Singh",
@@ -9399,7 +7767,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-784",
+    "id": "jfll-648",
     "fullName": "TK LOGISTICS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Rohit Khadke",
@@ -9411,7 +7779,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-785",
+    "id": "jfll-649",
     "fullName": "TOP FREIGHT LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "Deepak",
@@ -9423,7 +7791,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-786",
+    "id": "jfll-650",
     "fullName": "TOTAL MOVEMENTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prerana Vijan",
@@ -9435,19 +7803,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-787",
-    "fullName": "TOTAL SHIPPING & LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-788",
+    "id": "jfll-651",
     "fullName": "TRADENEXA EU",
     "territory": "All Territories",
     "contactPersonName": "Rama Venkata Satya Narayana Tirumani",
@@ -9459,7 +7815,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-789",
+    "id": "jfll-652",
     "fullName": "TRADEPOINT FREIGHT SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Roshan Patel",
@@ -9471,7 +7827,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-790",
+    "id": "jfll-653",
     "fullName": "TRANS GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Abhishek Kumar",
@@ -9483,7 +7839,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-791",
+    "id": "jfll-654",
     "fullName": "TRANS IMPEX SHIPPING & LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Sandesh Mhatre",
@@ -9495,7 +7851,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-792",
+    "id": "jfll-655",
     "fullName": "TRANS IMPEX SHIPPING AND TRADING CO",
     "territory": "All Territories",
     "contactPersonName": "Ranjeet Chauhan",
@@ -9507,19 +7863,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-793",
-    "fullName": "TRANS INDIA CARGO SERVICES",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "General Expense",
-    "type": "Partnership",
-    "saved": false
-  },
-  {
-    "id": "jfll-794",
+    "id": "jfll-656",
     "fullName": "TRANS SEA BULK SOLUTIONS INDIA LLP",
     "territory": "All Territories",
     "contactPersonName": "Ketan",
@@ -9531,7 +7875,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-795",
+    "id": "jfll-657",
     "fullName": "TRANSCOM GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jayesh Badala",
@@ -9543,19 +7887,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-796",
-    "fullName": "TRANSCOM LOGISTICS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-797",
+    "id": "jfll-658",
     "fullName": "TRANSFREIGHT GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Ekta Singh",
@@ -9567,7 +7899,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-798",
+    "id": "jfll-659",
     "fullName": "TRANSIT POINT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Transit Point Logistics Private Limited",
@@ -9579,7 +7911,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-799",
+    "id": "jfll-660",
     "fullName": "TRANSLINK LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "S Venu Gopal",
@@ -9591,7 +7923,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-800",
+    "id": "jfll-661",
     "fullName": "TRANSMARINE CARGO SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sneha Sawant",
@@ -9603,19 +7935,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-801",
-    "fullName": "TRANSMODAL MARINE LOGISTICS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-802",
+    "id": "jfll-662",
     "fullName": "TRANSSAFE GLOBAL FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mounaguru",
@@ -9627,7 +7947,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-803",
+    "id": "jfll-663",
     "fullName": "TRANSSAFE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mohammed Abubacker. R",
@@ -9639,7 +7959,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-804",
+    "id": "jfll-664",
     "fullName": "TRANSTECH SHIPPING AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Namrata Parab",
@@ -9651,7 +7971,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-805",
+    "id": "jfll-665",
     "fullName": "TRANSWAYS LOGISTICS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Yadnesh Patekar",
@@ -9663,7 +7983,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-806",
+    "id": "jfll-666",
     "fullName": "TRANSWORLD GLOBAL LOGISTICS SOLUTIONS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Transworld",
@@ -9675,7 +7995,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-807",
+    "id": "jfll-667",
     "fullName": "TRANSWORLD INTEGRATED LOGISTEK PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Rohni Deshpande",
@@ -9687,7 +8007,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-808",
+    "id": "jfll-668",
     "fullName": "TRAYAM INTERNATIONAL LOGISTICS (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chetali",
@@ -9699,7 +8019,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-809",
+    "id": "jfll-669",
     "fullName": "TRAYDO LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sunil Bandkar",
@@ -9711,7 +8031,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-810",
+    "id": "jfll-670",
     "fullName": "TRIANGLE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Harsiddha Pandya",
@@ -9723,7 +8043,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-811",
+    "id": "jfll-671",
     "fullName": "TRICTON LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kiran",
@@ -9735,7 +8055,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-812",
+    "id": "jfll-672",
     "fullName": "TRIDENT GLOBIZ.",
     "territory": "All Territories",
     "contactPersonName": "Sunil Gulati",
@@ -9747,7 +8067,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-813",
+    "id": "jfll-673",
     "fullName": "TRIO CONSOLIDATORS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Elangovan. M.",
@@ -9759,7 +8079,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-814",
+    "id": "jfll-674",
     "fullName": "TRIPATH LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sureka",
@@ -9771,7 +8091,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-815",
+    "id": "jfll-675",
     "fullName": "TRISTAR LOGISTICS & FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rutuja Jadhav",
@@ -9783,7 +8103,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-816",
+    "id": "jfll-676",
     "fullName": "TRIUMPH EXPORTS INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Vinayak Bhanushali",
@@ -9795,7 +8115,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-817",
+    "id": "jfll-677",
     "fullName": "TROPICAL TRADE CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "Poojan Shah",
@@ -9807,7 +8127,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-818",
+    "id": "jfll-678",
     "fullName": "TRUHAUL LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "Dimple Badooni",
@@ -9819,7 +8139,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-819",
+    "id": "jfll-679",
     "fullName": "TS INDIA LOGISTICS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "T. Karthikeyan",
@@ -9831,7 +8151,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-820",
+    "id": "jfll-680",
     "fullName": "TUSHAR INTERNATIONAL.",
     "territory": "All Territories",
     "contactPersonName": "Tushar",
@@ -9843,19 +8163,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-821",
-    "fullName": "TVARA FREIGHT SOLUTIONS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-822",
+    "id": "jfll-681",
     "fullName": "TVS SCS GLOBAL FREIGHT SOLUTIONS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Venkatesh B",
@@ -9867,7 +8175,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-823",
+    "id": "jfll-682",
     "fullName": "TWINIFY LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Satish Nair",
@@ -9879,7 +8187,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-824",
+    "id": "jfll-683",
     "fullName": "TWOWAYSHIP LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rashi",
@@ -9891,19 +8199,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-825",
-    "fullName": "UFS EXPRESS INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-826",
+    "id": "jfll-684",
     "fullName": "UH GLOBAL EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "Mohammed",
@@ -9915,7 +8211,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-827",
+    "id": "jfll-685",
     "fullName": "UNIFIED LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -9927,7 +8223,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-828",
+    "id": "jfll-686",
     "fullName": "UNIFIED LOGISTICS SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ibrahim Sheikh",
@@ -9939,19 +8235,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-829",
-    "fullName": "UNIFIER CONSOL SERVICES PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-830",
+    "id": "jfll-687",
     "fullName": "UNION CARRGO",
     "territory": "All Territories",
     "contactPersonName": "Ekta Sawant",
@@ -9963,7 +8247,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-831",
+    "id": "jfll-688",
     "fullName": "UNITED FREIGHT MANAGEMENT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Achyuth Talluri",
@@ -9975,19 +8259,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-832",
-    "fullName": "UNITED SEAIR PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-833",
+    "id": "jfll-689",
     "fullName": "UNITY GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Rajesh",
@@ -9999,7 +8271,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-834",
+    "id": "jfll-690",
     "fullName": "UNIVERSAL CLEARING AND FORWARDING",
     "territory": "All Territories",
     "contactPersonName": "Maheshwara Midukuri",
@@ -10011,7 +8283,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-835",
+    "id": "jfll-691",
     "fullName": "UNIVERSAL COURIER",
     "territory": "All Territories",
     "contactPersonName": "Biren",
@@ -10023,7 +8295,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-836",
+    "id": "jfll-692",
     "fullName": "UNIWINGS CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Swasthik Shetty",
@@ -10035,7 +8307,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-837",
+    "id": "jfll-693",
     "fullName": "UPL LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Amit Pawar",
@@ -10047,7 +8319,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-838",
+    "id": "jfll-694",
     "fullName": "UPOWER LOGISTICS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjeev",
@@ -10059,7 +8331,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-839",
+    "id": "jfll-695",
     "fullName": "URBEN CARGO EXPERTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ravi Shah",
@@ -10071,7 +8343,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-840",
+    "id": "jfll-696",
     "fullName": "URBX WORLDWIDE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajesh Gopalkrishnan",
@@ -10083,19 +8355,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-841",
-    "fullName": "UTM EXPORTS",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-842",
+    "id": "jfll-697",
     "fullName": "V-WIN EXPRESS INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Tiburtius Edmand Fernando",
@@ -10107,7 +8367,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-843",
+    "id": "jfll-698",
     "fullName": "V.H. LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Himanshu Jayantibhai Patel",
@@ -10119,7 +8379,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-844",
+    "id": "jfll-699",
     "fullName": "V2V LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nakul",
@@ -10131,7 +8391,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-845",
+    "id": "jfll-700",
     "fullName": "VALUE FREIGHT MUMBAI PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Atita Kadam",
@@ -10143,7 +8403,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-846",
+    "id": "jfll-701",
     "fullName": "VARDHMAN LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Komal Shah",
@@ -10155,7 +8415,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-847",
+    "id": "jfll-702",
     "fullName": "VASAI FROZEN FOODS",
     "territory": "All Territories",
     "contactPersonName": "Mrs.daigy Yesudas",
@@ -10167,7 +8427,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-848",
+    "id": "jfll-703",
     "fullName": "VEL EXIM",
     "territory": "All Territories",
     "contactPersonName": "Varun",
@@ -10179,7 +8439,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-849",
+    "id": "jfll-704",
     "fullName": "VENKATESH FORWARDER",
     "territory": "All Territories",
     "contactPersonName": "Pratik Mehta",
@@ -10191,7 +8451,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-850",
+    "id": "jfll-705",
     "fullName": "VENUS CONTAINER LINE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nikhil",
@@ -10203,7 +8463,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-851",
+    "id": "jfll-706",
     "fullName": "VERTEX CHEM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prabhita P Nair",
@@ -10215,7 +8475,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-852",
+    "id": "jfll-707",
     "fullName": "VG FRUIT COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Sunil Varghese",
@@ -10227,7 +8487,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-853",
+    "id": "jfll-708",
     "fullName": "VICTORY DISTRIBUTIONS B.V",
     "territory": "All Territories",
     "contactPersonName": "Vijay",
@@ -10239,19 +8499,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-854",
-    "fullName": "VIGHNAHAR CLEARING SHIPPING AND LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-855",
+    "id": "jfll-709",
     "fullName": "VIGOROUS SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Akhlendra Tiwari",
@@ -10263,7 +8511,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-856",
+    "id": "jfll-710",
     "fullName": "VIMAL INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Yogeeta Kamble",
@@ -10275,7 +8523,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-857",
+    "id": "jfll-711",
     "fullName": "VINAYAK INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Sunil",
@@ -10287,31 +8535,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-858",
-    "fullName": "VINI LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-859",
-    "fullName": "VINTAGE CARGO TRADE AND LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false
-  },
-  {
-    "id": "jfll-860",
+    "id": "jfll-712",
     "fullName": "VIOLET TRANSGLOBE",
     "territory": "All Territories",
     "contactPersonName": "Dhananjay",
@@ -10323,7 +8547,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-861",
+    "id": "jfll-713",
     "fullName": "VIOLIFE EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Tajinder Singh Suri",
@@ -10335,7 +8559,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-862",
+    "id": "jfll-714",
     "fullName": "VISION AGRO PRODUCTS LTD",
     "territory": "All Territories",
     "contactPersonName": "Paresh Shash",
@@ -10347,7 +8571,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-863",
+    "id": "jfll-715",
     "fullName": "VOYAGE MARINE SOLUTIONS (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suresh Sharma",
@@ -10359,7 +8583,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-864",
+    "id": "jfll-716",
     "fullName": "VRRDDHI FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ramasame",
@@ -10371,7 +8595,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-865",
+    "id": "jfll-717",
     "fullName": "VRT LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Ashish",
@@ -10383,19 +8607,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-866",
-    "fullName": "VRUNDAWAN INTERNATIONAL",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Individual / Proprietorship",
-    "saved": false
-  },
-  {
-    "id": "jfll-867",
+    "id": "jfll-718",
     "fullName": "VYUH LOGISITCS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Harshita",
@@ -10407,7 +8619,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-868",
+    "id": "jfll-719",
     "fullName": "WELDON LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Revathi",
@@ -10419,7 +8631,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-869",
+    "id": "jfll-720",
     "fullName": "WELLNESS24 MEDICO",
     "territory": "All Territories",
     "contactPersonName": "Shivalee",
@@ -10431,19 +8643,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-870",
-    "fullName": "WEN-PARKER LOGISTICS INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-871",
+    "id": "jfll-721",
     "fullName": "WHITE STONE CHEMICALS",
     "territory": "All Territories",
     "contactPersonName": "Nikhil Gupta",
@@ -10455,7 +8655,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-872",
+    "id": "jfll-722",
     "fullName": "WINTEAM CONSOLIDATORS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Smita Paalav",
@@ -10467,7 +8667,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-873",
+    "id": "jfll-723",
     "fullName": "WORLDLINE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suraj Vishwakarma",
@@ -10479,7 +8679,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-874",
+    "id": "jfll-724",
     "fullName": "WW LOGISTICIANS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Alok Shah",
@@ -10491,7 +8691,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-875",
+    "id": "jfll-725",
     "fullName": "WWL INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kayshab",
@@ -10503,19 +8703,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-876",
-    "fullName": "XPORTIFY TECHNOLOGIES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false
-  },
-  {
-    "id": "jfll-877",
+    "id": "jfll-726",
     "fullName": "YARA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mustafa",
@@ -10527,19 +8715,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-878",
-    "fullName": "YARA FRESH LLP",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Active",
-    "customerGroup": "Subagent",
-    "type": "LLP",
-    "saved": false
-  },
-  {
-    "id": "jfll-879",
+    "id": "jfll-727",
     "fullName": "YELLOWS AND GREENS AGRI FRESH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Swetha",
@@ -10551,7 +8727,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-880",
+    "id": "jfll-728",
     "fullName": "YICHENG LOGISTCIS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Naveen Bhatnagar",
@@ -10563,7 +8739,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "saved": false
   },
   {
-    "id": "jfll-881",
+    "id": "jfll-729",
     "fullName": "ZONEX EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Jasir Cp",

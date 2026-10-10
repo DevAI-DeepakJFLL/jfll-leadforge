@@ -104,6 +104,11 @@ def process_active_leads(
     deduped = df.groupby("alnum_key", as_index=False, group_keys=False).apply(resolve_group)
     deduped = deduped.drop(columns=["alnum_key"]).sort_values("Full Name").reset_index(drop=True)
 
+    # Filter: Remove records where both Phone Number and Email are missing
+    has_phone = deduped["Mobile Number"].notna() & (deduped["Mobile Number"].astype(str).str.strip() != "") & (deduped["Mobile Number"].astype(str).str.strip() != "nan")
+    has_email = deduped["Email"].notna() & (deduped["Email"].astype(str).str.strip() != "") & (deduped["Email"].astype(str).str.strip() != "nan")
+    deduped = deduped[has_phone | has_email].copy().reset_index(drop=True)
+
     target_columns = [
         "Full Name",
         "Territory",
