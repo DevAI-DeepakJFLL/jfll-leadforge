@@ -37,3 +37,18 @@ class HealthResponse(BaseModel):
     backend: str
     floci_endpoint: str
     s3_target: str
+
+
+class LoginRequest(BaseModel):
+    email: str = Field(..., description="Enterprise work email")
+    password: str = Field(..., min_length=1, description="Account password")
+
+
+class UserSessionResponse(BaseModel):
+    email: str = Field(..., description="Authenticated user email")
+    name: str = Field(..., description="User display name")
+    role: str = Field(..., description="Assigned role")
+    token: str = Field(..., description="Signed authentication bearer token")
+    token_type: str = Field(default="Bearer", description="Token type")
+    expires_at: Optional[str] = Field(None, description="ISO timestamp of token expiration")
+

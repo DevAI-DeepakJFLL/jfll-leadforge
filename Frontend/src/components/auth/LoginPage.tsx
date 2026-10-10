@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 
 import { UserSession, DEMO_CREDENTIALS } from '@/types/auth';
+import { loginUser } from '@/services/authService';
 
 export interface LoginPageProps {
   onLoginSuccess: (session: UserSession) => void;
@@ -26,7 +27,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
 
@@ -37,25 +38,17 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
     setIsLoading(true);
 
-    // Simulate authentication check
-    setTimeout(() => {
-      if (
-        email.trim().toLowerCase() === DEMO_CREDENTIALS.email.toLowerCase() &&
-        password === DEMO_CREDENTIALS.password
-      ) {
-        const session: UserSession = {
-          email: DEMO_CREDENTIALS.email,
-          name: DEMO_CREDENTIALS.name,
-          role: DEMO_CREDENTIALS.role,
-          token: `session_${Date.now()}`,
-        };
-        sessionStorage.setItem('apollo_leads_session', JSON.stringify(session));
-        onLoginSuccess(session);
-      } else {
-        setErrorMessage('Invalid credentials. Please verify your work email and password.');
-        setIsLoading(false);
-      }
-    }, 350);
+    try {
+      const session = await loginUser({ email, password });
+      sessionStorage.setItem('apollo_leads_session', JSON.stringify(session));
+      onLoginSuccess(session);
+    } catch (err: unknown) {
+      setErrorMessage(
+        (err as Error)?.message || 'Authentication failed. Please verify your credentials.'
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleFillDemo = () => {

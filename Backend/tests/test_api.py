@@ -62,3 +62,44 @@ def test_sql_injection_attempt_is_safe():
     # Parameterized query should treat the injection attempt as a literal string pattern
     assert payload["total_records"] == 0
 
+
+def test_auth_login_success_and_verify_token():
+    # 1. Successful enterprise login
+    res = client.post("/api/v1/auth/login", json={"email": "leads@jfll.com", "password": "Jet@123"})
+    assert res.status_code == 200
+    payload = res.json()
+    assert payload["email"] == "leads@jfll.com"
+    assert payload["name"] == "JFLL"
+    assert payload["role"] == "Internal Team"
+    assert "token" in payload
+    token = payload["token"]
+
+    # 2. Verify token via /api/v1/auth/me
+    me_res = client.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token}"})
+    assert me_res.status_code == 200
+    me_payload = me_res.json()
+    assert me_payload["email"] == "leads@jfll.com"
+    assert me_payload["token"] == token
+
+
+def test_auth_login_invalid_credentials():
+    # Wrong password
+    res1 = client.post("/api/v1/auth/login", json={"email": "leads@jfll.com", "password": "WrongPassword"})
+    assert res1.status_code == 401
+    assert "Invalid work email or password" in res1.json()["detail"]
+
+    # Unknown user
+    res2 = client.post("/api/v1/auth/login", json={"email": "unknown@company.com", "password": "Jet@123"})
+    assert res2.status_code == 401
+
+
+def test_auth_me_unauthorized():
+    # Missing header
+    res = client.get("/api/v1/auth/me")
+    assert res.status_code == 401
+
+    # Invalid token format
+    res2 = client.get("/api/v1/auth/me", headers={"Authorization": "Bearer invalid.token.signature"})
+    assert res2.status_code == 401
+
+

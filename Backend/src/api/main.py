@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from src.api.config import settings
 from src.api.models import HealthResponse
 from src.api.routes import router as leads_router
+from src.api.auth import router as auth_router
 
 app = FastAPI(
     title="Customer Lead Master Service",
@@ -23,10 +24,11 @@ app.add_middleware(
         "*",
     ],
     allow_credentials=False,
-    allow_methods=["GET", "OPTIONS"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 
+app.include_router(auth_router)
 app.include_router(leads_router)
 
 
