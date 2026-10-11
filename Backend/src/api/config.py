@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from pydantic import BaseModel, Field
 
 
@@ -18,6 +19,11 @@ class Settings(BaseModel):
     default_user_password: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_PASSWORD", "Jet@123"))
     default_user_name: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_NAME", "JFLL"))
     default_user_role: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_ROLE", "Internal Team"))
+
+    @property
+    def local_parquet_path(self) -> Path:
+        base_dir = Path(__file__).resolve().parent.parent.parent
+        return base_dir / "data" / "processed" / "active_customers_leads_zstd.parquet"
 
     @property
     def s3_uri(self) -> str:

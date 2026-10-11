@@ -12,6 +12,20 @@ ALLOWED_STATUSES = {"Active", "Not Active"}
 ALLOWED_TABS = {"all", "shippers", "subagents", "overseas", "with-contacts"}
 
 
+def get_data_source(con) -> str:
+    """Returns s3_uri if S3/Floci is accessible, else falls back to local processed parquet."""
+    if settings.env != "local":
+        return settings.s3_uri
+    try:
+        con.execute(f"SELECT 1 FROM '{settings.s3_uri}' LIMIT 0")
+        return settings.s3_uri
+    except Exception:
+        local_path = settings.local_parquet_path
+        if local_path.exists():
+            return str(local_path)
+        return settings.s3_uri
+
+
 @router.get("/leads", response_model=PaginatedResponse, summary="Retrieve paginated customer leads")
 def list_leads(
     page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
@@ -107,9 +121,10 @@ def list_leads(
         params.extend([search_pattern, search_pattern, search_pattern, search_pattern])
 
     where_sql = " AND ".join(conditions)
+    data_source = get_data_source(con)
 
     # 1. Total Count Query (Prepared statement)
-    count_query = f"SELECT count(*) FROM '{settings.s3_uri}' WHERE {where_sql}"
+    count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
     total_records = con.execute(count_query, params).fetchone()[0]
 
     # 2. Audience Tab Aggregate Counts (Single-pass table scan)
@@ -120,7 +135,7 @@ def list_leads(
             count(CASE WHEN "Customer Group" = 'Subagent' THEN 1 END) as subagents,
             count(CASE WHEN "Customer Group" = 'Overseas Agent' THEN 1 END) as overseas,
             count(CASE WHEN ("Contact Person Name" IS NOT NULL OR "Email" IS NOT NULL OR "Mobile Number" IS NOT NULL) THEN 1 END) as with_contacts
-        FROM '{settings.s3_uri}'
+        FROM '{data_source}'
     """).fetchone()
 
     audience_counts = AudienceCounts(
@@ -142,7 +157,7 @@ def list_leads(
             "Status" as status,
             "Customer Group" as customer_group,
             "Type" as type
-        FROM '{settings.s3_uri}'
+        FROM '{data_source}'
         WHERE {where_sql}
         ORDER BY "Full Name" ASC
         LIMIT ? OFFSET ?
