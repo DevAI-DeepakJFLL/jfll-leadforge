@@ -1,4 +1,4 @@
-# Jet Freight Logistics — Lead Sourcing & Customer Intelligence Platform
+# JFLL LeadForge — Lead Sourcing & Customer Intelligence Platform
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![Frontend Tests](https://img.shields.io/badge/Vitest-46%20passed-success.svg)]()
@@ -10,6 +10,8 @@
 
 Enterprise B2B Lead Sourcing and Customer Intelligence Suite developed for **Jet Freight Logistics Limited (JFLL)**. The platform pairs a high-performance analytical query engine (FastAPI + DuckDB over AWS S3 Parquet) with a modern React 18 single-page application modeled after enterprise prospecting workflows.
 
+**GitHub Repository**: [`DevAI-DeepakJFLL/jfll-leadforge`](https://github.com/DevAI-DeepakJFLL/jfll-leadforge)
+
 ---
 
 ## Table of Contents
@@ -19,8 +21,9 @@ Enterprise B2B Lead Sourcing and Customer Intelligence Suite developed for **Jet
 - [Key Features](#key-features)
 - [Technology Stack](#technology-stack)
 - [Repository Structure](#repository-structure)
-- [Quickstart Guide](#quickstart-guide)
+- [Quickstart & Team Onboarding](#quickstart--team-onboarding)
   - [Prerequisites](#prerequisites)
+  - [Clone Repository](#clone-repository)
   - [1. Backend Setup](#1-backend-setup)
   - [2. Frontend Setup](#2-frontend-setup)
 - [Authentication & Access](#authentication--access)
@@ -192,12 +195,21 @@ Lead Sourcing Tool/
 
 ---
 
-## Quickstart Guide
-
+## Quickstart & Team Onboarding
+ 
 ### Prerequisites
 - **Node.js**: `v18.0.0` or higher (Node 20+ recommended)
 - **Python**: `v3.10` or higher
 - **Package Managers**: `npm` and `uv` (or `pip`)
+
+---
+
+### Clone Repository
+
+```bash
+git clone git@github.com:DevAI-DeepakJFLL/jfll-leadforge.git
+cd jfll-leadforge
+```
 
 ---
 
