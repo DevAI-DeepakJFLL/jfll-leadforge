@@ -38,6 +38,11 @@ aws_guide.md
 *AWS_DEPLOY*.md
 *[Aa][Ww][Ss]*[Gg][Uu][Ii][Dd][Ee]*.md
 
+# Floci Documentation (Maintained Locally Only)
+*floci*.md
+*FLOCI*.md
+Backend/docs/FLOCI_DOCUMENTATION.md
+
 # Credentials & Private Keys
 *.pem
 *.key

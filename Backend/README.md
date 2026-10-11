@@ -18,7 +18,6 @@ customer-master-service/
 │       └── active_customers_leads_zstd.parquet  # Production ZSTD Parquet (881 records, 37.5 KB)
 ├── docs/
 │   ├── API_DOCUMENTATION.md         # Comprehensive REST API specifications
-│   ├── FLOCI_DOCUMENTATION.md       # Floci AWS emulator configuration guide
 │   └── SECURITY_AND_CODE_REVIEW.md  # Comprehensive code quality & security audit
 ├── scripts/
 │   └── upload_to_floci.py           # S3 bucket seeding script for Floci/AWS

@@ -184,7 +184,6 @@ Lead Sourcing Tool/
 │   │   └── test_api.py                  # Pytest test suite (9 tests passing)
 │   └── docs/                            # Deep-dive backend specifications
 │       ├── API_DOCUMENTATION.md         # Comprehensive REST API specifications
-│       ├── FLOCI_DOCUMENTATION.md       # Floci AWS emulator configuration
 │       └── SECURITY_AND_CODE_REVIEW.md  # Comprehensive security & code quality report
 │
 └── docs/                                # Project governance & architectural records
