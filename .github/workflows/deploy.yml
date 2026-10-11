@@ -16,33 +16,57 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Verify Required AWS Secrets
+      - name: Verify Required AWS Configuration (Secrets & Variables)
+        env:
+          AWS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID || vars.AWS_ACCESS_KEY_ID }}
+          AWS_SEC: ${{ secrets.AWS_SECRET_ACCESS_KEY || vars.AWS_SECRET_ACCESS_KEY }}
+          DATA_BKT: ${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}
+          FE_BKT: ${{ secrets.S3_FRONTEND_BUCKET || vars.S3_FRONTEND_BUCKET }}
+          LMB_NAME: ${{ secrets.LAMBDA_FUNCTION_NAME || vars.LAMBDA_FUNCTION_NAME }}
+          CF_DIST: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID || vars.CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
-          missing=()
-          [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ] && missing+=("AWS_ACCESS_KEY_ID")
-          [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ] && missing+=("AWS_SECRET_ACCESS_KEY")
-          [ -z "${{ secrets.S3_DATA_BUCKET }}" ] && missing+=("S3_DATA_BUCKET")
-          [ -z "${{ secrets.S3_FRONTEND_BUCKET }}" ] && missing+=("S3_FRONTEND_BUCKET")
-          [ -z "${{ secrets.LAMBDA_FUNCTION_NAME }}" ] && missing+=("LAMBDA_FUNCTION_NAME")
-          [ -z "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ] && missing+=("CLOUDFRONT_DISTRIBUTION_ID")
-          if [ ${#missing[@]} -ne 0 ]; then
-            echo "::error::Missing required GitHub Secrets: ${missing[*]}"
-            echo "👉 Please configure them in Repository Settings > Secrets and variables > Actions"
+          echo "=== Checking Configuration ==="
+          missing=0
+          
+          check_var() {
+            local name="$1"
+            local val="$2"
+            if [ -n "$val" ]; then
+              echo "✅ Configured: $name"
+            else
+              echo "❌ MISSING: $name"
+              missing=1
+            fi
+          }
+
+          check_var "AWS_ACCESS_KEY_ID" "$AWS_KEY"
+          check_var "AWS_SECRET_ACCESS_KEY" "$AWS_SEC"
+          check_var "S3_DATA_BUCKET" "$DATA_BKT"
+          check_var "S3_FRONTEND_BUCKET" "$FE_BKT"
+          check_var "LAMBDA_FUNCTION_NAME" "$LMB_NAME"
+          check_var "CLOUDFRONT_DISTRIBUTION_ID" "$CF_DIST"
+
+          if [ $missing -eq 1 ]; then
+            echo ""
+            echo "::error::One or more required variables/secrets are missing."
+            echo "👉 Go to: Repository Settings > Secrets and variables > Actions"
+            echo "👉 Verify they are added under either 'Secrets' OR 'Variables' tab."
             exit 1
           fi
+          echo "All required configurations found! Proceeding with deployment..."
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION || 'ap-southeast-2' }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID || vars.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || vars.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || vars.AWS_REGION || 'ap-southeast-2' }}
 
       - name: Upload Parquet Leads to S3
         run: |
           echo "Uploading active customer Parquet dataset to S3..."
           aws s3 cp Backend/data/processed/active_customers_leads_zstd.parquet \
-            s3://${{ secrets.S3_DATA_BUCKET }}/leads/active_customers_leads_zstd.parquet
+            s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/active_customers_leads_zstd.parquet
 
   deploy-backend:
     name: Package & Deploy Backend Lambda
@@ -61,9 +85,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION || 'ap-southeast-2' }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID || vars.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || vars.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || vars.AWS_REGION || 'ap-southeast-2' }}
 
       - name: Build Lambda Package
         run: |
@@ -80,14 +104,17 @@ jobs:
       - name: Upload & Update Lambda Function Code
         run: |
           cd Backend
+          DATA_BUCKET="${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}"
+          LAMBDA_NAME="${{ secrets.LAMBDA_FUNCTION_NAME || vars.LAMBDA_FUNCTION_NAME }}"
+          
           # Upload zip to S3 first to avoid direct upload payload limits
-          aws s3 cp function.zip s3://${{ secrets.S3_DATA_BUCKET }}/lambda/function.zip
+          aws s3 cp function.zip "s3://${DATA_BUCKET}/lambda/function.zip"
           
           # Deploy code to AWS Lambda
           aws lambda update-function-code \
-            --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
-            --s3-bucket ${{ secrets.S3_DATA_BUCKET }} \
-            --s3-key lambda/function.zip
+            --function-name "${LAMBDA_NAME}" \
+            --s3-bucket "${DATA_BUCKET}" \
+            --s3-key "lambda/function.zip"
 
   deploy-frontend:
     name: Build & Deploy Frontend to S3 and CloudFront
@@ -106,7 +133,7 @@ jobs:
 
       - name: Install & Build Frontend SPA
         env:
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL || vars.VITE_API_BASE_URL }}
         run: |
           cd Frontend
           npm ci
@@ -115,16 +142,18 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION || 'ap-southeast-2' }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID || vars.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || vars.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || vars.AWS_REGION || 'ap-southeast-2' }}
 
       - name: Sync Frontend Build to Private S3
         run: |
-          aws s3 sync ./Frontend/dist s3://${{ secrets.S3_FRONTEND_BUCKET }} --delete
+          FRONTEND_BUCKET="${{ secrets.S3_FRONTEND_BUCKET || vars.S3_FRONTEND_BUCKET }}"
+          aws s3 sync ./Frontend/dist "s3://${FRONTEND_BUCKET}" --delete
 
       - name: Invalidate CloudFront Distribution Cache
         run: |
+          DIST_ID="${{ secrets.CLOUDFRONT_DISTRIBUTION_ID || vars.CLOUDFRONT_DISTRIBUTION_ID }}"
           aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --distribution-id "${DIST_ID}" \
             --paths "/*"
