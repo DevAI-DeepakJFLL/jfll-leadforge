@@ -51,7 +51,8 @@ export async function fetchJfllCustomersFromApi(
   customerGroups.forEach((g) => urlParams.append('customer_groups', g));
   types.forEach((t) => urlParams.append('types', t));
 
-  const endpoint = `/api/v1/leads?${urlParams.toString()}`;
+  const apiBase = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+  const endpoint = `${apiBase}/api/v1/leads?${urlParams.toString()}`;
   logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups });
 
   try {

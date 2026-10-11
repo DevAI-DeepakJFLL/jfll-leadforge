@@ -1,0 +1,4 @@
+fastapi>=0.110.0
+mangum>=0.17.0
+duckdb>=1.0.0
+pydantic>=2.6.0

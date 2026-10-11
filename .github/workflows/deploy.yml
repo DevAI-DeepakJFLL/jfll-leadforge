@@ -1,0 +1,114 @@
+name: Deploy JFLL LeadForge to AWS
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-data:
+    name: Deploy Analytical Parquet Data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || 'ap-southeast-2' }}
+
+      - name: Upload Parquet Leads to S3
+        run: |
+          echo "Uploading active customer Parquet dataset to S3..."
+          aws s3 cp Backend/data/processed/active_customers_leads_zstd.parquet \
+            s3://${{ secrets.S3_DATA_BUCKET }}/leads/active_customers_leads_zstd.parquet
+
+  deploy-backend:
+    name: Package & Deploy Backend Lambda
+    needs: [ deploy-data ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || 'ap-southeast-2' }}
+
+      - name: Build Lambda Package
+        run: |
+          cd Backend
+          mkdir -p package
+          pip install --target ./package -r requirements-lambda.txt
+          cp -r src ./package/
+          cd package
+          zip -r ../function.zip . -x "*__pycache__*" "*.pyc"
+          cd ..
+          echo "Lambda package size:"
+          ls -lh function.zip
+
+      - name: Upload & Update Lambda Function Code
+        run: |
+          cd Backend
+          # Upload zip to S3 first to avoid direct upload payload limits
+          aws s3 cp function.zip s3://${{ secrets.S3_DATA_BUCKET }}/lambda/function.zip
+          
+          # Deploy code to AWS Lambda
+          aws lambda update-function-code \
+            --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
+            --s3-bucket ${{ secrets.S3_DATA_BUCKET }} \
+            --s3-key lambda/function.zip
+
+  deploy-frontend:
+    name: Build & Deploy Frontend to S3 and CloudFront
+    needs: [ deploy-backend ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: Frontend/package-lock.json
+
+      - name: Install & Build Frontend SPA
+        env:
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+        run: |
+          cd Frontend
+          npm ci
+          npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || 'ap-southeast-2' }}
+
+      - name: Sync Frontend Build to Private S3
+        run: |
+          aws s3 sync ./Frontend/dist s3://${{ secrets.S3_FRONTEND_BUCKET }} --delete
+
+      - name: Invalidate CloudFront Distribution Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
