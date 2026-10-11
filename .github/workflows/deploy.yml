@@ -3,6 +3,7 @@ name: Deploy JFLL LeadForge to AWS
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,6 +15,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Verify Required AWS Secrets
+        run: |
+          missing=()
+          [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ] && missing+=("AWS_ACCESS_KEY_ID")
+          [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ] && missing+=("AWS_SECRET_ACCESS_KEY")
+          [ -z "${{ secrets.S3_DATA_BUCKET }}" ] && missing+=("S3_DATA_BUCKET")
+          [ -z "${{ secrets.S3_FRONTEND_BUCKET }}" ] && missing+=("S3_FRONTEND_BUCKET")
+          [ -z "${{ secrets.LAMBDA_FUNCTION_NAME }}" ] && missing+=("LAMBDA_FUNCTION_NAME")
+          [ -z "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ] && missing+=("CLOUDFRONT_DISTRIBUTION_ID")
+          if [ ${#missing[@]} -ne 0 ]; then
+            echo "::error::Missing required GitHub Secrets: ${missing[*]}"
+            echo "👉 Please configure them in Repository Settings > Secrets and variables > Actions"
+            exit 1
+          fi
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
