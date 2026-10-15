@@ -78,9 +78,9 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
       aria-label="Table Actions Toolbar"
     >
       {/* Left: Bulk Selection & Essential Sourcing Tools */}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1 min-w-0">
         {/* 1. Selection Checkbox Dropdown */}
-        <div className="relative inline-flex items-center rounded-md border border-slate-200 bg-white shadow-2xs">
+        <div className="relative inline-flex items-center rounded-md border border-slate-200 bg-white shadow-2xs shrink-0">
           <label className="flex items-center px-2 py-1 cursor-pointer">
             <input
               type="checkbox"
@@ -162,7 +162,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
           type="button"
           onClick={onSave}
           disabled={!hasSelection}
-          className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 ${
+          className={`shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 ${
             hasSelection
               ? 'bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 border border-slate-200'
               : 'bg-slate-100 text-slate-400 border border-slate-200/60 cursor-not-allowed opacity-60'
@@ -174,7 +174,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
         </button>
 
         {/* 3. "📋 Add to List ▾" */}
-        <div className="relative">
+        <div className="relative shrink-0">
           <button
             type="button"
             onClick={() => setActiveMenu(activeMenu === 'lists' ? null : 'lists')}
@@ -262,7 +262,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
           type="button"
           onClick={onExport}
           disabled={isExporting}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 disabled:opacity-50"
+          className="shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 disabled:opacity-50"
           title="Download leads dataset as RFC-4180 CSV"
         >
           {isExporting ? (

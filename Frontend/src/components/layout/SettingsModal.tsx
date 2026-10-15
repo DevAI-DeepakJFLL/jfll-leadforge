@@ -22,7 +22,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 backdrop-blur-md p-3 sm:p-4 animate-in fade-in duration-150"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -33,7 +33,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+        <div className="px-5 sm:px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-white p-1 border border-slate-200 shadow-2xs flex items-center justify-center shrink-0">
               <img
@@ -49,7 +49,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-200/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-apollo-400"
+            className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-200/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-apollo-400 shrink-0"
             aria-label="Close settings"
           >
             <X className="w-4 h-4" />
@@ -57,7 +57,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6 text-xs">
+        <div className="p-5 sm:p-6 space-y-6 text-xs">
           {/* Default Page Size */}
           <div className="space-y-2">
             <label className="font-semibold text-slate-900 block text-xs">
@@ -66,12 +66,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             <p className="text-slate-500 text-[11px]">
               Set how many prospect rows are retrieved and rendered at a time.
             </p>
-            <div className="flex items-center gap-2 pt-1">
+            <div className="flex flex-wrap items-center gap-2 pt-1">
               {[25, 50, 100].map((size) => (
                 <button
                   key={size}
                   onClick={() => onPageSizeChange(size)}
-                  className={`px-3 py-1.5 rounded-lg border font-medium transition-colors ${
+                  className={`px-3.5 py-2 min-h-[40px] rounded-lg border font-medium transition-colors ${
                     pageSize === size
                       ? 'border-apollo bg-apollo-50 text-apollo font-semibold'
                       : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
@@ -128,10 +128,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <div className="px-5 sm:px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-1.5 bg-apollo text-white font-medium rounded-lg text-xs hover:bg-apollo-600 transition-colors"
+            className="px-5 py-2 min-h-[40px] bg-apollo text-white font-semibold rounded-lg text-xs hover:bg-apollo-600 transition-colors shadow-2xs"
           >
             Done
           </button>

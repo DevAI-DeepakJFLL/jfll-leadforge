@@ -66,11 +66,11 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
       {
         id: 'select',
         header: ({ table }) => (
-          <div className="flex items-center justify-center pl-2">
+          <div className="flex items-center justify-center pl-1">
             <button
               type="button"
               onClick={table.getToggleAllPageRowsSelectedHandler()}
-              className="p-1 focus:outline-none"
+              className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-apollo/20 rounded"
               aria-label="Select all rows"
             >
               <div
@@ -93,14 +93,14 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
           </div>
         ),
         cell: ({ row }) => (
-          <div className="flex items-center justify-center pl-2">
+          <div className="flex items-center justify-center pl-1">
             <button
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 row.toggleSelected();
               }}
-              className="p-1 focus:outline-none"
+              className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-apollo/20 rounded"
               aria-label={`Select ${row.original.name}`}
             >
               <div
@@ -336,15 +336,15 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
   return (
     <div className={`bg-white rounded-lg border border-surface-border shadow-2xs flex flex-col min-w-0 ${className}`}>
       <div className="overflow-x-auto min-w-0">
-        <table className="w-full text-left border-collapse table-fixed">
+        <table className="w-full min-w-[780px] text-left border-collapse table-fixed">
           {/* Colgroup matching proportional spacing of Ref.jpg */}
           <colgroup>
-            <col style={{ width: '48px' }} />
+            <col style={{ width: '44px' }} />
             <col style={{ width: '27%' }} />
-            <col style={{ width: '28%' }} />
+            <col style={{ width: '27%' }} />
             <col style={{ width: '13%' }} />
-            <col style={{ width: '18%' }} />
-            <col style={{ width: '14%' }} />
+            <col style={{ width: '17%' }} />
+            <col style={{ width: '16%' }} />
           </colgroup>
 
           {/* Semantic Table Header for Accessibility (WCAG 1.3.1) */}
@@ -388,7 +388,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
       </div>
 
       {/* Table Pagination Footer */}
-      <div className="px-4 py-3 bg-white border-t border-surface-border flex items-center justify-between text-xs text-slate-600 shrink-0">
+      <div className="px-4 py-3 bg-white border-t border-surface-border flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 shrink-0">
         <div className="font-medium text-slate-500">
           Showing <strong className="text-slate-800">{leads.length > 0 ? startItem : 0}</strong> -{' '}
           <strong className="text-slate-800">{endItem}</strong> of{' '}
@@ -406,7 +406,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
               type="button"
               disabled={currentPage <= 1}
               onClick={() => onPageChange(currentPage - 1)}
-              className="p-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-slate-600 hover:text-slate-900"
+              className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-md border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-slate-600 hover:text-slate-900"
               title="Previous page"
               aria-label="Previous page"
             >
@@ -416,7 +416,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
               type="button"
               disabled={currentPage >= totalPages}
               onClick={() => onPageChange(currentPage + 1)}
-              className="p-1 rounded border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-slate-600 hover:text-slate-900"
+              className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-md border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors text-slate-600 hover:text-slate-900"
               title="Next page"
               aria-label="Next page"
             >

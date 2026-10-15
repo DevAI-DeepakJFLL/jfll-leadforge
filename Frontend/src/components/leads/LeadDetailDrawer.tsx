@@ -82,17 +82,17 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
     >
       {/* Dimmed Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity duration-300"
+        className="fixed inset-0 bg-slate-950/75 backdrop-blur-md transition-opacity duration-300"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Slide-over panel container */}
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10 pointer-events-none">
-        <div className="w-screen max-w-md sm:max-w-[480px] pointer-events-auto bg-white shadow-2xl flex flex-col h-full border-l border-slate-200 animate-in slide-in-from-right duration-250 ease-out">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10 pointer-events-none">
+        <div className="w-screen max-w-full sm:max-w-[480px] pointer-events-auto bg-white shadow-2xl flex flex-col h-full border-l border-slate-200 animate-in slide-in-from-right duration-250 ease-out">
           
           {/* Header */}
-          <div className="p-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 via-white to-blue-50/20 shrink-0">
+          <div className="p-4 sm:p-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 via-white to-blue-50/20 shrink-0">
             <div className="flex items-start justify-between gap-3 mb-3">
               <div className="flex items-center space-x-3 min-w-0">
                 <CompanyAvatar
@@ -127,7 +127,7 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none"
+                className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none"
                 aria-label="Close drawer"
               >
                 <X className="w-5 h-5" />

@@ -16,6 +16,8 @@ import {
   Cpu,
   DollarSign,
   CreditCard,
+  X,
+  SlidersHorizontal,
 } from 'lucide-react';
 import { FilterAccordion } from './FilterAccordion';
 import { SearchableCheckboxList, FilterItemOption } from './SearchableCheckboxList';
@@ -31,6 +33,8 @@ export interface FilterSidebarProps {
   onClearCategory?: (key: keyof FilterParams) => void;
   onSaveSearch?: () => void;
   onLoadSearch?: () => void;
+  isMobileOpen?: boolean;
+  onCloseMobile?: () => void;
   className?: string;
 }
 
@@ -137,6 +141,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   onClearCategory,
   onSaveSearch,
   onLoadSearch,
+  isMobileOpen = false,
+  onCloseMobile,
   className = '',
 }) => {
   // Query facet options from mock API
@@ -227,18 +233,15 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     [facetOptions]
   );
 
-  return (
-    <aside
-      className={`w-64 h-full bg-white border-r border-surface-border flex flex-col shrink-0 select-none ${className}`}
-      aria-label="Lead Filters Sidebar"
-    >
+  const filterContent = (
+    <>
       {/* Top Header */}
       <div className="h-12 px-4 border-b border-surface-border flex items-center justify-between bg-white shrink-0">
         <h2 className="text-sm font-semibold text-slate-800">Filters</h2>
         <button
           type="button"
           onClick={onLoadSearch}
-          className="text-xs text-slate-500 hover:text-slate-800 flex items-center space-x-1.5 transition-colors focus:outline-none"
+          className="text-xs text-slate-500 hover:text-slate-800 flex items-center space-x-1.5 transition-colors focus:outline-none min-h-[36px]"
           title="Reset or load saved search"
         >
           <RotateCw className="w-3.5 h-3.5" />
@@ -476,13 +479,56 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         <button
           type="button"
           onClick={onSaveSearch}
-          className="w-full py-1.5 px-3 bg-white hover:bg-slate-50 text-apollo border border-apollo/30 hover:border-apollo font-medium text-xs rounded-md shadow-2xs transition-all flex items-center justify-center space-x-1.5 focus:outline-none focus:ring-2 focus:ring-apollo/20"
+          className="w-full py-2 px-3 bg-white hover:bg-slate-50 text-apollo border border-apollo/30 hover:border-apollo font-medium text-xs rounded-md shadow-2xs transition-all flex items-center justify-center space-x-1.5 focus:outline-none focus:ring-2 focus:ring-apollo/20 min-h-[44px]"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Save Search</span>
         </button>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop Persistent Sidebar (lg: and up) */}
+      <aside
+        className={`hidden lg:flex w-64 h-full bg-white border-r border-surface-border flex-col shrink-0 select-none ${className}`}
+        aria-label="Lead Filters Sidebar"
+      >
+        {filterContent}
+      </aside>
+
+      {/* Mobile / Tablet Off-Canvas Drawer (lg:hidden) */}
+      {isMobileOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden flex">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity"
+            onClick={onCloseMobile}
+            aria-hidden="true"
+          />
+          {/* Slide-over panel */}
+          <div className="relative w-80 max-w-[85vw] bg-white h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
+            {/* Mobile Header with close button */}
+            <div className="h-14 px-4 border-b border-surface-border flex items-center justify-between bg-slate-50/80 shrink-0">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-apollo" />
+                <h2 className="text-sm font-bold text-slate-900">Lead Filters</h2>
+              </div>
+              <button
+                type="button"
+                onClick={onCloseMobile}
+                className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
+                aria-label="Close filters"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            {filterContent}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

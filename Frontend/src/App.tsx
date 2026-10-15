@@ -46,6 +46,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   const [activeNav, setActiveNav] = useState('search');
   const [topTab, setTopTab] = useState('people');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const { showToast } = useToast();
 
   // Saved searches in state/storage
@@ -366,11 +367,35 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
 
   const isJfllCategory = topTab === 'jfll-customers';
 
+  const apolloActiveFilterCount = useMemo(() => {
+    let count = 0;
+    if (filters.jobTitles?.length) count += filters.jobTitles.length;
+    if (filters.departments?.length) count += filters.departments.length;
+    if (filters.locations?.length) count += filters.locations.length;
+    if (filters.industries?.length) count += filters.industries.length;
+    if (filters.companySize?.length) count += filters.companySize.length;
+    if (filters.status) count += 1;
+    return count;
+  }, [filters]);
+
+  const jfllActiveFilterCount = useMemo(() => {
+    let count = 0;
+    if (jfllFilters.customerGroups?.length) count += jfllFilters.customerGroups.length;
+    if (jfllFilters.types?.length) count += jfllFilters.types.length;
+    if (jfllFilters.hasPhone) count += 1;
+    if (jfllFilters.hasEmail) count += 1;
+    if (jfllFilters.hasContactPerson) count += 1;
+    return count;
+  }, [jfllFilters]);
+
+  const currentActiveFilterCount = isJfllCategory ? jfllActiveFilterCount : apolloActiveFilterCount;
+
   return (
     <AppLayout
       activeNav={activeNav}
       onNavChange={(navId) => {
         setActiveNav(navId);
+        setIsMobileFilterOpen(false);
         if (navId === 'jfll-customers') {
           setTopTab('jfll-customers');
         } else if (navId === 'home') {
@@ -386,6 +411,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       activeTab={topTab}
       onTabChange={(tabId) => {
         setTopTab(tabId);
+        setIsMobileFilterOpen(false);
         if (tabId === 'jfll-customers') {
           setActiveNav('jfll-customers');
         } else if (tabId === 'saved-searches') {
@@ -404,6 +430,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       savedSearchesCount={savedSearches.length}
       onOpenSettings={() => setIsSettingsOpen(true)}
       onLogout={onLogout}
+      onToggleMobileFilter={() => setIsMobileFilterOpen((prev) => !prev)}
+      activeFilterCount={currentActiveFilterCount}
     >
       {isJfllCategory ? (
         /* Dedicated JFLL Customers (Organic Internal Master) Category View */
@@ -414,6 +442,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
             onToggleType={toggleJfllType}
             onToggleContactOption={toggleJfllContactOption}
             onClearAll={clearAllJfllFilters}
+            isMobileOpen={isMobileFilterOpen}
+            onCloseMobile={() => setIsMobileFilterOpen(false)}
           />
 
           <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
@@ -468,6 +498,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
             onClearCategory={clearFilterCategory}
             onSaveSearch={handleSaveSearch}
             onLoadSearch={handleLoadPresetSearch}
+            isMobileOpen={isMobileFilterOpen}
+            onCloseMobile={() => setIsMobileFilterOpen(false)}
           />
 
           {/* Right Leads Prospecting Area */}

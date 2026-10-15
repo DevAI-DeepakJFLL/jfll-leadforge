@@ -49,7 +49,7 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-md animate-in fade-in duration-150"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -60,7 +60,7 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-5 py-4 bg-gradient-to-r from-slate-50 via-white to-blue-50/30 border-b border-slate-100 flex items-start justify-between gap-3">
+        <div className="px-4 sm:px-5 py-4 bg-gradient-to-r from-slate-50 via-white to-blue-50/30 border-b border-slate-100 flex items-start justify-between gap-3">
           <div className="flex items-center space-x-3 min-w-0">
             <CompanyAvatar
               company={lead.company}
@@ -92,7 +92,7 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none"
+            className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none shrink-0"
             aria-label="Close dialog"
           >
             <X className="w-5 h-5" />
@@ -221,7 +221,7 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="px-5 py-3.5 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+        <div className="px-4 sm:px-5 py-3.5 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
           {onViewProfile && (
             <button
               type="button"
@@ -229,19 +229,19 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
                 onClose();
                 onViewProfile(lead);
               }}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-apollo hover:underline"
+              className="inline-flex items-center justify-center sm:justify-start gap-1.5 py-1 text-xs font-medium text-slate-600 hover:text-apollo hover:underline min-h-[36px]"
             >
               <User className="w-3.5 h-3.5" />
               <span>Open full dossier</span>
             </button>
           )}
 
-          <div className="flex items-center gap-2 ml-auto">
+          <div className="flex items-center gap-2 sm:ml-auto w-full sm:w-auto">
             {onAddToSequence && (
               <button
                 type="button"
                 onClick={() => onAddToSequence(lead)}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-md shadow-2xs transition-colors"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1 px-3 py-2 text-xs font-medium text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-md shadow-2xs transition-colors min-h-[38px]"
               >
                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                 <span>Add to Sequence</span>
@@ -257,7 +257,7 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
                   window.location.href = `mailto:${lead.email}`;
                 }
               }}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-apollo hover:bg-apollo-600 rounded-md shadow-sm transition-colors focus:outline-none"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-apollo hover:bg-apollo-600 rounded-md shadow-sm transition-colors focus:outline-none min-h-[38px]"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Compose Email</span>

@@ -69,14 +69,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       {/* Main Dual-Panel Enterprise Card */}
       <div className="w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-xl shadow-slate-900/5 border border-slate-200/90 overflow-hidden flex flex-col md:flex-row z-10 transition-all">
         {/* Left Panel: Branded Jet Freight Command Center */}
-        <div className="md:w-5/12 bg-gradient-to-br from-[#0B132B] via-[#0E1A3D] to-[#14234F] text-white p-7 sm:p-9 flex flex-col justify-between relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800/80">
+        <div className="md:w-5/12 bg-gradient-to-br from-[#0B132B] via-[#0E1A3D] to-[#14234F] text-white p-5 sm:p-7 md:p-9 flex flex-col justify-between relative overflow-hidden border-b md:border-b-0 md:border-r border-slate-800/80">
           {/* Subtle Ambient Radial Glow */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-apollo-500/10 rounded-full blur-2xl pointer-events-none" />
 
           {/* Top Branding Section */}
-          <div className="relative z-10 space-y-5">
+          <div className="relative z-10 space-y-3 sm:space-y-5">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-white p-1.5 shadow-md flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white p-1.5 shadow-md flex items-center justify-center shrink-0">
                 <img
                   src="/assets/jfll-logo.jpeg"
                   alt="Jet Freight Logistics Limited"
@@ -84,32 +84,32 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                 />
               </div>
               <div>
-                <div className="text-base font-bold tracking-tight text-white leading-tight">
+                <div className="text-sm sm:text-base font-bold tracking-tight text-white leading-tight">
                   Jet Freight Logistics
                 </div>
-                <div className="text-[11px] font-medium text-slate-300">
+                <div className="text-[10px] sm:text-[11px] font-medium text-slate-300">
                   Proprietary Sourcing Suite
                 </div>
               </div>
             </div>
 
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] text-blue-200 font-medium">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 text-[10px] sm:text-[11px] text-blue-200 font-medium">
               <Sparkles className="w-3 h-3 text-apollo-300" />
               <span>Internal Enterprise Tool</span>
             </div>
 
-            <div className="pt-2">
-              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug">
+            <div className="pt-1">
+              <h2 className="text-lg sm:text-2xl font-bold text-white tracking-tight leading-snug">
                 Lead Sourcing Dashboard
               </h2>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+              <p className="text-xs text-slate-300 mt-1 sm:mt-2 leading-relaxed">
                 Internal lead prospecting and contact discovery directory for the Jet Freight Logistics team.
               </p>
             </div>
           </div>
 
-          {/* Middle Value Bullets - Truthful & Verified Features */}
-          <div className="my-8 space-y-3.5 relative z-10">
+          {/* Middle Value Bullets - Hidden on small mobile to keep sign-in above the fold */}
+          <div className="hidden md:block my-8 space-y-3.5 relative z-10">
             <div className="flex items-start gap-2.5">
               <div className="w-6 h-6 rounded-lg bg-blue-500/20 text-blue-300 flex items-center justify-center shrink-0 mt-0.5 border border-blue-400/20">
                 <Globe2 className="w-3.5 h-3.5" />
@@ -142,7 +142,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
           </div>
 
           {/* Bottom Live System Indicator */}
-          <div className="pt-4 border-t border-slate-700/60 relative z-10 flex items-center justify-between text-[11px] text-slate-300">
+          <div className="hidden md:flex pt-4 border-t border-slate-700/60 relative z-10 items-center justify-between text-[11px] text-slate-300">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Internal Tool Active</span>
@@ -152,7 +152,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         </div>
 
         {/* Right Panel: Clean, High-Contrast Authentication Form */}
-        <div className="md:w-7/12 bg-white p-7 sm:p-9 flex flex-col justify-between">
+        <div className="md:w-7/12 bg-white p-5 sm:p-7 md:p-9 flex flex-col justify-between">
           <div>
             {/* Header Greeting */}
             <div className="mb-6">

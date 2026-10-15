@@ -209,8 +209,8 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
       className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex flex-col ${className}`}
     >
       {/* Table Container */}
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs border-collapse">
+      <div className="overflow-x-auto min-w-0">
+        <table className="w-full min-w-[980px] text-left text-xs border-collapse">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
               <th className="py-3 px-3 w-10 text-center">
@@ -251,13 +251,15 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                     className="py-3 px-3 text-center"
                     onClick={(e) => handleToggleRow(c.id, e)}
                   >
-                    <input
-                      type="checkbox"
-                      checked={isSelected}
-                      onChange={() => {}}
-                      className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer"
-                      aria-label={`Select ${c.fullName}`}
-                    />
+                    <div className="flex items-center justify-center min-h-[36px] min-w-[36px]">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => {}}
+                        className="w-4 h-4 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer"
+                        aria-label={`Select ${c.fullName}`}
+                      />
+                    </div>
                   </td>
 
                   {/* Company Name */}
@@ -374,7 +376,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
       </div>
 
       {/* Pagination Footer */}
-      <div className="h-12 border-t border-slate-200 bg-white px-4 flex items-center justify-between text-xs text-slate-600">
+      <div className="min-h-12 border-t border-slate-200 bg-white px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
         <div>
           Showing{' '}
           <strong className="text-slate-800">
@@ -392,7 +394,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
           <button
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage <= 1}
-            className="p-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors"
             aria-label="Previous page"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -403,7 +405,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
           <button
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage >= totalPages}
-            className="p-1 rounded border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+            className="p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors"
             aria-label="Next page"
           >
             <ChevronRight className="w-4 h-4" />

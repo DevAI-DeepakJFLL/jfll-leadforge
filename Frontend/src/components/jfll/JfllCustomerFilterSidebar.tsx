@@ -7,6 +7,7 @@ import {
   PhoneCall,
   Search,
   SlidersHorizontal,
+  X,
 } from 'lucide-react';
 import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
 import {
@@ -20,6 +21,8 @@ export interface JfllCustomerFilterSidebarProps {
   onToggleType: (type: string) => void;
   onToggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   onClearAll: () => void;
+  isMobileOpen?: boolean;
+  onCloseMobile?: () => void;
   className?: string;
 }
 
@@ -32,6 +35,8 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   onToggleType,
   onToggleContactOption,
   onClearAll,
+  isMobileOpen = false,
+  onCloseMobile,
   className = '',
 }) => {
   const [openSections, setOpenSections] = useState({
@@ -65,11 +70,8 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
     (filters.hasEmail ? 1 : 0) +
     (filters.hasContactPerson ? 1 : 0);
 
-  return (
-    <aside
-      className={`w-72 lg:w-80 h-full border-r border-surface-border bg-white flex flex-col shrink-0 overflow-hidden select-none ${className}`}
-      aria-label="JFLL Customer Filters Sidebar"
-    >
+  const filterContent = (
+    <>
       {/* Sidebar Header */}
       <div className="h-11 px-4 border-b border-surface-border flex items-center justify-between bg-slate-50/60">
         <div className="flex items-center gap-2">
@@ -312,6 +314,51 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
           )}
         </div>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop Persistent Sidebar (lg: and up) */}
+      <aside
+        className={`hidden lg:flex w-72 lg:w-80 h-full border-r border-surface-border bg-white flex-col shrink-0 overflow-hidden select-none ${className}`}
+        aria-label="JFLL Customer Filters Sidebar"
+      >
+        {filterContent}
+      </aside>
+
+      {/* Mobile / Tablet Off-Canvas Drawer (lg:hidden) */}
+      {isMobileOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden flex">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity"
+            onClick={onCloseMobile}
+            aria-hidden="true"
+          />
+          {/* Slide-over panel */}
+          <div className="relative w-80 max-w-[85vw] bg-white h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
+            {/* Mobile Header with close button */}
+            <div className="h-14 px-4 border-b border-surface-border flex items-center justify-between bg-slate-50/80 shrink-0">
+              <div className="flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4 text-apollo" />
+                <h2 className="text-sm font-bold text-slate-900">Customer Filters</h2>
+              </div>
+              <button
+                type="button"
+                onClick={onCloseMobile}
+                className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
+                aria-label="Close filters"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            {filterContent}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
+
+export default JfllCustomerFilterSidebar;

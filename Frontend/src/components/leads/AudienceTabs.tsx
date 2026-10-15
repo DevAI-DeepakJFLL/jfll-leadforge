@@ -46,10 +46,10 @@ export const AudienceTabs: React.FC<AudienceTabsProps> = ({
 
   return (
     <div
-      className={`h-11 px-4 bg-white border-b border-surface-border flex items-center justify-between shrink-0 select-none ${className}`}
+      className={`h-11 px-3 sm:px-4 bg-white border-b border-surface-border flex items-center justify-between gap-2 shrink-0 select-none ${className}`}
       aria-label="Audience Segment Tabs"
     >
-      <div className="flex items-center space-x-1 sm:space-x-3 h-full">
+      <div className="flex items-center space-x-1 sm:space-x-2 h-full overflow-x-auto no-scrollbar scroll-smooth flex-nowrap min-w-0">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -57,7 +57,7 @@ export const AudienceTabs: React.FC<AudienceTabsProps> = ({
               key={tab.id}
               type="button"
               onClick={() => onTabChange(tab.id)}
-              className={`relative h-full px-2.5 sm:px-3 text-xs sm:text-sm font-medium transition-colors flex items-center gap-1.5 focus:outline-none ${
+              className={`relative h-full px-2.5 sm:px-3 text-xs sm:text-sm font-medium transition-colors flex items-center gap-1.5 focus:outline-none shrink-0 whitespace-nowrap min-h-[44px] ${
                 isActive
                   ? 'text-apollo font-semibold'
                   : 'text-slate-600 hover:text-slate-900'
@@ -65,7 +65,7 @@ export const AudienceTabs: React.FC<AudienceTabsProps> = ({
               aria-current={isActive ? 'page' : undefined}
             >
               <span>{tab.label}</span>
-              <span className={`text-xs ${isActive ? 'text-apollo/70 font-medium' : 'text-slate-400 font-normal'}`}>
+              <span className={`text-[11px] sm:text-xs ${isActive ? 'text-apollo/70 font-medium' : 'text-slate-400 font-normal'}`}>
                 ({tab.count})
               </span>
               {isActive && (
@@ -77,7 +77,7 @@ export const AudienceTabs: React.FC<AudienceTabsProps> = ({
       </div>
 
       {rightContent && (
-        <div className="flex items-center text-xs text-slate-500 font-medium">
+        <div className="hidden sm:flex items-center text-xs text-slate-500 font-medium shrink-0">
           {rightContent}
         </div>
       )}

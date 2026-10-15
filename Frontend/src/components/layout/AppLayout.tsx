@@ -7,10 +7,12 @@ export interface AppLayoutProps {
   activeNav?: string;
   onNavChange?: (navId: string) => void;
   activeTab?: string;
-  onTabChange?: (tab: string) => void;
+  onTabChange?: (tabId: string) => void;
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   onSearchSubmit?: (query: string) => void;
+  onToggleMobileFilter?: () => void;
+  activeFilterCount?: number;
   savedSearchesCount?: number;
   onOpenSettings?: () => void;
   onLogout?: () => void;
@@ -26,6 +28,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   searchQuery = '',
   onSearchChange,
   onSearchSubmit,
+  onToggleMobileFilter,
+  activeFilterCount = 0,
   savedSearchesCount = 0,
   onOpenSettings,
   onLogout,
@@ -33,7 +37,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 }) => {
   return (
     <div className={`flex h-screen w-screen overflow-hidden bg-slate-50 text-slate-900 font-sans antialiased ${className}`}>
-      {/* Leftmost 64px Dark Dock */}
+      {/* Leftmost 64px Dark Dock (Desktop) & Bottom Navigation Bar (Mobile) */}
       <AppDock
         activeNav={activeNav}
         onNavChange={onNavChange}
@@ -51,10 +55,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           searchQuery={searchQuery}
           onSearchChange={onSearchChange}
           onSearchSubmit={onSearchSubmit}
+          onToggleMobileFilter={onToggleMobileFilter}
+          activeFilterCount={activeFilterCount}
         />
 
-        {/* Content Viewport */}
-        <main className="flex-1 min-h-0 overflow-hidden flex relative bg-slate-50">
+        {/* Content Viewport with pb-14 on mobile to accommodate bottom dock */}
+        <main className="flex-1 min-h-0 overflow-hidden flex relative bg-slate-50 pb-14 md:pb-0">
           {children}
         </main>
       </div>

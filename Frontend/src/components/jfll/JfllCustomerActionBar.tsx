@@ -30,11 +30,11 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
 }) => {
   return (
     <div
-      className={`h-10 px-4 border-b border-surface-border bg-white flex items-center justify-between gap-3 text-xs select-none ${className}`}
+      className={`min-h-10 py-1 px-4 border-b border-surface-border bg-white flex items-center justify-between gap-3 text-xs select-none overflow-x-auto no-scrollbar ${className}`}
       aria-label="Customer Table Action Bar"
     >
       {/* Left: Checkbox & Multi-Selection Counter */}
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-3 shrink-0">
         <button
           onClick={onToggleSelectAllPage}
           className="flex items-center space-x-1.5 text-slate-700 hover:text-slate-900 focus:outline-none"
@@ -70,7 +70,7 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
       </div>
 
       {/* Right: Actions (Export CSV, Save, List) */}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 shrink-0">
         {selectedCount > 0 && onSaveSelected && (
           <button
             onClick={onSaveSelected}
