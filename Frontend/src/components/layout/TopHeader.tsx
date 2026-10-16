@@ -23,6 +23,7 @@ const TOP_NAV_TABS: TopNavTab[] = [
   { id: 'people', label: 'People' },
   { id: 'companies', label: 'Companies' },
   { id: 'jfll-customers', label: 'JFLL Customers', badge: '729' },
+  { id: 'datamyne', label: 'DataMyne', badge: '34.7k' },
   { id: 'saved-searches', label: 'Saved Searches' },
   { id: 'saved-lists', label: 'Saved Lists' },
 ];

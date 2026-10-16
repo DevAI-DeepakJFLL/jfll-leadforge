@@ -9,6 +9,7 @@ import {
   SlidersHorizontal,
   Trash2,
   Building2,
+  Database,
 } from 'lucide-react';
 
 export interface AppDockProps {
@@ -76,6 +77,7 @@ export const AppDock: React.FC<AppDockProps> = ({
     { id: 'home', label: 'Prospecting Overview', icon: Home },
     { id: 'search', label: 'Leads Explorer', icon: Search },
     { id: 'jfll-customers', label: 'JFLL Customers', icon: Building2 },
+    { id: 'datamyne', label: 'DataMyne Leads', icon: Database },
     {
       id: 'saved-searches',
       label: 'Saved Searches',

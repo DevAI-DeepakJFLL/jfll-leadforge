@@ -31,6 +31,21 @@ import {
 } from '@/services/jfllCustomerService';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
+import {
+  DatamyneAudienceTabs,
+  DatamyneFilterSidebar,
+  DatamyneActionBar,
+  DatamyneTable,
+  DatamyneDetailDrawer,
+} from '@/components/datamyne';
+import { useDatamyneFilter } from '@/hooks/useDatamyneFilter';
+import {
+  queryDatamyneLeads,
+  loadFullDatamyneDataset,
+  exportDatamyneLeadsCsv,
+  getLoadedDatamyneDataset,
+} from '@/services/datamyneService';
+import { DatamyneLead } from '@/types/datamyneLead';
 
 interface SavedSearchPreset {
   id: string;
@@ -365,7 +380,106 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     }
   };
 
+  // DataMyne Leads filter and state management
+  const {
+    filters: datamyneFilters,
+    setDataset: setDatamyneDataset,
+    setTab: setDatamyneTab,
+    setSearch: setDatamyneSearch,
+    setPage: setDatamynePage,
+    setLimit: _setDatamyneLimit,
+    toggleCategory: toggleDatamyneCategory,
+    toggleSubcategory: toggleDatamyneSubcategory,
+    toggleRole: toggleDatamyneRole,
+    toggleCity: toggleDatamyneCity,
+    toggleTradeLane: toggleDatamyneTradeLane,
+    toggleContactStatus: toggleDatamyneContactStatus,
+    toggleHasDirectors: toggleDatamyneHasDirectors,
+    setMinShipments: setDatamyneMinShipments,
+    setMinTradedValueUsd: setDatamyneMinTradedValueUsd,
+    clearAllFilters: clearAllDatamyneFilters,
+    activeFilterCount: datamyneActiveFilterCount,
+  } = useDatamyneFilter();
+
+  // Lazy-load full 34,690 records in background
+  const { data: datamyneFullLoaded } = useQuery({
+    queryKey: ['datamyne-full-dataset'],
+    queryFn: () => loadFullDatamyneDataset(),
+    staleTime: Infinity,
+  });
+
+  const datamyneQuery = useMemo(() => {
+    return queryDatamyneLeads(datamyneFilters);
+  }, [datamyneFilters, datamyneFullLoaded]);
+
+  const [datamyneRowSelection, setDatamyneRowSelection] = useState<RowSelectionState>({});
+  const [selectedDatamyneLead, setSelectedDatamyneLead] = useState<DatamyneLead | null>(null);
+  const [isExportingDatamyne, setIsExportingDatamyne] = useState(false);
+
+  // DataMyne Selection calculations
+  const datamyneItems = datamyneQuery.items;
+  const selectedDatamyneIds = useMemo(
+    () => Object.keys(datamyneRowSelection).filter((id) => datamyneRowSelection[id]),
+    [datamyneRowSelection]
+  );
+  const selectedDatamyneCount = selectedDatamyneIds.length;
+  const isAllDatamyneOnPageSelected =
+    datamyneItems.length > 0 && datamyneItems.every((d) => datamyneRowSelection[d.id]);
+  const isSomeDatamyneOnPageSelected =
+    datamyneItems.some((d) => datamyneRowSelection[d.id]) && !isAllDatamyneOnPageSelected;
+
+  const handleToggleSelectAllDatamynePage = () => {
+    if (isAllDatamyneOnPageSelected) {
+      setDatamyneRowSelection({});
+    } else {
+      const next: RowSelectionState = {};
+      datamyneItems.forEach((d) => {
+        next[d.id] = true;
+      });
+      setDatamyneRowSelection(next);
+    }
+  };
+
+  const handleDeselectAllDatamyne = () => {
+    setDatamyneRowSelection({});
+  };
+
+  const handleExportDatamyneCsv = () => {
+    try {
+      setIsExportingDatamyne(true);
+      const allLeads = getLoadedDatamyneDataset();
+      const selected = selectedDatamyneIds
+        .map((id) => datamyneItems.find((d) => d.id === id) || allLeads.find((d) => d.id === id))
+        .filter(Boolean) as DatamyneLead[];
+      const exportList = selected.length > 0 ? selected : datamyneItems;
+      const blob = exportDatamyneLeadsCsv(exportList);
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `datamyne_${datamyneFilters.dataset || 'valid'}_leads_export.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      showToast(`Exported ${exportList.length} DataMyne leads to CSV`);
+    } catch {
+      showToast('Export failed. Please check network connection.', 'error');
+    } finally {
+      setIsExportingDatamyne(false);
+    }
+  };
+
+  // Cross-Navigation: Search inside Apollo Leads for this company
+  const handleSearchInApollo = (companyName: string) => {
+    setSelectedDatamyneLead(null);
+    setTopTab('people');
+    setActiveNav('search');
+    setSearch(companyName);
+    showToast(`Searching Apollo Leads for "${companyName}"`);
+  };
+
   const isJfllCategory = topTab === 'jfll-customers';
+  const isDatamyneCategory = topTab === 'datamyne';
 
   const apolloActiveFilterCount = useMemo(() => {
     let count = 0;
@@ -388,7 +502,11 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     return count;
   }, [jfllFilters]);
 
-  const currentActiveFilterCount = isJfllCategory ? jfllActiveFilterCount : apolloActiveFilterCount;
+  const currentActiveFilterCount = isDatamyneCategory
+    ? datamyneActiveFilterCount
+    : isJfllCategory
+    ? jfllActiveFilterCount
+    : apolloActiveFilterCount;
 
   return (
     <AppLayout
@@ -396,7 +514,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       onNavChange={(navId) => {
         setActiveNav(navId);
         setIsMobileFilterOpen(false);
-        if (navId === 'jfll-customers') {
+        if (navId === 'datamyne') {
+          setTopTab('datamyne');
+        } else if (navId === 'jfll-customers') {
           setTopTab('jfll-customers');
         } else if (navId === 'home') {
           setTopTab('people');
@@ -412,7 +532,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       onTabChange={(tabId) => {
         setTopTab(tabId);
         setIsMobileFilterOpen(false);
-        if (tabId === 'jfll-customers') {
+        if (tabId === 'datamyne') {
+          setActiveNav('datamyne');
+        } else if (tabId === 'jfll-customers') {
           setActiveNav('jfll-customers');
         } else if (tabId === 'saved-searches') {
           setActiveNav('search');
@@ -424,16 +546,100 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           setActiveNav('search');
         }
       }}
-      searchQuery={isJfllCategory ? jfllFilters.q || '' : filters.q || ''}
-      onSearchChange={(q) => (isJfllCategory ? setJfllSearch(q) : setSearch(q))}
-      onSearchSubmit={(q) => (isJfllCategory ? setJfllSearch(q) : setSearch(q))}
+      searchQuery={
+        isDatamyneCategory
+          ? datamyneFilters.q || ''
+          : isJfllCategory
+          ? jfllFilters.q || ''
+          : filters.q || ''
+      }
+      onSearchChange={(q) => {
+        if (isDatamyneCategory) {
+          setDatamyneSearch(q);
+        } else if (isJfllCategory) {
+          setJfllSearch(q);
+        } else {
+          setSearch(q);
+        }
+      }}
+      onSearchSubmit={(q) => {
+        if (isDatamyneCategory) {
+          setDatamyneSearch(q);
+        } else if (isJfllCategory) {
+          setJfllSearch(q);
+        } else {
+          setSearch(q);
+        }
+      }}
       savedSearchesCount={savedSearches.length}
       onOpenSettings={() => setIsSettingsOpen(true)}
       onLogout={onLogout}
       onToggleMobileFilter={() => setIsMobileFilterOpen((prev) => !prev)}
       activeFilterCount={currentActiveFilterCount}
     >
-      {isJfllCategory ? (
+      {isDatamyneCategory ? (
+        /* Dedicated DataMyne Verified Logistics Leads Category View */
+        <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
+          <DatamyneFilterSidebar
+            filters={datamyneFilters}
+            setSearch={setDatamyneSearch}
+            setDataset={setDatamyneDataset}
+            toggleCategory={toggleDatamyneCategory}
+            toggleSubcategory={toggleDatamyneSubcategory}
+            toggleRole={toggleDatamyneRole}
+            toggleCity={toggleDatamyneCity}
+            toggleTradeLane={toggleDatamyneTradeLane}
+            toggleContactStatus={toggleDatamyneContactStatus}
+            toggleHasDirectors={toggleDatamyneHasDirectors}
+            setMinShipments={setDatamyneMinShipments}
+            setMinTradedValueUsd={setDatamyneMinTradedValueUsd}
+            clearAllFilters={clearAllDatamyneFilters}
+            activeFilterCount={datamyneActiveFilterCount}
+            isMobileOpen={isMobileFilterOpen}
+            onCloseMobile={() => setIsMobileFilterOpen(false)}
+          />
+
+          <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
+            <DatamyneAudienceTabs
+              activeTab={datamyneFilters.tab}
+              onTabChange={setDatamyneTab}
+              activeDataset={datamyneFilters.dataset || 'valid'}
+              onChangeDataset={setDatamyneDataset}
+              counts={datamyneQuery.audienceCounts}
+              totalFormatted={datamyneQuery.totalFormatted}
+            />
+
+            <DatamyneActionBar
+              selectedCount={selectedDatamyneCount}
+              totalOnPage={datamyneItems.length}
+              totalCount={datamyneQuery.totalEstimate}
+              isAllOnPageSelected={isAllDatamyneOnPageSelected}
+              isIndeterminate={isSomeDatamyneOnPageSelected}
+              onToggleSelectAllPage={handleToggleSelectAllDatamynePage}
+              onDeselectAll={handleDeselectAllDatamyne}
+              onExport={handleExportDatamyneCsv}
+              isExporting={isExportingDatamyne}
+            />
+
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
+              <DatamyneTable
+                leads={datamyneItems}
+                rowSelection={datamyneRowSelection}
+                onRowSelectionChange={setDatamyneRowSelection}
+                onLeadClick={(lead) => setSelectedDatamyneLead(lead)}
+                onSearchApollo={handleSearchInApollo}
+                currentPage={datamyneQuery.page}
+                totalPages={datamyneQuery.totalPages}
+                pageSize={datamyneQuery.limit}
+                totalItems={datamyneQuery.totalEstimate}
+                totalFormatted={datamyneQuery.totalFormatted}
+                onPageChange={setDatamynePage}
+                onClearFilters={clearAllDatamyneFilters}
+              />
+            </div>
+          </div>
+        </div>
+      ) : isJfllCategory ? (
         /* Dedicated JFLL Customers (Organic Internal Master) Category View */
         <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
           <JfllCustomerFilterSidebar
@@ -584,6 +790,14 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         isOpen={!!selectedJfllCustomer}
         customer={selectedJfllCustomer}
         onClose={() => setSelectedJfllCustomer(null)}
+      />
+
+      {/* Slide-over DataMyne Lead Dossier Drawer */}
+      <DatamyneDetailDrawer
+        isOpen={!!selectedDatamyneLead}
+        lead={selectedDatamyneLead}
+        onClose={() => setSelectedDatamyneLead(null)}
+        onSearchApollo={handleSearchInApollo}
       />
 
       {/* Quick Email Reveal Dialog */}
