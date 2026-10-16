@@ -317,8 +317,9 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         </a>
                         <button
                           onClick={(e) => handleCopy(phoneData.raw, 'Phone', e)}
-                          className="p-0.5 text-slate-400 hover:text-slate-700 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
                           title="Copy phone"
+                          aria-label={`Copy phone number ${phoneData.number}`}
                         >
                           <Copy className="w-3 h-3" />
                         </button>
@@ -343,8 +344,9 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         </a>
                         <button
                           onClick={(e) => handleCopy(c.email!, 'Email', e)}
-                          className="p-0.5 text-slate-400 hover:text-slate-700 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
                           title="Copy email"
+                          aria-label={`Copy email ${c.email}`}
                         >
                           <Copy className="w-3 h-3" />
                         </button>
@@ -361,7 +363,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         e.stopPropagation();
                         onCustomerClick(c);
                       }}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded transition-all shadow-2xs group/btn"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded transition-all shadow-2xs group/btn cursor-pointer"
                       title={`View details for ${c.fullName}`}
                     >
                       <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />

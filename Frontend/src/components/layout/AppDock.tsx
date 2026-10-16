@@ -284,7 +284,7 @@ export const AppDock: React.FC<AppDockProps> = ({
             >
               <Icon className="w-5 h-5" />
               <span className="text-[10px] font-medium tracking-tight mt-0.5 truncate max-w-[64px]">
-                {item.id === 'jfll-customers' ? 'Customers' : item.id === 'saved-searches' ? 'Saved' : item.id === 'search' ? 'Leads' : 'Home'}
+                {item.id === 'jfll-customers' ? 'Customers' : item.id === 'datamyne' ? 'DataMyne' : item.id === 'saved-searches' ? 'Saved' : item.id === 'search' ? 'Leads' : 'Home'}
               </span>
               {item.badge && item.badge > 0 && (
                 <span className="absolute top-1 right-2 px-1 min-w-[12px] h-[12px] rounded-full bg-apollo text-[8px] font-bold text-white flex items-center justify-center">

@@ -133,7 +133,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
                     Named Contact Person
                   </span>
                 </div>
-                <span className="text-[11px] font-mono text-slate-400">729</span>
+                <span className="text-[11px] font-mono text-slate-400">728</span>
               </label>
 
               <label className="flex items-center justify-between text-xs cursor-pointer group">
@@ -148,7 +148,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
                     Direct Mobile Number
                   </span>
                 </div>
-                <span className="text-[11px] font-mono text-slate-400">657</span>
+                <span className="text-[11px] font-mono text-slate-400">656</span>
               </label>
 
               <label className="flex items-center justify-between text-xs cursor-pointer group">

@@ -112,7 +112,7 @@ export const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
           <button
             type="button"
             onClick={() => onRemoveFilter(chip.key, chip.value)}
-            className="p-0.5 rounded-full text-slate-400 hover:text-slate-800 hover:bg-slate-300/60 transition-colors focus:outline-none"
+            className="p-1 -mr-1 rounded-full text-slate-400 hover:text-slate-800 hover:bg-slate-300/60 transition-colors focus:outline-none focus:ring-1 focus:ring-apollo cursor-pointer"
             title={`Remove ${chip.category}: ${chip.label}`}
             aria-label={`Remove filter ${chip.category} ${chip.label}`}
           >
@@ -124,7 +124,7 @@ export const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
       <button
         type="button"
         onClick={onClearAll}
-        className="inline-flex items-center gap-1 ml-2 text-xs font-medium text-slate-500 hover:text-red-600 transition-colors py-0.5 px-1.5 rounded hover:bg-red-50 focus:outline-none"
+        className="inline-flex items-center gap-1 ml-2 text-xs font-medium text-slate-500 hover:text-red-600 transition-colors py-1 px-2 rounded hover:bg-red-50 focus:outline-none focus:ring-1 focus:ring-red-400 cursor-pointer"
         title="Clear all active filters"
       >
         <RotateCcw className="w-3 h-3" />

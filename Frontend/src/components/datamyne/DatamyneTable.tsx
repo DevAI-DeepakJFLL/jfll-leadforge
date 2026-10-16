@@ -153,7 +153,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
           No DataMyne leads match your filters
         </h3>
         <p className="text-xs text-slate-500 max-w-sm mb-4">
-          Try expanding your search query or switching between Valid and Missing Contact pools.
+          Try expanding your search query or switching between With Contacts and Without Contacts pools.
         </p>
         {onClearFilters && (
           <button

@@ -22,13 +22,13 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
   activeTab = 'all',
   onTabChange,
   counts = {
-    all: 881,
-    shippers: 339,
-    subagents: 474,
-    overseas: 49,
-    withContacts: 729,
+    all: 728,
+    shippers: 285,
+    subagents: 389,
+    overseas: 39,
+    withContacts: 728,
   },
-  totalFormatted = '881',
+  totalFormatted = '728',
   className = '',
 }) => {
   const tabs = [
