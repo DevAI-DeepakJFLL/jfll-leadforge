@@ -4,14 +4,15 @@ import {
   Building2,
   Mail,
   Phone,
+  Smartphone,
   User,
   Copy,
   ShieldCheck,
 } from 'lucide-react';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
-import { IndiaFlagIcon, formatPhoneNumber } from './JfllCustomerTable';
 import { useToast } from '@/components/ui';
+import { parseAndFormatContactNumbers } from '@/utils/phoneUtils';
 
 export interface JfllCustomerDetailDrawerProps {
   isOpen: boolean;
@@ -53,6 +54,9 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
     .map((word) => word[0])
     .join('')
     .toUpperCase();
+
+  // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD)
+  const contactNumbers = parseAndFormatContactNumbers(customer.mobileNumber, customer.territory);
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
@@ -131,40 +135,61 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                 </div>
               )}
 
-              {/* Mobile Phone */}
-              {/* Mobile Phone */}
-              <div className="flex items-center justify-between py-2 border-t border-slate-200/60">
-                <div className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="text-slate-600">Mobile Phone:</span>
-                </div>
-                {customer.mobileNumber ? (
-                  (() => {
-                    const phoneData = formatPhoneNumber(customer.mobileNumber);
-                    if (!phoneData) return <span className="text-slate-400">—</span>;
-                    return (
-                      <div className="flex items-center gap-1.5">
-                        <IndiaFlagIcon className="w-4 h-3 shrink-0" />
-                        <a
-                          href={`tel:${phoneData.raw}`}
-                          className="font-mono text-apollo hover:underline"
-                        >
-                          {phoneData.number}
-                        </a>
-                        <button
-                          onClick={() => handleCopyText(phoneData.raw, 'Phone')}
-                          className="p-1 text-slate-400 hover:text-slate-700 rounded"
-                          title="Copy phone"
-                        >
-                          <Copy className="w-3 h-3" />
-                        </button>
-                      </div>
-                    );
-                  })()
-                ) : (
+              {/* Categorized Phone Numbers (Mobile Number vs Landline / Telephone Number) */}
+              {contactNumbers.length > 0 ? (
+                contactNumbers.map((num, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between py-2 border-t border-slate-200/60"
+                  >
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      {num.type === 'mobile' ? (
+                        <Smartphone className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      ) : (
+                        <Phone className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                      )}
+                      <span className="text-slate-600 font-medium text-[11px] sm:text-xs shrink-0">
+                        {num.label}:
+                      </span>
+                      <span
+                        className={`text-[10px] font-semibold font-mono px-1.5 py-0.2 rounded border shrink-0 ${
+                          num.type === 'mobile'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            : 'bg-blue-50 text-blue-700 border-blue-200'
+                        }`}
+                      >
+                        {num.type === 'mobile' ? '+91 Mobile' : `STD ${num.prefix}`}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <a
+                        href={`tel:${num.dialValue}`}
+                        className="font-mono text-apollo hover:underline font-semibold text-xs"
+                        title={`Call ${num.display}`}
+                      >
+                        {num.display}
+                      </a>
+                      <button
+                        onClick={() => handleCopyText(num.dialValue, num.label)}
+                        className="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded cursor-pointer transition-colors"
+                        title={`Copy ${num.label}`}
+                        aria-label={`Copy ${num.label} ${num.display}`}
+                      >
+                        <Copy className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="flex items-center justify-between py-2 border-t border-slate-200/60">
+                  <div className="flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <span className="text-slate-600">Contact Number:</span>
+                  </div>
                   <span className="text-slate-400">—</span>
-                )}
-              </div>
+                </div>
+              )}
 
               {/* Email */}
               <div className="flex items-center justify-between py-2 border-t border-slate-200/60">
