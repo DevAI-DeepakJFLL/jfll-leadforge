@@ -11,7 +11,7 @@ import {
   LeadDetailDrawer,
   EmailRevealDialog,
 } from '@/components/leads';
-import { ToastProvider, useToast } from '@/components/ui';
+import { ToastProvider, useToast, ErrorBoundary } from '@/components/ui';
 import { LoginPage } from '@/components/auth/LoginPage';
 import { UserSession } from '@/types/auth';
 import { useLeadsFilter, serializeFiltersToUrl } from '@/hooks/useLeadsFilter';
@@ -786,19 +786,29 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       />
 
       {/* Slide-over JFLL Customer Dossier Drawer */}
-      <JfllCustomerDetailDrawer
-        isOpen={!!selectedJfllCustomer}
-        customer={selectedJfllCustomer}
-        onClose={() => setSelectedJfllCustomer(null)}
-      />
+      <ErrorBoundary
+        fallbackTitle="Unable to display JFLL customer profile"
+        onReset={() => setSelectedJfllCustomer(null)}
+      >
+        <JfllCustomerDetailDrawer
+          isOpen={!!selectedJfllCustomer}
+          customer={selectedJfllCustomer}
+          onClose={() => setSelectedJfllCustomer(null)}
+        />
+      </ErrorBoundary>
 
       {/* Slide-over DataMyne Lead Dossier Drawer */}
-      <DatamyneDetailDrawer
-        isOpen={!!selectedDatamyneLead}
-        lead={selectedDatamyneLead}
-        onClose={() => setSelectedDatamyneLead(null)}
-        onSearchApollo={handleSearchInApollo}
-      />
+      <ErrorBoundary
+        fallbackTitle="Unable to display DataMyne lead dossier"
+        onReset={() => setSelectedDatamyneLead(null)}
+      >
+        <DatamyneDetailDrawer
+          isOpen={!!selectedDatamyneLead}
+          lead={selectedDatamyneLead}
+          onClose={() => setSelectedDatamyneLead(null)}
+          onSearchApollo={handleSearchInApollo}
+        />
+      </ErrorBoundary>
 
       {/* Quick Email Reveal Dialog */}
       <EmailRevealDialog

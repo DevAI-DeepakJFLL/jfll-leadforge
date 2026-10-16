@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import {
   X,
   Building2,
@@ -64,18 +64,15 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   const isMissingContact = lead.dataset_type === 'missing';
 
   // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD)
-  const contactNumbers = useMemo(() => {
-    return parseAndFormatContactNumbers(lead.phone, lead.city);
-  }, [lead.phone, lead.city]);
+  const contactNumbers = parseAndFormatContactNumbers(lead.phone, lead.city);
 
   // Clean split for multiple email addresses
-  const emailList = useMemo(() => {
-    if (!lead.email) return [];
-    return lead.email
-      .split(/[,;]/)
-      .map((e) => e.trim())
-      .filter(Boolean);
-  }, [lead.email]);
+  const emailList = lead.email
+    ? lead.email
+        .split(/[,;]/)
+        .map((e) => e.trim())
+        .filter(Boolean)
+    : [];
 
   return (
     <div
