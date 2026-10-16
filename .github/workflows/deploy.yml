@@ -67,6 +67,13 @@ jobs:
           echo "Uploading active customer Parquet dataset to S3..."
           aws s3 cp Backend/data/processed/active_customers_leads_zstd.parquet \
             s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/active_customers_leads_zstd.parquet
+          echo "Uploading DataMyne Parquet datasets to S3..."
+          aws s3 cp Backend/data/processed/datamyne_leads_zstd.parquet \
+            s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/datamyne_leads_zstd.parquet
+          aws s3 cp Backend/data/processed/datamyne_valid_leads_zstd.parquet \
+            s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/datamyne_valid_leads_zstd.parquet
+          aws s3 cp Backend/data/processed/datamyne_missing_leads_zstd.parquet \
+            s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/datamyne_missing_leads_zstd.parquet
 
   deploy-backend:
     name: Package & Deploy Backend Lambda
