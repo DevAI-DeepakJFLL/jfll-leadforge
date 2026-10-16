@@ -306,7 +306,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                     {isMissing ? (
                       <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                        Missing Contacts
+                        No Contact on File
                       </span>
                     ) : l.phone && l.email ? (
                       <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">

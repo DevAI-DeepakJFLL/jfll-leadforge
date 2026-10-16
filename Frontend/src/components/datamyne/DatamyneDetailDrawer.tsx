@@ -133,7 +133,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                         isMissingContact ? 'bg-amber-500' : 'bg-emerald-500 animate-pulse'
                       }`}
                     />
-                    {isMissingContact ? 'Missing Contacts' : 'Verified Contacts'}
+                    {isMissingContact ? 'No Contact on File' : 'Contact on File'}
                   </span>
                 </div>
               </div>
@@ -156,7 +156,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <div className="font-semibold text-amber-900 text-xs">
-                    Contact Enrichment Target
+                    No Direct Contact on File
                   </div>
                   <p className="text-[11px] text-amber-800/90 leading-relaxed">
                     Direct phone and email were not included on customs manifests for this account.

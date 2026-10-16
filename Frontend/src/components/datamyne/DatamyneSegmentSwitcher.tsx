@@ -20,19 +20,19 @@ export const DatamyneSegmentSwitcher: React.FC<DatamyneSegmentSwitcherProps> = (
   const segments = [
     {
       id: 'valid' as DatamyneDatasetType,
-      label: 'Valid Contacts',
+      label: 'With Contacts',
       icon: CheckCircle2,
       iconColor: 'text-emerald-600',
       count: validCount,
-      tooltip: 'Shippers with verified phone and/or email contacts',
+      tooltip: 'Accounts with at least one phone number or email address on file',
     },
     {
       id: 'missing' as DatamyneDatasetType,
-      label: 'Missing Contacts',
+      label: 'Without Contacts',
       icon: AlertCircle,
       iconColor: 'text-amber-500',
       count: missingCount,
-      tooltip: 'Shippers extracted from customs declarations requiring contact enrichment',
+      tooltip: 'Accounts without direct phone or email on file (enrichment candidates)',
     },
     {
       id: 'all' as DatamyneDatasetType,
@@ -40,7 +40,7 @@ export const DatamyneSegmentSwitcher: React.FC<DatamyneSegmentSwitcherProps> = (
       icon: Layers,
       iconColor: 'text-blue-500',
       count: allCount,
-      tooltip: 'Unified view across both Valid and Missing Contact pools',
+      tooltip: 'Unified directory across accounts with and without contacts',
     },
   ];
 

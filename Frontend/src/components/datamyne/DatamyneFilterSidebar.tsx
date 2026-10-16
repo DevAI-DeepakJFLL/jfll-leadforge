@@ -180,7 +180,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
                   : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
               }`}
             >
-              🟢 Valid
+              🟢 With Contacts
             </button>
             <button
               type="button"
@@ -191,7 +191,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
                   : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
               }`}
             >
-              🟡 Missing
+              🟡 Without Contacts
             </button>
           </div>
 
@@ -202,7 +202,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
             { id: 'both', label: 'Both Phone & Email' },
             { id: 'phone_only', label: 'Phone Only' },
             { id: 'email_only', label: 'Email Only' },
-            { id: 'missing', label: 'Missing Phone/Email' },
+            { id: 'missing', label: 'No Contact on File' },
           ].map((item) => (
             <label
               key={item.id}
