@@ -4,8 +4,8 @@ import { queryJfllCustomers, exportJfllCustomersCsv } from '@/services/jfllCusto
 import { formatPhoneNumber } from '@/components/jfll/JfllCustomerTable';
 
 describe('JFLL Customers Dataset & Query Service', () => {
-  it('loads 729 deduplicated active customer records with complete schemas and at least phone or email', () => {
-    expect(JFLL_CUSTOMERS_DATA.length).toBe(729);
+  it('loads 728 deduplicated active customer records with complete schemas and at least phone or email', () => {
+    expect(JFLL_CUSTOMERS_DATA.length).toBe(728);
     JFLL_CUSTOMERS_DATA.forEach((c) => {
       expect(c.id).toBeDefined();
       expect(c.fullName.length).toBeGreaterThan(0);
@@ -20,17 +20,17 @@ describe('JFLL Customers Dataset & Query Service', () => {
 
   it('paginates correctly on default parameters', () => {
     const res = queryJfllCustomers({ page: 1, limit: 25 });
-    expect(res.totalEstimate).toBe(729);
+    expect(res.totalEstimate).toBe(728);
     expect(res.page).toBe(1);
     expect(res.limit).toBe(25);
     expect(res.items.length).toBe(25);
-    expect(res.totalPages).toBe(Math.ceil(729 / 25));
-    expect(res.audienceCounts.all).toBe(729);
+    expect(res.totalPages).toBe(Math.ceil(728 / 25));
+    expect(res.audienceCounts.all).toBe(728);
   });
 
   it('filters accurately by Customer Group (Subagent & Shipper)', () => {
     const subagentsRes = queryJfllCustomers({ customerGroups: ['Subagent'] });
-    expect(subagentsRes.totalEstimate).toBe(390);
+    expect(subagentsRes.totalEstimate).toBe(389);
     subagentsRes.items.forEach((c) => expect(c.customerGroup).toBe('Subagent'));
 
     const shippersRes = queryJfllCustomers({ customerGroups: ['Shipper / Consignee'] });
@@ -40,7 +40,7 @@ describe('JFLL Customers Dataset & Query Service', () => {
 
   it('filters accurately by Contact Readiness', () => {
     const phoneRes = queryJfllCustomers({ hasPhone: true });
-    expect(phoneRes.totalEstimate).toBe(657);
+    expect(phoneRes.totalEstimate).toBe(656);
     phoneRes.items.forEach((c) => {
       expect(c.mobileNumber).toBeTruthy();
     });
@@ -52,7 +52,7 @@ describe('JFLL Customers Dataset & Query Service', () => {
     });
 
     const contactRes = queryJfllCustomers({ hasContactPerson: true });
-    expect(contactRes.totalEstimate).toBe(729);
+    expect(contactRes.totalEstimate).toBe(728);
     contactRes.items.forEach((c) => {
       expect(c.contactPersonName).toBeTruthy();
     });
@@ -70,7 +70,7 @@ describe('JFLL Customers Dataset & Query Service', () => {
 
   it('supports Audience Quick Tabs', () => {
     const subagentsTab = queryJfllCustomers({ tab: 'subagents' });
-    expect(subagentsTab.totalEstimate).toBe(390);
+    expect(subagentsTab.totalEstimate).toBe(389);
 
     const shippersTab = queryJfllCustomers({ tab: 'shippers' });
     expect(shippersTab.totalEstimate).toBe(285);
@@ -79,7 +79,7 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(overseasTab.totalEstimate).toBe(39);
 
     const contactsTab = queryJfllCustomers({ tab: 'with-contacts' });
-    expect(contactsTab.totalEstimate).toBe(729);
+    expect(contactsTab.totalEstimate).toBe(728);
   });
 
   it('exports sanitized CSV preventing formula injection', async () => {
@@ -128,15 +128,15 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(groupLabels).toContain('Shipping Line');
 
     const subagent = groupFacets.find((g) => g.label === 'Subagent');
-    expect(subagent?.count).toBe(390);
+    expect(subagent?.count).toBe(389);
 
     // Sum of group facet counts should equal total dataset count
     const totalGroupCount = groupFacets.reduce((acc, g) => acc + g.count, 0);
-    expect(totalGroupCount).toBe(729);
+    expect(totalGroupCount).toBe(728);
 
     // Verify Legal Types
     const totalTypeCount = typeFacets.reduce((acc, t) => acc + t.count, 0);
-    expect(totalTypeCount).toBe(729);
+    expect(totalTypeCount).toBe(728);
   });
 });
 

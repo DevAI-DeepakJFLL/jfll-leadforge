@@ -24,7 +24,7 @@ def clean_company_name(name: str) -> str:
     cleaned = clean_unicode(name)
     cleaned = re.sub(r"^(M/S\.?|MESSRS\.?|M/S\s+|MS\.)\s*", "", cleaned, flags=re.IGNORECASE).strip()
     cleaned = re.sub(r"\bPVT\.?\s*LTD\.?\b", "PRIVATE LIMITED", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\bLTD\.\b", "LIMITED", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bLTD\.?\b", "LIMITED", cleaned, flags=re.IGNORECASE)
     return re.sub(r"\s+", " ", cleaned).strip()
 
 

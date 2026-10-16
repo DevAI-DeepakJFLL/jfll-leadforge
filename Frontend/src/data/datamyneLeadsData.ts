@@ -3,7 +3,7 @@ import { DatamyneLead } from "@/types/datamyneLead";
 
 export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
   {
-    "id": "dm-val-00017",
+    "id": "dm-val-00016",
     "company_name": "HETERO LABS LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -24,7 +24,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01498",
+    "id": "dm-val-01494",
     "company_name": "SPICEJET LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -45,7 +45,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00015",
+    "id": "dm-val-00014",
     "company_name": "DR.REDDY'S LABORATORIES LTD",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -66,7 +66,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-05665",
+    "id": "dm-val-05659",
     "company_name": "ANUKUL ENTERPRISES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -87,7 +87,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00013",
+    "id": "dm-val-00012",
     "company_name": "MSN LABORATORIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -108,7 +108,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03987",
+    "id": "dm-val-03982",
     "company_name": "REAGHAN FASHIONS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -129,7 +129,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00221",
+    "id": "dm-val-00219",
     "company_name": "BIOLOGICAL E. LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -150,7 +150,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00023",
+    "id": "dm-val-00022",
     "company_name": "JABIL CIRCUIT INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -171,7 +171,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00249",
+    "id": "dm-val-00247",
     "company_name": "LAURUS LABS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -192,7 +192,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00070",
+    "id": "dm-val-00069",
     "company_name": "AIR INDIA LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -213,7 +213,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00152",
+    "id": "dm-val-00151",
     "company_name": "EUGIA PHARMA SPECIALITIES LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -234,7 +234,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04288",
+    "id": "dm-val-04282",
     "company_name": "A. R. CORPORATION",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -255,7 +255,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00585",
+    "id": "dm-val-00582",
     "company_name": "BHARAT BIOTECH INTERNATIONAL LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -276,7 +276,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03828",
+    "id": "dm-val-03824",
     "company_name": "APL CORPORATION PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -297,7 +297,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00144",
+    "id": "dm-val-00143",
     "company_name": "GLAND PHARMA LTD",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -318,7 +318,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00190",
+    "id": "dm-val-00188",
     "company_name": "MSN PHARMACHEM PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -339,7 +339,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00120",
+    "id": "dm-val-00119",
     "company_name": "HETERO DRUGS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -360,7 +360,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00253",
+    "id": "dm-val-00251",
     "company_name": "NEULAND LABORATORIES LTD.",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -381,7 +381,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00021",
+    "id": "dm-val-00020",
     "company_name": "SAI LIFE SCIENCES LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -402,7 +402,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00047",
+    "id": "dm-val-00046",
     "company_name": "CIPLA LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -423,7 +423,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00173",
+    "id": "dm-val-00172",
     "company_name": "NATCO PHARMA LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -444,7 +444,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00599",
+    "id": "dm-val-00596",
     "company_name": "HINDUSTAN AERONAUTICS LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -465,28 +465,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00188",
-    "company_name": "ALEMBIC PHARMACEUTICALS LIMITED",
-    "role": "Exporter",
-    "category": "Chemicals & Materials",
-    "subcategory": "Organic Chemicals & APIs",
-    "contact_type": "Both Phone & Email",
-    "phone": "02652280550 / 2280880",
-    "email": "shreeramkaza@alembic.co.in",
-    "tax_id": "3410006061",
-    "city": "GUJARAT",
-    "address": "ALEMBIC PHARMACEUTICALS LTDALEMBIC ROAD VADODARA",
-    "pin_code": "390003",
-    "directors": "1.  :  CHIRAYU RAMANBHAI AMIN RAMANBHAI BHAILALBHAI AMIN F/10/195 RACE COURSE CIRCLE GOTRI ROAD VADODARA GUJARAT PIN-390007PHONE/EMAIL:02653007967  :  2.  :  RAJKUMAR SREERAM BAHETI SREERAM R BAHETI FLAT NO.402 SAMPRAT RESIDENCY 52 ALKAPURI SOC ALKAPURI V",
-    "trade_lanes": "GCR/Air",
-    "top_hs_codes": "29420090, 30049099, 29349990",
-    "total_shipments": 1146,
-    "total_value_usd": 68173868.68,
-    "latest_activity_date": "2026-02-27",
-    "dataset_type": "valid"
-  },
-  {
-    "id": "dm-val-00012",
+    "id": "dm-val-00011",
     "company_name": "AUROBINDO PHARMA LTD",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -507,28 +486,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00001",
-    "company_name": "FAIR EXPORTS (INDIA) PRIVATE LIMITED",
-    "role": "Exporter",
-    "category": "Perishables",
-    "subcategory": "Fresh Vegetables & Produce",
-    "contact_type": "Both Phone & Email",
-    "phone": "6542421",
-    "email": "fairexpo@bom5.vsnl.net.in",
-    "tax_id": "391146670",
-    "city": "BANDRA E",
-    "address": "501,  MADHAVA BLDGS,BANDRA KURLA COMPLEX,BANDRA(E)",
-    "pin_code": "400051",
-    "directors": "",
-    "trade_lanes": "PER/AIR, GCR/Air",
-    "top_hs_codes": "07099990, 62114390, 62092090",
-    "total_shipments": 63875,
-    "total_value_usd": 64748801.72,
-    "latest_activity_date": "2026-02-28",
-    "dataset_type": "valid"
-  },
-  {
-    "id": "dm-val-00377",
+    "id": "dm-val-00375",
     "company_name": "DIVI'S LABORATORIES LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -549,7 +507,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00372",
+    "id": "dm-val-00370",
     "company_name": "COVALENT LABORATORIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -570,7 +528,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00176",
+    "id": "dm-val-00175",
     "company_name": "HFCL LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Pharma & Healthcare",
@@ -591,7 +549,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00141",
+    "id": "dm-val-00140",
     "company_name": "VIDYA HERBS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -612,7 +570,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00169",
+    "id": "dm-val-00168",
     "company_name": "ZYDUS LIFESCIENCES LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -633,7 +591,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00159",
+    "id": "dm-val-00158",
     "company_name": "NOSCH LABS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -654,7 +612,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00031",
+    "id": "dm-val-00030",
     "company_name": "INTAS PHARMACEUTICALS LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -675,7 +633,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00004",
+    "id": "dm-val-00003",
     "company_name": "ARAGEN LIFE SCIENCES LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -696,7 +654,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00147",
+    "id": "dm-val-00146",
     "company_name": "SYMED LABS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -717,7 +675,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00158",
+    "id": "dm-val-00157",
     "company_name": "MYLAN LABORATORIES LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -738,7 +696,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00231",
+    "id": "dm-val-00229",
     "company_name": "JODAS EXPOIM PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -759,7 +717,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00206",
+    "id": "dm-val-00204",
     "company_name": "LEE PHARMA LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -780,7 +738,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00395",
+    "id": "dm-val-00393",
     "company_name": "ANNORA PHARMA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -801,7 +759,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00180",
+    "id": "dm-val-00179",
     "company_name": "EMCURE PHARMACEUTICALS LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -822,7 +780,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00331",
+    "id": "dm-val-00329",
     "company_name": "OPTIMUS DRUGS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -843,7 +801,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00080",
+    "id": "dm-val-00079",
     "company_name": "MERIL LIFE SCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -864,7 +822,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00037",
+    "id": "dm-val-00036",
     "company_name": "AZAD ENGINEERING LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -885,7 +843,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00212",
+    "id": "dm-val-00210",
     "company_name": "GRANULES INDIA LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Pharma & Healthcare",
@@ -906,7 +864,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00142",
+    "id": "dm-val-00141",
     "company_name": "VASUDHA PHARMA CHEM LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -927,7 +885,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00127",
+    "id": "dm-val-00126",
     "company_name": "METROCHEM API PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -948,7 +906,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00333",
+    "id": "dm-val-00331",
     "company_name": "SUN PHARMACEUTICAL INDUSTRIES LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -969,7 +927,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03081",
+    "id": "dm-val-03077",
     "company_name": "SHAHI EXPORTS PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -990,7 +948,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04523",
+    "id": "dm-val-04517",
     "company_name": "URJAA EXIM PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1011,7 +969,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00459",
+    "id": "dm-val-00457",
     "company_name": "LUPIN LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -1032,7 +990,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00298",
+    "id": "dm-val-00296",
     "company_name": "MSN LIFE SCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1053,7 +1011,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00237",
+    "id": "dm-val-00235",
     "company_name": "SAMI-SABINSA GROUP LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -1074,7 +1032,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00003",
+    "id": "dm-val-00002",
     "company_name": "AMPHENOL INTERCONNECT INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -1095,7 +1053,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00256",
+    "id": "dm-val-00254",
     "company_name": "CADILA PHARMACEUTICALS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1116,7 +1074,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00481",
+    "id": "dm-val-00479",
     "company_name": "AURORE LIFE SCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1137,7 +1095,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03897",
+    "id": "dm-val-03893",
     "company_name": "SAKSHI YARNS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1158,7 +1116,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00178",
+    "id": "dm-val-00177",
     "company_name": "GLENMARK PHARMACEUTICALS LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -1179,7 +1137,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04419",
+    "id": "dm-val-04413",
     "company_name": "VINEET POLYFAB PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1200,7 +1158,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03829",
+    "id": "dm-val-03825",
     "company_name": "NISHANT MARKETING",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1221,7 +1179,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00617",
+    "id": "dm-val-00614",
     "company_name": "SRINI PHARMACEUTICALS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1242,7 +1200,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-06662",
+    "id": "dm-val-06656",
     "company_name": "SHOP CJ NETWORK PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -1263,7 +1221,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00653",
+    "id": "dm-val-00650",
     "company_name": "CONCORD BIOTECH LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1284,7 +1242,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00273",
+    "id": "dm-val-00271",
     "company_name": "MACLEODS PHARMACEUTICALS LTD",
     "role": "Exporter",
     "category": "Perishables",
@@ -1305,7 +1263,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02768",
+    "id": "dm-val-02764",
     "company_name": "ZEN TECHNOLOGIES LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -1326,7 +1284,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04056",
+    "id": "dm-val-04051",
     "company_name": "ALPHA DESIGN TECHNOLOGIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -1347,7 +1305,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04467",
+    "id": "dm-val-04461",
     "company_name": "THOMAS COOK (INDIA) LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -1368,7 +1326,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01689",
+    "id": "dm-val-01685",
     "company_name": "OWENS-CORNING (INDIA) PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -1389,7 +1347,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00389",
+    "id": "dm-val-00387",
     "company_name": "BIOCON LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1410,7 +1368,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00172",
+    "id": "dm-val-00171",
     "company_name": "IPCA LABORATORIES LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -1431,7 +1389,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00276",
+    "id": "dm-val-00274",
     "company_name": "UTTARA IMPEX PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -1452,7 +1410,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03124",
+    "id": "dm-val-03120",
     "company_name": "BALKRISHNA INDUSTRIES LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -1473,7 +1431,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00516",
+    "id": "dm-val-00513",
     "company_name": "SMS PHARMACEUTICALS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1494,7 +1452,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03989",
+    "id": "dm-val-03984",
     "company_name": "MANOHAR CAPITAL MARKETS LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1515,7 +1473,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00344",
+    "id": "dm-val-00342",
     "company_name": "VASANTHA TOOL CRAFTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -1536,7 +1494,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04171",
+    "id": "dm-val-04166",
     "company_name": "MRF LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1557,7 +1515,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04173",
+    "id": "dm-val-04168",
     "company_name": "TITAANIUM TEN ENTERPRISE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1578,7 +1536,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02742",
+    "id": "dm-val-02738",
     "company_name": "GOKALDAS EXPORTS LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "General Cargo",
@@ -1599,7 +1557,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04282",
+    "id": "dm-val-04276",
     "company_name": "RISHAB WORLD PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1620,7 +1578,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00010",
+    "id": "dm-val-00009",
     "company_name": "DILIGENT SCM SOLUTIONS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -1641,7 +1599,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00486",
+    "id": "dm-val-00484",
     "company_name": "ASPIRO PHARMA LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -1662,7 +1620,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03898",
+    "id": "dm-val-03894",
     "company_name": "IMPARK",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1683,7 +1641,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00629",
+    "id": "dm-val-00626",
     "company_name": "ARENE LIFE SCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1704,7 +1662,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00005",
+    "id": "dm-val-00004",
     "company_name": "MERIL HEALTHCARE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -1725,7 +1683,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01953",
+    "id": "dm-val-01949",
     "company_name": "SRF LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -1746,7 +1704,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00538",
+    "id": "dm-val-00535",
     "company_name": "MSN ORGANICS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1767,7 +1725,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00168",
+    "id": "dm-val-00167",
     "company_name": "BOTANIC HEALTHCARE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -1788,7 +1746,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01377",
+    "id": "dm-val-01373",
     "company_name": "SIYARAM SILK MILLS LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -1809,7 +1767,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00504",
+    "id": "dm-val-00502",
     "company_name": "SUPRIYA LIFESCIENCE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1830,7 +1788,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00526",
+    "id": "dm-val-00523",
     "company_name": "DECCAN FINE CHEMICALS (INDIA) PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -1851,7 +1809,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00028",
+    "id": "dm-val-00027",
     "company_name": "COMMSCOPE INDIA PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Pharma & Healthcare",
@@ -1872,7 +1830,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00007",
+    "id": "dm-val-00006",
     "company_name": "SCHNEIDER ELECTRIC INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -1893,7 +1851,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00065",
+    "id": "dm-val-00064",
     "company_name": "EUROFLEX TRANSMISSIONS (INDIA) PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -1914,7 +1872,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04077",
+    "id": "dm-val-04072",
     "company_name": "SILVER CREST CLOTHING PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -1935,7 +1893,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00544",
+    "id": "dm-val-00541",
     "company_name": "KISHA TELELINKS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -1956,7 +1914,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00472",
+    "id": "dm-val-00470",
     "company_name": "RUBICON RESEARCH PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -1977,7 +1935,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00753",
+    "id": "dm-val-00750",
     "company_name": "RELIANCE LIFE SCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -1998,7 +1956,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03896",
+    "id": "dm-val-03892",
     "company_name": "S G P INDIA",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -2019,7 +1977,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00416",
+    "id": "dm-val-00414",
     "company_name": "OMNIACTIVE HEALTH TECHNOLOGIES LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -2040,7 +1998,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02867",
+    "id": "dm-val-02863",
     "company_name": "NAVIN FLUORINE INTERNATIONAL LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2061,7 +2019,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00342",
+    "id": "dm-val-00340",
     "company_name": "HONOUR LAB LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2082,7 +2040,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-05422",
+    "id": "dm-val-05416",
     "company_name": "SYNTHO CHIRALS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2103,7 +2061,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01334",
+    "id": "dm-val-01330",
     "company_name": "P. MANGATRAM JEWELLERS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -2124,7 +2082,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00855",
+    "id": "dm-val-00852",
     "company_name": "GLUKEM BIOCARE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2145,7 +2103,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03609",
+    "id": "dm-val-03605",
     "company_name": "RICHA GLOBAL EXPORTS PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -2166,7 +2124,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00401",
+    "id": "dm-val-00399",
     "company_name": "UNICORN NATURAL PRODUCTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -2187,7 +2145,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02701",
+    "id": "dm-val-02697",
     "company_name": "ANMOL JEWELLERS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -2208,7 +2166,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04813",
+    "id": "dm-val-04807",
     "company_name": "MADURA INDUSTRIAL TEXTILES LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -2229,7 +2187,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00612",
+    "id": "dm-val-00609",
     "company_name": "LAILA NUTRACEUTICALS",
     "role": "Exporter",
     "category": "Perishables",
@@ -2250,7 +2208,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03895",
+    "id": "dm-val-03891",
     "company_name": "TEXPERTS INDIA PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -2271,7 +2229,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00880",
+    "id": "dm-val-00877",
     "company_name": "PELLETS PHARMA LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2292,7 +2250,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00986",
+    "id": "dm-val-00983",
     "company_name": "HY-GRO CHEMICALS PHARMTEK PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2313,7 +2271,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00646",
+    "id": "dm-val-00643",
     "company_name": "WANBURY LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2334,7 +2292,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00482",
+    "id": "dm-val-00480",
     "company_name": "SRI KRISHNA PHARMACEUTICALS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2355,7 +2313,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00720",
+    "id": "dm-val-00717",
     "company_name": "SMILAX LABORATORIES LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2376,7 +2334,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00410",
+    "id": "dm-val-00408",
     "company_name": "AMI LIFESCIENCES PVT LTD",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2397,7 +2355,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00078",
+    "id": "dm-val-00077",
     "company_name": "AOV AGRO FOODS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -2418,7 +2376,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00706",
+    "id": "dm-val-00703",
     "company_name": "VINS BIOPRODUCTS LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -2439,7 +2397,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00595",
+    "id": "dm-val-00592",
     "company_name": "VIRUPAKSHA ORGANICS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2460,7 +2418,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00695",
+    "id": "dm-val-00692",
     "company_name": "L.G. ENTERPRISE",
     "role": "Exporter",
     "category": "Perishables",
@@ -2481,7 +2439,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00933",
+    "id": "dm-val-00930",
     "company_name": "NIDHI ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -2502,7 +2460,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00052",
+    "id": "dm-val-00051",
     "company_name": "BAYER SCIENCE AND INNOVATION PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -2523,7 +2481,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00305",
+    "id": "dm-val-00303",
     "company_name": "AJANTA PHARMA LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -2544,7 +2502,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00016",
+    "id": "dm-val-00015",
     "company_name": "GOLDMARINE EXPORTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -2565,7 +2523,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04671",
+    "id": "dm-val-04665",
     "company_name": "SAANIKA INDUSTRIES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -2586,7 +2544,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00659",
+    "id": "dm-val-00656",
     "company_name": "ZIM LABORATORIES LIMITED.",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -2607,7 +2565,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00454",
+    "id": "dm-val-00452",
     "company_name": "PHILIPS INDIA LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -2628,7 +2586,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01838",
+    "id": "dm-val-01834",
     "company_name": "AYM SYNTEX LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -2649,7 +2607,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00655",
+    "id": "dm-val-00652",
     "company_name": "AMNEAL PHARMACEUTICALS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -2670,7 +2628,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01310",
+    "id": "dm-val-01306",
     "company_name": "SRI KRISHNA JEWELLERS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -2691,7 +2649,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00020",
+    "id": "dm-val-00019",
     "company_name": "NAMDHARI SEEDS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -2712,7 +2670,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00081",
+    "id": "dm-val-00080",
     "company_name": "EPIROC MINING INDIA PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Engineering & Machinery",
@@ -2733,7 +2691,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04279",
+    "id": "dm-val-04273",
     "company_name": "INDIAN DESIGNS EXPORTS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -2754,7 +2712,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00311",
+    "id": "dm-val-00309",
     "company_name": "TORRENT PHARMACEUTICALS LTD",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -2775,7 +2733,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00041",
+    "id": "dm-val-00040",
     "company_name": "KF BIOPLANTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -2796,7 +2754,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00126",
+    "id": "dm-val-00125",
     "company_name": "TATA SIKORSKY AEROSPACE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -2817,7 +2775,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00480",
+    "id": "dm-val-00478",
     "company_name": "V.R.S.SEA FOODS",
     "role": "Exporter",
     "category": "Perishables",
@@ -2838,7 +2796,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00423",
+    "id": "dm-val-00421",
     "company_name": "ARJUNA NATURAL PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -2859,7 +2817,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00024",
+    "id": "dm-val-00023",
     "company_name": "SANDVIK COROMANT INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -2880,7 +2838,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01099",
+    "id": "dm-val-01096",
     "company_name": "AET LABORATORIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -2901,7 +2859,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02173",
+    "id": "dm-val-02169",
     "company_name": "LUCKY4UEXIMS",
     "role": "Exporter",
     "category": "Perishables",
@@ -2922,7 +2880,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00006",
+    "id": "dm-val-00005",
     "company_name": "ITP EXTERNALS INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -2943,7 +2901,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00053",
+    "id": "dm-val-00052",
     "company_name": "SIEMENS HEALTHCARE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -2964,7 +2922,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-12750",
+    "id": "dm-val-12738",
     "company_name": "YES BANK LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -2985,7 +2943,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04519",
+    "id": "dm-val-04513",
     "company_name": "SAKTHI INFRA TEX PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -3006,7 +2964,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04823",
+    "id": "dm-val-04817",
     "company_name": "BITTU SYNTHETICS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -3027,7 +2985,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00501",
+    "id": "dm-val-00499",
     "company_name": "UNIQUE BIOTECH LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -3048,7 +3006,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00139",
+    "id": "dm-val-00138",
     "company_name": "MEDHA SERVO DRIVES PVT LTD",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -3069,7 +3027,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00061",
+    "id": "dm-val-00060",
     "company_name": "APPLE INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -3090,7 +3048,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04174",
+    "id": "dm-val-04169",
     "company_name": "SEIREN INDIA PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -3111,7 +3069,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00532",
+    "id": "dm-val-00529",
     "company_name": "GRAVITI PHARMACEUTICALS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -3132,7 +3090,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00938",
+    "id": "dm-val-00935",
     "company_name": "AIZANT DRUG RESEARCH SOLUTIONS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -3153,7 +3111,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04284",
+    "id": "dm-val-04278",
     "company_name": "SILVER SPARK APPAREL LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -3174,7 +3132,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01952",
+    "id": "dm-val-01948",
     "company_name": "CEAT LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "General Cargo",
@@ -3195,7 +3153,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00022",
+    "id": "dm-val-00021",
     "company_name": "AQUA WORLD EXPORTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3216,7 +3174,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01293",
+    "id": "dm-val-01289",
     "company_name": "GARWARE TECHNICAL FIBRES LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -3237,7 +3195,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00045",
+    "id": "dm-val-00044",
     "company_name": "FRIGERIO CONSERVA ALLANA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3258,7 +3216,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00822",
+    "id": "dm-val-00819",
     "company_name": "KATRA PHYTOCHEM (INDIA) PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3279,7 +3237,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00913",
+    "id": "dm-val-00910",
     "company_name": "STERLITE TECHNOLOGIES LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Pharma & Healthcare",
@@ -3300,7 +3258,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04280",
+    "id": "dm-val-04274",
     "company_name": "NAPS GLOBAL INDIA PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -3321,7 +3279,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02470",
+    "id": "dm-val-02466",
     "company_name": "LALITH JEWELLERS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -3342,7 +3300,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00307",
+    "id": "dm-val-00305",
     "company_name": "OSI SYSTEMS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -3363,7 +3321,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00476",
+    "id": "dm-val-00474",
     "company_name": "FUTURA BIOPLANTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3384,7 +3342,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04525",
+    "id": "dm-val-04519",
     "company_name": "BHAGWAN ENTERPRISE TEXTILES PVT LTD",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -3405,7 +3363,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02428",
+    "id": "dm-val-02424",
     "company_name": "BORGWARNER EMISSIONS TALEGAON PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -3426,7 +3384,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00014",
+    "id": "dm-val-00013",
     "company_name": "CLEARSYNTH LABS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -3447,7 +3405,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00038",
+    "id": "dm-val-00037",
     "company_name": "SAM AGRI TECH LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3468,7 +3426,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04285",
+    "id": "dm-val-04279",
     "company_name": "ROYAL EMBROIDERY THREADS PVT. LTD.",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -3489,7 +3447,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00592",
+    "id": "dm-val-00589",
     "company_name": "CORNING TECHNOLOGIES INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -3510,7 +3468,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00051",
+    "id": "dm-val-00050",
     "company_name": "ENDRESS + HAUSER FLOWTEC (INDIA) PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -3531,7 +3489,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03527",
+    "id": "dm-val-03523",
     "company_name": "CORTEVA AGRISCIENCE INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -3552,7 +3510,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00319",
+    "id": "dm-val-00317",
     "company_name": "CENERG GLOBAL TOOLS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -3573,7 +3531,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00465",
+    "id": "dm-val-00463",
     "company_name": "NATURAL REMEDIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3594,7 +3552,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00318",
+    "id": "dm-val-00316",
     "company_name": "D'DECOR HOME FABRICS PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -3615,7 +3573,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00696",
+    "id": "dm-val-00693",
     "company_name": "MAITHRI DRUGS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -3636,7 +3594,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03398",
+    "id": "dm-val-03394",
     "company_name": "MALABAR GOLD LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -3657,7 +3615,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00839",
+    "id": "dm-val-00836",
     "company_name": "AZICO BIOPHORE INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -3678,7 +3636,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02334",
+    "id": "dm-val-02330",
     "company_name": "MEENAKSHI JEWELLERS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -3699,7 +3657,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01228",
+    "id": "dm-val-01225",
     "company_name": "BHARAT ELECTRONICS LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -3720,7 +3678,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00099",
+    "id": "dm-val-00098",
     "company_name": "NUNHEMS INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3741,7 +3699,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00733",
+    "id": "dm-val-00730",
     "company_name": "SHODHANA LABORATORIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -3762,7 +3720,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03458",
+    "id": "dm-val-03454",
     "company_name": "FORTUNE BIOTECH LTD",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -3783,7 +3741,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04532",
+    "id": "dm-val-04526",
     "company_name": "NANDINI TEXCOM (INDIA) LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -3804,7 +3762,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00678",
+    "id": "dm-val-00675",
     "company_name": "HINDUSTAN PLATINUM PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -3825,7 +3783,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00166",
+    "id": "dm-val-00165",
     "company_name": "AL-DUA FOOD PROCESSING PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3846,7 +3804,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01001",
+    "id": "dm-val-00998",
     "company_name": "WATSON PHARMA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -3867,7 +3825,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01719",
+    "id": "dm-val-01715",
     "company_name": "ALMELO PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -3888,7 +3846,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01255",
+    "id": "dm-val-01252",
     "company_name": "INDFRAG BIO SCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3909,7 +3867,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00026",
+    "id": "dm-val-00025",
     "company_name": "RENISHAW METROLOGY SYSTEMS LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -3930,7 +3888,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00111",
+    "id": "dm-val-00110",
     "company_name": "ULINK AGRITECH PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -3951,7 +3909,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00865",
+    "id": "dm-val-00862",
     "company_name": "BIOPHORE INDIA PHARMACEUTICALS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -3972,7 +3930,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00033",
+    "id": "dm-val-00032",
     "company_name": "SECO TOOLS INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -3993,7 +3951,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02991",
+    "id": "dm-val-02987",
     "company_name": "SIDDHANT ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -4014,7 +3972,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00313",
+    "id": "dm-val-00311",
     "company_name": "SYNGENTA INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -4035,7 +3993,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00522",
+    "id": "dm-val-00519",
     "company_name": "SP ACCURE LABS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -4056,7 +4014,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00242",
+    "id": "dm-val-00240",
     "company_name": "HONEYWELL AUTOMATION INDIA LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -4077,7 +4035,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01660",
+    "id": "dm-val-01656",
     "company_name": "INDOCO REMEDIES LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -4098,7 +4056,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00436",
+    "id": "dm-val-00434",
     "company_name": "ORBICULAR PHARMACEUTICAL TECHNOLOGIES PRIVATE LIMI",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -4119,7 +4077,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04079",
+    "id": "dm-val-04074",
     "company_name": "MADURA COATS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -4140,7 +4098,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01443",
+    "id": "dm-val-01439",
     "company_name": "WOCKHARDT LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -4161,7 +4119,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00779",
+    "id": "dm-val-00776",
     "company_name": "SMS LIFESCIENCES INDIA LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4182,7 +4140,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01253",
+    "id": "dm-val-01250",
     "company_name": "SIONC PHARMACEUTICALS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4203,7 +4161,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01414",
+    "id": "dm-val-01410",
     "company_name": "TITAN LABORATORIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4224,7 +4182,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00035",
+    "id": "dm-val-00034",
     "company_name": "SIEMENS LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -4245,7 +4203,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00154",
+    "id": "dm-val-00153",
     "company_name": "SAI BALAJI SEAFOODS",
     "role": "Exporter",
     "category": "Perishables",
@@ -4266,7 +4224,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04169",
+    "id": "dm-val-04164",
     "company_name": "INTIMATE FASHIONS (INDIA)) PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -4287,7 +4245,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03670",
+    "id": "dm-val-03666",
     "company_name": "CLININVENT RESEARCH PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4308,7 +4266,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00742",
+    "id": "dm-val-00739",
     "company_name": "CENTAUR PHARMACEUTICALS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4329,7 +4287,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-06292",
+    "id": "dm-val-06286",
     "company_name": "PJ MARGO PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -4350,7 +4308,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-10402",
+    "id": "dm-val-10393",
     "company_name": "OIL AND NATURAL GAS CORPORATION LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -4371,7 +4329,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-14047",
+    "id": "dm-val-14035",
     "company_name": "SUNDAK SOLAR SOLUTIONS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -4392,7 +4350,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00848",
+    "id": "dm-val-00845",
     "company_name": "MEGA FINE PHARMA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4413,7 +4371,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00241",
+    "id": "dm-val-00239",
     "company_name": "AVR MARINES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -4434,7 +4392,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00029",
+    "id": "dm-val-00028",
     "company_name": "ALL SEASON EXPORTS",
     "role": "Exporter",
     "category": "Perishables",
@@ -4455,7 +4413,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02312",
+    "id": "dm-val-02308",
     "company_name": "NAGASE INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4476,7 +4434,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01553",
+    "id": "dm-val-01549",
     "company_name": "CHROMO LABORATORIES INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4497,7 +4455,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00543",
+    "id": "dm-val-00540",
     "company_name": "SANDOZ PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -4518,7 +4476,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03758",
+    "id": "dm-val-03754",
     "company_name": "GINZA INDUSTRIES LTD.",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -4539,7 +4497,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00844",
+    "id": "dm-val-00841",
     "company_name": "KEKULE PHARMA LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4560,7 +4518,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02775",
+    "id": "dm-val-02771",
     "company_name": "ATC TIRES PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -4581,7 +4539,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-05128",
+    "id": "dm-val-05122",
     "company_name": "FUTURE FIBRES AND FILAMENTS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -4602,7 +4560,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-05476",
+    "id": "dm-val-05470",
     "company_name": "PRATIMAN TEXTILES",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -4623,7 +4581,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00810",
+    "id": "dm-val-00807",
     "company_name": "SRINIVASA FARMS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -4644,7 +4602,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00904",
+    "id": "dm-val-00901",
     "company_name": "BDR PHARMACEUTICALS INTERNATIONAL PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4665,7 +4623,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00606",
+    "id": "dm-val-00603",
     "company_name": "ALPHAMED FORMULATIONS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4686,7 +4644,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04797",
+    "id": "dm-val-04791",
     "company_name": "SHREE TRISHUL TRADING",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -4707,7 +4665,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02735",
+    "id": "dm-val-02731",
     "company_name": "SANGHI JEWELLERS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -4728,7 +4686,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01090",
+    "id": "dm-val-01087",
     "company_name": "PHARMANZA HERBAL PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -4749,7 +4707,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00929",
+    "id": "dm-val-00926",
     "company_name": "HARMAN FINOCHEM LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4770,7 +4728,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04177",
+    "id": "dm-val-04171",
     "company_name": "EAGLE FASHIONS PVT LTD",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -4791,7 +4749,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04966",
+    "id": "dm-val-04960",
     "company_name": "VARDHMAN YARNS AND THREADS LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -4812,7 +4770,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01389",
+    "id": "dm-val-01385",
     "company_name": "EMBIO LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4833,7 +4791,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-06880",
+    "id": "dm-val-06874",
     "company_name": "SRI MURUGAN TEXTILES",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -4854,7 +4812,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00931",
+    "id": "dm-val-00928",
     "company_name": "VIRCHOW HEALTHCARE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -4875,7 +4833,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00050",
+    "id": "dm-val-00049",
     "company_name": "RAGHU VAMSI MACHINE TOOLS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -4896,7 +4854,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01436",
+    "id": "dm-val-01432",
     "company_name": "KAY KAY OVERSEAS CORPORATION",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -4917,7 +4875,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00123",
+    "id": "dm-val-00122",
     "company_name": "ASB INTERNATIONAL PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -4938,7 +4896,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00714",
+    "id": "dm-val-00711",
     "company_name": "SAGI SEEDS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -4959,7 +4917,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00498",
+    "id": "dm-val-00496",
     "company_name": "RAKSHIT PHARMACEUTICALS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -4980,7 +4938,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00475",
+    "id": "dm-val-00473",
     "company_name": "FLEMING LABORATORIES LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -5001,7 +4959,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02017",
+    "id": "dm-val-02013",
     "company_name": "SOL MOBILES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -5022,7 +4980,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00977",
+    "id": "dm-val-00974",
     "company_name": "SHRI KARTIKEYA PHARMA",
     "role": "Exporter",
     "category": "Perishables",
@@ -5043,7 +5001,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01172",
+    "id": "dm-val-01169",
     "company_name": "K PATEL PHYTO EXTRACTIONS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -5064,7 +5022,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01261",
+    "id": "dm-val-01258",
     "company_name": "NIFTY LABS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -5085,7 +5043,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01393",
+    "id": "dm-val-01389",
     "company_name": "ALKEM LABORATORIES LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -5106,7 +5064,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00549",
+    "id": "dm-val-00546",
     "company_name": "CRESENT SEA FOOD",
     "role": "Exporter",
     "category": "Perishables",
@@ -5127,7 +5085,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00202",
+    "id": "dm-val-00200",
     "company_name": "SULZER PUMPS INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -5148,7 +5106,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00146",
+    "id": "dm-val-00145",
     "company_name": "VALAN MULTI PRODUCTS",
     "role": "Exporter",
     "category": "Perishables",
@@ -5169,7 +5127,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00030",
+    "id": "dm-val-00029",
     "company_name": "ENDRESS+HAUSER (INDIA) AUTOMATION INSTRUMENTATION",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -5190,7 +5148,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01066",
+    "id": "dm-val-01063",
     "company_name": "SERUM INSTITUTE OF INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -5211,7 +5169,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04278",
+    "id": "dm-val-04272",
     "company_name": "K.P.R. MILL LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -5232,7 +5190,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00133",
+    "id": "dm-val-00132",
     "company_name": "GODREJ AND BOYCE MANUFACTURING COMPANY LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Engineering & Machinery",
@@ -5253,7 +5211,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03226",
+    "id": "dm-val-03222",
     "company_name": "KAILASHNATH AND COMPANY",
     "role": "Exporter",
     "category": "General Cargo",
@@ -5274,7 +5232,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00469",
+    "id": "dm-val-00467",
     "company_name": "CUMMINS TECHNOLOGIES INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -5295,7 +5253,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04528",
+    "id": "dm-val-04522",
     "company_name": "PRATIMAN TEXTILES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -5316,7 +5274,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00688",
+    "id": "dm-val-00685",
     "company_name": "UMEDICA LABORATORIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -5337,7 +5295,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01803",
+    "id": "dm-val-01799",
     "company_name": "SAROM FAB PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -5358,7 +5316,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03358",
+    "id": "dm-val-03354",
     "company_name": "SOVEREIGN METALS LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -5379,7 +5337,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01701",
+    "id": "dm-val-01697",
     "company_name": "VANTAGE NUTRITION LLP",
     "role": "Exporter",
     "category": "Perishables",
@@ -5400,7 +5358,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01704",
+    "id": "dm-val-01700",
     "company_name": "KUSUMGAR CORPORATES PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -5421,7 +5379,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-05084",
+    "id": "dm-val-05078",
     "company_name": "MAMRAJ MUSSADILAL JEWELLERS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -5442,7 +5400,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01267",
+    "id": "dm-val-01264",
     "company_name": "DISHMAN CARBOGEN AMCIS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -5463,7 +5421,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-05114",
+    "id": "dm-val-05108",
     "company_name": "PINNACLE CLOTHING CO",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -5484,7 +5442,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02134",
+    "id": "dm-val-02130",
     "company_name": "DASAMI LAB PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -5505,7 +5463,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-13187",
+    "id": "dm-val-13175",
     "company_name": "SAARTHI AIRWAYS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -5526,7 +5484,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01688",
+    "id": "dm-val-01684",
     "company_name": "USV PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -5547,7 +5505,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-06599",
+    "id": "dm-val-06593",
     "company_name": "DHC MARKETING PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -5568,7 +5526,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00132",
+    "id": "dm-val-00131",
     "company_name": "BASU INTERNATIONAL",
     "role": "Exporter",
     "category": "Perishables",
@@ -5589,7 +5547,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00143",
+    "id": "dm-val-00142",
     "company_name": "SANTOSH EXPORTS",
     "role": "Exporter",
     "category": "Perishables",
@@ -5610,7 +5568,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00769",
+    "id": "dm-val-00766",
     "company_name": "GREENCROSS EXPORT PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -5631,7 +5589,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00698",
+    "id": "dm-val-00695",
     "company_name": "BIO-GEN EXTRACTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -5652,7 +5610,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04078",
+    "id": "dm-val-04073",
     "company_name": "PROCTER & GAMBLE HOME PRODUCTS PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -5673,7 +5631,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-03816",
+    "id": "dm-val-03812",
     "company_name": "SRI VIJAY DURGA MAHA SHAKTI JEWELLERS & EXPORTERS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -5694,7 +5652,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01849",
+    "id": "dm-val-01845",
     "company_name": "SYNERGIA LIFE SCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -5715,7 +5673,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00116",
+    "id": "dm-val-00115",
     "company_name": "EMERSON PROCESS MANAGEMENT (INDIA) PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -5736,7 +5694,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02923",
+    "id": "dm-val-02919",
     "company_name": "KOTTEX INDUSTRIES PRIVATE LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -5757,7 +5715,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00009",
+    "id": "dm-val-00008",
     "company_name": "SYNZEAL RESEARCH PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -5778,7 +5736,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01391",
+    "id": "dm-val-01387",
     "company_name": "CLARIANT INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -5799,7 +5757,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00250",
+    "id": "dm-val-00248",
     "company_name": "MERIL DIAGNOSTICS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -5820,7 +5778,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00392",
+    "id": "dm-val-00390",
     "company_name": "STALLION LABORATORIES PVT LTD",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -5841,7 +5799,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00214",
+    "id": "dm-val-00212",
     "company_name": "MTAR TECHNOLOGIES LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -5862,7 +5820,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04423",
+    "id": "dm-val-04417",
     "company_name": "PEARL GLOBAL INDUSTRIES LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -5883,7 +5841,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04655",
+    "id": "dm-val-04649",
     "company_name": "MANOVANCHIT TRADING CO.",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -5904,7 +5862,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-05064",
+    "id": "dm-val-05058",
     "company_name": "DIAMOND FOREVER INTERNATIONAL",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -5925,7 +5883,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01213",
+    "id": "dm-val-01210",
     "company_name": "QUIKJET CARGO AIRLINES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -5946,7 +5904,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01780",
+    "id": "dm-val-01776",
     "company_name": "MICRO LABS LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -5967,7 +5925,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00090",
+    "id": "dm-val-00089",
     "company_name": "BAIDYA FISH TRADERS",
     "role": "Exporter",
     "category": "Perishables",
@@ -5988,7 +5946,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00774",
+    "id": "dm-val-00771",
     "company_name": "PORTESCAP INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -6009,7 +5967,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-02925",
+    "id": "dm-val-02921",
     "company_name": "APOLLO TYRES LIMITED.",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -6030,7 +5988,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00084",
+    "id": "dm-val-00083",
     "company_name": "PANAM ENGINEERS LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -6051,7 +6009,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04167",
+    "id": "dm-val-04162",
     "company_name": "FREUDENBERG PERFORMANCE MATERIALS INDIA PRIVATE LI",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -6072,7 +6030,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-08087",
+    "id": "dm-val-08079",
     "company_name": "SIMPLON CERAMIC PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -6093,7 +6051,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04821",
+    "id": "dm-val-04815",
     "company_name": "PERFECT FILAMENTS LIMITED",
     "role": "Both (Exporter & Importer)",
     "category": "Textiles & Apparel",
@@ -6114,7 +6072,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00790",
+    "id": "dm-val-00787",
     "company_name": "SWISS PARENTERALS LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -6135,7 +6093,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00092",
+    "id": "dm-val-00091",
     "company_name": "BRITTO SEA FOODS EXPORTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -6156,7 +6114,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00528",
+    "id": "dm-val-00525",
     "company_name": "UNITED GENETICS INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -6177,7 +6135,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-10033",
+    "id": "dm-val-10024",
     "company_name": "DAKSH IMPEX",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -6198,7 +6156,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01626",
+    "id": "dm-val-01622",
     "company_name": "NATURAL AND ESSENTIAL OILS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -6219,7 +6177,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-04149",
+    "id": "dm-val-04144",
     "company_name": "SUNITA JEWELS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -6240,7 +6198,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00296",
+    "id": "dm-val-00294",
     "company_name": "ABB INDIA LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -6261,7 +6219,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-01845",
+    "id": "dm-val-01841",
     "company_name": "MURLI KRISHNA PHARMA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6282,7 +6240,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-val-00317",
+    "id": "dm-val-00315",
     "company_name": "SAPALA ORGANICS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6303,7 +6261,49 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "valid"
   },
   {
-    "id": "dm-mis-11324",
+    "id": "dm-val-01023",
+    "company_name": "CRIUS LIFE SCIENCES PRIVATE LIMITED",
+    "role": "Exporter",
+    "category": "Perishables",
+    "subcategory": "Processed Foods & Edible Preparations",
+    "contact_type": "Both Phone & Email",
+    "phone": "919318952681",
+    "email": "accounts@chimakhealthcare.com",
+    "tax_id": "2216901270",
+    "city": "SOLAN,HIMACHAL PRADESH",
+    "address": "",
+    "pin_code": "173211",
+    "directors": "",
+    "trade_lanes": "PER/AIR",
+    "top_hs_codes": "21069099",
+    "total_shipments": 196,
+    "total_value_usd": 4929088.75,
+    "latest_activity_date": "2026-02-23",
+    "dataset_type": "valid"
+  },
+  {
+    "id": "dm-val-02487",
+    "company_name": "OTTER CONTROLS INDIA PRIVATE LIMITED",
+    "role": "Exporter",
+    "category": "Electronics & Electrical",
+    "subcategory": "Electrical Equipment & Switchgear",
+    "contact_type": "Both Phone & Email",
+    "phone": "02025465915",
+    "email": "ulhas@aurocontrols.com",
+    "tax_id": "3112005058",
+    "city": "PUNE",
+    "address": "S.NO. 2/1/7, FLORINA APARTMENT, 6THFLOOR, PALANDE COURIER LANE,",
+    "pin_code": "411004",
+    "directors": "1.  :  ULHAS KRISHNA JOSHI KRISHNA JOSHI 15 SAMARPAN ANANDBAUG SOC. NAVI PETH PUNE/MAH PIN-411030PHONE/EMAIL:02025465915  :  2.  :  DAVID ANDREW STANELY SMITH STANELY SMITH 32 PLOUGHMANS WAY TYTHERINGTON MACCLESFIELD CHESHIRE SK102UN UNITED KINGDOM PIN-11",
+    "trade_lanes": "GCR/Air",
+    "top_hs_codes": "85369090, 90261090",
+    "total_shipments": 59,
+    "total_value_usd": 4886012.33,
+    "latest_activity_date": "2026-02-19",
+    "dataset_type": "valid"
+  },
+  {
+    "id": "dm-mis-11319",
     "company_name": "PIRAMAL PHARMA LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6324,7 +6324,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07495",
+    "id": "dm-mis-07491",
     "company_name": "KABIR ENTERPRISE",
     "role": "Exporter",
     "category": "Perishables",
@@ -6345,7 +6345,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09348",
+    "id": "dm-mis-09343",
     "company_name": "MEHER CREATIONS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -6366,7 +6366,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06822",
+    "id": "dm-mis-06818",
     "company_name": "INTERGLOBE AVIATION LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -6387,7 +6387,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01445",
+    "id": "dm-mis-01444",
     "company_name": "APITORIA PHARMA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6408,7 +6408,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15936",
+    "id": "dm-mis-15931",
     "company_name": "TIANISH LABORATORIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6429,7 +6429,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15390",
+    "id": "dm-mis-15385",
     "company_name": "SUVEN PHARMACEUTICALS LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -6450,7 +6450,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06135",
+    "id": "dm-mis-06131",
     "company_name": "HEAVY WATER PLANT MANUGURU",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6471,7 +6471,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03083",
+    "id": "dm-mis-03081",
     "company_name": "CHANG YI INTERCONNECT TECHNOLOGY (INDIA)PRIVATE LI",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -6492,7 +6492,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06361",
+    "id": "dm-mis-06357",
     "company_name": "HONG YI INTERCONNECT TECHNOLOGY (INDIA) PRIVATE LI",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -6513,7 +6513,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02753",
+    "id": "dm-mis-02751",
     "company_name": "BORA MOBILITY LLP",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -6534,7 +6534,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06244",
+    "id": "dm-mis-06240",
     "company_name": "HILOTEX INTERNATIONAL PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -6555,7 +6555,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15344",
+    "id": "dm-mis-15339",
     "company_name": "SURAT SALES PVT LTD",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -6576,7 +6576,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03286",
+    "id": "dm-mis-03284",
     "company_name": "COHANCE LIFESCIENCES LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6597,7 +6597,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08266",
+    "id": "dm-mis-08262",
     "company_name": "LAURUS SYNTHESIS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6618,7 +6618,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09492",
+    "id": "dm-mis-09487",
     "company_name": "MICRON SEMICONDUCTOR TECHNOLOGY INDIA PRIVATE LIMI",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -6639,7 +6639,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02752",
+    "id": "dm-mis-02750",
     "company_name": "BORA EXIM PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -6660,7 +6660,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12644",
+    "id": "dm-mis-12639",
     "company_name": "RONITA ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -6681,7 +6681,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02651",
+    "id": "dm-mis-02649",
     "company_name": "BLACK MANGO FASHIONS LLP",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -6702,7 +6702,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08685",
+    "id": "dm-mis-08681",
     "company_name": "MAA LUXMI E-VEHICLES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -6723,7 +6723,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12945",
+    "id": "dm-mis-12940",
     "company_name": "S.L.V HAIR ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -6744,7 +6744,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16882",
+    "id": "dm-mis-16877",
     "company_name": "VIAONE INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -6765,7 +6765,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05572",
+    "id": "dm-mis-05568",
     "company_name": "GLOBE MOBILITY PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -6786,7 +6786,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09630",
+    "id": "dm-mis-09625",
     "company_name": "MOBI IMPEX",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -6807,7 +6807,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01986",
+    "id": "dm-mis-01984",
     "company_name": "AURIGENE PHARMACEUTICAL SERVICES LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6849,7 +6849,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16339",
+    "id": "dm-mis-16334",
     "company_name": "UNIKORN DISTRIBUTION PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -6870,7 +6870,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14997",
+    "id": "dm-mis-14992",
     "company_name": "STAR YARN",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -6891,7 +6891,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08940",
+    "id": "dm-mis-08936",
     "company_name": "MANHA JEWELS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -6912,7 +6912,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05494",
+    "id": "dm-mis-05490",
     "company_name": "GLENMARK LIFE SCIENCES LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -6933,7 +6933,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09522",
+    "id": "dm-mis-09517",
     "company_name": "MILAN JEWELS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -6954,7 +6954,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02040",
+    "id": "dm-mis-02038",
     "company_name": "AVANTI EXIM INDIA PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -6975,7 +6975,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02475",
+    "id": "dm-mis-02473",
     "company_name": "BHARAT SERUMS AND VACCINES LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -7017,7 +7017,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01635",
+    "id": "dm-mis-01634",
     "company_name": "ARKNINE TECHNOLOGIES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -7038,7 +7038,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15703",
+    "id": "dm-mis-15698",
     "company_name": "TECHNO ACTIVEWEAR PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -7059,7 +7059,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08686",
+    "id": "dm-mis-08682",
     "company_name": "MAA SHAKTI TRADING",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -7080,7 +7080,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17379",
+    "id": "dm-mis-17374",
     "company_name": "WESYNC RETAIL PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -7101,7 +7101,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16228",
+    "id": "dm-mis-16223",
     "company_name": "TUNWAL E-MOTORS LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -7122,7 +7122,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17741",
+    "id": "dm-mis-17736",
     "company_name": "ZIOFI EXPORTER",
     "role": "Exporter",
     "category": "Perishables",
@@ -7143,7 +7143,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13769",
+    "id": "dm-mis-13764",
     "company_name": "SHILPA PHARMA LIFESCIENCES LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -7164,7 +7164,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12066",
+    "id": "dm-mis-12061",
     "company_name": "RADIANT JARI PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -7185,7 +7185,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13309",
+    "id": "dm-mis-13304",
     "company_name": "SANZYME BIOLOGICS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -7206,7 +7206,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05805",
+    "id": "dm-mis-05801",
     "company_name": "GREENSPACE",
     "role": "Exporter",
     "category": "Perishables",
@@ -7269,7 +7269,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09134",
+    "id": "dm-mis-09129",
     "company_name": "MATRIX PHARMACORP PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -7290,7 +7290,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02290",
+    "id": "dm-mis-02288",
     "company_name": "BANDANA SAHANI",
     "role": "Exporter",
     "category": "Perishables",
@@ -7311,7 +7311,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08484",
+    "id": "dm-mis-08480",
     "company_name": "LUCKY 4U EXIMS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -7332,7 +7332,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07709",
+    "id": "dm-mis-07705",
     "company_name": "KAY BEE EXPORTS INTERNATIONAL PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -7353,7 +7353,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01410",
+    "id": "dm-mis-01409",
     "company_name": "AOC",
     "role": "Exporter",
     "category": "Perishables",
@@ -7374,7 +7374,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08978",
+    "id": "dm-mis-08974",
     "company_name": "MANTRA E-BIKES",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -7416,7 +7416,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16478",
+    "id": "dm-mis-16473",
     "company_name": "URBAN ELECTRIC MOBILITY PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -7437,7 +7437,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12223",
+    "id": "dm-mis-12218",
     "company_name": "RANG ENTERPRISE",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -7458,7 +7458,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10946",
+    "id": "dm-mis-10941",
     "company_name": "PADMAVATHI GOLD CRAFTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -7500,7 +7500,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12217",
+    "id": "dm-mis-12212",
     "company_name": "RAMYA ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -7521,7 +7521,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12978",
+    "id": "dm-mis-12973",
     "company_name": "SAANIKA POLYTEX PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -7542,7 +7542,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17308",
+    "id": "dm-mis-17303",
     "company_name": "WARIVO MOTOR INDIA PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -7563,7 +7563,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12205",
+    "id": "dm-mis-12200",
     "company_name": "RAMESHCHAND & SONS JEWELLERS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -7584,7 +7584,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12459",
+    "id": "dm-mis-12454",
     "company_name": "RESEARCH CENTRE IMARAT",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -7605,7 +7605,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08844",
+    "id": "dm-mis-08840",
     "company_name": "MAHESH HUMAN HAIR BUSINESS",
     "role": "Exporter",
     "category": "Perishables",
@@ -7626,7 +7626,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14766",
+    "id": "dm-mis-14761",
     "company_name": "SREE HARI VALLABHA ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -7647,7 +7647,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16320",
+    "id": "dm-mis-16315",
     "company_name": "UNBOX GADGETS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -7668,7 +7668,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04659",
+    "id": "dm-mis-04655",
     "company_name": "EVEY E VEHICLE PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -7689,7 +7689,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10146",
+    "id": "dm-mis-10141",
     "company_name": "NEW AGE MEDISYS",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -7710,7 +7710,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17682",
+    "id": "dm-mis-17677",
     "company_name": "ZELIO AUTO PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -7731,7 +7731,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15618",
+    "id": "dm-mis-15613",
     "company_name": "TANVI EXPORTS INDIA LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -7752,7 +7752,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16526",
+    "id": "dm-mis-16521",
     "company_name": "V C ENTERPRISE",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -7773,7 +7773,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09943",
+    "id": "dm-mis-09938",
     "company_name": "NANLIU MANUFACTURING (INDIA) PRIVATE LIMITED",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -7794,7 +7794,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03007",
+    "id": "dm-mis-03005",
     "company_name": "CELLEVER TRADING PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -7815,7 +7815,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08109",
+    "id": "dm-mis-08105",
     "company_name": "KSIX EXPORT PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -7836,7 +7836,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07315",
+    "id": "dm-mis-07311",
     "company_name": "JMD TEXTILE INDUSTRIES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -7857,7 +7857,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09717",
+    "id": "dm-mis-09712",
     "company_name": "MOVIL IMPEX LLP",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -7878,7 +7878,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01882",
+    "id": "dm-mis-01880",
     "company_name": "ASTRA RAFAEL COMSYS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -7899,7 +7899,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14294",
+    "id": "dm-mis-14289",
     "company_name": "SILVER ANGEL IMPEX LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -7920,7 +7920,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17434",
+    "id": "dm-mis-17429",
     "company_name": "WIPRO PARI ROBOTICS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -7941,7 +7941,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02280",
+    "id": "dm-mis-02278",
     "company_name": "BALIGA FISH NETS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -7962,7 +7962,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15337",
+    "id": "dm-mis-15332",
     "company_name": "SURANA PETRO-TEX PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -7983,7 +7983,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16155",
+    "id": "dm-mis-16150",
     "company_name": "TRIVEN EXPO ENTERPRISES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -8004,7 +8004,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09816",
+    "id": "dm-mis-09811",
     "company_name": "MURARI CAP PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -8025,7 +8025,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04643",
+    "id": "dm-mis-04639",
     "company_name": "EVERCREST INDUSTRIES LLP",
     "role": "Exporter",
     "category": "Perishables",
@@ -8046,7 +8046,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14474",
+    "id": "dm-mis-14469",
     "company_name": "SLOYD VENTURES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -8067,7 +8067,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07634",
+    "id": "dm-mis-07630",
     "company_name": "KARDI TRADING PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -8088,7 +8088,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09233",
+    "id": "dm-mis-09228",
     "company_name": "MEATGEEKS PROTEINS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -8109,7 +8109,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16959",
+    "id": "dm-mis-16954",
     "company_name": "VIKAS SALES",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -8130,7 +8130,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04065",
+    "id": "dm-mis-04062",
     "company_name": "DNS IMPORT AND EXPORT",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -8151,7 +8151,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01866",
+    "id": "dm-mis-01864",
     "company_name": "ASTAGURU AUCTION HOUSE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -8172,7 +8172,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16269",
+    "id": "dm-mis-16264",
     "company_name": "UDAY JEWELLERY INDUSTRIES LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -8214,7 +8214,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17656",
+    "id": "dm-mis-17651",
     "company_name": "ZAREEN FOODS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -8235,7 +8235,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02754",
+    "id": "dm-mis-02752",
     "company_name": "BORANA WEAVES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -8256,7 +8256,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05588",
+    "id": "dm-mis-05584",
     "company_name": "GLOCHEM INDUSTRIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -8277,7 +8277,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13990",
+    "id": "dm-mis-13985",
     "company_name": "SHREE RADHE DIAMONDS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -8298,7 +8298,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06721",
+    "id": "dm-mis-06717",
     "company_name": "INGEX BOTANICALS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -8319,7 +8319,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07772",
+    "id": "dm-mis-07768",
     "company_name": "KERIM ENTERPRISE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -8340,7 +8340,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14868",
+    "id": "dm-mis-14863",
     "company_name": "SRI VANGUARD EXPORTS",
     "role": "Exporter",
     "category": "Perishables",
@@ -8361,7 +8361,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03227",
+    "id": "dm-mis-03225",
     "company_name": "CLASSIC APPAREL FASHIONS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -8382,7 +8382,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03144",
+    "id": "dm-mis-03142",
     "company_name": "CHETAK SALES",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -8403,7 +8403,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02432",
+    "id": "dm-mis-02430",
     "company_name": "BHAGWAT SHANTI JEWELLERS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -8424,7 +8424,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13241",
+    "id": "dm-mis-13236",
     "company_name": "SANDVIK MINING AND ROCK TECHNOLOGY INDIAPRIVATE LI",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -8445,7 +8445,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10148",
+    "id": "dm-mis-10143",
     "company_name": "NEW AGE WHEELS (INDIA)",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -8466,7 +8466,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05117",
+    "id": "dm-mis-05113",
     "company_name": "FREIGHTGAIN ONLINE TECHNOLOGIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -8508,7 +8508,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08110",
+    "id": "dm-mis-08106",
     "company_name": "KSIX INTERNATIONAL",
     "role": "Exporter",
     "category": "Perishables",
@@ -8550,7 +8550,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02504",
+    "id": "dm-mis-02502",
     "company_name": "BHAVNASHREE INDUSTRIES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -8571,7 +8571,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04862",
+    "id": "dm-mis-04858",
     "company_name": "FEATHERSTONE DESIGNS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -8592,7 +8592,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16577",
+    "id": "dm-mis-16572",
     "company_name": "V9 GADGETS LLP",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -8613,7 +8613,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07100",
+    "id": "dm-mis-07096",
     "company_name": "JANANI INTERNATIONAL",
     "role": "Exporter",
     "category": "Perishables",
@@ -8634,7 +8634,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05515",
+    "id": "dm-mis-05511",
     "company_name": "GLOBAL EXPORTS",
     "role": "Both",
     "category": "Electronics & Electrical",
@@ -8655,7 +8655,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16286",
+    "id": "dm-mis-16281",
     "company_name": "ULTRA CORPOTECH PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -8676,7 +8676,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16678",
+    "id": "dm-mis-16673",
     "company_name": "VARSHINI TEXTILES",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -8697,7 +8697,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04167",
+    "id": "dm-mis-04163",
     "company_name": "DULAL -SIBU HUMAN HAIR PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -8718,7 +8718,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16719",
+    "id": "dm-mis-16714",
     "company_name": "VCHERISH LABS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -8760,7 +8760,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01471",
+    "id": "dm-mis-01470",
     "company_name": "APRAMEYA PHARMACHEM PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -8781,7 +8781,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03303",
+    "id": "dm-mis-03301",
     "company_name": "COLOSSUSTEX PRIVATE LIMITED",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -8802,7 +8802,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08491",
+    "id": "dm-mis-08487",
     "company_name": "LUFTHANSA GERMAN AIRLINES",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -8823,7 +8823,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15179",
+    "id": "dm-mis-15174",
     "company_name": "SUMANGAL HANDLOOMS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -8844,7 +8844,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14327",
+    "id": "dm-mis-14322",
     "company_name": "SINDOOR EXPORTS",
     "role": "Exporter",
     "category": "Perishables",
@@ -8865,7 +8865,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02462",
+    "id": "dm-mis-02460",
     "company_name": "BHARAT ELECTRIC VEHICLE",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -8886,7 +8886,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06453",
+    "id": "dm-mis-06449",
     "company_name": "HYOSUNG INDIA PRIVATE LIMITED",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -8907,7 +8907,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07976",
+    "id": "dm-mis-07972",
     "company_name": "KOKO SPICES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -8928,7 +8928,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14446",
+    "id": "dm-mis-14441",
     "company_name": "SKYDA CARRYWELL PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -8970,7 +8970,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05483",
+    "id": "dm-mis-05479",
     "company_name": "GKN FOKKER ELMO INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -8991,7 +8991,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-11506",
+    "id": "dm-mis-11501",
     "company_name": "PRAMUKH LOGISTICS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9012,7 +9012,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16271",
+    "id": "dm-mis-16266",
     "company_name": "UDGAM IMPEX",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -9033,7 +9033,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08656",
+    "id": "dm-mis-08652",
     "company_name": "M/S SRI RAM TEXTILE",
     "role": "Exporter",
     "category": "Perishables",
@@ -9054,7 +9054,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07740",
+    "id": "dm-mis-07736",
     "company_name": "KEDIA TRENDZ LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9075,7 +9075,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12166",
+    "id": "dm-mis-12161",
     "company_name": "RAJSHREE JEWELLERS",
     "role": "Exporter",
     "category": "General Cargo",
@@ -9096,7 +9096,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14104",
+    "id": "dm-mis-14099",
     "company_name": "SHREEYASH JEWELLERS (INDIA) PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -9117,7 +9117,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02705",
+    "id": "dm-mis-02703",
     "company_name": "BLUECONE FIBRES",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9138,7 +9138,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06204",
+    "id": "dm-mis-06200",
     "company_name": "HEXAMED LIFE SCIENCES LLP",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -9159,7 +9159,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07514",
+    "id": "dm-mis-07510",
     "company_name": "KAI CHALLENGE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -9180,7 +9180,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12291",
+    "id": "dm-mis-12286",
     "company_name": "RAWALWASIA YARN DYEING PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9201,7 +9201,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01067",
+    "id": "dm-mis-01066",
     "company_name": "ALSKAD OVERSEAS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -9222,7 +9222,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06317",
+    "id": "dm-mis-06313",
     "company_name": "HMD AGRO FOODS",
     "role": "Exporter",
     "category": "Perishables",
@@ -9243,7 +9243,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09834",
+    "id": "dm-mis-09829",
     "company_name": "MY ELECTRIC CART",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -9264,7 +9264,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15960",
+    "id": "dm-mis-15955",
     "company_name": "TIRANGA AUTOTECH INDIA PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -9285,7 +9285,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06638",
+    "id": "dm-mis-06634",
     "company_name": "INDO HUMAN HAIR EXPORTERS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -9306,7 +9306,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10877",
+    "id": "dm-mis-10872",
     "company_name": "OXIZEN HAIR TRADERS",
     "role": "Exporter",
     "category": "Perishables",
@@ -9327,7 +9327,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07099",
+    "id": "dm-mis-07095",
     "company_name": "JANANEE LOOMLEERS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9348,7 +9348,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13664",
+    "id": "dm-mis-13659",
     "company_name": "SHAKTI ENTERPRISE",
     "role": "Exporter",
     "category": "Perishables",
@@ -9390,7 +9390,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08894",
+    "id": "dm-mis-08890",
     "company_name": "MALLICK ENTERPRISE",
     "role": "Exporter",
     "category": "Perishables",
@@ -9411,7 +9411,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10681",
+    "id": "dm-mis-10676",
     "company_name": "OM INTERNATIONAL",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9453,7 +9453,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16983",
+    "id": "dm-mis-16978",
     "company_name": "VINATI JEWELLERS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -9474,7 +9474,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-11956",
+    "id": "dm-mis-11951",
     "company_name": "R N ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -9495,7 +9495,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09595",
+    "id": "dm-mis-09590",
     "company_name": "MITSUMI IMPEX PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -9516,7 +9516,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05506",
+    "id": "dm-mis-05502",
     "company_name": "GLOBAL ELECTRONICS EXPORTS",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -9537,7 +9537,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16562",
+    "id": "dm-mis-16557",
     "company_name": "V. S. ENTERPRISE",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -9558,7 +9558,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13736",
+    "id": "dm-mis-13731",
     "company_name": "SHAW FLOORS INDIA PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9579,7 +9579,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04493",
+    "id": "dm-mis-04489",
     "company_name": "ENGTIAN ELECTRIC BIKE PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -9600,7 +9600,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06613",
+    "id": "dm-mis-06609",
     "company_name": "INDIGO HAIR COMPANY",
     "role": "Exporter",
     "category": "Perishables",
@@ -9621,7 +9621,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12762",
+    "id": "dm-mis-12757",
     "company_name": "RUDRA EXPORTS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9642,7 +9642,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08276",
+    "id": "dm-mis-08272",
     "company_name": "LAXMEE CHEMFAB PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9663,7 +9663,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15264",
+    "id": "dm-mis-15259",
     "company_name": "SUNSHIV BOTANICS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -9684,7 +9684,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17238",
+    "id": "dm-mis-17233",
     "company_name": "VRISHTI TRADING",
     "role": "Exporter",
     "category": "Perishables",
@@ -9705,7 +9705,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07605",
+    "id": "dm-mis-07601",
     "company_name": "KANONE TECHNOLOGIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -9726,7 +9726,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12300",
+    "id": "dm-mis-12295",
     "company_name": "RAYMOND CONSUMER CARE LIMITED",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -9747,7 +9747,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06296",
+    "id": "dm-mis-06292",
     "company_name": "HITACHI ENERGY INDIA LIMITED",
     "role": "Both",
     "category": "Electronics & Electrical",
@@ -9768,7 +9768,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05135",
+    "id": "dm-mis-05131",
     "company_name": "FRESHNOVA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -9789,7 +9789,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15826",
+    "id": "dm-mis-15821",
     "company_name": "TEXVENTURES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9810,7 +9810,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05667",
+    "id": "dm-mis-05663",
     "company_name": "GOLDSTONE INTERNATIONAL PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9852,7 +9852,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07962",
+    "id": "dm-mis-07958",
     "company_name": "KNP EXPORTS AND IMPORTS LLP",
     "role": "Exporter",
     "category": "Perishables",
@@ -9873,7 +9873,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05238",
+    "id": "dm-mis-05234",
     "company_name": "GAINUP TECHNOTEK LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -9894,7 +9894,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17174",
+    "id": "dm-mis-17169",
     "company_name": "VKR TRADERS",
     "role": "Exporter",
     "category": "Perishables",
@@ -9915,7 +9915,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03461",
+    "id": "dm-mis-03459",
     "company_name": "CREDENCE INTERNATIONAL",
     "role": "Both",
     "category": "Chemicals & Materials",
@@ -9936,7 +9936,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12091",
+    "id": "dm-mis-12086",
     "company_name": "RAHIM EXPORTS",
     "role": "Exporter",
     "category": "Perishables",
@@ -9957,7 +9957,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04225",
+    "id": "dm-mis-04221",
     "company_name": "E-ASHWA AUTOMOTIVE PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -9978,7 +9978,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15579",
+    "id": "dm-mis-15574",
     "company_name": "TAGOOR LABORATORIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -9999,7 +9999,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15965",
+    "id": "dm-mis-15960",
     "company_name": "TIRUPATI BALAJI EXIM PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10020,7 +10020,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07416",
+    "id": "dm-mis-07412",
     "company_name": "JYP TEXTILES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10041,7 +10041,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05730",
+    "id": "dm-mis-05726",
     "company_name": "GRANULES LIFE SCIENCES PRIVATE LIMITED",
     "role": "Both",
     "category": "Pharma & Healthcare",
@@ -10062,7 +10062,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01425",
+    "id": "dm-mis-01424",
     "company_name": "APEX CAPITAL ENTERPRISES",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10083,7 +10083,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17746",
+    "id": "dm-mis-17741",
     "company_name": "ZIVA CREATIONS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10104,7 +10104,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13247",
+    "id": "dm-mis-13242",
     "company_name": "SANGEN LIFE SCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -10125,7 +10125,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14313",
+    "id": "dm-mis-14308",
     "company_name": "SIMITAL WHEELS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -10146,7 +10146,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09172",
+    "id": "dm-mis-09167",
     "company_name": "MAXIM E-VEHICLES",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -10167,7 +10167,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02625",
+    "id": "dm-mis-02623",
     "company_name": "BISIX INDUSTRIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -10188,7 +10188,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15834",
+    "id": "dm-mis-15829",
     "company_name": "TGI INTERNATIONAL",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10209,7 +10209,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03154",
+    "id": "dm-mis-03152",
     "company_name": "CHIERON ACTIVE INGREDIENTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -10230,7 +10230,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13805",
+    "id": "dm-mis-13800",
     "company_name": "SHIV SHAKTI IMPORTS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10251,7 +10251,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02941",
+    "id": "dm-mis-02939",
     "company_name": "CAPLIN STERILES LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -10272,7 +10272,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10096",
+    "id": "dm-mis-10091",
     "company_name": "NEHAL NATURALS LLP",
     "role": "Exporter",
     "category": "Perishables",
@@ -10293,7 +10293,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07017",
+    "id": "dm-mis-07013",
     "company_name": "JAGDAMBA RAYONS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10314,7 +10314,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15269",
+    "id": "dm-mis-15264",
     "company_name": "SUNTEX ENTERPRISE",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10335,7 +10335,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08932",
+    "id": "dm-mis-08928",
     "company_name": "MANGALMURTI ENTERPRISE",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10356,7 +10356,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10668",
+    "id": "dm-mis-10663",
     "company_name": "OLON ACTIVE PHARMACEUTICAL INGREDIENTS INDIA PRIVA",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -10377,7 +10377,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15832",
+    "id": "dm-mis-15827",
     "company_name": "TG SILKS LLP",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10398,7 +10398,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14003",
+    "id": "dm-mis-13998",
     "company_name": "SHREE RAM YARN TRADING CO.",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10419,7 +10419,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04722",
+    "id": "dm-mis-04718",
     "company_name": "EXPOIND PRODUCT & SERVICE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -10440,7 +10440,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10261",
+    "id": "dm-mis-10256",
     "company_name": "NIDIMO INTERNATIONAL",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -10461,7 +10461,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01897",
+    "id": "dm-mis-01895",
     "company_name": "ATC TIRES AP PRIVATE LIMITED",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -10482,7 +10482,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07629",
+    "id": "dm-mis-07625",
     "company_name": "KARAN HUMAN HAIR (OPC) PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -10503,7 +10503,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03324",
+    "id": "dm-mis-03322",
     "company_name": "COMPRINT TECH-SOLUTIONS (I) PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Engineering & Machinery",
@@ -10524,7 +10524,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15918",
+    "id": "dm-mis-15913",
     "company_name": "THREADS (INDIA) PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10545,7 +10545,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-11499",
+    "id": "dm-mis-11494",
     "company_name": "PRAKRUTEES ORGANICS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -10566,7 +10566,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08748",
+    "id": "dm-mis-08744",
     "company_name": "MADURA TECHNICAL FABRICS LIMITED",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -10587,7 +10587,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01257",
+    "id": "dm-mis-01256",
     "company_name": "ANAND CAPITAL",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10608,7 +10608,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16244",
+    "id": "dm-mis-16239",
     "company_name": "TV 18 HOME SHOPPING NETWORK LTD.",
     "role": "Exporter",
     "category": "General Cargo",
@@ -10629,7 +10629,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17280",
+    "id": "dm-mis-17275",
     "company_name": "VYOM INTERNATIONAL",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10650,7 +10650,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12512",
+    "id": "dm-mis-12507",
     "company_name": "RICHACO EXPORTS PRIVATE LIMITED",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -10671,7 +10671,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15413",
+    "id": "dm-mis-15408",
     "company_name": "SVG  ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -10692,7 +10692,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17112",
+    "id": "dm-mis-17107",
     "company_name": "VISION INTERNATIONAL",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -10713,7 +10713,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12873",
+    "id": "dm-mis-12868",
     "company_name": "S P EXPORTS",
     "role": "Exporter",
     "category": "Perishables",
@@ -10734,7 +10734,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17473",
+    "id": "dm-mis-17468",
     "company_name": "WROLEY E INDIA PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -10755,7 +10755,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02922",
+    "id": "dm-mis-02920",
     "company_name": "CAMUS PHARMA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -10776,7 +10776,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03006",
+    "id": "dm-mis-03004",
     "company_name": "CELL PHOENIX LLP",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -10797,7 +10797,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05162",
+    "id": "dm-mis-05158",
     "company_name": "FULCRUM GLOBAL PARTNERS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10818,7 +10818,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17425",
+    "id": "dm-mis-17420",
     "company_name": "WINDBRIDGE CONCEPTS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -10839,7 +10839,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17644",
+    "id": "dm-mis-17639",
     "company_name": "ZAMIR WOOD WORKS",
     "role": "Exporter",
     "category": "Perishables",
@@ -10860,7 +10860,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05066",
+    "id": "dm-mis-05062",
     "company_name": "FORMIX INTERNATIONAL INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -10881,7 +10881,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07583",
+    "id": "dm-mis-07579",
     "company_name": "KANABAR INTERNATIONAL",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -10902,7 +10902,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14336",
+    "id": "dm-mis-14331",
     "company_name": "SINGLA PROCESS SYSTEMS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -10944,7 +10944,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03831",
+    "id": "dm-mis-03829",
     "company_name": "DEVAM INDUSTRIES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10965,7 +10965,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13842",
+    "id": "dm-mis-13837",
     "company_name": "SHIVANSH INC.",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -10986,7 +10986,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-11493",
+    "id": "dm-mis-11488",
     "company_name": "PRAJWAL ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -11007,7 +11007,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02053",
+    "id": "dm-mis-02051",
     "company_name": "AVET LIFESCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -11028,7 +11028,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16087",
+    "id": "dm-mis-16082",
     "company_name": "TRB MOBILITY SOLUTIONS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -11049,7 +11049,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02958",
+    "id": "dm-mis-02956",
     "company_name": "CAREGROUP SIGHT SOLUTION PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -11070,7 +11070,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17731",
+    "id": "dm-mis-17726",
     "company_name": "ZF RANE OCCUPANT SAFETY SYSTEMS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11091,7 +11091,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03815",
+    "id": "dm-mis-03813",
     "company_name": "DEV ENTERPRISE",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11112,7 +11112,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16914",
+    "id": "dm-mis-16909",
     "company_name": "VIDS OVERSEAS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11133,7 +11133,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08357",
+    "id": "dm-mis-08353",
     "company_name": "LIBERTY NATURAL WEAVES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11154,7 +11154,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13823",
+    "id": "dm-mis-13818",
     "company_name": "SHIVALIK FURNISHING",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11175,7 +11175,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16295",
+    "id": "dm-mis-16290",
     "company_name": "ULTRON TEXTILES LLP",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11196,7 +11196,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12072",
+    "id": "dm-mis-12067",
     "company_name": "RADNIK EXPORTS GLOBAL PRIVATE LIMITED",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -11217,7 +11217,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06645",
+    "id": "dm-mis-06641",
     "company_name": "INDO WORLD TRADING CORPORATION",
     "role": "Exporter",
     "category": "Perishables",
@@ -11238,7 +11238,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02865",
+    "id": "dm-mis-02863",
     "company_name": "BURHANPUR TEXTILES LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11259,7 +11259,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13470",
+    "id": "dm-mis-13465",
     "company_name": "SCHOELLER INDIA INDUSTRIES PRIVATE LIMITED",
     "role": "Both",
     "category": "General Cargo",
@@ -11280,7 +11280,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12631",
+    "id": "dm-mis-12626",
     "company_name": "ROJ ENTERPRISE",
     "role": "Exporter",
     "category": "Perishables",
@@ -11301,7 +11301,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06406",
+    "id": "dm-mis-06402",
     "company_name": "HUAFON INDIAN PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11322,7 +11322,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05031",
+    "id": "dm-mis-05027",
     "company_name": "FLYRIDES AUTOTECH PRIVATE LIMITED",
     "role": "Importer",
     "category": "Automotive & EV",
@@ -11343,7 +11343,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-11207",
+    "id": "dm-mis-11202",
     "company_name": "PERFORMANCE SPECIALTY PRODUCTS (INDIA) PRIVATE LIM",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11364,7 +11364,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09631",
+    "id": "dm-mis-09626",
     "company_name": "MOBILE EXPRESS",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -11385,7 +11385,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13173",
+    "id": "dm-mis-13168",
     "company_name": "SAM AGRI FRESH PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -11406,7 +11406,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13305",
+    "id": "dm-mis-13300",
     "company_name": "SANVIRA BIOSCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -11427,7 +11427,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06051",
+    "id": "dm-mis-06047",
     "company_name": "HARMONY YARNS PVT.LTD.",
     "role": "Both",
     "category": "Textiles & Apparel",
@@ -11448,7 +11448,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03779",
+    "id": "dm-mis-03777",
     "company_name": "DENSITY PHARMACHEM PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -11469,7 +11469,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10765",
+    "id": "dm-mis-10760",
     "company_name": "OPPERMANN WEBBING INDIA PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11490,7 +11490,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07251",
+    "id": "dm-mis-07247",
     "company_name": "JIGISHA FIBRES PVT LTD",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11532,7 +11532,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12311",
+    "id": "dm-mis-12306",
     "company_name": "RBM JEWELLERS LLP",
     "role": "Exporter",
     "category": "General Cargo",
@@ -11553,7 +11553,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04234",
+    "id": "dm-mis-04230",
     "company_name": "EAGLE YARNS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11574,7 +11574,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-04676",
+    "id": "dm-mis-04672",
     "company_name": "EXAPILOG PRIVATE LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -11595,7 +11595,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02548",
+    "id": "dm-mis-02546",
     "company_name": "BIDHATA GARMENTS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11616,7 +11616,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17700",
+    "id": "dm-mis-17695",
     "company_name": "ZENITH FABRIC AND CLOTHINGS LLP",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11637,7 +11637,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03384",
+    "id": "dm-mis-03382",
     "company_name": "CORAL INDIA",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11658,7 +11658,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14416",
+    "id": "dm-mis-14411",
     "company_name": "SKJ HEALTHCARE PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -11679,7 +11679,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05070",
+    "id": "dm-mis-05066",
     "company_name": "FORTBELL GADGETS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -11700,7 +11700,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-10855",
+    "id": "dm-mis-10850",
     "company_name": "OSYAN TRADING ENTERPRISE PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11721,7 +11721,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13974",
+    "id": "dm-mis-13969",
     "company_name": "SHREE MANIBHADRA ENTERPRISE",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11742,7 +11742,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03212",
+    "id": "dm-mis-03210",
     "company_name": "CISCO SERVICES & SPARES INDIA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -11784,7 +11784,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09603",
+    "id": "dm-mis-09598",
     "company_name": "MJ HOME FURNISHING",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11826,7 +11826,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-16203",
+    "id": "dm-mis-16198",
     "company_name": "TRY-FIT FABRICS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11889,7 +11889,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-11992",
+    "id": "dm-mis-11987",
     "company_name": "R.C.ENTERPRISE",
     "role": "Exporter",
     "category": "Perishables",
@@ -11910,7 +11910,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-11128",
+    "id": "dm-mis-11123",
     "company_name": "PAWFECT PET FOODS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -11931,7 +11931,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-12130",
+    "id": "dm-mis-12125",
     "company_name": "RAJA ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -11952,7 +11952,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17451",
+    "id": "dm-mis-17446",
     "company_name": "WORKPLACE DESIGNS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11973,7 +11973,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08029",
+    "id": "dm-mis-08025",
     "company_name": "KRG TEXTILE MILLS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -11994,7 +11994,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02452",
+    "id": "dm-mis-02450",
     "company_name": "BHAKTI ENTERPRISES",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12015,7 +12015,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09099",
+    "id": "dm-mis-09094",
     "company_name": "MASPR CLOTHING CO",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12036,7 +12036,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14378",
+    "id": "dm-mis-14373",
     "company_name": "SIYARAM POLYTEX PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12057,7 +12057,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02281",
+    "id": "dm-mis-02279",
     "company_name": "BALIGA MARINE NETS PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12078,7 +12078,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-06249",
+    "id": "dm-mis-06245",
     "company_name": "HIMALAYA EXPORTS",
     "role": "Exporter",
     "category": "Perishables",
@@ -12099,7 +12099,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05922",
+    "id": "dm-mis-05918",
     "company_name": "H H IMPEX",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12120,7 +12120,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07003",
+    "id": "dm-mis-06999",
     "company_name": "JABIL INDIA MANUFACTURING PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Electronics & Electrical",
@@ -12141,7 +12141,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02257",
+    "id": "dm-mis-02255",
     "company_name": "BALAJI HANDLOOM",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12162,7 +12162,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-13267",
+    "id": "dm-mis-13262",
     "company_name": "SANJAY SHAW CLEARING & FORWARDING",
     "role": "Exporter",
     "category": "Perishables",
@@ -12183,7 +12183,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09145",
+    "id": "dm-mis-09140",
     "company_name": "MATTERHORN CHEM PHARMA PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Pharma & Healthcare",
@@ -12204,7 +12204,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07939",
+    "id": "dm-mis-07935",
     "company_name": "KLSP OVERSEAS LLP",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12225,7 +12225,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-05868",
+    "id": "dm-mis-05864",
     "company_name": "GUJARAT FLUOROCHEMICALS LIMITED",
     "role": "Exporter",
     "category": "General Cargo",
@@ -12267,7 +12267,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08617",
+    "id": "dm-mis-08613",
     "company_name": "M.U.N. AGRO INDUSTRIES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -12288,7 +12288,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07571",
+    "id": "dm-mis-07567",
     "company_name": "KAMDAR INTERNATIONAL LLP",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12309,7 +12309,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-15186",
+    "id": "dm-mis-15181",
     "company_name": "SUMITH ENTERPRISES",
     "role": "Exporter",
     "category": "Perishables",
@@ -12330,7 +12330,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02491",
+    "id": "dm-mis-02489",
     "company_name": "BHASYA INTERNATIONAL PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -12351,7 +12351,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08019",
+    "id": "dm-mis-08015",
     "company_name": "KPR SUGAR AND APPARELS LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12372,7 +12372,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-07692",
+    "id": "dm-mis-07688",
     "company_name": "KAVISH ENTERPRISES",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12393,7 +12393,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01127",
+    "id": "dm-mis-01126",
     "company_name": "AMBATTUR FASHION INDIA PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12414,7 +12414,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08859",
+    "id": "dm-mis-08855",
     "company_name": "MAHYCO PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Perishables",
@@ -12435,7 +12435,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-01357",
+    "id": "dm-mis-01356",
     "company_name": "ANNAPOORANI TEXTILES PRIVATE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12456,7 +12456,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-02146",
+    "id": "dm-mis-02144",
     "company_name": "AYUSH TEXLENE LIMITED",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12477,7 +12477,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08508",
+    "id": "dm-mis-08504",
     "company_name": "LUPIN MANUFACTURING SOLUTIONS LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -12498,7 +12498,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-08652",
+    "id": "dm-mis-08648",
     "company_name": "M/S SHAH TRADERS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12519,7 +12519,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-09666",
+    "id": "dm-mis-09661",
     "company_name": "MOLBIO DIAGNOSTICS PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
@@ -12540,7 +12540,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-03067",
+    "id": "dm-mis-03065",
     "company_name": "CHAND EXPORTS",
     "role": "Exporter",
     "category": "Perishables",
@@ -12561,7 +12561,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-17577",
+    "id": "dm-mis-17572",
     "company_name": "YOGI LOGISTICS",
     "role": "Importer",
     "category": "Textiles & Apparel",
@@ -12582,7 +12582,7 @@ export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
     "dataset_type": "missing"
   },
   {
-    "id": "dm-mis-14813",
+    "id": "dm-mis-14808",
     "company_name": "SRI HAAS LIFE SCIENCES PRIVATE LIMITED",
     "role": "Exporter",
     "category": "Chemicals & Materials",
