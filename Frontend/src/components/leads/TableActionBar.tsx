@@ -6,6 +6,8 @@ import {
   Download,
   Loader2,
   BookmarkCheck,
+  Search,
+  X,
 } from 'lucide-react';
 
 export interface TableActionBarProps {
@@ -23,6 +25,9 @@ export interface TableActionBarProps {
   onExport?: () => void | Promise<void>;
   isExporting?: boolean;
   savedLists?: string[];
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
+  searchPlaceholder?: string;
   className?: string;
 }
 
@@ -41,12 +46,16 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
   onExport,
   isExporting = false,
   savedLists = ['West Coast VIPs', 'High Growth Accounts', 'Q4 Prospects'],
+  searchQuery = '',
+  onSearchChange,
+  searchPlaceholder = 'Search leads by name, title, company...',
   className = '',
 }) => {
   const [activeMenu, setActiveMenu] = useState<'select' | 'lists' | null>(null);
   const [newListName, setNewListName] = useState('');
   const [isCreatingList, setIsCreatingList] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const hasSelection = selectedCount > 0;
 
@@ -60,6 +69,19 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
     document.addEventListener('mousedown', handleOutsideClick);
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
+
+  // Global ⌘K / Ctrl+K keyboard shortcut to focus search input
+  useEffect(() => {
+    if (!onSearchChange) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onSearchChange]);
 
   const handleCreateList = (e: React.FormEvent) => {
     e.preventDefault();
@@ -156,6 +178,41 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
             </div>
           )}
         </div>
+
+        {/* Search Bar placed directly next to the Select option */}
+        {onSearchChange && (
+          <div className="relative w-48 sm:w-60 md:w-72 shrink-0">
+            <div className="relative flex items-center">
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                placeholder={searchPlaceholder}
+                className="w-full pl-8 pr-12 py-1 text-xs bg-white hover:bg-slate-50 focus:bg-white text-slate-900 placeholder:text-slate-400 border border-slate-200 hover:border-slate-300 focus:border-apollo rounded-md focus:outline-none focus:ring-2 focus:ring-apollo/15 transition-all shadow-2xs"
+              />
+              {searchQuery ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSearchChange('');
+                    searchInputRef.current?.focus();
+                  }}
+                  className="absolute right-2 p-0.5 text-slate-400 hover:text-slate-600 rounded cursor-pointer"
+                  title="Clear search"
+                  aria-label="Clear search input"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              ) : (
+                <span className="absolute right-2 text-[10px] font-mono text-slate-400 bg-slate-100 px-1 py-0.2 rounded border border-slate-200 pointer-events-none hidden sm:inline">
+                  ⌘K
+                </span>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* 2. "+ Save to Pipeline" */}
         <button

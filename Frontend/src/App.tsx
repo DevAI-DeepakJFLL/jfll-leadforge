@@ -623,6 +623,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
               onDeselectAll={handleDeselectAllDatamyne}
               onExport={handleExportDatamyneCsv}
               isExporting={isExportingDatamyne}
+              searchQuery={datamyneFilters.q || ''}
+              onSearchChange={setDatamyneSearch}
+              searchPlaceholder="Search DataMyne by company, description, country..."
             />
 
             {/* Active Filter Chips Bar */}
@@ -691,6 +694,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
               onDeselectAll={handleDeselectAllJfll}
               onExport={handleExportJfllCsv}
               isExporting={isExportingJfll}
+              searchQuery={jfllFilters.q || ''}
+              onSearchChange={setJfllSearch}
+              searchPlaceholder="Search customers by company, contact, phone, email..."
             />
 
             <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
@@ -760,6 +766,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
               onExport={handleExportCsv}
               isExporting={isExporting}
               savedLists={savedLists}
+              searchQuery={filters.q || ''}
+              onSearchChange={setSearch}
+              searchPlaceholder="Search leads by name, title, location..."
             />
 
             {/* Active Filter Chips Bar */}

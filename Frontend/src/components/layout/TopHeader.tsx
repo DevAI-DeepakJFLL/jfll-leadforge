@@ -16,6 +16,7 @@ export interface TopHeaderProps {
   onSearchSubmit?: (query: string) => void;
   onToggleMobileFilter?: () => void;
   activeFilterCount?: number;
+  showSearch?: boolean;
   className?: string;
 }
 
@@ -36,6 +37,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   onSearchSubmit,
   onToggleMobileFilter,
   activeFilterCount = 0,
+  showSearch = false,
   className = '',
 }) => {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
@@ -110,46 +112,50 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
 
         {/* Right: Search Bar & Action Buttons */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          {/* Desktop Global Search Bar */}
-          <div className="relative w-48 sm:w-64 lg:w-80 hidden md:block">
-            <div className="relative flex items-center">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
-              <input
-                ref={searchInputRef}
-                type="text"
-                value={searchQuery}
-                onChange={(e) => onSearchChange?.(e.target.value)}
-                onKeyDown={handleKeyDownInput}
-                placeholder="Search by name, title, location"
-                className="w-full pl-9 pr-14 py-1.5 text-xs bg-slate-50 hover:bg-slate-100/80 focus:bg-white text-slate-900 placeholder:text-slate-400 border border-slate-200 hover:border-slate-300 focus:border-apollo rounded-md focus:outline-none focus:ring-2 focus:ring-apollo/15 transition-all"
-              />
-              {searchQuery ? (
-                <button
-                  onClick={handleClearSearch}
-                  className="absolute right-2.5 p-0.5 text-slate-400 hover:text-slate-600 rounded"
-                  title="Clear search"
-                  aria-label="Clear search input"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              ) : (
-                <span className="absolute right-2.5 text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 pointer-events-none">
-                  ⌘K
-                </span>
-              )}
+          {/* Desktop Global Search Bar (optional, hidden by default as search bar is now in action bar) */}
+          {showSearch && (
+            <div className="relative w-48 sm:w-64 lg:w-80 hidden md:block">
+              <div className="relative flex items-center">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange?.(e.target.value)}
+                  onKeyDown={handleKeyDownInput}
+                  placeholder="Search by name, title, location"
+                  className="w-full pl-9 pr-14 py-1.5 text-xs bg-slate-50 hover:bg-slate-100/80 focus:bg-white text-slate-900 placeholder:text-slate-400 border border-slate-200 hover:border-slate-300 focus:border-apollo rounded-md focus:outline-none focus:ring-2 focus:ring-apollo/15 transition-all"
+                />
+                {searchQuery ? (
+                  <button
+                    onClick={handleClearSearch}
+                    className="absolute right-2.5 p-0.5 text-slate-400 hover:text-slate-600 rounded cursor-pointer"
+                    title="Clear search"
+                    aria-label="Clear search input"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                ) : (
+                  <span className="absolute right-2.5 text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 pointer-events-none">
+                    ⌘K
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Mobile Search Toggle Button */}
-          <button
-            type="button"
-            onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-            className="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
-            aria-label="Toggle mobile search bar"
-            title="Search prospects"
-          >
-            <Search className="w-4 h-4" />
-          </button>
+          {/* Mobile Search Toggle Button (Only when showSearch enabled) */}
+          {showSearch && (
+            <button
+              type="button"
+              onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
+              className="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
+              aria-label="Toggle mobile search bar"
+              title="Search prospects"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+          )}
 
           {/* Mobile Filter Drawer Toggle Button (Visible on screens < lg) */}
           {onToggleMobileFilter && (
@@ -173,7 +179,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
       </div>
 
       {/* Expandable Mobile Search Row */}
-      {isMobileSearchOpen && (
+      {showSearch && isMobileSearchOpen && (
         <div className="md:hidden pb-3 pt-1 border-t border-slate-100 animate-in fade-in duration-150">
           <div className="relative flex items-center">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
