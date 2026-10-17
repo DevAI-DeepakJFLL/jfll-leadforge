@@ -11,18 +11,20 @@ export const JfllCustomerSchema = z.object({
   customerGroup: z.string(),
   type: z.string(),
   saved: z.boolean().default(false),
+  inDataMyne: z.boolean().optional(),
 });
 
 export type JfllCustomer = z.infer<typeof JfllCustomerSchema>;
 
 export interface JfllCustomerFilterParams {
   q?: string;
+  customerStatus?: 'active' | 'inactive';
   customerGroups?: string[];
   types?: string[];
   hasPhone?: boolean;
   hasEmail?: boolean;
   hasContactPerson?: boolean;
-  tab?: 'all' | 'shippers' | 'subagents' | 'overseas' | 'with-contacts';
+  tab?: 'all' | 'shippers' | 'subagents' | 'overseas' | 'with-contacts' | 'datamyne-leads' | 'archive';
   page?: number;
   limit?: number;
 }
@@ -33,6 +35,10 @@ export interface JfllAudienceCounts {
   subagents: number;
   overseas: number;
   withContacts: number;
+  datamyneLeads?: number;
+  archive?: number;
+  activeTotal?: number;
+  inactiveTotal?: number;
 }
 
 export interface JfllCustomersResponse {

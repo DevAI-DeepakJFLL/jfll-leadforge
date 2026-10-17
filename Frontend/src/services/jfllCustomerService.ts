@@ -1,4 +1,5 @@
 import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
+import { JFLL_INACTIVE_CUSTOMERS_DATA } from '@/data/jfllInactiveCustomersData';
 import {
   JfllCustomer,
   JfllCustomerFilterParams,
@@ -26,6 +27,7 @@ export async function fetchJfllCustomersFromApi(
 ): Promise<JfllCustomersResponse> {
   const {
     q,
+    customerStatus = 'active',
     customerGroups = [],
     types = [],
     hasPhone,
@@ -35,6 +37,11 @@ export async function fetchJfllCustomersFromApi(
     page = 1,
     limit = 25,
   } = params;
+
+  // Inactive customers are loaded from the enriched Inactive Customers dataset
+  if (customerStatus === 'inactive') {
+    return queryJfllCustomers(params);
+  }
 
   const startTime = performance.now();
   const urlParams = new URLSearchParams();
@@ -76,6 +83,7 @@ export async function fetchJfllCustomersFromApi(
       customerGroup: row.customer_group || '',
       type: row.type || '',
       saved: false,
+      inDataMyne: false,
     }));
 
     const totalEstimate = payload.total_records ?? items.length;
@@ -89,11 +97,13 @@ export async function fetchJfllCustomersFromApi(
       limit: payload.page_size ?? limit,
       totalPages: payload.total_pages ?? Math.max(1, Math.ceil(totalEstimate / limit)),
       audienceCounts: {
-        all: audience.all ?? 729,
+        all: audience.all ?? JFLL_CUSTOMERS_DATA.length,
         shippers: audience.shippers ?? 285,
-        subagents: audience.subagents ?? 390,
+        subagents: audience.subagents ?? 389,
         overseas: audience.overseas ?? 39,
-        withContacts: audience.with_contacts ?? 729,
+        withContacts: audience.with_contacts ?? JFLL_CUSTOMERS_DATA.length,
+        activeTotal: JFLL_CUSTOMERS_DATA.length,
+        inactiveTotal: JFLL_INACTIVE_CUSTOMERS_DATA.length,
       },
     };
   } catch (err) {
@@ -108,6 +118,7 @@ export async function fetchJfllCustomersFromApi(
 export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllCustomersResponse {
   const {
     q,
+    customerStatus = 'active',
     customerGroups = [],
     types = [],
     hasPhone,
@@ -118,20 +129,32 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     limit = 25,
   } = params;
 
-  let filtered = [...JFLL_CUSTOMERS_DATA];
+  const isInactive = customerStatus === 'inactive';
+  const baseData = isInactive ? JFLL_INACTIVE_CUSTOMERS_DATA : JFLL_CUSTOMERS_DATA;
+  let filtered = [...baseData];
 
   // 1. Tab Quick Filters
-  if (tab === 'shippers') {
-    filtered = filtered.filter((c) => c.customerGroup === 'Shipper / Consignee');
-  } else if (tab === 'subagents') {
-    filtered = filtered.filter((c) => c.customerGroup === 'Subagent');
-  } else if (tab === 'overseas') {
-    filtered = filtered.filter((c) => c.customerGroup === 'Overseas Agent');
-  } else if (tab === 'with-contacts') {
-    filtered = filtered.filter((c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber);
+  if (isInactive) {
+    if (tab === 'datamyne-leads') {
+      filtered = filtered.filter((c) => !!c.inDataMyne);
+    } else if (tab === 'archive') {
+      filtered = filtered.filter((c) => !c.inDataMyne);
+    } else if (tab === 'with-contacts') {
+      filtered = filtered.filter((c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber);
+    }
+  } else {
+    if (tab === 'shippers') {
+      filtered = filtered.filter((c) => c.customerGroup === 'Shipper / Consignee');
+    } else if (tab === 'subagents') {
+      filtered = filtered.filter((c) => c.customerGroup === 'Subagent');
+    } else if (tab === 'overseas') {
+      filtered = filtered.filter((c) => c.customerGroup === 'Overseas Agent');
+    } else if (tab === 'with-contacts') {
+      filtered = filtered.filter((c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber);
+    }
   }
 
-  // 2. Text Search Query (Full Name, Contact Person, Email)
+  // 2. Text Search Query (Full Name, Contact Person, Email, Mobile)
   if (q && q.trim()) {
     const query = q.trim().toLowerCase();
     filtered = filtered.filter(
@@ -166,16 +189,34 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     );
   }
 
-  // Audience counts across full dataset
-  const audienceCounts = {
-    all: JFLL_CUSTOMERS_DATA.length,
-    shippers: JFLL_CUSTOMERS_DATA.filter((c) => c.customerGroup === 'Shipper / Consignee').length,
-    subagents: JFLL_CUSTOMERS_DATA.filter((c) => c.customerGroup === 'Subagent').length,
-    overseas: JFLL_CUSTOMERS_DATA.filter((c) => c.customerGroup === 'Overseas Agent').length,
-    withContacts: JFLL_CUSTOMERS_DATA.filter(
-      (c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber
-    ).length,
-  };
+  // Audience counts
+  const audienceCounts = isInactive
+    ? {
+        all: JFLL_INACTIVE_CUSTOMERS_DATA.length,
+        shippers: 0,
+        subagents: 0,
+        overseas: 0,
+        withContacts: JFLL_INACTIVE_CUSTOMERS_DATA.filter(
+          (c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber
+        ).length,
+        datamyneLeads: JFLL_INACTIVE_CUSTOMERS_DATA.filter((c) => !!c.inDataMyne).length,
+        archive: JFLL_INACTIVE_CUSTOMERS_DATA.filter((c) => !c.inDataMyne).length,
+        activeTotal: JFLL_CUSTOMERS_DATA.length,
+        inactiveTotal: JFLL_INACTIVE_CUSTOMERS_DATA.length,
+      }
+    : {
+        all: JFLL_CUSTOMERS_DATA.length,
+        shippers: JFLL_CUSTOMERS_DATA.filter((c) => c.customerGroup === 'Shipper / Consignee').length,
+        subagents: JFLL_CUSTOMERS_DATA.filter((c) => c.customerGroup === 'Subagent').length,
+        overseas: JFLL_CUSTOMERS_DATA.filter((c) => c.customerGroup === 'Overseas Agent').length,
+        withContacts: JFLL_CUSTOMERS_DATA.filter(
+          (c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber
+        ).length,
+        datamyneLeads: 0,
+        archive: 0,
+        activeTotal: JFLL_CUSTOMERS_DATA.length,
+        inactiveTotal: JFLL_INACTIVE_CUSTOMERS_DATA.length,
+      };
 
   const totalEstimate = filtered.length;
   const totalPages = Math.max(1, Math.ceil(totalEstimate / limit));
@@ -242,9 +283,10 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
 /**
  * Dynamically compute actual Customer Group facet counts from dataset
  */
-export function getCustomerGroupFacetCounts(): { label: string; count: number }[] {
+export function getCustomerGroupFacetCounts(status: 'active' | 'inactive' = 'active'): { label: string; count: number }[] {
+  const data = status === 'inactive' ? JFLL_INACTIVE_CUSTOMERS_DATA : JFLL_CUSTOMERS_DATA;
   const counts: Record<string, number> = {};
-  for (const c of JFLL_CUSTOMERS_DATA) {
+  for (const c of data) {
     if (c.customerGroup) {
       counts[c.customerGroup] = (counts[c.customerGroup] || 0) + 1;
     }
@@ -257,9 +299,10 @@ export function getCustomerGroupFacetCounts(): { label: string; count: number }[
 /**
  * Dynamically compute actual Legal Type facet counts from dataset
  */
-export function getLegalTypeFacetCounts(): { label: string; count: number }[] {
+export function getLegalTypeFacetCounts(status: 'active' | 'inactive' = 'active'): { label: string; count: number }[] {
+  const data = status === 'inactive' ? JFLL_INACTIVE_CUSTOMERS_DATA : JFLL_CUSTOMERS_DATA;
   const counts: Record<string, number> = {};
-  for (const c of JFLL_CUSTOMERS_DATA) {
+  for (const c of data) {
     if (c.type) {
       counts[c.type] = (counts[c.type] || 0) + 1;
     }

@@ -26,9 +26,6 @@ export interface JfllCustomerFilterSidebarProps {
   className?: string;
 }
 
-const CUSTOMER_GROUPS = getCustomerGroupFacetCounts();
-const LEGAL_TYPES = getLegalTypeFacetCounts();
-
 export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps> = ({
   filters,
   onToggleCustomerGroup,
@@ -48,6 +45,16 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   const [groupSearch, setGroupSearch] = useState('');
   const [typeSearch, setTypeSearch] = useState('');
 
+  const customerGroupsList = React.useMemo(
+    () => getCustomerGroupFacetCounts(filters.customerStatus || 'active'),
+    [filters.customerStatus]
+  );
+
+  const legalTypesList = React.useMemo(
+    () => getLegalTypeFacetCounts(filters.customerStatus || 'active'),
+    [filters.customerStatus]
+  );
+
   const toggleSection = (section: 'groups' | 'types' | 'contacts') => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
@@ -55,11 +62,11 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   const selectedGroups = filters.customerGroups || [];
   const selectedTypes = filters.types || [];
 
-  const filteredGroups = CUSTOMER_GROUPS.filter((g) =>
+  const filteredGroups = customerGroupsList.filter((g) =>
     g.label.toLowerCase().includes(groupSearch.toLowerCase())
   );
 
-  const filteredTypes = LEGAL_TYPES.filter((t) =>
+  const filteredTypes = legalTypesList.filter((t) =>
     t.label.toLowerCase().includes(typeSearch.toLowerCase())
   );
 
@@ -193,7 +200,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
 
           {openSections.groups && (
             <div className="px-4 pb-3 space-y-2">
-              {CUSTOMER_GROUPS.length > 5 && (
+              {customerGroupsList.length > 5 && (
                 <div className="relative mb-2">
                   <Search className="w-3 h-3 text-slate-400 absolute left-2.5 top-2" />
                   <input

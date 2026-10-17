@@ -3,6 +3,7 @@ import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
 
 export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams = {}) {
   const [filters, setFilters] = useState<JfllCustomerFilterParams>({
+    customerStatus: 'active',
     tab: 'all',
     page: 1,
     limit: 25,
@@ -13,6 +14,17 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     hasContactPerson: false,
     ...initialParams,
   });
+
+  const setCustomerStatus = useCallback((customerStatus: 'active' | 'inactive') => {
+    setFilters((prev) => ({
+      ...prev,
+      customerStatus,
+      tab: 'all',
+      page: 1,
+      customerGroups: [],
+      types: [],
+    }));
+  }, []);
 
   const setSearch = useCallback((q: string) => {
     setFilters((prev) => ({ ...prev, q: q || undefined, page: 1 }));
@@ -95,6 +107,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     setFilters,
     setSearch,
     setTab,
+    setCustomerStatus,
     setPage,
     setLimit,
     toggleCustomerGroup,

@@ -10,6 +10,7 @@ import {
   Eye,
   AlertCircle,
   RotateCcw,
+  Layers,
 } from 'lucide-react';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
@@ -269,8 +270,16 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         {initials || <Building2 className="w-3.5 h-3.5 text-slate-400" />}
                       </div>
                       <div className="min-w-0">
-                        <div className="font-semibold text-slate-900 truncate max-w-[240px] lg:max-w-[340px]">
-                          {c.fullName}
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="font-semibold text-slate-900 truncate max-w-[240px] lg:max-w-[340px]">
+                            {c.fullName}
+                          </span>
+                          {c.inDataMyne && (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-sky-700 bg-sky-50 px-1.5 py-0.2 rounded border border-sky-200 shrink-0">
+                              <Layers className="w-2.5 h-2.5 text-sky-600" />
+                              DataMyne Lead
+                            </span>
+                          )}
                         </div>
                         <div className="text-[11px] text-slate-400 truncate">
                           {c.type}
@@ -286,10 +295,17 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
 
                   {/* Status */}
                   <td className="py-3 px-3.5">
-                    <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      Active
-                    </span>
+                    {c.status === 'Active' ? (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 whitespace-nowrap">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        Active
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 whitespace-nowrap">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                        Inactive
+                      </span>
+                    )}
                   </td>
 
                   {/* Contact Person */}

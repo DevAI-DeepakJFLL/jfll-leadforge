@@ -20,6 +20,13 @@ export const JfllCustomerGroupBadge: React.FC<JfllCustomerGroupBadgeProps> = ({
     case 'shipper':
       dotColor = 'bg-blue-500';
       break;
+    case 'inactive (datamyne match)':
+      dotColor = 'bg-cyan-500';
+      break;
+    case 'inactive customer':
+    case 'inactive':
+      dotColor = 'bg-amber-500';
+      break;
     case 'subagent':
       dotColor = 'bg-purple-500';
       break;

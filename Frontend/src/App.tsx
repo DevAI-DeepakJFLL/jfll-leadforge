@@ -304,6 +304,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     filters: jfllFilters,
     setSearch: setJfllSearch,
     setTab: setJfllTab,
+    setCustomerStatus: setJfllCustomerStatus,
     setPage: setJfllPage,
     toggleCustomerGroup: toggleJfllCustomerGroup,
     toggleType: toggleJfllType,
@@ -656,6 +657,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
 
           <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
             <JfllCustomerAudienceTabs
+              customerStatus={jfllFilters.customerStatus || 'active'}
+              onChangeCustomerStatus={setJfllCustomerStatus}
               activeTab={jfllFilters.tab}
               onTabChange={setJfllTab}
               counts={jfllQuery.audienceCounts}

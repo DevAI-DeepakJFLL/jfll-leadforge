@@ -116,8 +116,8 @@ describe('JFLL Customers Dataset & Query Service', () => {
 
   it('computes exact dynamic facet counts matching dataset records', async () => {
     const { getCustomerGroupFacetCounts, getLegalTypeFacetCounts } = await import('@/services/jfllCustomerService');
-    const groupFacets = getCustomerGroupFacetCounts();
-    const typeFacets = getLegalTypeFacetCounts();
+    const groupFacets = getCustomerGroupFacetCounts('active');
+    const typeFacets = getLegalTypeFacetCounts('active');
 
     // Verify Customer Groups
     const groupLabels = groupFacets.map((g) => g.label);
@@ -137,6 +137,38 @@ describe('JFLL Customers Dataset & Query Service', () => {
     // Verify Legal Types
     const totalTypeCount = typeFacets.reduce((acc, t) => acc + t.count, 0);
     expect(totalTypeCount).toBe(728);
+  });
+
+  it('loads 2,010 Inactive Customer records and supports Inactive sub-tabs and DataMyne matching', async () => {
+    const { JFLL_INACTIVE_CUSTOMERS_DATA } = await import('@/data/jfllInactiveCustomersData');
+    expect(JFLL_INACTIVE_CUSTOMERS_DATA.length).toBe(2010);
+
+    JFLL_INACTIVE_CUSTOMERS_DATA.forEach((c) => {
+      expect(c.status).toBe('Not Active');
+      expect(c.fullName.length).toBeGreaterThan(0);
+      expect(!!c.mobileNumber || !!c.email).toBe(true);
+    });
+
+    const inactiveQuery = queryJfllCustomers({ customerStatus: 'inactive', page: 1, limit: 25 });
+    expect(inactiveQuery.totalEstimate).toBe(2010);
+    expect(inactiveQuery.audienceCounts.all).toBe(2010);
+    expect(inactiveQuery.audienceCounts.datamyneLeads).toBe(415);
+    expect(inactiveQuery.audienceCounts.archive).toBe(1595);
+
+    // DataMyne leads sub-tab
+    const dmTab = queryJfllCustomers({ customerStatus: 'inactive', tab: 'datamyne-leads' });
+    expect(dmTab.totalEstimate).toBe(415);
+    dmTab.items.forEach((c) => expect(c.inDataMyne).toBe(true));
+
+    // Archive sub-tab
+    const archiveTab = queryJfllCustomers({ customerStatus: 'inactive', tab: 'archive' });
+    expect(archiveTab.totalEstimate).toBe(1595);
+    archiveTab.items.forEach((c) => expect(c.inDataMyne).toBe(false));
+
+    // Search within inactive customers
+    const searchRes = queryJfllCustomers({ customerStatus: 'inactive', q: 'RAO CLEARING' });
+    expect(searchRes.totalEstimate).toBeGreaterThanOrEqual(1);
+    expect(searchRes.items[0].fullName).toContain('RAO CLEARING');
   });
 });
 
