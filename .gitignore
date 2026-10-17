@@ -125,5 +125,7 @@ coverage.xml
 
 # Local Migration Backups & Temporary Data
 Backend/data/.backups/
+Backend/data/raw/
 *.bak
 *.tmp
+

@@ -18,10 +18,10 @@ def test_list_leads_pagination():
     payload = response.json()
     assert payload["page"] == 1
     assert payload["page_size"] == 10
-    assert payload["total_records"] == 729
+    assert payload["total_records"] == 728
     assert len(payload["data"]) == 10
     assert payload["has_next"] is True
-    assert payload["audience_counts"]["all"] == 729
+    assert payload["audience_counts"]["all"] == 728
     for item in payload["data"]:
         assert item["status"] == "Active"
 

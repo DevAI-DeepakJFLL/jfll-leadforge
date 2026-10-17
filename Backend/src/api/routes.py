@@ -1,10 +1,11 @@
 from typing import List, Optional
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Header
 from fastapi.params import Query as QueryType
 from src.api.config import settings
 from src.api.database import get_db_connection
 from src.api.models import PaginatedResponse, AudienceCounts
 from src.api.logger import logger
+from src.api.auth import verify_token
 
 router = APIRouter(prefix="/api/v1", tags=["Leads"])
 
@@ -39,7 +40,17 @@ def list_leads(
     has_contact_person: Optional[bool] = Query(default=None, description="Require contact person name"),
     tab: Optional[str] = Query(default=None, description="Audience quick tab: all, shippers, subagents, overseas, with-contacts"),
     search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search company, contact person or email"),
+    authorization: Optional[str] = Header(None, description="Optional bearer token for authenticated session"),
 ):
+    # Enforce or validate Bearer token if provided, or require it in production
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.split("Bearer ", 1)[1].strip()
+        user = verify_token(token)
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid or expired session token")
+    elif settings.env == "production":
+        raise HTTPException(status_code=401, detail="Authentication required to access customer leads")
+
     # Normalize Query objects when invoked directly in tests/scripts
     if isinstance(page, QueryType): page = 1
     if isinstance(page_size, QueryType): page_size = 25

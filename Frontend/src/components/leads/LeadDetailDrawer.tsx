@@ -355,7 +355,11 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                     </div>
                     {lead.linkedin ? (
                       <a
-                        href={lead.linkedin}
+                        href={
+                          /^https?:\/\//i.test(lead.linkedin)
+                            ? lead.linkedin
+                            : `https://${lead.linkedin}`
+                        }
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs font-semibold text-apollo hover:underline"

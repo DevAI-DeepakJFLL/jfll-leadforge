@@ -62,8 +62,26 @@ export async function fetchJfllCustomersFromApi(
   const endpoint = `${apiBase}/api/v1/leads?${urlParams.toString()}`;
   logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups });
 
+  let authHeader: Record<string, string> = {};
   try {
-    const res = await fetch(endpoint);
+    const rawSession = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('apollo_leads_session') : null;
+    if (rawSession) {
+      const session = JSON.parse(rawSession);
+      if (session?.token) {
+        authHeader = { Authorization: `Bearer ${session.token}` };
+      }
+    }
+  } catch {
+    // Session read error
+  }
+
+  try {
+    const res = await fetch(endpoint, {
+      headers: {
+        Accept: 'application/json',
+        ...authHeader,
+      },
+    });
     const durationMs = performance.now() - startTime;
     logger.apiCall('GET', '/api/v1/leads', durationMs, res.status, { page, limit, tab });
 
