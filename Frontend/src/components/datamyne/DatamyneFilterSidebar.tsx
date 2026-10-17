@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   DatamyneFilterParams,
   DatamyneDatasetType,
+  TransportMode,
 } from '@/types/datamyneLead';
 import { FilterAccordion } from '@/components/filters/FilterAccordion';
 import {
@@ -12,6 +13,7 @@ import {
   Building2,
   MapPin,
   Plane,
+  Ship,
   TrendingUp,
   Tags,
   Layers,
@@ -23,6 +25,7 @@ export interface DatamyneFilterSidebarProps {
   filters: DatamyneFilterParams;
   setSearch: (q: string) => void;
   setDataset: (dataset: DatamyneDatasetType) => void;
+  toggleTransportMode: (mode: TransportMode) => void;
   toggleCategory: (category: string) => void;
   toggleSubcategory: (subcategory: string) => void;
   toggleRole: (role: string) => void;
@@ -43,6 +46,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
   filters,
   setSearch,
   setDataset,
+  toggleTransportMode,
   toggleCategory,
   toggleSubcategory,
   toggleRole,
@@ -64,6 +68,12 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
     e.preventDefault();
     setSearch(searchInput);
   };
+
+  const transportModesList: { id: TransportMode; label: string; icon: string }[] = [
+    { id: 'Air', label: 'Air Freight', icon: '✈️' },
+    { id: 'Ocean', label: 'Ocean Freight', icon: '🚢' },
+    { id: 'Air & Ocean', label: 'Multi-modal (Air & Ocean)', icon: '✈️🚢' },
+  ];
 
   const categoriesList = [
     'Perishables',
@@ -235,7 +245,35 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         </div>
       </FilterAccordion>
 
-      {/* Accordion 2: Logistics Verticals (Category) */}
+      {/* Accordion 2: Transport Mode (Air / Ocean) */}
+      <FilterAccordion
+        icon={<Ship className="w-4 h-4" />}
+        label="Transport Mode"
+        defaultOpen={true}
+        activeCount={filters.transportModes?.length || 0}
+      >
+        <div className="space-y-1.5">
+          {transportModesList.map((mode) => (
+            <label
+              key={mode.id}
+              className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+            >
+              <input
+                type="checkbox"
+                checked={filters.transportModes?.includes(mode.id) || false}
+                onChange={() => toggleTransportMode(mode.id)}
+                className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+              />
+              <span className="text-xs text-slate-700 flex items-center gap-1.5">
+                <span>{mode.icon}</span>
+                <span>{mode.label}</span>
+              </span>
+            </label>
+          ))}
+        </div>
+      </FilterAccordion>
+
+      {/* Accordion 3: Logistics Verticals (Category) */}
       <FilterAccordion
         icon={<Building2 className="w-4 h-4" />}
         label="Logistics Category"

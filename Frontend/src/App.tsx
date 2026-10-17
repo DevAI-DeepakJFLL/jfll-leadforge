@@ -388,6 +388,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     setSearch: setDatamyneSearch,
     setPage: setDatamynePage,
     setLimit: _setDatamyneLimit,
+    toggleTransportMode: toggleDatamyneTransportMode,
     toggleCategory: toggleDatamyneCategory,
     toggleSubcategory: toggleDatamyneSubcategory,
     toggleRole: toggleDatamyneRole,
@@ -584,6 +585,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
             filters={datamyneFilters}
             setSearch={setDatamyneSearch}
             setDataset={setDatamyneDataset}
+            toggleTransportMode={toggleDatamyneTransportMode}
             toggleCategory={toggleDatamyneCategory}
             toggleSubcategory={toggleDatamyneSubcategory}
             toggleRole={toggleDatamyneRole}

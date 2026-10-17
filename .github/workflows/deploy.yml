@@ -75,6 +75,17 @@ jobs:
           aws s3 cp Backend/data/processed/datamyne_missing_leads_zstd.parquet \
             s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/datamyne_missing_leads_zstd.parquet
 
+      - name: Verify Zero Excel/CSV Footprint in S3 Data Bucket
+        run: |
+          echo "Auditing S3 data bucket to ensure zero Excel (.xlsx) or CSV files exist..."
+          DATA_BKT="${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}"
+          EXCEL_COUNT=$(aws s3 ls "s3://${DATA_BKT}/" --recursive | grep -iE '\.(xlsx|csv)$' | wc -l || true)
+          if [ "$EXCEL_COUNT" -gt 0 ]; then
+            echo "::warning::Detected $EXCEL_COUNT Excel/CSV files in S3 data bucket. Purging to prevent storage costs..."
+            aws s3 rm "s3://${DATA_BKT}/" --recursive --exclude "*" --include "*.xlsx" --include "*.csv"
+          fi
+          echo "✅ Verified: S3 data bucket contains only compressed .parquet analytical files."
+
   deploy-backend:
     name: Package & Deploy Backend Lambda
     needs: [ deploy-data ]
@@ -152,6 +163,14 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID || vars.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || vars.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION || vars.AWS_REGION || 'ap-southeast-2' }}
+
+      - name: Verify Frontend Dist Zero Excel/CSV Footprint
+        run: |
+          if find ./Frontend/dist -type f \( -name "*.xlsx" -o -name "*.csv" \) | grep -q .; then
+            echo "::error::Detected forbidden Excel (.xlsx) or CSV (.csv) files in frontend distribution!"
+            exit 1
+          fi
+          echo "✅ Verified: Frontend build contains 0 Excel and 0 CSV files."
 
       - name: Sync Frontend Build to Private S3
         run: |

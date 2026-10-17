@@ -122,3 +122,8 @@ coverage.xml
 # Agent & Scratch Artifacts
 .superpowers/
 .gemini/
+
+# Local Migration Backups & Temporary Data
+Backend/data/.backups/
+*.bak
+*.tmp

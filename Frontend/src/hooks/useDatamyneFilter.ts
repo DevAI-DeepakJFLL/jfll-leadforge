@@ -1,5 +1,10 @@
 import { useState, useCallback, useMemo } from 'react';
-import { DatamyneFilterParams, DatamyneDatasetType, DatamyneAudienceTab } from '@/types/datamyneLead';
+import {
+  DatamyneFilterParams,
+  DatamyneDatasetType,
+  DatamyneAudienceTab,
+  TransportMode,
+} from '@/types/datamyneLead';
 
 export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
   const [filters, setFilters] = useState<DatamyneFilterParams>({
@@ -7,6 +12,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     tab: 'all',
     page: 1,
     limit: 25,
+    transportModes: [],
     categories: [],
     subcategories: [],
     roles: [],
@@ -89,6 +95,16 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     });
   }, []);
 
+  const toggleTransportMode = useCallback((mode: TransportMode) => {
+    setFilters((prev) => {
+      const current = prev.transportModes || [];
+      const updated = current.includes(mode)
+        ? current.filter((m) => m !== mode)
+        : [...current, mode];
+      return { ...prev, transportModes: updated, page: 1 };
+    });
+  }, []);
+
   const toggleContactStatus = useCallback((status: string) => {
     setFilters((prev) => {
       const current = prev.contactStatus || [];
@@ -121,6 +137,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
       tab: 'all',
       page: 1,
       limit: 25,
+      transportModes: [],
       categories: [],
       subcategories: [],
       roles: [],
@@ -136,6 +153,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
 
   const activeFilterCount = useMemo(() => {
     let count = 0;
+    if (filters.transportModes && filters.transportModes.length > 0) count += filters.transportModes.length;
     if (filters.categories && filters.categories.length > 0) count += filters.categories.length;
     if (filters.subcategories && filters.subcategories.length > 0) count += filters.subcategories.length;
     if (filters.roles && filters.roles.length > 0) count += filters.roles.length;
@@ -157,6 +175,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     setSearch,
     setPage,
     setLimit,
+    toggleTransportMode,
     toggleCategory,
     toggleSubcategory,
     toggleRole,

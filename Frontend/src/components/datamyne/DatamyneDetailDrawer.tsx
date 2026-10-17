@@ -119,6 +119,24 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                     {lead.role}
                   </span>
 
+                  {lead.transport_mode && (
+                    <span
+                      className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border ${
+                        lead.transport_mode === 'Air'
+                          ? 'bg-sky-50 text-sky-700 border-sky-200'
+                          : lead.transport_mode === 'Ocean'
+                          ? 'bg-cyan-50 text-cyan-700 border-cyan-200'
+                          : 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                      }`}
+                    >
+                      {lead.transport_mode === 'Air'
+                        ? '✈️ Air Freight'
+                        : lead.transport_mode === 'Ocean'
+                        ? '🚢 Ocean Freight'
+                        : '✈️🚢 Multi-modal (Air & Ocean)'}
+                    </span>
+                  )}
+
                   <DatamyneCategoryBadge category={lead.category} />
 
                   <span
@@ -315,6 +333,16 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
               </div>
 
               <div className="divide-y divide-slate-100 border-t border-slate-100 text-xs pt-1">
+                <div className="py-2 flex justify-between items-center">
+                  <span className="text-slate-500">Transport Mode:</span>
+                  <span className="font-semibold text-slate-900 text-right">
+                    {lead.transport_mode === 'Air'
+                      ? '✈️ Air Freight'
+                      : lead.transport_mode === 'Ocean'
+                      ? '🚢 Ocean Freight'
+                      : '✈️🚢 Multi-modal (Air & Ocean)'}
+                  </span>
+                </div>
                 <div className="py-2 flex justify-between">
                   <span className="text-slate-500">Trade Corridors:</span>
                   <span className="font-medium text-slate-900 text-right">{lead.trade_lanes || '—'}</span>

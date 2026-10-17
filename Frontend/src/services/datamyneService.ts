@@ -48,6 +48,7 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
     q,
     dataset: datasetType = 'valid',
     tab = 'all',
+    transportModes = [],
     categories = [],
     subcategories = [],
     roles = [],
@@ -68,6 +69,11 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
     filtered = filtered.filter((d) => d.dataset_type === 'valid');
   } else if (datasetType === 'missing') {
     filtered = filtered.filter((d) => d.dataset_type === 'missing');
+  }
+
+  // 1b. Transport Mode Multi-select Filter
+  if (transportModes.length > 0) {
+    filtered = filtered.filter((d) => transportModes.includes(d.transport_mode as any));
   }
 
   // 2. Audience Tab Filter
@@ -221,6 +227,7 @@ export function exportDatamyneLeadsCsv(leads: DatamyneLead[]): Blob {
   const headers = [
     'Company Name',
     'Trading Role',
+    'Transport Mode',
     'Logistics Category',
     'Cargo Subcategory',
     'Contact Status',
@@ -241,6 +248,7 @@ export function exportDatamyneLeadsCsv(leads: DatamyneLead[]): Blob {
   const rows = leads.map((l) => [
     sanitizeCsvValue(l.company_name),
     sanitizeCsvValue(l.role),
+    sanitizeCsvValue(l.transport_mode),
     sanitizeCsvValue(l.category),
     sanitizeCsvValue(l.subcategory),
     sanitizeCsvValue(l.contact_type),

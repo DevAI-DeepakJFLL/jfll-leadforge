@@ -4,6 +4,7 @@ export const DatamyneLeadSchema = z.object({
   id: z.string(),
   company_name: z.string(),
   role: z.string(), // "Exporter" | "Importer" | "Both"
+  transport_mode: z.enum(['Air', 'Ocean', 'Air & Ocean']).default('Air'),
   category: z.string(), // "Perishables" | "Pharma & Healthcare" | "Textiles & Apparel" | ...
   subcategory: z.string(), // e.g. "Fresh Produce", "Fabrics & Technical Textiles"
   contact_type: z.string(), // "Both Phone & Email" | "Phone only" | "Email only" | "Missing Phone & Email"
@@ -25,6 +26,8 @@ export const DatamyneLeadSchema = z.object({
 
 export type DatamyneLead = z.infer<typeof DatamyneLeadSchema>;
 
+export type TransportMode = 'Air' | 'Ocean' | 'Air & Ocean';
+
 export type DatamyneDatasetType = 'valid' | 'missing' | 'all';
 
 export type DatamyneAudienceTab =
@@ -42,6 +45,7 @@ export interface DatamyneFilterParams {
   q?: string;
   dataset?: DatamyneDatasetType;
   tab?: DatamyneAudienceTab;
+  transportModes?: TransportMode[];
   categories?: string[];
   subcategories?: string[];
   roles?: string[];

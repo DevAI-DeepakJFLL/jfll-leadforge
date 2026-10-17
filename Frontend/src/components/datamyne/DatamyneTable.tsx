@@ -248,6 +248,23 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                           >
                             {l.role}
                           </span>
+                          {l.transport_mode && (
+                            <span
+                              className={`text-[10px] font-semibold px-1.5 py-0.2 rounded border ${
+                                l.transport_mode === 'Air'
+                                  ? 'bg-sky-50 text-sky-700 border-sky-200'
+                                  : l.transport_mode === 'Ocean'
+                                  ? 'bg-cyan-50 text-cyan-700 border-cyan-200'
+                                  : 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                              }`}
+                            >
+                              {l.transport_mode === 'Air'
+                                ? '✈️ Air'
+                                : l.transport_mode === 'Ocean'
+                                ? '🚢 Ocean'
+                                : '✈️🚢 Multi-modal'}
+                            </span>
+                          )}
                           {l.tax_id && (
                             <span className="text-[10px] font-mono text-slate-400">
                               IEC: {l.tax_id}

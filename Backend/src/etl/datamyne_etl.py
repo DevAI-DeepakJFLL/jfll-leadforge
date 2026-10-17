@@ -58,6 +58,7 @@ def run_datamyne_etl():
     col_mapping = {
         "Company Name": "company_name",
         "Role": "role",
+        "Transport Mode": "transport_mode",
         "Category": "category",
         "Subcategory": "subcategory",
         "Contact Type": "contact_type",
@@ -91,6 +92,7 @@ def run_datamyne_etl():
         df["total_value_usd"] = pd.to_numeric(df["total_value_usd"], errors="coerce").fillna(0.0).astype("float64")
         df["company_name"] = df["company_name"].astype(str).str.strip()
         df["role"] = df["role"].astype(str).str.strip()
+        df["transport_mode"] = df["transport_mode"].astype(str).str.strip().replace(["None", "nan", ""], "Air")
         df["category"] = df["category"].astype(str).str.strip()
         df["subcategory"] = df["subcategory"].astype(str).str.strip()
         df["contact_type"] = df["contact_type"].astype(str).str.strip()
@@ -103,6 +105,7 @@ def run_datamyne_etl():
         "id",
         "company_name",
         "role",
+        "transport_mode",
         "category",
         "subcategory",
         "contact_type",

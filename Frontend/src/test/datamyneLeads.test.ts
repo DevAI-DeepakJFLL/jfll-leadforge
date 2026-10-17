@@ -153,6 +153,7 @@ describe('DataMyne Leads Service & Schemas', () => {
           id: 'test-cwe-1',
           company_name: '=cmd|/c calc!A0',
           role: '+Exporter',
+          transport_mode: 'Air',
           category: '-Pharma',
           subcategory: '@Subcat',
           contact_type: 'Both Phone & Email',
@@ -182,9 +183,30 @@ describe('DataMyne Leads Service & Schemas', () => {
       expect(text).toContain('"\'@Subcat"');
       expect(text).toContain('"\'\t9999999999"');
 
-      // Ensure header contains Logistics Category and Cargo Subcategory
+      // Ensure header contains Logistics Category, Cargo Subcategory, and Transport Mode
       expect(text).toContain('Logistics Category');
       expect(text).toContain('Cargo Subcategory');
+      expect(text).toContain('Transport Mode');
+    });
+
+    it('filters leads by transport modes (Air, Ocean, Air & Ocean)', () => {
+      const airRes = queryDatamyneLeads({ dataset: 'all', transportModes: ['Air'] });
+      expect(airRes.items.length).toBeGreaterThan(0);
+      expect(airRes.items.every((i) => i.transport_mode === 'Air')).toBe(true);
+
+      const oceanRes = queryDatamyneLeads({ dataset: 'all', transportModes: ['Ocean'] });
+      if (oceanRes.items.length > 0) {
+        expect(oceanRes.items.every((i) => i.transport_mode === 'Ocean')).toBe(true);
+      }
+
+      const multiModalRes = queryDatamyneLeads({ dataset: 'all', transportModes: ['Air & Ocean'] });
+      if (multiModalRes.items.length > 0) {
+        expect(multiModalRes.items.every((i) => i.transport_mode === 'Air & Ocean')).toBe(true);
+      }
+
+      const combinedRes = queryDatamyneLeads({ dataset: 'all', transportModes: ['Air', 'Ocean'] });
+      expect(combinedRes.items.every((i) => i.transport_mode === 'Air' || i.transport_mode === 'Ocean')).toBe(true);
     });
   });
 });
+
