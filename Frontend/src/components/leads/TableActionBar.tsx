@@ -173,7 +173,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
           <span>Save Leads</span>
         </button>
 
-        {/* 3. "📋 Add to List ▾" */}
+        {/* 3. Add to List */}
         <div className="relative shrink-0">
           <button
             type="button"
@@ -257,7 +257,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
           )}
         </div>
 
-        {/* 4. "⤓ Export (CSV)" */}
+        {/* 4. Export (CSV) */}
         <button
           type="button"
           onClick={onExport}

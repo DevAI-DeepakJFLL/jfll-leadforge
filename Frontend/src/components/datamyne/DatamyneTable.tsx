@@ -9,6 +9,8 @@ import {
   AlertCircle,
   RotateCcw,
   Search,
+  Plane,
+  Ship,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -250,7 +252,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                           </span>
                           {l.transport_mode && (
                             <span
-                              className={`text-[10px] font-semibold px-1.5 py-0.2 rounded border ${
+                              className={`inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.2 rounded border ${
                                 l.transport_mode === 'Air'
                                   ? 'bg-sky-50 text-sky-700 border-sky-200'
                                   : l.transport_mode === 'Ocean'
@@ -258,11 +260,25 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                                   : 'bg-indigo-50 text-indigo-700 border-indigo-200'
                               }`}
                             >
-                              {l.transport_mode === 'Air'
-                                ? '✈️ Air'
-                                : l.transport_mode === 'Ocean'
-                                ? '🚢 Ocean'
-                                : '✈️🚢 Multi-modal'}
+                              {l.transport_mode === 'Air' ? (
+                                <>
+                                  <Plane className="w-2.5 h-2.5 text-sky-600 shrink-0" />
+                                  <span>Air</span>
+                                </>
+                              ) : l.transport_mode === 'Ocean' ? (
+                                <>
+                                  <Ship className="w-2.5 h-2.5 text-cyan-600 shrink-0" />
+                                  <span>Ocean</span>
+                                </>
+                              ) : (
+                                <>
+                                  <span className="flex items-center -space-x-1 shrink-0">
+                                    <Plane className="w-2.5 h-2.5 text-indigo-600" />
+                                    <Ship className="w-2.5 h-2.5 text-indigo-500" />
+                                  </span>
+                                  <span>Multi-modal</span>
+                                </>
+                              )}
                             </span>
                           )}
                           {l.tax_id && (

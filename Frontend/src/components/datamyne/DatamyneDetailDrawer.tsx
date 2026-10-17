@@ -13,6 +13,8 @@ import {
   UserCheck,
   Search,
   AlertCircle,
+  Plane,
+  Ship,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -121,7 +123,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 
                   {lead.transport_mode && (
                     <span
-                      className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border ${
+                      className={`inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded-full border ${
                         lead.transport_mode === 'Air'
                           ? 'bg-sky-50 text-sky-700 border-sky-200'
                           : lead.transport_mode === 'Ocean'
@@ -129,11 +131,25 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                           : 'bg-indigo-50 text-indigo-700 border-indigo-200'
                       }`}
                     >
-                      {lead.transport_mode === 'Air'
-                        ? '✈️ Air Freight'
-                        : lead.transport_mode === 'Ocean'
-                        ? '🚢 Ocean Freight'
-                        : '✈️🚢 Multi-modal (Air & Ocean)'}
+                      {lead.transport_mode === 'Air' ? (
+                        <>
+                          <Plane className="w-3 h-3 text-sky-600 shrink-0" />
+                          <span>Air Freight</span>
+                        </>
+                      ) : lead.transport_mode === 'Ocean' ? (
+                        <>
+                          <Ship className="w-3 h-3 text-cyan-600 shrink-0" />
+                          <span>Ocean Freight</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="flex items-center -space-x-1 shrink-0">
+                            <Plane className="w-3 h-3 text-indigo-600" />
+                            <Ship className="w-3 h-3 text-indigo-500" />
+                          </span>
+                          <span>Multi-modal (Air & Ocean)</span>
+                        </>
+                      )}
                     </span>
                   )}
 
@@ -335,12 +351,26 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
               <div className="divide-y divide-slate-100 border-t border-slate-100 text-xs pt-1">
                 <div className="py-2 flex justify-between items-center">
                   <span className="text-slate-500">Transport Mode:</span>
-                  <span className="font-semibold text-slate-900 text-right">
-                    {lead.transport_mode === 'Air'
-                      ? '✈️ Air Freight'
-                      : lead.transport_mode === 'Ocean'
-                      ? '🚢 Ocean Freight'
-                      : '✈️🚢 Multi-modal (Air & Ocean)'}
+                  <span className="inline-flex items-center gap-1.5 font-semibold text-slate-900 text-right">
+                    {lead.transport_mode === 'Air' ? (
+                      <>
+                        <Plane className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+                        <span>Air Freight</span>
+                      </>
+                    ) : lead.transport_mode === 'Ocean' ? (
+                      <>
+                        <Ship className="w-3.5 h-3.5 text-cyan-600 shrink-0" />
+                        <span>Ocean Freight</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="flex items-center -space-x-1 shrink-0">
+                          <Plane className="w-3.5 h-3.5 text-indigo-600" />
+                          <Ship className="w-3.5 h-3.5 text-indigo-500" />
+                        </span>
+                        <span>Multi-modal (Air & Ocean)</span>
+                      </>
+                    )}
                   </span>
                 </div>
                 <div className="py-2 flex justify-between">
