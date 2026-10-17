@@ -15,6 +15,7 @@ import {
   AlertCircle,
   Plane,
   Ship,
+  PhoneOff,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -160,17 +161,17 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                   <DatamyneCategoryBadge category={lead.category} />
 
                   <span
-                    className={`inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full border ${
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium border whitespace-nowrap ${
                       isMissingContact
-                        ? 'bg-amber-50 text-amber-800 border-amber-200'
+                        ? 'bg-slate-100 text-slate-700 border-slate-200'
                         : 'bg-emerald-50 text-emerald-800 border-emerald-200'
                     }`}
                   >
-                    <span
-                      className={`w-1.5 h-1.5 rounded-full ${
-                        isMissingContact ? 'bg-amber-500' : 'bg-emerald-500 animate-pulse'
-                      }`}
-                    />
+                    {isMissingContact ? (
+                      <PhoneOff className="w-3 h-3 text-slate-400 shrink-0" />
+                    ) : (
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                    )}
                     {isMissingContact ? 'No Contact on File' : 'Contact on File'}
                   </span>
                 </div>

@@ -149,16 +149,16 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
   ];
 
   const filterContent = (
-    <div className="flex-1 flex flex-col h-full overflow-y-auto no-scrollbar">
-      {/* Header with Title & Clear All */}
-      <div className="p-3.5 border-b border-surface-border flex items-center justify-between bg-slate-50/50 sticky top-0 z-10 shrink-0">
+    <div className="flex-1 flex flex-col h-full overflow-hidden bg-white">
+      {/* Header with Title & Clear All (Solid, Non-translucent, Non-scrolling) */}
+      <div className="h-11 px-3.5 border-b border-surface-border flex items-center justify-between bg-white shrink-0 z-10">
         <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4 text-slate-700" />
+          <SlidersHorizontal className="w-4 h-4 text-apollo" />
           <h2 className="text-xs font-semibold text-slate-900 tracking-wide uppercase">
             DataMyne Filters
           </h2>
           {activeFilterCount > 0 && (
-            <span className="px-1.5 py-0.2 text-[10px] font-bold bg-apollo text-white rounded-full">
+            <span className="px-1.5 py-0.5 text-[10px] font-bold bg-apollo text-white rounded-full leading-none">
               {activeFilterCount}
             </span>
           )}
@@ -177,8 +177,10 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         )}
       </div>
 
-      {/* Search Input Box */}
-      <div className="p-3 border-b border-slate-100">
+      {/* Scrollable Container for Search and Accordions */}
+      <div className="flex-1 overflow-y-auto no-scrollbar divide-y divide-slate-100">
+        {/* Search Input Box */}
+        <div className="p-3">
         <form onSubmit={handleSearchSubmit} className="relative">
           <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
@@ -470,6 +472,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
           </div>
         </div>
       </FilterAccordion>
+      </div>
     </div>
   );
 

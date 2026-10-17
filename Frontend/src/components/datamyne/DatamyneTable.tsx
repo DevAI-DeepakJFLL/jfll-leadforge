@@ -11,6 +11,7 @@ import {
   Search,
   Plane,
   Ship,
+  PhoneOff,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -184,7 +185,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
               <th className="py-3 px-3.5 min-w-[220px]">Category & Subcategory</th>
               <th className="py-3 px-3.5 min-w-[160px]">City & Corridor</th>
               <th className="py-3 px-3.5 min-w-[170px]">Shipments & Traded Value</th>
-              <th className="py-3 px-3.5 min-w-[150px]">Contact Readiness</th>
+              <th className="py-3 px-3.5 min-w-[170px] whitespace-nowrap">Contact Readiness</th>
               <th className="py-3 px-4 w-32 text-center">Action</th>
             </tr>
           </thead>
@@ -355,24 +356,27 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Contact Readiness */}
-                  <td className="py-3 px-3.5">
+                  <td className="py-3 px-3.5 whitespace-nowrap">
                     {isMissing ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                      <span
+                        className="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200/90 whitespace-nowrap shrink-0 shadow-2xs"
+                        title="No direct phone or email on file for this lead"
+                      >
+                        <PhoneOff className="w-3 h-3 text-slate-400 shrink-0" />
                         No Contact on File
                       </span>
                     ) : l.phone && l.email ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 whitespace-nowrap shrink-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         Phone & Email
                       </span>
                     ) : l.phone ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 whitespace-nowrap shrink-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                         Phone Only
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200 whitespace-nowrap shrink-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
                         Email Only
                       </span>

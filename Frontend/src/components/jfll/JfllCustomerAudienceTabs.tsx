@@ -92,7 +92,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
       label: 'Direct Contacts Ready',
       count: counts.withContacts,
       icon: PhoneCall,
-      description: 'Verified direct phone & email',
+      description: 'Direct phone or email on file',
     },
   ];
 

@@ -162,10 +162,10 @@ export const DatamyneActiveFilterChips: React.FC<DatamyneActiveFilterChipsProps>
       {chips.map((chip) => (
         <span
           key={chip.id}
-          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/80 transition-colors shadow-2xs group shrink-0"
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/80 transition-colors shadow-2xs group shrink-0 whitespace-nowrap"
         >
           <span className="text-slate-400 font-medium text-[11px]">{chip.category}:</span>
-          <span className="font-medium text-slate-800 max-w-[160px] truncate" title={chip.label}>
+          <span className="font-medium text-slate-800 max-w-[240px] truncate" title={chip.label}>
             {chip.label}
           </span>
           <button

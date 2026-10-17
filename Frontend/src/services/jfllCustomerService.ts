@@ -330,3 +330,23 @@ export function getLegalTypeFacetCounts(status: 'active' | 'inactive' = 'active'
     .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
 }
 
+/**
+ * Dynamically compute actual Contact Readiness facet counts from dataset
+ */
+export function getContactReadinessFacetCounts(status: 'active' | 'inactive' = 'active'): {
+  hasContactPerson: number;
+  hasPhone: number;
+  hasEmail: number;
+} {
+  const data = status === 'inactive' ? JFLL_INACTIVE_CUSTOMERS_DATA : JFLL_CUSTOMERS_DATA;
+  let hasContactPerson = 0;
+  let hasPhone = 0;
+  let hasEmail = 0;
+  for (const c of data) {
+    if (c.contactPersonName && c.contactPersonName.trim().length > 0) hasContactPerson++;
+    if (c.mobileNumber && c.mobileNumber.trim().length > 0) hasPhone++;
+    if (c.email && c.email.trim().length > 0) hasEmail++;
+  }
+  return { hasContactPerson, hasPhone, hasEmail };
+}
+

@@ -169,6 +169,33 @@ describe('JFLL Customers Dataset & Query Service', () => {
     const searchRes = queryJfllCustomers({ customerStatus: 'inactive', q: 'RAO CLEARING' });
     expect(searchRes.totalEstimate).toBeGreaterThanOrEqual(1);
     expect(searchRes.items[0].fullName).toContain('RAO CLEARING');
+
+    // Customer group filter for inactive
+    const inactiveGroupRes = queryJfllCustomers({
+      customerStatus: 'inactive',
+      customerGroups: ['Inactive (DataMyne Match)'],
+    });
+    expect(inactiveGroupRes.totalEstimate).toBe(415);
+    inactiveGroupRes.items.forEach((c) => expect(c.customerGroup).toBe('Inactive (DataMyne Match)'));
+
+    // Contact readiness filter for inactive
+    const phoneFilterRes = queryJfllCustomers({ customerStatus: 'inactive', hasPhone: true });
+    expect(phoneFilterRes.totalEstimate).toBeGreaterThan(0);
+    phoneFilterRes.items.forEach((c) => expect(c.mobileNumber).toBeTruthy());
+  });
+
+  it('computes contact readiness facet counts accurately for both active and inactive datasets', async () => {
+    const { getContactReadinessFacetCounts } = await import('@/services/jfllCustomerService');
+    const activeCounts = getContactReadinessFacetCounts('active');
+    expect(activeCounts.hasContactPerson).toBe(728);
+    expect(activeCounts.hasPhone).toBe(656);
+    expect(activeCounts.hasEmail).toBe(703);
+
+    const inactiveCounts = getContactReadinessFacetCounts('inactive');
+    expect(inactiveCounts.hasContactPerson).toBeGreaterThan(0);
+    expect(inactiveCounts.hasPhone).toBeGreaterThan(0);
+    expect(inactiveCounts.hasEmail).toBeGreaterThan(0);
+    expect(inactiveCounts.hasContactPerson + inactiveCounts.hasPhone + inactiveCounts.hasEmail).toBeGreaterThan(0);
   });
 });
 

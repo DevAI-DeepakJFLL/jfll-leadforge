@@ -13,6 +13,7 @@ import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
 import {
   getCustomerGroupFacetCounts,
   getLegalTypeFacetCounts,
+  getContactReadinessFacetCounts,
 } from '@/services/jfllCustomerService';
 
 export interface JfllCustomerFilterSidebarProps {
@@ -55,6 +56,11 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
     [filters.customerStatus]
   );
 
+  const contactCounts = React.useMemo(
+    () => getContactReadinessFacetCounts(filters.customerStatus || 'active'),
+    [filters.customerStatus]
+  );
+
   const toggleSection = (section: 'groups' | 'types' | 'contacts') => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
@@ -80,14 +86,14 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   const filterContent = (
     <>
       {/* Sidebar Header */}
-      <div className="h-11 px-4 border-b border-surface-border flex items-center justify-between bg-slate-50/60">
+      <div className="h-11 px-4 border-b border-surface-border flex items-center justify-between bg-white shrink-0">
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="w-4 h-4 text-apollo" />
           <span className="text-xs font-semibold text-slate-800 uppercase tracking-wider">
             Customer Filters
           </span>
           {activeCount > 0 && (
-            <span className="bg-apollo text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">
+            <span className="bg-apollo text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
               {activeCount}
             </span>
           )}
@@ -96,7 +102,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
         {activeCount > 0 && (
           <button
             onClick={onClearAll}
-            className="inline-flex items-center gap-1 text-[11px] text-slate-500 hover:text-apollo transition-colors"
+            className="inline-flex items-center gap-1 text-[11px] text-slate-500 hover:text-apollo transition-colors cursor-pointer"
             title="Reset all filters"
           >
             <RotateCcw className="w-3 h-3" />
@@ -140,7 +146,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
                     Named Contact Person
                   </span>
                 </div>
-                <span className="text-[11px] font-mono text-slate-400">728</span>
+                <span className="text-[11px] font-mono text-slate-400">{contactCounts.hasContactPerson}</span>
               </label>
 
               <label className="flex items-center justify-between text-xs cursor-pointer group">
@@ -155,7 +161,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
                     Direct Mobile Number
                   </span>
                 </div>
-                <span className="text-[11px] font-mono text-slate-400">656</span>
+                <span className="text-[11px] font-mono text-slate-400">{contactCounts.hasPhone}</span>
               </label>
 
               <label className="flex items-center justify-between text-xs cursor-pointer group">
@@ -167,10 +173,10 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
                     className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer"
                   />
                   <span className="text-slate-700 group-hover:text-slate-900">
-                    Verified Email
+                    Contact with Email
                   </span>
                 </div>
-                <span className="text-[11px] font-mono text-slate-400">703</span>
+                <span className="text-[11px] font-mono text-slate-400">{contactCounts.hasEmail}</span>
               </label>
             </div>
           )}
@@ -186,7 +192,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
               <Network className="w-4 h-4 text-purple-600" />
               <span className="text-xs font-semibold text-slate-800">Customer Group</span>
               {selectedGroups.length > 0 && (
-                <span className="bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.2 rounded-full">
+                <span className="bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
                   {selectedGroups.length}
                 </span>
               )}
@@ -261,7 +267,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
                 Legal Entity Type
               </span>
               {selectedTypes.length > 0 && (
-                <span className="bg-blue-100 text-blue-700 text-[10px] font-bold px-1.5 py-0.2 rounded-full">
+                <span className="bg-blue-100 text-blue-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
                   {selectedTypes.length}
                 </span>
               )}
