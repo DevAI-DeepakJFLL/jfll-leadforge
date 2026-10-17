@@ -238,26 +238,38 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                         >
                           {l.company_name}
                         </div>
-                        <div className="flex items-center gap-1.5 mt-0.5">
+                        {/* Role, Transport Mode & IEC Badges */}
+                        <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                          {/* Role Badge */}
                           <span
-                            className={`text-[10px] font-semibold px-1.5 py-0.2 rounded border ${
+                            className={`inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded border whitespace-nowrap shrink-0 leading-tight ${
                               l.role === 'Exporter'
-                                ? 'bg-blue-50 text-blue-700 border-blue-200'
+                                ? 'bg-blue-50 text-blue-700 border-blue-200/80'
                                 : l.role === 'Importer'
-                                ? 'bg-rose-50 text-rose-700 border-rose-200'
-                                : 'bg-purple-50 text-purple-700 border-purple-200'
+                                ? 'bg-rose-50 text-rose-700 border-rose-200/80'
+                                : 'bg-purple-50 text-purple-700 border-purple-200/80'
                             }`}
+                            title={`Trading Role: ${l.role}`}
                           >
-                            {l.role}
+                            {l.role === 'Both (Exporter & Importer)' || l.role === 'Both'
+                              ? 'Both (Exp & Imp)'
+                              : l.role}
                           </span>
+
+                          {/* Transport Mode Badge */}
                           {l.transport_mode && (
                             <span
-                              className={`inline-flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.2 rounded border ${
+                              className={`inline-flex items-center gap-1.5 text-[10px] font-semibold px-2 py-0.5 rounded border whitespace-nowrap shrink-0 leading-tight ${
                                 l.transport_mode === 'Air'
-                                  ? 'bg-sky-50 text-sky-700 border-sky-200'
+                                  ? 'bg-sky-50 text-sky-700 border-sky-200/80'
                                   : l.transport_mode === 'Ocean'
-                                  ? 'bg-cyan-50 text-cyan-700 border-cyan-200'
-                                  : 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                                  ? 'bg-cyan-50 text-cyan-700 border-cyan-200/80'
+                                  : 'bg-indigo-50 text-indigo-700 border-indigo-200/80'
+                              }`}
+                              title={`Transport Mode: ${
+                                l.transport_mode === 'Air & Ocean'
+                                  ? 'Multi-modal (Air & Ocean)'
+                                  : l.transport_mode
                               }`}
                             >
                               {l.transport_mode === 'Air' ? (
@@ -272,17 +284,25 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                                 </>
                               ) : (
                                 <>
-                                  <span className="flex items-center -space-x-1 shrink-0">
-                                    <Plane className="w-2.5 h-2.5 text-indigo-600" />
-                                    <Ship className="w-2.5 h-2.5 text-indigo-500" />
+                                  <span className="inline-flex items-center gap-0.5 shrink-0">
+                                    <Plane className="w-2.5 h-2.5 text-indigo-600 shrink-0" />
+                                    <span className="text-[9px] text-indigo-300 font-normal leading-none select-none">
+                                      /
+                                    </span>
+                                    <Ship className="w-2.5 h-2.5 text-indigo-600 shrink-0" />
                                   </span>
-                                  <span>Multi-modal</span>
+                                  <span>Multimodal</span>
                                 </>
                               )}
                             </span>
                           )}
+
+                          {/* Tax ID (IEC) */}
                           {l.tax_id && (
-                            <span className="text-[10px] font-mono text-slate-400">
+                            <span
+                              className="inline-flex items-center text-[10px] font-mono text-slate-500 bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200/60 whitespace-nowrap shrink-0 leading-tight"
+                              title={`Import Export Code: ${l.tax_id}`}
+                            >
                               IEC: {l.tax_id}
                             </span>
                           )}

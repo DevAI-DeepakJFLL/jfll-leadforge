@@ -35,6 +35,7 @@ import {
   DatamyneAudienceTabs,
   DatamyneFilterSidebar,
   DatamyneActionBar,
+  DatamyneActiveFilterChips,
   DatamyneTable,
   DatamyneDetailDrawer,
 } from '@/components/datamyne';
@@ -622,6 +623,21 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
               onDeselectAll={handleDeselectAllDatamyne}
               onExport={handleExportDatamyneCsv}
               isExporting={isExportingDatamyne}
+            />
+
+            {/* Active Filter Chips Bar */}
+            <DatamyneActiveFilterChips
+              filters={datamyneFilters}
+              onRemoveTransportMode={toggleDatamyneTransportMode}
+              onRemoveRole={toggleDatamyneRole}
+              onRemoveCategory={toggleDatamyneCategory}
+              onRemoveSubcategory={toggleDatamyneSubcategory}
+              onRemoveCity={toggleDatamyneCity}
+              onRemoveTradeLane={toggleDatamyneTradeLane}
+              onRemoveContactStatus={toggleDatamyneContactStatus}
+              onToggleHasDirectors={toggleDatamyneHasDirectors}
+              onClearSearch={() => setDatamyneSearch('')}
+              onClearAll={clearAllDatamyneFilters}
             />
 
             <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">

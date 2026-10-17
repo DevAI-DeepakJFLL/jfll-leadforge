@@ -110,20 +110,23 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 </h2>
                 <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
                   <span
-                    className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border ${
+                    className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
                       lead.role === 'Exporter'
                         ? 'bg-blue-50 text-blue-700 border-blue-200'
                         : lead.role === 'Importer'
                         ? 'bg-rose-50 text-rose-700 border-rose-200'
                         : 'bg-purple-50 text-purple-700 border-purple-200'
                     }`}
+                    title={`Trading Role: ${lead.role}`}
                   >
-                    {lead.role}
+                    {lead.role === 'Both (Exporter & Importer)' || lead.role === 'Both'
+                      ? 'Both (Exp & Imp)'
+                      : lead.role}
                   </span>
 
                   {lead.transport_mode && (
                     <span
-                      className={`inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded-full border ${
+                      className={`inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
                         lead.transport_mode === 'Air'
                           ? 'bg-sky-50 text-sky-700 border-sky-200'
                           : lead.transport_mode === 'Ocean'
@@ -143,9 +146,10 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                         </>
                       ) : (
                         <>
-                          <span className="flex items-center -space-x-1 shrink-0">
-                            <Plane className="w-3 h-3 text-indigo-600" />
-                            <Ship className="w-3 h-3 text-indigo-500" />
+                          <span className="inline-flex items-center gap-1 shrink-0">
+                            <Plane className="w-3 h-3 text-indigo-600 shrink-0" />
+                            <span className="text-indigo-300 font-normal">/</span>
+                            <Ship className="w-3 h-3 text-indigo-600 shrink-0" />
                           </span>
                           <span>Multi-modal (Air & Ocean)</span>
                         </>

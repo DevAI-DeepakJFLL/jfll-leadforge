@@ -207,6 +207,40 @@ describe('DataMyne Leads Service & Schemas', () => {
       const combinedRes = queryDatamyneLeads({ dataset: 'all', transportModes: ['Air', 'Ocean'] });
       expect(combinedRes.items.every((i) => i.transport_mode === 'Air' || i.transport_mode === 'Ocean')).toBe(true);
     });
+
+    it('filters accurately when multimodal and both export and import filters are applied', () => {
+      const res = queryDatamyneLeads({
+        dataset: 'all',
+        transportModes: ['Air & Ocean'],
+        roles: ['Exporter', 'Importer'],
+      });
+      expect(res.items.length).toBeGreaterThan(0);
+      expect(res.items.every((i) => i.transport_mode === 'Air & Ocean')).toBe(true);
+      // All matched leads must be either Exporter, Importer, or Dual (Both)
+      expect(
+        res.items.every(
+          (i) =>
+            i.role === 'Exporter' ||
+            i.role === 'Importer' ||
+            i.role === 'Both' ||
+            i.role === 'Both (Exporter & Importer)'
+        )
+      ).toBe(true);
+    });
+
+    it('matches dual-trade records when Both filter is selected', () => {
+      const res = queryDatamyneLeads({
+        dataset: 'all',
+        roles: ['Both'],
+      });
+      expect(res.items.length).toBeGreaterThan(0);
+      expect(
+        res.items.every(
+          (i) => i.role === 'Both' || i.role === 'Both (Exporter & Importer)'
+        )
+      ).toBe(true);
+    });
   });
 });
+
 

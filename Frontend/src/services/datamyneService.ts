@@ -123,7 +123,23 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
 
   // 6. Trading Role Multi-select
   if (roles.length > 0) {
-    filtered = filtered.filter((d) => roles.includes(d.role));
+    const hasExp = roles.includes('Exporter');
+    const hasImp = roles.includes('Importer');
+    const hasBoth = roles.includes('Both') || roles.includes('Both (Exporter & Importer)');
+
+    filtered = filtered.filter((d) => {
+      const isDualLead = d.role === 'Both' || d.role === 'Both (Exporter & Importer)';
+      const isExpLead = d.role === 'Exporter';
+      const isImpLead = d.role === 'Importer';
+
+      if (hasBoth && isDualLead) return true;
+      if (hasExp && isExpLead) return true;
+      if (hasImp && isImpLead) return true;
+      // If user checks both Exporter and Importer, companies performing dual trade match
+      if (hasExp && hasImp && isDualLead) return true;
+
+      return false;
+    });
   }
 
   // 7. City Multi-select
