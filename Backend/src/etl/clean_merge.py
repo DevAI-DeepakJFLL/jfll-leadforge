@@ -49,7 +49,7 @@ def clean_mobile_number(phone: object) -> str:
     if pd.isna(phone):
         return ""
     raw = str(phone).strip()
-    if raw in ["-", "--", "N/A", "NA", "nan"]:
+    if raw in ["-", "--", "---", "+91-", "+91", "N/A", "NA", "nan", "null", "none"]:
         return ""
     if raw.endswith(".0") and raw[:-2].isdigit():
         raw = raw[:-2]
@@ -57,6 +57,8 @@ def clean_mobile_number(phone: object) -> str:
     if cleaned.startswith("-") and len(cleaned) > 1 and cleaned[1:].isdigit():
         cleaned = cleaned[1:]
     digits = re.sub(r"\D", "", cleaned)
+    if len(digits) < 5 or digits == "91":
+        return ""
     if len(cleaned) == 10 and cleaned.isdigit():
         return f"+91-{cleaned}"
     if len(digits) == 12 and digits.startswith("91") and not cleaned.startswith("+"):

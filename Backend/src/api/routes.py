@@ -117,7 +117,7 @@ def list_leads(
 
     # Contact readiness
     if has_phone:
-        conditions.append('("Mobile Number" IS NOT NULL AND length(trim("Mobile Number")) > 0)')
+        conditions.append('("Mobile Number" IS NOT NULL AND length(trim("Mobile Number")) > 0 AND trim("Mobile Number") NOT IN (\'-\', \'--\', \'---\', \'+91-\', \'+91\', \'N/A\', \'NA\', \'null\', \'none\'))')
     if has_email:
         conditions.append('("Email" IS NOT NULL AND length(trim("Email")) > 0)')
     if has_contact_person:

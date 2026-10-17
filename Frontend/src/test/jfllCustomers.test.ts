@@ -1,6 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
-import { queryJfllCustomers, exportJfllCustomersCsv } from '@/services/jfllCustomerService';
+import {
+  queryJfllCustomers,
+  exportJfllCustomersCsv,
+  isValidPhoneNumber,
+} from '@/services/jfllCustomerService';
 import { formatPhoneNumber } from '@/components/jfll/JfllCustomerTable';
 
 describe('JFLL Customers Dataset & Query Service', () => {
@@ -40,9 +44,10 @@ describe('JFLL Customers Dataset & Query Service', () => {
 
   it('filters accurately by Contact Readiness', () => {
     const phoneRes = queryJfllCustomers({ hasPhone: true });
-    expect(phoneRes.totalEstimate).toBe(656);
+    expect(phoneRes.totalEstimate).toBe(655);
     phoneRes.items.forEach((c) => {
       expect(c.mobileNumber).toBeTruthy();
+      expect(isValidPhoneNumber(c.mobileNumber)).toBe(true);
     });
 
     const emailRes = queryJfllCustomers({ hasEmail: true });
@@ -111,7 +116,33 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(formatPhoneNumber('+91-9821230317')?.number).toBe('9821230317');
     expect(formatPhoneNumber('+91 9821230317')?.number).toBe('9821230317');
     expect(formatPhoneNumber('91-9821230317')?.number).toBe('9821230317');
+    expect(formatPhoneNumber('-9810926644')?.number).toBe('9810926644');
     expect(formatPhoneNumber(null)).toBeNull();
+    expect(formatPhoneNumber('-')).toBeNull();
+    expect(formatPhoneNumber('--')).toBeNull();
+    expect(formatPhoneNumber('---')).toBeNull();
+    expect(formatPhoneNumber('+91-')).toBeNull();
+    expect(formatPhoneNumber('+91')).toBeNull();
+    expect(formatPhoneNumber('N/A')).toBeNull();
+    expect(formatPhoneNumber('null')).toBeNull();
+  });
+
+  it('validates phone numbers rejecting placeholders and accepting valid numbers', () => {
+    expect(isValidPhoneNumber('+91-9821230317')).toBe(true);
+    expect(isValidPhoneNumber('9821230317')).toBe(true);
+    expect(isValidPhoneNumber('+91-2242643060')).toBe(true);
+    expect(isValidPhoneNumber('-')).toBe(false);
+    expect(isValidPhoneNumber('--')).toBe(false);
+    expect(isValidPhoneNumber('---')).toBe(false);
+    expect(isValidPhoneNumber('+91-')).toBe(false);
+    expect(isValidPhoneNumber('+91')).toBe(false);
+    expect(isValidPhoneNumber('N/A')).toBe(false);
+    expect(isValidPhoneNumber('NA')).toBe(false);
+    expect(isValidPhoneNumber('null')).toBe(false);
+    expect(isValidPhoneNumber('none')).toBe(false);
+    expect(isValidPhoneNumber(null)).toBe(false);
+    expect(isValidPhoneNumber(undefined)).toBe(false);
+    expect(isValidPhoneNumber('')).toBe(false);
   });
 
   it('computes exact dynamic facet counts matching dataset records', async () => {
@@ -178,24 +209,29 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(inactiveGroupRes.totalEstimate).toBe(415);
     inactiveGroupRes.items.forEach((c) => expect(c.customerGroup).toBe('Inactive (DataMyne Match)'));
 
-    // Contact readiness filter for inactive
+    // Contact readiness filter for inactive (1,883 records with valid phone, 127 without phone)
     const phoneFilterRes = queryJfllCustomers({ customerStatus: 'inactive', hasPhone: true });
-    expect(phoneFilterRes.totalEstimate).toBeGreaterThan(0);
-    phoneFilterRes.items.forEach((c) => expect(c.mobileNumber).toBeTruthy());
+    expect(phoneFilterRes.totalEstimate).toBe(1883);
+    phoneFilterRes.items.forEach((c) => {
+      expect(c.mobileNumber).toBeTruthy();
+      expect(isValidPhoneNumber(c.mobileNumber)).toBe(true);
+      expect(c.mobileNumber).not.toBe('-');
+      expect(c.mobileNumber).not.toBe('+91-');
+    });
   });
 
   it('computes contact readiness facet counts accurately for both active and inactive datasets', async () => {
     const { getContactReadinessFacetCounts } = await import('@/services/jfllCustomerService');
     const activeCounts = getContactReadinessFacetCounts('active');
     expect(activeCounts.hasContactPerson).toBe(728);
-    expect(activeCounts.hasPhone).toBe(656);
+    expect(activeCounts.hasPhone).toBe(655);
     expect(activeCounts.hasEmail).toBe(703);
 
     const inactiveCounts = getContactReadinessFacetCounts('inactive');
-    expect(inactiveCounts.hasContactPerson).toBeGreaterThan(0);
-    expect(inactiveCounts.hasPhone).toBeGreaterThan(0);
-    expect(inactiveCounts.hasEmail).toBeGreaterThan(0);
-    expect(inactiveCounts.hasContactPerson + inactiveCounts.hasPhone + inactiveCounts.hasEmail).toBeGreaterThan(0);
+    expect(inactiveCounts.hasContactPerson).toBe(2010);
+    expect(inactiveCounts.hasPhone).toBe(1883);
+    expect(inactiveCounts.hasEmail).toBe(1908);
+    expect(inactiveCounts.hasContactPerson + inactiveCounts.hasPhone + inactiveCounts.hasEmail).toBe(5801);
   });
 });
 

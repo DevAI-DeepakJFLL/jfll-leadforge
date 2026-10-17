@@ -73,16 +73,27 @@ export const IndiaFlagIcon: React.FC<{ className?: string }> = ({ className = 'w
 );
 
 /**
- * Normalizes phone numbers by stripping +91 prefix for pairing with the Indian flag icon
+ * Normalizes phone numbers by stripping +91 prefix for pairing with the Indian flag icon.
+ * Returns null if the phone is missing, a placeholder (like "-"), or invalid.
  */
 export function formatPhoneNumber(phone: string | null | undefined): { number: string; raw: string } | null {
   if (!phone || !phone.trim()) return null;
   const raw = phone.trim();
+  // Filter out placeholder symbols
+  if (['-', '--', '---', '+91-', '+91', 'N/A', 'NA', 'null', 'none'].includes(raw)) {
+    return null;
+  }
+  const digits = raw.replace(/\D/g, '');
+  if (digits.length < 5 || digits === '91') {
+    return null;
+  }
+  // Strip leading minus if exported from Excel as negative number (e.g. -9810926644)
+  let cleaned = raw.replace(/^-/, '');
   // Strip leading +91-, +91, 91-, or +
-  const cleaned = raw.replace(/^(\+91[-\s]?|91[-\s]?|\+)/, '').trim();
+  cleaned = cleaned.replace(/^(\+91[-\s]?|91[-\s]?|\+)/, '').trim();
   return {
-    number: cleaned || raw,
-    raw,
+    number: cleaned || digits,
+    raw: cleaned ? `+91-${cleaned}` : raw,
   };
 }
 

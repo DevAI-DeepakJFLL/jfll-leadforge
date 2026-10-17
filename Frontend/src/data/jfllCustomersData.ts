@@ -4219,7 +4219,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "fullName": "KALASH GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sonali Gaikwad",
-    "mobileNumber": "+91-",
+    "mobileNumber": "",
     "email": "sonali@kglindia.in",
     "status": "Active",
     "customerGroup": "Subagent",

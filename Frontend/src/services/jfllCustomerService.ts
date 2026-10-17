@@ -131,6 +131,23 @@ export async function fetchJfllCustomersFromApi(
 }
 
 /**
+ * Accurately determines if a phone string represents a valid, dialable phone number
+ * and not a missing/placeholder indicator like "-", "--", "+91-", "N/A", "null", etc.
+ */
+export function isValidPhoneNumber(phone?: string | null): boolean {
+  if (!phone || !phone.trim()) return false;
+  const raw = phone.trim();
+  // Reject known placeholder symbols
+  if (['-', '--', '---', '+91-', '+91', 'N/A', 'NA', 'null', 'none'].includes(raw)) {
+    return false;
+  }
+  // Extract digit characters
+  const digits = raw.replace(/\D/g, '');
+  // Must have at least 5 subscriber digits and not simply be the country code '91'
+  return digits.length >= 5 && digits !== '91';
+}
+
+/**
  * Filter and query JFLL Customers dataset synchronously (used as reliable offline fallback)
  */
 export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllCustomersResponse {
@@ -158,7 +175,9 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     } else if (tab === 'archive') {
       filtered = filtered.filter((c) => !c.inDataMyne);
     } else if (tab === 'with-contacts') {
-      filtered = filtered.filter((c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber);
+      filtered = filtered.filter(
+        (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
+      );
     }
   } else {
     if (tab === 'shippers') {
@@ -168,7 +187,9 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     } else if (tab === 'overseas') {
       filtered = filtered.filter((c) => c.customerGroup === 'Overseas Agent');
     } else if (tab === 'with-contacts') {
-      filtered = filtered.filter((c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber);
+      filtered = filtered.filter(
+        (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
+      );
     }
   }
 
@@ -180,7 +201,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         c.fullName.toLowerCase().includes(query) ||
         (c.contactPersonName && c.contactPersonName.toLowerCase().includes(query)) ||
         (c.email && c.email.toLowerCase().includes(query)) ||
-        (c.mobileNumber && c.mobileNumber.toLowerCase().includes(query))
+        (isValidPhoneNumber(c.mobileNumber) && c.mobileNumber!.toLowerCase().includes(query))
     );
   }
 
@@ -196,7 +217,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
 
   // 5. Contact Readiness Filters
   if (hasPhone) {
-    filtered = filtered.filter((c) => !!c.mobileNumber && c.mobileNumber.trim().length > 0);
+    filtered = filtered.filter((c) => isValidPhoneNumber(c.mobileNumber));
   }
   if (hasEmail) {
     filtered = filtered.filter((c) => !!c.email && c.email.trim().length > 0);
@@ -215,7 +236,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         subagents: 0,
         overseas: 0,
         withContacts: JFLL_INACTIVE_CUSTOMERS_DATA.filter(
-          (c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber
+          (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
         ).length,
         datamyneLeads: JFLL_INACTIVE_CUSTOMERS_DATA.filter((c) => !!c.inDataMyne).length,
         archive: JFLL_INACTIVE_CUSTOMERS_DATA.filter((c) => !c.inDataMyne).length,
@@ -228,7 +249,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         subagents: JFLL_CUSTOMERS_DATA.filter((c) => c.customerGroup === 'Subagent').length,
         overseas: JFLL_CUSTOMERS_DATA.filter((c) => c.customerGroup === 'Overseas Agent').length,
         withContacts: JFLL_CUSTOMERS_DATA.filter(
-          (c) => !!c.contactPersonName || !!c.email || !!c.mobileNumber
+          (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
         ).length,
         datamyneLeads: 0,
         archive: 0,
@@ -344,7 +365,7 @@ export function getContactReadinessFacetCounts(status: 'active' | 'inactive' = '
   let hasEmail = 0;
   for (const c of data) {
     if (c.contactPersonName && c.contactPersonName.trim().length > 0) hasContactPerson++;
-    if (c.mobileNumber && c.mobileNumber.trim().length > 0) hasPhone++;
+    if (isValidPhoneNumber(c.mobileNumber)) hasPhone++;
     if (c.email && c.email.trim().length > 0) hasEmail++;
   }
   return { hasContactPerson, hasPhone, hasEmail };
