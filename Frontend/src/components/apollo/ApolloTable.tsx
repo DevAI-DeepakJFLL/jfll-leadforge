@@ -191,7 +191,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
               <th className="py-2.5 px-3 min-w-[180px] bg-slate-100 sticky top-0 z-20">Cargo Vertical</th>
               <th className="py-2.5 px-3 min-w-[140px] bg-slate-100 sticky top-0 z-20">Scale & Revenue</th>
               <th className="py-2.5 px-3 min-w-[150px] bg-slate-100 sticky top-0 z-20">Headquarters</th>
-              <th className="py-2.5 px-3 min-w-[140px] bg-slate-100 sticky top-0 z-20">Direct Phone</th>
+              <th className="py-2.5 px-3 min-w-[175px] bg-slate-100 sticky top-0 z-20">Direct Phone</th>
               <th className="py-2.5 px-3 w-28 text-right bg-slate-100 sticky top-0 z-20">Details</th>
             </tr>
           </thead>
@@ -299,24 +299,35 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                     </div>
                   </td>
 
-                  {/* Direct Phone Number with One-Click Copy */}
-                  <td className="py-2.5 px-3">
-                    <div className="inline-flex items-center space-x-1 text-slate-700 bg-slate-50/80 border border-slate-200/60 px-2 py-1 rounded-md">
-                      <Phone className="w-3 h-3 text-slate-400 shrink-0" />
-                      <span className="font-mono text-[11px] select-text">{lead.phone}</span>
-                      <button
-                        onClick={(e) => handleCopyPhone(e, lead.phone, lead.organization_id)}
-                        className="p-0.5 text-slate-400 hover:text-apollo rounded hover:bg-white transition-colors ml-0.5"
-                        title="Copy phone number"
-                        aria-label="Copy phone number"
-                      >
-                        {isPhoneCopied ? (
-                          <Check className="w-3 h-3 text-green-600" />
-                        ) : (
-                          <Copy className="w-3 h-3" />
-                        )}
-                      </button>
-                    </div>
+                  {/* Direct Phone Number - True Capsule Pill Chip */}
+                  <td className="py-2.5 px-3 whitespace-nowrap">
+                    {lead.phone && lead.phone !== '—' && lead.phone.toLowerCase() !== 'not specified' ? (
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-50 hover:bg-slate-100/80 border border-slate-200/90 hover:border-slate-300 text-slate-700 hover:text-apollo text-[11px] font-mono whitespace-nowrap shadow-2xs transition-all group/phone">
+                        <Phone className="w-3 h-3 text-slate-400 group-hover/phone:text-apollo shrink-0 transition-colors" />
+                        <a
+                          href={`tel:${lead.phone.replace(/[^0-9+]/g, '')}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="hover:underline font-medium select-text"
+                          title={`Call ${lead.phone}`}
+                        >
+                          {lead.phone}
+                        </a>
+                        <button
+                          onClick={(e) => handleCopyPhone(e, lead.phone, lead.organization_id)}
+                          className="p-0.5 text-slate-400 hover:text-apollo rounded-full hover:bg-white transition-colors shrink-0 ml-0.5 cursor-pointer"
+                          title="Copy phone number"
+                          aria-label="Copy phone number"
+                        >
+                          {isPhoneCopied ? (
+                            <Check className="w-3 h-3 text-emerald-600" />
+                          ) : (
+                            <Copy className="w-2.5 h-2.5 opacity-60 group-hover/phone:opacity-100 transition-opacity" />
+                          )}
+                        </button>
+                      </div>
+                    ) : (
+                      <span className="text-slate-400 italic text-[11px] pl-1">—</span>
+                    )}
                   </td>
 
                   {/* Actions: View Details & Find Decision-Makers Buttons */}
