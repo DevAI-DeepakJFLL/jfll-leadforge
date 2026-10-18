@@ -13,18 +13,16 @@ ALLOWED_STATUSES = {"Active", "Not Active"}
 ALLOWED_TABS = {"all", "shippers", "subagents", "overseas", "with-contacts"}
 
 
-def get_data_source(con) -> str:
-    """Returns s3_uri if S3/Floci is accessible, else falls back to local processed parquet."""
-    if settings.env != "local":
-        return settings.s3_uri
+def get_data_source(con, dataset: str = "active") -> str:
+    """Returns local cached Parquet file path (via /tmp in Lambda or local disk), falling back to S3 URI if needed."""
     try:
-        con.execute(f"SELECT 1 FROM '{settings.s3_uri}' LIMIT 0")
-        return settings.s3_uri
+        from src.api.database import get_cached_parquet_path
+        cached_path = get_cached_parquet_path(dataset)
+        if cached_path.exists():
+            return str(cached_path)
     except Exception:
-        local_path = settings.local_parquet_path
-        if local_path.exists():
-            return str(local_path)
-        return settings.s3_uri
+        pass
+    return settings.s3_uri_for(dataset)
 
 
 @router.get("/leads", response_model=PaginatedResponse, summary="Retrieve paginated customer leads")

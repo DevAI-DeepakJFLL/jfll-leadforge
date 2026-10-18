@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import ClassVar, Dict
 from pydantic import BaseModel, Field
 
 
@@ -20,6 +21,19 @@ class Settings(BaseModel):
     default_user_name: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_NAME", "JFLL"))
     default_user_role: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_ROLE", "Internal Team"))
 
+    cache_dir: Path = Field(
+        default_factory=lambda: Path(os.getenv("S3_CACHE_DIR", "/tmp/lead_cache" if os.getenv("AWS_LAMBDA_FUNCTION_NAME") else str(Path(__file__).resolve().parent.parent.parent / "data" / "processed")))
+    )
+
+    DATASET_FILES: ClassVar[Dict[str, str]] = {
+        "active": "active_customers_leads_zstd.parquet",
+        "inactive": "inactive_customers_leads_zstd.parquet",
+        "datamyne": "datamyne_leads_zstd.parquet",
+        "datamyne_valid": "datamyne_valid_leads_zstd.parquet",
+        "datamyne_missing": "datamyne_missing_leads_zstd.parquet",
+        "apollo": "apollo_freight_leads_zstd.parquet",
+    }
+
     @property
     def local_parquet_path(self) -> Path:
         base_dir = Path(__file__).resolve().parent.parent.parent
@@ -28,6 +42,13 @@ class Settings(BaseModel):
     @property
     def s3_uri(self) -> str:
         return f"s3://{self.s3_bucket}/{self.parquet_key}"
+
+    def s3_uri_for(self, dataset: str) -> str:
+        filename = self.DATASET_FILES.get(dataset, self.DATASET_FILES["active"])
+        return f"s3://{self.s3_bucket}/leads/{filename}"
+
+    def get_dataset_filename(self, dataset: str) -> str:
+        return self.DATASET_FILES.get(dataset, self.DATASET_FILES["active"])
 
 
 settings = Settings()

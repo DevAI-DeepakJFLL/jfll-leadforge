@@ -62,18 +62,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY || vars.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION || vars.AWS_REGION || 'ap-southeast-2' }}
 
-      - name: Upload Parquet Leads to S3
+      - name: Verify S3 Parquet Datasets
         run: |
-          echo "Uploading active customer Parquet dataset to S3..."
-          aws s3 cp Backend/data/processed/active_customers_leads_zstd.parquet \
-            s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/active_customers_leads_zstd.parquet
-          echo "Uploading DataMyne Parquet datasets to S3..."
-          aws s3 cp Backend/data/processed/datamyne_leads_zstd.parquet \
-            s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/datamyne_leads_zstd.parquet
-          aws s3 cp Backend/data/processed/datamyne_valid_leads_zstd.parquet \
-            s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/datamyne_valid_leads_zstd.parquet
-          aws s3 cp Backend/data/processed/datamyne_missing_leads_zstd.parquet \
-            s3://${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}/leads/datamyne_missing_leads_zstd.parquet
+          DATA_BKT="${{ secrets.S3_DATA_BUCKET || vars.S3_DATA_BUCKET }}"
+          echo "Verifying analytical Parquet datasets in s3://${DATA_BKT}/leads/..."
+          aws s3 ls "s3://${DATA_BKT}/leads/"
 
       - name: Verify Zero Excel/CSV Footprint in S3 Data Bucket
         run: |
@@ -113,6 +106,7 @@ jobs:
           mkdir -p package
           pip install --target ./package -r requirements-lambda.txt
           cp -r src ./package/
+          cp lambda_function.py ./package/ 2>/dev/null || true
           cd package
           zip -r ../function.zip . -x "*__pycache__*" "*.pyc"
           cd ..
