@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowLambdaReadLeadParquetOnly",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": "arn:aws:s3:::jfll-leadforge-data/leads/*.parquet"
+    },
+    {
+      "Sid": "AllowLambdaListLeadBucket",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListBucket"
+      ],
+      "Resource": "arn:aws:s3:::jfll-leadforge-data",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "leads/*",
+            "leads"
+          ]
+        }
+      }
+    }
+  ]
+}
