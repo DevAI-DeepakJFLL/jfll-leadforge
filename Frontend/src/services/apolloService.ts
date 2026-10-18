@@ -10,12 +10,7 @@ import {
 } from '@/types/apolloLead';
 import { logger } from '@/utils/logger';
 import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  (import.meta.env.PROD
-    ? 'https://uxfmnbd6owxk3wxemhizp4gqsa0exlge.lambda-url.ap-southeast-2.on.aws'
-    : 'http://localhost:8000');
+import { API_BASE_URL } from '@/config/api';
 
 function getAuthHeader(): Record<string, string> {
   try {

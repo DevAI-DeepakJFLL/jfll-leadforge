@@ -7,6 +7,7 @@ import {
 } from '@/types/jfllCustomer';
 import { logger } from '@/utils/logger';
 import { createCsvBlob } from '@/utils/csv';
+import { API_BASE_URL } from '@/config/api';
 
 interface ApiLeadRecord {
   full_name?: string;
@@ -59,8 +60,7 @@ export async function fetchJfllCustomersFromApi(
   customerGroups.forEach((g) => urlParams.append('customer_groups', g));
   types.forEach((t) => urlParams.append('types', t));
 
-  const apiBase = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
-  const endpoint = `${apiBase}/api/v1/leads?${urlParams.toString()}`;
+  const endpoint = `${API_BASE_URL}/api/v1/leads?${urlParams.toString()}`;
   logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups });
 
   let authHeader: Record<string, string> = {};

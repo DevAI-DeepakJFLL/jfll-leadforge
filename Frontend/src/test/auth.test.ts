@@ -34,7 +34,7 @@ describe('authService', () => {
       password: 'Jet@123',
     });
 
-    expect(globalThis.fetch).toHaveBeenCalledWith('/api/v1/auth/login', {
+    expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/api/v1/auth/login'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: 'leads@jfll.com', password: 'Jet@123' }),

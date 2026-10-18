@@ -1,5 +1,6 @@
 import { UserSession, DEMO_CREDENTIALS } from '@/types/auth';
 import { logger } from '@/utils/logger';
+import { API_BASE_URL } from '@/config/api';
 
 export interface LoginCredentials {
   email: string;
@@ -24,9 +25,8 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
   const startTime = performance.now();
   logger.info('AUTH', 'Initiating user authentication', { email: email.trim() });
 
-  const apiBase = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
   try {
-    const res = await fetch(`${apiBase}/api/v1/auth/login`, {
+    const res = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
