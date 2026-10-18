@@ -1,4 +1,5 @@
 import { APOLLO_STARTER_DATA } from '@/data/apolloStarterData';
+import { APOLLO_CONTACTS_STARTER_DATA } from '@/data/apolloContactsStarterData';
 import {
   ApolloLead,
   ApolloFilterParams,
@@ -6,6 +7,7 @@ import {
   ApolloAudienceCounts,
   APOLLO_EMPLOYEE_TIERS,
   APOLLO_REVENUE_RANGES,
+  ApolloContactsResponse,
 } from '@/types/apolloLead';
 import { logger } from '@/utils/logger';
 
@@ -336,3 +338,140 @@ export function exportApolloLeadsCsv(leads: ApolloLead[], filename = 'apollo_fre
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
 }
+
+export interface CompanyContactsOptions {
+  page?: number;
+  limit?: number;
+  logisticsOnly?: boolean;
+  decisionMakersOnly?: boolean;
+  hasEmailOnly?: boolean;
+  search?: string;
+}
+
+/**
+ * Filter company contacts from local starter data.
+ */
+export function queryCompanyContactsLocal(
+  organizationId: string,
+  options: CompanyContactsOptions = {}
+): ApolloContactsResponse {
+  const {
+    page = 1,
+    limit = 20,
+    logisticsOnly,
+    decisionMakersOnly,
+    hasEmailOnly,
+    search,
+  } = options;
+
+  let contacts = APOLLO_CONTACTS_STARTER_DATA.filter(
+    (c) => c.organization_id === organizationId
+  );
+
+  if (logisticsOnly) {
+    contacts = contacts.filter((c) => c.is_logistics_role);
+  }
+  if (decisionMakersOnly) {
+    contacts = contacts.filter((c) => c.is_decision_maker);
+  }
+  if (hasEmailOnly) {
+    contacts = contacts.filter((c) => c.has_email);
+  }
+  if (search && search.trim()) {
+    const s = search.trim().toLowerCase();
+    contacts = contacts.filter(
+      (c) =>
+        c.person_name.toLowerCase().includes(s) ||
+        c.job_title.toLowerCase().includes(s) ||
+        (c.email && c.email.toLowerCase().includes(s))
+    );
+  }
+
+  // Sort by logistics role DESC, decision maker DESC, has email DESC, person name ASC
+  contacts.sort((a, b) => {
+    if (a.is_logistics_role !== b.is_logistics_role) {
+      return a.is_logistics_role ? -1 : 1;
+    }
+    if (a.is_decision_maker !== b.is_decision_maker) {
+      return a.is_decision_maker ? -1 : 1;
+    }
+    if (a.has_email !== b.has_email) {
+      return a.has_email ? -1 : 1;
+    }
+    return a.person_name.localeCompare(b.person_name);
+  });
+
+  const totalRecords = contacts.length;
+  const totalPages = Math.ceil(totalRecords / limit) || 1;
+  const safePage = Math.max(1, Math.min(page, totalPages));
+  const offset = (safePage - 1) * limit;
+  const items = contacts.slice(offset, offset + limit);
+
+  return {
+    page: safePage,
+    limit,
+    totalRecords,
+    totalPages,
+    hasNext: safePage < totalPages,
+    items,
+  };
+}
+
+/**
+ * Fetch contacts for an organization from the Apollo API with automatic fallback to starter dataset.
+ */
+export async function fetchCompanyContacts(
+  organizationId: string,
+  options: CompanyContactsOptions = {}
+): Promise<ApolloContactsResponse> {
+  const {
+    page = 1,
+    limit = 20,
+    logisticsOnly,
+    decisionMakersOnly,
+    hasEmailOnly,
+    search,
+  } = options;
+
+  const urlParams = new URLSearchParams();
+  urlParams.set('page', String(page));
+  urlParams.set('page_size', String(limit));
+  if (logisticsOnly) urlParams.set('logistics_only', 'true');
+  if (decisionMakersOnly) urlParams.set('decision_makers_only', 'true');
+  if (hasEmailOnly) urlParams.set('has_email_only', 'true');
+  if (search && search.trim()) urlParams.set('search', search.trim());
+
+  const targetUrl = `${API_BASE_URL}/api/v1/apollo/companies/${encodeURIComponent(
+    organizationId
+  )}/contacts?${urlParams.toString()}`;
+
+  try {
+    const authHeaders = getAuthHeader();
+    const response = await fetch(targetUrl, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        ...authHeaders,
+      },
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      return {
+        page: result.page || page,
+        limit: result.page_size || limit,
+        totalRecords: result.total_records || 0,
+        totalPages: result.total_pages || 1,
+        hasNext: result.has_next || false,
+        items: result.data || [],
+      };
+    } else {
+      logger.warn('APOLLO', `Contacts API returned ${response.status}. Falling back to starter contacts.`);
+    }
+  } catch (err) {
+    logger.warn('APOLLO', 'Failed to reach contacts API endpoint. Falling back to starter contacts.', { err });
+  }
+
+  return queryCompanyContactsLocal(organizationId, options);
+}
+

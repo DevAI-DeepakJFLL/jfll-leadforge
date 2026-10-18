@@ -167,3 +167,35 @@ export function toSafeExternalUrl(url?: string | null): string | null {
   return `https://${trimmed}`;
 }
 
+export interface ApolloContact {
+  organization_id?: string | null;
+  person_id: string;
+  person_name: string;
+  first_name?: string | null;
+  last_name?: string | null;
+  job_title: string;
+  job_title_normalized?: string | null;
+  seniority?: string | null;
+  department?: string | null;
+  email?: string | null;
+  email_status?: 'Verified' | 'Extrapolated' | string | null;
+  email_confidence?: number | null;
+  linkedin_url?: string | null;
+  contact_city?: string | null;
+  contact_state?: string | null;
+  contact_country?: string | null;
+  is_decision_maker: boolean;
+  is_logistics_role: boolean;
+  has_email: boolean;
+  employer_name?: string | null;
+}
+
+export interface ApolloContactsResponse {
+  page: number;
+  limit: number;
+  totalRecords: number;
+  totalPages: number;
+  hasNext: boolean;
+  items: ApolloContact[];
+}
+

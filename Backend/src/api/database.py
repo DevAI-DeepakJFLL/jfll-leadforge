@@ -62,6 +62,9 @@ def get_cached_parquet_path(dataset: str = "active") -> Path:
         local_p = settings.local_parquet_path.parent / filename
         if local_p.exists():
             return local_p
+        apollo_p = settings.local_parquet_path.parent.parent / "Apollo" / filename
+        if apollo_p.exists():
+            return apollo_p
 
     # 2. Ephemeral /tmp cache check
     cache_path = settings.cache_dir / filename

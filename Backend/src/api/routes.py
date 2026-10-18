@@ -8,6 +8,8 @@ from src.api.models import (
     AudienceCounts,
     ApolloPaginatedResponse,
     ApolloAudienceCounts,
+    ApolloContactRecord,
+    ApolloContactsPaginatedResponse,
 )
 from src.api.logger import logger
 from src.api.auth import verify_token
@@ -449,5 +451,230 @@ def get_apollo_stats():
     except Exception as e:
         logger.error(f"Error retrieving Apollo stats: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to retrieve stats: {str(e)}")
+
+
+@router.get(
+    "/apollo/companies/{organization_id}/contacts",
+    response_model=ApolloContactsPaginatedResponse,
+    summary="Retrieve verified contacts and decision-makers for an Apollo organization",
+)
+def list_company_contacts(
+    organization_id: str,
+    page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
+    page_size: int = Query(default=20, ge=1, le=100, description="Records per page (max 100)"),
+    logistics_only: Optional[bool] = Query(default=None, description="Filter for freight/logistics/procurement specialists"),
+    decision_makers_only: Optional[bool] = Query(default=None, description="Filter for C-Suite/VP/Director/Manager"),
+    has_email_only: Optional[bool] = Query(default=None, description="Require direct business email"),
+    search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search by name, title, or email"),
+    authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
+):
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.split("Bearer ", 1)[1].strip()
+        user = verify_token(token)
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid or expired session token")
+    elif settings.env == "production":
+        raise HTTPException(status_code=401, detail="Authentication required to access Apollo contacts")
+
+    if isinstance(page, QueryType): page = 1
+    if isinstance(page_size, QueryType): page_size = 20
+    if isinstance(logistics_only, QueryType): logistics_only = None
+    if isinstance(decision_makers_only, QueryType): decision_makers_only = None
+    if isinstance(has_email_only, QueryType): has_email_only = None
+    if isinstance(search, QueryType): search = None
+
+    offset = (page - 1) * page_size
+    con = get_db_connection()
+    data_source = get_data_source(con, dataset="apollo_contacts_profile")
+
+    try:
+        conditions = ["organization_id = ?"]
+        params = [organization_id.strip()]
+
+        if logistics_only is True:
+            conditions.append("is_logistics_role = true")
+        if decision_makers_only is True:
+            conditions.append("is_decision_maker = true")
+        if has_email_only is True:
+            conditions.append("has_email = true")
+        if search and search.strip():
+            pat = f"%{search.strip().lower()}%"
+            conditions.append("(lower(person_name) LIKE ? OR lower(job_title) LIKE ? OR lower(COALESCE(email, '')) LIKE ?)")
+            params.extend([pat, pat, pat])
+
+        where_sql = " AND ".join(conditions)
+
+        count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
+        total_records = con.execute(count_query, params).fetchone()[0]
+
+        data_query = f"""
+            SELECT 
+                person_id,
+                organization_id,
+                person_name,
+                first_name,
+                last_name,
+                job_title,
+                job_title_normalized,
+                seniority,
+                department,
+                email,
+                email_status,
+                email_confidence,
+                linkedin_url,
+                contact_city,
+                contact_state,
+                contact_country,
+                is_decision_maker,
+                is_logistics_role,
+                has_email,
+                CAST(NULL AS VARCHAR) as employer_name
+            FROM '{data_source}'
+            WHERE {where_sql}
+            ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC, person_name ASC
+            LIMIT ? OFFSET ?
+        """
+        query_params = params + [page_size, offset]
+        result_cursor = con.execute(data_query, query_params)
+        columns = [desc[0] for desc in result_cursor.description]
+        rows = result_cursor.fetchall()
+        clean_records = [dict(zip(columns, row)) for row in rows]
+        total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
+
+        return {
+            "page": page,
+            "page_size": page_size,
+            "total_records": total_records,
+            "total_pages": total_pages,
+            "has_next": page < total_pages,
+            "data": clean_records,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error querying contacts for organization {organization_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Database query failure: {str(e)}")
+
+
+@router.get(
+    "/apollo/contacts",
+    response_model=ApolloContactsPaginatedResponse,
+    summary="Global search across Apollo contacts and freight decision-makers",
+)
+def search_apollo_contacts(
+    page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
+    page_size: int = Query(default=25, ge=1, le=100, description="Records per page (max 100)"),
+    seniority: Optional[str] = Query(default=None, description="Seniority tier: c_suite, vp, director, manager, senior, entry"),
+    department: Optional[str] = Query(default=None, description="Functional department"),
+    logistics_only: Optional[bool] = Query(default=None, description="Require logistics/supply chain/freight role"),
+    decision_makers_only: Optional[bool] = Query(default=None, description="Require decision maker seniority"),
+    has_email_only: Optional[bool] = Query(default=None, description="Require direct business email"),
+    country: Optional[str] = Query(default=None, description="Contact country"),
+    search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search name, title, email"),
+    authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
+):
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.split("Bearer ", 1)[1].strip()
+        user = verify_token(token)
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid or expired session token")
+    elif settings.env == "production":
+        raise HTTPException(status_code=401, detail="Authentication required to access Apollo contacts")
+
+    if isinstance(page, QueryType): page = 1
+    if isinstance(page_size, QueryType): page_size = 25
+    if isinstance(seniority, QueryType): seniority = None
+    if isinstance(department, QueryType): department = None
+    if isinstance(logistics_only, QueryType): logistics_only = None
+    if isinstance(decision_makers_only, QueryType): decision_makers_only = None
+    if isinstance(has_email_only, QueryType): has_email_only = None
+    if isinstance(country, QueryType): country = None
+    if isinstance(search, QueryType): search = None
+
+    offset = (page - 1) * page_size
+    con = get_db_connection()
+    data_source = get_data_source(con, dataset="apollo_contacts_profile")
+
+    try:
+        conditions = ["1=1"]
+        params = []
+
+        if logistics_only is True:
+            conditions.append("is_logistics_role = true")
+        if decision_makers_only is True:
+            conditions.append("is_decision_maker = true")
+        if has_email_only is True:
+            conditions.append("has_email = true")
+
+        if seniority and seniority.strip():
+            conditions.append("lower(seniority) = ?")
+            params.append(seniority.strip().lower())
+
+        if department and department.strip():
+            conditions.append("lower(department) LIKE ?")
+            params.append(f"%{department.strip().lower()}%")
+
+        if country and country.strip():
+            conditions.append("lower(contact_country) = ?")
+            params.append(country.strip().lower())
+
+        if search and search.strip():
+            pat = f"%{search.strip().lower()}%"
+            conditions.append("(lower(person_name) LIKE ? OR lower(job_title) LIKE ? OR lower(COALESCE(email, '')) LIKE ?)")
+            params.extend([pat, pat, pat])
+
+        where_sql = " AND ".join(conditions)
+
+        count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
+        total_records = con.execute(count_query, params).fetchone()[0]
+
+        data_query = f"""
+            SELECT 
+                person_id,
+                organization_id,
+                person_name,
+                first_name,
+                last_name,
+                job_title,
+                job_title_normalized,
+                seniority,
+                department,
+                email,
+                email_status,
+                email_confidence,
+                linkedin_url,
+                contact_city,
+                contact_state,
+                contact_country,
+                is_decision_maker,
+                is_logistics_role,
+                has_email,
+                CAST(NULL AS VARCHAR) as employer_name
+            FROM '{data_source}'
+            WHERE {where_sql}
+            ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC, person_name ASC
+            LIMIT ? OFFSET ?
+        """
+        query_params = params + [page_size, offset]
+        result_cursor = con.execute(data_query, query_params)
+        columns = [desc[0] for desc in result_cursor.description]
+        rows = result_cursor.fetchall()
+        clean_records = [dict(zip(columns, row)) for row in rows]
+        total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
+
+        return {
+            "page": page,
+            "page_size": page_size,
+            "total_records": total_records,
+            "total_pages": total_pages,
+            "has_next": page < total_pages,
+            "data": clean_records,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error querying Apollo contacts from {data_source}: {e}")
+        raise HTTPException(status_code=500, detail=f"Database query failure: {str(e)}")
+
 
 

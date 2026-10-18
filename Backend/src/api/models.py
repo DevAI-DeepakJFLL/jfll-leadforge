@@ -92,3 +92,35 @@ class ApolloPaginatedResponse(BaseModel):
     audience_counts: Optional[ApolloAudienceCounts] = Field(default=None, description="Audience quick counts")
 
 
+class ApolloContactRecord(BaseModel):
+    person_id: str = Field(..., description="Master Apollo person identifier")
+    organization_id: Optional[str] = Field(None, description="Linked employer organization ID")
+    person_name: str = Field(..., description="Full contact name")
+    first_name: Optional[str] = Field(None, description="First name")
+    last_name: Optional[str] = Field(None, description="Last name")
+    job_title: str = Field(..., description="Exact corporate job title")
+    job_title_normalized: Optional[str] = Field(None, description="Standardized title category")
+    seniority: Optional[str] = Field(None, description="Hierarchical tier: c_suite, vp, director, manager, senior, entry")
+    department: Optional[str] = Field(None, description="Functional department")
+    email: Optional[str] = Field(None, description="Direct business email address")
+    email_status: Optional[str] = Field(None, description="Email deliverability status (Verified or Extrapolated)")
+    email_confidence: Optional[float] = Field(None, description="Confidence rating (0.0 to 1.0)")
+    linkedin_url: Optional[str] = Field(None, description="Personal LinkedIn profile URL")
+    contact_city: Optional[str] = Field(None, description="Contact city")
+    contact_state: Optional[str] = Field(None, description="Contact state or province")
+    contact_country: Optional[str] = Field(None, description="Contact country")
+    is_decision_maker: bool = Field(default=False, description="True for C-Suite, VP, Director, Head, or Manager")
+    is_logistics_role: bool = Field(default=False, description="True for logistics, supply chain, freight, or procurement")
+    has_email: bool = Field(default=False, description="True if email is present")
+    employer_name: Optional[str] = Field(None, description="Employer name for unprofiled contacts")
+
+
+class ApolloContactsPaginatedResponse(BaseModel):
+    page: int = Field(..., ge=1, description="Current page number")
+    page_size: int = Field(..., ge=1, description="Number of items per page")
+    total_records: int = Field(..., ge=0, description="Total matching contacts")
+    total_pages: int = Field(..., ge=0, description="Total pages available")
+    has_next: bool = Field(..., description="Whether subsequent page exists")
+    data: List[ApolloContactRecord] = Field(..., description="List of Apollo contact records")
+
+

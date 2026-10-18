@@ -17,8 +17,8 @@ def run_tests():
         context = browser.new_context(viewport={"width": 1440, "height": 900})
         page = context.new_page()
         
-        print("Navigating to http://127.0.0.1:5173 ...")
-        page.goto("http://127.0.0.1:5173")
+        print("Navigating to http://localhost:5173 ...")
+        page.goto("http://localhost:5173")
         page.wait_for_load_state("networkidle")
         time.sleep(1)
         
@@ -114,20 +114,36 @@ def run_tests():
         
         # Test Detail View: Open Slide-Over Drawer
         print("Testing View Details slide-over drawer...")
-        view_button = page.get_by_role("button", name="View", exact=True).first
-        assert view_button.is_visible(), "Apollo lead View button not visible"
-        view_button.click()
-        time.sleep(1)
+        page.wait_for_selector("table[aria-label='Apollo Shippers Table'] tbody tr", timeout=10000)
+        first_row = page.locator("table[aria-label='Apollo Shippers Table'] tbody tr").first
+        first_row.click()
+        time.sleep(2)
         
-        # Verify Drawer is visible with deep metrics & decision-maker bridge
+        # Verify Drawer is visible with deep metrics & Key Decision-Makers
         assert page.locator("text=Commercial Scale & Footprint").first.is_visible(), "Drawer scale card not visible"
         assert page.locator("text=Jet Freight Logistics Alignment").first.is_visible(), "Logistics alignment not visible"
-        assert page.locator("text=Looking for Decision-Makers at").first.is_visible(), "Decision-maker callout not visible"
-        
+        assert page.locator("text=Key Decision-Makers & Contacts").first.is_visible(), "Key Decision-Makers section not visible"
+        print("Verified Key Decision-Makers & Contacts section is active in drawer.")
+
+        # Verify that contacts cards are rendered
+        time.sleep(1) # Allow contacts to resolve
+        contact_cards = page.locator("text=Logistics Fit, text=Verified, button[aria-label='Copy email']")
+        print(f"Found active contact attributes in drawer: {contact_cards.count()}")
+
         drawer_screenshot_path = SCREENSHOTS_DIR / "apollo-accounts-drawer-desktop-1440.png"
         page.screenshot(path=str(drawer_screenshot_path))
         page.screenshot(path=str(ARTIFACT_DIR / "apollo-accounts-drawer-desktop-1440.png"))
         print(f"Captured {drawer_screenshot_path}")
+
+        # Test in-drawer filter: click "Logistics Roles"
+        logistics_filter_btn = page.locator("button:has-text('Logistics Roles')").first
+        if logistics_filter_btn.is_visible():
+            logistics_filter_btn.click()
+            time.sleep(0.5)
+            logistics_screenshot_path = SCREENSHOTS_DIR / "apollo-contacts-logistics-desktop-1440.png"
+            page.screenshot(path=str(logistics_screenshot_path))
+            page.screenshot(path=str(ARTIFACT_DIR / "apollo-contacts-logistics-desktop-1440.png"))
+            print(f"Captured {logistics_screenshot_path} (logistics roles filter active)")
         
         # Test Cross-Navigation: Click "Find Decision-Makers" from Drawer
         print("Testing 1-click cross-navigation from Apollo Account to People Directory...")
@@ -151,7 +167,7 @@ def run_tests():
         print("Testing Tablet layout (768x1024)...")
         context_tablet = browser.new_context(viewport={"width": 768, "height": 1024})
         page_tablet = context_tablet.new_page()
-        page_tablet.goto("http://127.0.0.1:5173")
+        page_tablet.goto("http://localhost:5173")
         page_tablet.wait_for_load_state("networkidle")
         if page_tablet.locator("input[type='email']").is_visible():
             page_tablet.fill("input[type='email']", "leads@jfll.com")
@@ -172,7 +188,7 @@ def run_tests():
         print("Testing Mobile layout (390x844)...")
         context_mobile = browser.new_context(viewport={"width": 390, "height": 844})
         page_mobile = context_mobile.new_page()
-        page_mobile.goto("http://127.0.0.1:5173")
+        page_mobile.goto("http://localhost:5173")
         page_mobile.wait_for_load_state("networkidle")
         if page_mobile.locator("input[type='email']").is_visible():
             page_mobile.fill("input[type='email']", "leads@jfll.com")

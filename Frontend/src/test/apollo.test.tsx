@@ -1,7 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { renderToString } from 'react-dom/server';
 
-import { queryApolloLeads, exportApolloLeadsCsv } from '@/services/apolloService';
+import {
+  queryApolloLeads,
+  exportApolloLeadsCsv,
+  queryCompanyContactsLocal,
+  fetchCompanyContacts,
+} from '@/services/apolloService';
 import {
   ApolloAudienceTabs,
   ApolloActionBar,
@@ -235,8 +240,9 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('salesforce');
       expect(html).toContain('Jet Freight Logistics Alignment');
       expect(html).toContain('Find Decision-Makers');
-      expect(html).toContain('Looking for Decision-Makers at Aerospace Technologies Inc?');
-      expect(html).toContain('Search People Tab');
+      expect(html).toContain('Key Decision-Makers');
+      expect(html).toContain('Contacts');
+      expect(html).toContain('View in People directory');
     });
 
     it('renders ApolloContextBanner with corporate account directory notice', () => {
@@ -248,6 +254,31 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('no individual decision-maker contacts');
       expect(html).toContain('Search Decision-Makers in People Tab');
     });
+
+    it('queries company contacts from starter dataset with filters', () => {
+      // Boeing organization_id: 54a1229169702d9a8b695403
+      const boeingOrgId = '54a1229169702d9a8b695403';
+      const allContacts = queryCompanyContactsLocal(boeingOrgId);
+      expect(allContacts.totalRecords).toBeGreaterThan(0);
+      expect(allContacts.items[0].organization_id).toBe(boeingOrgId);
+
+      const logisticsContacts = queryCompanyContactsLocal(boeingOrgId, {
+        logisticsOnly: true,
+      });
+      expect(logisticsContacts.totalRecords).toBeGreaterThan(0);
+      for (const c of logisticsContacts.items) {
+        expect(c.is_logistics_role).toBe(true);
+      }
+    });
+
+    it('fetches company contacts with seamless fallback when API is offline', async () => {
+      const boeingOrgId = '54a1229169702d9a8b695403';
+      const result = await fetchCompanyContacts(boeingOrgId);
+      expect(result.totalRecords).toBeGreaterThan(0);
+      expect(result.items.length).toBeGreaterThan(0);
+      expect(result.items[0].person_name).toBeDefined();
+    });
   });
 });
+
 

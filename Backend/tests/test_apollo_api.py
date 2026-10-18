@@ -56,3 +56,30 @@ def test_apollo_stats_endpoint():
     assert len(data["top_industries"]) > 0
     assert data["top_industries"][0]["industry"] == "construction"
     assert data["top_industries"][0]["count"] == 91910
+
+
+def test_company_contacts_endpoint():
+    # Boeing organization_id: 54a1229169702d9a8b695403
+    response = client.get("/api/v1/apollo/companies/54a1229169702d9a8b695403/contacts?page=1&page_size=5")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["page"] == 1
+    assert data["page_size"] == 5
+    assert data["total_records"] > 0
+    assert len(data["data"]) == 5
+    first_contact = data["data"][0]
+    assert "person_name" in first_contact
+    assert "job_title" in first_contact
+    assert first_contact["organization_id"] == "54a1229169702d9a8b695403"
+
+
+def test_apollo_contacts_global_search():
+    response = client.get("/api/v1/apollo/contacts?search=logistics&logistics_only=true&page_size=5")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["page"] == 1
+    assert data["total_records"] > 0
+    assert len(data["data"]) == 5
+    for contact in data["data"]:
+        assert contact["is_logistics_role"] is True
+
