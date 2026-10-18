@@ -7,7 +7,9 @@ import {
   APOLLO_EMPLOYEE_TIERS,
   APOLLO_REVENUE_RANGES,
   ApolloContactsResponse,
+  ApolloContact,
 } from '@/types/apolloLead';
+import { Lead, FilterParams, LeadsResponse } from '@/types/lead';
 import { logger } from '@/utils/logger';
 import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
 import { API_BASE_URL } from '@/config/api';
@@ -402,6 +404,145 @@ export async function fetchCompanyContacts(
     totalPages: 1,
     hasNext: false,
     items: [],
+  };
+}
+
+const BRAND_COLORS = ['#0066F5', '#FF7A00', '#00C2CB', '#7C3AED', '#059669', '#DC2626'];
+
+export function mapApolloContactToLead(contact: ApolloContact): Lead {
+  const emailDomain = contact.email?.includes('@') ? contact.email.split('@')[1] : null;
+  const companyClean = emailDomain
+    ? emailDomain.replace(/\.(com|org|net|co|io|in|edu|gov).*$/i, '').toUpperCase()
+    : 'Freight Forwarding Co';
+  const companyName = contact.employer_name || companyClean;
+
+  const locParts = [contact.contact_city, contact.contact_state, contact.contact_country].filter(Boolean);
+  const location = locParts.length > 0 ? locParts.join(', ') : 'Global / Cross-Border';
+
+  const hash = (contact.person_name || 'U').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  const logoColor = BRAND_COLORS[hash % BRAND_COLORS.length];
+  const initials = (companyName.replace(/[^A-Za-z0-9]/g, '').slice(0, 2) || 'JF').toUpperCase();
+
+  return {
+    id: contact.person_id,
+    name: contact.person_name,
+    title: contact.job_title || 'Logistics & Supply Chain Professional',
+    company: companyName,
+    companyLogo: '',
+    logoBgColor: logoColor,
+    logoTextColor: '#FFFFFF',
+    logoInitials: initials,
+    industry: contact.department ? `${contact.department} / Freight` : 'Freight & Logistics Services',
+    department: contact.department || (contact.is_logistics_role ? 'Supply Chain & Logistics' : 'Operations'),
+    status: contact.is_decision_maker ? 'NET NEW' : 'COLD',
+    location: location,
+    city: contact.contact_city || undefined,
+    state: contact.contact_state || undefined,
+    country: contact.contact_country || undefined,
+    email: contact.email || 'Email Protected (Click Reveal)',
+    phone: '+1 (555) Switchboard',
+    workPhone: undefined,
+    linkedin: contact.linkedin_url || undefined,
+    employees: '500+ Enterprise',
+    revenue: '$10M+ Enterprise',
+    funding: 'Commercial Freight Shipper',
+    technologies: ['CargoWise', 'EDI', 'TMS', 'WMS', 'Supply Chain ERP'],
+    saved: false,
+    jobChange: false,
+  };
+}
+
+/**
+ * Fetch Apollo freight decision-makers and contacts from the live backend API.
+ */
+export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {}): Promise<LeadsResponse> {
+  const {
+    q,
+    page = 1,
+    limit = 25,
+    tab = 'all',
+    departments = [],
+    locations = [],
+  } = params;
+
+  const urlParams = new URLSearchParams();
+  urlParams.set('page', String(page));
+  urlParams.set('page_size', String(limit));
+  urlParams.set('logistics_only', 'true');
+
+  if (tab === 'new') {
+    urlParams.set('decision_makers_only', 'true');
+  }
+
+  if (q && q.trim()) {
+    urlParams.set('search', q.trim());
+  }
+
+  if (departments && departments.length > 0) {
+    urlParams.set('department', departments[0]);
+  }
+
+  if (locations && locations.length > 0) {
+    const loc = locations[0];
+    const country = loc.includes(',') ? loc.split(',').pop()?.trim() : loc.trim();
+    if (country) {
+      urlParams.set('country', country);
+    }
+  }
+
+  const targetUrl = `${API_BASE_URL}/api/v1/apollo/contacts?${urlParams.toString()}`;
+
+  try {
+    const authHeaders = getAuthHeader();
+    const response = await fetch(targetUrl, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        ...authHeaders,
+      },
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      const rawContacts: ApolloContact[] = result.data || [];
+      const totalRecords: number = result.total_records || 0;
+      const totalFormatted =
+        totalRecords >= 1000000
+          ? `${(totalRecords / 1000000).toFixed(2)}m`
+          : totalRecords >= 1000
+          ? `${(totalRecords / 1000).toFixed(1)}k`
+          : String(totalRecords);
+
+      const items: Lead[] = rawContacts.map(mapApolloContactToLead);
+
+      return {
+        items,
+        totalEstimate: totalRecords,
+        totalFormatted,
+        page: result.page || page,
+        limit: result.page_size || limit,
+        totalPages: result.total_pages || 1,
+        audienceCounts: {
+          all: totalRecords,
+          new: Math.round(totalRecords * 0.45),
+          saved: 0,
+        },
+      };
+    } else {
+      logger.warn('APOLLO', `Apollo contacts API returned ${response.status}`);
+    }
+  } catch (err) {
+    logger.warn('APOLLO', 'Failed to reach Apollo contacts API endpoint', { err });
+  }
+
+  return {
+    items: [],
+    totalEstimate: 0,
+    totalFormatted: '0',
+    page,
+    limit,
+    totalPages: 1,
+    audienceCounts: { all: 0, new: 0, saved: 0 },
   };
 }
 

@@ -14,6 +14,21 @@ export async function initMocks(): Promise<void> {
     return;
   }
 
+  // In production environments, never run MSW and aggressively unregister any lingering worker
+  if (import.meta.env.PROD) {
+    if ('serviceWorker' in navigator) {
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (const registration of registrations) {
+          await registration.unregister();
+        }
+      } catch {
+        // Ignore unregister errors in background
+      }
+    }
+    return;
+  }
+
   // Check if ServiceWorker API is available in this browser/environment
   if (!('serviceWorker' in navigator) || window.location.protocol === 'file:') {
     console.info('[Mocks] Service workers not supported or file protocol; using fetch fallback.');

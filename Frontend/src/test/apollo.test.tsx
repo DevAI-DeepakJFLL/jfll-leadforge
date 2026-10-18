@@ -251,7 +251,7 @@ describe('Apollo Sourcing Tool Suite', () => {
       );
 
       expect(html).toContain('Corporate Account Directory:');
-      expect(html).toContain('no individual decision-maker contacts');
+      expect(html).toContain('verified in-drawer decision-makers');
       expect(html).toContain('Search Decision-Makers in People Tab');
     });
 

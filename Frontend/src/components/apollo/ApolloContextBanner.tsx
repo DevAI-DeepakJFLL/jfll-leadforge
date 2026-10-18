@@ -44,7 +44,7 @@ export const ApolloContextBanner: React.FC<ApolloContextBannerProps> = ({
             Corporate Account Directory:
           </span>
           <span className="text-slate-600">
-            Displays company-level firmographics, logistics fit, and switchboards for 690k shippers (no individual decision-maker contacts).
+            Displays company-level firmographics, logistics fit, and switchboards for 690k shippers with verified in-drawer decision-makers.
           </span>
           <button
             onClick={onSwitchToPeople}

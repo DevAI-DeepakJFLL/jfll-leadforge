@@ -14,7 +14,7 @@ import {
 import { ToastProvider, useToast, ErrorBoundary } from '@/components/ui';
 import { LoginPage } from '@/components/auth/LoginPage';
 import { UserSession } from '@/types/auth';
-import { useLeadsFilter, serializeFiltersToUrl } from '@/hooks/useLeadsFilter';
+import { useLeadsFilter } from '@/hooks/useLeadsFilter';
 import { LeadsResponse, Lead, FilterParams } from '@/types/lead';
 import {
   JfllCustomerAudienceTabs,
@@ -59,6 +59,7 @@ import {
 import { useApolloFilter } from '@/hooks/useApolloFilter';
 import {
   fetchApolloLeadsFromApi,
+  fetchApolloPeopleLeads,
   exportApolloLeadsCsv,
 } from '@/services/apolloService';
 import { ApolloLead } from '@/types/apolloLead';
@@ -75,8 +76,8 @@ interface AppContentProps {
 }
 
 const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
-  const [activeNav, setActiveNav] = useState('search');
-  const [topTab, setTopTab] = useState('people');
+  const [activeNav, setActiveNav] = useState('companies');
+  const [topTab, setTopTab] = useState('companies');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const { showToast } = useToast();
@@ -130,17 +131,12 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     clearAllFilters,
   } = useLeadsFilter();
 
-  // Fetch leads synchronized with current URL filters via TanStack Query
+  // Fetch live Apollo logistics decision-makers synchronized with URL filters
   const { data, isLoading, isError, error, refetch } = useQuery<LeadsResponse>({
     queryKey: ['leads', filters],
-    queryFn: async () => {
-      const queryString = serializeFiltersToUrl(filters);
-      const res = await fetch(`/api/leads${queryString}`);
-      if (!res.ok) {
-        throw new Error(`Failed to fetch leads: ${res.statusText}`);
-      }
-      return res.json();
-    },
+    queryFn: () => fetchApolloPeopleLeads(filters),
+    placeholderData: (prev) => prev,
+    staleTime: 60000,
   });
 
   // Batch save mutation
@@ -591,7 +587,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
 
   const isJfllCategory = topTab === 'jfll-customers';
   const isDatamyneCategory = topTab === 'datamyne';
-  const isApolloCategory = topTab === 'apollo';
+  const isApolloCategory = topTab === 'apollo' || topTab === 'companies';
 
   const apolloActiveFilterCount = useMemo(() => {
     let count = 0;
@@ -633,9 +629,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           setTopTab('datamyne');
         } else if (navId === 'jfll-customers') {
           setTopTab('jfll-customers');
-        } else if (navId === 'home') {
-          setTopTab('people');
-          clearAllFilters();
+        } else if (navId === 'home' || navId === 'companies') {
+          setTopTab('companies');
         } else if (navId === 'search') {
           setTopTab('people');
         } else if (navId === 'saved-searches') {
@@ -643,7 +638,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           handleLoadPresetSearch();
         }
       }}
-      activeTab={topTab}
+      activeTab={topTab === 'apollo' ? 'companies' : topTab}
       onTabChange={(tabId) => {
         setTopTab(tabId);
         setIsMobileFilterOpen(false);
@@ -651,6 +646,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           setActiveNav('datamyne');
         } else if (tabId === 'jfll-customers') {
           setActiveNav('jfll-customers');
+        } else if (tabId === 'companies' || tabId === 'apollo') {
+          setActiveNav('companies');
         } else if (tabId === 'saved-searches' || tabId === 'saved-lists') {
           setActiveNav('saved-searches');
           if (tabId === 'saved-searches') {
@@ -667,6 +664,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           ? datamyneFilters.q || ''
           : isJfllCategory
           ? jfllFilters.q || ''
+          : isApolloCategory
+          ? apolloDbFilters.q || ''
           : filters.q || ''
       }
       onSearchChange={(q) => {
@@ -674,6 +673,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           setDatamyneSearch(q);
         } else if (isJfllCategory) {
           setJfllSearch(q);
+        } else if (isApolloCategory) {
+          setApolloDbSearch(q);
         } else {
           setSearch(q);
         }
@@ -683,6 +684,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           setDatamyneSearch(q);
         } else if (isJfllCategory) {
           setJfllSearch(q);
+        } else if (isApolloCategory) {
+          setApolloDbSearch(q);
         } else {
           setSearch(q);
         }
