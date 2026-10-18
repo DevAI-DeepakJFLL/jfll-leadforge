@@ -44,11 +44,41 @@ def run_tests():
         assert page.locator("text=no individual decision-maker contacts").first.is_visible(), "Account scope notice not visible"
         print("Verified Apollo Accounts tab and Corporate Account Directory banner are active.")
         
-        # Capture Desktop Apollo Table View with Banner
+        # Verify colorful badges and brand avatars
+        cargo_badges = page.locator("table[aria-label='Apollo Shippers Table'] span.rounded-full")
+        assert cargo_badges.count() > 0, "Cargo vertical badges not found"
+        print(f"Found {cargo_badges.count()} colorful cargo vertical badges in Apollo table.")
+        
+        # Capture Desktop Apollo Table View with Banner & Vibrant Badges
         desktop_screenshot_path = SCREENSHOTS_DIR / "apollo-accounts-desktop-1440.png"
         page.screenshot(path=str(desktop_screenshot_path))
         page.screenshot(path=str(ARTIFACT_DIR / "apollo-accounts-desktop-1440.png"))
         print(f"Captured {desktop_screenshot_path}")
+        
+        # Test Scroll and Header Opacity (Zero Overlap Verification)
+        print("Testing table scroll and header opacity...")
+        table_container = page.locator(".flex-1.overflow-auto").first
+        assert table_container.is_visible(), "Table scroll container not found"
+        
+        # Scroll down by 500px
+        table_container.evaluate("el => el.scrollTop = 500")
+        time.sleep(0.5)
+        
+        # Check computed background color of thead and th to ensure 100% opacity (rgb(241, 245, 249))
+        header_th = page.locator("table[aria-label='Apollo Shippers Table'] thead th").nth(1)
+        bg_color = header_th.evaluate("el => window.getComputedStyle(el).backgroundColor")
+        print(f"Computed sticky table header background-color: {bg_color}")
+        assert "rgba(" not in bg_color or "rgba(241, 245, 249, 1)" in bg_color, f"Header background is transparent: {bg_color}"
+        
+        # Capture scrolled table screenshot
+        scrolled_screenshot_path = SCREENSHOTS_DIR / "apollo-accounts-scrolled-desktop-1440.png"
+        page.screenshot(path=str(scrolled_screenshot_path))
+        page.screenshot(path=str(ARTIFACT_DIR / "apollo-accounts-scrolled-desktop-1440.png"))
+        print(f"Captured {scrolled_screenshot_path} (verified opaque header on scroll)")
+        
+        # Scroll back to top for remaining tests
+        table_container.evaluate("el => el.scrollTop = 0")
+        time.sleep(0.3)
         
         # Test Search bar placed next to Select option
         print("Testing inline search bar...")

@@ -18,6 +18,8 @@ import {
   Share2,
   ArrowUpRight,
 } from 'lucide-react';
+import { ApolloVerticalBadge } from './ApolloVerticalBadge';
+import { getAvatarStyle, getCompanyInitials } from './ApolloTable';
 
 export interface ApolloDetailDrawerProps {
   isOpen: boolean;
@@ -128,17 +130,18 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
           <div className="p-4 sm:p-5 border-b border-surface-border bg-slate-50/70 shrink-0">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center space-x-3 min-w-0">
-                <div className="w-11 h-11 rounded-xl bg-apollo text-white font-bold text-base flex items-center justify-center shrink-0 uppercase shadow-xs">
-                  {lead.organization_name.charAt(0)}
+                <div className={`w-12 h-12 rounded-xl ${getAvatarStyle(lead.organization_name).bg} ${getAvatarStyle(lead.organization_name).text} border ${getAvatarStyle(lead.organization_name).border} font-bold text-base flex items-center justify-center shrink-0 uppercase shadow-2xs`}>
+                  {getCompanyInitials(lead.organization_name)}
                 </div>
                 <div className="min-w-0">
                   <h2 className="text-base sm:text-lg font-bold text-slate-900 truncate">
                     {lead.organization_name}
                   </h2>
-                  <div className="flex items-center space-x-2 text-xs text-slate-500 mt-0.5">
-                    <span className="font-mono text-slate-700">{lead.domain}</span>
-                    <span className="text-slate-300">•</span>
-                    <span className="capitalize font-medium text-apollo">{lead.industry}</span>
+                  <div className="flex flex-wrap items-center gap-2 mt-1">
+                    <span className="font-mono text-xs text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                      {lead.domain}
+                    </span>
+                    <ApolloVerticalBadge industry={lead.industry} showMode={true} />
                   </div>
                 </div>
               </div>

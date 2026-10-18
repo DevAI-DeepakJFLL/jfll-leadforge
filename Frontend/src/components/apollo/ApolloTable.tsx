@@ -12,7 +12,39 @@ import {
   Eye,
   AlertCircle,
   Users,
+  MapPin,
 } from 'lucide-react';
+import { ApolloVerticalBadge } from './ApolloVerticalBadge';
+
+const AVATAR_PALETTES = [
+  { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200/80' },
+  { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200/80' },
+  { bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200/80' },
+  { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200/80' },
+  { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200/80' },
+  { bg: 'bg-rose-50', text: 'text-rose-700', border: 'border-rose-200/80' },
+  { bg: 'bg-teal-50', text: 'text-teal-700', border: 'border-teal-200/80' },
+  { bg: 'bg-cyan-50', text: 'text-cyan-700', border: 'border-cyan-200/80' },
+  { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-200/80' },
+];
+
+export function getCompanyInitials(name: string): string {
+  if (!name) return 'CO';
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase();
+}
+
+export function getAvatarStyle(name: string) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = (hash << 5) - hash + name.charCodeAt(i);
+    hash |= 0;
+  }
+  return AVATAR_PALETTES[Math.abs(hash) % AVATAR_PALETTES.length];
+}
 
 
 export interface ApolloTableProps {
@@ -150,23 +182,25 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
       {/* Scrollable Table Viewport */}
       <div className="flex-1 overflow-auto min-h-0">
         <table className="w-full text-left text-xs border-collapse" aria-label="Apollo Shippers Table">
-          <thead>
-            <tr className="bg-slate-50/80 border-b border-surface-border text-slate-600 font-semibold sticky top-0 z-10 select-none text-[11px] uppercase tracking-wider">
-              <th className="py-2.5 px-3 w-10 text-center">
+          <thead className="sticky top-0 z-20 bg-slate-100 shadow-xs">
+            <tr className="bg-slate-100 border-b border-slate-200 text-slate-700 font-semibold select-none text-[11px] uppercase tracking-wider">
+              <th className="py-2.5 px-3 w-10 text-center bg-slate-100 sticky top-0 z-20">
                 <span className="sr-only">Select</span>
               </th>
-              <th className="py-2.5 px-3 min-w-[220px]">Company & Domain</th>
-              <th className="py-2.5 px-3 min-w-[160px]">Cargo Vertical</th>
-              <th className="py-2.5 px-3 min-w-[130px]">Scale & Revenue</th>
-              <th className="py-2.5 px-3 min-w-[150px]">Headquarters</th>
-              <th className="py-2.5 px-3 min-w-[140px]">Direct Phone</th>
-              <th className="py-2.5 px-3 w-24 text-right">Details</th>
+              <th className="py-2.5 px-3 min-w-[230px] bg-slate-100 sticky top-0 z-20">Company & Domain</th>
+              <th className="py-2.5 px-3 min-w-[180px] bg-slate-100 sticky top-0 z-20">Cargo Vertical</th>
+              <th className="py-2.5 px-3 min-w-[140px] bg-slate-100 sticky top-0 z-20">Scale & Revenue</th>
+              <th className="py-2.5 px-3 min-w-[150px] bg-slate-100 sticky top-0 z-20">Headquarters</th>
+              <th className="py-2.5 px-3 min-w-[140px] bg-slate-100 sticky top-0 z-20">Direct Phone</th>
+              <th className="py-2.5 px-3 w-28 text-right bg-slate-100 sticky top-0 z-20">Details</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 text-slate-700">
             {leads.map((lead) => {
               const isSelected = !!rowSelection[lead.organization_id];
               const isPhoneCopied = copiedPhoneId === lead.organization_id;
+              const avatarStyle = getAvatarStyle(lead.organization_name);
+              const initials = getCompanyInitials(lead.organization_name);
 
               return (
                 <tr
@@ -193,8 +227,11 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                   {/* Company Legal Name & Domain */}
                   <td className="py-2.5 px-3">
                     <div className="flex items-center space-x-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-blue-50 text-apollo border border-blue-200/60 font-semibold text-xs flex items-center justify-center shrink-0 uppercase shadow-2xs">
-                        {lead.organization_name.charAt(0)}
+                      <div
+                        className={`w-8 h-8 rounded-lg ${avatarStyle.bg} ${avatarStyle.text} border ${avatarStyle.border} font-bold text-xs flex items-center justify-center shrink-0 uppercase tracking-tight shadow-2xs`}
+                        title={lead.organization_name}
+                      >
+                        {initials}
                       </div>
                       <div className="min-w-0">
                         <div className="font-semibold text-slate-900 truncate max-w-[200px] sm:max-w-[260px] group-hover:text-apollo transition-colors">
@@ -219,20 +256,26 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                     </div>
                   </td>
 
-                  {/* Industry & Cargo Vertical Pill Badge */}
+                  {/* Industry & Logistics Cargo Vertical */}
                   <td className="py-2.5 px-3">
-                    <div className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200 capitalize">
-                      <span className="truncate max-w-[140px]">{lead.industry}</span>
-                    </div>
+                    <ApolloVerticalBadge industry={lead.industry} showMode={true} />
                   </td>
 
                   {/* Company Headcount & Revenue */}
                   <td className="py-2.5 px-3">
-                    <div className="flex flex-col text-[11px]">
-                      <span className="font-semibold text-slate-800 font-mono">
-                        {formatRevenue(lead.revenue_usd)}
-                      </span>
-                      <span className="text-slate-500 font-mono">
+                    <div className="flex flex-col gap-0.5 text-[11px]">
+                      {lead.revenue_usd && lead.revenue_usd >= 100000000 ? (
+                        <div className="inline-flex items-center gap-1.5 w-fit">
+                          <span className="font-bold text-emerald-700 font-mono text-[11px] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/80">
+                            {formatRevenue(lead.revenue_usd)}
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="font-semibold text-slate-800 font-mono">
+                          {formatRevenue(lead.revenue_usd)}
+                        </span>
+                      )}
+                      <span className="text-slate-500 font-mono text-[10px]">
                         {formatEmployees(lead.employee_count)}
                       </span>
                     </div>
@@ -240,9 +283,10 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
 
                   {/* Headquarters Location */}
                   <td className="py-2.5 px-3">
-                    <div className="truncate max-w-[140px] text-slate-800">
+                    <div className="truncate max-w-[150px] text-slate-800 font-medium flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
                       {lead.hq_city || lead.hq_state ? (
-                        <span>
+                        <span className="truncate">
                           {lead.hq_city ? `${lead.hq_city}, ` : ''}
                           {lead.hq_state ? `${lead.hq_state}` : ''}
                         </span>
@@ -250,19 +294,19 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                         <span className="text-slate-400">Not specified</span>
                       )}
                     </div>
-                    <div className="text-[11px] text-slate-400 truncate max-w-[140px]">
+                    <div className="text-[11px] text-slate-400 truncate max-w-[150px] pl-4">
                       {lead.hq_country || '—'}
                     </div>
                   </td>
 
                   {/* Direct Phone Number with One-Click Copy */}
                   <td className="py-2.5 px-3">
-                    <div className="inline-flex items-center space-x-1 text-slate-700">
+                    <div className="inline-flex items-center space-x-1 text-slate-700 bg-slate-50/80 border border-slate-200/60 px-2 py-1 rounded-md">
                       <Phone className="w-3 h-3 text-slate-400 shrink-0" />
                       <span className="font-mono text-[11px] select-text">{lead.phone}</span>
                       <button
                         onClick={(e) => handleCopyPhone(e, lead.phone, lead.organization_id)}
-                        className="p-1 text-slate-400 hover:text-apollo rounded hover:bg-slate-100 transition-colors ml-0.5"
+                        className="p-0.5 text-slate-400 hover:text-apollo rounded hover:bg-white transition-colors ml-0.5"
                         title="Copy phone number"
                         aria-label="Copy phone number"
                       >
@@ -284,7 +328,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                             e.stopPropagation();
                             onFindDecisionMakers(lead.organization_name);
                           }}
-                          className="p-1 rounded-md text-slate-400 hover:text-apollo hover:bg-blue-50 transition-colors"
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-apollo hover:bg-blue-50 transition-colors"
                           title={`Find decision-makers at ${lead.organization_name} in People tab`}
                           aria-label={`Find decision-makers at ${lead.organization_name}`}
                         >
@@ -296,7 +340,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                           e.stopPropagation();
                           onLeadClick(lead);
                         }}
-                        className="inline-flex items-center space-x-1 px-2 py-1 rounded-md bg-white border border-slate-200 text-slate-700 hover:border-apollo hover:text-apollo hover:bg-blue-50/50 text-xs font-medium transition-colors shadow-2xs"
+                        className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-700 hover:border-apollo hover:text-apollo hover:bg-blue-50/50 text-xs font-medium transition-colors shadow-2xs"
                         title="View full organization dossier"
                       >
                         <Eye className="w-3.5 h-3.5" />
