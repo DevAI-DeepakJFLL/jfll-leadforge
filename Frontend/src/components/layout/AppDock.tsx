@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Home,
   Search,
@@ -71,6 +71,20 @@ export const AppDock: React.FC<AppDockProps> = ({
   const clearNotification = (id: string) => {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
+
+  // Close notifications or profile menu on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (showNotifications) setShowNotifications(false);
+        if (showProfileMenu) setShowProfileMenu(false);
+      }
+    };
+    if (showNotifications || showProfileMenu) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [showNotifications, showProfileMenu]);
 
   // Streamlined navigation items focused on prospecting and internal customer master
   const PRIMARY_NAV_ITEMS: NavItem[] = [
@@ -349,7 +363,8 @@ export const AppDock: React.FC<AppDockProps> = ({
                 )}
                 <button
                   onClick={() => setShowNotifications(false)}
-                  className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                  aria-label="Close notifications"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -358,7 +373,7 @@ export const AppDock: React.FC<AppDockProps> = ({
 
             <div className="max-h-72 overflow-y-auto divide-y divide-slate-100">
               {notifications.length === 0 ? (
-                <div className="py-8 text-center text-xs text-slate-400">
+                <div className="py-8 text-center text-xs text-slate-500">
                   No new notifications
                 </div>
               ) : (
@@ -374,13 +389,14 @@ export const AppDock: React.FC<AppDockProps> = ({
                         {!n.read && <span className="w-1.5 h-1.5 rounded-full bg-apollo shrink-0" />}
                         {n.title}
                       </div>
-                      <p className="text-slate-500 text-[11px] mt-0.5">{n.desc}</p>
-                      <span className="text-[10px] text-slate-400 mt-1 block">{n.time}</span>
+                      <p className="text-slate-600 text-[11px] mt-0.5">{n.desc}</p>
+                      <span className="text-[10px] text-slate-500 mt-1 block">{n.time}</span>
                     </div>
                     <button
                       onClick={() => clearNotification(n.id)}
-                      className="text-slate-300 hover:text-slate-500 p-2 rounded min-h-[44px] min-w-[44px] flex items-center justify-center"
+                      className="text-slate-400 hover:text-slate-600 p-2 rounded min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
                       title="Dismiss"
+                      aria-label="Dismiss notification"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -397,6 +413,7 @@ export const AppDock: React.FC<AppDockProps> = ({
           <div
             className="fixed inset-0 bg-slate-950/40 backdrop-blur-xs pointer-events-auto"
             onClick={() => setShowProfileMenu(false)}
+            aria-hidden="true"
           />
           <div className="pointer-events-auto w-full max-w-sm sm:w-64 bg-white rounded-t-2xl sm:rounded-xl shadow-2xl border border-slate-200 z-50 p-4 sm:p-3 text-slate-800 text-xs animate-in fade-in slide-in-from-bottom-4 sm:slide-in-from-left-2 duration-150 mb-14 sm:mb-0 sm:ml-16 sm:mt-auto sm:mb-16">
             <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
@@ -409,11 +426,12 @@ export const AppDock: React.FC<AppDockProps> = ({
               </div>
               <div className="min-w-0 flex-1">
                 <div className="font-semibold text-slate-900 truncate">JFLL</div>
-                <div className="text-[11px] text-slate-400 truncate">leads@jfll.com</div>
+                <div className="text-[11px] text-slate-500 truncate">leads@jfll.com</div>
               </div>
               <button
                 onClick={() => setShowProfileMenu(false)}
-                className="sm:hidden p-1 text-slate-400 hover:text-slate-600 rounded"
+                className="sm:hidden p-1 text-slate-400 hover:text-slate-600 rounded cursor-pointer"
+                aria-label="Close profile menu"
               >
                 <X className="w-4 h-4" />
               </button>

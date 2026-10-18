@@ -138,7 +138,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                     <X className="w-3 h-3" />
                   </button>
                 ) : (
-                  <span className="absolute right-2.5 text-[10px] font-mono text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200 pointer-events-none">
+                  <span className="absolute right-2.5 text-[10px] font-mono text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-300 font-semibold pointer-events-none">
                     ⌘K
                   </span>
                 )}

@@ -331,7 +331,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                       <div className="font-medium text-slate-900 truncate max-w-[150px]">
                         {l.city || '—'}
                       </div>
-                      <div className="text-[11px] text-slate-400 truncate max-w-[150px]">
+                      <div className="text-[11px] text-slate-500 truncate max-w-[150px]">
                         {l.trade_lanes || '—'}
                       </div>
                     </div>
@@ -341,7 +341,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   <td className="py-3 px-3.5">
                     <div>
                       <span className="font-semibold text-slate-900 text-xs">
-                        {l.total_shipments.toLocaleString('en-US')} pkgs
+                        {l.total_shipments.toLocaleString('en-US')} shipments
                       </span>
                       <div className="text-[11px] font-semibold text-emerald-700 mt-0.5">
                         {l.total_value_usd > 0

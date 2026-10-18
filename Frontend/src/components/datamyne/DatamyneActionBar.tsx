@@ -145,15 +145,16 @@ export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
         <button
           onClick={onExport}
           disabled={isExporting}
-          className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium text-white bg-apollo hover:bg-apollo-600 rounded shadow-xs transition-colors disabled:opacity-50 cursor-pointer"
+          className="h-8 px-2.5 sm:px-3 rounded-md border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 font-medium flex items-center space-x-1.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs shadow-2xs cursor-pointer"
           title="Export filtered records to clean CSV"
         >
           {isExporting ? (
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-apollo" />
           ) : (
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-3.5 h-3.5 text-slate-600" />
           )}
-          <span>{isExporting ? 'Exporting...' : 'Export CSV'}</span>
+          <span className="hidden sm:inline">Export CSV</span>
+          <span className="sm:hidden">Export</span>
         </button>
       </div>
     </div>

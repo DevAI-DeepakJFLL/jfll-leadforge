@@ -639,7 +639,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         } else if (navId === 'search') {
           setTopTab('people');
         } else if (navId === 'saved-searches') {
-          setTopTab('people');
+          setTopTab('saved-searches');
           handleLoadPresetSearch();
         }
       }}
@@ -651,12 +651,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           setActiveNav('datamyne');
         } else if (tabId === 'jfll-customers') {
           setActiveNav('jfll-customers');
-        } else if (tabId === 'saved-searches') {
-          setActiveNav('search');
-          handleLoadPresetSearch();
-        } else if (tabId === 'saved-lists') {
-          setActiveNav('search');
-          setTab('saved');
+        } else if (tabId === 'saved-searches' || tabId === 'saved-lists') {
+          setActiveNav('saved-searches');
+          if (tabId === 'saved-searches') {
+            handleLoadPresetSearch();
+          } else {
+            setTab('saved');
+          }
         } else {
           setActiveNav('search');
         }

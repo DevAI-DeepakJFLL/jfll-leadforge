@@ -409,7 +409,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 <div className="p-3 bg-slate-50 border border-slate-100 rounded-lg">
                   <span className="text-[11px] text-slate-500 block">Total Customs Shipments</span>
                   <strong className="text-base font-bold text-slate-900 mt-0.5 block">
-                    {lead.total_shipments.toLocaleString('en-US')} pkgs
+                    {lead.total_shipments.toLocaleString('en-US')} shipments
                   </strong>
                 </div>
                 <div className="p-3 bg-emerald-50/60 border border-emerald-100 rounded-lg">

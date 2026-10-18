@@ -237,7 +237,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                         <div className="font-semibold text-slate-900 truncate max-w-[200px] sm:max-w-[260px] group-hover:text-apollo transition-colors">
                           {lead.organization_name}
                         </div>
-                        <div className="flex items-center space-x-1.5 text-[11px] text-slate-400">
+                        <div className="flex items-center space-x-1.5 text-[11px] text-slate-500">
                           <span className="truncate max-w-[160px]">{lead.domain}</span>
                           {toSafeExternalUrl(lead.website_url) && (
                             <a
@@ -245,7 +245,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="text-slate-400 hover:text-apollo inline-flex"
+                              className="text-slate-500 hover:text-apollo inline-flex"
                               title="Visit company website"
                             >
                               <ExternalLink className="w-3 h-3" />
@@ -284,17 +284,17 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                   {/* Headquarters Location */}
                   <td className="py-2.5 px-3">
                     <div className="truncate max-w-[150px] text-slate-800 font-medium flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                      <MapPin className="w-3 h-3 text-slate-500 shrink-0" />
                       {lead.hq_city || lead.hq_state ? (
                         <span className="truncate">
                           {lead.hq_city ? `${lead.hq_city}, ` : ''}
                           {lead.hq_state ? `${lead.hq_state}` : ''}
                         </span>
                       ) : (
-                        <span className="text-slate-400">Not specified</span>
+                        <span className="text-slate-500">Not specified</span>
                       )}
                     </div>
-                    <div className="text-[11px] text-slate-400 truncate max-w-[150px] pl-4">
+                    <div className="text-[11px] text-slate-500 truncate max-w-[150px] pl-4">
                       {lead.hq_country || '—'}
                     </div>
                   </td>

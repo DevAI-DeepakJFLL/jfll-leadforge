@@ -377,23 +377,37 @@ export const ApolloFilterSidebar: React.FC<ApolloFilterSidebarProps> = ({
 
   return (
     <>
-      {/* Desktop Persistent Left Sidebar */}
+      {/* Desktop Persistent Left Sidebar (lg: and up) */}
       <aside
-        className={`hidden md:block w-64 lg:w-72 shrink-0 border-r border-surface-border bg-white h-full z-10 ${className}`}
+        className={`hidden lg:flex w-64 lg:w-72 shrink-0 border-r border-surface-border bg-white flex-col h-full z-10 ${className}`}
         aria-label="Apollo Shipper Filter Sidebar"
       >
         {sidebarContent}
       </aside>
 
-      {/* Mobile Slide-Over Drawer */}
+      {/* Mobile / Tablet Off-Canvas Drawer (lg:hidden) */}
       {isMobileOpen && (
-        <div className="fixed inset-0 z-50 md:hidden flex" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-50 lg:hidden flex" role="dialog" aria-modal="true">
           <div
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity"
             onClick={onCloseMobile}
             aria-hidden="true"
           />
-          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white shadow-xl">
+          <div className="relative w-72 max-w-[85vw] bg-white h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200">
+            <div className="h-14 px-4 border-b border-surface-border flex items-center justify-between bg-slate-50/80 shrink-0">
+              <div className="flex items-center gap-2">
+                <Filter className="w-4 h-4 text-apollo" />
+                <h2 className="text-sm font-bold text-slate-900">Apollo Filters</h2>
+              </div>
+              <button
+                type="button"
+                onClick={onCloseMobile}
+                className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                aria-label="Close filters"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
             {sidebarContent}
           </div>
         </div>
