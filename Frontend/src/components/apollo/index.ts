@@ -4,3 +4,4 @@ export * from './ApolloActiveFilterChips';
 export * from './ApolloActionBar';
 export * from './ApolloTable';
 export * from './ApolloDetailDrawer';
+export * from './ApolloContextBanner';

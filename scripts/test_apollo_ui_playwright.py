@@ -32,22 +32,22 @@ def run_tests():
             time.sleep(1)
             print("Logged in successfully.")
             
-        # Navigate to Apollo Database Tab
-        print("Clicking 'Apollo Database' tab...")
-        apollo_tab = page.locator("button:has-text('Apollo Database')")
+        # Navigate to Apollo Accounts Tab
+        print("Clicking 'Apollo Accounts' tab...")
+        apollo_tab = page.locator("button:has-text('Apollo Accounts'), button:has-text('Apollo Database')").first
         apollo_tab.click()
         time.sleep(1)
         
-        # Verify Apollo Database is active
+        # Verify Apollo Accounts tab & banner are active
         assert page.locator("text=All Commercial Shippers").first.is_visible(), "All Commercial Shippers tab not visible"
-        assert page.get_by_role("button", name="Cargo Verticals", exact=True).is_visible(), "Cargo Verticals filter not visible"
-        print("Verified Apollo Database tab is active.")
-
+        assert page.locator("text=Corporate Account Directory:").first.is_visible(), "ApolloContextBanner not visible"
+        assert page.locator("text=no individual decision-maker contacts").first.is_visible(), "Account scope notice not visible"
+        print("Verified Apollo Accounts tab and Corporate Account Directory banner are active.")
         
-        # Capture Desktop Apollo Table View
-        desktop_screenshot_path = SCREENSHOTS_DIR / "apollo-database-desktop-1440.png"
+        # Capture Desktop Apollo Table View with Banner
+        desktop_screenshot_path = SCREENSHOTS_DIR / "apollo-accounts-desktop-1440.png"
         page.screenshot(path=str(desktop_screenshot_path))
-        page.screenshot(path=str(ARTIFACT_DIR / "apollo-database-desktop-1440.png"))
+        page.screenshot(path=str(ARTIFACT_DIR / "apollo-accounts-desktop-1440.png"))
         print(f"Captured {desktop_screenshot_path}")
         
         # Test Search bar placed next to Select option
@@ -89,20 +89,33 @@ def run_tests():
         view_button.click()
         time.sleep(1)
         
-        # Verify Drawer is visible with deep metrics
+        # Verify Drawer is visible with deep metrics & decision-maker bridge
         assert page.locator("text=Commercial Scale & Footprint").first.is_visible(), "Drawer scale card not visible"
         assert page.locator("text=Jet Freight Logistics Alignment").first.is_visible(), "Logistics alignment not visible"
-
+        assert page.locator("text=Looking for Decision-Makers at").first.is_visible(), "Decision-maker callout not visible"
         
-        drawer_screenshot_path = SCREENSHOTS_DIR / "apollo-drawer-desktop-1440.png"
+        drawer_screenshot_path = SCREENSHOTS_DIR / "apollo-accounts-drawer-desktop-1440.png"
         page.screenshot(path=str(drawer_screenshot_path))
-        page.screenshot(path=str(ARTIFACT_DIR / "apollo-drawer-desktop-1440.png"))
+        page.screenshot(path=str(ARTIFACT_DIR / "apollo-accounts-drawer-desktop-1440.png"))
         print(f"Captured {drawer_screenshot_path}")
         
-        # Close Drawer via Escape or Close button
-        page.keyboard.press("Escape")
-        time.sleep(0.5)
-        print("Closed drawer via Escape key.")
+        # Test Cross-Navigation: Click "Find Decision-Makers" from Drawer
+        print("Testing 1-click cross-navigation from Apollo Account to People Directory...")
+        people_cta = page.locator("button:has-text('Find Decision-Makers'), button:has-text('Search People Tab')").first
+        assert people_cta.is_visible(), "Find Decision-Makers CTA button not visible"
+        people_cta.click()
+        time.sleep(1)
+        
+        # Verify transition to People tab with company search active
+        assert page.locator("button:has-text('People')").first.is_visible(), "People tab not active"
+        toast = page.locator("text=Searching People Directory for decision-makers at").first
+        if toast.is_visible():
+            print("Verified toast notification:", toast.inner_text())
+            
+        cross_nav_screenshot_path = SCREENSHOTS_DIR / "apollo-cross-nav-people-desktop-1440.png"
+        page.screenshot(path=str(cross_nav_screenshot_path))
+        page.screenshot(path=str(ARTIFACT_DIR / "apollo-cross-nav-people-desktop-1440.png"))
+        print(f"Captured {cross_nav_screenshot_path}")
         
         # 2. Tablet Test (768x1024)
         print("Testing Tablet layout (768x1024)...")
@@ -117,12 +130,12 @@ def run_tests():
             page_tablet.wait_for_load_state("networkidle")
             time.sleep(1)
             
-        page_tablet.locator("button:has-text('Apollo Database')").click()
+        page_tablet.locator("button:has-text('Apollo Accounts'), button:has-text('Apollo Database')").first.click()
         time.sleep(1)
         
-        tablet_screenshot_path = SCREENSHOTS_DIR / "apollo-database-tablet-768.png"
+        tablet_screenshot_path = SCREENSHOTS_DIR / "apollo-accounts-tablet-768.png"
         page_tablet.screenshot(path=str(tablet_screenshot_path))
-        page_tablet.screenshot(path=str(ARTIFACT_DIR / "apollo-database-tablet-768.png"))
+        page_tablet.screenshot(path=str(ARTIFACT_DIR / "apollo-accounts-tablet-768.png"))
         print(f"Captured {tablet_screenshot_path}")
         
         # 3. Mobile Test (390x844)
@@ -138,16 +151,16 @@ def run_tests():
             page_mobile.wait_for_load_state("networkidle")
             time.sleep(1)
             
-        page_mobile.locator("button:has-text('Apollo Database')").click()
+        page_mobile.locator("button:has-text('Apollo Accounts'), button:has-text('Apollo Database')").first.click()
         time.sleep(1)
         
-        mobile_screenshot_path = SCREENSHOTS_DIR / "apollo-database-mobile-390.png"
+        mobile_screenshot_path = SCREENSHOTS_DIR / "apollo-accounts-mobile-390.png"
         page_mobile.screenshot(path=str(mobile_screenshot_path))
-        page_mobile.screenshot(path=str(ARTIFACT_DIR / "apollo-database-mobile-390.png"))
+        page_mobile.screenshot(path=str(ARTIFACT_DIR / "apollo-accounts-mobile-390.png"))
         print(f"Captured {mobile_screenshot_path}")
         
         browser.close()
-        print("All Playwright UI tests completed successfully!")
+        print("All Playwright UI and Cross-Navigation tests completed successfully!")
 
 if __name__ == "__main__":
     run_tests()

@@ -16,12 +16,14 @@ import {
   Cpu,
   Briefcase,
   Share2,
+  ArrowUpRight,
 } from 'lucide-react';
 
 export interface ApolloDetailDrawerProps {
   isOpen: boolean;
   lead: ApolloLead | null;
   onClose: () => void;
+  onFindDecisionMakers?: (companyName: string) => void;
   className?: string;
 }
 
@@ -29,6 +31,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
   isOpen,
   lead,
   onClose,
+  onFindDecisionMakers,
   className = '',
 }) => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -199,11 +202,45 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                   <span>LinkedIn</span>
                 </a>
               )}
+
+              {onFindDecisionMakers && (
+                <button
+                  onClick={() => onFindDecisionMakers(lead.organization_name)}
+                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-blue-50 border border-blue-200 text-apollo rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors shadow-2xs min-h-[36px]"
+                  title={`Find decision-makers at ${lead.organization_name} in People tab`}
+                >
+                  <Users className="w-3.5 h-3.5" />
+                  <span>Find Decision-Makers</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
           </div>
 
           {/* Dossier Body Content */}
           <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 text-xs text-slate-700">
+            {/* Account Scope & Decision-Maker Bridge Callout */}
+            <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="space-y-0.5 min-w-0">
+                <div className="flex items-center space-x-1.5 text-slate-900 font-semibold text-xs">
+                  <Users className="w-4 h-4 text-apollo shrink-0" />
+                  <span>{`Looking for Decision-Makers at ${lead.organization_name}?`}</span>
+                </div>
+                <p className="text-[11px] text-slate-500 leading-relaxed">
+                  This Apollo record contains company-level firmographics. Query the People directory to source Logistics Heads, Supply Chain VPs, and freight buyers.
+                </p>
+              </div>
+              {onFindDecisionMakers && (
+                <button
+                  onClick={() => onFindDecisionMakers(lead.organization_name)}
+                  className="inline-flex items-center space-x-1 px-3 py-1.5 bg-apollo text-white hover:bg-apollo-hover rounded-lg text-xs font-medium shrink-0 shadow-2xs transition-colors min-h-[32px]"
+                >
+                  <span>Search People Tab</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
             {/* 1. Scale & Financial Health Cards */}
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5 flex items-center space-x-1.5">

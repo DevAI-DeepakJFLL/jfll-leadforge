@@ -8,6 +8,7 @@ import {
   ApolloActiveFilterChips,
   ApolloTable,
   ApolloDetailDrawer,
+  ApolloContextBanner,
 } from '@/components/apollo';
 import { ApolloLead } from '@/types/apolloLead';
 
@@ -195,6 +196,7 @@ describe('Apollo Sourcing Tool Suite', () => {
           rowSelection={{}}
           onRowSelectionChange={() => {}}
           onLeadClick={() => {}}
+          onFindDecisionMakers={() => {}}
           currentPage={1}
           totalPages={1}
           pageSize={25}
@@ -210,14 +212,16 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('aerotech.com');
       expect(html).toContain('+1-555-0199');
       expect(html).toContain('View');
+      expect(html).toContain('Find decision-makers at Aerospace Technologies Inc');
     });
 
-    it('renders ApolloDetailDrawer with complete corporate dossier', () => {
+    it('renders ApolloDetailDrawer with complete corporate dossier and decision-maker cross-navigation', () => {
       const html = renderToString(
         <ApolloDetailDrawer
           isOpen={true}
           lead={mockLeads[0]}
           onClose={() => {}}
+          onFindDecisionMakers={() => {}}
         />
       );
 
@@ -230,6 +234,20 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('sap');
       expect(html).toContain('salesforce');
       expect(html).toContain('Jet Freight Logistics Alignment');
+      expect(html).toContain('Find Decision-Makers');
+      expect(html).toContain('Looking for Decision-Makers at Aerospace Technologies Inc?');
+      expect(html).toContain('Search People Tab');
+    });
+
+    it('renders ApolloContextBanner with corporate account directory notice', () => {
+      const html = renderToString(
+        <ApolloContextBanner onSwitchToPeople={() => {}} />
+      );
+
+      expect(html).toContain('Corporate Account Directory:');
+      expect(html).toContain('no individual decision-maker contacts');
+      expect(html).toContain('Search Decision-Makers in People Tab');
     });
   });
 });
+

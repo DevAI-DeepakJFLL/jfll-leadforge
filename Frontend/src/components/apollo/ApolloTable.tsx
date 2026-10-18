@@ -11,6 +11,7 @@ import {
   ChevronRight,
   Eye,
   AlertCircle,
+  Users,
 } from 'lucide-react';
 
 
@@ -23,6 +24,7 @@ export interface ApolloTableProps {
   rowSelection: RowSelectionState;
   onRowSelectionChange: (updater: RowSelectionState | ((old: RowSelectionState) => RowSelectionState)) => void;
   onLeadClick: (lead: ApolloLead) => void;
+  onFindDecisionMakers?: (companyName: string) => void;
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -42,6 +44,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
   rowSelection,
   onRowSelectionChange,
   onLeadClick,
+  onFindDecisionMakers,
   currentPage,
   totalPages,
   pageSize,
@@ -272,19 +275,34 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                     </div>
                   </td>
 
-                  {/* Actions: View Details Button */}
+                  {/* Actions: View Details & Find Decision-Makers Buttons */}
                   <td className="py-2.5 px-3 text-right">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onLeadClick(lead);
-                      }}
-                      className="inline-flex items-center space-x-1 px-2 py-1 rounded-md bg-white border border-slate-200 text-slate-700 hover:border-apollo hover:text-apollo hover:bg-blue-50/50 text-xs font-medium transition-colors shadow-2xs"
-                      title="View full organization dossier"
-                    >
-                      <Eye className="w-3.5 h-3.5" />
-                      <span>View</span>
-                    </button>
+                    <div className="inline-flex items-center space-x-1.5 justify-end">
+                      {onFindDecisionMakers && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onFindDecisionMakers(lead.organization_name);
+                          }}
+                          className="p-1 rounded-md text-slate-400 hover:text-apollo hover:bg-blue-50 transition-colors"
+                          title={`Find decision-makers at ${lead.organization_name} in People tab`}
+                          aria-label={`Find decision-makers at ${lead.organization_name}`}
+                        >
+                          <Users className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onLeadClick(lead);
+                        }}
+                        className="inline-flex items-center space-x-1 px-2 py-1 rounded-md bg-white border border-slate-200 text-slate-700 hover:border-apollo hover:text-apollo hover:bg-blue-50/50 text-xs font-medium transition-colors shadow-2xs"
+                        title="View full organization dossier"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>View</span>
+                      </button>
+                    </div>
                   </td>
                 </tr>
               );

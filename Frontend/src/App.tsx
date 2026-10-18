@@ -54,6 +54,7 @@ import {
   ApolloActionBar,
   ApolloTable,
   ApolloDetailDrawer,
+  ApolloContextBanner,
 } from '@/components/apollo';
 import { useApolloFilter } from '@/hooks/useApolloFilter';
 import {
@@ -496,6 +497,20 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     showToast(`Searching Apollo Leads for "${companyName}"`);
   };
 
+  // Cross-Navigation: Search inside People directory for decision-makers at this company
+  const handleFindDecisionMakersInPeople = (companyName: string) => {
+    setSelectedApolloDbLead(null);
+    setTopTab('people');
+    setActiveNav('search');
+    setSearch(companyName);
+    showToast(`Searching People Directory for decision-makers at "${companyName}"`);
+  };
+
+  const handleSwitchToPeople = () => {
+    setTopTab('people');
+    setActiveNav('search');
+  };
+
   // Apollo Commercial Shippers Leads filter and state management
   const {
     filters: apolloDbFilters,
@@ -835,6 +850,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           />
 
           <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
+            {/* Account Directory Scope Notification */}
+            <ApolloContextBanner onSwitchToPeople={handleSwitchToPeople} />
+
             <ApolloAudienceTabs
               activeTab={apolloDbFilters.tab}
               onTabChange={setApolloDbTab}
@@ -854,7 +872,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
               isExporting={isExportingApolloDb}
               searchQuery={apolloDbFilters.q || ''}
               onSearchChange={setApolloDbSearch}
-              searchPlaceholder="Search 690k shippers by company, domain, keywords..."
+              searchPlaceholder="Search 690k corporate shipper accounts by company, domain, keywords..."
             />
 
             <ApolloActiveFilterChips
@@ -879,6 +897,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
                 rowSelection={apolloDbRowSelection}
                 onRowSelectionChange={setApolloDbRowSelection}
                 onLeadClick={(lead) => setSelectedApolloDbLead(lead)}
+                onFindDecisionMakers={handleFindDecisionMakersInPeople}
                 currentPage={apolloDbData?.page || 1}
                 totalPages={apolloDbData?.totalPages || 1}
                 pageSize={apolloDbData?.limit || 25}
@@ -1020,6 +1039,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           isOpen={!!selectedApolloDbLead}
           lead={selectedApolloDbLead}
           onClose={() => setSelectedApolloDbLead(null)}
+          onFindDecisionMakers={handleFindDecisionMakersInPeople}
         />
       </ErrorBoundary>
 
