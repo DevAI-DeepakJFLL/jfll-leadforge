@@ -299,29 +299,31 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                     </div>
                   </td>
 
-                  {/* Direct Phone Number - True Capsule Pill Chip */}
+                  {/* Direct Phone Number - Clean Icon Micro-Tile & Direct Text */}
                   <td className="py-2.5 px-3 whitespace-nowrap">
                     {lead.phone && lead.phone !== '—' && lead.phone.toLowerCase() !== 'not specified' ? (
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-50 hover:bg-slate-100/80 border border-slate-200/90 hover:border-slate-300 text-slate-700 hover:text-apollo text-[11px] font-mono whitespace-nowrap shadow-2xs transition-all group/phone">
-                        <Phone className="w-3 h-3 text-slate-400 group-hover/phone:text-apollo shrink-0 transition-colors" />
+                      <div className="flex items-center gap-2 whitespace-nowrap">
+                        <div className="w-6 h-6 rounded-md bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-500 group-hover:text-apollo group-hover:bg-blue-50 transition-colors shrink-0">
+                          <Phone className="w-3 h-3" />
+                        </div>
                         <a
                           href={`tel:${lead.phone.replace(/[^0-9+]/g, '')}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="hover:underline font-medium select-text"
+                          className="font-mono text-xs text-slate-800 hover:text-apollo hover:underline select-text font-medium"
                           title={`Call ${lead.phone}`}
                         >
                           {lead.phone}
                         </a>
                         <button
                           onClick={(e) => handleCopyPhone(e, lead.phone, lead.organization_id)}
-                          className="p-0.5 text-slate-400 hover:text-apollo rounded-full hover:bg-white transition-colors shrink-0 ml-0.5 cursor-pointer"
+                          className="p-1 text-slate-400 hover:text-apollo hover:bg-blue-50 rounded-md transition-colors shrink-0 cursor-pointer"
                           title="Copy phone number"
-                          aria-label="Copy phone number"
+                          aria-label={`Copy phone number ${lead.phone}`}
                         >
                           {isPhoneCopied ? (
-                            <Check className="w-3 h-3 text-emerald-600" />
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
                           ) : (
-                            <Copy className="w-2.5 h-2.5 opacity-60 group-hover/phone:opacity-100 transition-opacity" />
+                            <Copy className="w-3.5 h-3.5" />
                           )}
                         </button>
                       </div>
