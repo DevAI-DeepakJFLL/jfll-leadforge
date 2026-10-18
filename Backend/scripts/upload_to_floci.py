@@ -56,9 +56,15 @@ def deploy_backend_data():
     except Exception:
         pass
 
-    dest_key = "leads/active_customers_leads_zstd.parquet"
-    s3.upload_file(str(zstd_file), DATA_BUCKET, dest_key)
-    print(f"✅ Uploaded {zstd_file.name} to s3://{DATA_BUCKET}/{dest_key}")
+    processed_dir = project_root / "Backend" / "data" / "processed"
+    parquet_files = list(processed_dir.glob("*.parquet"))
+    if not parquet_files and zstd_file.exists():
+        parquet_files = [zstd_file]
+
+    for p_file in sorted(parquet_files):
+        dest_key = f"leads/{p_file.name}"
+        s3.upload_file(str(p_file), DATA_BUCKET, dest_key)
+        print(f"✅ Uploaded {p_file.name} to s3://{DATA_BUCKET}/{dest_key}")
 
 
 def deploy_frontend_spa():

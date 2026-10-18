@@ -1,0 +1,722 @@
+[
+  {
+    "industry": "information technology & services",
+    "count": 361208
+  },
+  {
+    "industry": "marketing & advertising",
+    "count": 234483
+  },
+  {
+    "industry": "construction",
+    "count": 196460
+  },
+  {
+    "industry": "hospital & health care",
+    "count": 162481
+  },
+  {
+    "industry": "real estate",
+    "count": 149543
+  },
+  {
+    "industry": "computer software",
+    "count": 132149
+  },
+  {
+    "industry": "management consulting",
+    "count": 129817
+  },
+  {
+    "industry": "finance",
+    "count": 124664
+  },
+  {
+    "industry": "health, wellness & fitness",
+    "count": 119708
+  },
+  {
+    "industry": "internet",
+    "count": 116970
+  },
+  {
+    "industry": "education management",
+    "count": 99312
+  },
+  {
+    "industry": "retail",
+    "count": 88156
+  },
+  {
+    "industry": "design",
+    "count": 83782
+  },
+  {
+    "industry": "automotive",
+    "count": 82621
+  },
+  {
+    "industry": "non-profits & non-profit services",
+    "count": 77523
+  },
+  {
+    "industry": "environmental services & clean energy",
+    "count": 72872
+  },
+  {
+    "industry": "hospitality",
+    "count": 70043
+  },
+  {
+    "industry": "food & beverages",
+    "count": 68580
+  },
+  {
+    "industry": "law practice",
+    "count": 63808
+  },
+  {
+    "industry": "accounting",
+    "count": 62731
+  },
+  {
+    "industry": "telecommunications",
+    "count": 61132
+  },
+  {
+    "industry": "entertainment",
+    "count": 60469
+  },
+  {
+    "industry": "mechanical or industrial engineering",
+    "count": 57649
+  },
+  {
+    "industry": "professional training & coaching",
+    "count": 57486
+  },
+  {
+    "industry": "staffing & recruiting",
+    "count": 56879
+  },
+  {
+    "industry": "insurance",
+    "count": 56767
+  },
+  {
+    "industry": "architecture & planning",
+    "count": 56162
+  },
+  {
+    "industry": "electrical/electronic manufacturing",
+    "count": 54625
+  },
+  {
+    "industry": "events services",
+    "count": 53661
+  },
+  {
+    "industry": "consumer services",
+    "count": 53511
+  },
+  {
+    "industry": "human resources",
+    "count": 52178
+  },
+  {
+    "industry": "oil & energy",
+    "count": 51024
+  },
+  {
+    "industry": "leisure, travel & tourism",
+    "count": 50551
+  },
+  {
+    "industry": "apparel & fashion",
+    "count": 47353
+  },
+  {
+    "industry": "media production",
+    "count": 45531
+  },
+  {
+    "industry": "legal services",
+    "count": 44864
+  },
+  {
+    "industry": "transportation",
+    "count": 44778
+  },
+  {
+    "industry": "sports",
+    "count": 41285
+  },
+  {
+    "industry": "machinery",
+    "count": 39729
+  },
+  {
+    "industry": "consumer goods",
+    "count": 38051
+  },
+  {
+    "industry": "restaurants",
+    "count": 35779
+  },
+  {
+    "industry": "music",
+    "count": 35343
+  },
+  {
+    "industry": "graphic design",
+    "count": 33750
+  },
+  {
+    "industry": "photography",
+    "count": 33283
+  },
+  {
+    "industry": "wholesale",
+    "count": 33078
+  },
+  {
+    "industry": "publishing",
+    "count": 31426
+  },
+  {
+    "industry": "higher education",
+    "count": 31084
+  },
+  {
+    "industry": "building materials",
+    "count": 30851
+  },
+  {
+    "industry": "logistics & supply chain",
+    "count": 30518
+  },
+  {
+    "industry": "facilities & services",
+    "count": 30160
+  },
+  {
+    "industry": "civil engineering",
+    "count": 29838
+  },
+  {
+    "industry": "printing",
+    "count": 28653
+  },
+  {
+    "industry": "food production",
+    "count": 28526
+  },
+  {
+    "industry": "public relations & communications",
+    "count": 28321
+  },
+  {
+    "industry": "medical devices",
+    "count": 26444
+  },
+  {
+    "industry": "religious institutions",
+    "count": 26353
+  },
+  {
+    "industry": "pharmaceuticals",
+    "count": 26055
+  },
+  {
+    "industry": "research",
+    "count": 25855
+  },
+  {
+    "industry": "government administration",
+    "count": 25467
+  },
+  {
+    "industry": "furniture",
+    "count": 24834
+  },
+  {
+    "industry": "primary/secondary education",
+    "count": 23866
+  },
+  {
+    "industry": "investment management",
+    "count": 23332
+  },
+  {
+    "industry": "civic & social organization",
+    "count": 23289
+  },
+  {
+    "industry": "business supplies & equipment",
+    "count": 23251
+  },
+  {
+    "industry": "chemicals",
+    "count": 22669
+  },
+  {
+    "industry": "security & investigations",
+    "count": 22311
+  },
+  {
+    "industry": "individual & family services",
+    "count": 22123
+  },
+  {
+    "industry": "arts & crafts",
+    "count": 21100
+  },
+  {
+    "industry": "industrial automation",
+    "count": 20514
+  },
+  {
+    "industry": "broadcast media",
+    "count": 20333
+  },
+  {
+    "industry": "mining & metals",
+    "count": 20324
+  },
+  {
+    "industry": "biotechnology",
+    "count": 19722
+  },
+  {
+    "industry": "banking",
+    "count": 19605
+  },
+  {
+    "industry": "cosmetics",
+    "count": 18392
+  },
+  {
+    "industry": "international trade & development",
+    "count": 17977
+  },
+  {
+    "industry": "farming",
+    "count": 17671
+  },
+  {
+    "industry": "import & export",
+    "count": 17403
+  },
+  {
+    "industry": "online media",
+    "count": 17084
+  },
+  {
+    "industry": "consumer electronics",
+    "count": 16953
+  },
+  {
+    "industry": "maritime",
+    "count": 16882
+  },
+  {
+    "industry": "textiles",
+    "count": 16824
+  },
+  {
+    "industry": "writing & editing",
+    "count": 16811
+  },
+  {
+    "industry": "motion pictures & film",
+    "count": 16372
+  },
+  {
+    "industry": "airlines/aviation",
+    "count": 14761
+  },
+  {
+    "industry": "utilities",
+    "count": 13616
+  },
+  {
+    "industry": "computer & network security",
+    "count": 13539
+  },
+  {
+    "industry": "fine art",
+    "count": 13332
+  },
+  {
+    "industry": "wine & spirits",
+    "count": 13193
+  },
+  {
+    "industry": "aviation & aerospace",
+    "count": 12999
+  },
+  {
+    "industry": "sporting goods",
+    "count": 12438
+  },
+  {
+    "industry": "packaging & containers",
+    "count": 12406
+  },
+  {
+    "industry": "plastics",
+    "count": 12398
+  },
+  {
+    "industry": "venture capital & private equity",
+    "count": 12397
+  },
+  {
+    "industry": "performing arts",
+    "count": 12147
+  },
+  {
+    "industry": "luxury goods & jewelry",
+    "count": 12138
+  },
+  {
+    "industry": "veterinary",
+    "count": 11945
+  },
+  {
+    "industry": "computer games",
+    "count": 11664
+  },
+  {
+    "industry": "commercial real estate",
+    "count": 11635
+  },
+  {
+    "industry": "market research",
+    "count": 11191
+  },
+  {
+    "industry": "recreational facilities & services",
+    "count": 10938
+  },
+  {
+    "industry": "computer hardware",
+    "count": 10811
+  },
+  {
+    "industry": "computer networking",
+    "count": 10207
+  },
+  {
+    "industry": "outsourcing/offshoring",
+    "count": 10205
+  },
+  {
+    "industry": "translation & localization",
+    "count": 8601
+  },
+  {
+    "industry": "newspapers",
+    "count": 8408
+  },
+  {
+    "industry": "public safety",
+    "count": 8280
+  },
+  {
+    "industry": "philanthropy",
+    "count": 8249
+  },
+  {
+    "industry": "defense & space",
+    "count": 7567
+  },
+  {
+    "industry": "museums & institutions",
+    "count": 7518
+  },
+  {
+    "industry": "law enforcement",
+    "count": 7381
+  },
+  {
+    "industry": "government relations",
+    "count": 7216
+  },
+  {
+    "industry": "investment banking",
+    "count": 7058
+  },
+  {
+    "industry": "fund-raising",
+    "count": 5902
+  },
+  {
+    "industry": "warehousing",
+    "count": 5601
+  },
+  {
+    "industry": "semiconductors",
+    "count": 5523
+  },
+  {
+    "industry": "think tanks",
+    "count": 5362
+  },
+  {
+    "industry": "animation",
+    "count": 5097
+  },
+  {
+    "industry": "paper & forest products",
+    "count": 4993
+  },
+  {
+    "industry": "public policy",
+    "count": 4965
+  },
+  {
+    "industry": "international affairs",
+    "count": 4674
+  },
+  {
+    "industry": "libraries",
+    "count": 4526
+  },
+  {
+    "industry": "glass, ceramics & concrete",
+    "count": 4424
+  },
+  {
+    "industry": "political organization",
+    "count": 4278
+  },
+  {
+    "industry": "capital markets",
+    "count": 3837
+  },
+  {
+    "industry": "gambling & casinos",
+    "count": 3551
+  },
+  {
+    "industry": "judiciary",
+    "count": 2634
+  },
+  {
+    "industry": "dairy",
+    "count": 2408
+  },
+  {
+    "industry": "military",
+    "count": 2389
+  },
+  {
+    "industry": "ranching",
+    "count": 2126
+  },
+  {
+    "industry": "nanotechnology",
+    "count": 1839
+  },
+  {
+    "industry": "fishery",
+    "count": 1816
+  },
+  {
+    "industry": "supermarkets",
+    "count": 1810
+  },
+  {
+    "industry": "alternative dispute resolution",
+    "count": 1777
+  },
+  {
+    "industry": "manufacturing",
+    "count": 1666
+  },
+  {
+    "industry": "tobacco",
+    "count": 1172
+  },
+  {
+    "industry": "consulting",
+    "count": 486
+  },
+  {
+    "industry": "legislative office",
+    "count": 334
+  },
+  {
+    "industry": "agriculture",
+    "count": 68
+  },
+  {
+    "industry": "english",
+    "count": 34
+  },
+  {
+    "industry": "spanish",
+    "count": 5
+  },
+  {
+    "industry": "mobile_friendly",
+    "count": 4
+  },
+  {
+    "industry": "french",
+    "count": 3
+  },
+  {
+    "industry": "wordpress_org",
+    "count": 3
+  },
+  {
+    "industry": "google_font_api",
+    "count": 3
+  },
+  {
+    "industry": "apache",
+    "count": 3
+  },
+  {
+    "industry": "youtube",
+    "count": 3
+  },
+  {
+    "industry": "portuguese",
+    "count": 3
+  },
+  {
+    "industry": "countyhd.ie",
+    "count": 2
+  },
+  {
+    "industry": "hdgroup.ie",
+    "count": 2
+  },
+  {
+    "industry": "italian",
+    "count": 2
+  },
+  {
+    "industry": "german",
+    "count": 2
+  },
+  {
+    "industry": "google_analytics",
+    "count": 2
+  },
+  {
+    "industry": "sharethis",
+    "count": 2
+  },
+  {
+    "industry": "nginx",
+    "count": 2
+  },
+  {
+    "industry": "facebook_like_button",
+    "count": 2
+  },
+  {
+    "industry": "gmail",
+    "count": 2
+  },
+  {
+    "industry": "google_apps",
+    "count": 2
+  },
+  {
+    "industry": "recaptcha",
+    "count": 2
+  },
+  {
+    "industry": "facebook_widget",
+    "count": 2
+  },
+  {
+    "industry": "facebook_login",
+    "count": 2
+  },
+  {
+    "industry": "motherwelltimes.co.uk",
+    "count": 1
+  },
+  {
+    "industry": "goldenspiraldesign.com",
+    "count": 1
+  },
+  {
+    "industry": "livviematthews.com",
+    "count": 1
+  },
+  {
+    "industry": "cloudflare_dns",
+    "count": 1
+  },
+  {
+    "industry": "cloudflare_hosting",
+    "count": 1
+  },
+  {
+    "industry": "mailchimp",
+    "count": 1
+  },
+  {
+    "industry": "crazyegg",
+    "count": 1
+  },
+  {
+    "industry": "wordpress_com",
+    "count": 1
+  },
+  {
+    "industry": "cloudflare",
+    "count": 1
+  },
+  {
+    "industry": "addthis",
+    "count": 1
+  },
+  {
+    "industry": "paypal",
+    "count": 1
+  },
+  {
+    "industry": "gmail_spf",
+    "count": 1
+  },
+  {
+    "industry": "zopim",
+    "count": 1
+  },
+  {
+    "industry": "office_365",
+    "count": 1
+  },
+  {
+    "industry": "girls-golf.com",
+    "count": 1
+  },
+  {
+    "industry": "bootstrap_framework",
+    "count": 1
+  },
+  {
+    "industry": "facebook_web_custom_audiences",
+    "count": 1
+  },
+  {
+    "industry": "shutterstock",
+    "count": 1
+  },
+  {
+    "industry": "woo_commerce",
+    "count": 1
+  },
+  {
+    "industry": "facebook_comments",
+    "count": 1
+  }
+]

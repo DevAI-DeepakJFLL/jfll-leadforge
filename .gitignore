@@ -123,9 +123,19 @@ coverage.xml
 .superpowers/
 .gemini/
 
-# Local Migration Backups & Temporary Data
+# Local Migration Backups & Raw Datasets
 Backend/data/.backups/
 Backend/data/raw/
 *.bak
 *.tmp
+
+# Analytical Datasets & Data Files (Stored directly in AWS S3, NOT in GitHub)
+*.parquet
+*.xlsx
+*.xls
+Backend/data/**/*.parquet
+Backend/data/**/*.xlsx
+Backend/data/**/*.xls
+Backend/data/**/*.csv
+Backend/data/**/*.tsv
 
