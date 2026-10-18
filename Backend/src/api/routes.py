@@ -1,3 +1,4 @@
+import uuid
 from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query, Header
 from fastapi.params import Query as QueryType
@@ -19,6 +20,17 @@ router = APIRouter(prefix="/api/v1", tags=["Leads"])
 
 ALLOWED_STATUSES = {"Active", "Not Active"}
 ALLOWED_TABS = {"all", "shippers", "subagents", "overseas", "with-contacts"}
+
+
+def _handle_db_exception(context_msg: str, err: Exception, source: str = "unknown") -> HTTPException:
+    incident_id = str(uuid.uuid4())[:8]
+    logger.error(f"[Incident {incident_id}] {context_msg} from {source}: {err}", exc_info=True)
+    if settings.env == "production":
+        return HTTPException(
+            status_code=500,
+            detail=f"{context_msg}. Please contact support with incident reference: {incident_id}",
+        )
+    return HTTPException(status_code=500, detail=f"{context_msg}: {str(err)}")
 
 
 def get_data_source(con, dataset: str = "active") -> str:
@@ -210,8 +222,7 @@ def list_leads(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error querying leads from {data_source if 'data_source' in locals() else 'unknown'}: {e}")
-        raise HTTPException(status_code=500, detail=f"Database query failure: {str(e)}")
+        raise _handle_db_exception("Database query failure", e, data_source if 'data_source' in locals() else 'unknown')
 
 
 ALLOWED_APOLLO_TABS = {"all", "high_headcount", "high_revenue", "top_cargo_verticals", "with_website_linkedin"}
@@ -415,8 +426,7 @@ def list_apollo_leads(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error querying Apollo leads from {data_source}: {e}")
-        raise HTTPException(status_code=500, detail=f"Apollo database query failure: {str(e)}")
+        raise _handle_db_exception("Apollo database query failure", e, data_source)
 
 
 @router.get("/apollo/stats", summary="Retrieve aggregated dataset statistics for Apollo freight leads")
@@ -448,9 +458,10 @@ def get_apollo_stats():
             "top_industries": [{"industry": row[0], "count": row[1]} for row in top_industries],
             "top_countries": [{"country": row[0], "count": row[1]} for row in top_countries],
         }
+    except HTTPException:
+        raise
     except Exception as e:
-        logger.error(f"Error retrieving Apollo stats: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to retrieve stats: {str(e)}")
+        raise _handle_db_exception("Failed to retrieve stats", e, data_source)
 
 
 @router.get(
@@ -552,8 +563,7 @@ def list_company_contacts(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error querying contacts for organization {organization_id}: {e}")
-        raise HTTPException(status_code=500, detail=f"Database query failure: {str(e)}")
+        raise _handle_db_exception(f"Database query failure for organization {organization_id}", e, data_source)
 
 
 @router.get(
@@ -673,8 +683,7 @@ def search_apollo_contacts(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error querying Apollo contacts from {data_source}: {e}")
-        raise HTTPException(status_code=500, detail=f"Database query failure: {str(e)}")
+        raise _handle_db_exception("Database query failure", e, data_source)
 
 
 

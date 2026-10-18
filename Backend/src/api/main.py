@@ -6,27 +6,39 @@ from src.api.routes import router as leads_router
 from src.api.auth import router as auth_router
 from src.api.logger import CloudWatchLoggingMiddleware
 
+import os
+
+is_production = settings.env == "production"
+
 app = FastAPI(
     title="Customer Lead Master Service",
     description="Production-grade REST API querying ZSTD compressed Parquet over S3 / Floci emulator using DuckDB",
     version="1.0.0",
-    docs_url="/docs",
-    redoc_url="/redoc",
+    docs_url=None if is_production else "/docs",
+    redoc_url=None if is_production else "/redoc",
+    openapi_url=None if is_production else "/openapi.json",
 )
 
 # CloudWatch & CloudFront Structured Request Telemetry Middleware
 app.add_middleware(CloudWatchLoggingMiddleware)
 
-# CORS configuration
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
+# CORS configuration - strict origin allowlist without wildcard
+def get_allowed_origins() -> list[str]:
+    configured = os.getenv("CORS_ALLOWED_ORIGINS", "")
+    if configured:
+        return [origin.strip() for origin in configured.split(",") if origin.strip()]
+    if is_production:
+        return []
+    return [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:4566",
         "http://localhost:8000",
-        "*",
-    ],
+    ]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=get_allowed_origins(),
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],

@@ -1,10 +1,12 @@
 import os
 from pathlib import Path
 from typing import ClassVar, Dict
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class Settings(BaseModel):
+    DEFAULT_INSECURE_SECRET: ClassVar[str] = "jfll-lead-sourcing-secret-key-2026-enterprise"
+
     env: str = Field(default_factory=lambda: os.getenv("ENV", "local"))
     floci_endpoint: str = Field(default_factory=lambda: os.getenv("FLOCI_ENDPOINT", "localhost:4566"))
     aws_region: str = Field(default_factory=lambda: os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION") or "ap-southeast-2")
@@ -20,6 +22,16 @@ class Settings(BaseModel):
     default_user_password: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_PASSWORD", "Jet@123"))
     default_user_name: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_NAME", "JFLL"))
     default_user_role: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_ROLE", "Internal Team"))
+
+    @model_validator(mode="after")
+    def validate_production_security(self):
+        if self.env == "production":
+            if not self.auth_secret_key or self.auth_secret_key == self.DEFAULT_INSECURE_SECRET:
+                raise ValueError(
+                    "CRITICAL SECURITY CONFIGURATION ERROR: AUTH_SECRET_KEY must be set to a secure, "
+                    "high-entropy secret in production environments. Using the default placeholder is disallowed."
+                )
+        return self
 
     cache_dir: Path = Field(
         default_factory=lambda: Path(os.getenv("S3_CACHE_DIR", "/tmp/lead_cache" if os.getenv("AWS_LAMBDA_FUNCTION_NAME") else str(Path(__file__).resolve().parent.parent.parent / "data" / "processed")))

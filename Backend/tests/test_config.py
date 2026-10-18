@@ -1,5 +1,6 @@
+import pytest
 from pathlib import Path
-from src.api.config import settings
+from src.api.config import Settings, settings
 
 
 def test_s3_multi_dataset_uri_generation():
@@ -12,3 +13,23 @@ def test_s3_multi_dataset_uri_generation():
 
 def test_cache_dir_configuration():
     assert isinstance(settings.cache_dir, Path)
+
+
+def test_production_security_validation_fails_on_default_secret():
+    with pytest.raises(ValueError, match="CRITICAL SECURITY CONFIGURATION ERROR"):
+        Settings(env="production", auth_secret_key=Settings.DEFAULT_INSECURE_SECRET)
+
+
+def test_production_security_validation_passes_with_secure_secret():
+    prod_settings = Settings(
+        env="production",
+        auth_secret_key="prod-super-secure-high-entropy-secret-key-998877",
+    )
+    assert prod_settings.auth_secret_key == "prod-super-secure-high-entropy-secret-key-998877"
+    assert prod_settings.env == "production"
+
+
+def test_local_environment_allows_default_secret():
+    local_settings = Settings(env="local")
+    assert local_settings.auth_secret_key == Settings.DEFAULT_INSECURE_SECRET
+
