@@ -3,11 +3,17 @@ from fastapi import APIRouter, HTTPException, Query, Header
 from fastapi.params import Query as QueryType
 from src.api.config import settings
 from src.api.database import get_db_connection
-from src.api.models import PaginatedResponse, AudienceCounts
+from src.api.models import (
+    PaginatedResponse,
+    AudienceCounts,
+    ApolloPaginatedResponse,
+    ApolloAudienceCounts,
+)
 from src.api.logger import logger
 from src.api.auth import verify_token
 
 router = APIRouter(prefix="/api/v1", tags=["Leads"])
+
 
 ALLOWED_STATUSES = {"Active", "Not Active"}
 ALLOWED_TABS = {"all", "shippers", "subagents", "overseas", "with-contacts"}
@@ -204,4 +210,244 @@ def list_leads(
     except Exception as e:
         logger.error(f"Error querying leads from {data_source if 'data_source' in locals() else 'unknown'}: {e}")
         raise HTTPException(status_code=500, detail=f"Database query failure: {str(e)}")
+
+
+ALLOWED_APOLLO_TABS = {"all", "high_headcount", "high_revenue", "top_cargo_verticals", "with_website_linkedin"}
+
+
+@router.get(
+    "/apollo/leads",
+    response_model=ApolloPaginatedResponse,
+    summary="Retrieve paginated commercial freight shippers from Apollo dataset",
+)
+def list_apollo_leads(
+    page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
+    page_size: int = Query(default=25, ge=1, le=100, description="Records per page (max 100)"),
+    industry: Optional[str] = Query(default=None, description="Single industry filter"),
+    industries: Optional[List[str]] = Query(default=None, description="Multi-select cargo verticals"),
+    country: Optional[str] = Query(default=None, description="Single country filter"),
+    countries: Optional[List[str]] = Query(default=None, description="Multi-select countries"),
+    state: Optional[str] = Query(default=None, description="State/Province filter"),
+    min_employees: Optional[int] = Query(default=None, ge=0, description="Minimum headcount"),
+    max_employees: Optional[int] = Query(default=None, ge=0, description="Maximum headcount"),
+    min_revenue: Optional[int] = Query(default=None, ge=0, description="Minimum annual revenue USD"),
+    has_website: Optional[bool] = Query(default=None, description="Require corporate website"),
+    has_linkedin: Optional[bool] = Query(default=None, description="Require LinkedIn profile"),
+    tab: Optional[str] = Query(default=None, description="Audience quick tab"),
+    search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search company, domain, keywords"),
+    authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
+):
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.split("Bearer ", 1)[1].strip()
+        user = verify_token(token)
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid or expired session token")
+    elif settings.env == "production":
+        raise HTTPException(status_code=401, detail="Authentication required to access Apollo leads")
+
+    # Normalize Query objects when invoked directly in tests/scripts
+    if isinstance(page, QueryType): page = 1
+    if isinstance(page_size, QueryType): page_size = 25
+    if isinstance(industry, QueryType): industry = None
+    if isinstance(industries, QueryType): industries = None
+    if isinstance(country, QueryType): country = None
+    if isinstance(countries, QueryType): countries = None
+    if isinstance(state, QueryType): state = None
+    if isinstance(min_employees, QueryType): min_employees = None
+    if isinstance(max_employees, QueryType): max_employees = None
+    if isinstance(min_revenue, QueryType): min_revenue = None
+    if isinstance(has_website, QueryType): has_website = None
+    if isinstance(has_linkedin, QueryType): has_linkedin = None
+    if isinstance(tab, QueryType): tab = None
+    if isinstance(search, QueryType): search = None
+
+    if tab and tab not in ALLOWED_APOLLO_TABS:
+        raise HTTPException(status_code=400, detail=f"Invalid tab. Allowed values: {sorted(ALLOWED_APOLLO_TABS)}")
+
+    offset = (page - 1) * page_size
+    con = get_db_connection()
+    data_source = get_data_source(con, dataset="apollo")
+
+    try:
+        conditions = ["1=1"]
+        params = []
+
+        if tab == "high_headcount":
+            conditions.append("employee_count >= 100")
+        elif tab == "high_revenue":
+            conditions.append("revenue_usd >= 10000000")
+        elif tab == "top_cargo_verticals":
+            conditions.append("lower(industry) IN ('automotive', 'food & beverages', 'pharmaceuticals', 'electrical/electronic manufacturing', 'chemicals', 'medical devices')")
+        elif tab == "with_website_linkedin":
+            conditions.append("website_url IS NOT NULL AND linkedin_url IS NOT NULL")
+
+        if industry and industry.strip():
+            conditions.append("lower(industry) = ?")
+            params.append(industry.strip().lower())
+
+        if industries:
+            clean_industries = [i.strip().lower() for i in industries if i and i.strip()]
+            if clean_industries:
+                placeholders = ", ".join(["?"] * len(clean_industries))
+                conditions.append(f"lower(industry) IN ({placeholders})")
+                params.extend(clean_industries)
+
+        if country and country.strip():
+            conditions.append("lower(hq_country) = ?")
+            params.append(country.strip().lower())
+
+        if countries:
+            clean_countries = [c.strip().lower() for c in countries if c and c.strip()]
+            if clean_countries:
+                placeholders = ", ".join(["?"] * len(clean_countries))
+                conditions.append(f"lower(hq_country) IN ({placeholders})")
+                params.extend(clean_countries)
+
+        if state and state.strip():
+            conditions.append("lower(hq_state) = ?")
+            params.append(state.strip().lower())
+
+        if min_employees is not None:
+            conditions.append("employee_count >= ?")
+            params.append(min_employees)
+
+        if max_employees is not None:
+            conditions.append("employee_count <= ?")
+            params.append(max_employees)
+
+        if min_revenue is not None:
+            conditions.append("revenue_usd >= ?")
+            params.append(min_revenue)
+
+        if has_website is True:
+            conditions.append("website_url IS NOT NULL AND trim(website_url) != ''")
+
+        if has_linkedin is True:
+            conditions.append("linkedin_url IS NOT NULL AND trim(linkedin_url) != ''")
+
+        if search and search.strip():
+            search_pattern = f"%{search.strip().lower()}%"
+            conditions.append(
+                "(lower(organization_name) LIKE ? OR lower(domain) LIKE ? OR lower(COALESCE(keywords, '')) LIKE ? OR lower(COALESCE(specialties, '')) LIKE ?)"
+            )
+            params.extend([search_pattern, search_pattern, search_pattern, search_pattern])
+
+        where_sql = " AND ".join(conditions)
+
+        # 1. Total Count Query (Prepared statement)
+        count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
+        total_records = con.execute(count_query, params).fetchone()[0]
+
+        # 2. Audience Tab Aggregate Counts
+        agg_row = con.execute(f"""
+            SELECT 
+                count(*) as all_count,
+                count(CASE WHEN employee_count >= 100 THEN 1 END) as high_headcount,
+                count(CASE WHEN revenue_usd >= 10000000 THEN 1 END) as high_revenue,
+                count(CASE WHEN lower(industry) IN ('automotive', 'food & beverages', 'pharmaceuticals', 'electrical/electronic manufacturing', 'chemicals', 'medical devices') THEN 1 END) as top_cargo_verticals,
+                count(CASE WHEN (website_url IS NOT NULL AND linkedin_url IS NOT NULL) THEN 1 END) as with_website_linkedin
+            FROM '{data_source}'
+        """).fetchone()
+
+        audience_counts = ApolloAudienceCounts(
+            all=agg_row[0],
+            high_headcount=agg_row[1],
+            high_revenue=agg_row[2],
+            top_cargo_verticals=agg_row[3],
+            with_website_linkedin=agg_row[4],
+        )
+
+        # 3. Paginated Data Query
+        data_query = f"""
+            SELECT 
+                organization_id,
+                organization_name,
+                domain,
+                website_url,
+                phone,
+                employee_count,
+                revenue_usd,
+                founded_year,
+                industry,
+                specialties,
+                keywords,
+                technologies_raw,
+                job_functions_json,
+                linkedin_url,
+                hq_city,
+                hq_state,
+                hq_country,
+                hq_postal_code
+            FROM '{data_source}'
+            WHERE {where_sql}
+            ORDER BY employee_count DESC NULLS LAST, organization_name ASC
+            LIMIT ? OFFSET ?
+        """
+        query_params = params + [page_size, offset]
+        result_cursor = con.execute(data_query, query_params)
+        columns = [desc[0] for desc in result_cursor.description]
+        rows = result_cursor.fetchall()
+        clean_records = [dict(zip(columns, row)) for row in rows]
+        total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
+
+        logger.info(
+            "Executed DuckDB Apollo analytical query",
+            extra={
+                "total_records": total_records,
+                "page": page,
+                "page_size": page_size,
+                "returned_count": len(clean_records),
+                "tab": tab,
+            },
+        )
+
+        return {
+            "page": page,
+            "page_size": page_size,
+            "total_records": total_records,
+            "total_pages": total_pages,
+            "has_next": page < total_pages,
+            "data": clean_records,
+            "audience_counts": audience_counts,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error querying Apollo leads from {data_source}: {e}")
+        raise HTTPException(status_code=500, detail=f"Apollo database query failure: {str(e)}")
+
+
+@router.get("/apollo/stats", summary="Retrieve aggregated dataset statistics for Apollo freight leads")
+def get_apollo_stats():
+    con = get_db_connection()
+    data_source = get_data_source(con, dataset="apollo")
+    try:
+        top_industries = con.execute(f"""
+            SELECT industry, count(*) as count 
+            FROM '{data_source}' 
+            GROUP BY industry 
+            ORDER BY count DESC 
+            LIMIT 15
+        """).fetchall()
+
+        top_countries = con.execute(f"""
+            SELECT hq_country, count(*) as count 
+            FROM '{data_source}' 
+            WHERE hq_country IS NOT NULL AND trim(hq_country) != ''
+            GROUP BY hq_country 
+            ORDER BY count DESC 
+            LIMIT 10
+        """).fetchall()
+
+        total = con.execute(f"SELECT count(*) FROM '{data_source}'").fetchone()[0]
+
+        return {
+            "total_records": total,
+            "top_industries": [{"industry": row[0], "count": row[1]} for row in top_industries],
+            "top_countries": [{"country": row[0], "count": row[1]} for row in top_countries],
+        }
+    except Exception as e:
+        logger.error(f"Error retrieving Apollo stats: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve stats: {str(e)}")
+
 

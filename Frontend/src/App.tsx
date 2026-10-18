@@ -47,6 +47,21 @@ import {
   getLoadedDatamyneDataset,
 } from '@/services/datamyneService';
 import { DatamyneLead } from '@/types/datamyneLead';
+import {
+  ApolloAudienceTabs,
+  ApolloFilterSidebar,
+  ApolloActiveFilterChips,
+  ApolloActionBar,
+  ApolloTable,
+  ApolloDetailDrawer,
+} from '@/components/apollo';
+import { useApolloFilter } from '@/hooks/useApolloFilter';
+import {
+  fetchApolloLeadsFromApi,
+  exportApolloLeadsCsv,
+} from '@/services/apolloService';
+import { ApolloLead } from '@/types/apolloLead';
+
 
 interface SavedSearchPreset {
   id: string;
@@ -481,8 +496,87 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     showToast(`Searching Apollo Leads for "${companyName}"`);
   };
 
+  // Apollo Commercial Shippers Leads filter and state management
+  const {
+    filters: apolloDbFilters,
+    setTab: setApolloDbTab,
+    setSearch: setApolloDbSearch,
+    setPage: setApolloDbPage,
+    setLimit: _setApolloDbLimit,
+    toggleIndustry: toggleApolloDbIndustry,
+    toggleCountry: toggleApolloDbCountry,
+    toggleEmployeeTier: toggleApolloDbEmployeeTier,
+    toggleRevenueRange: toggleApolloDbRevenueRange,
+    toggleHasWebsite: toggleApolloDbHasWebsite,
+    toggleHasLinkedin: toggleApolloDbHasLinkedin,
+    clearAllFilters: clearAllApolloDbFilters,
+    clearCategory: clearApolloDbCategory,
+    activeFilterCount: apolloDbActiveFilterCount,
+  } = useApolloFilter();
+
+  const {
+    data: apolloDbData,
+    isLoading: isApolloDbLoading,
+    isError: isApolloDbError,
+    error: apolloDbError,
+    refetch: refetchApolloDb,
+  } = useQuery({
+    queryKey: ['apollo-db-leads', apolloDbFilters],
+    queryFn: () => fetchApolloLeadsFromApi(apolloDbFilters),
+    staleTime: 60000,
+  });
+
+  const [apolloDbRowSelection, setApolloDbRowSelection] = useState<RowSelectionState>({});
+  const [selectedApolloDbLead, setSelectedApolloDbLead] = useState<ApolloLead | null>(null);
+  const [isExportingApolloDb, setIsExportingApolloDb] = useState(false);
+
+  // Apollo Selection calculations
+  const apolloDbItems = apolloDbData?.items || [];
+  const selectedApolloDbIds = useMemo(
+    () => Object.keys(apolloDbRowSelection).filter((id) => apolloDbRowSelection[id]),
+    [apolloDbRowSelection]
+  );
+  const selectedApolloDbCount = selectedApolloDbIds.length;
+  const isAllApolloDbOnPageSelected =
+    apolloDbItems.length > 0 && apolloDbItems.every((d) => apolloDbRowSelection[d.organization_id]);
+  const isSomeApolloDbOnPageSelected =
+    apolloDbItems.some((d) => apolloDbRowSelection[d.organization_id]) && !isAllApolloDbOnPageSelected;
+
+  const handleToggleSelectAllApolloDbPage = () => {
+    if (isAllApolloDbOnPageSelected) {
+      setApolloDbRowSelection({});
+    } else {
+      const next: RowSelectionState = {};
+      apolloDbItems.forEach((d) => {
+        next[d.organization_id] = true;
+      });
+      setApolloDbRowSelection(next);
+    }
+  };
+
+  const handleDeselectAllApolloDb = () => {
+    setApolloDbRowSelection({});
+  };
+
+  const handleExportApolloDbCsv = () => {
+    try {
+      setIsExportingApolloDb(true);
+      const selected = selectedApolloDbIds
+        .map((id) => apolloDbItems.find((d) => d.organization_id === id))
+        .filter(Boolean) as ApolloLead[];
+      const exportList = selected.length > 0 ? selected : apolloDbItems;
+      exportApolloLeadsCsv(exportList, 'apollo_freight_leads_export.csv');
+      showToast(`Exported ${exportList.length} Apollo freight leads to CSV`);
+    } catch {
+      showToast('Export failed. Please check network connection.', 'error');
+    } finally {
+      setIsExportingApolloDb(false);
+    }
+  };
+
   const isJfllCategory = topTab === 'jfll-customers';
   const isDatamyneCategory = topTab === 'datamyne';
+  const isApolloCategory = topTab === 'apollo';
 
   const apolloActiveFilterCount = useMemo(() => {
     let count = 0;
@@ -509,7 +603,10 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     ? datamyneActiveFilterCount
     : isJfllCategory
     ? jfllActiveFilterCount
+    : isApolloCategory
+    ? apolloDbActiveFilterCount
     : apolloActiveFilterCount;
+
 
   return (
     <AppLayout
@@ -720,9 +817,83 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
             </div>
           </div>
         </div>
+      ) : isApolloCategory ? (
+        /* Dedicated Apollo Commercial Freight Shippers Database View */
+        <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
+          <ApolloFilterSidebar
+            filters={apolloDbFilters}
+            onToggleIndustry={toggleApolloDbIndustry}
+            onToggleCountry={toggleApolloDbCountry}
+            onToggleEmployeeTier={toggleApolloDbEmployeeTier}
+            onToggleRevenueRange={toggleApolloDbRevenueRange}
+            onToggleHasWebsite={toggleApolloDbHasWebsite}
+            onToggleHasLinkedin={toggleApolloDbHasLinkedin}
+            onClearCategory={clearApolloDbCategory}
+            onClearAll={clearAllApolloDbFilters}
+            isMobileOpen={isMobileFilterOpen}
+            onCloseMobile={() => setIsMobileFilterOpen(false)}
+          />
+
+          <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
+            <ApolloAudienceTabs
+              activeTab={apolloDbFilters.tab}
+              onTabChange={setApolloDbTab}
+              counts={apolloDbData?.audienceCounts}
+              totalFormatted={apolloDbData?.totalFormatted}
+            />
+
+            <ApolloActionBar
+              selectedCount={selectedApolloDbCount}
+              totalOnPage={apolloDbItems.length}
+              totalCount={apolloDbData?.totalRecords}
+              isAllOnPageSelected={isAllApolloDbOnPageSelected}
+              isIndeterminate={isSomeApolloDbOnPageSelected}
+              onToggleSelectAllPage={handleToggleSelectAllApolloDbPage}
+              onDeselectAll={handleDeselectAllApolloDb}
+              onExport={handleExportApolloDbCsv}
+              isExporting={isExportingApolloDb}
+              searchQuery={apolloDbFilters.q || ''}
+              onSearchChange={setApolloDbSearch}
+              searchPlaceholder="Search 690k shippers by company, domain, keywords..."
+            />
+
+            <ApolloActiveFilterChips
+              filters={apolloDbFilters}
+              onRemoveIndustry={toggleApolloDbIndustry}
+              onRemoveCountry={toggleApolloDbCountry}
+              onRemoveEmployeeTier={toggleApolloDbEmployeeTier}
+              onRemoveRevenueRange={toggleApolloDbRevenueRange}
+              onRemoveHasWebsite={toggleApolloDbHasWebsite}
+              onRemoveHasLinkedin={toggleApolloDbHasLinkedin}
+              onClearSearch={() => setApolloDbSearch('')}
+              onClearAll={clearAllApolloDbFilters}
+            />
+
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
+              <ApolloTable
+                leads={apolloDbItems}
+                isLoading={isApolloDbLoading}
+                isError={isApolloDbError}
+                error={apolloDbError as Error}
+                onRetry={() => refetchApolloDb()}
+                rowSelection={apolloDbRowSelection}
+                onRowSelectionChange={setApolloDbRowSelection}
+                onLeadClick={(lead) => setSelectedApolloDbLead(lead)}
+                currentPage={apolloDbData?.page || 1}
+                totalPages={apolloDbData?.totalPages || 1}
+                pageSize={apolloDbData?.limit || 25}
+                totalItems={apolloDbData?.totalRecords || 0}
+                totalFormatted={apolloDbData?.totalFormatted}
+                onPageChange={setApolloDbPage}
+                onClearFilters={clearAllApolloDbFilters}
+              />
+            </div>
+          </div>
+        </div>
       ) : (
         /* Existing Apollo Prospects Category View - 100% UNCHANGED */
         <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
+
           {/* Left Filter Sidebar matching Ref.jpg */}
           <FilterSidebar
             filters={filters}
@@ -839,6 +1010,19 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           onSearchApollo={handleSearchInApollo}
         />
       </ErrorBoundary>
+
+      {/* Slide-over Apollo Commercial Shipper Dossier Drawer */}
+      <ErrorBoundary
+        fallbackTitle="Unable to display Apollo shipper profile"
+        onReset={() => setSelectedApolloDbLead(null)}
+      >
+        <ApolloDetailDrawer
+          isOpen={!!selectedApolloDbLead}
+          lead={selectedApolloDbLead}
+          onClose={() => setSelectedApolloDbLead(null)}
+        />
+      </ErrorBoundary>
+
 
       {/* Quick Email Reveal Dialog */}
       <EmailRevealDialog

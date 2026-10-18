@@ -25,9 +25,11 @@ const TOP_NAV_TABS: TopNavTab[] = [
   { id: 'companies', label: 'Companies' },
   { id: 'jfll-customers', label: 'JFLL Customers', badge: '2.7k' },
   { id: 'datamyne', label: 'DataMyne', badge: '37.3k' },
+  { id: 'apollo', label: 'Apollo Database', badge: '690k' },
   { id: 'saved-searches', label: 'Saved Searches' },
   { id: 'saved-lists', label: 'Saved Lists' },
 ];
+
 
 export const TopHeader: React.FC<TopHeaderProps> = ({
   activeTab = 'people',

@@ -52,3 +52,43 @@ class UserSessionResponse(BaseModel):
     token_type: str = Field(default="Bearer", description="Token type")
     expires_at: Optional[str] = Field(None, description="ISO timestamp of token expiration")
 
+
+class ApolloLeadRecord(BaseModel):
+    organization_id: str = Field(..., description="Apollo organization unique identifier")
+    organization_name: str = Field(..., description="Company legal/trading name")
+    domain: str = Field(..., description="Corporate web domain")
+    website_url: Optional[str] = Field(None, description="Full website URL")
+    phone: str = Field(..., description="Validated telephone number")
+    employee_count: Optional[int] = Field(None, description="Current employee headcount")
+    revenue_usd: Optional[int] = Field(None, description="Estimated gross annual revenue in USD")
+    founded_year: Optional[int] = Field(None, description="Year company was established")
+    industry: str = Field(..., description="Logistics cargo vertical")
+    specialties: Optional[str] = Field(None, description="Manufacturing and trade specialties")
+    keywords: Optional[str] = Field(None, description="Trade and product keywords")
+    technologies_raw: Optional[str] = Field(None, description="Detected technology and ERP stack")
+    job_functions_json: Optional[str] = Field(None, description="Departmental headcount breakdown JSON")
+    linkedin_url: Optional[str] = Field(None, description="Company LinkedIn profile URL")
+    hq_city: Optional[str] = Field(None, description="Headquarters city")
+    hq_state: Optional[str] = Field(None, description="Headquarters state or province")
+    hq_country: Optional[str] = Field(None, description="Headquarters country")
+    hq_postal_code: Optional[str] = Field(None, description="Headquarters postal or ZIP code")
+
+
+class ApolloAudienceCounts(BaseModel):
+    all: int = Field(default=0)
+    high_headcount: int = Field(default=0, description="Companies with 100+ employees")
+    high_revenue: int = Field(default=0, description="Companies with $10M+ annual revenue")
+    top_cargo_verticals: int = Field(default=0, description="Automotive, Food & Bev, Pharma, Tech, Chemicals")
+    with_website_linkedin: int = Field(default=0, description="Profiles with both website and LinkedIn verified")
+
+
+class ApolloPaginatedResponse(BaseModel):
+    page: int = Field(..., ge=1, description="Current page number")
+    page_size: int = Field(..., ge=1, description="Number of items per page")
+    total_records: int = Field(..., ge=0, description="Total matching records")
+    total_pages: int = Field(..., ge=0, description="Total pages available")
+    has_next: bool = Field(..., description="Whether subsequent page exists")
+    data: List[ApolloLeadRecord] = Field(..., description="List of Apollo lead records")
+    audience_counts: Optional[ApolloAudienceCounts] = Field(default=None, description="Audience quick counts")
+
+
