@@ -539,10 +539,14 @@ def list_company_contacts(
                 is_decision_maker,
                 is_logistics_role,
                 has_email,
-                COALESCE(company_name, '') as employer_name
+                CASE 
+                    WHEN email IS NOT NULL AND email LIKE '%@%' 
+                    THEN upper(regexp_extract(email, '@([^.]+)', 1)) 
+                    ELSE 'COMMERCIAL SHIPPER' 
+                END as employer_name
             FROM '{data_source}'
             WHERE {where_sql}
-            ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC, person_name ASC
+            ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
             LIMIT ? OFFSET ?
         """
         query_params = params + [page_size, offset]
@@ -632,13 +636,13 @@ def search_apollo_contacts(
 
         if company and company.strip():
             pat = f"%{company.strip().lower()}%"
-            conditions.append("lower(COALESCE(company_name, '')) LIKE ?")
+            conditions.append("lower(COALESCE(email, '')) LIKE ?")
             params.append(pat)
 
         if search and search.strip():
             pat = f"%{search.strip().lower()}%"
-            conditions.append("(lower(person_name) LIKE ? OR lower(job_title) LIKE ? OR lower(COALESCE(company_name, '')) LIKE ? OR lower(COALESCE(email, '')) LIKE ?)")
-            params.extend([pat, pat, pat, pat])
+            conditions.append("(lower(person_name) LIKE ? OR lower(job_title) LIKE ? OR lower(COALESCE(email, '')) LIKE ?)")
+            params.extend([pat, pat, pat])
 
         where_sql = " AND ".join(conditions)
 
@@ -674,7 +678,11 @@ def search_apollo_contacts(
                 is_decision_maker,
                 is_logistics_role,
                 has_email,
-                COALESCE(company_name, '') as employer_name
+                CASE 
+                    WHEN email IS NOT NULL AND email LIKE '%@%' 
+                    THEN upper(regexp_extract(email, '@([^.]+)', 1)) 
+                    ELSE 'COMMERCIAL SHIPPER' 
+                END as employer_name
             FROM '{data_source}'
             WHERE {where_sql}
             ORDER BY is_decision_maker DESC, has_email DESC
