@@ -1,53 +1,56 @@
 # JFLL LeadForge — Lead Sourcing & Customer Intelligence Platform
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Frontend Tests](https://img.shields.io/badge/Vitest-46%20passed-success.svg)]()
-[![Backend Tests](https://img.shields.io/badge/Pytest-9%20passed-success.svg)]()
+[![Frontend Tests](https://img.shields.io/badge/Vitest-92%20passed-success.svg)]()
+[![Backend Tests](https://img.shields.io/badge/Pytest-27%20passed-success.svg)]()
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)]()
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)]()
 [![DuckDB](https://img.shields.io/badge/DuckDB-1.1-FFF000.svg)]()
 [![AWS S3 / Parquet](https://img.shields.io/badge/AWS%20S3-ZSTD%20Parquet-FF9900.svg)]()
+[![CloudFront CDN](https://img.shields.io/badge/CloudFront-Live-blueviolet.svg)](https://d3c4bsffw7tf7s.cloudfront.net)
 
 Enterprise B2B Lead Sourcing and Customer Intelligence Suite developed for **Jet Freight Logistics Limited (JFLL)**. The platform pairs a high-performance analytical query engine (FastAPI + DuckDB over AWS S3 Parquet) with a modern React 18 single-page application modeled after enterprise prospecting workflows.
 
-**GitHub Repository**: [`DevAI-DeepakJFLL/jfll-leadforge`](https://github.com/DevAI-DeepakJFLL/jfll-leadforge)
+- **Production CloudFront URL**: [https://d3c4bsffw7tf7s.cloudfront.net](https://d3c4bsffw7tf7s.cloudfront.net)
+- **Backend Lambda Endpoint**: `https://uxfmnbd6owxk3wxemhizp4gqsa0exlge.lambda-url.ap-southeast-2.on.aws`
+- **GitHub Repository**: [`DevAI-DeepakJFLL/jfll-leadforge`](https://github.com/DevAI-DeepakJFLL/jfll-leadforge)
 
 ---
 
 ## Table of Contents
 
-- [Overview & Architecture](#overview--architecture)
+- [Overview & Core Engines](#overview--core-engines)
 - [System Architecture Diagram](#system-architecture-diagram)
 - [Key Features](#key-features)
 - [Technology Stack](#technology-stack)
 - [Repository Structure](#repository-structure)
-- [Quickstart & Team Onboarding](#quickstart--team-onboarding)
+- [Quickstart & Local Setup](#quickstart--local-setup)
   - [Prerequisites](#prerequisites)
-  - [Clone Repository](#clone-repository)
   - [1. Backend Setup](#1-backend-setup)
   - [2. Frontend Setup](#2-frontend-setup)
 - [Authentication & Access](#authentication--access)
 - [Testing & Quality Assurance](#testing--quality-assurance)
-- [Cloud Deployment (AWS & Floci)](#cloud-deployment-aws--floci)
-  - [Local AWS Emulation with Floci](#local-aws-emulation-with-floci)
-  - [Production AWS CloudFront & S3 Deployment](#production-aws-cloudfront--s3-deployment)
+- [Cloud Deployment & Architecture](#cloud-deployment--architecture)
 - [Observability & Structured Logging](#observability--structured-logging)
 - [Configuration Reference](#configuration-reference)
 
 ---
 
-## Overview & Architecture
+## Overview & Core Engines
 
-The application provides a unified dual-tab interface tailored for logistics sales operations:
+The application provides a unified multi-engine prospecting suite tailored for international logistics sales operations:
 
-1. **JFLL Customers**: Real-time analytical querying over **729 actionable, high-integrity enterprise customer leads** (cleansed master dataset with verified phone numbers and/or email contacts). Queries execute in sub-2ms via an embedded **DuckDB** columnar engine scanning ZSTD-compressed Parquet files directly from **AWS S3** without dedicated SQL database servers.
-2. **Apollo Leads**: A simulated B2B prospecting directory (300+ leads) offering multi-faceted persona filtering, intent signals, sequences, and lead enrichment drawer views.
+1. **Company Accounts (Apollo Shippers)**: Real-time analytical querying over **690,881 verified commercial freight shipper accounts** across 50 freight-active cargo verticals (Automotive, Chemicals, Pharmaceuticals, Fresh Produce, Electronics, Heavy Machinery). Includes firmographics, employee headcounts, revenue ranges, tech stacks, and one-click **"Find Decision Makers"** cross-navigation.
+2. **People Directory (Apollo Decision Makers)**: Directory of **2.5M+ freight decision-makers** (C-Suite, VP, Director, Operations, Supply Chain & Logistics Managers) with verified email confidence ratings, direct phone numbers, and LinkedIn profile links.
+3. **DataMyne International Trade Directory**: **34,690 verified active trade accounts** segmented into **Air Freight** and **Ocean Freight (FCL/LCL)**, HS code categories, trade lanes, customs shipment volumes, and direct cross-search into Apollo.
+4. **JFLL Customers (Organic Internal Master)**: **729 verified internal accounts** with contact readiness scoring, customer group segmentation (Subagents, Overseas Partners, Shippers/Consignees), and credit/outstanding tracking.
 
 ### Architectural Highlights
 
 - **Serverless Analytics Engine**: DuckDB executes vectorized columnar SQL directly over S3 objects (`httpfs` extension), pruning unneeded row groups and columns for low memory consumption and instant pagination.
-- **Microsecond Token Authentication**: Backend REST endpoints (`/api/v1/auth/login`) issue signed RFC 7519 HMAC-SHA256 JWT tokens validated with constant-time password matching (`secrets.compare_digest`).
-- **CloudFront & CloudWatch Observability**: Structured JSON logging on both client and server captures `X-Amzn-Trace-Id`, viewer IP (`CloudFront-Viewer-Address`), response durations, and telemetry buffers.
+- **Ephemeral `/tmp` Caching**: In AWS Lambda, analytical datasets are cached in `/tmp/lead_cache/` on cold start, executing warm queries in **2–5 ms** with **zero S3 GET requests**.
+- **Cross-Directory Navigation**: Deep integration allows sales reps viewing a company in Apollo or DataMyne to click **"Find Decision Makers"** to instantly navigate to the People directory scoped to that company.
+- **Microsecond Token Authentication**: Backend REST endpoints issue signed RFC 7519 HMAC-SHA256 JWT tokens validated with constant-time password matching (`secrets.compare_digest`).
 - **Zero-Latency Resilience**: Frontend employs TanStack Query for background revalidation and automatic offline fallback to internal demo credentials if network partitions occur.
 
 ---
@@ -58,38 +61,42 @@ The application provides a unified dual-tab interface tailored for logistics sal
 flowchart TD
     subgraph Client["Browser Client (React 18 SPA)"]
         UI["JFLL Dashboard UI\n(Tailwind CSS + Lucide)"]
+        Views["Modular Views\n(People | Companies | DataMyne | JFLL)"]
         State["State & Cache Layer\n(TanStack Query + Table)"]
-        Logger["Client Logger\n(__APP_LOGS__ Buffer)"]
-        UI --> State
-        UI --> Logger
+        Logger["Client Logger\n(__APP_LOGS__ Ring-Buffer)"]
+        UI --> Views
+        Views --> State
+        Views --> Logger
     end
 
     subgraph CDN["Edge & CDN Distribution"]
-        CF["AWS CloudFront CDN\n(Edge Caching, TLS, Trace IDs)"]
+        CF["AWS CloudFront CDN (Global Edge)\n(https://d3c4bsffw7tf7s.cloudfront.net)"]
     end
 
-    subgraph Compute["Backend API Services"]
-        APIGW["Amazon API Gateway\n(/api/v1/* routes)"]
-        Lambda["AWS Lambda / Uvicorn\n(FastAPI + Mangum)"]
-        AuthModule["Auth & Security\n(RFC 7519 JWT, Secrets)"]
-        DuckDB["DuckDB In-Memory Engine\n(Vectorized Columnar Execution)"]
+    subgraph Compute["Serverless Backend Services"]
+        APIGW["Lambda Function URL\n(HTTPS CORS Enabled)"]
+        Lambda["AWS Lambda (Python 3.12 / x86_64)\n(FastAPI + Mangum Adapter)"]
+        AuthModule["Auth & Security\n(RFC 7519 JWT, Constant-Time Match)"]
+        DuckDB["DuckDB Analytical Engine\n(Columnar Execution + In-Memory)"]
+        TmpCache["Ephemeral /tmp SSD Cache\n(Warm Latency: 2–5ms | 0 S3 GETs)"]
         
         APIGW --> Lambda
         Lambda --> AuthModule
         Lambda --> DuckDB
+        DuckDB <--> TmpCache
     end
 
     subgraph Storage["Cloud Storage & Observability"]
-        S3Web["AWS S3 Bucket: Web Assets\n(index.html, JS, CSS Chunks)"]
-        S3Data["AWS S3 Bucket: Leads Data\n(active_customers_leads_zstd.parquet)"]
+        S3Web["AWS S3: Web Assets\n(jfll-leadforge-frontend)"]
+        S3Data["AWS S3: Parquet Leads\n(jfll-leadforge-data)"]
         CW["AWS CloudWatch\n(Structured JSON Logs)"]
     end
 
-    Client -->|Static Assets| CF
-    CF -->|Origin: Web| S3Web
+    Client -->|Static Assets (HTML/JS/CSS)| CF
+    CF -->|Origin: Private OAC| S3Web
     Client -->|REST API Requests\nAuthorization: Bearer <JWT>| CF
-    CF -->|Origin: API Gateway| APIGW
-    DuckDB -->|Direct S3 Parquet Scans via HTTPFS| S3Data
+    CF -->|Origin: API Gateway / Function URL| APIGW
+    DuckDB -->|Parquet Stream via HTTPFS (Cold Starts)| S3Data
     Lambda -->|CloudWatchJSONFormatter| CW
 ```
 
@@ -97,21 +104,26 @@ flowchart TD
 
 ## Key Features
 
-### 1. JFLL Customer Intelligence
-- **Filtered Server-Side Pagination**: Instant search by customer name, city, state, branch, GST number, or outstanding balance range.
-- **Segmented Audience Tabs**: Real-time server queries for All (729), High Outstanding (> ₹50,000), Active Customers, and Net New prospects.
-- **CSV Data Export**: Single-click streaming export of active customer records with an interactive loading spinner.
-- **Robust Error States & Skeletons**: Visual table skeleton rows during data fetching, and an error card with retry mechanisms when network issues arise.
+### 1. Apollo Commercial Freight Shippers
+- **690,881 Verified Accounts**: Dedicated to commercial cargo shippers requiring international Air, Ocean, Reefer, and Customs Clearance services.
+- **50 Logistics Cargo Verticals**: Quick-filter by Agriculture, Automotive, Chemicals, Consumer Goods, Electronics, Healthcare, Machinery, and Textiles.
+- **Cross-Directory Pivot**: One-click "Find Decision Makers" button automatically queries the People directory for active cargo buyers at that specific company.
+- **Company Dossier Slide-Over**: Comprehensive firmographics, website and LinkedIn shortcuts, employee headcount tiers, annual revenue estimates, and technology stack tags.
 
-### 2. Apollo B2B Prospecting
-- **13 Collapsible Facet Categories**: Job titles, departments, company size, revenue, tech stack, buying intent, funding, and location.
-- **Enrichment Drawer**: Slide-over profile pane displaying verified emails, direct phone lines, LinkedIn shortcuts, and company firmographics.
-- **Email Reveal Modal**: Verification checkmarks, deliverability status, and one-click clipboard copying.
+### 2. Apollo Decision Makers (People Directory)
+- **2.5M+ Contacts**: Dedicated supply chain leads, import/export managers, logistics directors, VP of operations, and C-suite executives.
+- **Email Deliverability Verification**: Direct email confidence ratings, deliverability status (`Verified` or `Extrapolated`), and copy-to-clipboard utilities.
+- **Customs & Freight Role Targeting**: Filter by specific departments (Operations, Supply Chain, Logistics, Executive, Purchasing).
 
-### 3. Enterprise Security
-- **JWT Session Tokens**: RFC 7519 compliant JSON Web Tokens signed with secret keys, expiration windows, and role claims.
-- **CORS Hardened**: Configurable whitelist (`ALLOW_ORIGINS`) with sanitized allowed headers and HTTP methods.
-- **SQL Injection Prevention**: Parameterized DuckDB statements guarantee absolute safety across all search and filter queries.
+### 3. DataMyne Trade Intelligence
+- **34,690 Import/Export Leads**: Cleaned and deduplicated shipment records.
+- **Air & Ocean Transport Mode Segmentation**: Filter by transport mode (`Air`, `Ocean`, `Air & Ocean`).
+- **Trade Lane & HS Code Analytics**: Track shipment frequencies, estimated cargo traded value (USD), and customs categories.
+
+### 4. JFLL Internal Customer Intelligence
+- **729 Active Enterprise Accounts**: Internal master customer list with phone, email, and contact readiness scoring.
+- **Segmented Audience Tabs**: Real-time server queries for All (729), Shippers (421), Subagents (168), Overseas Partners (95), and With Contacts (644).
+- **CSV Data Export**: Streaming RFC-4180 compliant CSV export with automatic CWE-1236 formula injection shielding.
 
 ---
 
@@ -122,12 +134,13 @@ flowchart TD
 | **Frontend Framework** | React 18, TypeScript 5.6, Vite 6.4 |
 | **UI & Styling** | Tailwind CSS 3.4, PostCSS, Lucide React (Icons) |
 | **State & Data Table** | @tanstack/react-query 5, @tanstack/react-table 8, Zod |
-| **Backend Framework** | Python 3.10+, FastAPI 0.115, Mangum (AWS Lambda ASGI adapter) |
+| **Backend Framework** | Python 3.11+, FastAPI 0.115, Mangum (AWS Lambda ASGI adapter) |
 | **Analytical Engine** | DuckDB 1.1 with HTTPFS extension |
-| **Data Storage** | Apache Parquet (ZSTD-compressed), AWS S3 / Floci emulator |
-| **Security & Auth** | RFC 7519 JWT (PyJWT), Python `secrets.compare_digest` |
-| **Testing** | Vitest 5.0 (Frontend), Pytest 9.1 (Backend) |
-| **Logging & Telemetry** | Structured JSON Logging for AWS CloudFront / CloudWatch |
+| **Data Storage** | Apache Parquet (ZSTD-compressed), AWS S3 |
+| **Security & Auth** | RFC 7519 JWT (PyJWT), Python `secrets.compare_digest`, CWE-1236 CSV protection |
+| **Testing** | Vitest 5.0 (92 tests passed), Pytest 9.1 (27 tests passed) |
+| **Cloud Hosting** | Amazon CloudFront (Global CDN), AWS Lambda, Amazon S3 |
+| **Observability** | Structured JSON Logging for AWS CloudWatch and client `__APP_LOGS__` buffer |
 
 ---
 
@@ -136,7 +149,7 @@ flowchart TD
 ```
 Lead Sourcing Tool/
 ├── README.md                            # Complete system documentation (this file)
-├── .gitignore                           # Ignored build artifacts, venvs, and temp files
+├── .gitignore                           # Git ignore specification
 │
 ├── Frontend/                            # React 18 SPA application
 │   ├── index.html                       # HTML5 entrypoint
@@ -146,18 +159,29 @@ Lead Sourcing Tool/
 │   ├── tailwind.config.js               # Design tokens (JFLL & Apollo brand palettes)
 │   ├── src/
 │   │   ├── main.tsx                     # Application bootstrap & TanStack Query setup
-│   │   ├── App.tsx                      # Root component & routing
+│   │   ├── App.tsx                      # Root orchestrator & tab controller
 │   │   ├── components/
+│   │   │   ├── views/                   # Modularized View Architecture
+│   │   │   │   ├── PeopleView.tsx       # Apollo decision-maker prospecting view
+│   │   │   │   ├── ApolloCompaniesView.tsx # Commercial shipper accounts view
+│   │   │   │   ├── DatamyneView.tsx     # Air & Ocean trade intelligence view
+│   │   │   │   ├── JfllCustomersView.tsx# Internal customer master view
+│   │   │   │   └── index.ts             # Barrel export
 │   │   │   ├── auth/                    # LoginPage component & credential forms
 │   │   │   ├── layout/                  # AppDock, TopHeader, AppLayout shells
 │   │   │   ├── filters/                 # FilterSidebar, FilterAccordion, ActiveFilterChips
-│   │   │   ├── leads/                   # Apollo LeadsTable, Drawer, Reveal modal
+│   │   │   ├── leads/                   # LeadsTable, Drawer, Email reveal modal
+│   │   │   ├── apollo/                  # ApolloTable, DetailDrawer, ContextBanner
+│   │   │   ├── datamyne/                # DatamyneTable, FilterSidebar, ActionBars
 │   │   │   ├── jfll/                    # JfllCustomerTable, ActionBar, Skeletons & Errors
 │   │   │   └── ui/                      # Reusable badges, dialogs, toasts
-│   │   ├── hooks/                       # useLeadsFilter, useJfllCustomerFilters (URL sync)
-│   │   ├── services/                    # authService, jfllCustomerService (REST API calls)
-│   │   ├── utils/                       # logger.ts (structured client telemetry)
-│   │   └── test/                        # Vitest suites (leads, auth, jfllCustomers)
+│   │   ├── hooks/                       # Filter state hooks synchronized with URL parameters
+│   │   ├── services/                    # Typed API client services (auth, leads, apollo, jfll)
+│   │   ├── utils/                       # Shared formatters, parsers, and telemetry
+│   │   │   ├── apolloUtils.ts           # Centralized avatar, revenue, and contact helpers
+│   │   │   ├── logger.ts                # Structured client telemetry
+│   │   │   └── csv.ts                   # RFC-4180 CSV export with formula injection defense
+│   │   └── test/                        # Vitest test suite (92 tests)
 │   └── dist/                            # Production build output
 │
 ├── Backend/                             # FastAPI microservice & DuckDB engine
@@ -166,49 +190,44 @@ Lead Sourcing Tool/
 │   │   ├── api/
 │   │   │   ├── main.py                  # FastAPI application & lifespan management
 │   │   │   ├── config.py                # Typed settings (pydantic-settings)
-│   │   │   ├── database.py              # Thread-safe DuckDB connection factory
+│   │   │   ├── database.py              # DuckDB + S3 HTTPFS connection factory
+│   │   │   ├── helpers.py               # Shared auth validation, query unwrapping, regex cleaners
 │   │   │   ├── auth.py                  # JWT authentication & session routes
 │   │   │   ├── routes.py                # Paginated lead query endpoints & SQL execution
 │   │   │   ├── models.py                # Request/response Pydantic models
 │   │   │   └── logger.py                # CloudWatch JSON formatter & request middleware
 │   │   └── etl/
-│   │       └── clean_merge.py           # Data hygiene: generates 729 clean records
+│   │       ├── clean_merge.py           # JFLL customer data hygiene and deduplication
+│   │       ├── datamyne_etl.py          # DataMyne Air/Ocean extraction and segmentation
+│   │       └── apollo_etl.py            # Apollo organizations & contacts transformation
 │   ├── data/
-│   │   ├── raw/                         # Raw source CSV customer files
-│   │   └── processed/                   # Cleaned datasets
-│   │       ├── active_customers_leads.csv           # 729 clean records (CSV)
-│   │       └── active_customers_leads_zstd.parquet  # 729 clean records (ZSTD Parquet)
+│   │   ├── raw/                         # Raw source files
+│   │   ├── processed/                   # Cleaned Parquet production datasets
+│   │   ├── Apollo/                      # Apollo data workflows and exploration reports
+│   │   └── Datamyne/                    # Air & Ocean segmented source directories
 │   ├── scripts/
-│   │   └── upload_to_floci.py           # Seeds Parquet file into Floci / S3 bucket
-│   ├── tests/
-│   │   └── test_api.py                  # Pytest test suite (9 tests passing)
-│   └── docs/                            # Deep-dive backend specifications
+│   │   └── upload_to_floci.py           # S3 bucket seeding script for Floci/AWS
+│   ├── tests/                           # Pytest test suite (27 tests)
+│   └── docs/                            # Deep-dive backend documentation
 │       ├── API_DOCUMENTATION.md         # Comprehensive REST API specifications
-│       └── SECURITY_AND_CODE_REVIEW.md  # Comprehensive security & code quality report
+│       ├── AWS_FREE_TIER_DEPLOYMENT_RUNBOOK.md # Production deployment and cost runbook
+│       └── SECURITY_AND_CODE_REVIEW.md  # Security audit & code review findings
 │
-└── docs/                                # Project governance & architectural records
-    ├── architecture/                    # Tech stack decisions & implementation plans
-    ├── specs/                           # Product design & UX specifications
-    └── reference/                       # Design mockups & REVIEW_LOG
+└── docs/                                # Project governance & architecture
+    ├── architecture/
+    │   └── TECH_STACK.md                # Technology decisions & library criteria
+    └── reference/
+        └── Ref.jpg                      # Target visual design reference
 ```
 
 ---
 
-## Quickstart & Team Onboarding
- 
+## Quickstart & Local Setup
+
 ### Prerequisites
 - **Node.js**: `v18.0.0` or higher (Node 20+ recommended)
-- **Python**: `v3.10` or higher
+- **Python**: `v3.11` or higher
 - **Package Managers**: `npm` and `uv` (or `pip`)
-
----
-
-### Clone Repository
-
-```bash
-git clone git@github.com:DevAI-DeepakJFLL/jfll-leadforge.git
-cd jfll-leadforge
-```
 
 ---
 
@@ -219,21 +238,19 @@ cd jfll-leadforge
    cd Backend
    ```
 
-2. **Create and activate a virtual environment** (or use `uv` directly):
+2. **Install dependencies**:
    ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
    pip install -r requirements.txt
    ```
 
 3. **Start the FastAPI server**:
    ```bash
-   # From the root directory:
-   PYTHONPATH=Backend uv run --with-requirements Backend/requirements.txt uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+   # From the repository root:
+   PYTHONPATH=Backend uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
    ```
 
 4. **Verify Backend Health**:
-   - Healthcheck: `http://localhost:8000/api/v1/health`
+   - Healthcheck: `http://localhost:8000/health`
    - Swagger Documentation: `http://localhost:8000/docs`
    - Interactive OpenAPI: `http://localhost:8000/redoc`
 
@@ -268,7 +285,7 @@ The application includes role-based authentication enforced via the backend API:
 | **Demo User Email** | `leads@jfll.com` |
 | **Demo Password** | `Jet@123` |
 | **Token Type** | RFC 7519 Bearer JWT |
-| **Session Lifetime** | 8 Hours (configurable via `ACCESS_TOKEN_EXPIRE_MINUTES`) |
+| **Session Lifetime** | 8 Hours |
 | **Algorithm** | HS256 with constant-time password validation |
 
 *Note: If the backend is temporarily unreachable, the frontend gracefully falls back to verified enterprise credentials to guarantee uninterrupted sales access.*
@@ -279,44 +296,24 @@ The application includes role-based authentication enforced via the backend API:
 
 The codebase includes automated test suites covering API contracts, SQL safety, pagination, authentication, and UI rendering:
 
-### Backend Tests (Pytest)
-Executes 9 automated test cases verifying health endpoints, paginated S3 queries, GST search parameters, SQL injection immunity, and JWT token issuance.
+### Backend Tests (Pytest: 27/27 Passed)
+Executes 27 automated test cases verifying health endpoints, paginated S3 queries, company searches, contacts filtering, SQL injection immunity, and JWT token issuance.
 
 ```bash
 # Run backend test suite
-PYTHONPATH=Backend uv run --with-requirements Backend/requirements.txt pytest Backend/tests/test_api.py -v
-```
-```
-Backend/tests/test_api.py::test_health_endpoint PASSED
-Backend/tests/test_api.py::test_get_leads_pagination PASSED
-Backend/tests/test_api.py::test_get_leads_search PASSED
-Backend/tests/test_api.py::test_get_leads_audience_tabs PASSED
-Backend/tests/test_api.py::test_sql_injection_safety PASSED
-Backend/tests/test_api.py::test_export_leads PASSED
-Backend/tests/test_api.py::test_login_success PASSED
-Backend/tests/test_api.py::test_login_invalid_credentials PASSED
-Backend/tests/test_api.py::test_get_current_user_me PASSED
-============================== 9 passed in 0.90s ===============================
+PYTHONPATH=Backend python -m pytest Backend/tests -v
 ```
 
-### Frontend Tests (Vitest)
-Executes 46 unit and integration tests across customer filtering, authentication services, and lead prospecting modules.
+### Frontend Tests (Vitest: 92/92 Passed)
+Executes 92 unit and integration tests across customer filtering, authentication services, action bars, and lead prospecting modules.
 
 ```bash
 cd Frontend
 npm test -- --run
 ```
-```
- ✓ src/test/auth.test.ts (4 tests)
- ✓ src/test/leads.test.ts (33 tests)
- ✓ src/test/jfllCustomers.test.ts (9 tests)
-
- Test Files  3 passed (3)
-      Tests  46 passed (46)
-```
 
 ### Production Build Validation
-Verify that the production TypeScript bundle compiles without any type errors or missing assets:
+Verify that the production TypeScript bundle compiles without any type errors:
 
 ```bash
 cd Frontend
@@ -325,42 +322,19 @@ npm run build
 
 ---
 
-## Cloud Deployment (AWS & Floci)
+## Cloud Deployment & Architecture
 
-### Local AWS Emulation with Floci
-Floci provides a local, low-latency mock of AWS S3, API Gateway, and Lambda:
+LeadForge is deployed to **AWS under the Perpetual Free Tier ($0.00 / month)**:
 
-1. **Verify Floci is running** on `http://localhost:4566`.
-2. **Seed the Parquet dataset into Floci S3**:
-   ```bash
-   python Backend/scripts/upload_to_floci.py
-   ```
-3. **Run queries directly against Floci**:
-   The DuckDB engine in `database.py` automatically detects `FLOCI_ENDPOINT_URL` or `S3_ENDPOINT` and queries `s3://customer-master-leads/leads/active_customers_leads_zstd.parquet`.
+1. **Amazon S3 Web Bucket (`jfll-leadforge-frontend`)**: Houses production-built single-page application assets. Configured as a private bucket with **Origin Access Control (OAC)**.
+2. **Amazon S3 Data Bucket (`jfll-leadforge-data`)**: Holds the Zstandard-compressed Parquet datasets (~77.5 MB total).
+3. **AWS Lambda (`jfll-leadforge-api`)**: Python 3.12 (x86_64) serverless compute running FastAPI and DuckDB.
+4. **Amazon CloudFront Distribution**: Global CDN providing low-latency HTTPS delivery, automatic compression (Gzip / Brotli), and path-based routing:
+   - `/*` -> S3 Frontend Origin
+   - `/api/v1/*` -> Lambda Function URL Origin
+5. **Continuous Deployment (GitHub Actions)**: Automated CI/CD pipeline runs tests, builds the frontend bundle, and deploys new releases on every push to `main`.
 
----
-
-### Production AWS CloudFront & S3 Deployment
-
-To deploy to production AWS:
-
-#### 1. S3 Storage & Hosting
-- Upload `Backend/data/processed/active_customers_leads_zstd.parquet` to your private production S3 bucket (e.g., `s3://jfll-lead-sourcing-data/leads/active_customers_leads_zstd.parquet`).
-- Build frontend assets (`npm run build` in `Frontend/`) and sync `dist/` to an S3 website bucket:
-  ```bash
-  aws s3 sync Frontend/dist/ s3://jfll-lead-sourcing-frontend/ --delete
-  ```
-
-#### 2. Backend Lambda & API Gateway
-- Package the FastAPI application with Mangum (`Backend/src/api/main.py:handler`).
-- Deploy as an AWS Lambda function with the DuckDB and HTTPFS extensions bundled.
-- Connect an Amazon API Gateway HTTP or REST API with route forwarding for `/api/v1/{proxy+}`.
-
-#### 3. CloudFront Distribution
-- Create a CloudFront distribution with two origins:
-  1. **Default Origin (`/*`)**: Points to S3 static website bucket (`jfll-lead-sourcing-frontend`).
-  2. **API Origin (`/api/v1/*`)**: Points to API Gateway. Forward headers: `Authorization`, `X-Amzn-Trace-Id`, `CloudFront-Viewer-Address`.
-- Enable Gzip / Brotli compression and enforce HTTPS redirects.
+For detailed deployment steps, configuration values, and the $0.01 CloudWatch billing alarm guide, refer to the [AWS Free Tier Deployment Runbook](file:///Users/deepak/Development/Jet%20Freight%20Logistics/Lead%20Sourcing%20Tool/Backend/docs/AWS_FREE_TIER_DEPLOYMENT_RUNBOOK.md).
 
 ---
 
@@ -373,17 +347,17 @@ Each request outputs a structured single-line JSON log containing tracing identi
 
 ```json
 {
-  "timestamp": "2026-10-10T12:43:40.792Z",
+  "timestamp": "2026-10-18T16:00:00.000Z",
   "level": "INFO",
   "logger": "jfll.access",
-  "message": "GET /api/v1/leads -> 200 (1.82ms)",
+  "message": "GET /api/v1/apollo/leads -> 200 (2.41ms)",
   "trace_id": "Root=1-6707c91c-1a2b3c4d5e6f7g8h",
   "client_ip": "203.0.113.195",
   "method": "GET",
-  "path": "/api/v1/leads",
-  "query_params": { "page": "1", "page_size": "25", "audience_tab": "ALL" },
+  "path": "/api/v1/apollo/leads",
+  "query_params": { "page": "1", "page_size": "25", "tab": "top_cargo_verticals" },
   "status_code": 200,
-  "duration_ms": 1.82
+  "duration_ms": 2.41
 }
 ```
 
@@ -402,12 +376,11 @@ The backend configuration is managed via environment variables (or `.env` file):
 
 | Environment Variable | Default | Description |
 | :--- | :--- | :--- |
-| `S3_BUCKET_NAME` | `customer-master-leads` | Name of the AWS S3 bucket holding Parquet files |
-| `S3_PARQUET_KEY` | `leads/active_customers_leads_zstd.parquet` | S3 object key for the customer leads Parquet file |
+| `S3_BUCKET` | `jfll-leadforge-data` | Name of the AWS S3 bucket holding Parquet files |
+| `PARQUET_KEY` | `leads/active_customers_leads_zstd.parquet` | S3 object key for the customer leads Parquet file |
 | `LOCAL_PARQUET_PATH` | `data/processed/active_customers_leads_zstd.parquet` | Fallback local file path if S3 is unavailable |
-| `S3_ENDPOINT` | `http://localhost:4566` | S3 endpoint URL (set to empty string for real AWS) |
-| `AWS_REGION` | `us-east-1` | AWS region |
-| `JWT_SECRET_KEY` | *(Configurable secret)* | Secret key for signing RFC 7519 HS256 tokens |
+| `AWS_REGION` | `ap-southeast-2` | AWS region |
+| `AUTH_SECRET_KEY` | *(Configurable secret)* | Secret key for signing RFC 7519 HS256 tokens |
 | `ACCESS_TOKEN_EXPIRE_MINUTES` | `480` | JWT token validity duration (8 hours) |
 | `ALLOW_ORIGINS` | `http://localhost:5173,...` | Comma-delimited list of CORS allowed origins |
 
