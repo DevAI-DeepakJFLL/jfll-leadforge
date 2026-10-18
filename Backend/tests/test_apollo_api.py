@@ -83,3 +83,24 @@ def test_apollo_contacts_global_search():
     for contact in data["data"]:
         assert contact["is_logistics_role"] is True
 
+
+def test_apollo_contacts_search_company_streaming():
+    response = client.get("/api/v1/apollo/contacts?search=The+Boeing+Company&logistics_only=true&page_size=3")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["page"] == 1
+    assert data["total_records"] > 0
+    assert len(data["data"]) > 0
+
+
+def test_apollo_contacts_by_organization_id():
+    response = client.get("/api/v1/apollo/contacts?organization_id=54a1229169702d9a8b695403&page_size=3")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["page"] == 1
+    assert data["total_records"] > 0
+    assert len(data["data"]) > 0
+    for contact in data["data"]:
+        assert contact["organization_id"] == "54a1229169702d9a8b695403"
+
+

@@ -495,13 +495,14 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   };
 
   // Cross-Navigation: Search inside People directory for decision-makers at this company
-  const handleFindDecisionMakersInPeople = (companyName: string) => {
+  const handleFindDecisionMakersInPeople = (companyName: string, organizationId?: string) => {
     setSelectedApolloDbLead(null);
     setTopTab('people');
     setActiveNav('search');
     applyFilters({
       ...filters,
       q: companyName,
+      organizationId: organizationId || undefined,
       page: 1,
       departments: [],
       locations: [],

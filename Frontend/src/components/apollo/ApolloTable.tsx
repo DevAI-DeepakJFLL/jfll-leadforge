@@ -56,7 +56,7 @@ export interface ApolloTableProps {
   rowSelection: RowSelectionState;
   onRowSelectionChange: (updater: RowSelectionState | ((old: RowSelectionState) => RowSelectionState)) => void;
   onLeadClick: (lead: ApolloLead) => void;
-  onFindDecisionMakers?: (companyName: string) => void;
+  onFindDecisionMakers?: (companyName: string, organizationId?: string) => void;
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -339,7 +339,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            onFindDecisionMakers(lead.organization_name);
+                            onFindDecisionMakers(lead.organization_name, lead.organization_id);
                           }}
                           className="p-1.5 rounded-lg text-slate-400 hover:text-apollo hover:bg-blue-50 transition-colors"
                           title={`Find decision-makers at ${lead.organization_name} in People tab`}

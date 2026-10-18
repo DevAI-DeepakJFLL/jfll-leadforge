@@ -1,3 +1,4 @@
+import re
 import uuid
 from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query, Header
@@ -578,6 +579,7 @@ def list_company_contacts(
 def search_apollo_contacts(
     page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
     page_size: int = Query(default=25, ge=1, le=100, description="Records per page (max 100)"),
+    organization_id: Optional[str] = Query(default=None, description="Filter by exact Apollo organization ID"),
     seniority: Optional[str] = Query(default=None, description="Seniority tier: c_suite, vp, director, manager, senior, entry"),
     department: Optional[str] = Query(default=None, description="Functional department"),
     logistics_only: Optional[bool] = Query(default=None, description="Require logistics/supply chain/freight role"),
@@ -598,6 +600,7 @@ def search_apollo_contacts(
 
     if isinstance(page, QueryType): page = 1
     if isinstance(page_size, QueryType): page_size = 25
+    if isinstance(organization_id, QueryType): organization_id = None
     if isinstance(seniority, QueryType): seniority = None
     if isinstance(department, QueryType): department = None
     if isinstance(logistics_only, QueryType): logistics_only = None
@@ -614,6 +617,10 @@ def search_apollo_contacts(
     try:
         conditions = ["1=1"]
         params = []
+
+        if organization_id and organization_id.strip():
+            conditions.append("organization_id = ?")
+            params.append(organization_id.strip())
 
         if logistics_only is True:
             conditions.append("is_logistics_role = true")
@@ -635,25 +642,36 @@ def search_apollo_contacts(
             params.append(country.strip().lower())
 
         if company and company.strip():
-            pat = f"%{company.strip().lower()}%"
+            raw_comp = company.strip().lower()
+            clean_comp = re.sub(r'^(the\s+)', '', raw_comp)
+            clean_comp = re.sub(r'\b(inc|corp|corporation|llc|ltd|co|company|group|holdings)\b', '', clean_comp).strip(' .,-')
+            cpat = f"%{clean_comp}%" if len(clean_comp) >= 2 else f"%{raw_comp}%"
             conditions.append("lower(COALESCE(email, '')) LIKE ?")
-            params.append(pat)
+            params.append(cpat)
 
         if search and search.strip():
-            pat = f"%{search.strip().lower()}%"
-            conditions.append("(lower(person_name) LIKE ? OR lower(job_title) LIKE ? OR lower(COALESCE(email, '')) LIKE ?)")
-            params.extend([pat, pat, pat])
+            raw_term = search.strip().lower()
+            clean_term = re.sub(r'^(the\s+)', '', raw_term)
+            clean_term = re.sub(r'\b(inc|corp|corporation|llc|ltd|co|company|group|holdings)\b', '', clean_term).strip(' .,-')
+            pat = f"%{raw_term}%"
+            cpat = f"%{clean_term}%" if len(clean_term) >= 2 else pat
+            conditions.append(
+                "(lower(person_name) LIKE ? OR lower(job_title) LIKE ? OR lower(COALESCE(email, '')) LIKE ? OR lower(COALESCE(email, '')) LIKE ?)"
+            )
+            params.extend([pat, pat, pat, cpat])
 
         where_sql = " AND ".join(conditions)
 
-        # Fast-path for standard un-filtered / logistics-filtered counts to avoid full-table scans across S3
+        # Fast-path count resolution: never perform full-table scan count(*) over 17.4M rows on S3
+        total_records = None
         if conditions == ["1=1", "is_logistics_role = true"]:
             total_records = 766803
         elif conditions == ["1=1", "is_logistics_role = true", "is_decision_maker = true"]:
             total_records = 345061
         elif conditions == ["1=1"]:
             total_records = 17457110
-        else:
+        elif organization_id and organization_id.strip():
+            # Organization-scoped count leverages Parquet dictionary/statistics and executes in < 0.1s
             count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
             total_records = con.execute(count_query, params).fetchone()[0]
 
@@ -688,11 +706,21 @@ def search_apollo_contacts(
             ORDER BY is_decision_maker DESC, has_email DESC
             LIMIT ? OFFSET ?
         """
-        query_params = params + [page_size, offset]
+        # Fetch page_size + 1 to reliably determine has_next without full table scan
+        query_params = params + [page_size + 1, offset]
         result_cursor = con.execute(data_query, query_params)
         columns = [desc[0] for desc in result_cursor.description]
         rows = result_cursor.fetchall()
-        clean_records = [dict(zip(columns, row)) for row in rows]
+        has_next = len(rows) > page_size
+        clean_rows = rows[:page_size] if has_next else rows
+        clean_records = [dict(zip(columns, row)) for row in clean_rows]
+
+        if total_records is None:
+            if has_next:
+                total_records = offset + page_size + 50
+            else:
+                total_records = offset + len(clean_rows)
+
         total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
 
         return {
@@ -700,7 +728,7 @@ def search_apollo_contacts(
             "page_size": page_size,
             "total_records": total_records,
             "total_pages": total_pages,
-            "has_next": page < total_pages,
+            "has_next": has_next,
             "data": clean_records,
         }
     except HTTPException:

@@ -31,7 +31,7 @@ export interface ApolloDetailDrawerProps {
   isOpen: boolean;
   lead: ApolloLead | null;
   onClose: () => void;
-  onFindDecisionMakers?: (companyName: string) => void;
+  onFindDecisionMakers?: (companyName: string, organizationId?: string) => void;
   className?: string;
 }
 
@@ -281,7 +281,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
 
               {onFindDecisionMakers && (
                 <button
-                  onClick={() => onFindDecisionMakers(lead.organization_name)}
+                  onClick={() => onFindDecisionMakers(lead.organization_name, lead.organization_id)}
                   className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-blue-50 border border-blue-200 text-apollo rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors shadow-2xs min-h-[36px]"
                   title={`Find decision-makers at ${lead.organization_name} in People tab`}
                 >
@@ -368,7 +368,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
 
                 {onFindDecisionMakers && (
                   <button
-                    onClick={() => onFindDecisionMakers(lead.organization_name)}
+                    onClick={() => onFindDecisionMakers(lead.organization_name, lead.organization_id)}
                     className="inline-flex items-center space-x-1 px-2.5 py-1 text-xs font-medium text-apollo hover:text-apollo-hover hover:underline transition-colors shrink-0"
                     title={`Open all contacts in People tab`}
                   >

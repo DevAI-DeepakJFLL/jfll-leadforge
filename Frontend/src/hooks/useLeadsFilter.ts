@@ -10,6 +10,7 @@ export interface ActiveFilterItem {
 
 const DEFAULT_FILTERS: FilterParams = {
   q: undefined,
+  organizationId: undefined,
   jobTitles: [],
   departments: [],
   locations: [],
@@ -66,12 +67,14 @@ export function parseUrlToFilters(search: string): FilterParams {
   const limit = isNaN(rawLimit) || rawLimit < 1 ? 25 : rawLimit;
 
   const q = params.get('q')?.trim() || undefined;
+  const organizationId = params.get('organizationId')?.trim() || undefined;
   const sortBy = params.get('sortBy')?.trim() || undefined;
   const rawSortOrder = params.get('sortOrder');
   const sortOrder = rawSortOrder === 'desc' ? 'desc' : 'asc';
 
   return {
     q,
+    organizationId,
     jobTitles: parseArray('jobTitles'),
     departments: parseArray('departments'),
     locations: parseArray('locations'),
@@ -94,6 +97,10 @@ export function serializeFiltersToUrl(filters: FilterParams): string {
 
   if (filters.q && filters.q.trim().length > 0) {
     params.set('q', filters.q.trim());
+  }
+
+  if (filters.organizationId && filters.organizationId.trim().length > 0) {
+    params.set('organizationId', filters.organizationId.trim());
   }
 
   const appendArray = (key: string, arr?: string[]) => {

@@ -460,6 +460,7 @@ export function mapApolloContactToLead(contact: ApolloContact): Lead {
 export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}): LeadsResponse {
   const {
     q,
+    organizationId,
     page = 1,
     limit = 25,
     tab = 'all',
@@ -469,31 +470,58 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
 
   let filtered = [...APOLLO_CONTACTS_STARTER_DATA];
 
-  // 1. Text Search across name, title, employer company, or email
-  if (q && q.trim()) {
-    const term = q.trim().toLowerCase();
-    filtered = filtered.filter(
-      (c) =>
-        c.person_name.toLowerCase().includes(term) ||
-        c.job_title.toLowerCase().includes(term) ||
-        (c.employer_name && c.employer_name.toLowerCase().includes(term)) ||
-        (c.email && c.email.toLowerCase().includes(term))
-    );
+  // 1. Organization ID exact match (instant 0ms resolution for Find Decision Makers cross-navigation)
+  if (organizationId && organizationId.trim()) {
+    const orgId = organizationId.trim();
+    const orgMatches = filtered.filter((c) => c.organization_id === orgId);
+    if (orgMatches.length > 0) {
+      filtered = orgMatches;
+    }
   }
 
-  // 2. Audience Tab
+  // 2. Text Search across name, title, employer company, or email with corporate suffix normalization
+  if (q && q.trim()) {
+    const rawTerm = q.trim().toLowerCase();
+    const cleanTerm = rawTerm
+      .replace(/^(the\s+)/i, '')
+      .replace(/\b(inc|corp|corporation|llc|ltd|co|company|group|holdings)\b/gi, '')
+      .trim();
+
+    filtered = filtered.filter((c) => {
+      const pName = c.person_name.toLowerCase();
+      const jTitle = c.job_title.toLowerCase();
+      const empName = (c.employer_name || '').toLowerCase();
+      const mail = (c.email || '').toLowerCase();
+
+      // Check standard containment
+      if (pName.includes(rawTerm) || jTitle.includes(rawTerm) || empName.includes(rawTerm) || mail.includes(rawTerm)) {
+        return true;
+      }
+      // Check clean term containment (e.g. "The Boeing Company" -> "boeing" matching "Boeing")
+      if (cleanTerm.length >= 2 && (empName.includes(cleanTerm) || mail.includes(cleanTerm) || pName.includes(cleanTerm))) {
+        return true;
+      }
+      // Check inverse containment (e.g. searching "The Boeing Company" when employer_name is "Boeing")
+      if (empName.length >= 3 && rawTerm.includes(empName)) {
+        return true;
+      }
+      return false;
+    });
+  }
+
+  // 3. Audience Tab
   if (tab === 'new') {
     filtered = filtered.filter((c) => c.is_decision_maker);
   }
 
-  // 3. Departments
+  // 4. Departments
   if (departments.length > 0) {
     filtered = filtered.filter(
       (c) => c.department && departments.some((d) => c.department!.toLowerCase().includes(d.toLowerCase()))
     );
   }
 
-  // 4. Locations
+  // 5. Locations
   if (locations.length > 0) {
     filtered = filtered.filter((c) => {
       const locStr = [c.contact_city, c.contact_state, c.contact_country].filter(Boolean).join(', ').toLowerCase();
@@ -502,7 +530,7 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
   }
 
   // Total estimate (scaled to 766.8k if global search, or matching filtered count if filtered)
-  const isGlobal = !q && departments.length === 0 && locations.length === 0;
+  const isGlobal = !q && !organizationId && departments.length === 0 && locations.length === 0;
   const totalRecords = isGlobal ? 766803 : filtered.length;
   const totalFormatted = isGlobal ? '766.8k' : String(filtered.length);
 
@@ -533,6 +561,7 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
 export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {}): Promise<LeadsResponse> {
   const {
     q,
+    organizationId,
     page = 1,
     limit = 25,
     tab = 'all',
@@ -547,6 +576,10 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
 
   if (tab === 'new') {
     urlParams.set('decision_makers_only', 'true');
+  }
+
+  if (organizationId && organizationId.trim()) {
+    urlParams.set('organization_id', organizationId.trim());
   }
 
   if (q && q.trim()) {
