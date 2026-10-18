@@ -15,36 +15,14 @@ import {
   MapPin,
 } from 'lucide-react';
 import { ApolloVerticalBadge } from './ApolloVerticalBadge';
+import {
+  getCompanyInitials,
+  getAvatarStyle,
+  formatCompactRevenue,
+  formatCompactEmployees,
+} from '@/utils/apolloUtils';
 
-const AVATAR_PALETTES = [
-  { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200/80' },
-  { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200/80' },
-  { bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200/80' },
-  { bg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200/80' },
-  { bg: 'bg-indigo-50', text: 'text-indigo-700', border: 'border-indigo-200/80' },
-  { bg: 'bg-rose-50', text: 'text-rose-700', border: 'border-rose-200/80' },
-  { bg: 'bg-teal-50', text: 'text-teal-700', border: 'border-teal-200/80' },
-  { bg: 'bg-cyan-50', text: 'text-cyan-700', border: 'border-cyan-200/80' },
-  { bg: 'bg-violet-50', text: 'text-violet-700', border: 'border-violet-200/80' },
-];
-
-export function getCompanyInitials(name: string): string {
-  if (!name) return 'CO';
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length >= 2) {
-    return (parts[0][0] + parts[1][0]).toUpperCase();
-  }
-  return name.slice(0, 2).toUpperCase();
-}
-
-export function getAvatarStyle(name: string) {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = (hash << 5) - hash + name.charCodeAt(i);
-    hash |= 0;
-  }
-  return AVATAR_PALETTES[Math.abs(hash) % AVATAR_PALETTES.length];
-}
+export { getCompanyInitials, getAvatarStyle };
 
 
 export interface ApolloTableProps {
@@ -101,20 +79,6 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
       ...old,
       [leadId]: !old[leadId],
     }));
-  };
-
-  const formatRevenue = (rev?: number | null) => {
-    if (!rev || rev === 0) return '—';
-    if (rev >= 1000000000) return `$${(rev / 1000000000).toFixed(1)}B`;
-    if (rev >= 1000000) return `$${(rev / 1000000).toFixed(1)}M`;
-    if (rev >= 1000) return `$${(rev / 1000).toFixed(0)}k`;
-    return `$${rev}`;
-  };
-
-  const formatEmployees = (count?: number | null) => {
-    if (!count || count === 0) return '—';
-    if (count >= 1000) return `${(count / 1000).toFixed(1)}k staff`;
-    return `${count} staff`;
   };
 
   // 1. Loading Skeleton View
@@ -267,16 +231,16 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                       {lead.revenue_usd && lead.revenue_usd >= 100000000 ? (
                         <div className="inline-flex items-center gap-1.5 w-fit">
                           <span className="font-bold text-emerald-700 font-mono text-[11px] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/80">
-                            {formatRevenue(lead.revenue_usd)}
+                            {formatCompactRevenue(lead.revenue_usd)}
                           </span>
                         </div>
                       ) : (
                         <span className="font-semibold text-slate-800 font-mono">
-                          {formatRevenue(lead.revenue_usd)}
+                          {formatCompactRevenue(lead.revenue_usd)}
                         </span>
                       )}
                       <span className="text-slate-500 font-mono text-[10px]">
-                        {formatEmployees(lead.employee_count)}
+                        {formatCompactEmployees(lead.employee_count)}
                       </span>
                     </div>
                   </td>

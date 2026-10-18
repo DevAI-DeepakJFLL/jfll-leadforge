@@ -3,11 +3,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { RowSelectionState } from '@tanstack/react-table';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { SettingsModal } from '@/components/layout/SettingsModal';
-import { FilterSidebar, ActiveFilterChips } from '@/components/filters';
 import {
-  AudienceTabs,
-  TableActionBar,
-  LeadsTable,
+  PeopleView,
+  ApolloCompaniesView,
+  DatamyneView,
+  JfllCustomersView,
+} from '@/components/views';
+import {
   LeadDetailDrawer,
   EmailRevealDialog,
 } from '@/components/leads';
@@ -16,13 +18,7 @@ import { LoginPage } from '@/components/auth/LoginPage';
 import { UserSession } from '@/types/auth';
 import { useLeadsFilter } from '@/hooks/useLeadsFilter';
 import { LeadsResponse, Lead, FilterParams } from '@/types/lead';
-import {
-  JfllCustomerAudienceTabs,
-  JfllCustomerFilterSidebar,
-  JfllCustomerActionBar,
-  JfllCustomerTable,
-  JfllCustomerDetailDrawer,
-} from '@/components/jfll';
+import { JfllCustomerDetailDrawer } from '@/components/jfll';
 import { useJfllCustomersFilter } from '@/hooks/useJfllCustomersFilter';
 import {
   queryJfllCustomers,
@@ -31,14 +27,7 @@ import {
 } from '@/services/jfllCustomerService';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
-import {
-  DatamyneAudienceTabs,
-  DatamyneFilterSidebar,
-  DatamyneActionBar,
-  DatamyneActiveFilterChips,
-  DatamyneTable,
-  DatamyneDetailDrawer,
-} from '@/components/datamyne';
+import { DatamyneDetailDrawer } from '@/components/datamyne';
 import { useDatamyneFilter } from '@/hooks/useDatamyneFilter';
 import {
   queryDatamyneLeads,
@@ -47,15 +36,7 @@ import {
   getLoadedDatamyneDataset,
 } from '@/services/datamyneService';
 import { DatamyneLead } from '@/types/datamyneLead';
-import {
-  ApolloAudienceTabs,
-  ApolloFilterSidebar,
-  ApolloActiveFilterChips,
-  ApolloActionBar,
-  ApolloTable,
-  ApolloDetailDrawer,
-  ApolloContextBanner,
-} from '@/components/apollo';
+import { ApolloDetailDrawer } from '@/components/apollo';
 import { useApolloFilter } from '@/hooks/useApolloFilter';
 import {
   fetchApolloLeadsFromApi,
@@ -705,304 +686,140 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       activeFilterCount={currentActiveFilterCount}
     >
       {isDatamyneCategory ? (
-        /* Dedicated DataMyne Verified Logistics Leads Category View */
-        <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
-          <DatamyneFilterSidebar
-            filters={datamyneFilters}
-            setSearch={setDatamyneSearch}
-            setDataset={setDatamyneDataset}
-            toggleTransportMode={toggleDatamyneTransportMode}
-            toggleCategory={toggleDatamyneCategory}
-            toggleSubcategory={toggleDatamyneSubcategory}
-            toggleRole={toggleDatamyneRole}
-            toggleCity={toggleDatamyneCity}
-            toggleTradeLane={toggleDatamyneTradeLane}
-            toggleContactStatus={toggleDatamyneContactStatus}
-            toggleHasDirectors={toggleDatamyneHasDirectors}
-            setMinShipments={setDatamyneMinShipments}
-            setMinTradedValueUsd={setDatamyneMinTradedValueUsd}
-            clearAllFilters={clearAllDatamyneFilters}
-            activeFilterCount={datamyneActiveFilterCount}
-            isMobileOpen={isMobileFilterOpen}
-            onCloseMobile={() => setIsMobileFilterOpen(false)}
-          />
-
-          <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
-            <DatamyneAudienceTabs
-              activeTab={datamyneFilters.tab}
-              onTabChange={setDatamyneTab}
-              activeDataset={datamyneFilters.dataset || 'valid'}
-              onChangeDataset={setDatamyneDataset}
-              counts={datamyneQuery.audienceCounts}
-              totalFormatted={datamyneQuery.totalFormatted}
-            />
-
-            <DatamyneActionBar
-              selectedCount={selectedDatamyneCount}
-              totalOnPage={datamyneItems.length}
-              totalCount={datamyneQuery.totalEstimate}
-              isAllOnPageSelected={isAllDatamyneOnPageSelected}
-              isIndeterminate={isSomeDatamyneOnPageSelected}
-              onToggleSelectAllPage={handleToggleSelectAllDatamynePage}
-              onDeselectAll={handleDeselectAllDatamyne}
-              onExport={handleExportDatamyneCsv}
-              isExporting={isExportingDatamyne}
-              searchQuery={datamyneFilters.q || ''}
-              onSearchChange={setDatamyneSearch}
-              searchPlaceholder="Search DataMyne by company, description, country..."
-            />
-
-            {/* Active Filter Chips Bar */}
-            <DatamyneActiveFilterChips
-              filters={datamyneFilters}
-              onRemoveTransportMode={toggleDatamyneTransportMode}
-              onRemoveRole={toggleDatamyneRole}
-              onRemoveCategory={toggleDatamyneCategory}
-              onRemoveSubcategory={toggleDatamyneSubcategory}
-              onRemoveCity={toggleDatamyneCity}
-              onRemoveTradeLane={toggleDatamyneTradeLane}
-              onRemoveContactStatus={toggleDatamyneContactStatus}
-              onToggleHasDirectors={toggleDatamyneHasDirectors}
-              onClearSearch={() => setDatamyneSearch('')}
-              onClearAll={clearAllDatamyneFilters}
-            />
-
-            <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
-              <DatamyneTable
-                leads={datamyneItems}
-                rowSelection={datamyneRowSelection}
-                onRowSelectionChange={setDatamyneRowSelection}
-                onLeadClick={(lead) => setSelectedDatamyneLead(lead)}
-                onSearchApollo={handleSearchInApollo}
-                currentPage={datamyneQuery.page}
-                totalPages={datamyneQuery.totalPages}
-                pageSize={datamyneQuery.limit}
-                totalItems={datamyneQuery.totalEstimate}
-                totalFormatted={datamyneQuery.totalFormatted}
-                onPageChange={setDatamynePage}
-                onClearFilters={clearAllDatamyneFilters}
-              />
-            </div>
-          </div>
-        </div>
+        <DatamyneView
+          filters={datamyneFilters}
+          query={datamyneQuery}
+          rowSelection={datamyneRowSelection}
+          onRowSelectionChange={setDatamyneRowSelection}
+          selectedCount={selectedDatamyneCount}
+          isAllOnPageSelected={isAllDatamyneOnPageSelected}
+          isSomeOnPageSelected={isSomeDatamyneOnPageSelected}
+          onToggleSelectAllPage={handleToggleSelectAllDatamynePage}
+          onDeselectAll={handleDeselectAllDatamyne}
+          onExport={handleExportDatamyneCsv}
+          isExporting={isExportingDatamyne}
+          onSearchChange={setDatamyneSearch}
+          onDatasetChange={setDatamyneDataset}
+          onTabChange={setDatamyneTab}
+          onPageChange={setDatamynePage}
+          toggleTransportMode={toggleDatamyneTransportMode}
+          toggleCategory={toggleDatamyneCategory}
+          toggleSubcategory={toggleDatamyneSubcategory}
+          toggleRole={toggleDatamyneRole}
+          toggleCity={toggleDatamyneCity}
+          toggleTradeLane={toggleDatamyneTradeLane}
+          toggleContactStatus={toggleDatamyneContactStatus}
+          toggleHasDirectors={toggleDatamyneHasDirectors}
+          setMinShipments={setDatamyneMinShipments}
+          setMinTradedValueUsd={setDatamyneMinTradedValueUsd}
+          clearAllFilters={clearAllDatamyneFilters}
+          activeFilterCount={datamyneActiveFilterCount}
+          onLeadClick={(lead) => setSelectedDatamyneLead(lead)}
+          onSearchApollo={handleSearchInApollo}
+          isMobileOpen={isMobileFilterOpen}
+          onCloseMobile={() => setIsMobileFilterOpen(false)}
+        />
       ) : isJfllCategory ? (
-        /* Dedicated JFLL Customers (Organic Internal Master) Category View */
-        <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
-          <JfllCustomerFilterSidebar
-            filters={jfllFilters}
-            onToggleCustomerGroup={toggleJfllCustomerGroup}
-            onToggleType={toggleJfllType}
-            onToggleContactOption={toggleJfllContactOption}
-            onClearAll={clearAllJfllFilters}
-            isMobileOpen={isMobileFilterOpen}
-            onCloseMobile={() => setIsMobileFilterOpen(false)}
-          />
-
-          <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
-            <JfllCustomerAudienceTabs
-              customerStatus={jfllFilters.customerStatus || 'active'}
-              onChangeCustomerStatus={setJfllCustomerStatus}
-              activeTab={jfllFilters.tab}
-              onTabChange={setJfllTab}
-              counts={jfllQuery.audienceCounts}
-              totalFormatted={jfllQuery.totalFormatted}
-            />
-
-            <JfllCustomerActionBar
-              selectedCount={selectedJfllCount}
-              totalOnPage={jfllItems.length}
-              totalCount={jfllQuery.totalEstimate}
-              isAllOnPageSelected={isAllJfllOnPageSelected}
-              isIndeterminate={isSomeJfllOnPageSelected}
-              onToggleSelectAllPage={handleToggleSelectAllJfllPage}
-              onDeselectAll={handleDeselectAllJfll}
-              onExport={handleExportJfllCsv}
-              isExporting={isExportingJfll}
-              searchQuery={jfllFilters.q || ''}
-              onSearchChange={setJfllSearch}
-              searchPlaceholder="Search customers by company, contact, phone, email..."
-            />
-
-            <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
-              <JfllCustomerTable
-                customers={jfllItems}
-                isLoading={isJfllLoading}
-                isError={isJfllError}
-                error={jfllError as Error}
-                onRetry={() => refetchJfll()}
-                rowSelection={jfllRowSelection}
-                onRowSelectionChange={setJfllRowSelection}
-                onCustomerClick={(c) => setSelectedJfllCustomer(c)}
-                currentPage={jfllQuery.page}
-                totalPages={jfllQuery.totalPages}
-                pageSize={jfllQuery.limit}
-                totalItems={jfllQuery.totalEstimate}
-                totalFormatted={jfllQuery.totalFormatted}
-                onPageChange={setJfllPage}
-                onClearFilters={clearAllJfllFilters}
-              />
-            </div>
-          </div>
-        </div>
+        <JfllCustomersView
+          filters={jfllFilters}
+          query={jfllQuery}
+          isLoading={isJfllLoading}
+          isError={isJfllError}
+          error={jfllError}
+          refetch={refetchJfll}
+          rowSelection={jfllRowSelection}
+          onRowSelectionChange={setJfllRowSelection}
+          selectedCount={selectedJfllCount}
+          isAllOnPageSelected={isAllJfllOnPageSelected}
+          isSomeOnPageSelected={isSomeJfllOnPageSelected}
+          onToggleSelectAllPage={handleToggleSelectAllJfllPage}
+          onDeselectAll={handleDeselectAllJfll}
+          onExport={handleExportJfllCsv}
+          isExporting={isExportingJfll}
+          onSearchChange={setJfllSearch}
+          onCustomerStatusChange={setJfllCustomerStatus}
+          onTabChange={setJfllTab}
+          onPageChange={setJfllPage}
+          toggleCustomerGroup={toggleJfllCustomerGroup}
+          toggleType={toggleJfllType}
+          toggleContactOption={toggleJfllContactOption}
+          clearAllFilters={clearAllJfllFilters}
+          onCustomerClick={(c) => setSelectedJfllCustomer(c)}
+          isMobileOpen={isMobileFilterOpen}
+          onCloseMobile={() => setIsMobileFilterOpen(false)}
+        />
       ) : isApolloCategory ? (
-        /* Dedicated Apollo Commercial Freight Shippers Database View */
-        <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
-          <ApolloFilterSidebar
-            filters={apolloDbFilters}
-            onToggleIndustry={toggleApolloDbIndustry}
-            onToggleCountry={toggleApolloDbCountry}
-            onToggleEmployeeTier={toggleApolloDbEmployeeTier}
-            onToggleRevenueRange={toggleApolloDbRevenueRange}
-            onToggleHasWebsite={toggleApolloDbHasWebsite}
-            onToggleHasLinkedin={toggleApolloDbHasLinkedin}
-            onClearCategory={clearApolloDbCategory}
-            onClearAll={clearAllApolloDbFilters}
-            isMobileOpen={isMobileFilterOpen}
-            onCloseMobile={() => setIsMobileFilterOpen(false)}
-          />
-
-          <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
-            {/* Account Directory Scope Notification */}
-            <ApolloContextBanner onSwitchToPeople={handleSwitchToPeople} />
-
-            <ApolloAudienceTabs
-              activeTab={apolloDbFilters.tab}
-              onTabChange={setApolloDbTab}
-              counts={apolloDbData?.audienceCounts}
-              totalFormatted={apolloDbData?.totalFormatted}
-            />
-
-            <ApolloActionBar
-              selectedCount={selectedApolloDbCount}
-              totalOnPage={apolloDbItems.length}
-              totalCount={apolloDbData?.totalRecords}
-              isAllOnPageSelected={isAllApolloDbOnPageSelected}
-              isIndeterminate={isSomeApolloDbOnPageSelected}
-              onToggleSelectAllPage={handleToggleSelectAllApolloDbPage}
-              onDeselectAll={handleDeselectAllApolloDb}
-              onExport={handleExportApolloDbCsv}
-              isExporting={isExportingApolloDb}
-              searchQuery={apolloDbFilters.q || ''}
-              onSearchChange={setApolloDbSearch}
-              searchPlaceholder="Search 690k corporate shipper accounts by company, domain, keywords..."
-            />
-
-            <ApolloActiveFilterChips
-              filters={apolloDbFilters}
-              onRemoveIndustry={toggleApolloDbIndustry}
-              onRemoveCountry={toggleApolloDbCountry}
-              onRemoveEmployeeTier={toggleApolloDbEmployeeTier}
-              onRemoveRevenueRange={toggleApolloDbRevenueRange}
-              onRemoveHasWebsite={toggleApolloDbHasWebsite}
-              onRemoveHasLinkedin={toggleApolloDbHasLinkedin}
-              onClearSearch={() => setApolloDbSearch('')}
-              onClearAll={clearAllApolloDbFilters}
-            />
-
-            <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
-              <ApolloTable
-                leads={apolloDbItems}
-                isLoading={isApolloDbLoading}
-                isError={isApolloDbError}
-                error={apolloDbError as Error}
-                onRetry={() => refetchApolloDb()}
-                rowSelection={apolloDbRowSelection}
-                onRowSelectionChange={setApolloDbRowSelection}
-                onLeadClick={(lead) => setSelectedApolloDbLead(lead)}
-                onFindDecisionMakers={handleFindDecisionMakersInPeople}
-                currentPage={apolloDbData?.page || 1}
-                totalPages={apolloDbData?.totalPages || 1}
-                pageSize={apolloDbData?.limit || 25}
-                totalItems={apolloDbData?.totalRecords || 0}
-                totalFormatted={apolloDbData?.totalFormatted}
-                onPageChange={setApolloDbPage}
-                onClearFilters={clearAllApolloDbFilters}
-              />
-            </div>
-          </div>
-        </div>
+        <ApolloCompaniesView
+          filters={apolloDbFilters}
+          data={apolloDbData}
+          isLoading={isApolloDbLoading}
+          isError={isApolloDbError}
+          error={apolloDbError}
+          refetch={refetchApolloDb}
+          rowSelection={apolloDbRowSelection}
+          onRowSelectionChange={setApolloDbRowSelection}
+          selectedCount={selectedApolloDbCount}
+          isAllOnPageSelected={isAllApolloDbOnPageSelected}
+          isSomeOnPageSelected={isSomeApolloDbOnPageSelected}
+          onToggleSelectAllPage={handleToggleSelectAllApolloDbPage}
+          onDeselectAll={handleDeselectAllApolloDb}
+          onExport={handleExportApolloDbCsv}
+          isExporting={isExportingApolloDb}
+          onSearchChange={setApolloDbSearch}
+          onToggleIndustry={toggleApolloDbIndustry}
+          onToggleCountry={toggleApolloDbCountry}
+          onToggleEmployeeTier={toggleApolloDbEmployeeTier}
+          onToggleRevenueRange={toggleApolloDbRevenueRange}
+          onToggleHasWebsite={toggleApolloDbHasWebsite}
+          onToggleHasLinkedin={toggleApolloDbHasLinkedin}
+          onClearCategory={clearApolloDbCategory}
+          onClearAllFilters={clearAllApolloDbFilters}
+          onTabChange={setApolloDbTab}
+          onPageChange={setApolloDbPage}
+          onLeadClick={(lead) => setSelectedApolloDbLead(lead)}
+          onFindDecisionMakers={handleFindDecisionMakersInPeople}
+          onSwitchToPeople={handleSwitchToPeople}
+          isMobileOpen={isMobileFilterOpen}
+          onCloseMobile={() => setIsMobileFilterOpen(false)}
+        />
       ) : (
-        /* Existing Apollo Prospects Category View - 100% UNCHANGED */
-        <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
-
-          {/* Left Filter Sidebar matching Ref.jpg */}
-          <FilterSidebar
-            filters={filters}
-            onToggleArrayFilter={toggleArrayFilter}
-            onToggleStatusFilter={toggleStatusFilter}
-            onClearCategory={clearFilterCategory}
-            onSaveSearch={handleSaveSearch}
-            onLoadSearch={handleLoadPresetSearch}
-            isMobileOpen={isMobileFilterOpen}
-            onCloseMobile={() => setIsMobileFilterOpen(false)}
-          />
-
-          {/* Right Leads Prospecting Area */}
-          <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
-            {/* Subheader: Audience Tabs matching Ref.jpg */}
-            <AudienceTabs
-              activeTab={filters.tab}
-              onTabChange={setTab}
-              counts={data?.audienceCounts}
-              rightContent={
-                <span>
-                  Total Prospects:{' '}
-                  <strong className="text-slate-800">{data?.totalFormatted || '2.5m'}</strong>
-                </span>
-              }
-            />
-
-            {/* Table Bulk Action Bar */}
-            <TableActionBar
-              selectedCount={selectedCount}
-              totalOnPage={items.length}
-              totalCount={data?.totalEstimate}
-              isAllOnPageSelected={isAllOnPageSelected}
-              isIndeterminate={isSomeOnPageSelected}
-              onToggleSelectAllPage={handleToggleSelectAllPage}
-              onSelectAllPage={handleSelectAllPage}
-              onSelectAllTotal={handleSelectAllTotal}
-              onDeselectAll={handleDeselectAll}
-              onSave={handleBatchSave}
-              onAddToList={handleAddToList}
-              onExport={handleExportCsv}
-              isExporting={isExporting}
-              savedLists={savedLists}
-              searchQuery={filters.q || ''}
-              onSearchChange={setSearch}
-              searchPlaceholder="Search leads by name, title, location..."
-            />
-
-            {/* Active Filter Chips Bar */}
-            <ActiveFilterChips
-              filters={filters}
-              onRemoveFilter={removeFilterItem}
-              onClearAll={clearAllFilters}
-            />
-
-            {/* Central Leads Table Viewport */}
-            <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
-              <LeadsTable
-                leads={items}
-                isLoading={isLoading}
-                isError={isError}
-                error={error as Error}
-                onRetry={() => refetch()}
-                rowSelection={rowSelection}
-                onRowSelectionChange={setRowSelection}
-                onLeadClick={handleLeadClick}
-                onViewEmail={handleViewEmail}
-                currentPage={data?.page || 1}
-                totalPages={data?.totalPages || 1}
-                pageSize={data?.limit || 25}
-                totalItems={data?.totalEstimate || 0}
-                totalFormatted={data?.totalFormatted}
-                onPageChange={setPage}
-                onClearFilters={clearAllFilters}
-              />
-            </div>
-          </div>
-        </div>
+        <PeopleView
+          filters={filters}
+          data={data}
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+          refetch={refetch}
+          items={items}
+          rowSelection={rowSelection}
+          onRowSelectionChange={setRowSelection}
+          selectedCount={selectedCount}
+          isAllOnPageSelected={isAllOnPageSelected}
+          isSomeOnPageSelected={isSomeOnPageSelected}
+          onToggleSelectAllPage={handleToggleSelectAllPage}
+          onSelectAllPage={handleSelectAllPage}
+          onSelectAllTotal={handleSelectAllTotal}
+          onDeselectAll={handleDeselectAll}
+          onSave={handleBatchSave}
+          onAddToList={handleAddToList}
+          onExport={handleExportCsv}
+          isExporting={isExporting}
+          savedLists={savedLists}
+          onSearchChange={setSearch}
+          onToggleArrayFilter={toggleArrayFilter}
+          onToggleStatusFilter={toggleStatusFilter}
+          onClearCategory={clearFilterCategory}
+          onRemoveFilter={removeFilterItem}
+          onClearAllFilters={clearAllFilters}
+          onSaveSearch={handleSaveSearch}
+          onLoadSearch={handleLoadPresetSearch}
+          onTabChange={setTab}
+          onPageChange={setPage}
+          onLeadClick={handleLeadClick}
+          onViewEmail={handleViewEmail}
+          isMobileOpen={isMobileFilterOpen}
+          onCloseMobile={() => setIsMobileFilterOpen(false)}
+        />
       )}
 
       {/* Slide-over Lead Detail Drawer */}

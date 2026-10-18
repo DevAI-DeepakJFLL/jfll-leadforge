@@ -25,7 +25,16 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { ApolloVerticalBadge } from './ApolloVerticalBadge';
-import { getAvatarStyle, getCompanyInitials } from './ApolloTable';
+import {
+  getAvatarStyle,
+  getCompanyInitials,
+  getContactInitials,
+  getSeniorityBadge,
+  formatRevenue,
+  parseTechnologies,
+  parseJobFunctions,
+  cleanLinkedinUrl,
+} from '@/utils/apolloUtils';
 
 export interface ApolloDetailDrawerProps {
   isOpen: boolean;
@@ -34,33 +43,6 @@ export interface ApolloDetailDrawerProps {
   onFindDecisionMakers?: (companyName: string, organizationId?: string) => void;
   className?: string;
 }
-
-const getContactInitials = (name: string): string => {
-  const parts = name.trim().split(/\s+/);
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-};
-
-const getSeniorityBadge = (seniority?: string | null) => {
-  if (!seniority) return null;
-  const s = seniority.toLowerCase();
-  if (s.includes('c_suite') || s.includes('cxo') || s.includes('founder') || s.includes('owner') || s.includes('executive')) {
-    return { label: 'C-Suite', bg: 'bg-purple-50 text-purple-700 border-purple-200' };
-  }
-  if (s.includes('vp') || s.includes('vice_president')) {
-    return { label: 'VP / Exec', bg: 'bg-indigo-50 text-indigo-700 border-indigo-200' };
-  }
-  if (s.includes('director') || s.includes('head')) {
-    return { label: 'Director', bg: 'bg-blue-50 text-blue-700 border-blue-200' };
-  }
-  if (s.includes('manager') || s.includes('lead')) {
-    return { label: 'Manager', bg: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
-  }
-  if (s.includes('senior')) {
-    return { label: 'Senior', bg: 'bg-slate-100 text-slate-700 border-slate-200' };
-  }
-  return { label: seniority, bg: 'bg-slate-50 text-slate-600 border-slate-200' };
-};
 
 export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
   isOpen,
@@ -130,59 +112,10 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  const formatRevenue = (rev?: number | null) => {
-    if (!rev || rev === 0) return 'Not disclosed';
-    if (rev >= 1000000000) return `$${(rev / 1000000000).toFixed(2)} Billion`;
-    if (rev >= 1000000) return `$${(rev / 1000000).toFixed(2)} Million`;
-    if (rev >= 1000) return `$${(rev / 1000).toFixed(0)} Thousand`;
-    return `$${rev.toLocaleString()}`;
-  };
-
   // Find cargo vertical logistics fit
   const verticalMeta = TOP_APOLLO_CARGO_VERTICALS.find(
     (v) => v.id.toLowerCase() === lead.industry.toLowerCase()
   );
-
-  // Parse technologies from string like "['salesforce', 'sap']"
-  const parseTechnologies = (raw?: string | null): string[] => {
-    if (!raw) return [];
-    try {
-      const cleaned = raw.replace(/'/g, '"');
-      const arr = JSON.parse(cleaned);
-      if (Array.isArray(arr)) {
-        return arr.slice(0, 20).map((t) => t.replace(/_/g, ' '));
-      }
-    } catch {
-      return raw
-        .replace(/[\[\]']/g, '')
-        .split(',')
-        .map((t) => t.trim().replace(/_/g, ' '))
-        .filter(Boolean)
-        .slice(0, 20);
-    }
-    return [];
-  };
-
-  // Parse job functions from string like "{'engineering': 21515, 'operations': 1929}"
-  const parseJobFunctions = (raw?: string | null): { name: string; count: number }[] => {
-    if (!raw) return [];
-    try {
-      const cleaned = raw.replace(/'/g, '"');
-      const obj = JSON.parse(cleaned);
-      return Object.entries(obj)
-        .map(([k, v]) => ({ name: k.replace(/_/g, ' '), count: Number(v) }))
-        .sort((a, b) => b.count - a.count)
-        .slice(0, 8);
-    } catch {
-      return [];
-    }
-  };
-
-  // Parse LinkedIn URL from array string like "['http://www.linkedin.com/company/1483']"
-  const cleanLinkedinUrl = (raw?: string | null): string | null => {
-    if (!raw) return null;
-    return raw.replace(/[\[\]']/g, '').trim() || null;
-  };
 
   const technologies = parseTechnologies(lead.technologies_raw);
   const jobFunctions = parseJobFunctions(lead.job_functions_json);

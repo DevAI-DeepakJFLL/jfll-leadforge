@@ -2,7 +2,6 @@ import re
 import uuid
 from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query, Header
-from fastapi.params import Query as QueryType
 from src.api.config import settings
 from src.api.database import get_db_connection
 from src.api.models import (
@@ -14,7 +13,12 @@ from src.api.models import (
     ApolloContactsPaginatedResponse,
 )
 from src.api.logger import logger
-from src.api.auth import verify_token
+from src.api.helpers import (
+    require_auth,
+    normalize_query,
+    clean_corporate_term,
+    SQL_EXTRACT_EMPLOYER_NAME,
+)
 
 router = APIRouter(prefix="/api/v1", tags=["Leads"])
 
@@ -61,27 +65,19 @@ def list_leads(
     search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search company, contact person or email"),
     authorization: Optional[str] = Header(None, description="Optional bearer token for authenticated session"),
 ):
-    # Enforce or validate Bearer token if provided, or require it in production
-    if authorization and authorization.startswith("Bearer "):
-        token = authorization.split("Bearer ", 1)[1].strip()
-        user = verify_token(token)
-        if not user:
-            raise HTTPException(status_code=401, detail="Invalid or expired session token")
-    elif settings.env == "production":
-        raise HTTPException(status_code=401, detail="Authentication required to access customer leads")
+    require_auth(authorization, "customer leads")
 
-    # Normalize Query objects when invoked directly in tests/scripts
-    if isinstance(page, QueryType): page = 1
-    if isinstance(page_size, QueryType): page_size = 25
-    if isinstance(status, QueryType): status = None
-    if isinstance(customer_group, QueryType): customer_group = None
-    if isinstance(customer_groups, QueryType): customer_groups = None
-    if isinstance(types, QueryType): types = None
-    if isinstance(has_phone, QueryType): has_phone = None
-    if isinstance(has_email, QueryType): has_email = None
-    if isinstance(has_contact_person, QueryType): has_contact_person = None
-    if isinstance(tab, QueryType): tab = None
-    if isinstance(search, QueryType): search = None
+    page = normalize_query(page, 1)
+    page_size = normalize_query(page_size, 25)
+    status = normalize_query(status)
+    customer_group = normalize_query(customer_group)
+    customer_groups = normalize_query(customer_groups)
+    types = normalize_query(types)
+    has_phone = normalize_query(has_phone)
+    has_email = normalize_query(has_email)
+    has_contact_person = normalize_query(has_contact_person)
+    tab = normalize_query(tab)
+    search = normalize_query(search)
 
     if status and status not in ALLOWED_STATUSES:
         raise HTTPException(
@@ -251,29 +247,22 @@ def list_apollo_leads(
     search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search company, domain, keywords"),
     authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
 ):
-    if authorization and authorization.startswith("Bearer "):
-        token = authorization.split("Bearer ", 1)[1].strip()
-        user = verify_token(token)
-        if not user:
-            raise HTTPException(status_code=401, detail="Invalid or expired session token")
-    elif settings.env == "production":
-        raise HTTPException(status_code=401, detail="Authentication required to access Apollo leads")
+    require_auth(authorization, "Apollo leads")
 
-    # Normalize Query objects when invoked directly in tests/scripts
-    if isinstance(page, QueryType): page = 1
-    if isinstance(page_size, QueryType): page_size = 25
-    if isinstance(industry, QueryType): industry = None
-    if isinstance(industries, QueryType): industries = None
-    if isinstance(country, QueryType): country = None
-    if isinstance(countries, QueryType): countries = None
-    if isinstance(state, QueryType): state = None
-    if isinstance(min_employees, QueryType): min_employees = None
-    if isinstance(max_employees, QueryType): max_employees = None
-    if isinstance(min_revenue, QueryType): min_revenue = None
-    if isinstance(has_website, QueryType): has_website = None
-    if isinstance(has_linkedin, QueryType): has_linkedin = None
-    if isinstance(tab, QueryType): tab = None
-    if isinstance(search, QueryType): search = None
+    page = normalize_query(page, 1)
+    page_size = normalize_query(page_size, 25)
+    industry = normalize_query(industry)
+    industries = normalize_query(industries)
+    country = normalize_query(country)
+    countries = normalize_query(countries)
+    state = normalize_query(state)
+    min_employees = normalize_query(min_employees)
+    max_employees = normalize_query(max_employees)
+    min_revenue = normalize_query(min_revenue)
+    has_website = normalize_query(has_website)
+    has_linkedin = normalize_query(has_linkedin)
+    tab = normalize_query(tab)
+    search = normalize_query(search)
 
     if tab and tab not in ALLOWED_APOLLO_TABS:
         raise HTTPException(status_code=400, detail=f"Invalid tab. Allowed values: {sorted(ALLOWED_APOLLO_TABS)}")
@@ -480,20 +469,14 @@ def list_company_contacts(
     search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search by name, title, or email"),
     authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
 ):
-    if authorization and authorization.startswith("Bearer "):
-        token = authorization.split("Bearer ", 1)[1].strip()
-        user = verify_token(token)
-        if not user:
-            raise HTTPException(status_code=401, detail="Invalid or expired session token")
-    elif settings.env == "production":
-        raise HTTPException(status_code=401, detail="Authentication required to access Apollo contacts")
+    require_auth(authorization, "Apollo contacts")
 
-    if isinstance(page, QueryType): page = 1
-    if isinstance(page_size, QueryType): page_size = 20
-    if isinstance(logistics_only, QueryType): logistics_only = None
-    if isinstance(decision_makers_only, QueryType): decision_makers_only = None
-    if isinstance(has_email_only, QueryType): has_email_only = None
-    if isinstance(search, QueryType): search = None
+    page = normalize_query(page, 1)
+    page_size = normalize_query(page_size, 20)
+    logistics_only = normalize_query(logistics_only)
+    decision_makers_only = normalize_query(decision_makers_only)
+    has_email_only = normalize_query(has_email_only)
+    search = normalize_query(search)
 
     offset = (page - 1) * page_size
     con = get_db_connection()
@@ -540,11 +523,7 @@ def list_company_contacts(
                 is_decision_maker,
                 is_logistics_role,
                 has_email,
-                CASE 
-                    WHEN email IS NOT NULL AND email LIKE '%@%' 
-                    THEN upper(regexp_extract(email, '@([^.]+)', 1)) 
-                    ELSE 'COMMERCIAL SHIPPER' 
-                END as employer_name
+                {SQL_EXTRACT_EMPLOYER_NAME}
             FROM '{data_source}'
             WHERE {where_sql}
             ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
@@ -590,25 +569,19 @@ def search_apollo_contacts(
     search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search name, title, company, email"),
     authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
 ):
-    if authorization and authorization.startswith("Bearer "):
-        token = authorization.split("Bearer ", 1)[1].strip()
-        user = verify_token(token)
-        if not user:
-            raise HTTPException(status_code=401, detail="Invalid or expired session token")
-    elif settings.env == "production":
-        raise HTTPException(status_code=401, detail="Authentication required to access Apollo contacts")
+    require_auth(authorization, "Apollo contacts")
 
-    if isinstance(page, QueryType): page = 1
-    if isinstance(page_size, QueryType): page_size = 25
-    if isinstance(organization_id, QueryType): organization_id = None
-    if isinstance(seniority, QueryType): seniority = None
-    if isinstance(department, QueryType): department = None
-    if isinstance(logistics_only, QueryType): logistics_only = None
-    if isinstance(decision_makers_only, QueryType): decision_makers_only = None
-    if isinstance(has_email_only, QueryType): has_email_only = None
-    if isinstance(country, QueryType): country = None
-    if isinstance(company, QueryType): company = None
-    if isinstance(search, QueryType): search = None
+    page = normalize_query(page, 1)
+    page_size = normalize_query(page_size, 25)
+    organization_id = normalize_query(organization_id)
+    seniority = normalize_query(seniority)
+    department = normalize_query(department)
+    logistics_only = normalize_query(logistics_only)
+    decision_makers_only = normalize_query(decision_makers_only)
+    has_email_only = normalize_query(has_email_only)
+    country = normalize_query(country)
+    company = normalize_query(company)
+    search = normalize_query(search)
 
     offset = (page - 1) * page_size
     con = get_db_connection()
@@ -642,17 +615,14 @@ def search_apollo_contacts(
             params.append(country.strip().lower())
 
         if company and company.strip():
-            raw_comp = company.strip().lower()
-            clean_comp = re.sub(r'^(the\s+)', '', raw_comp)
-            clean_comp = re.sub(r'\b(inc|corp|corporation|llc|ltd|co|company|group|holdings)\b', '', clean_comp).strip(' .,-')
-            cpat = f"%{clean_comp}%" if len(clean_comp) >= 2 else f"%{raw_comp}%"
+            clean_comp = clean_corporate_term(company)
+            cpat = f"%{clean_comp}%" if len(clean_comp) >= 2 else f"%{company.strip().lower()}%"
             conditions.append("lower(COALESCE(email, '')) LIKE ?")
             params.append(cpat)
 
         if search and search.strip():
             raw_term = search.strip().lower()
-            clean_term = re.sub(r'^(the\s+)', '', raw_term)
-            clean_term = re.sub(r'\b(inc|corp|corporation|llc|ltd|co|company|group|holdings)\b', '', clean_term).strip(' .,-')
+            clean_term = clean_corporate_term(raw_term)
             pat = f"%{raw_term}%"
             cpat = f"%{clean_term}%" if len(clean_term) >= 2 else pat
             conditions.append(
@@ -696,11 +666,7 @@ def search_apollo_contacts(
                 is_decision_maker,
                 is_logistics_role,
                 has_email,
-                CASE 
-                    WHEN email IS NOT NULL AND email LIKE '%@%' 
-                    THEN upper(regexp_extract(email, '@([^.]+)', 1)) 
-                    ELSE 'COMMERCIAL SHIPPER' 
-                END as employer_name
+                {SQL_EXTRACT_EMPLOYER_NAME}
             FROM '{data_source}'
             WHERE {where_sql}
             ORDER BY is_decision_maker DESC, has_email DESC
