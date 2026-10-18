@@ -255,28 +255,18 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('Search Decision-Makers in People Tab');
     });
 
-    it('queries company contacts from starter dataset with filters', () => {
-      // Boeing organization_id: 54a1229169702d9a8b695403
+    it('returns empty list for queryCompanyContactsLocal since hardcoded contacts were removed', () => {
       const boeingOrgId = '54a1229169702d9a8b695403';
       const allContacts = queryCompanyContactsLocal(boeingOrgId);
-      expect(allContacts.totalRecords).toBeGreaterThan(0);
-      expect(allContacts.items[0].organization_id).toBe(boeingOrgId);
-
-      const logisticsContacts = queryCompanyContactsLocal(boeingOrgId, {
-        logisticsOnly: true,
-      });
-      expect(logisticsContacts.totalRecords).toBeGreaterThan(0);
-      for (const c of logisticsContacts.items) {
-        expect(c.is_logistics_role).toBe(true);
-      }
+      expect(allContacts.totalRecords).toBe(0);
+      expect(allContacts.items).toEqual([]);
     });
 
-    it('fetches company contacts with seamless fallback when API is offline', async () => {
+    it('handles offline fetchCompanyContacts gracefully with zero items and no crash', async () => {
       const boeingOrgId = '54a1229169702d9a8b695403';
       const result = await fetchCompanyContacts(boeingOrgId);
-      expect(result.totalRecords).toBeGreaterThan(0);
-      expect(result.items.length).toBeGreaterThan(0);
-      expect(result.items[0].person_name).toBeDefined();
+      expect(result.totalRecords).toBe(0);
+      expect(result.items).toEqual([]);
     });
   });
 });

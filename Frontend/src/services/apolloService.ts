@@ -1,5 +1,4 @@
 import { APOLLO_STARTER_DATA } from '@/data/apolloStarterData';
-import { APOLLO_CONTACTS_STARTER_DATA } from '@/data/apolloContactsStarterData';
 import {
   ApolloLead,
   ApolloFilterParams,
@@ -349,76 +348,25 @@ export interface CompanyContactsOptions {
 }
 
 /**
- * Filter company contacts from local starter data.
+ * Filter company contacts from local cache if available (no hardcoded data).
  */
 export function queryCompanyContactsLocal(
-  organizationId: string,
+  _organizationId: string,
   options: CompanyContactsOptions = {}
 ): ApolloContactsResponse {
-  const {
-    page = 1,
-    limit = 20,
-    logisticsOnly,
-    decisionMakersOnly,
-    hasEmailOnly,
-    search,
-  } = options;
-
-  let contacts = APOLLO_CONTACTS_STARTER_DATA.filter(
-    (c) => c.organization_id === organizationId
-  );
-
-  if (logisticsOnly) {
-    contacts = contacts.filter((c) => c.is_logistics_role);
-  }
-  if (decisionMakersOnly) {
-    contacts = contacts.filter((c) => c.is_decision_maker);
-  }
-  if (hasEmailOnly) {
-    contacts = contacts.filter((c) => c.has_email);
-  }
-  if (search && search.trim()) {
-    const s = search.trim().toLowerCase();
-    contacts = contacts.filter(
-      (c) =>
-        c.person_name.toLowerCase().includes(s) ||
-        c.job_title.toLowerCase().includes(s) ||
-        (c.email && c.email.toLowerCase().includes(s))
-    );
-  }
-
-  // Sort by logistics role DESC, decision maker DESC, has email DESC, person name ASC
-  contacts.sort((a, b) => {
-    if (a.is_logistics_role !== b.is_logistics_role) {
-      return a.is_logistics_role ? -1 : 1;
-    }
-    if (a.is_decision_maker !== b.is_decision_maker) {
-      return a.is_decision_maker ? -1 : 1;
-    }
-    if (a.has_email !== b.has_email) {
-      return a.has_email ? -1 : 1;
-    }
-    return a.person_name.localeCompare(b.person_name);
-  });
-
-  const totalRecords = contacts.length;
-  const totalPages = Math.ceil(totalRecords / limit) || 1;
-  const safePage = Math.max(1, Math.min(page, totalPages));
-  const offset = (safePage - 1) * limit;
-  const items = contacts.slice(offset, offset + limit);
-
+  const { page = 1, limit = 20 } = options;
   return {
-    page: safePage,
+    page,
     limit,
-    totalRecords,
-    totalPages,
-    hasNext: safePage < totalPages,
-    items,
+    totalRecords: 0,
+    totalPages: 1,
+    hasNext: false,
+    items: [],
   };
 }
 
 /**
- * Fetch contacts for an organization from the Apollo API with automatic fallback to starter dataset.
+ * Fetch contacts for an organization directly from the Apollo API.
  */
 export async function fetchCompanyContacts(
   organizationId: string,
@@ -466,12 +414,19 @@ export async function fetchCompanyContacts(
         items: result.data || [],
       };
     } else {
-      logger.warn('APOLLO', `Contacts API returned ${response.status}. Falling back to starter contacts.`);
+      logger.warn('APOLLO', `Contacts API returned ${response.status}.`);
     }
   } catch (err) {
-    logger.warn('APOLLO', 'Failed to reach contacts API endpoint. Falling back to starter contacts.', { err });
+    logger.warn('APOLLO', 'Failed to reach contacts API endpoint.', { err });
   }
 
-  return queryCompanyContactsLocal(organizationId, options);
+  return {
+    page,
+    limit,
+    totalRecords: 0,
+    totalPages: 1,
+    hasNext: false,
+    items: [],
+  };
 }
 

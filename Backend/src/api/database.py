@@ -7,6 +7,7 @@ def get_db_connection() -> duckdb.DuckDBPyConnection:
     """Instantiate a DuckDB connection configured for serverless execution."""
     con = duckdb.connect(":memory:")
     try:
+        con.execute("SET home_directory = '/tmp';")
         con.execute("SET extension_directory = '/tmp/duckdb_extensions';")
     except Exception:
         pass
