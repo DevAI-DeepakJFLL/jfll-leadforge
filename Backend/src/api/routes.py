@@ -130,72 +130,78 @@ def list_leads(
         params.extend([search_pattern, search_pattern, search_pattern, search_pattern])
 
     where_sql = " AND ".join(conditions)
-    data_source = get_data_source(con)
+    try:
+        data_source = get_data_source(con)
 
-    # 1. Total Count Query (Prepared statement)
-    count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
-    total_records = con.execute(count_query, params).fetchone()[0]
+        # 1. Total Count Query (Prepared statement)
+        count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
+        total_records = con.execute(count_query, params).fetchone()[0]
 
-    # 2. Audience Tab Aggregate Counts (Single-pass table scan)
-    agg_row = con.execute(f"""
-        SELECT 
-            count(*) as all_count,
-            count(CASE WHEN "Customer Group" = 'Shipper / Consignee' THEN 1 END) as shippers,
-            count(CASE WHEN "Customer Group" = 'Subagent' THEN 1 END) as subagents,
-            count(CASE WHEN "Customer Group" = 'Overseas Agent' THEN 1 END) as overseas,
-            count(CASE WHEN ("Contact Person Name" IS NOT NULL OR "Email" IS NOT NULL OR "Mobile Number" IS NOT NULL) THEN 1 END) as with_contacts
-        FROM '{data_source}'
-    """).fetchone()
+        # 2. Audience Tab Aggregate Counts (Single-pass table scan)
+        agg_row = con.execute(f"""
+            SELECT 
+                count(*) as all_count,
+                count(CASE WHEN "Customer Group" = 'Shipper / Consignee' THEN 1 END) as shippers,
+                count(CASE WHEN "Customer Group" = 'Subagent' THEN 1 END) as subagents,
+                count(CASE WHEN "Customer Group" = 'Overseas Agent' THEN 1 END) as overseas,
+                count(CASE WHEN ("Contact Person Name" IS NOT NULL OR "Email" IS NOT NULL OR "Mobile Number" IS NOT NULL) THEN 1 END) as with_contacts
+            FROM '{data_source}'
+        """).fetchone()
 
-    audience_counts = AudienceCounts(
-        all=agg_row[0],
-        shippers=agg_row[1],
-        subagents=agg_row[2],
-        overseas=agg_row[3],
-        with_contacts=agg_row[4],
-    )
+        audience_counts = AudienceCounts(
+            all=agg_row[0],
+            shippers=agg_row[1],
+            subagents=agg_row[2],
+            overseas=agg_row[3],
+            with_contacts=agg_row[4],
+        )
 
-    # 3. Paginated Data Query
-    data_query = f"""
-        SELECT 
-            "Full Name" as full_name,
-            "Territory" as territory,
-            "Contact Person Name" as contact_person_name,
-            "Mobile Number" as mobile_number,
-            "Email" as email,
-            "Status" as status,
-            "Customer Group" as customer_group,
-            "Type" as type
-        FROM '{data_source}'
-        WHERE {where_sql}
-        ORDER BY "Full Name" ASC
-        LIMIT ? OFFSET ?
-    """
-    query_params = params + [page_size, offset]
-    result_cursor = con.execute(data_query, query_params)
-    columns = [desc[0] for desc in result_cursor.description]
-    rows = result_cursor.fetchall()
-    clean_records = [dict(zip(columns, row)) for row in rows]
-    total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
+        # 3. Paginated Data Query
+        data_query = f"""
+            SELECT 
+                "Full Name" as full_name,
+                "Territory" as territory,
+                "Contact Person Name" as contact_person_name,
+                "Mobile Number" as mobile_number,
+                "Email" as email,
+                "Status" as status,
+                "Customer Group" as customer_group,
+                "Type" as type
+            FROM '{data_source}'
+            WHERE {where_sql}
+            ORDER BY "Full Name" ASC
+            LIMIT ? OFFSET ?
+        """
+        query_params = params + [page_size, offset]
+        result_cursor = con.execute(data_query, query_params)
+        columns = [desc[0] for desc in result_cursor.description]
+        rows = result_cursor.fetchall()
+        clean_records = [dict(zip(columns, row)) for row in rows]
+        total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
 
-    logger.info(
-        "Executed DuckDB analytical query",
-        extra={
-            "total_records": total_records,
+        logger.info(
+            "Executed DuckDB analytical query",
+            extra={
+                "total_records": total_records,
+                "page": page,
+                "page_size": page_size,
+                "returned_count": len(clean_records),
+                "tab": tab,
+            },
+        )
+
+        return {
             "page": page,
             "page_size": page_size,
-            "returned_count": len(clean_records),
-            "tab": tab,
-        },
-    )
-
-    return {
-        "page": page,
-        "page_size": page_size,
-        "total_records": total_records,
-        "total_pages": total_pages,
-        "has_next": page < total_pages,
-        "data": clean_records,
-        "audience_counts": audience_counts,
-    }
+            "total_records": total_records,
+            "total_pages": total_pages,
+            "has_next": page < total_pages,
+            "data": clean_records,
+            "audience_counts": audience_counts,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error querying leads from {data_source if 'data_source' in locals() else 'unknown'}: {e}")
+        raise HTTPException(status_code=500, detail=f"Database query failure: {str(e)}")
 

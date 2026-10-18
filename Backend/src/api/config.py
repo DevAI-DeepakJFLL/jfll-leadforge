@@ -7,8 +7,8 @@ from pydantic import BaseModel, Field
 class Settings(BaseModel):
     env: str = Field(default_factory=lambda: os.getenv("ENV", "local"))
     floci_endpoint: str = Field(default_factory=lambda: os.getenv("FLOCI_ENDPOINT", "localhost:4566"))
-    aws_region: str = Field(default_factory=lambda: os.getenv("AWS_REGION", "us-east-1"))
-    s3_bucket: str = Field(default_factory=lambda: os.getenv("S3_BUCKET", "customer-master-leads"))
+    aws_region: str = Field(default_factory=lambda: os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION") or "ap-southeast-2")
+    s3_bucket: str = Field(default_factory=lambda: os.getenv("S3_BUCKET") or "jfll-leadforge-data")
     parquet_key: str = Field(default_factory=lambda: os.getenv("PARQUET_KEY", "leads/active_customers_leads_zstd.parquet"))
     aws_access_key_id: str = Field(default_factory=lambda: os.getenv("AWS_ACCESS_KEY_ID", "test"))
     aws_secret_access_key: str = Field(default_factory=lambda: os.getenv("AWS_SECRET_ACCESS_KEY", "test"))
