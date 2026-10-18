@@ -1,26 +1,69 @@
 import { Lead } from '@/types/lead';
 
 /**
- * Escapes a cell value conforming to RFC-4180 standard.
+ * Sanitizes and escapes a cell value conforming to RFC-4180 standard.
  * Additionally protects against CSV Formula Injection (CWE-1236)
  * by prefixing cells that begin with formula trigger characters (=, +, -, @, \t, \r)
- * with a single quote.
+ * with a single quote (').
  */
-export function escapeCsvField(val: unknown): string {
+export function sanitizeCsvValue(val: unknown): string {
   if (val === null || val === undefined) {
     return '""';
   }
 
   let str = String(val);
 
-  // CSV Formula Injection mitigation: neutralize spreadsheet formulas
-  if (/^[=+\-@\t\r]/.test(str)) {
+  // CSV Formula Injection mitigation (CWE-1236): neutralize spreadsheet formula triggers
+  if (/^[\s\t\r]*[=+\-@]/.test(str) || /^[\t\r]/.test(str)) {
     str = `'${str}`;
   }
 
   // RFC-4180: Double quote escaping
   const escaped = str.replace(/"/g, '""');
   return `"${escaped}"`;
+}
+
+/**
+ * Backward-compatible alias for existing imports
+ */
+export const escapeCsvField = sanitizeCsvValue;
+
+/**
+ * Builds an RFC-4180 compliant CSV string from an array of headers and rows.
+ */
+export function buildCsvString(
+  headers: string[],
+  rows: (string | number | boolean | null | undefined)[][]
+): string {
+  const sanitizedRows = rows.map((row) => row.map((cell) => sanitizeCsvValue(cell)).join(','));
+  return [headers.join(','), ...sanitizedRows].join('\r\n');
+}
+
+/**
+ * Creates an RFC-4180 compliant CSV Blob prepended with UTF-8 BOM (\uFEFF)
+ * for optimal Microsoft Excel and Google Sheets compatibility.
+ */
+export function createCsvBlob(
+  headers: string[],
+  rows: (string | number | boolean | null | undefined)[][]
+): Blob {
+  const csvContent = buildCsvString(headers, rows);
+  return new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+}
+
+/**
+ * Triggers a client-side download of a CSV Blob.
+ */
+export function triggerCsvDownload(blob: Blob, filename: string): void {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }
 
 /**
@@ -45,21 +88,21 @@ export function generateLeadsCsv(leads: Lead[]): string {
   ];
 
   const rows = leads.map((l) => [
-    escapeCsvField(l.id),
-    escapeCsvField(l.name),
-    escapeCsvField(l.title),
-    escapeCsvField(l.company),
-    escapeCsvField(l.industry),
-    escapeCsvField(l.department || ''),
-    escapeCsvField(l.status),
-    escapeCsvField(l.location),
-    escapeCsvField(l.email),
-    escapeCsvField(l.phone),
-    escapeCsvField(l.employees),
-    escapeCsvField(l.revenue),
-    escapeCsvField(l.funding),
-    escapeCsvField(l.saved ? 'Yes' : 'No'),
+    l.id,
+    l.name,
+    l.title,
+    l.company,
+    l.industry,
+    l.department || '',
+    l.status,
+    l.location,
+    l.email,
+    l.phone,
+    l.employees,
+    l.revenue,
+    l.funding,
+    l.saved ? 'Yes' : 'No',
   ]);
 
-  return [headers.join(','), ...rows.map((row) => row.join(','))].join('\r\n');
+  return buildCsvString(headers, rows);
 }

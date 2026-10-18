@@ -6,6 +6,7 @@ import {
   DatamyneAudienceCounts,
 } from '@/types/datamyneLead';
 import { logger } from '@/utils/logger';
+import { createCsvBlob } from '@/utils/csv';
 
 // In-memory leads storage, starts with the bundled starter set and upgrades if full JSON is loaded
 let cachedFullDataset: DatamyneLead[] | null = null;
@@ -223,20 +224,6 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
 }
 
 /**
- * Sanitize cell content against CSV Formula Injection (CWE-1236)
- */
-function sanitizeCsvValue(val: string | number | null | undefined): string {
-  if (val === null || val === undefined) return '""';
-  let str = String(val);
-  // Prefix dangerous formula operators with single quote (including leading whitespace/tab tricks)
-  if (/^[\s\t\r]*[=+\-@]/.test(str) || /^[\t\r]/.test(str)) {
-    str = `'${str}`;
-  }
-  str = str.replace(/"/g, '""');
-  return `"${str}"`;
-}
-
-/**
  * Export selected DataMyne leads to sanitized CSV Blob
  */
 export function exportDatamyneLeadsCsv(leads: DatamyneLead[]): Blob {
@@ -262,28 +249,27 @@ export function exportDatamyneLeadsCsv(leads: DatamyneLead[]): Blob {
   ];
 
   const rows = leads.map((l) => [
-    sanitizeCsvValue(l.company_name),
-    sanitizeCsvValue(l.role),
-    sanitizeCsvValue(l.transport_mode),
-    sanitizeCsvValue(l.category),
-    sanitizeCsvValue(l.subcategory),
-    sanitizeCsvValue(l.contact_type),
-    sanitizeCsvValue(l.phone),
-    sanitizeCsvValue(l.email),
-    sanitizeCsvValue(l.tax_id),
-    sanitizeCsvValue(l.city),
-    sanitizeCsvValue(l.address),
-    sanitizeCsvValue(l.pin_code),
-    sanitizeCsvValue(l.trade_lanes),
-    sanitizeCsvValue(l.top_hs_codes),
-    sanitizeCsvValue(l.total_shipments),
-    sanitizeCsvValue(l.total_value_usd),
-    sanitizeCsvValue(l.latest_activity_date),
-    sanitizeCsvValue(l.dataset_type),
+    l.company_name,
+    l.role,
+    l.transport_mode,
+    l.category,
+    l.subcategory,
+    l.contact_type,
+    l.phone,
+    l.email,
+    l.tax_id,
+    l.city,
+    l.address,
+    l.pin_code,
+    l.trade_lanes,
+    l.top_hs_codes,
+    l.total_shipments,
+    l.total_value_usd,
+    l.latest_activity_date,
+    l.dataset_type,
   ]);
 
-  const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
-  return new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+  return createCsvBlob(headers, rows);
 }
 
 /**

@@ -6,6 +6,7 @@ import {
   JfllCustomersResponse,
 } from '@/types/jfllCustomer';
 import { logger } from '@/utils/logger';
+import { createCsvBlob } from '@/utils/csv';
 
 interface ApiLeadRecord {
   full_name?: string;
@@ -275,21 +276,6 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
 }
 
 /**
- * Sanitize cell content against CSV Formula Injection (CWE-1236)
- */
-function sanitizeCsvValue(val: string | null | undefined): string {
-  if (val === null || val === undefined) return '""';
-  let str = String(val).trim();
-  // If value begins with dangerous formula triggers (=, +, -, @), prefix with a single quote
-  if (/^[=+\-@\t\r]/.test(str)) {
-    str = `'${str}`;
-  }
-  // Escape double quotes
-  str = str.replace(/"/g, '""');
-  return `"${str}"`;
-}
-
-/**
  * Generate sanitized CSV blob for JFLL Customers
  */
 export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
@@ -305,18 +291,17 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
   ];
 
   const rows = customers.map((c) => [
-    sanitizeCsvValue(c.fullName),
-    sanitizeCsvValue(c.customerGroup),
-    sanitizeCsvValue(c.type),
-    sanitizeCsvValue(c.status),
-    sanitizeCsvValue(c.contactPersonName),
-    sanitizeCsvValue(c.mobileNumber),
-    sanitizeCsvValue(c.email),
-    sanitizeCsvValue(c.territory),
+    c.fullName,
+    c.customerGroup,
+    c.type,
+    c.status,
+    c.contactPersonName,
+    c.mobileNumber,
+    c.email,
+    c.territory,
   ]);
 
-  const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
-  return new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+  return createCsvBlob(headers, rows);
 }
 
 /**

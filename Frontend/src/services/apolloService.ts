@@ -9,6 +9,7 @@ import {
   ApolloContactsResponse,
 } from '@/types/apolloLead';
 import { logger } from '@/utils/logger';
+import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
@@ -278,10 +279,8 @@ export async function fetchApolloLeadsFromApi(
  */
 export function exportApolloLeadsCsv(leads: ApolloLead[], filename = 'apollo_freight_leads.csv'): void {
   if (!leads || leads.length === 0) return;
-  if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
   const headers = [
-
     'Organization Name',
     'Domain',
     'Website',
@@ -298,44 +297,25 @@ export function exportApolloLeadsCsv(leads: ApolloLead[], filename = 'apollo_fre
     'LinkedIn URL',
   ];
 
-  const escapeCell = (val: unknown): string => {
-    if (val === null || val === undefined) return '""';
-    let str = String(val);
-    // Neutralize formula injection in Excel/Sheets (CWE-1236)
-    if (/^[=+\-@\t\r]/.test(str)) {
-      str = "'" + str;
-    }
-    const cleanStr = str.replace(/"/g, '""');
-    return `"${cleanStr}"`;
-  };
-
   const rows = leads.map((lead) => [
-    escapeCell(lead.organization_name),
-    escapeCell(lead.domain),
-    escapeCell(lead.website_url),
-    escapeCell(lead.phone),
-    escapeCell(lead.industry),
-    escapeCell(lead.employee_count),
-    escapeCell(lead.revenue_usd),
-    escapeCell(lead.founded_year),
-    escapeCell(lead.hq_city),
-    escapeCell(lead.hq_state),
-    escapeCell(lead.hq_country),
-    escapeCell(lead.specialties),
-    escapeCell(lead.keywords),
-    escapeCell(lead.linkedin_url),
+    lead.organization_name,
+    lead.domain,
+    lead.website_url,
+    lead.phone,
+    lead.industry,
+    lead.employee_count,
+    lead.revenue_usd,
+    lead.founded_year,
+    lead.hq_city,
+    lead.hq_state,
+    lead.hq_country,
+    lead.specialties,
+    lead.keywords,
+    lead.linkedin_url,
   ]);
 
-  const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.setAttribute('href', url);
-  link.setAttribute('download', filename);
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+  const blob = createCsvBlob(headers, rows);
+  triggerCsvDownload(blob, filename);
 }
 
 export interface CompanyContactsOptions {
