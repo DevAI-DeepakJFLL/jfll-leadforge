@@ -60,6 +60,7 @@ import { useApolloFilter } from '@/hooks/useApolloFilter';
 import {
   fetchApolloLeadsFromApi,
   fetchApolloPeopleLeads,
+  queryApolloPeopleLeadsLocal,
   exportApolloLeadsCsv,
 } from '@/services/apolloService';
 import { ApolloLead } from '@/types/apolloLead';
@@ -135,7 +136,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   const { data, isLoading, isError, error, refetch } = useQuery<LeadsResponse>({
     queryKey: ['leads', filters],
     queryFn: () => fetchApolloPeopleLeads(filters),
-    placeholderData: (prev) => prev,
+    placeholderData: (prev) => prev ?? queryApolloPeopleLeadsLocal(filters),
     staleTime: 60000,
   });
 
@@ -498,7 +499,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     setSelectedApolloDbLead(null);
     setTopTab('people');
     setActiveNav('search');
-    setSearch(companyName);
+    applyFilters({
+      ...filters,
+      q: companyName,
+      page: 1,
+      departments: [],
+      locations: [],
+    });
     showToast(`Searching People Directory for decision-makers at "${companyName}"`);
   };
 

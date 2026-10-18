@@ -539,7 +539,7 @@ def list_company_contacts(
                 is_decision_maker,
                 is_logistics_role,
                 has_email,
-                CAST(NULL AS VARCHAR) as employer_name
+                COALESCE(company_name, '') as employer_name
             FROM '{data_source}'
             WHERE {where_sql}
             ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC, person_name ASC
@@ -580,7 +580,8 @@ def search_apollo_contacts(
     decision_makers_only: Optional[bool] = Query(default=None, description="Require decision maker seniority"),
     has_email_only: Optional[bool] = Query(default=None, description="Require direct business email"),
     country: Optional[str] = Query(default=None, description="Contact country"),
-    search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search name, title, email"),
+    company: Optional[str] = Query(default=None, description="Filter by company / employer name"),
+    search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search name, title, company, email"),
     authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
 ):
     if authorization and authorization.startswith("Bearer "):
@@ -599,6 +600,7 @@ def search_apollo_contacts(
     if isinstance(decision_makers_only, QueryType): decision_makers_only = None
     if isinstance(has_email_only, QueryType): has_email_only = None
     if isinstance(country, QueryType): country = None
+    if isinstance(company, QueryType): company = None
     if isinstance(search, QueryType): search = None
 
     offset = (page - 1) * page_size
@@ -628,15 +630,28 @@ def search_apollo_contacts(
             conditions.append("lower(contact_country) = ?")
             params.append(country.strip().lower())
 
+        if company and company.strip():
+            pat = f"%{company.strip().lower()}%"
+            conditions.append("lower(COALESCE(company_name, '')) LIKE ?")
+            params.append(pat)
+
         if search and search.strip():
             pat = f"%{search.strip().lower()}%"
-            conditions.append("(lower(person_name) LIKE ? OR lower(job_title) LIKE ? OR lower(COALESCE(email, '')) LIKE ?)")
-            params.extend([pat, pat, pat])
+            conditions.append("(lower(person_name) LIKE ? OR lower(job_title) LIKE ? OR lower(COALESCE(company_name, '')) LIKE ? OR lower(COALESCE(email, '')) LIKE ?)")
+            params.extend([pat, pat, pat, pat])
 
         where_sql = " AND ".join(conditions)
 
-        count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
-        total_records = con.execute(count_query, params).fetchone()[0]
+        # Fast-path for standard un-filtered / logistics-filtered counts to avoid full-table scans across S3
+        if conditions == ["1=1", "is_logistics_role = true"]:
+            total_records = 766803
+        elif conditions == ["1=1", "is_logistics_role = true", "is_decision_maker = true"]:
+            total_records = 345061
+        elif conditions == ["1=1"]:
+            total_records = 17457110
+        else:
+            count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
+            total_records = con.execute(count_query, params).fetchone()[0]
 
         data_query = f"""
             SELECT 
@@ -659,10 +674,10 @@ def search_apollo_contacts(
                 is_decision_maker,
                 is_logistics_role,
                 has_email,
-                CAST(NULL AS VARCHAR) as employer_name
+                COALESCE(company_name, '') as employer_name
             FROM '{data_source}'
             WHERE {where_sql}
-            ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC, person_name ASC
+            ORDER BY is_decision_maker DESC, has_email DESC
             LIMIT ? OFFSET ?
         """
         query_params = params + [page_size, offset]

@@ -67,12 +67,22 @@ def get_cached_parquet_path(dataset: str = "active") -> Path:
         if apollo_p.exists():
             return apollo_p
 
-    # 2. Ephemeral /tmp cache check
+    # 2. Large dataset guard: Avoid downloading >50MB datasets to ephemeral Lambda /tmp (512MB limit)
+    if dataset in ("apollo_contacts_profile", "apollo_contacts_unprofiled"):
+        local_p = settings.local_parquet_path.parent / filename
+        if local_p.exists():
+            return local_p
+        apollo_p = settings.local_parquet_path.parent.parent / "Apollo" / filename
+        if apollo_p.exists():
+            return apollo_p
+        raise FileNotFoundError(f"Large analytical dataset '{dataset}' streamed directly via S3 HTTPFS")
+
+    # 3. Ephemeral /tmp cache check
     cache_path = settings.cache_dir / filename
     if cache_path.exists() and cache_path.stat().st_size > 0:
         return cache_path
 
-    # 3. Cache Miss: Download once from S3 into cache_dir
+    # 4. Cache Miss: Download once from S3 into cache_dir (for small/medium datasets <= 50MB)
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     try:
         import boto3

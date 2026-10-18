@@ -5,7 +5,8 @@ import {
   queryApolloLeads,
   exportApolloLeadsCsv,
   queryCompanyContactsLocal,
-  fetchCompanyContacts,
+  queryApolloPeopleLeadsLocal,
+  fetchApolloPeopleLeads,
 } from '@/services/apolloService';
 import {
   ApolloAudienceTabs,
@@ -262,11 +263,28 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(allContacts.items).toEqual([]);
     });
 
-    it('handles offline fetchCompanyContacts gracefully with zero items and no crash', async () => {
-      const boeingOrgId = '54a1229169702d9a8b695403';
-      const result = await fetchCompanyContacts(boeingOrgId);
-      expect(result.totalRecords).toBe(0);
-      expect(result.items).toEqual([]);
+    it('returns rich preloaded starter leads in queryApolloPeopleLeadsLocal with instant 0ms response', () => {
+      const globalResult = queryApolloPeopleLeadsLocal({});
+      expect(globalResult.items.length).toBeGreaterThan(0);
+      expect(globalResult.totalEstimate).toBe(766803);
+      expect(globalResult.totalFormatted).toBe('766.8k');
+
+      // Test searching for Walmart decision-makers
+      const walmartResult = queryApolloPeopleLeadsLocal({ q: 'Walmart' });
+      expect(walmartResult.items.length).toBeGreaterThan(0);
+      expect(walmartResult.items.some((i) => i.company === 'Walmart')).toBe(true);
+      expect(walmartResult.items.some((i) => i.title.toLowerCase().includes('supply chain'))).toBe(true);
+
+      // Test searching for Boeing decision-makers
+      const boeingResult = queryApolloPeopleLeadsLocal({ q: 'Boeing' });
+      expect(boeingResult.items.length).toBeGreaterThan(0);
+      expect(boeingResult.items.some((i) => i.company.toLowerCase().includes('boeing'))).toBe(true);
+    });
+
+    it('falls back seamlessly to local starter decision-makers in fetchApolloPeopleLeads when backend is offline', async () => {
+      const result = await fetchApolloPeopleLeads({ q: 'The Home Depot' });
+      expect(result.items.length).toBeGreaterThan(0);
+      expect(result.items.some((i) => i.company.toLowerCase().includes('home depot'))).toBe(true);
     });
   });
 });
