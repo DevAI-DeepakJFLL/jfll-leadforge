@@ -402,7 +402,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                           onLeadClick(l);
                         }}
                         className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded transition-all shadow-2xs group/btn cursor-pointer"
-                        title={`View dossier for ${l.company_name}`}
+                        title={`View details for ${l.company_name}`}
                       >
                         <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
                         <span>View</span>

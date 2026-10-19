@@ -318,7 +318,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                           onLeadClick(lead);
                         }}
                         className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-700 hover:border-apollo hover:text-apollo hover:bg-blue-50/50 text-xs font-medium transition-colors shadow-2xs"
-                        title="View full organization dossier"
+                        title="View full organization profile"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         <span>View</span>

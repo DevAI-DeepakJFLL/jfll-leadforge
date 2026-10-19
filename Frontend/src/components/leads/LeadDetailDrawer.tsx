@@ -212,7 +212,7 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                   : 'border-transparent text-slate-500 hover:text-slate-800'
               }`}
             >
-              Company Dossier
+              Company Profile
             </button>
             <button
               type="button"
@@ -399,7 +399,7 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
               </div>
             )}
 
-            {/* TAB 2: COMPANY DOSSIER */}
+            {/* TAB 2: COMPANY PROFILE */}
             {activeTab === 'company' && (
               <div className="space-y-5">
                 <div className="space-y-3">

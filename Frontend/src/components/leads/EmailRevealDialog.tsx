@@ -232,7 +232,7 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
               className="inline-flex items-center justify-center sm:justify-start gap-1.5 py-1 text-xs font-medium text-slate-600 hover:text-apollo hover:underline min-h-[36px]"
             >
               <User className="w-3.5 h-3.5" />
-              <span>Open full dossier</span>
+              <span>Open full profile</span>
             </button>
           )}
 

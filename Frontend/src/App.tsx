@@ -842,7 +842,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         onComposeEmail={(_l) => {}}
       />
 
-      {/* Slide-over JFLL Customer Dossier Drawer */}
+      {/* Slide-over JFLL Customer Details Drawer */}
       <ErrorBoundary
         fallbackTitle="Unable to display JFLL customer profile"
         onReset={() => setSelectedJfllCustomer(null)}
@@ -854,9 +854,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         />
       </ErrorBoundary>
 
-      {/* Slide-over DataMyne Lead Dossier Drawer */}
+      {/* Slide-over DataMyne Lead Details Drawer */}
       <ErrorBoundary
-        fallbackTitle="Unable to display DataMyne lead dossier"
+        fallbackTitle="Unable to display DataMyne lead details"
         onReset={() => setSelectedDatamyneLead(null)}
       >
         <DatamyneDetailDrawer
@@ -867,7 +867,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         />
       </ErrorBoundary>
 
-      {/* Slide-over Apollo Commercial Shipper Dossier Drawer */}
+      {/* Slide-over Apollo Commercial Shipper Details Drawer */}
       <ErrorBoundary
         fallbackTitle="Unable to display Apollo shipper profile"
         onReset={() => setSelectedApolloDbLead(null)}

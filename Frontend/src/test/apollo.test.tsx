@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { renderToString } from 'react-dom/server';
 
 import {
@@ -221,7 +221,7 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('Find decision-makers at Aerospace Technologies Inc');
     });
 
-    it('renders ApolloDetailDrawer with complete corporate dossier and decision-maker cross-navigation', () => {
+    it('renders ApolloDetailDrawer with complete corporate profile and decision-maker cross-navigation', () => {
       const html = renderToString(
         <ApolloDetailDrawer
           isOpen={true}
@@ -282,9 +282,15 @@ describe('Apollo Sourcing Tool Suite', () => {
     });
 
     it('falls back seamlessly to local starter decision-makers in fetchApolloPeopleLeads when backend is offline', async () => {
-      const result = await fetchApolloPeopleLeads({ q: 'The Home Depot' });
-      expect(result.items.length).toBeGreaterThan(0);
-      expect(result.items.some((i) => i.company.toLowerCase().includes('home depot'))).toBe(true);
+      const originalFetch = global.fetch;
+      global.fetch = vi.fn().mockRejectedValue(new Error('Backend offline'));
+      try {
+        const result = await fetchApolloPeopleLeads({ q: 'The Home Depot' });
+        expect(result.items.length).toBeGreaterThan(0);
+        expect(result.items.some((i) => i.company.toLowerCase().includes('home depot'))).toBe(true);
+      } finally {
+        global.fetch = originalFetch;
+      }
     });
   });
 });

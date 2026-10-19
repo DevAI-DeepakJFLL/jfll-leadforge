@@ -84,7 +84,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   return (
     <div
       className="fixed inset-0 z-50 overflow-hidden"
-      aria-labelledby="datamyne-dossier-title"
+      aria-labelledby="datamyne-details-title"
       role="dialog"
       aria-modal="true"
     >
@@ -107,7 +107,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
               </div>
               <div className="min-w-0">
                 <h2
-                  id="datamyne-dossier-title"
+                  id="datamyne-details-title"
                   className="text-base font-bold text-slate-900 truncate leading-snug"
                   title={lead.company_name}
                 >
@@ -193,7 +193,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
             <button
               onClick={onClose}
               className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
-              aria-label="Close dossier"
+              aria-label="Close lead details"
             >
               <X className="w-5 h-5" />
             </button>

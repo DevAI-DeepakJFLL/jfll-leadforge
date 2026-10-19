@@ -155,7 +155,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
               <button
                 onClick={onClose}
                 className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/50 transition-colors"
-                aria-label="Close organization dossier"
+                aria-label="Close organization profile"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -226,7 +226,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
             </div>
           </div>
 
-          {/* Dossier Body Content */}
+          {/* Profile Body Content */}
           <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 text-xs text-slate-700">
             {/* 1. Scale & Financial Health Cards */}
             <div>
