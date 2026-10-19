@@ -217,11 +217,13 @@ export const TierAudienceTabs: React.FC<TierAudienceTabsProps> = ({
       {/* Dynamic Context Banner Directly Explaining the Selected Tier */}
       <SegmentContextBanner
         title={activeConfig.tooltip.title}
+        count={counts ? (counts[activeConfig.countKey] as number) : undefined}
         description={activeConfig.tooltip.description}
         criteria={activeConfig.tooltip.criteria.join(' • ')}
         actionTip={activeConfig.tooltip.salesAction}
+        icon={activeConfig.icon}
         variant={activeConfig.tooltip.badge.variant}
-        storageKey={`tier-${activeTab}`}
+        storageKey={`tier_tab_${activeTab}`}
       />
     </div>
   );

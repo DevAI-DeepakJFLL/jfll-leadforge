@@ -28,30 +28,20 @@ export const SegmentContextBanner: React.FC<SegmentContextBannerProps> = ({
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
+    // Reset dismissed state whenever tab/title changes so the active category info is always presented
+    setIsDismissed(false);
     if (storageKey) {
       try {
-        const val = sessionStorage.getItem(`banner_dismissed_${storageKey}`);
-        setIsDismissed(val === 'true');
+        sessionStorage.removeItem(`banner_dismissed_${storageKey}`);
       } catch {
         // Ignored
       }
-    } else {
-      setIsDismissed(false);
     }
   }, [storageKey, title]);
 
   const handleDismiss = () => {
     setIsDismissed(true);
-    if (storageKey) {
-      try {
-        sessionStorage.setItem(`banner_dismissed_${storageKey}`, 'true');
-      } catch {
-        // Ignored
-      }
-    }
   };
-
-  if (isDismissed) return null;
 
   const styles = {
     amber: {
@@ -87,6 +77,30 @@ export const SegmentContextBanner: React.FC<SegmentContextBannerProps> = ({
   };
 
   const currentStyle = styles[variant] || styles.blue;
+
+  if (isDismissed) {
+    return (
+      <div
+        className={`px-3 sm:px-4 py-1.5 bg-slate-50 border-b border-slate-200/70 flex items-center justify-between text-xs text-slate-500 select-none ${className}`}
+      >
+        <div className="flex items-center gap-2 min-w-0">
+          <div className={`w-4 h-4 rounded flex items-center justify-center shrink-0 ${currentStyle.iconBg}`}>
+            <Icon className="w-2.5 h-2.5" />
+          </div>
+          <span className="font-semibold text-slate-700 truncate">{title}</span>
+          <span className="text-slate-400 text-[11px] hidden sm:inline">· Info bar minimized</span>
+        </div>
+        <button
+          type="button"
+          onClick={() => setIsDismissed(false)}
+          className="text-xs font-semibold text-apollo hover:text-apollo-700 hover:underline inline-flex items-center gap-1 cursor-pointer shrink-0"
+        >
+          <span>Show info</span>
+          <ChevronRight className="w-3.5 h-3.5" />
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div

@@ -95,16 +95,23 @@ export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <button
-        type="button"
+      <span
+        role="button"
+        tabIndex={0}
         onClick={handleToggleClick}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleToggleClick(e as any);
+          }
+        }}
         aria-label={`More information about ${title}`}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className={`p-0.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 focus:outline-none focus:ring-2 focus:ring-apollo/40 transition-colors cursor-pointer ${iconClassName}`}
+        className={`p-0.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 focus:outline-none focus:ring-2 focus:ring-apollo/40 transition-colors cursor-pointer inline-flex items-center justify-center ${iconClassName}`}
       >
         <Info className="w-3.5 h-3.5" />
-      </button>
+      </span>
 
       {isOpen && (
         <div
