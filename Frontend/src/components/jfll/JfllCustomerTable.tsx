@@ -282,7 +282,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="font-semibold text-xs sm:text-sm text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight">
+                          <span className="font-semibold text-xs text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight">
                             {c.fullName}
                           </span>
                           {c.inDataMyne && (
@@ -292,7 +292,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                             </span>
                           )}
                         </div>
-                        <div className="text-[11px] sm:text-xs text-slate-500 font-normal truncate mt-0.5 leading-tight">
+                        <div className="text-[11px] text-slate-500 font-normal truncate mt-0.5 leading-tight">
                           {c.type}
                         </div>
                       </div>
@@ -322,7 +322,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   {/* Contact Person */}
                   <td className="py-3 px-3.5 align-middle">
                     {c.contactPersonName ? (
-                      <span className="text-xs sm:text-sm text-slate-800 font-medium truncate max-w-[150px] inline-block leading-tight">
+                      <span className="text-xs text-slate-800 font-medium truncate max-w-[150px] inline-block leading-tight">
                         {c.contactPersonName}
                       </span>
                     ) : (
@@ -338,7 +338,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         <a
                           href={`tel:${phoneData.raw}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="font-mono text-xs sm:text-sm text-slate-800 hover:text-apollo hover:underline font-medium leading-tight"
+                          className="font-mono text-xs text-slate-800 hover:text-apollo hover:underline font-medium leading-tight"
                         >
                           {phoneData.number}
                         </a>
@@ -364,7 +364,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         <a
                           href={`mailto:${c.email}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="truncate max-w-[170px] text-xs sm:text-sm text-slate-700 font-normal hover:text-apollo hover:underline leading-tight"
+                          className="truncate max-w-[170px] text-xs text-slate-700 font-normal hover:text-apollo hover:underline leading-tight"
                           title={c.email}
                         >
                           {c.email}

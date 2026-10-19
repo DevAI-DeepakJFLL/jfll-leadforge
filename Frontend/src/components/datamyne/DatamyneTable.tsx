@@ -235,7 +235,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                       </div>
                       <div className="min-w-0">
                         <div
-                          className="font-semibold text-xs sm:text-sm text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight"
+                          className="font-semibold text-xs text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight"
                           title={l.company_name}
                         >
                           {l.company_name}
@@ -327,7 +327,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                     <div>
                       <DatamyneCategoryBadge category={l.category} />
                       <div
-                        className="text-[11px] sm:text-xs text-slate-500 font-normal truncate max-w-[200px] mt-0.5 leading-tight"
+                        className="text-[11px] text-slate-500 font-normal truncate max-w-[200px] mt-0.5 leading-tight"
                         title={l.subcategory}
                       >
                         {l.subcategory}
@@ -338,10 +338,10 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   {/* City & Trade Corridor */}
                   <td className="py-3 px-3.5 align-middle">
                     <div className="min-w-0">
-                      <div className="font-medium text-xs sm:text-sm text-slate-900 truncate max-w-[150px] leading-tight">
+                      <div className="font-medium text-xs text-slate-900 truncate max-w-[150px] leading-tight">
                         {l.city || '—'}
                       </div>
-                      <div className="text-[11px] sm:text-xs text-slate-500 font-normal truncate max-w-[150px] mt-0.5 leading-tight">
+                      <div className="text-[11px] text-slate-500 font-normal truncate max-w-[150px] mt-0.5 leading-tight">
                         {l.trade_lanes || '—'}
                       </div>
                     </div>
@@ -350,10 +350,10 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   {/* Volume & Value */}
                   <td className="py-3 px-3.5 align-middle">
                     <div>
-                      <div className="font-semibold text-xs sm:text-sm text-slate-900 leading-tight">
+                      <div className="font-semibold text-xs text-slate-900 leading-tight">
                         {l.total_shipments.toLocaleString('en-US')} shipments
                       </div>
-                      <div className="text-[11px] sm:text-xs font-semibold text-emerald-700 mt-0.5 leading-tight">
+                      <div className="text-[11px] font-semibold text-emerald-700 mt-0.5 leading-tight">
                         {l.total_value_usd > 0
                           ? `$${l.total_value_usd >= 1_000_000
                               ? (l.total_value_usd / 1_000_000).toFixed(2) + 'M'

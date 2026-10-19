@@ -200,10 +200,10 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                         {initials}
                       </div>
                       <div className="min-w-0">
-                        <div className="font-semibold text-xs sm:text-sm text-slate-900 truncate max-w-[200px] sm:max-w-[280px] group-hover:text-apollo hover:underline transition-colors leading-tight">
+                        <div className="font-semibold text-xs text-slate-900 truncate max-w-[200px] sm:max-w-[280px] group-hover:text-apollo hover:underline transition-colors leading-tight">
                           {lead.organization_name}
                         </div>
-                        <div className="flex items-center space-x-1.5 text-[11px] sm:text-xs text-slate-500 font-normal truncate mt-0.5 leading-tight">
+                        <div className="flex items-center space-x-1.5 text-[11px] text-slate-500 font-normal truncate mt-0.5 leading-tight">
                           <span className="truncate max-w-[160px]">{lead.domain}</span>
                           {toSafeExternalUrl(lead.website_url) && (
                             <a
@@ -237,11 +237,11 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                           </span>
                         </div>
                       ) : (
-                        <span className="font-semibold text-xs sm:text-sm text-slate-800 font-mono leading-tight">
+                        <span className="font-semibold text-xs text-slate-800 font-mono leading-tight">
                           {formatCompactRevenue(lead.revenue_usd)}
                         </span>
                       )}
-                      <span className="text-slate-500 font-mono text-[11px] sm:text-xs leading-tight mt-0.5">
+                      <span className="text-slate-500 font-mono text-[11px] leading-tight mt-0.5">
                         {formatCompactEmployees(lead.employee_count)}
                       </span>
                     </div>
@@ -249,7 +249,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
 
                   {/* Headquarters Location */}
                   <td className="py-3 px-3.5 align-middle">
-                    <div className="truncate max-w-[160px] text-xs sm:text-sm text-slate-800 font-normal flex items-center gap-1.5 leading-tight">
+                    <div className="truncate max-w-[160px] text-xs text-slate-800 font-normal flex items-center gap-1.5 leading-tight">
                       <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                       {lead.hq_city || lead.hq_state ? (
                         <span className="truncate">
@@ -260,7 +260,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                         <span className="text-slate-400">Not specified</span>
                       )}
                     </div>
-                    <div className="text-[11px] sm:text-xs text-slate-500 truncate max-w-[160px] pl-5 mt-0.5 leading-tight">
+                    <div className="text-[11px] text-slate-500 truncate max-w-[160px] pl-5 mt-0.5 leading-tight">
                       {lead.hq_country || '—'}
                     </div>
                   </td>
@@ -275,7 +275,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                         <a
                           href={`tel:${lead.phone.replace(/[^0-9+]/g, '')}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="font-mono text-xs sm:text-sm text-slate-800 hover:text-apollo hover:underline select-text font-medium leading-tight"
+                          className="font-mono text-xs text-slate-800 hover:text-apollo hover:underline select-text font-medium leading-tight"
                           title={`Call ${lead.phone}`}
                         >
                           {lead.phone}
