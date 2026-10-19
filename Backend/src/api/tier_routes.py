@@ -3,7 +3,7 @@ Directly implements Section 1, 6, 7, and 10 of tier_segmentation_spec.md.
 Cleanly decoupled from core leads, datamyne, and apollo endpoints.
 """
 import uuid
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any
 from fastapi import APIRouter, HTTPException, Query
 from src.api.config import settings
 from src.api.database import get_db_connection, get_cached_parquet_path
@@ -24,8 +24,24 @@ def _handle_tier_exception(context_msg: str, err: Exception) -> HTTPException:
     return HTTPException(status_code=500, detail=f"{context_msg}: {str(err)}")
 
 
+def _format_score_breakdown(record: Dict[str, Any], pop: bool = False) -> Dict[str, int]:
+    """Helper to assemble structured score breakdown dictionary from flat row."""
+    extractor = record.pop if pop else record.get
+    return {
+        "frequency_score": extractor("frequency_score", 0),
+        "freight_control_score": extractor("freight_control_score", 0),
+        "lane_score": extractor("lane_score", 0),
+        "commodity_score": extractor("commodity_score", 0),
+        "mode_score": extractor("mode_score", 0),
+        "volume_trend_score": extractor("volume_trend_score", 0),
+        "recency_score": extractor("recency_score", 0),
+        "regulated_plant_bonus": extractor("regulated_plant_bonus", 0),
+        "cluster_bonus": extractor("cluster_bonus", 0),
+    }
+
+
 @tier_router.get("/counts", summary="Get Tier A/B status counts and capacity telemetry")
-def get_tier_counts():
+def get_tier_counts() -> Dict[str, Any]:
     """Returns real-time distribution across Tier A, Tier B, Parked, Excluded, and Unscored."""
     try:
         tier_path = get_cached_parquet_path("datamyne_tiers")
@@ -173,18 +189,7 @@ def get_tier_leads(
         items = []
         for row in rows:
             record = dict(zip(columns, row))
-            # Format score_breakdown as structured object for frontend
-            record["score_breakdown"] = {
-                "frequency_score": record.pop("frequency_score", 0),
-                "freight_control_score": record.pop("freight_control_score", 0),
-                "lane_score": record.pop("lane_score", 0),
-                "commodity_score": record.pop("commodity_score", 0),
-                "mode_score": record.pop("mode_score", 0),
-                "volume_trend_score": record.pop("volume_trend_score", 0),
-                "recency_score": record.pop("recency_score", 0),
-                "regulated_plant_bonus": record.pop("regulated_plant_bonus", 0),
-                "cluster_bonus": record.pop("cluster_bonus", 0),
-            }
+            record["score_breakdown"] = _format_score_breakdown(record, pop=True)
             items.append(record)
 
         total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
@@ -202,7 +207,7 @@ def get_tier_leads(
 
 
 @tier_router.get("/{lead_id}/breakdown", summary="Get detailed score breakdown for a lead")
-def get_lead_score_breakdown(lead_id: str):
+def get_lead_score_breakdown(lead_id: str) -> Dict[str, Any]:
     """Returns the full criterion-by-criterion score audit for a single lead."""
     try:
         tier_path = get_cached_parquet_path("datamyne_tiers")
@@ -231,17 +236,7 @@ def get_lead_score_breakdown(lead_id: str):
 
         columns = [desc[0] for desc in cursor.description]
         record = dict(zip(columns, row))
-        record["score_breakdown"] = {
-            "frequency_score": record.get("frequency_score", 0),
-            "freight_control_score": record.get("freight_control_score", 0),
-            "lane_score": record.get("lane_score", 0),
-            "commodity_score": record.get("commodity_score", 0),
-            "mode_score": record.get("mode_score", 0),
-            "volume_trend_score": record.get("volume_trend_score", 0),
-            "recency_score": record.get("recency_score", 0),
-            "regulated_plant_bonus": record.get("regulated_plant_bonus", 0),
-            "cluster_bonus": record.get("cluster_bonus", 0),
-        }
+        record["score_breakdown"] = _format_score_breakdown(record, pop=False)
         return record
     except HTTPException:
         raise

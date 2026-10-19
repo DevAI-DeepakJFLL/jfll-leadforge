@@ -3,7 +3,6 @@ Saves the results to an isolated companion Parquet file: Backend/data/processed/
 Preserves the base datamyne dataset 100% untouched.
 """
 import sys
-import os
 from pathlib import Path
 from datetime import date
 import duckdb

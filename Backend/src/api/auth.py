@@ -5,7 +5,7 @@ import json
 import secrets
 from datetime import datetime, timezone, timedelta
 from typing import Optional, Dict, Any
-from fastapi import APIRouter, HTTPException, Header, Depends
+from fastapi import APIRouter, HTTPException, Header
 from src.api.config import settings
 from src.api.models import LoginRequest, UserSessionResponse
 

@@ -4,6 +4,7 @@ from src.api.config import settings
 from src.api.models import HealthResponse
 from src.api.routes import router as leads_router
 from src.api.auth import router as auth_router
+from src.api.tier_routes import tier_router
 from src.api.logger import CloudWatchLoggingMiddleware
 
 import os
@@ -43,8 +44,6 @@ app.add_middleware(
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
-
-from src.api.tier_routes import tier_router
 
 app.include_router(auth_router)
 app.include_router(leads_router)

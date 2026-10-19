@@ -4,7 +4,7 @@ Implements the business logic specified in the JFLL Lead Generation SOP (Oct 9, 
 import re
 from datetime import date, datetime
 from typing import Dict, Any, List, Optional, Tuple
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from src.core.tier_rules_config import TierRulesConfig, DEFAULT_TIER_CONFIG
 
 

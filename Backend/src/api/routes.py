@@ -1,4 +1,3 @@
-import re
 import uuid
 from typing import List, Optional
 from fastapi import APIRouter, HTTPException, Query, Header
@@ -9,7 +8,6 @@ from src.api.models import (
     AudienceCounts,
     ApolloPaginatedResponse,
     ApolloAudienceCounts,
-    ApolloContactRecord,
     ApolloContactsPaginatedResponse,
 )
 from src.api.logger import logger

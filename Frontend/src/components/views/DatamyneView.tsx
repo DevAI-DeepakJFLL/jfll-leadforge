@@ -105,20 +105,16 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   const { data: tierData, isLoading: isTierLoading } = useQuery({
     queryKey: ['tierLeads', tierTab, tierPage, filters.q],
     queryFn: () => {
-      const statusParam =
-        tierTab === 'all'
-          ? undefined
-          : tierTab === 'tier-a'
-          ? 'Tier A'
-          : tierTab === 'tier-b'
-          ? 'Tier B'
-          : tierTab === 'parked'
-          ? 'Parked'
-          : tierTab === 'excluded'
-          ? 'Excluded'
-          : 'Unscored';
+      const statusMap: Record<string, string | undefined> = {
+        'tier-a': 'Tier A',
+        'tier-b': 'Tier B',
+        'parked': 'Parked',
+        'excluded': 'Excluded',
+        'unscored': 'Unscored',
+        'all': undefined,
+      };
       return fetchTierLeads({
-        status: statusParam,
+        status: statusMap[tierTab],
         page: tierPage,
         pageSize: query.limit || 25,
         search: filters.q,

@@ -12,8 +12,6 @@ from pathlib import Path
 import time
 import openpyxl
 import pandas as pd
-import pyarrow as pa
-import pyarrow.parquet as pq
 
 def run_datamyne_etl():
     start_time = time.time()
