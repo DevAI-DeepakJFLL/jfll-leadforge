@@ -9,7 +9,6 @@ import {
 } from '@tanstack/react-table';
 import { Lead } from '@/types/lead';
 import { CompanyAvatar } from './CompanyAvatar';
-import { StatusBadge } from './StatusBadge';
 import {
   Mail,
   ChevronLeft,
@@ -183,19 +182,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
         },
       },
 
-      // 4. Status Badge
-      {
-        id: 'status',
-        header: 'Status',
-        cell: ({ row }) => (
-          <div className="shrink-0">
-            <StatusBadge status={row.original.status} />
-          </div>
-        ),
-        size: 110,
-      },
-
-      // 5. Location
+      // 4. Location
       {
         id: 'location',
         header: 'Location',
@@ -337,13 +324,12 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
     <div className={`bg-white rounded-lg border border-surface-border shadow-2xs flex flex-col min-w-0 ${className}`}>
       <div className="overflow-x-auto min-w-0">
         <table className="w-full min-w-[780px] text-left border-collapse table-fixed">
-          {/* Colgroup matching proportional spacing of Ref.jpg */}
+          {/* Colgroup matching proportional spacing */}
           <colgroup>
             <col style={{ width: '44px' }} />
-            <col style={{ width: '27%' }} />
-            <col style={{ width: '27%' }} />
-            <col style={{ width: '13%' }} />
-            <col style={{ width: '17%' }} />
+            <col style={{ width: '32%' }} />
+            <col style={{ width: '32%' }} />
+            <col style={{ width: '20%' }} />
             <col style={{ width: '16%' }} />
           </colgroup>
 
@@ -353,7 +339,6 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
               <th scope="col">Select</th>
               <th scope="col">Name & Title</th>
               <th scope="col">Company & Industry</th>
-              <th scope="col">Status</th>
               <th scope="col">Location</th>
               <th scope="col">Actions</th>
             </tr>

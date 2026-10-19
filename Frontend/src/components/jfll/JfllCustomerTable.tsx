@@ -254,13 +254,13 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                 <tr
                   key={c.id}
                   onClick={() => onCustomerClick(c)}
-                  className={`hover:bg-slate-50/80 transition-colors cursor-pointer group ${
-                    isSelected ? 'bg-blue-50/30' : ''
+                  className={`transition-colors cursor-pointer group ${
+                    isSelected ? 'bg-blue-50/35 hover:bg-blue-50/50' : 'hover:bg-slate-50/80 bg-white'
                   }`}
                 >
                   {/* Selection Checkbox */}
                   <td
-                    className="py-3 px-3 text-center"
+                    className="py-3 px-3 text-center align-middle"
                     onClick={(e) => handleToggleRow(c.id, e)}
                   >
                     <div className="flex items-center justify-center min-h-[36px] min-w-[36px]">
@@ -275,24 +275,24 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   </td>
 
                   {/* Company Name */}
-                  <td className="py-3 px-4">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-md bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-[11px] text-slate-700 shrink-0">
-                        {initials || <Building2 className="w-3.5 h-3.5 text-slate-400" />}
+                  <td className="py-3 px-4 align-middle">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shrink-0 shadow-2xs">
+                        {initials || <Building2 className="w-4 h-4 text-slate-400" />}
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="font-semibold text-slate-900 truncate max-w-[240px] lg:max-w-[340px]">
+                          <span className="font-semibold text-xs sm:text-sm text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight">
                             {c.fullName}
                           </span>
                           {c.inDataMyne && (
-                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-sky-700 bg-sky-50 px-1.5 py-0.2 rounded border border-sky-200 shrink-0">
+                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 shrink-0 leading-tight">
                               <Layers className="w-2.5 h-2.5 text-sky-600" />
                               DataMyne Lead
                             </span>
                           )}
                         </div>
-                        <div className="text-[11px] text-slate-400 truncate">
+                        <div className="text-[11px] sm:text-xs text-slate-500 font-normal truncate mt-0.5 leading-tight">
                           {c.type}
                         </div>
                       </div>
@@ -320,25 +320,25 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   </td>
 
                   {/* Contact Person */}
-                  <td className="py-3 px-3.5">
+                  <td className="py-3 px-3.5 align-middle">
                     {c.contactPersonName ? (
-                      <span className="text-slate-800 font-medium truncate max-w-[150px] inline-block">
+                      <span className="text-xs sm:text-sm text-slate-800 font-medium truncate max-w-[150px] inline-block leading-tight">
                         {c.contactPersonName}
                       </span>
                     ) : (
-                      <span className="text-slate-400 italic text-[11px]">—</span>
+                      <span className="text-slate-400 italic text-xs">—</span>
                     )}
                   </td>
 
                   {/* Phone Number with Indian Flag Icon */}
-                  <td className="py-3 px-3.5">
+                  <td className="py-3 px-3.5 align-middle whitespace-nowrap">
                     {phoneData ? (
                       <div className="flex items-center gap-1.5 text-slate-800">
                         <IndiaFlagIcon className="w-4 h-3 shrink-0" />
                         <a
                           href={`tel:${phoneData.raw}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="font-mono text-xs hover:text-apollo hover:underline"
+                          className="font-mono text-xs sm:text-sm text-slate-800 hover:text-apollo hover:underline font-medium leading-tight"
                         >
                           {phoneData.number}
                         </a>
@@ -352,19 +352,19 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         </button>
                       </div>
                     ) : (
-                      <span className="text-slate-400 italic text-[11px]">—</span>
+                      <span className="text-slate-400 italic text-xs">—</span>
                     )}
                   </td>
 
                   {/* Email */}
-                  <td className="py-3 px-3.5">
+                  <td className="py-3 px-3.5 align-middle">
                     {c.email ? (
-                      <div className="flex items-center gap-1 text-slate-700">
-                        <Mail className="w-3 h-3 text-slate-400 shrink-0" />
+                      <div className="flex items-center gap-1.5 text-slate-700">
+                        <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                         <a
                           href={`mailto:${c.email}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="truncate max-w-[160px] text-[11px] font-mono text-slate-600 hover:text-apollo hover:underline"
+                          className="truncate max-w-[170px] text-xs sm:text-sm text-slate-700 font-normal hover:text-apollo hover:underline leading-tight"
                           title={c.email}
                         >
                           {c.email}
@@ -379,18 +379,18 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         </button>
                       </div>
                     ) : (
-                      <span className="text-slate-400 italic text-[11px]">—</span>
+                      <span className="text-slate-400 italic text-xs">—</span>
                     )}
                   </td>
 
                   {/* Action CTA: View Button */}
-                  <td className="py-3 px-4 text-center">
+                  <td className="py-3 px-4 text-center align-middle">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         onCustomerClick(c);
                       }}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded transition-all shadow-2xs group/btn cursor-pointer"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn cursor-pointer"
                       title={`View details for ${c.fullName}`}
                     >
                       <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />

@@ -207,13 +207,13 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                 <tr
                   key={l.id}
                   onClick={() => onLeadClick(l)}
-                  className={`hover:bg-slate-50/80 transition-colors cursor-pointer group ${
-                    isSelected ? 'bg-blue-50/30' : ''
+                  className={`transition-colors cursor-pointer group ${
+                    isSelected ? 'bg-blue-50/35 hover:bg-blue-50/50' : 'hover:bg-slate-50/80 bg-white'
                   }`}
                 >
                   {/* Checkbox */}
                   <td
-                    className="py-3 px-3 text-center"
+                    className="py-3 px-3 text-center align-middle"
                     onClick={(e) => handleToggleRow(l.id, e)}
                   >
                     <div className="flex items-center justify-center min-h-[36px] min-w-[36px]">
@@ -228,14 +228,14 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Company Name & Role */}
-                  <td className="py-3 px-4">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-md bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-[11px] text-slate-700 shrink-0">
-                        {initials || <Building2 className="w-3.5 h-3.5 text-slate-400" />}
+                  <td className="py-3 px-4 align-middle">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shrink-0 shadow-2xs">
+                        {initials || <Building2 className="w-4 h-4 text-slate-400" />}
                       </div>
                       <div className="min-w-0">
                         <div
-                          className="font-semibold text-slate-900 truncate max-w-[240px] lg:max-w-[320px]"
+                          className="font-semibold text-xs sm:text-sm text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight"
                           title={l.company_name}
                         >
                           {l.company_name}
@@ -323,11 +323,11 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Category & Subcategory */}
-                  <td className="py-3 px-3.5">
+                  <td className="py-3 px-3.5 align-middle">
                     <div>
                       <DatamyneCategoryBadge category={l.category} />
                       <div
-                        className="text-[11px] text-slate-600 font-medium truncate max-w-[200px] mt-1"
+                        className="text-[11px] sm:text-xs text-slate-500 font-normal truncate max-w-[200px] mt-0.5 leading-tight"
                         title={l.subcategory}
                       >
                         {l.subcategory}
@@ -336,24 +336,24 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* City & Trade Corridor */}
-                  <td className="py-3 px-3.5">
+                  <td className="py-3 px-3.5 align-middle">
                     <div className="min-w-0">
-                      <div className="font-medium text-slate-900 truncate max-w-[150px]">
+                      <div className="font-medium text-xs sm:text-sm text-slate-900 truncate max-w-[150px] leading-tight">
                         {l.city || '—'}
                       </div>
-                      <div className="text-[11px] text-slate-500 truncate max-w-[150px]">
+                      <div className="text-[11px] sm:text-xs text-slate-500 font-normal truncate max-w-[150px] mt-0.5 leading-tight">
                         {l.trade_lanes || '—'}
                       </div>
                     </div>
                   </td>
 
                   {/* Volume & Value */}
-                  <td className="py-3 px-3.5">
+                  <td className="py-3 px-3.5 align-middle">
                     <div>
-                      <span className="font-semibold text-slate-900 text-xs">
+                      <div className="font-semibold text-xs sm:text-sm text-slate-900 leading-tight">
                         {l.total_shipments.toLocaleString('en-US')} shipments
-                      </span>
-                      <div className="text-[11px] font-semibold text-emerald-700 mt-0.5">
+                      </div>
+                      <div className="text-[11px] sm:text-xs font-semibold text-emerald-700 mt-0.5 leading-tight">
                         {l.total_value_usd > 0
                           ? `$${l.total_value_usd >= 1_000_000
                               ? (l.total_value_usd / 1_000_000).toFixed(2) + 'M'
@@ -366,7 +366,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Contact Readiness */}
-                  <td className="py-3 px-3.5 whitespace-nowrap">
+                  <td className="py-3 px-3.5 whitespace-nowrap align-middle">
                     {isMissing ? (
                       <span
                         className="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200/90 whitespace-nowrap shrink-0 shadow-2xs"
@@ -394,14 +394,14 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Action CTA */}
-                  <td className="py-3 px-4 text-center">
+                  <td className="py-3 px-4 text-center align-middle">
                     <div className="flex items-center justify-center gap-1.5">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           onLeadClick(l);
                         }}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded transition-all shadow-2xs group/btn cursor-pointer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn cursor-pointer"
                         title={`View details for ${l.company_name}`}
                       >
                         <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />

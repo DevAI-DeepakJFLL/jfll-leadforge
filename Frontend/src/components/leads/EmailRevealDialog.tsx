@@ -1,7 +1,6 @@
 import React from 'react';
 import { Lead } from '@/types/lead';
 import { CompanyAvatar } from './CompanyAvatar';
-import { StatusBadge } from './StatusBadge';
 import {
   Mail,
   Phone,
@@ -78,7 +77,6 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
                 >
                   {lead.name}
                 </h3>
-                <StatusBadge status={lead.status} />
               </div>
               <p className="text-xs text-slate-600 truncate mt-0.5 font-medium">
                 {lead.title}

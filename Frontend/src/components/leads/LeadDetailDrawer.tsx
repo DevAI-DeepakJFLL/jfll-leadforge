@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Lead } from '@/types/lead';
 import { CompanyAvatar } from './CompanyAvatar';
-import { StatusBadge } from './StatusBadge';
 import {
   X,
   Mail,
@@ -111,7 +110,6 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                     >
                       {lead.name}
                     </h2>
-                    <StatusBadge status={lead.status} />
                   </div>
                   <p className="text-xs font-medium text-slate-600 truncate mt-0.5">
                     {lead.title}
