@@ -1,34 +1,40 @@
 import React from 'react';
+import { JfllCustomerTabType, JfllCustomerAudienceCounts } from '@/types/jfllCustomer';
 import {
   Users,
   Briefcase,
   Network,
   Globe,
   PhoneCall,
-  ShieldCheck,
-  Archive,
   Layers,
+  Archive,
   FileCheck,
 } from 'lucide-react';
-import { JfllAudienceCounts } from '@/types/jfllCustomer';
-
-export type JfllCustomerTabType =
-  | 'all'
-  | 'shippers'
-  | 'subagents'
-  | 'overseas'
-  | 'with-contacts'
-  | 'datamyne-leads'
-  | 'archive';
+import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
+import { SegmentContextBanner } from '@/components/ui/SegmentContextBanner';
 
 export interface JfllCustomerAudienceTabsProps {
-  customerStatus?: 'active' | 'inactive';
+  customerStatus: 'active' | 'inactive';
   onChangeCustomerStatus?: (status: 'active' | 'inactive') => void;
-  activeTab?: string;
+  activeTab?: JfllCustomerTabType;
   onTabChange?: (tab: JfllCustomerTabType) => void;
-  counts?: JfllAudienceCounts;
+  counts?: JfllCustomerAudienceCounts;
   totalFormatted?: string;
   className?: string;
+}
+
+interface TabDefinition {
+  id: JfllCustomerTabType;
+  label: string;
+  count: number;
+  icon: React.ElementType;
+  description: string;
+  criteria: string[];
+  actionTip: string;
+  badge: {
+    text: string;
+    variant: 'amber' | 'emerald' | 'blue' | 'purple' | 'slate';
+  };
 }
 
 export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> = ({
@@ -39,101 +45,151 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
   counts = {
     all: 728,
     shippers: 285,
-    subagents: 389,
+    subagents: 397,
     overseas: 39,
     withContacts: 728,
     datamyneLeads: 415,
     archive: 1595,
-    activeTotal: 728,
-    inactiveTotal: 2010,
   },
   totalFormatted = '728',
   className = '',
 }) => {
   const isInactive = customerStatus === 'inactive';
 
-  const activeTabs: {
-    id: JfllCustomerTabType;
-    label: string;
-    count: number;
-    icon: React.ElementType;
-    description: string;
-  }[] = [
+  const activeTabs: TabDefinition[] = [
     {
       id: 'all',
       label: 'All Active Customers',
       count: counts.all,
       icon: Users,
-      description: 'Complete master directory of active accounts',
-    },
-    {
-      id: 'subagents',
-      label: 'Subagents',
-      count: counts.subagents,
-      icon: Network,
-      description: 'Freight booking partners',
+      description: 'Master list of all 728 active revenue-generating accounts across all Jet Freight branch territories.',
+      criteria: [
+        'Confirmed active paying customer in JFLL ERP',
+        'Valid commercial credit or active booking status',
+        'Assigned to branch sales and operations teams',
+      ],
+      actionTip: 'Protected accounts: excluded from all cold prospecting pipelines.',
+      badge: { text: 'Paying Clients', variant: 'emerald' },
     },
     {
       id: 'shippers',
       label: 'Shippers & Consignees',
       count: counts.shippers,
       icon: Briefcase,
-      description: 'Direct cargo owners',
+      description: 'Direct cargo owners, commercial manufacturers, and B2B traders contracting freight directly with Jet Freight.',
+      criteria: [
+        'Customer Group is classified as Shipper / Consignee',
+        'Direct commercial cargo shippers',
+        'Primary source of high-yield contract cargo',
+      ],
+      actionTip: 'Priority enterprise accounts: maintain high service level and cross-sell air/ocean lanes.',
+      badge: { text: 'Direct Cargo', variant: 'blue' },
+    },
+    {
+      id: 'subagents',
+      label: 'Subagents',
+      count: counts.subagents,
+      icon: Network,
+      description: 'Domestic freight booking partners, local cargo agents, and sub-brokers utilizing Jet Freight wholesale capacity.',
+      criteria: [
+        'Customer Group is classified as Subagent',
+        'Books cargo through JFLL airline/shipping line contracts',
+        'Repeat capacity buyers and wholesale partners',
+      ],
+      actionTip: 'Focus on capacity utilization, spot-rate competitiveness, and airline allocations.',
+      badge: { text: 'Wholesale Partners', variant: 'purple' },
     },
     {
       id: 'overseas',
       label: 'Overseas Agents',
       count: counts.overseas,
       icon: Globe,
-      description: 'International network partners',
+      description: 'International freight forwarding partners routing inbound/outbound DAP/DDP shipments into India.',
+      criteria: [
+        'Customer Group is classified as Overseas Agent',
+        'Global freight network partner',
+        'Cross-border origin/destination partner handling',
+      ],
+      actionTip: 'Expand mutual routing agreements and reciprocal cargo opportunities.',
+      badge: { text: 'Global Network', variant: 'blue' },
     },
     {
       id: 'with-contacts',
       label: 'Direct Contacts Ready',
       count: counts.withContacts,
       icon: PhoneCall,
-      description: 'Direct phone or email on file',
+      description: 'Active customer accounts with verified direct mobile numbers, operational emails, or assigned contact persons.',
+      criteria: [
+        'Direct phone number or mobile verified',
+        'Operational email address available',
+        'Contact person name documented',
+      ],
+      actionTip: 'Ideal for operational communication, billing notices, and schedule updates.',
+      badge: { text: 'Ready to Reach', variant: 'emerald' },
     },
   ];
 
-  const inactiveTabs: {
-    id: JfllCustomerTabType;
-    label: string;
-    count: number;
-    icon: React.ElementType;
-    description: string;
-  }[] = [
+  const inactiveTabs: TabDefinition[] = [
     {
       id: 'all',
       label: 'All Inactive Customers',
       count: counts.all,
       icon: Users,
-      description: 'Inactive customers directory (purged of active accounts)',
+      description: 'Complete directory of 2,010 former Jet Freight clients, 100% sanitized of active accounts.',
+      criteria: [
+        'Former client with no active bookings in recent periods',
+        'Purged of all 728 active customers',
+        'Includes both customs-active shippers and archived records',
+      ],
+      actionTip: 'Use as a master directory to look up past branch relationships and former client history.',
+      badge: { text: 'Sanitized Master', variant: 'slate' },
     },
     {
       id: 'datamyne-leads',
       label: 'DataMyne Verified Leads',
       count: counts.datamyneLeads || 415,
       icon: Layers,
-      description: 'Inactive accounts confirmed active in trade databases',
+      description: 'Former clients confirmed to still be actively shipping air/ocean cargo in Indian customs records.',
+      criteria: [
+        'in_datamyne = true (matched live Indian customs bills of lading)',
+        'Active international freight transactions confirmed',
+        'Verified trade lanes and HS codes available',
+      ],
+      actionTip: 'High-intent reactivation targets! Reach out referencing their current trade lanes and shipment volume.',
+      badge: { text: 'Hot Reactivation', variant: 'emerald' },
     },
     {
       id: 'with-contacts',
       label: 'Direct Contacts Ready',
       count: counts.withContacts || 2010,
       icon: PhoneCall,
-      description: 'Accounts with phone or email on file',
+      description: 'Inactive accounts with at least one verified phone number, email address, or key contact person on file.',
+      criteria: [
+        'Phone number, email, or key contact person exists',
+        'Ready for phone outreach or email cadences',
+        'Maintains historical point-of-contact details',
+      ],
+      actionTip: 'Prioritize accounts that overlap with DataMyne for immediate phone calls.',
+      badge: { text: 'Outreach Ready', variant: 'blue' },
     },
     {
       id: 'archive',
       label: 'Archived Accounts',
       count: counts.archive || 1595,
       icon: Archive,
-      description: 'Legacy inactive accounts awaiting reactivation',
+      description: 'Legacy inactive accounts that do NOT appear in current customs shipment databases (in_datamyne = false).',
+      criteria: [
+        'in_datamyne = false (no recent customs export/import activity)',
+        'Account is dormant, ceased trading, or changed legal IEC',
+        'Preserved for relationship history without pipeline clutter',
+      ],
+      actionTip: 'Preserved for historical lookups. Do not run cold outreach campaigns here; focus on DataMyne Verified Leads.',
+      badge: { text: 'Historical Record', variant: 'amber' },
     },
   ];
 
   const tabs = isInactive ? inactiveTabs : activeTabs;
+  const currentTabMeta = tabs.find((t) => t.id === activeTab) || tabs[0];
 
   return (
     <div
@@ -150,50 +206,42 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
             className="inline-flex p-1 bg-slate-200/70 rounded-xl shadow-2xs border border-slate-200/80"
           >
             <button
-              type="button"
               role="tab"
               aria-selected={!isInactive}
               onClick={() => onChangeCustomerStatus?.('active')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg transition-all cursor-pointer ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
                 !isInactive
-                  ? 'bg-white text-slate-900 font-semibold shadow-xs border border-slate-200/60'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                  ? 'bg-white text-slate-900 shadow-xs ring-1 ring-slate-900/5'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
               }`}
             >
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>Active Customer Data</span>
-              <span
-                className={`ml-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                  !isInactive
-                    ? 'bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200/80'
-                    : 'bg-slate-200/80 text-slate-600'
-                }`}
-              >
-                {(counts.activeTotal || 728).toLocaleString()}
+              <Users className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <span>Active Customers</span>
+              <span className="text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+                {counts.activeTotal || 728}
               </span>
             </button>
 
             <button
-              type="button"
               role="tab"
               aria-selected={isInactive}
               onClick={() => onChangeCustomerStatus?.('inactive')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg transition-all cursor-pointer ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
                 isInactive
-                  ? 'bg-white text-slate-900 font-semibold shadow-xs border border-slate-200/60'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/60'
+                  ? 'bg-amber-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
               }`}
             >
-              <Archive className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+              <Archive className="w-3.5 h-3.5 text-white shrink-0" />
               <span>Inactive Customers</span>
               <span
-                className={`ml-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
                   isInactive
-                    ? 'bg-amber-50 text-amber-700 font-semibold border border-amber-200/80'
-                    : 'bg-slate-200/80 text-slate-600'
+                    ? 'bg-amber-700 text-amber-50'
+                    : 'bg-slate-100 text-slate-600 border border-slate-200'
                 }`}
               >
-                {(counts.inactiveTotal || 2010).toLocaleString()}
+                {counts.inactiveTotal || 2010}
               </span>
             </button>
           </div>
@@ -219,51 +267,84 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
       </div>
 
       {/* Bottom Category Tabs Row (Horizontal scroll strip to prevent truncation) */}
-      <div className="px-3 sm:px-4 lg:px-6 py-2 bg-white">
+      <div className="px-3 sm:px-4 lg:px-6 py-2 bg-white border-b border-slate-100">
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap min-w-0">
-          {tabs.map((tab) => {
+          {tabs.map((tab, idx) => {
             const isActive = activeTab === tab.id;
             const Icon = tab.icon;
             return (
-              <button
-                key={tab.id}
-                onClick={() => onTabChange?.(tab.id)}
-                className={`relative px-3 py-1.5 rounded-lg border text-left transition-all flex items-center gap-2 shrink-0 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-apollo/20 min-h-[40px] ${
-                  isActive
-                    ? isInactive
-                      ? 'bg-amber-50/70 border-amber-500 text-amber-900 font-semibold shadow-xs ring-1 ring-amber-500/30'
-                      : 'bg-blue-50/70 border-apollo text-apollo font-semibold shadow-xs ring-1 ring-apollo/30'
-                    : 'bg-slate-50/60 hover:bg-slate-100/80 border-slate-200 text-slate-700 hover:text-slate-900'
-                }`}
-                aria-current={isActive ? 'page' : undefined}
-                title={tab.description}
-              >
-                <Icon
-                  className={`w-3.5 h-3.5 shrink-0 ${
+              <div key={tab.id} className="relative shrink-0 flex items-center">
+                <button
+                  onClick={() => onTabChange?.(tab.id)}
+                  className={`relative px-3 py-1.5 rounded-lg border text-left transition-all flex items-center gap-2 shrink-0 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-apollo/20 min-h-[40px] cursor-pointer ${
                     isActive
                       ? isInactive
-                        ? 'text-amber-700'
-                        : 'text-apollo'
-                      : 'text-slate-400'
+                        ? 'bg-amber-50/70 border-amber-500 text-amber-900 font-semibold shadow-xs ring-1 ring-amber-500/30'
+                        : 'bg-blue-50/70 border-apollo text-apollo font-semibold shadow-xs ring-1 ring-apollo/30'
+                      : 'bg-slate-50/60 hover:bg-slate-100/80 border-slate-200 text-slate-700 hover:text-slate-900'
                   }`}
-                />
-                <span className="text-xs font-medium">{tab.label}</span>
-                <span
-                  className={`text-[10px] sm:text-[11px] px-1.5 py-0.2 rounded-full font-mono shrink-0 ${
-                    isActive
-                      ? isInactive
-                        ? 'bg-amber-600 text-white font-semibold'
-                        : 'bg-apollo text-white font-semibold'
-                      : 'bg-white text-slate-600 border border-slate-200'
-                  }`}
+                  aria-current={isActive ? 'page' : undefined}
                 >
-                  {tab.count.toLocaleString()}
-                </span>
-              </button>
+                  <Icon
+                    className={`w-3.5 h-3.5 shrink-0 ${
+                      isActive
+                        ? isInactive
+                          ? 'text-amber-700'
+                          : 'text-apollo'
+                        : 'text-slate-400'
+                    }`}
+                  />
+                  <span className="text-xs font-medium">{tab.label}</span>
+                  <span
+                    className={`text-[10px] sm:text-[11px] px-1.5 py-0.2 rounded-full font-mono shrink-0 ${
+                      isActive
+                        ? isInactive
+                          ? 'bg-amber-600 text-white font-semibold'
+                          : 'bg-apollo text-white font-semibold'
+                        : 'bg-white text-slate-600 border border-slate-200'
+                    }`}
+                  >
+                    {tab.count.toLocaleString()}
+                  </span>
+
+                  {/* Micro Info Trigger Popover */}
+                  <CategoryInfoTooltip
+                    title={tab.label}
+                    description={tab.description}
+                    criteria={tab.criteria}
+                    actionTip={tab.actionTip}
+                    badge={tab.badge}
+                    align={idx === 0 ? 'left' : idx === tabs.length - 1 ? 'right' : 'center'}
+                    iconClassName={isActive ? (isInactive ? 'text-amber-600 hover:text-amber-800' : 'text-blue-500 hover:text-blue-700') : 'text-slate-400 hover:text-slate-600'}
+                  />
+                </button>
+              </div>
             );
           })}
         </div>
       </div>
+
+      {/* Active Segment Dynamic Context Banner */}
+      <SegmentContextBanner
+        title={currentTabMeta.label}
+        count={currentTabMeta.count}
+        description={currentTabMeta.description}
+        criteria={currentTabMeta.criteria.join(' • ')}
+        actionTip={currentTabMeta.actionTip}
+        icon={currentTabMeta.icon}
+        variant={
+          isInactive
+            ? currentTabMeta.id === 'archive'
+              ? 'amber'
+              : currentTabMeta.id === 'datamyne-leads'
+              ? 'emerald'
+              : 'slate'
+            : currentTabMeta.id === 'all'
+            ? 'emerald'
+            : 'blue'
+        }
+        storageKey={`jfll_${customerStatus}_${currentTabMeta.id}`}
+      />
     </div>
   );
 };

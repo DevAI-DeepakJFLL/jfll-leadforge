@@ -16,6 +16,15 @@ export const JfllCustomerSchema = z.object({
 
 export type JfllCustomer = z.infer<typeof JfllCustomerSchema>;
 
+export type JfllCustomerTabType =
+  | 'all'
+  | 'shippers'
+  | 'subagents'
+  | 'overseas'
+  | 'with-contacts'
+  | 'datamyne-leads'
+  | 'archive';
+
 export interface JfllCustomerFilterParams {
   q?: string;
   customerStatus?: 'active' | 'inactive';
@@ -24,7 +33,7 @@ export interface JfllCustomerFilterParams {
   hasPhone?: boolean;
   hasEmail?: boolean;
   hasContactPerson?: boolean;
-  tab?: 'all' | 'shippers' | 'subagents' | 'overseas' | 'with-contacts' | 'datamyne-leads' | 'archive';
+  tab?: JfllCustomerTabType;
   page?: number;
   limit?: number;
 }
@@ -40,6 +49,8 @@ export interface JfllAudienceCounts {
   activeTotal?: number;
   inactiveTotal?: number;
 }
+
+export type JfllCustomerAudienceCounts = JfllAudienceCounts;
 
 export interface JfllCustomersResponse {
   items: JfllCustomer[];
