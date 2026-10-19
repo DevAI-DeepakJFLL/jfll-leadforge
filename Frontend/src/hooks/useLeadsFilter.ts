@@ -264,6 +264,9 @@ export function useLeadsFilter() {
         if (key === 'q') {
           return { ...prev, q: undefined, page: 1 };
         }
+        if (key === 'organizationId') {
+          return { ...prev, organizationId: undefined, page: 1 };
+        }
         if (key === 'status') {
           return {
             ...prev,
@@ -296,6 +299,9 @@ export function useLeadsFilter() {
         if (key === 'q') {
           return { ...prev, q: undefined, page: 1 };
         }
+        if (key === 'organizationId') {
+          return { ...prev, organizationId: undefined, page: 1 };
+        }
         if (Array.isArray(prev[key])) {
           return { ...prev, [key]: [], page: 1 };
         }
@@ -315,6 +321,15 @@ export function useLeadsFilter() {
   // Derived calculations for active filter counts and chip list
   const activeFilters = useMemo<ActiveFilterItem[]>(() => {
     const items: ActiveFilterItem[] = [];
+
+    if (filters.organizationId) {
+      items.push({
+        key: 'organizationId',
+        categoryLabel: 'Company',
+        value: filters.organizationId,
+        displayValue: 'Selected Organization',
+      });
+    }
 
     if (filters.q) {
       items.push({

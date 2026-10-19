@@ -479,8 +479,15 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     setSelectedDatamyneLead(null);
     setTopTab('people');
     setActiveNav('search');
-    setSearch(companyName);
-    showToast(`Searching Apollo Leads for "${companyName}"`);
+    applyFilters({
+      ...filters,
+      q: companyName,
+      organizationId: undefined,
+      page: 1,
+      departments: [],
+      locations: [],
+    });
+    showToast(`Searching People Directory for decision-makers at "${companyName}"`);
   };
 
   // Cross-Navigation: Search inside People directory for decision-makers at this company
@@ -490,13 +497,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     setActiveNav('search');
     applyFilters({
       ...filters,
-      q: companyName,
+      q: organizationId ? undefined : companyName,
       organizationId: organizationId || undefined,
       page: 1,
       departments: [],
       locations: [],
     });
-    showToast(`Searching People Directory for decision-makers at "${companyName}"`);
+    showToast(`Showing verified decision-makers for "${companyName}"`);
   };
 
   const handleSwitchToPeople = () => {

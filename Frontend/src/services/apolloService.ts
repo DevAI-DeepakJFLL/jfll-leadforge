@@ -484,14 +484,32 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
     const rawTerm = q.trim().toLowerCase();
     const cleanTerm = rawTerm
       .replace(/^(the\s+)/i, '')
-      .replace(/\b(inc|corp|corporation|llc|ltd|co|company|group|holdings)\b/gi, '')
+      .replace(/\b(inc|corp|corporation|llc|ltd|co|company|group|holdings|limited|pvt|private|india|and)\b/gi, '')
       .trim();
+
+    const isLntQuery =
+      cleanTerm.includes('larsen') ||
+      cleanTerm.includes('toubro') ||
+      cleanTerm === 'l&t' ||
+      cleanTerm.includes('l&t');
+    const isSanofiQuery = cleanTerm.includes('sanofi');
 
     filtered = filtered.filter((c) => {
       const pName = c.person_name.toLowerCase();
       const jTitle = c.job_title.toLowerCase();
       const empName = (c.employer_name || '').toLowerCase();
       const mail = (c.email || '').toLowerCase();
+
+      // Alias matching for major enterprise shippers
+      if (
+        isLntQuery &&
+        (empName.includes('larsen') || empName.includes('toubro') || empName.includes('l&t') || mail.includes('lnt'))
+      ) {
+        return true;
+      }
+      if (isSanofiQuery && (empName.includes('sanofi') || mail.includes('sanofi'))) {
+        return true;
+      }
 
       // Check standard containment
       if (pName.includes(rawTerm) || jTitle.includes(rawTerm) || empName.includes(rawTerm) || mail.includes(rawTerm)) {
@@ -572,7 +590,12 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
   const urlParams = new URLSearchParams();
   urlParams.set('page', String(page));
   urlParams.set('page_size', String(limit));
-  urlParams.set('logistics_only', 'true');
+
+  // Only restrict global browsing to logistics roles; when an organization or company is targeted,
+  // show all verified corporate decision-makers (with logistics specialists ordered first)
+  if (!organizationId) {
+    urlParams.set('logistics_only', 'true');
+  }
 
   if (tab === 'new') {
     urlParams.set('decision_makers_only', 'true');

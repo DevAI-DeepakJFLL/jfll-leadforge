@@ -24,6 +24,15 @@ export const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
 }) => {
   const chips: ChipItem[] = [];
 
+  if (filters.organizationId) {
+    chips.push({
+      key: 'organizationId',
+      category: 'Company',
+      value: filters.organizationId,
+      label: 'Selected Organization',
+    });
+  }
+
   if (filters.q) {
     chips.push({
       key: 'q',

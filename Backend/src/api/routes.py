@@ -15,6 +15,7 @@ from src.api.helpers import (
     require_auth,
     normalize_query,
     clean_corporate_term,
+    build_company_search_sql,
     SQL_EXTRACT_EMPLOYER_NAME,
 )
 
@@ -327,11 +328,12 @@ def list_apollo_leads(
             conditions.append("linkedin_url IS NOT NULL AND trim(linkedin_url) != ''")
 
         if search and search.strip():
+            comp_sql, comp_params = build_company_search_sql(search)
             search_pattern = f"%{search.strip().lower()}%"
             conditions.append(
-                "(lower(organization_name) LIKE ? OR lower(domain) LIKE ? OR lower(COALESCE(keywords, '')) LIKE ? OR lower(COALESCE(specialties, '')) LIKE ?)"
+                f"({comp_sql} OR lower(COALESCE(keywords, '')) LIKE ? OR lower(COALESCE(specialties, '')) LIKE ?)"
             )
-            params.extend([search_pattern, search_pattern, search_pattern, search_pattern])
+            params.extend(comp_params + [search_pattern, search_pattern])
 
         where_sql = " AND ".join(conditions)
 
@@ -584,90 +586,121 @@ def search_apollo_contacts(
     offset = (page - 1) * page_size
     con = get_db_connection()
     data_source = get_data_source(con, dataset="apollo_contacts_profile")
+    apollo_source = get_data_source(con, dataset="apollo")
 
     try:
         conditions = ["1=1"]
         params = []
 
         if organization_id and organization_id.strip():
-            conditions.append("organization_id = ?")
+            conditions.append("c.organization_id = ?")
             params.append(organization_id.strip())
 
+            # If search query was passed alongside organization_id, only apply person/role filter
+            # if it isn't simply the company name or domain passed during cross-navigation
+            if search and search.strip():
+                org_info = con.execute(
+                    f"SELECT organization_name, domain FROM '{apollo_source}' WHERE organization_id = ?",
+                    [organization_id.strip()]
+                ).fetchone()
+                is_company_self = False
+                if org_info:
+                    org_name = (org_info[0] or "").lower()
+                    org_dom = (org_info[1] or "").lower()
+                    s_clean = search.strip().lower()
+                    if s_clean in org_name or org_name in s_clean or (org_dom and org_dom in s_clean):
+                        is_company_self = True
+                if not is_company_self:
+                    pat = f"%{search.strip().lower()}%"
+                    conditions.append("(lower(c.person_name) LIKE ? OR lower(c.job_title) LIKE ? OR lower(COALESCE(c.email, '')) LIKE ?)")
+                    params.extend([pat, pat, pat])
+
+        elif company and company.strip():
+            comp_sql, comp_params = build_company_search_sql(company, col_prefix="a")
+            conditions.append(f"""
+                (
+                    c.organization_id IN (
+                        SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql}
+                    )
+                )
+            """)
+            params.extend(comp_params)
+
+        elif search and search.strip():
+            raw_term = search.strip().lower()
+            pat = f"%{raw_term}%"
+            comp_sql, comp_params = build_company_search_sql(raw_term, col_prefix="a")
+            conditions.append(f"""
+                (
+                    lower(c.person_name) LIKE ?
+                    OR lower(c.job_title) LIKE ?
+                    OR lower(COALESCE(c.email, '')) LIKE ?
+                    OR c.organization_id IN (
+                        SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql}
+                    )
+                )
+            """)
+            params.extend([pat, pat, pat] + comp_params)
+
         if logistics_only is True:
-            conditions.append("is_logistics_role = true")
+            conditions.append("c.is_logistics_role = true")
         if decision_makers_only is True:
-            conditions.append("is_decision_maker = true")
+            conditions.append("c.is_decision_maker = true")
         if has_email_only is True:
-            conditions.append("has_email = true")
+            conditions.append("c.has_email = true")
 
         if seniority and seniority.strip():
-            conditions.append("lower(seniority) = ?")
+            conditions.append("lower(c.seniority) = ?")
             params.append(seniority.strip().lower())
 
         if department and department.strip():
-            conditions.append("lower(department) LIKE ?")
+            conditions.append("lower(c.department) LIKE ?")
             params.append(f"%{department.strip().lower()}%")
 
         if country and country.strip():
-            conditions.append("lower(contact_country) = ?")
+            conditions.append("lower(c.contact_country) = ?")
             params.append(country.strip().lower())
-
-        if company and company.strip():
-            clean_comp = clean_corporate_term(company)
-            cpat = f"%{clean_comp}%" if len(clean_comp) >= 2 else f"%{company.strip().lower()}%"
-            conditions.append("lower(COALESCE(email, '')) LIKE ?")
-            params.append(cpat)
-
-        if search and search.strip():
-            raw_term = search.strip().lower()
-            clean_term = clean_corporate_term(raw_term)
-            pat = f"%{raw_term}%"
-            cpat = f"%{clean_term}%" if len(clean_term) >= 2 else pat
-            conditions.append(
-                "(lower(person_name) LIKE ? OR lower(job_title) LIKE ? OR lower(COALESCE(email, '')) LIKE ? OR lower(COALESCE(email, '')) LIKE ?)"
-            )
-            params.extend([pat, pat, pat, cpat])
 
         where_sql = " AND ".join(conditions)
 
         # Fast-path count resolution: never perform full-table scan count(*) over 17.4M rows on S3
         total_records = None
-        if conditions == ["1=1", "is_logistics_role = true"]:
+        if conditions == ["1=1", "c.is_logistics_role = true"]:
             total_records = 766803
-        elif conditions == ["1=1", "is_logistics_role = true", "is_decision_maker = true"]:
+        elif conditions == ["1=1", "c.is_logistics_role = true", "c.is_decision_maker = true"]:
             total_records = 345061
         elif conditions == ["1=1"]:
             total_records = 17457110
-        elif organization_id and organization_id.strip():
-            # Organization-scoped count leverages Parquet dictionary/statistics and executes in < 0.1s
-            count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
+        elif (organization_id and organization_id.strip()) or (search and search.strip()) or (company and company.strip()):
+            count_query = f"SELECT count(*) FROM '{data_source}' c WHERE {where_sql}"
             total_records = con.execute(count_query, params).fetchone()[0]
 
         data_query = f"""
             SELECT 
-                person_id,
-                organization_id,
-                person_name,
-                first_name,
-                last_name,
-                job_title,
-                job_title_normalized,
-                seniority,
-                department,
-                email,
-                email_status,
-                email_confidence,
-                linkedin_url,
-                contact_city,
-                contact_state,
-                contact_country,
-                is_decision_maker,
-                is_logistics_role,
-                has_email,
-                {SQL_EXTRACT_EMPLOYER_NAME}
-            FROM '{data_source}'
+                c.person_id,
+                c.organization_id,
+                c.person_name,
+                c.first_name,
+                c.last_name,
+                c.job_title,
+                c.job_title_normalized,
+                c.seniority,
+                c.department,
+                c.email,
+                c.email_status,
+                c.email_confidence,
+                c.linkedin_url,
+                c.contact_city,
+                c.contact_state,
+                c.contact_country,
+                c.is_decision_maker,
+                c.is_logistics_role,
+                c.has_email,
+                COALESCE(a.organization_name, CASE WHEN c.email IS NOT NULL AND c.email LIKE '%@%' THEN upper(regexp_extract(c.email, '@([^.]+)', 1)) ELSE 'COMMERCIAL SHIPPER' END) as employer_name
+            FROM '{data_source}' c
+            LEFT JOIN '{apollo_source}' a ON c.organization_id = a.organization_id
             WHERE {where_sql}
-            ORDER BY is_decision_maker DESC, has_email DESC
+            ORDER BY c.is_logistics_role DESC, c.is_decision_maker DESC, c.has_email DESC
             LIMIT ? OFFSET ?
         """
         # Fetch page_size + 1 to reliably determine has_next without full table scan
