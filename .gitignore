@@ -137,5 +137,6 @@ Backend/data/**/*.parquet
 Backend/data/**/*.xlsx
 Backend/data/**/*.xls
 Backend/data/**/*.csv
+!Backend/data/processed/*AUDIT*.csv
 Backend/data/**/*.tsv
 
