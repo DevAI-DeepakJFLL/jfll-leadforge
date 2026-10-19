@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
+import { TierScoreBadge } from '@/components/tiers';
 
 export interface DatamyneTableProps {
   leads: DatamyneLead[];
@@ -241,6 +242,15 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                         </div>
                         {/* Role, Transport Mode & IEC Badges */}
                         <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                          {/* SOP Tier Score Badge if segmented */}
+                          {(l as any).segment_status && (
+                            <TierScoreBadge
+                              status={(l as any).segment_status}
+                              score={(l as any).total_score || 0}
+                              breakdown={(l as any).score_breakdown}
+                            />
+                          )}
+
                           {/* Role Badge */}
                           <span
                             className={`inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded border whitespace-nowrap shrink-0 leading-tight ${

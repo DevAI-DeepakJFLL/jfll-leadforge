@@ -34,7 +34,7 @@ export async function fetchTierCounts(): Promise<TierCountsResponse> {
     }
     return await res.json();
   } catch (err) {
-    logger.warn('[TIER SERVICE] Failed to fetch tier counts, using cached telemetry', { err });
+    logger.warn('TIER SERVICE', 'Failed to fetch tier counts, using cached telemetry', { error: String(err) });
     return DEFAULT_STARTER_TIER_COUNTS;
   }
 }
@@ -75,7 +75,7 @@ export async function fetchTierLeads(params: TierFilterParams = {}): Promise<Pag
       hasNext: Boolean(data.has_next),
     };
   } catch (err) {
-    logger.warn('[TIER SERVICE] Failed to fetch live tiered leads from API', { err });
+    logger.warn('TIER SERVICE', 'Failed to fetch live tiered leads from API', { error: String(err) });
     return {
       items: [],
       total: 0,
@@ -95,7 +95,7 @@ export async function fetchTierLeadBreakdown(leadId: string): Promise<TieredLead
     }
     return await res.json();
   } catch (err) {
-    logger.warn(`[TIER SERVICE] Failed to fetch breakdown for lead ${leadId}`, { err });
+    logger.warn('TIER SERVICE', `Failed to fetch breakdown for lead ${leadId}`, { error: String(err) });
     return null;
   }
 }

@@ -7,6 +7,11 @@ import {
   DatamyneActiveFilterChips,
   DatamyneTable,
 } from '@/components/datamyne';
+import { Sparkles, Layers } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { TierAudienceTabs } from '@/components/tiers';
+import { useTierFilter } from '@/hooks/useTierFilter';
+import { fetchTierCounts, fetchTierLeads } from '@/services/tierService';
 import {
   DatamyneFilterParams,
   DatamyneResponse,
@@ -83,7 +88,52 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   isMobileOpen,
   onCloseMobile,
 }) => {
-  const items = query.items;
+  const [perspective, setPerspective] = React.useState<'verticals' | 'tiers'>('verticals');
+  const {
+    tab: tierTab,
+    setTab: setTierTab,
+    page: tierPage,
+    setPage: setTierPage,
+  } = useTierFilter({ status: 'tier-a' });
+
+  const { data: tierCounts } = useQuery({
+    queryKey: ['tierCounts'],
+    queryFn: fetchTierCounts,
+    staleTime: 60000,
+  });
+
+  const { data: tierData, isLoading: isTierLoading } = useQuery({
+    queryKey: ['tierLeads', tierTab, tierPage, filters.q],
+    queryFn: () => {
+      const statusParam =
+        tierTab === 'all'
+          ? undefined
+          : tierTab === 'tier-a'
+          ? 'Tier A'
+          : tierTab === 'tier-b'
+          ? 'Tier B'
+          : tierTab === 'parked'
+          ? 'Parked'
+          : tierTab === 'excluded'
+          ? 'Excluded'
+          : 'Unscored';
+      return fetchTierLeads({
+        status: statusParam,
+        page: tierPage,
+        pageSize: query.limit || 25,
+        search: filters.q,
+      });
+    },
+    enabled: perspective === 'tiers',
+    staleTime: 30000,
+  });
+
+  const displayItems = perspective === 'tiers' ? (tierData?.items || []) : query.items;
+  const displayTotal = perspective === 'tiers' ? (tierData?.total || 0) : query.totalEstimate;
+  const displayTotalFormatted = perspective === 'tiers' ? displayTotal.toLocaleString() : query.totalFormatted;
+  const displayPage = perspective === 'tiers' ? tierPage : query.page;
+  const displayTotalPages = perspective === 'tiers' ? (tierData?.totalPages || 0) : query.totalPages;
+  const handleDisplayPageChange = perspective === 'tiers' ? setTierPage : onPageChange;
 
   return (
     <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
@@ -108,19 +158,81 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
       />
 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
-        <DatamyneAudienceTabs
-          activeTab={filters.tab}
-          onTabChange={onTabChange}
-          activeDataset={filters.dataset || 'valid'}
-          onChangeDataset={onDatasetChange}
-          counts={query.audienceCounts}
-          totalFormatted={query.totalFormatted}
-        />
+        {/* Subcategory Mode Toggle */}
+        <div className="bg-white border-b border-slate-200/90 px-3 sm:px-4 lg:px-6 py-2 flex items-center justify-between gap-3 shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">
+              Subcategory Mode:
+            </span>
+            <div
+              role="tablist"
+              aria-label="Subcategory View Mode"
+              className="inline-flex p-0.5 bg-slate-100 border border-slate-200 rounded-lg text-xs font-medium"
+            >
+              <button
+                type="button"
+                role="tab"
+                aria-selected={perspective === 'verticals'}
+                onClick={() => setPerspective('verticals')}
+                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1.5 ${
+                  perspective === 'verticals'
+                    ? 'bg-white text-slate-900 font-semibold shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>Logistics Verticals (9)</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={perspective === 'tiers'}
+                onClick={() => setPerspective('tiers')}
+                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1.5 ${
+                  perspective === 'tiers'
+                    ? 'bg-apollo text-white font-semibold shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>SOP Tiers (A / B / Parked)</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="text-xs text-slate-500">
+            {perspective === 'tiers' ? (
+              <span className="font-medium text-apollo">
+                JFLL SOP Stage 2 Lead Scoring
+              </span>
+            ) : (
+              <span>Customs Trade Intelligence</span>
+            )}
+          </div>
+        </div>
+
+        {/* Audience Subcategory Tabs */}
+        {perspective === 'tiers' ? (
+          <TierAudienceTabs
+            activeTab={tierTab}
+            onTabChange={setTierTab}
+            counts={tierCounts}
+          />
+        ) : (
+          <DatamyneAudienceTabs
+            activeTab={filters.tab}
+            onTabChange={onTabChange}
+            activeDataset={filters.dataset || 'valid'}
+            onChangeDataset={onDatasetChange}
+            counts={query.audienceCounts}
+            totalFormatted={query.totalFormatted}
+          />
+        )}
 
         <DatamyneActionBar
           selectedCount={selectedCount}
-          totalOnPage={items.length}
-          totalCount={query.totalEstimate}
+          totalOnPage={displayItems.length}
+          totalCount={displayTotal}
           isAllOnPageSelected={isAllOnPageSelected}
           isIndeterminate={isSomeOnPageSelected}
           onToggleSelectAllPage={onToggleSelectAllPage}
@@ -129,7 +241,11 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           isExporting={isExporting}
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
-          searchPlaceholder="Search DataMyne by company, description, country..."
+          searchPlaceholder={
+            perspective === 'tiers'
+              ? 'Search tiered leads by company, city, category...'
+              : 'Search DataMyne by company, description, country...'
+          }
         />
 
         {/* Active Filter Chips Bar */}
@@ -149,18 +265,19 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
 
         <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
           <DatamyneTable
-            leads={items}
+            leads={displayItems}
             rowSelection={rowSelection}
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
             onSearchApollo={onSearchApollo}
-            currentPage={query.page}
-            totalPages={query.totalPages}
-            pageSize={query.limit}
-            totalItems={query.totalEstimate}
-            totalFormatted={query.totalFormatted}
-            onPageChange={onPageChange}
+            currentPage={displayPage}
+            totalPages={displayTotalPages}
+            pageSize={query.limit || 25}
+            totalItems={displayTotal}
+            totalFormatted={displayTotalFormatted}
+            onPageChange={handleDisplayPageChange}
             onClearFilters={clearAllFilters}
+            isLoading={perspective === 'tiers' ? isTierLoading : false}
           />
         </div>
       </div>

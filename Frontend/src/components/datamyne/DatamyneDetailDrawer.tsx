@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
+import { TierScoreBadge, TierScoreBreakdownModal } from '@/components/tiers';
+import { TieredLead } from '@/types/tierSegmentation';
 import { useToast } from '@/components/ui';
 import { parseAndFormatContactNumbers } from '@/utils/phoneUtils';
 
@@ -38,6 +40,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   className = '',
 }) => {
   const { showToast } = useToast();
+  const [isTierModalOpen, setIsTierModalOpen] = React.useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -65,6 +68,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
     .toUpperCase();
 
   const isMissingContact = lead.dataset_type === 'missing';
+  const tieredLead = (lead as any).segment_status ? (lead as unknown as TieredLead) : null;
 
   // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD)
   const contactNumbers = parseAndFormatContactNumbers(lead.phone, lead.city);
@@ -110,6 +114,14 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                   {lead.company_name}
                 </h2>
                 <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                  {tieredLead && (
+                    <TierScoreBadge
+                      status={tieredLead.segment_status}
+                      score={tieredLead.total_score}
+                      breakdown={tieredLead.score_breakdown}
+                      onClick={() => setIsTierModalOpen(true)}
+                    />
+                  )}
                   <span
                     className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
                       lead.role === 'Exporter'
@@ -454,6 +466,15 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
               </div>
             )}
           </div>
+
+          {/* Full SOP Score Breakdown Modal */}
+          {tieredLead && (
+            <TierScoreBreakdownModal
+              isOpen={isTierModalOpen}
+              lead={tieredLead}
+              onClose={() => setIsTierModalOpen(false)}
+            />
+          )}
         </aside>
       </div>
     </div>
