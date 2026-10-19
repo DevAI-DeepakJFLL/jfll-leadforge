@@ -35,6 +35,7 @@ import {
   exportDatamyneLeadsCsv,
   getLoadedDatamyneDataset,
 } from '@/services/datamyneService';
+import { loadFullTierDataset } from '@/services/tierService';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { ApolloDetailDrawer } from '@/components/apollo';
 import { useApolloFilter } from '@/hooks/useApolloFilter';
@@ -402,6 +403,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   const { data: datamyneFullLoaded } = useQuery({
     queryKey: ['datamyne-full-dataset'],
     queryFn: () => loadFullDatamyneDataset(),
+    staleTime: Infinity,
+  });
+
+  // Lazy-load full 37,273 tiered records in background for offline / static mode
+  useQuery({
+    queryKey: ['tier-full-dataset'],
+    queryFn: () => loadFullTierDataset(),
     staleTime: Infinity,
   });
 

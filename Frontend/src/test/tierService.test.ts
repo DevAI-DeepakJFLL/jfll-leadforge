@@ -3,6 +3,7 @@ import {
   fetchTierCounts,
   fetchTierLeads,
   fetchTierLeadBreakdown,
+  queryTierLeadsLocal,
   DEFAULT_STARTER_TIER_COUNTS,
 } from '@/services/tierService';
 
@@ -93,4 +94,39 @@ describe('Tier Service Suite', () => {
     expect(res?.id).toBe('dm-val-00001');
     expect(res?.score_breakdown.frequency_score).toBe(20);
   });
+
+  it('fetchTierLeads falls back gracefully to starter dataset when backend is unreachable', async () => {
+    global.fetch = vi.fn().mockRejectedValue(new Error('Network offline or backend down'));
+
+    const res = await fetchTierLeads({ status: 'Tier A', page: 1, pageSize: 25 });
+    expect(res.total).toBeGreaterThan(0);
+    expect(res.items.length).toBeGreaterThan(0);
+    expect(res.items[0].segment_status).toBe('Tier A');
+  });
+
+  it('queryTierLeadsLocal filters properly across Tier A, Tier B, and Parked', () => {
+    const tierARes = queryTierLeadsLocal({ status: 'Tier A' });
+    expect(tierARes.items.length).toBeGreaterThan(0);
+    expect(tierARes.items.every((l) => l.segment_status === 'Tier A')).toBe(true);
+
+    const tierBRes = queryTierLeadsLocal({ status: 'tier-b' });
+    expect(tierBRes.items.length).toBeGreaterThan(0);
+    expect(tierBRes.items.every((l) => l.segment_status === 'Tier B')).toBe(true);
+
+    const parkedRes = queryTierLeadsLocal({ status: 'parked' });
+    expect(parkedRes.items.length).toBeGreaterThan(0);
+    expect(parkedRes.items.every((l) => l.segment_status === 'Parked')).toBe(true);
+  });
+
+  it('fetchTierLeadBreakdown falls back to starter dataset lead when API fails', async () => {
+    global.fetch = vi.fn().mockRejectedValue(new Error('Network offline'));
+
+    const sampleLeadId = 'dm-val-00004';
+    const res = await fetchTierLeadBreakdown(sampleLeadId);
+    expect(res).not.toBeNull();
+    expect(res?.id).toBe(sampleLeadId);
+    expect(res?.segment_status).toBe('Tier A');
+    expect(res?.score_breakdown).toBeDefined();
+  });
 });
+

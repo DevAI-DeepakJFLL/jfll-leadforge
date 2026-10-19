@@ -7,6 +7,9 @@ export type TierReason =
   | 'strategic_override'
   | 'existing_customer'
   | 'competitor_forwarder'
+  | 'missing_required_fields'
+  | 'dormant'
+  | 'unscored'
   | 'manual';
 
 export interface TierScoreBreakdown {

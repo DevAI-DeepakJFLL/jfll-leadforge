@@ -4,6 +4,7 @@ import {
   PaginatedTierResponse,
   TieredLead,
 } from '@/types/tierSegmentation';
+import { TIER_STARTER_DATA } from '@/data/tierStarterData';
 import { logger } from '@/utils/logger';
 
 const API_BASE_URL = '/api/v1/tiers';
@@ -25,6 +26,102 @@ export const DEFAULT_STARTER_TIER_COUNTS: TierCountsResponse = {
     suggested_cutoff: 75,
   },
 };
+
+// In-memory tiered leads storage: starts with bundled starter set and upgrades if full JSON is loaded
+let cachedFullTierDataset: TieredLead[] | null = null;
+let isLoadingFullTierData = false;
+
+/**
+ * Lazily load full 37,273 scored records from public JSON in the background
+ */
+export async function loadFullTierDataset(): Promise<TieredLead[]> {
+  if (cachedFullTierDataset) return cachedFullTierDataset;
+  if (isLoadingFullTierData) return TIER_STARTER_DATA;
+
+  isLoadingFullTierData = true;
+  try {
+    const res = await fetch('/data/datamyne_tier_segments.json');
+    if (res.ok) {
+      const data: TieredLead[] = await res.json();
+      cachedFullTierDataset = data;
+      logger.info('TIER SERVICE', `Loaded full tier dataset with ${data.length} records into memory.`);
+      return data;
+    }
+  } catch (err) {
+    logger.warn('TIER SERVICE', 'Failed to fetch /data/datamyne_tier_segments.json, continuing with starter dataset', { error: String(err) });
+  } finally {
+    isLoadingFullTierData = false;
+  }
+  return TIER_STARTER_DATA;
+}
+
+export function getLoadedTierDataset(): TieredLead[] {
+  return cachedFullTierDataset || TIER_STARTER_DATA;
+}
+
+/**
+ * Synchronously filter and paginate local tiered leads.
+ * Provides offline resilience and instant placeholder rendering.
+ */
+export function queryTierLeadsLocal(params: TierFilterParams = {}): PaginatedTierResponse {
+  const allLeads = getLoadedTierDataset();
+  const {
+    status,
+    search,
+    minScore,
+    maxScore,
+    page = 1,
+    pageSize = 25,
+  } = params;
+
+  let filtered = [...allLeads];
+
+  // 1. Status Filter
+  if (status && status !== 'all') {
+    const sNorm = status.toLowerCase().replace(/[-_]/g, ' ').trim();
+    filtered = filtered.filter((lead) => {
+      const leadStatusNorm = (lead.segment_status || '').toLowerCase().replace(/[-_]/g, ' ').trim();
+      return leadStatusNorm === sNorm;
+    });
+  }
+
+  // 2. Search Filter (Company, City, Category, Subcategory, HS codes)
+  if (search && search.trim()) {
+    const term = search.trim().toLowerCase();
+    filtered = filtered.filter((lead) => {
+      return (
+        lead.company_name.toLowerCase().includes(term) ||
+        (lead.city && lead.city.toLowerCase().includes(term)) ||
+        (lead.category && lead.category.toLowerCase().includes(term)) ||
+        (lead.subcategory && lead.subcategory.toLowerCase().includes(term)) ||
+        (lead.top_hs_codes && lead.top_hs_codes.toLowerCase().includes(term))
+      );
+    });
+  }
+
+  // 3. Score Bounds
+  if (minScore !== undefined) {
+    filtered = filtered.filter((lead) => lead.total_score >= minScore);
+  }
+  if (maxScore !== undefined) {
+    filtered = filtered.filter((lead) => lead.total_score <= maxScore);
+  }
+
+  const total = filtered.length;
+  const totalPages = Math.ceil(total / pageSize) || 1;
+  const safePage = Math.max(1, Math.min(page, totalPages));
+  const startIndex = (safePage - 1) * pageSize;
+  const items = filtered.slice(startIndex, startIndex + pageSize);
+
+  return {
+    items,
+    total,
+    page: safePage,
+    pageSize,
+    totalPages,
+    hasNext: safePage < totalPages,
+  };
+}
 
 export async function fetchTierCounts(): Promise<TierCountsResponse> {
   try {
@@ -75,15 +172,8 @@ export async function fetchTierLeads(params: TierFilterParams = {}): Promise<Pag
       hasNext: Boolean(data.has_next),
     };
   } catch (err) {
-    logger.warn('TIER SERVICE', 'Failed to fetch live tiered leads from API', { error: String(err) });
-    return {
-      items: [],
-      total: 0,
-      page: params.page || 1,
-      pageSize: params.pageSize || 25,
-      totalPages: 0,
-      hasNext: false,
-    };
+    logger.warn('TIER SERVICE', 'Failed to fetch live tiered leads from API, falling back to local dataset', { error: String(err) });
+    return queryTierLeadsLocal(params);
   }
 }
 
@@ -95,7 +185,9 @@ export async function fetchTierLeadBreakdown(leadId: string): Promise<TieredLead
     }
     return await res.json();
   } catch (err) {
-    logger.warn('TIER SERVICE', `Failed to fetch breakdown for lead ${leadId}`, { error: String(err) });
-    return null;
+    logger.warn('TIER SERVICE', `Failed to fetch breakdown for lead ${leadId}, using local dataset`, { error: String(err) });
+    const local = getLoadedTierDataset().find((l) => l.id === leadId);
+    return local || null;
   }
 }
+

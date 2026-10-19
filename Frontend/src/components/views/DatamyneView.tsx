@@ -11,7 +11,7 @@ import { Sparkles, Layers } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { TierAudienceTabs } from '@/components/tiers';
 import { useTierFilter } from '@/hooks/useTierFilter';
-import { fetchTierCounts, fetchTierLeads } from '@/services/tierService';
+import { fetchTierCounts, fetchTierLeads, queryTierLeadsLocal } from '@/services/tierService';
 import {
   DatamyneFilterParams,
   DatamyneResponse,
@@ -120,6 +120,21 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
         search: filters.q,
       });
     },
+    placeholderData: (prev) =>
+      prev ??
+      queryTierLeadsLocal({
+        status: {
+          'tier-a': 'Tier A',
+          'tier-b': 'Tier B',
+          'parked': 'Parked',
+          'excluded': 'Excluded',
+          'unscored': 'Unscored',
+          'all': undefined,
+        }[tierTab],
+        page: tierPage,
+        pageSize: query.limit || 25,
+        search: filters.q,
+      }),
     enabled: perspective === 'tiers',
     staleTime: 30000,
   });
