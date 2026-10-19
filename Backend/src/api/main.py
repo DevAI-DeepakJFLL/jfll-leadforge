@@ -44,8 +44,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from src.api.tier_routes import tier_router
+
 app.include_router(auth_router)
 app.include_router(leads_router)
+app.include_router(tier_router)
 
 
 @app.get("/health", response_model=HealthResponse, tags=["Health"])

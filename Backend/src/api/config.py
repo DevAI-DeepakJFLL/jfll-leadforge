@@ -43,6 +43,7 @@ class Settings(BaseModel):
         "datamyne": "datamyne_leads_zstd.parquet",
         "datamyne_valid": "datamyne_valid_leads_zstd.parquet",
         "datamyne_missing": "datamyne_missing_leads_zstd.parquet",
+        "datamyne_tiers": "datamyne_tier_segments_zstd.parquet",
         "apollo": "apollo_freight_leads_zstd.parquet",
         "apollo_contacts_profile": "apollo_freight_contacts_with_company_profile.parquet",
         "apollo_contacts_unprofiled": "apollo_freight_contacts_without_company_profile.parquet",
