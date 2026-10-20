@@ -292,6 +292,49 @@ describe('Apollo Sourcing Tool Suite', () => {
         global.fetch = originalFetch;
       }
     });
+
+    it('returns empty results when querying an unknown organizationId locally, never dumping unrelated companies', () => {
+      const result = queryApolloPeopleLeadsLocal({ organizationId: 'unknown-org-id-12345' });
+      expect(result.items.length).toBe(0);
+      expect(result.totalEstimate).toBe(0);
+      expect(result.totalFormatted).toBe('0');
+    });
+
+    it('filters strictly by company name for Larsen & Toubro in local data', () => {
+      const result = queryApolloPeopleLeadsLocal({ company: 'Larsen & Toubro' });
+      expect(result.items.length).toBeGreaterThan(0);
+      result.items.forEach((item) => {
+        const isLnt =
+          item.company.toLowerCase().includes('larsen') ||
+          item.company.toLowerCase().includes('toubro') ||
+          item.company.toLowerCase().includes('l&t');
+        expect(isLnt).toBe(true);
+      });
+    });
+
+    it('respects an empty server response (200 OK with total_records: 0) without falling back to starter data', async () => {
+      const originalFetch = global.fetch;
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          page: 1,
+          page_size: 25,
+          total_records: 0,
+          total_pages: 0,
+          has_next: false,
+          data: [],
+        }),
+      } as unknown as Response);
+
+      try {
+        const result = await fetchApolloPeopleLeads({ organizationId: '54a1226269702da425d52903' });
+        expect(result.items.length).toBe(0);
+        expect(result.totalEstimate).toBe(0);
+        expect(result.totalFormatted).toBe('0');
+      } finally {
+        global.fetch = originalFetch;
+      }
+    });
   });
 });
 

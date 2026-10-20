@@ -24,12 +24,12 @@ export const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
 }) => {
   const chips: ChipItem[] = [];
 
-  if (filters.organizationId) {
+  if (filters.company || filters.organizationId) {
     chips.push({
-      key: 'organizationId',
+      key: filters.company ? 'company' : 'organizationId',
       category: 'Company',
-      value: filters.organizationId,
-      label: 'Selected Organization',
+      value: filters.company || filters.organizationId || '',
+      label: filters.company || 'Selected Organization',
     });
   }
 

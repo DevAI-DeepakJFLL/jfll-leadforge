@@ -47,7 +47,9 @@ def clean_corporate_term(raw: str) -> str:
 
 COMPANY_STOP_WORDS = {
     "ltd", "limited", "pvt", "private", "inc", "corp", "corporation",
-    "llc", "co", "company", "holdings", "group", "and", "india", "the", "enterprises"
+    "llc", "co", "company", "holdings", "group", "and", "india", "the", "enterprises",
+    "healthcare", "pharma", "pharmaceuticals", "technologies", "services", "solutions",
+    "industries", "international", "global", "trading", "engineering"
 }
 
 
@@ -56,7 +58,8 @@ def extract_company_search_keywords(raw: str) -> list[str]:
     if not raw:
         return []
     words = re.findall(r"[a-zA-Z0-9]+", raw.lower())
-    return [w for w in words if w not in COMPANY_STOP_WORDS and len(w) > 1]
+    sig = [w for w in words if w not in COMPANY_STOP_WORDS and len(w) > 1]
+    return sig if sig else [w for w in words if len(w) > 1]
 
 
 def build_company_search_sql(raw_search: str, col_prefix: str = "") -> tuple[str, list[Any]]:
@@ -84,6 +87,11 @@ def build_company_search_sql(raw_search: str, col_prefix: str = "") -> tuple[str
         kw_sql = " AND ".join([f"lower({pfx}organization_name) LIKE ?" for _ in kws])
         conds.append(f"({kw_sql})")
         params.extend([f"%{w}%" for w in kws])
+
+        # If multiple keywords, also match on primary brand keyword (e.g. 'sanofi' in 'sanofi healthcare')
+        if len(kws) > 1 and len(kws[0]) >= 3:
+            conds.append(f"(lower({pfx}organization_name) LIKE ? OR lower({pfx}domain) LIKE ?)")
+            params.extend([f"%{kws[0]}%", f"%{kws[0]}%"])
 
         # Cross-alias for Larsen & Toubro <-> L&T
         words = re.findall(r"[a-zA-Z0-9]+", raw)

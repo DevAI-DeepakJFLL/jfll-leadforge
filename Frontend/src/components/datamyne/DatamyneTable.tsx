@@ -408,15 +408,15 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                         <span>View</span>
                       </button>
 
-                      {isMissing && onSearchApollo && (
+                      {onSearchApollo && (
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             onSearchApollo(l.company_name);
                           }}
-                          className="p-1 text-slate-400 hover:text-amber-700 hover:bg-amber-50 rounded transition-colors cursor-pointer"
-                          title="Search Decision Makers in Apollo Leads"
-                          aria-label="Search Apollo Leads"
+                          className="p-1 text-slate-400 hover:text-apollo hover:bg-blue-50 rounded transition-colors cursor-pointer"
+                          title={`Find decision-makers at ${l.company_name} in People tab`}
+                          aria-label={`Find decision-makers at ${l.company_name}`}
                         >
                           <Search className="w-3.5 h-3.5" />
                         </button>

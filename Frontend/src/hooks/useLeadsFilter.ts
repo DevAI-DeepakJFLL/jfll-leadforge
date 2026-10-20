@@ -11,6 +11,7 @@ export interface ActiveFilterItem {
 const DEFAULT_FILTERS: FilterParams = {
   q: undefined,
   organizationId: undefined,
+  company: undefined,
   jobTitles: [],
   departments: [],
   locations: [],
@@ -68,6 +69,7 @@ export function parseUrlToFilters(search: string): FilterParams {
 
   const q = params.get('q')?.trim() || undefined;
   const organizationId = params.get('organizationId')?.trim() || undefined;
+  const company = params.get('company')?.trim() || undefined;
   const sortBy = params.get('sortBy')?.trim() || undefined;
   const rawSortOrder = params.get('sortOrder');
   const sortOrder = rawSortOrder === 'desc' ? 'desc' : 'asc';
@@ -75,6 +77,7 @@ export function parseUrlToFilters(search: string): FilterParams {
   return {
     q,
     organizationId,
+    company,
     jobTitles: parseArray('jobTitles'),
     departments: parseArray('departments'),
     locations: parseArray('locations'),
@@ -101,6 +104,10 @@ export function serializeFiltersToUrl(filters: FilterParams): string {
 
   if (filters.organizationId && filters.organizationId.trim().length > 0) {
     params.set('organizationId', filters.organizationId.trim());
+  }
+
+  if (filters.company && filters.company.trim().length > 0) {
+    params.set('company', filters.company.trim());
   }
 
   const appendArray = (key: string, arr?: string[]) => {
@@ -264,8 +271,8 @@ export function useLeadsFilter() {
         if (key === 'q') {
           return { ...prev, q: undefined, page: 1 };
         }
-        if (key === 'organizationId') {
-          return { ...prev, organizationId: undefined, page: 1 };
+        if (key === 'organizationId' || key === 'company') {
+          return { ...prev, organizationId: undefined, company: undefined, page: 1 };
         }
         if (key === 'status') {
           return {
@@ -299,8 +306,8 @@ export function useLeadsFilter() {
         if (key === 'q') {
           return { ...prev, q: undefined, page: 1 };
         }
-        if (key === 'organizationId') {
-          return { ...prev, organizationId: undefined, page: 1 };
+        if (key === 'organizationId' || key === 'company') {
+          return { ...prev, organizationId: undefined, company: undefined, page: 1 };
         }
         if (Array.isArray(prev[key])) {
           return { ...prev, [key]: [], page: 1 };
@@ -322,12 +329,12 @@ export function useLeadsFilter() {
   const activeFilters = useMemo<ActiveFilterItem[]>(() => {
     const items: ActiveFilterItem[] = [];
 
-    if (filters.organizationId) {
+    if (filters.company || filters.organizationId) {
       items.push({
-        key: 'organizationId',
+        key: filters.company ? 'company' : 'organizationId',
         categoryLabel: 'Company',
-        value: filters.organizationId,
-        displayValue: 'Selected Organization',
+        value: filters.company || filters.organizationId || '',
+        displayValue: filters.company || 'Selected Organization',
       });
     }
 

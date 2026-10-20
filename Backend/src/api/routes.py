@@ -617,30 +617,52 @@ def search_apollo_contacts(
 
         elif company and company.strip():
             comp_sql, comp_params = build_company_search_sql(company, col_prefix="a")
-            conditions.append(f"""
-                (
-                    c.organization_id IN (
-                        SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql}
-                    )
-                )
-            """)
-            params.extend(comp_params)
+            org_rows = con.execute(
+                f"SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql} LIMIT 100",
+                comp_params
+            ).fetchall()
+            matched_org_ids = [r[0] for r in org_rows if r[0]]
+            if matched_org_ids:
+                placeholders = ", ".join(["?"] * len(matched_org_ids))
+                conditions.append(f"c.organization_id IN ({placeholders})")
+                params.extend(matched_org_ids)
+            else:
+                clean_comp = clean_corporate_term(company)
+                if clean_comp and len(clean_comp) >= 3:
+                    conditions.append("(lower(COALESCE(c.email, '')) LIKE ?)")
+                    params.append(f"%@{clean_comp.replace(' ', '')}%")
+                else:
+                    conditions.append("1=0")
 
         elif search and search.strip():
             raw_term = search.strip().lower()
             pat = f"%{raw_term}%"
             comp_sql, comp_params = build_company_search_sql(raw_term, col_prefix="a")
-            conditions.append(f"""
-                (
-                    lower(c.person_name) LIKE ?
-                    OR lower(c.job_title) LIKE ?
-                    OR lower(COALESCE(c.email, '')) LIKE ?
-                    OR c.organization_id IN (
-                        SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql}
+            org_rows = con.execute(
+                f"SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql} LIMIT 100",
+                comp_params
+            ).fetchall()
+            matched_org_ids = [r[0] for r in org_rows if r[0]]
+            if matched_org_ids:
+                placeholders = ", ".join(["?"] * len(matched_org_ids))
+                conditions.append(f"""
+                    (
+                        lower(c.person_name) LIKE ?
+                        OR lower(c.job_title) LIKE ?
+                        OR lower(COALESCE(c.email, '')) LIKE ?
+                        OR c.organization_id IN ({placeholders})
                     )
-                )
-            """)
-            params.extend([pat, pat, pat] + comp_params)
+                """)
+                params.extend([pat, pat, pat] + matched_org_ids)
+            else:
+                conditions.append("""
+                    (
+                        lower(c.person_name) LIKE ?
+                        OR lower(c.job_title) LIKE ?
+                        OR lower(COALESCE(c.email, '')) LIKE ?
+                    )
+                """)
+                params.extend([pat, pat, pat])
 
         if logistics_only is True:
             conditions.append("c.is_logistics_role = true")

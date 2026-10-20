@@ -104,3 +104,30 @@ def test_apollo_contacts_by_organization_id():
         assert contact["organization_id"] == "54a1229169702d9a8b695403"
 
 
+def test_apollo_contacts_by_company_lnt_two_stage():
+    response = client.get("/api/v1/apollo/contacts?company=LARSEN+AND+TOUBRO+LIMITED&page_size=5")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["page"] == 1
+    assert data["total_records"] > 0
+    assert len(data["data"]) > 0
+
+
+def test_apollo_contacts_by_company_sanofi_two_stage():
+    response = client.get("/api/v1/apollo/contacts?company=SANOFI+INDIA+LIMITED&page_size=5")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["page"] == 1
+    assert data["total_records"] > 0
+    assert len(data["data"]) > 0
+
+
+def test_apollo_contacts_nonexistent_company():
+    response = client.get("/api/v1/apollo/contacts?company=NONEXISTENT_COMPANY_XYZ_99999&page_size=5")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["total_records"] == 0
+    assert len(data["data"]) == 0
+
+
+

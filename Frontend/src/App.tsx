@@ -42,7 +42,6 @@ import { useApolloFilter } from '@/hooks/useApolloFilter';
 import {
   fetchApolloLeadsFromApi,
   fetchApolloPeopleLeads,
-  queryApolloPeopleLeadsLocal,
   exportApolloLeadsCsv,
 } from '@/services/apolloService';
 import { ApolloLead } from '@/types/apolloLead';
@@ -118,7 +117,19 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   const { data, isLoading, isError, error, refetch } = useQuery<LeadsResponse>({
     queryKey: ['leads', filters],
     queryFn: () => fetchApolloPeopleLeads(filters),
-    placeholderData: (prev) => prev ?? queryApolloPeopleLeadsLocal(filters),
+    placeholderData: (prev, prevQuery) => {
+      const prevFilters = prevQuery?.queryKey?.[1] as FilterParams | undefined;
+      if (
+        prevFilters &&
+        prevFilters.organizationId === filters.organizationId &&
+        prevFilters.company === filters.company &&
+        prevFilters.q === filters.q &&
+        prevFilters.tab === filters.tab
+      ) {
+        return prev;
+      }
+      return undefined;
+    },
     staleTime: 60000,
   });
 
@@ -481,7 +492,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     setActiveNav('search');
     applyFilters({
       ...filters,
-      q: companyName,
+      q: undefined,
+      company: companyName,
       organizationId: undefined,
       page: 1,
       departments: [],
@@ -497,7 +509,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     setActiveNav('search');
     applyFilters({
       ...filters,
-      q: organizationId ? undefined : companyName,
+      q: undefined,
+      company: companyName,
       organizationId: organizationId || undefined,
       page: 1,
       departments: [],

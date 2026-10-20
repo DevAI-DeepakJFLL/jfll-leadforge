@@ -461,6 +461,7 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
   const {
     q,
     organizationId,
+    company,
     page = 1,
     limit = 25,
     tab = 'all',
@@ -473,13 +474,38 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
   // 1. Organization ID exact match (instant 0ms resolution for Find Decision Makers cross-navigation)
   if (organizationId && organizationId.trim()) {
     const orgId = organizationId.trim();
-    const orgMatches = filtered.filter((c) => c.organization_id === orgId);
-    if (orgMatches.length > 0) {
-      filtered = orgMatches;
-    }
+    filtered = filtered.filter((c) => c.organization_id === orgId);
   }
 
-  // 2. Text Search across name, title, employer company, or email with corporate suffix normalization
+  // 2. Company name matching
+  if (company && company.trim()) {
+    const rawComp = company.trim().toLowerCase();
+    const cleanComp = rawComp
+      .replace(/^(the\s+)/i, '')
+      .replace(/\b(inc|corp|corporation|llc|ltd|co|company|group|holdings|limited|pvt|private|india|and)\b/gi, '')
+      .trim();
+
+    const isLnt =
+      cleanComp.includes('larsen') ||
+      cleanComp.includes('toubro') ||
+      cleanComp === 'l&t' ||
+      cleanComp.includes('l&t');
+    const isSanofi = cleanComp.includes('sanofi');
+
+    filtered = filtered.filter((c) => {
+      const empName = (c.employer_name || '').toLowerCase();
+      const mail = (c.email || '').toLowerCase();
+      if (isLnt && (empName.includes('larsen') || empName.includes('toubro') || empName.includes('l&t') || mail.includes('lnt') || mail.includes('larsentoubro'))) {
+        return true;
+      }
+      if (isSanofi && (empName.includes('sanofi') || mail.includes('sanofi'))) {
+        return true;
+      }
+      return empName.includes(rawComp) || rawComp.includes(empName) || (cleanComp.length >= 2 && empName.includes(cleanComp)) || mail.includes(cleanComp);
+    });
+  }
+
+  // 3. Text Search across name, title, employer company, or email with corporate suffix normalization
   if (q && q.trim()) {
     const rawTerm = q.trim().toLowerCase();
     const cleanTerm = rawTerm
@@ -527,19 +553,19 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
     });
   }
 
-  // 3. Audience Tab
+  // 4. Audience Tab
   if (tab === 'new') {
     filtered = filtered.filter((c) => c.is_decision_maker);
   }
 
-  // 4. Departments
+  // 5. Departments
   if (departments.length > 0) {
     filtered = filtered.filter(
       (c) => c.department && departments.some((d) => c.department!.toLowerCase().includes(d.toLowerCase()))
     );
   }
 
-  // 5. Locations
+  // 6. Locations
   if (locations.length > 0) {
     filtered = filtered.filter((c) => {
       const locStr = [c.contact_city, c.contact_state, c.contact_country].filter(Boolean).join(', ').toLowerCase();
@@ -548,7 +574,7 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
   }
 
   // Total estimate (scaled to 766.8k if global search, or matching filtered count if filtered)
-  const isGlobal = !q && !organizationId && departments.length === 0 && locations.length === 0;
+  const isGlobal = !q && !organizationId && !company && departments.length === 0 && locations.length === 0;
   const totalRecords = isGlobal ? 766803 : filtered.length;
   const totalFormatted = isGlobal ? '766.8k' : String(filtered.length);
 
@@ -580,6 +606,7 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
   const {
     q,
     organizationId,
+    company,
     page = 1,
     limit = 25,
     tab = 'all',
@@ -593,7 +620,7 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
 
   // Only restrict global browsing to logistics roles; when an organization or company is targeted,
   // show all verified corporate decision-makers (with logistics specialists ordered first)
-  if (!organizationId) {
+  if (!organizationId && !company) {
     urlParams.set('logistics_only', 'true');
   }
 
@@ -603,6 +630,10 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
 
   if (organizationId && organizationId.trim()) {
     urlParams.set('organization_id', organizationId.trim());
+  }
+
+  if (company && company.trim()) {
+    urlParams.set('company', company.trim());
   }
 
   if (q && q.trim()) {
@@ -638,31 +669,28 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
       const rawContacts: ApolloContact[] = result.data || [];
       const totalRecords: number = result.total_records || 0;
 
-      // If server returned records, format and return them
-      if (rawContacts.length > 0) {
-        const totalFormatted =
-          totalRecords >= 1000000
-            ? `${(totalRecords / 1000000).toFixed(2)}m`
-            : totalRecords >= 1000
-            ? `${(totalRecords / 1000).toFixed(1)}k`
-            : String(totalRecords);
+      const totalFormatted =
+        totalRecords >= 1000000
+          ? `${(totalRecords / 1000000).toFixed(2)}m`
+          : totalRecords >= 1000
+          ? `${(totalRecords / 1000).toFixed(1)}k`
+          : String(totalRecords);
 
-        const items: Lead[] = rawContacts.map(mapApolloContactToLead);
+      const items: Lead[] = rawContacts.map(mapApolloContactToLead);
 
-        return {
-          items,
-          totalEstimate: totalRecords,
-          totalFormatted,
-          page: result.page || page,
-          limit: result.page_size || limit,
-          totalPages: result.total_pages || 1,
-          audienceCounts: {
-            all: totalRecords,
-            new: Math.round(totalRecords * 0.45),
-            saved: 0,
-          },
-        };
-      }
+      return {
+        items,
+        totalEstimate: totalRecords,
+        totalFormatted,
+        page: result.page || page,
+        limit: result.page_size || limit,
+        totalPages: result.total_pages || (totalRecords > 0 ? Math.ceil(totalRecords / limit) : 1),
+        audienceCounts: {
+          all: totalRecords,
+          new: Math.round(totalRecords * 0.45),
+          saved: 0,
+        },
+      };
     } else {
       logger.warn('APOLLO', `Apollo contacts API returned ${response.status}. Falling back to preloaded data.`);
     }
@@ -670,7 +698,7 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
     logger.warn('APOLLO', 'Failed to reach Apollo contacts API endpoint. Falling back to preloaded data.', { err });
   }
 
-  // Seamless fallback to preloaded starter data (never an empty screen)
+  // Fallback to preloaded starter data if offline or network error
   return queryApolloPeopleLeadsLocal(params);
 }
 

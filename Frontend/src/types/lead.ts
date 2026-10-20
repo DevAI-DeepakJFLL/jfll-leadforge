@@ -40,6 +40,7 @@ export type Lead = z.infer<typeof LeadSchema>;
 export const FilterParamsSchema = z.object({
   q: z.string().optional(),
   organizationId: z.string().optional(),
+  company: z.string().optional(),
   jobTitles: z.array(z.string()).optional(),
   departments: z.array(z.string()).optional(),
   locations: z.array(z.string()).optional(),
