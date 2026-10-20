@@ -612,6 +612,14 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     setActiveNav('search');
   };
 
+  const handleSwitchToCompanies = (companySearchTerm?: string) => {
+    setTopTab('companies');
+    setActiveNav('companies');
+    if (companySearchTerm && companySearchTerm !== 'Selected Organization') {
+      setApolloDbSearch(companySearchTerm);
+    }
+  };
+
   // Apollo Commercial Shippers Leads filter and state management
   const {
     filters: apolloDbFilters,
@@ -724,46 +732,68 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     : apolloActiveFilterCount;
 
 
+  // Cleanly handles switching between top-level global directory tabs
+  const handleAudienceTabChange = (tabId: string) => {
+    const normalizedTab = tabId === 'apollo' ? 'companies' : tabId;
+    setTopTab(normalizedTab);
+    setIsMobileFilterOpen(false);
+
+    const wasEntityScoped = Boolean(filters.company || filters.organizationId || filters.q);
+
+    if (normalizedTab === 'datamyne') {
+      setActiveNav('datamyne');
+    } else if (normalizedTab === 'jfll-customers') {
+      setActiveNav('jfll-customers');
+    } else if (normalizedTab === 'companies') {
+      setActiveNav('companies');
+    } else if (normalizedTab === 'saved-searches' || normalizedTab === 'saved-lists') {
+      setActiveNav('saved-searches');
+      if (normalizedTab === 'saved-searches') {
+        handleLoadPresetSearch();
+      } else {
+        setTab('saved');
+      }
+    } else {
+      setActiveNav('search');
+    }
+
+    // Clean entity-scoped filters and browser query parameters when switching directories or resetting People
+    if (wasEntityScoped) {
+      applyFilters(
+        (prev) => ({
+          ...prev,
+          company: undefined,
+          organizationId: undefined,
+          q: undefined,
+          page: 1,
+        }),
+        true
+      );
+    } else if (typeof window !== 'undefined' && window.location.search && normalizedTab !== 'people') {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  };
+
   return (
     <AppLayout
       activeNav={activeNav}
       onNavChange={(navId) => {
-        setActiveNav(navId);
-        setIsMobileFilterOpen(false);
         if (navId === 'datamyne') {
-          setTopTab('datamyne');
+          handleAudienceTabChange('datamyne');
         } else if (navId === 'jfll-customers') {
-          setTopTab('jfll-customers');
+          handleAudienceTabChange('jfll-customers');
         } else if (navId === 'home' || navId === 'companies') {
-          setTopTab('companies');
+          handleAudienceTabChange('companies');
         } else if (navId === 'search') {
-          setTopTab('people');
+          handleAudienceTabChange('people');
         } else if (navId === 'saved-searches') {
-          setTopTab('saved-searches');
-          handleLoadPresetSearch();
+          handleAudienceTabChange('saved-searches');
+        } else {
+          setActiveNav(navId);
         }
       }}
       activeTab={topTab === 'apollo' ? 'companies' : topTab}
-      onTabChange={(tabId) => {
-        setTopTab(tabId);
-        setIsMobileFilterOpen(false);
-        if (tabId === 'datamyne') {
-          setActiveNav('datamyne');
-        } else if (tabId === 'jfll-customers') {
-          setActiveNav('jfll-customers');
-        } else if (tabId === 'companies' || tabId === 'apollo') {
-          setActiveNav('companies');
-        } else if (tabId === 'saved-searches' || tabId === 'saved-lists') {
-          setActiveNav('saved-searches');
-          if (tabId === 'saved-searches') {
-            handleLoadPresetSearch();
-          } else {
-            setTab('saved');
-          }
-        } else {
-          setActiveNav('search');
-        }
-      }}
+      onTabChange={handleAudienceTabChange}
       searchQuery={
         isDatamyneCategory
           ? datamyneFilters.q || ''
@@ -933,6 +963,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           onPageChange={setPage}
           onLeadClick={handleLeadClick}
           onViewEmail={handleViewEmail}
+          onSwitchToCompanies={handleSwitchToCompanies}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />

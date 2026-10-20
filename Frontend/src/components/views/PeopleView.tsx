@@ -42,6 +42,7 @@ export interface PeopleViewProps {
   onPageChange: (page: number) => void;
   onLeadClick: (lead: Lead) => void;
   onViewEmail: (lead: Lead) => void;
+  onSwitchToCompanies?: (companyName: string) => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
 }
@@ -80,6 +81,7 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
   onPageChange,
   onLeadClick,
   onViewEmail,
+  onSwitchToCompanies,
   isMobileOpen,
   onCloseMobile,
 }) => {
@@ -159,6 +161,12 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
             totalFormatted={data?.totalFormatted}
             onPageChange={onPageChange}
             onClearFilters={onClearAllFilters}
+            activeCompany={filters.company || (filters.organizationId ? 'Selected Organization' : undefined)}
+            onClearCompanyFilter={() => {
+              if (filters.company) onRemoveFilter('company', filters.company);
+              if (filters.organizationId) onRemoveFilter('organizationId', filters.organizationId);
+            }}
+            onSearchCompanies={onSwitchToCompanies}
           />
         </div>
       </div>

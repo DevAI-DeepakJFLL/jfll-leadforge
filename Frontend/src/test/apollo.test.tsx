@@ -17,6 +17,8 @@ import {
   ApolloDetailDrawer,
   ApolloContextBanner,
 } from '@/components/apollo';
+import { LeadsTable } from '@/components/leads/LeadsTable';
+import { ActiveFilterChips } from '@/components/filters/ActiveFilterChips';
 import { ApolloLead } from '@/types/apolloLead';
 import { Lead } from '@/types/lead';
 
@@ -256,6 +258,72 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('Corporate Account Directory:');
       expect(html).toContain('verified in-drawer decision-makers');
       expect(html).toContain('Search Decision-Makers in People Tab');
+    });
+
+    it('renders LeadsTable contextual company empty state when activeCompany is provided and leads are empty', () => {
+      const html = renderToString(
+        <LeadsTable
+          leads={[]}
+          rowSelection={{}}
+          onRowSelectionChange={() => {}}
+          currentPage={1}
+          totalPages={1}
+          onPageChange={() => {}}
+          activeCompany="TRENT LIMITED"
+          onClearCompanyFilter={() => {}}
+          onSearchCompanies={() => {}}
+        />
+      );
+
+      expect(html).toContain('No decision-makers indexed for');
+      expect(html).toContain('TRENT LIMITED');
+      expect(html).toContain('Customs Entity Cataloged • 0 Indexed Contacts');
+      expect(html).toContain('Clear Company Filter');
+      expect(html).toContain('Search in Companies Directory');
+      expect(html).toContain('Subsidiary vs Parent:');
+    });
+
+    it('renders LeadsTable standard empty state when activeCompany is not provided and leads are empty', () => {
+      const html = renderToString(
+        <LeadsTable
+          leads={[]}
+          rowSelection={{}}
+          onRowSelectionChange={() => {}}
+          currentPage={1}
+          totalPages={1}
+          onPageChange={() => {}}
+          onClearFilters={() => {}}
+        />
+      );
+
+      expect(html).toContain('No leads match your selected filters');
+      expect(html).toContain('Clear All Filters');
+    });
+
+    it('renders ActiveFilterChips with company highlight badge when company filter is active', () => {
+      const html = renderToString(
+        <ActiveFilterChips
+          filters={{
+            company: 'TRENT LIMITED',
+            tab: 'all',
+            sortOrder: 'asc',
+            page: 1,
+            limit: 25,
+            jobTitles: [],
+            departments: [],
+            locations: [],
+            industries: [],
+            status: [],
+            companySize: [],
+          }}
+          onRemoveFilter={() => {}}
+          onClearAll={() => {}}
+        />
+      );
+
+      expect(html).toContain('Company:');
+      expect(html).toContain('TRENT LIMITED');
+      expect(html).toContain('Clear all');
     });
 
     it('returns empty list for queryCompanyContactsLocal since hardcoded contacts were removed', () => {

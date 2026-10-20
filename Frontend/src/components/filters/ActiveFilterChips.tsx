@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, RotateCcw } from 'lucide-react';
+import { X, RotateCcw, Building2 } from 'lucide-react';
 import { FilterParams } from '@/types/lead';
 
 export interface ActiveFilterChipsProps {
@@ -109,26 +109,46 @@ export const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
         Filtered by:
       </span>
 
-      {chips.map((chip, idx) => (
-        <span
-          key={`${chip.key}-${chip.value}-${idx}`}
-          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/80 transition-colors shadow-2xs group"
-        >
-          <span className="text-slate-400 font-medium text-[11px]">{chip.category}:</span>
-          <span className="font-medium text-slate-800 max-w-[140px] truncate">
-            {chip.label}
-          </span>
-          <button
-            type="button"
-            onClick={() => onRemoveFilter(chip.key, chip.value)}
-            className="p-1 -mr-1 rounded-full text-slate-400 hover:text-slate-800 hover:bg-slate-300/60 transition-colors focus:outline-none focus:ring-1 focus:ring-apollo cursor-pointer"
-            title={`Remove ${chip.category}: ${chip.label}`}
-            aria-label={`Remove filter ${chip.category} ${chip.label}`}
+      {chips.map((chip, idx) => {
+        const isCompanyChip = chip.key === 'company' || chip.key === 'organizationId';
+        return (
+          <span
+            key={`${chip.key}-${chip.value}-${idx}`}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs transition-colors shadow-2xs group ${
+              isCompanyChip
+                ? 'bg-blue-50 hover:bg-blue-100/90 text-blue-900 border border-blue-200/90 font-medium'
+                : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/80'
+            }`}
           >
-            <X className="w-3 h-3" />
-          </button>
-        </span>
-      ))}
+            {isCompanyChip && <Building2 className="w-3 h-3 text-apollo shrink-0" />}
+            <span
+              className={
+                isCompanyChip
+                  ? 'text-blue-600 font-semibold text-[11px]'
+                  : 'text-slate-400 font-medium text-[11px]'
+              }
+            >
+              {chip.category}:
+            </span>
+            <span className="font-semibold text-slate-900 max-w-[160px] truncate">
+              {chip.label}
+            </span>
+            <button
+              type="button"
+              onClick={() => onRemoveFilter(chip.key, chip.value)}
+              className={`p-1 -mr-1 rounded-full transition-colors focus:outline-none focus:ring-1 focus:ring-apollo cursor-pointer ${
+                isCompanyChip
+                  ? 'text-blue-500 hover:text-blue-950 hover:bg-blue-200/60'
+                  : 'text-slate-400 hover:text-slate-800 hover:bg-slate-300/60'
+              }`}
+              title={`Remove ${chip.category}: ${chip.label}`}
+              aria-label={`Remove filter ${chip.category} ${chip.label}`}
+            >
+              <X className="w-3 h-3" />
+            </button>
+          </span>
+        );
+      })}
 
       <button
         type="button"
