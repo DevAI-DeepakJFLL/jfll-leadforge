@@ -170,7 +170,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       }
       return undefined;
     },
-    staleTime: 60000,
   });
 
   // Batch save mutation
