@@ -1,10 +1,10 @@
-import { UserSession, DEMO_CREDENTIALS } from '@/types/auth';
+import { UserSession, AUTHORIZED_USERS } from '@/types/auth';
 import { logger } from '@/utils/logger';
 import { API_BASE_URL } from '@/config/api';
 
 export interface LoginCredentials {
   email: string;
-  password: string;
+  password?: string;
 }
 
 export interface BackendAuthResponse {
@@ -17,21 +17,26 @@ export interface BackendAuthResponse {
 }
 
 /**
- * Authenticates user credentials against the Backend AWS/REST API.
- * Gracefully falls back to offline enterprise credentials if backend is completely unreachable.
+ * Authenticates user work email against the Backend AWS/REST API.
+ * Gracefully falls back to offline authorized enterprise credentials if backend is completely unreachable.
  */
 export async function loginUser(credentials: LoginCredentials): Promise<UserSession> {
-  const { email, password } = credentials;
+  const normalizedEmail = credentials.email.trim().toLowerCase();
   const startTime = performance.now();
-  logger.info('AUTH', 'Initiating user authentication', { email: email.trim() });
+  logger.info('AUTH', 'Initiating user authentication', { email: normalizedEmail });
 
   try {
+    const payload: { email: string; password?: string } = { email: normalizedEmail };
+    if (credentials.password) {
+      payload.password = credentials.password;
+    }
+
     const res = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: email.trim(), password }),
+      body: JSON.stringify(payload),
     });
 
     const durationMs = performance.now() - startTime;
@@ -39,15 +44,22 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
 
     if (res.status === 401) {
       const errData = await res.json().catch(() => ({}));
-      const message = errData.detail || 'Invalid work email or password. Please verify your credentials.';
-      logger.warn('AUTH', 'Authentication rejected: Invalid credentials', { email, status: 401 });
+      const message =
+        errData.detail || 'Access restricted. Only authorized Jet Freight Logistics personnel can sign in.';
+      logger.warn('AUTH', 'Authentication rejected: Unauthorized work email', {
+        email: normalizedEmail,
+        status: 401,
+      });
       throw new Error(message);
     }
 
     if (!res.ok) {
       const errData = await res.json().catch(() => ({}));
       const message = errData.detail || `Authentication failed with status HTTP ${res.status}`;
-      logger.error('AUTH', 'Authentication server error', undefined, { email, status: res.status });
+      logger.error('AUTH', 'Authentication server error', undefined, {
+        email: normalizedEmail,
+        status: res.status,
+      });
       throw new Error(message);
     }
 
@@ -66,22 +78,28 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
     };
   } catch (err: unknown) {
     const msg = (err as Error)?.message || '';
-    if (msg.includes('Invalid work email or password')) {
+    if (
+      msg.includes('Access restricted') ||
+      msg.includes('Invalid work email') ||
+      msg.includes('Authentication failed with status HTTP')
+    ) {
       throw err;
     }
 
     console.warn('[AuthService] Backend API unreachable, checking offline enterprise credentials:', err);
-    if (
-      email.trim().toLowerCase() === DEMO_CREDENTIALS.email.toLowerCase() &&
-      password === DEMO_CREDENTIALS.password
-    ) {
+    const matchingUser = AUTHORIZED_USERS.find(
+      (u) => u.email.toLowerCase() === normalizedEmail
+    );
+
+    if (matchingUser) {
       return {
-        email: DEMO_CREDENTIALS.email,
-        name: DEMO_CREDENTIALS.name,
-        role: DEMO_CREDENTIALS.role,
+        email: matchingUser.email,
+        name: matchingUser.name,
+        role: matchingUser.role,
         token: `offline_session_${Date.now()}`,
       };
     }
-    throw new Error('Invalid work email or password. Please verify your credentials.');
+
+    throw new Error('Access restricted. Only authorized Jet Freight Logistics personnel can sign in.');
   }
 }

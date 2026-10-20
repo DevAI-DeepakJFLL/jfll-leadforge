@@ -6,10 +6,39 @@ export interface UserSession {
   token: string;
 }
 
-// Enterprise test credentials for Jet Freight Logistics internal portal
+export interface AuthorizedUser {
+  email: string;
+  name: string;
+  role: string;
+  avatar?: string;
+}
+
+export const AUTHORIZED_USERS: AuthorizedUser[] = [
+  {
+    email: 'tyra.theknath@jfll.com',
+    name: 'Tyra Theknath',
+    role: 'Leadership',
+  },
+  {
+    email: 'deepak.naidu@jfll.com',
+    name: 'Deepak Naidu',
+    role: 'Tech Lead',
+  },
+  {
+    email: 'akash.dhara@jfll.com',
+    name: 'Akash Dhara',
+    role: 'Operations',
+  },
+  {
+    email: 'snehal.birje@jfll.com',
+    name: 'Snehal Birje',
+    role: 'Commercial',
+  },
+];
+
+// Enterprise primary test credentials for Jet Freight Logistics internal portal
 export const DEMO_CREDENTIALS = {
-  email: 'leads@jfll.com',
-  password: 'Jet@123',
-  name: 'JFLL',
-  role: 'Internal Team',
+  email: 'deepak.naidu@jfll.com',
+  name: 'Deepak Naidu',
+  role: 'Tech Lead',
 };
