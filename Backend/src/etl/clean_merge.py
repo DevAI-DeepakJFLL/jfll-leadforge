@@ -4,9 +4,10 @@ Cleans, normalizes, deduplicates, and formats Active Customer leads.
 Produces active_customers_leads.csv and active_customers_leads_zstd.parquet.
 """
 
-from pathlib import Path
 import re
 import unicodedata
+from pathlib import Path
+
 import pandas as pd
 
 

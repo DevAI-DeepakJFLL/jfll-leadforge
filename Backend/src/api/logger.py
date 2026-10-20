@@ -3,8 +3,9 @@ import logging
 import sys
 import time
 import uuid
-from datetime import datetime, timezone
-from typing import Any, Dict
+from datetime import UTC, datetime
+from typing import Any
+
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
@@ -17,8 +18,8 @@ class CloudWatchJSONFormatter(logging.Formatter):
     """
 
     def format(self, record: logging.LogRecord) -> str:
-        log_payload: Dict[str, Any] = {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+        log_payload: dict[str, Any] = {
+            "timestamp": datetime.now(UTC).isoformat(),
             "level": record.levelname,
             "logger": record.name,
             "message": record.getMessage(),

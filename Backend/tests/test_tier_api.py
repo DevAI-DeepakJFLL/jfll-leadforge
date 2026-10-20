@@ -1,5 +1,6 @@
 """Tests for the isolated Tier A / Tier B API router (/api/v1/tiers)."""
 from fastapi.testclient import TestClient
+
 from src.api.main import app
 
 client = TestClient(app)

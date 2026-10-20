@@ -1,13 +1,14 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from src.api.auth import router as auth_router
 from src.api.config import settings
+from src.api.logger import CloudWatchLoggingMiddleware
 from src.api.models import HealthResponse
 from src.api.routes import router as leads_router
-from src.api.auth import router as auth_router
 from src.api.tier_routes import tier_router
-from src.api.logger import CloudWatchLoggingMiddleware
-
-import os
 
 is_production = settings.env == "production"
 

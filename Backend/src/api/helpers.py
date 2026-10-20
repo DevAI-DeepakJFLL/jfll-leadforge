@@ -1,12 +1,14 @@
 import re
-from typing import Any, Optional, Dict
+from typing import Any
+
 from fastapi import HTTPException
 from fastapi.params import Query as QueryType
-from src.api.config import settings
+
 from src.api.auth import verify_token
+from src.api.config import settings
 
 
-def require_auth(authorization: Optional[str], resource_name: str = "leads") -> Dict[str, Any]:
+def require_auth(authorization: str | None, resource_name: str = "leads") -> dict[str, Any]:
     """
     Validates Bearer token if provided, and enforces authentication in production environments.
     Returns the decoded user payload or empty dict in local non-production environments without token.

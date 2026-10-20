@@ -1,6 +1,6 @@
+
 import duckdb
-import pytest
-from pathlib import Path
+
 from scripts.sort_contacts_parquet import sort_parquet_dataset
 
 

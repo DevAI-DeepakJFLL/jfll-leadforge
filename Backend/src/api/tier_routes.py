@@ -3,10 +3,12 @@ Directly implements Section 1, 6, 7, and 10 of tier_segmentation_spec.md.
 Cleanly decoupled from core leads, datamyne, and apollo endpoints.
 """
 import uuid
-from typing import Optional, Dict, Any
+from typing import Any
+
 from fastapi import APIRouter, HTTPException, Query
+
 from src.api.config import settings
-from src.api.database import get_db_connection, get_cached_parquet_path
+from src.api.database import get_cached_parquet_path, get_db_connection
 from src.api.logger import logger
 from src.services.tier_scoring_engine import evaluate_capacity_threshold
 
@@ -21,10 +23,10 @@ def _handle_tier_exception(context_msg: str, err: Exception) -> HTTPException:
             status_code=500,
             detail=f"{context_msg}. Please reference incident {incident_id}",
         )
-    return HTTPException(status_code=500, detail=f"{context_msg}: {str(err)}")
+    return HTTPException(status_code=500, detail=f"{context_msg}: {err!s}")
 
 
-def _format_score_breakdown(record: Dict[str, Any], pop: bool = False) -> Dict[str, int]:
+def _format_score_breakdown(record: dict[str, Any], pop: bool = False) -> dict[str, int]:
     """Helper to assemble structured score breakdown dictionary from flat row."""
     extractor = record.pop if pop else record.get
     return {
@@ -41,7 +43,7 @@ def _format_score_breakdown(record: Dict[str, Any], pop: bool = False) -> Dict[s
 
 
 @tier_router.get("/counts", summary="Get Tier A/B status counts and capacity telemetry")
-def get_tier_counts() -> Dict[str, Any]:
+def get_tier_counts() -> dict[str, Any]:
     """Returns real-time distribution across Tier A, Tier B, Parked, Excluded, and Unscored."""
     try:
         tier_path = get_cached_parquet_path("datamyne_tiers")
@@ -80,10 +82,10 @@ def get_tier_counts() -> Dict[str, Any]:
 
 @tier_router.get("/leads", summary="Query paginated leads enriched with Tier A/B scoring")
 def get_tier_leads(
-    status: Optional[str] = Query(default=None, description="Filter: 'Tier A', 'Tier B', 'Parked', 'Excluded', 'Unscored', or None for all"),
-    search: Optional[str] = Query(default=None, description="Search company name or city"),
-    min_score: Optional[int] = Query(default=None, ge=0, le=100),
-    max_score: Optional[int] = Query(default=None, ge=0, le=100),
+    status: str | None = Query(default=None, description="Filter: 'Tier A', 'Tier B', 'Parked', 'Excluded', 'Unscored', or None for all"),
+    search: str | None = Query(default=None, description="Search company name or city"),
+    min_score: int | None = Query(default=None, ge=0, le=100),
+    max_score: int | None = Query(default=None, ge=0, le=100),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=25, ge=1, le=100),
 ):
@@ -207,7 +209,7 @@ def get_tier_leads(
 
 
 @tier_router.get("/{lead_id}/breakdown", summary="Get detailed score breakdown for a lead")
-def get_lead_score_breakdown(lead_id: str) -> Dict[str, Any]:
+def get_lead_score_breakdown(lead_id: str) -> dict[str, Any]:
     """Returns the full criterion-by-criterion score audit for a single lead."""
     try:
         tier_path = get_cached_parquet_path("datamyne_tiers")

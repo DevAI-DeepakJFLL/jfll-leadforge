@@ -1,5 +1,5 @@
-import pytest
 from src.api.database import get_db_connection
+
 
 def test_duckdb_persistent_connection_and_pragmas():
     con1 = get_db_connection()
@@ -31,7 +31,7 @@ def test_duckdb_persistent_connection_and_pragmas():
 
 
 def test_company_resolution_lru_cache():
-    from src.api.cache import resolve_company_ids_cached, clear_company_cache
+    from src.api.cache import clear_company_cache, resolve_company_ids_cached
     clear_company_cache()
     
     con = get_db_connection()
@@ -56,6 +56,7 @@ def test_company_resolution_lru_cache():
 
 def test_company_contacts_peek_pagination():
     from fastapi.testclient import TestClient
+
     from src.api.main import app
 
     client = TestClient(app)
@@ -85,6 +86,7 @@ def test_company_contacts_peek_pagination():
 
 def test_search_apollo_contacts_peek_pagination_and_no_join():
     from fastapi.testclient import TestClient
+
     from src.api.main import app
 
     client = TestClient(app)

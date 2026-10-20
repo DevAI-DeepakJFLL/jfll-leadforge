@@ -10,6 +10,7 @@ Produces:
 import os
 import time
 from pathlib import Path
+
 import duckdb
 
 # Master list of 50 freight-active commercial verticals
@@ -31,7 +32,7 @@ FREIGHT_ACTIVE_INDUSTRIES = [
 ]
 
 
-def run_apollo_etl(source_tsv_path: str = None, output_parquet_path: str = None):
+def run_apollo_etl(source_tsv_path: str | Path | None = None, output_parquet_path: str | Path | None = None):
     """
     Executes the Apollo freight leads ETL pipeline.
     If source TSV is missing but processed parquet exists, performs integrity validation.

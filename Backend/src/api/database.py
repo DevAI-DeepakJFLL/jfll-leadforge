@@ -1,11 +1,15 @@
+import logging
 import os
 import threading
 from pathlib import Path
-from typing import Optional
+
 import duckdb
+
 from src.api.config import settings
 
-_SHARED_CONNECTION: Optional[duckdb.DuckDBPyConnection] = None
+logger = logging.getLogger(__name__)
+
+_SHARED_CONNECTION: duckdb.DuckDBPyConnection | None = None
 _INIT_LOCK = threading.Lock()
 
 def get_db_connection() -> duckdb.DuckDBPyConnection:
@@ -18,8 +22,8 @@ def get_db_connection() -> duckdb.DuckDBPyConnection:
                 try:
                     con.execute("SET home_directory = '/tmp';")
                     con.execute("SET extension_directory = '/tmp/duckdb_extensions';")
-                except Exception:
-                    pass
+                except Exception as err:
+                    logger.debug("Non-critical DuckDB directory PRAGMA notice: %s", err)
 
                 # Performance & Memory PRAGMAs for Serverless Lambda
                 try:
@@ -28,43 +32,50 @@ def get_db_connection() -> duckdb.DuckDBPyConnection:
                     con.execute("SET preserve_insertion_order = false;")
                     con.execute("SET enable_http_metadata_cache = true;")
                     con.execute("SET http_keep_alive = true;")
-                except Exception:
-                    pass
+                except Exception as err:
+                    logger.debug("Non-critical DuckDB serverless PRAGMA notice: %s", err)
 
                 try:
                     con.execute("LOAD httpfs;")
                 except Exception:
                     try:
                         con.execute("INSTALL httpfs; LOAD httpfs;")
-                    except Exception:
-                        pass
+                    except Exception as err:
+                        logger.warning("Could not load DuckDB httpfs extension: %s", err)
 
                 if settings.env == "local":
                     try:
+                        clean_endpoint = settings.floci_endpoint.replace("'", "''")
+                        clean_access_key = settings.aws_access_key_id.replace("'", "''")
+                        clean_secret_key = settings.aws_secret_access_key.replace("'", "''")
                         con.execute(f"""
-                            SET s3_endpoint = '{settings.floci_endpoint}';
+                            SET s3_endpoint = '{clean_endpoint}';
                             SET s3_use_ssl = false;
                             SET s3_url_style = 'path';
-                            SET s3_access_key_id = '{settings.aws_access_key_id}';
-                            SET s3_secret_access_key = '{settings.aws_secret_access_key}';
+                            SET s3_access_key_id = '{clean_access_key}';
+                            SET s3_secret_access_key = '{clean_secret_key}';
                         """)
-                    except Exception:
-                        pass
+                    except Exception as err:
+                        logger.warning("Error configuring local S3/Floci credentials: %s", err)
                 else:
                     try:
-                        con.execute(f"SET s3_region = '{settings.aws_region}';")
+                        clean_region = settings.aws_region.replace("'", "''")
+                        con.execute(f"SET s3_region = '{clean_region}';")
                         access_key = os.getenv("AWS_ACCESS_KEY_ID")
                         secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
                         session_token = os.getenv("AWS_SESSION_TOKEN")
                         if access_key and secret_key:
+                            clean_ak = access_key.replace("'", "''")
+                            clean_sk = secret_key.replace("'", "''")
                             con.execute(f"""
-                                SET s3_access_key_id = '{access_key}';
-                                SET s3_secret_access_key = '{secret_key}';
+                                SET s3_access_key_id = '{clean_ak}';
+                                SET s3_secret_access_key = '{clean_sk}';
                             """)
                         if session_token:
-                            con.execute(f"SET s3_session_token = '{session_token}';")
-                    except Exception:
-                        pass
+                            clean_st = session_token.replace("'", "''")
+                            con.execute(f"SET s3_session_token = '{clean_st}';")
+                    except Exception as err:
+                        logger.warning("Error configuring AWS S3 credentials in DuckDB: %s", err)
 
                 _SHARED_CONNECTION = con
 

@@ -3,13 +3,14 @@ In-memory LRU caching layer for corporate name and entity resolution in DuckDB.
 Prevents repeated full-table or S3 range scans for frequent company queries.
 """
 from functools import lru_cache
-from typing import List, Tuple, Optional
+
 import duckdb
+
 from src.api.helpers import build_company_search_sql
 
 
 @lru_cache(maxsize=1024)
-def _cached_lookup(company_term: str, apollo_source: str) -> Tuple[str, ...]:
+def _cached_lookup(company_term: str, apollo_source: str) -> tuple[str, ...]:
     """Execute parameterized query to resolve corporate search term to organization IDs."""
     from src.api.database import get_db_connection
     con = get_db_connection()
@@ -22,10 +23,10 @@ def _cached_lookup(company_term: str, apollo_source: str) -> Tuple[str, ...]:
 
 
 def resolve_company_ids_cached(
-    company_name: Optional[str],
+    company_name: str | None,
     apollo_source: str,
-    con: Optional[duckdb.DuckDBPyConnection] = None
-) -> List[str]:
+    con: duckdb.DuckDBPyConnection | None = None
+) -> list[str]:
     """
     Resolves corporate search term to matched organization IDs using in-memory LRU cache.
     Normalizes input by stripping whitespace and converting to lowercase.

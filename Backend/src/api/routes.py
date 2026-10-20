@@ -1,23 +1,24 @@
 import uuid
-from typing import List, Optional
-from fastapi import APIRouter, HTTPException, Query, Header
+
+from fastapi import APIRouter, Header, HTTPException, Query
+
+from src.api.cache import resolve_company_ids_cached
 from src.api.config import settings
 from src.api.database import get_db_connection
-from src.api.models import (
-    PaginatedResponse,
-    AudienceCounts,
-    ApolloPaginatedResponse,
-    ApolloAudienceCounts,
-    ApolloContactsPaginatedResponse,
+from src.api.helpers import (
+    SQL_EXTRACT_EMPLOYER_NAME,
+    build_company_search_sql,
+    clean_corporate_term,
+    normalize_query,
+    require_auth,
 )
 from src.api.logger import logger
-from src.api.cache import resolve_company_ids_cached
-from src.api.helpers import (
-    require_auth,
-    normalize_query,
-    clean_corporate_term,
-    build_company_search_sql,
-    SQL_EXTRACT_EMPLOYER_NAME,
+from src.api.models import (
+    ApolloAudienceCounts,
+    ApolloContactsPaginatedResponse,
+    ApolloPaginatedResponse,
+    AudienceCounts,
+    PaginatedResponse,
 )
 
 router = APIRouter(prefix="/api/v1", tags=["Leads"])
@@ -35,7 +36,7 @@ def _handle_db_exception(context_msg: str, err: Exception, source: str = "unknow
             status_code=500,
             detail=f"{context_msg}. Please contact support with incident reference: {incident_id}",
         )
-    return HTTPException(status_code=500, detail=f"{context_msg}: {str(err)}")
+    return HTTPException(status_code=500, detail=f"{context_msg}: {err!s}")
 
 
 def get_data_source(con, dataset: str = "active") -> str:
@@ -45,8 +46,8 @@ def get_data_source(con, dataset: str = "active") -> str:
         cached_path = get_cached_parquet_path(dataset)
         if cached_path.exists():
             return str(cached_path)
-    except Exception:
-        pass
+    except Exception as err:
+        logger.debug("Local cached parquet check notice for %s: %s", dataset, err)
     return settings.s3_uri_for(dataset)
 
 
@@ -54,16 +55,16 @@ def get_data_source(con, dataset: str = "active") -> str:
 def list_leads(
     page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
     page_size: int = Query(default=25, ge=1, le=100, description="Records per page (max 100)"),
-    status: Optional[str] = Query(default=None, description="Filter by status: 'Active' or 'Not Active'"),
-    customer_group: Optional[str] = Query(default=None, description="Single Customer Group filter"),
-    customer_groups: Optional[List[str]] = Query(default=None, description="Multi-select Customer Groups"),
-    types: Optional[List[str]] = Query(default=None, description="Multi-select Legal Types"),
-    has_phone: Optional[bool] = Query(default=None, description="Require valid phone number"),
-    has_email: Optional[bool] = Query(default=None, description="Require valid email address"),
-    has_contact_person: Optional[bool] = Query(default=None, description="Require contact person name"),
-    tab: Optional[str] = Query(default=None, description="Audience quick tab: all, shippers, subagents, overseas, with-contacts"),
-    search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search company, contact person or email"),
-    authorization: Optional[str] = Header(None, description="Optional bearer token for authenticated session"),
+    status: str | None = Query(default=None, description="Filter by status: 'Active' or 'Not Active'"),
+    customer_group: str | None = Query(default=None, description="Single Customer Group filter"),
+    customer_groups: list[str] | None = Query(default=None, description="Multi-select Customer Groups"),
+    types: list[str] | None = Query(default=None, description="Multi-select Legal Types"),
+    has_phone: bool | None = Query(default=None, description="Require valid phone number"),
+    has_email: bool | None = Query(default=None, description="Require valid email address"),
+    has_contact_person: bool | None = Query(default=None, description="Require contact person name"),
+    tab: str | None = Query(default=None, description="Audience quick tab: all, shippers, subagents, overseas, with-contacts"),
+    search: str | None = Query(default=None, min_length=1, max_length=100, description="Search company, contact person or email"),
+    authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
 ):
     require_auth(authorization, "customer leads")
 
@@ -233,19 +234,19 @@ ALLOWED_APOLLO_TABS = {"all", "high_headcount", "high_revenue", "top_cargo_verti
 def list_apollo_leads(
     page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
     page_size: int = Query(default=25, ge=1, le=100, description="Records per page (max 100)"),
-    industry: Optional[str] = Query(default=None, description="Single industry filter"),
-    industries: Optional[List[str]] = Query(default=None, description="Multi-select cargo verticals"),
-    country: Optional[str] = Query(default=None, description="Single country filter"),
-    countries: Optional[List[str]] = Query(default=None, description="Multi-select countries"),
-    state: Optional[str] = Query(default=None, description="State/Province filter"),
-    min_employees: Optional[int] = Query(default=None, ge=0, description="Minimum headcount"),
-    max_employees: Optional[int] = Query(default=None, ge=0, description="Maximum headcount"),
-    min_revenue: Optional[int] = Query(default=None, ge=0, description="Minimum annual revenue USD"),
-    has_website: Optional[bool] = Query(default=None, description="Require corporate website"),
-    has_linkedin: Optional[bool] = Query(default=None, description="Require LinkedIn profile"),
-    tab: Optional[str] = Query(default=None, description="Audience quick tab"),
-    search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search company, domain, keywords"),
-    authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
+    industry: str | None = Query(default=None, description="Single industry filter"),
+    industries: list[str] | None = Query(default=None, description="Multi-select cargo verticals"),
+    country: str | None = Query(default=None, description="Single country filter"),
+    countries: list[str] | None = Query(default=None, description="Multi-select countries"),
+    state: str | None = Query(default=None, description="State/Province filter"),
+    min_employees: int | None = Query(default=None, ge=0, description="Minimum headcount"),
+    max_employees: int | None = Query(default=None, ge=0, description="Maximum headcount"),
+    min_revenue: int | None = Query(default=None, ge=0, description="Minimum annual revenue USD"),
+    has_website: bool | None = Query(default=None, description="Require corporate website"),
+    has_linkedin: bool | None = Query(default=None, description="Require LinkedIn profile"),
+    tab: str | None = Query(default=None, description="Audience quick tab"),
+    search: str | None = Query(default=None, min_length=1, max_length=100, description="Search company, domain, keywords"),
+    authorization: str | None = Header(None, description="Bearer token for authenticated session"),
 ):
     require_auth(authorization, "Apollo leads")
 
@@ -464,11 +465,11 @@ def list_company_contacts(
     organization_id: str,
     page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
     page_size: int = Query(default=20, ge=1, le=100, description="Records per page (max 100)"),
-    logistics_only: Optional[bool] = Query(default=None, description="Filter for freight/logistics/procurement specialists"),
-    decision_makers_only: Optional[bool] = Query(default=None, description="Filter for C-Suite/VP/Director/Manager"),
-    has_email_only: Optional[bool] = Query(default=None, description="Require direct business email"),
-    search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search by name, title, or email"),
-    authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
+    logistics_only: bool | None = Query(default=None, description="Filter for freight/logistics/procurement specialists"),
+    decision_makers_only: bool | None = Query(default=None, description="Filter for C-Suite/VP/Director/Manager"),
+    has_email_only: bool | None = Query(default=None, description="Require direct business email"),
+    search: str | None = Query(default=None, min_length=1, max_length=100, description="Search by name, title, or email"),
+    authorization: str | None = Header(None, description="Bearer token for authenticated session"),
 ):
     require_auth(authorization, "Apollo contacts")
 
@@ -565,16 +566,16 @@ def list_company_contacts(
 def search_apollo_contacts(
     page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
     page_size: int = Query(default=25, ge=1, le=100, description="Records per page (max 100)"),
-    organization_id: Optional[str] = Query(default=None, description="Filter by exact Apollo organization ID"),
-    seniority: Optional[str] = Query(default=None, description="Seniority tier: c_suite, vp, director, manager, senior, entry"),
-    department: Optional[str] = Query(default=None, description="Functional department"),
-    logistics_only: Optional[bool] = Query(default=None, description="Require logistics/supply chain/freight role"),
-    decision_makers_only: Optional[bool] = Query(default=None, description="Require decision maker seniority"),
-    has_email_only: Optional[bool] = Query(default=None, description="Require direct business email"),
-    country: Optional[str] = Query(default=None, description="Contact country"),
-    company: Optional[str] = Query(default=None, description="Filter by company / employer name"),
-    search: Optional[str] = Query(default=None, min_length=1, max_length=100, description="Search name, title, company, email"),
-    authorization: Optional[str] = Header(None, description="Bearer token for authenticated session"),
+    organization_id: str | None = Query(default=None, description="Filter by exact Apollo organization ID"),
+    seniority: str | None = Query(default=None, description="Seniority tier: c_suite, vp, director, manager, senior, entry"),
+    department: str | None = Query(default=None, description="Functional department"),
+    logistics_only: bool | None = Query(default=None, description="Require logistics/supply chain/freight role"),
+    decision_makers_only: bool | None = Query(default=None, description="Require decision maker seniority"),
+    has_email_only: bool | None = Query(default=None, description="Require direct business email"),
+    country: str | None = Query(default=None, description="Contact country"),
+    company: str | None = Query(default=None, description="Filter by company / employer name"),
+    search: str | None = Query(default=None, min_length=1, max_length=100, description="Search name, title, company, email"),
+    authorization: str | None = Header(None, description="Bearer token for authenticated session"),
 ):
     require_auth(authorization, "Apollo contacts")
 

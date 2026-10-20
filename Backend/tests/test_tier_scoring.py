@@ -2,17 +2,14 @@
 Directly implements and verifies all test cases from Section 11 of tier_segmentation_spec.md.
 """
 from datetime import date
-import pytest
-from src.services.tier_scoring_engine import (
-    score_lead_record,
-    calculate_shipment_frequency_score,
-    calculate_recency_score,
-    calculate_tier_status,
-    check_required_fields,
-    TierScoringRecord,
-)
-from src.core.tier_rules_config import DEFAULT_TIER_CONFIG
 
+from src.services.tier_scoring_engine import (
+    TierScoringRecord,
+    calculate_recency_score,
+    calculate_shipment_frequency_score,
+    calculate_tier_status,
+    score_lead_record,
+)
 
 TEST_EVALUATION_DATE = date(2026, 10, 19)
 

@@ -1,7 +1,8 @@
-import os
 from pathlib import Path
+
 from src.api.config import settings
 from src.api.database import get_cached_parquet_path
+
 
 def test_s3_multi_dataset_uri_generation():
     assert "apollo_freight_leads_zstd.parquet" in settings.s3_uri_for("apollo")

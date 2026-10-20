@@ -2,10 +2,11 @@
 Implements the business logic specified in the JFLL Lead Generation SOP (Oct 9, 2026).
 """
 import re
-from datetime import date, datetime
-from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass
-from src.core.tier_rules_config import TierRulesConfig, DEFAULT_TIER_CONFIG
+from datetime import date, datetime
+from typing import Any
+
+from src.core.tier_rules_config import DEFAULT_TIER_CONFIG, TierRulesConfig
 
 
 @dataclass
@@ -16,37 +17,33 @@ class TierScoringRecord:
     total_score: int
     base_score: int
     bonus_points: int
-    score_breakdown: Dict[str, int]
-    missing_fields: List[str]
+    score_breakdown: dict[str, int]
+    missing_fields: list[str]
     scored_at: str
     rules_version: str
-    notice: Optional[str] = None
+    notice: str | None = None
 
 
 def check_required_fields(
-    lead: Dict[str, Any],
+    lead: dict[str, Any],
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
-) -> List[str]:
+) -> list[str]:
     """Checks if all required fields are present and non-empty.
     Section 3: A blank or None is_existing_customer counts as missing, not as false.
     """
     missing = []
     for f in config.required_fields:
         val = lead.get(f)
-        if val is None:
-            missing.append(f)
-        elif isinstance(val, str) and not val.strip():
-            missing.append(f)
-        elif f == "is_existing_customer" and val is None:
+        if val is None or isinstance(val, str) and not val.strip() or f == "is_existing_customer" and val is None:
             missing.append(f)
     return missing
 
 
 def check_exclusions(
-    lead: Dict[str, Any],
-    existing_customer_names: Optional[set] = None,
+    lead: dict[str, Any],
+    existing_customer_names: set | None = None,
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
-) -> Tuple[bool, Optional[str]]:
+) -> tuple[bool, str | None]:
     """Checks exclusions before scoring.
     1. Existing customer -> Excluded, reason: existing_customer
     2. Competitor forwarder -> Excluded, reason: competitor_forwarder
@@ -82,7 +79,7 @@ def calculate_shipment_frequency_score(
 
 
 def calculate_freight_control_score(
-    incoterm_raw: Optional[str],
+    incoterm_raw: str | None,
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
 ) -> int:
     """5.2 Freight control Incoterms (max 15 points)."""
@@ -106,7 +103,7 @@ def calculate_freight_control_score(
 
 
 def calculate_lane_score(
-    lane_raw: Optional[str],
+    lane_raw: str | None,
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
 ) -> int:
     """5.3 Lane fit (max 15 points)."""
@@ -124,9 +121,9 @@ def calculate_lane_score(
 
 
 def calculate_commodity_score(
-    commodity_raw: Optional[str],
-    subcategory_raw: Optional[str] = None,
-    hs_codes_raw: Optional[str] = None,
+    commodity_raw: str | None,
+    subcategory_raw: str | None = None,
+    hs_codes_raw: str | None = None,
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
 ) -> int:
     """5.4 Commodity fit (max 15 points)."""
@@ -144,8 +141,8 @@ def calculate_commodity_score(
 
 
 def calculate_mode_score(
-    mode_raw: Optional[str],
-    air_suitable: Optional[bool] = False,
+    mode_raw: str | None,
+    air_suitable: bool | None = False,
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
 ) -> int:
     """5.5 Mode score (max 15 points)."""
@@ -163,8 +160,8 @@ def calculate_mode_score(
 
 
 def calculate_volume_trend_score(
-    prior_6m: Optional[float] = None,
-    recent_6m: Optional[float] = None,
+    prior_6m: float | None = None,
+    recent_6m: float | None = None,
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
 ) -> int:
     """5.6 Volume trend (max 10 points)."""
@@ -196,7 +193,7 @@ def calculate_recency_score(
 
 def calculate_days_since(
     last_date_str: str,
-    evaluation_date: Optional[date] = None
+    evaluation_date: date | None = None
 ) -> int:
     """Computes days from shipment date to evaluation date."""
     if evaluation_date is None:
@@ -218,9 +215,9 @@ def calculate_days_since(
 
 
 def calculate_bonuses(
-    lead: Dict[str, Any],
+    lead: dict[str, Any],
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
-) -> Tuple[int, Dict[str, int]]:
+) -> tuple[int, dict[str, int]]:
     """5.8 Bonuses (+5 regulated plant, +5 branch cluster match)."""
     bonuses = {"regulated_plant_bonus": 0, "cluster_bonus": 0}
 
@@ -251,9 +248,9 @@ def calculate_tier_status(
 
 
 def score_lead_record(
-    lead: Dict[str, Any],
-    existing_customer_names: Optional[set] = None,
-    evaluation_date: Optional[date] = None,
+    lead: dict[str, Any],
+    existing_customer_names: set | None = None,
+    evaluation_date: date | None = None,
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
 ) -> TierScoringRecord:
     """Full end-to-end evaluation of a lead record according to SOP Stage 2.
@@ -379,10 +376,10 @@ def score_lead_record(
 
 
 def evaluate_capacity_threshold(
-    status_counts: Dict[str, int],
+    status_counts: dict[str, int],
     monthly_capacity: int = 150,
     config: TierRulesConfig = DEFAULT_TIER_CONFIG
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """6.2 Capacity check:
     Ensures Tier A represents approximately top 10% to 20% of scored list or stays within monthly capacity.
     """

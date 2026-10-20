@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
-from typing import ClassVar, Dict
+from typing import ClassVar
+
 from pydantic import BaseModel, Field, model_validator
 
 
@@ -14,7 +15,7 @@ class Settings(BaseModel):
     parquet_key: str = Field(default_factory=lambda: os.getenv("PARQUET_KEY", "leads/active_customers_leads_zstd.parquet"))
     aws_access_key_id: str = Field(default_factory=lambda: os.getenv("AWS_ACCESS_KEY_ID", "test"))
     aws_secret_access_key: str = Field(default_factory=lambda: os.getenv("AWS_SECRET_ACCESS_KEY", "test"))
-    api_host: str = Field(default_factory=lambda: os.getenv("API_HOST", "0.0.0.0"))
+    api_host: str = Field(default_factory=lambda: os.getenv("API_HOST", "127.0.0.1" if os.getenv("ENV") == "local" else "0.0.0.0"))
     api_port: int = Field(default_factory=lambda: int(os.getenv("API_PORT", "8000")))
     auth_secret_key: str = Field(default_factory=lambda: os.getenv("AUTH_SECRET_KEY", "jfll-lead-sourcing-secret-key-2026-enterprise"))
     auth_token_expire_hours: int = Field(default_factory=lambda: int(os.getenv("AUTH_TOKEN_EXPIRE_HOURS", "24")))
@@ -25,19 +26,20 @@ class Settings(BaseModel):
 
     @model_validator(mode="after")
     def validate_production_security(self):
-        if self.env == "production":
-            if not self.auth_secret_key or self.auth_secret_key == self.DEFAULT_INSECURE_SECRET:
-                raise ValueError(
-                    "CRITICAL SECURITY CONFIGURATION ERROR: AUTH_SECRET_KEY must be set to a secure, "
-                    "high-entropy secret in production environments. Using the default placeholder is disallowed."
-                )
+        if self.env == "production" and (
+            not self.auth_secret_key or self.auth_secret_key == self.DEFAULT_INSECURE_SECRET
+        ):
+            raise ValueError(
+                "CRITICAL SECURITY CONFIGURATION ERROR: AUTH_SECRET_KEY must be set to a secure, "
+                "high-entropy secret in production environments. Using the default placeholder is disallowed."
+            )
         return self
 
     cache_dir: Path = Field(
         default_factory=lambda: Path(os.getenv("S3_CACHE_DIR", "/tmp/lead_cache" if os.getenv("AWS_LAMBDA_FUNCTION_NAME") else str(Path(__file__).resolve().parent.parent.parent / "data" / "processed")))
     )
 
-    DATASET_FILES: ClassVar[Dict[str, str]] = {
+    DATASET_FILES: ClassVar[dict[str, str]] = {
         "active": "active_customers_leads_zstd.parquet",
         "inactive": "inactive_customers_leads_zstd.parquet",
         "datamyne": "datamyne_leads_zstd.parquet",

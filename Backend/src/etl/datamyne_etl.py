@@ -8,10 +8,12 @@ Produces:
 - Backend/data/processed/datamyne_leads.csv
 """
 
-from pathlib import Path
 import time
+from pathlib import Path
+
 import openpyxl
 import pandas as pd
+
 
 def run_datamyne_etl():
     start_time = time.time()
