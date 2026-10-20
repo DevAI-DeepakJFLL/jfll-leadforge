@@ -80,7 +80,6 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
     const msg = (err as Error)?.message || '';
     if (
       msg.includes('Access restricted') ||
-      msg.includes('Invalid work email') ||
       msg.includes('Authentication failed with status HTTP')
     ) {
       throw err;

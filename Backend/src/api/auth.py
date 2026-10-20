@@ -98,6 +98,14 @@ USER_PROFILES: dict[str, dict[str, str]] = {
 }
 
 
+def get_user_profile(email: str) -> tuple[str, str]:
+    """Resolves official display name and functional role for an authorized work email."""
+    profile = USER_PROFILES.get(email.strip().lower(), {})
+    name = profile.get("name", settings.default_user_name)
+    role = profile.get("role", settings.default_user_role)
+    return name, role
+
+
 @router.post("/login", response_model=UserSessionResponse, summary="Authenticate enterprise user")
 def login(credentials: LoginRequest):
     """
@@ -113,15 +121,7 @@ def login(credentials: LoginRequest):
             detail="Access restricted. Only authorized Jet Freight Logistics personnel can sign in.",
         )
 
-    profile = USER_PROFILES.get(
-        input_email,
-        {
-            "name": settings.default_user_name,
-            "role": settings.default_user_role,
-        },
-    )
-    name = profile.get("name", settings.default_user_name)
-    role = profile.get("role", settings.default_user_role)
+    name, role = get_user_profile(input_email)
 
     token, expires_at = create_token(
         {
@@ -154,9 +154,9 @@ def get_current_user(authorization: str | None = Header(None)):
         raise HTTPException(status_code=401, detail="Invalid or expired session token")
 
     user_email = payload.get("sub", settings.default_user_email)
-    profile = USER_PROFILES.get(user_email.strip().lower(), {})
-    user_name = payload.get("name") or profile.get("name") or settings.default_user_name
-    user_role = payload.get("role") or profile.get("role") or settings.default_user_role
+    fallback_name, fallback_role = get_user_profile(user_email)
+    user_name = payload.get("name") or fallback_name
+    user_role = payload.get("role") or fallback_role
 
     return UserSessionResponse(
         email=user_email,

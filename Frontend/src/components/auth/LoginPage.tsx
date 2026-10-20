@@ -41,6 +41,15 @@ const MEMBER_THEMES: Record<string, { bg: string; text: string; border: string }
   },
 };
 
+const getInitials = (name: string): string => {
+  return name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+};
+
 export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -77,15 +86,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const handleSelectMember = (memberEmail: string) => {
     setEmail(memberEmail);
     setErrorMessage('');
-  };
-
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map((part) => part[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2);
   };
 
   return (

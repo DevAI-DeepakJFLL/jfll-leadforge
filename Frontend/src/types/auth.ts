@@ -35,10 +35,3 @@ export const AUTHORIZED_USERS: AuthorizedUser[] = [
     role: 'Commercial',
   },
 ];
-
-// Enterprise primary test credentials for Jet Freight Logistics internal portal
-export const DEMO_CREDENTIALS = {
-  email: 'deepak.naidu@jfll.com',
-  name: 'Deepak Naidu',
-  role: 'Tech Lead',
-};
