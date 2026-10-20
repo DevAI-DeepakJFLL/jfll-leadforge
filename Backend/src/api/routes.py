@@ -11,6 +11,7 @@ from src.api.models import (
     ApolloContactsPaginatedResponse,
 )
 from src.api.logger import logger
+from src.api.cache import resolve_company_ids_cached
 from src.api.helpers import (
     require_auth,
     normalize_query,
@@ -616,12 +617,7 @@ def search_apollo_contacts(
                     params.extend([pat, pat, pat])
 
         elif company and company.strip():
-            comp_sql, comp_params = build_company_search_sql(company, col_prefix="a")
-            org_rows = con.execute(
-                f"SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql} LIMIT 100",
-                comp_params
-            ).fetchall()
-            matched_org_ids = [r[0] for r in org_rows if r[0]]
+            matched_org_ids = resolve_company_ids_cached(company, apollo_source, con)
             if matched_org_ids:
                 placeholders = ", ".join(["?"] * len(matched_org_ids))
                 conditions.append(f"c.organization_id IN ({placeholders})")
@@ -637,12 +633,7 @@ def search_apollo_contacts(
         elif search and search.strip():
             raw_term = search.strip().lower()
             pat = f"%{raw_term}%"
-            comp_sql, comp_params = build_company_search_sql(raw_term, col_prefix="a")
-            org_rows = con.execute(
-                f"SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql} LIMIT 100",
-                comp_params
-            ).fetchall()
-            matched_org_ids = [r[0] for r in org_rows if r[0]]
+            matched_org_ids = resolve_company_ids_cached(raw_term, apollo_source, con)
             if matched_org_ids:
                 placeholders = ", ".join(["?"] * len(matched_org_ids))
                 conditions.append(f"""
