@@ -30,6 +30,10 @@ export interface PeopleViewProps {
   onExport: () => void;
   isExporting: boolean;
   savedLists: string[];
+  selectedSavedLists?: string[];
+  onToggleSavedList?: (listName: string) => void;
+  onClearSavedLists?: () => void;
+  onToggleSave?: (lead: Lead) => void;
   onSearchChange: (query: string) => void;
   onToggleArrayFilter: (category: 'departments' | 'jobTitles' | 'locations' | 'industries' | 'companySize', value: string) => void;
   onToggleStatusFilter: (status: LeadStatus) => void;
@@ -69,6 +73,10 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
   onExport,
   isExporting,
   savedLists,
+  selectedSavedLists,
+  onToggleSavedList,
+  onClearSavedLists,
+  onToggleSave,
   onSearchChange,
   onToggleArrayFilter,
   onToggleStatusFilter,
@@ -93,6 +101,10 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
         onToggleArrayFilter={onToggleArrayFilter}
         onToggleStatusFilter={onToggleStatusFilter}
         onClearCategory={onClearCategory}
+        savedLists={savedLists}
+        selectedSavedLists={selectedSavedLists}
+        onToggleSavedList={onToggleSavedList}
+        onClearSavedLists={onClearSavedLists}
         onSaveSearch={onSaveSearch}
         onLoadSearch={onLoadSearch}
         isMobileOpen={isMobileOpen}
@@ -154,6 +166,9 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
             onViewEmail={onViewEmail}
+            onToggleSave={onToggleSave}
+            activeTab={filters.tab}
+            onTabChange={onTabChange}
             currentPage={data?.page || 1}
             totalPages={data?.totalPages || 1}
             pageSize={data?.limit || 25}

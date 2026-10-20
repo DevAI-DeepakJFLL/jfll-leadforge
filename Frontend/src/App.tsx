@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { RowSelectionState } from '@tanstack/react-table';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { SettingsModal } from '@/components/layout/SettingsModal';
@@ -46,6 +46,15 @@ import {
   filterLeadsInMemory,
 } from '@/services/apolloService';
 import { ApolloLead } from '@/types/apolloLead';
+import {
+  getSavedLeads,
+  getSavedLeadIds,
+  toggleSaveLead,
+  batchSaveLeads,
+  getSavedLists,
+  addLeadsToList,
+  subscribeToSavedChanges,
+} from '@/services/savedLeadsService';
 
 
 interface SavedSearchPreset {
@@ -78,12 +87,29 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     },
   ]);
 
-  // Saved custom lists
-  const [savedLists, setSavedLists] = useState<string[]>([
-    'West Coast VIPs',
-    'High Growth Accounts',
-    'Q4 Logistics Prospects',
-  ]);
+  // Saved leads & custom lists managed reactively with localStorage persistence
+  const [savedLeadIds, setSavedLeadIds] = useState<Set<string>>(() => getSavedLeadIds());
+  const [savedListsData, setSavedListsData] = useState(() => getSavedLists());
+  const [selectedSavedLists, setSelectedSavedLists] = useState<string[]>([]);
+
+  React.useEffect(() => {
+    return subscribeToSavedChanges(() => {
+      setSavedLeadIds(getSavedLeadIds());
+      setSavedListsData(getSavedLists());
+    });
+  }, []);
+
+  const savedLists = useMemo(() => savedListsData.map((l) => l.name), [savedListsData]);
+
+  const handleToggleSavedList = (listName: string) => {
+    setSelectedSavedLists((prev) =>
+      prev.includes(listName) ? prev.filter((n) => n !== listName) : [...prev, listName]
+    );
+  };
+
+  const handleClearSavedLists = () => {
+    setSelectedSavedLists([]);
+  };
 
   // Default row selection for the first 6 leads matching Ref.jpg
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({
@@ -98,8 +124,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   const [isExporting, setIsExporting] = useState(false);
   const [selectedDrawerLead, setSelectedDrawerLead] = useState<Lead | null>(null);
   const [selectedEmailLead, setSelectedEmailLead] = useState<Lead | null>(null);
-
-  const queryClient = useQueryClient();
 
   const {
     filters,
@@ -172,44 +196,14 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     },
   });
 
-  // Batch save mutation
-  const batchSaveMutation = useMutation({
-    mutationFn: async (leadIds: string[]) => {
-      const res = await fetch('/api/leads/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ leadIds, saved: true }),
-      });
-      if (!res.ok) throw new Error('Failed to save selected leads');
-      return res.json();
-    },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['leads'] });
-      showToast(`Saved ${data.updatedCount} leads to your pipeline`);
-    },
-    onError: () => {
-      showToast('Failed to save selected leads', 'error');
-    },
-  });
-
-  // Toggle single lead saved status
-  const toggleSaveMutation = useMutation({
-    mutationFn: async ({ leadId, saved }: { leadId: string; saved: boolean }) => {
-      const res = await fetch(`/api/leads/${leadId}/save`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ saved }),
-      });
-      if (!res.ok) throw new Error('Failed to update lead');
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['leads'] });
-    },
-  });
-
+  // Persistent Saved Leads & Custom Lists handlers
   const handleToggleSaveLead = (lead: Lead) => {
-    toggleSaveMutation.mutate({ leadId: lead.id, saved: !lead.saved });
+    const isSavedNow = toggleSaveLead(lead);
+    showToast(
+      isSavedNow
+        ? `Saved ${lead.name} to your pipeline`
+        : `Removed ${lead.name} from saved leads`
+    );
   };
 
   // Load preset search
@@ -233,28 +227,73 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     showToast('Search criteria saved to your presets');
   };
 
-  // In-memory filtered leads for active company entity or server items in global mode
-  const filteredLeads = useMemo(() => {
-    if (isEntityScoped) {
-      return filterLeadsInMemory(data?.items || [], filters);
-    }
-    return data?.items || [];
-  }, [isEntityScoped, data?.items, filters]);
+  const isSavedTab = filters.tab === 'saved';
 
-  // Client-side pagination for Entity-Scoped Mode
+  // In-memory filtered leads for active company entity or saved tab or server items in global mode
+  const filteredLeads = useMemo(() => {
+    if (isSavedTab) {
+      let saved = getSavedLeads();
+      if (selectedSavedLists.length > 0) {
+        const activeLists = savedListsData.filter((l) => selectedSavedLists.includes(l.name));
+        const matchingLeadIds = new Set(activeLists.flatMap((l) => l.leadIds));
+        saved = saved.filter((lead) => matchingLeadIds.has(lead.id));
+      }
+      return filterLeadsInMemory(saved, filters);
+    }
+    if (isEntityScoped) {
+      let result = filterLeadsInMemory(data?.items || [], filters);
+      if (selectedSavedLists.length > 0) {
+        const activeLists = savedListsData.filter((l) => selectedSavedLists.includes(l.name));
+        const matchingLeadIds = new Set(activeLists.flatMap((l) => l.leadIds));
+        result = result.filter((lead) => matchingLeadIds.has(lead.id));
+      }
+      return result;
+    }
+    let result = data?.items || [];
+    if (selectedSavedLists.length > 0) {
+      const activeLists = savedListsData.filter((l) => selectedSavedLists.includes(l.name));
+      const matchingLeadIds = new Set(activeLists.flatMap((l) => l.leadIds));
+      result = result.filter((lead) => matchingLeadIds.has(lead.id));
+    }
+    return result;
+  }, [isSavedTab, isEntityScoped, data?.items, filters, selectedSavedLists, savedListsData, savedLeadIds]);
+
+  // Client-side pagination for Entity-Scoped Mode or Saved Tab
   const page = filters.page || 1;
   const limit = filters.limit || 25;
 
   const items = useMemo(() => {
-    if (isEntityScoped) {
-      const start = (page - 1) * limit;
-      return filteredLeads.slice(start, start + limit);
-    }
-    return data?.items || [];
-  }, [isEntityScoped, filteredLeads, page, limit, data?.items]);
+    const rawItems = isEntityScoped || isSavedTab
+      ? filteredLeads.slice((page - 1) * limit, page * limit)
+      : (data?.items || []);
+
+    return rawItems.map((lead) => ({
+      ...lead,
+      saved: savedLeadIds.has(lead.id),
+    }));
+  }, [isEntityScoped, isSavedTab, filteredLeads, page, limit, data?.items, savedLeadIds]);
 
   // Responsive LeadsResponse passed to PeopleView
   const effectiveData = useMemo<LeadsResponse | undefined>(() => {
+    if (isSavedTab) {
+      const total = filteredLeads.length;
+      const totalPages = Math.max(1, Math.ceil(total / limit));
+      const totalFormatted = total >= 1000 ? `${(total / 1000).toFixed(1)}k` : String(total);
+
+      return {
+        items,
+        totalEstimate: total,
+        totalFormatted,
+        page,
+        limit,
+        totalPages,
+        audienceCounts: {
+          all: data?.audienceCounts?.all || total,
+          new: data?.audienceCounts?.new || 0,
+          saved: savedLeadIds.size,
+        },
+      };
+    }
     if (!data) return undefined;
     if (isEntityScoped) {
       const total = filteredLeads.length;
@@ -263,7 +302,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
 
       const baseItems = data.items || [];
       const newCount = baseItems.filter((l) => (l.decisionMaker ?? (l.status === 'NET NEW')) === true).length;
-      const savedCount = baseItems.filter((l) => l.saved).length;
 
       return {
         items,
@@ -275,12 +313,19 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         audienceCounts: {
           all: baseItems.length,
           new: newCount,
-          saved: savedCount,
+          saved: savedLeadIds.size,
         },
       };
     }
-    return data;
-  }, [data, isEntityScoped, filteredLeads.length, limit, page, items]);
+    return {
+      ...data,
+      items,
+      audienceCounts: {
+        ...data.audienceCounts,
+        saved: savedLeadIds.size,
+      },
+    };
+  }, [data, isSavedTab, isEntityScoped, filteredLeads.length, limit, page, items, savedLeadIds.size]);
 
   // Selection calculations
   const selectedLeadIds = useMemo(
@@ -315,7 +360,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
 
   const handleSelectAllTotal = () => {
     const next: RowSelectionState = {};
-    const allToSelect = isEntityScoped ? filteredLeads : items;
+    const allToSelect = isEntityScoped || isSavedTab ? filteredLeads : items;
     allToSelect.forEach((l) => {
       next[l.id] = true;
     });
@@ -328,14 +373,45 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
 
   const handleBatchSave = () => {
     if (selectedLeadIds.length === 0) return;
-    batchSaveMutation.mutate(selectedLeadIds);
+    const allAvailable = [
+      ...(data?.items || []),
+      ...(filteredLeads || []),
+      ...items,
+      ...getSavedLeads(),
+    ];
+    const leadsToSave = selectedLeadIds.map((id) => {
+      const found = allAvailable.find((l) => l.id === id);
+      if (found) return found;
+      return { id, name: 'Lead', company: 'Company', saved: true } as Lead;
+    });
+    const count = batchSaveLeads(leadsToSave, true);
+    setRowSelection({});
+    showToast(`Saved ${count} lead${count === 1 ? '' : 's'} to your pipeline`);
   };
 
   const handleAddToList = (listName: string) => {
-    if (!savedLists.includes(listName)) {
-      setSavedLists((prev) => [...prev, listName]);
-    }
-    showToast(`Added ${selectedLeadIds.length} leads to "${listName}"`);
+    if (selectedLeadIds.length === 0) return;
+    const allAvailable = [
+      ...(data?.items || []),
+      ...(filteredLeads || []),
+      ...items,
+      ...getSavedLeads(),
+    ];
+    const leadsToAdd = selectedLeadIds
+      .map((id) => allAvailable.find((l) => l.id === id))
+      .filter((l): l is Lead => Boolean(l));
+
+    addLeadsToList(listName, leadsToAdd);
+    setRowSelection({});
+    showToast(
+      `Added ${leadsToAdd.length} lead${leadsToAdd.length === 1 ? '' : 's'} to "${listName}"`
+    );
+  };
+
+  const handleAddDrawerLeadToList = (lead: Lead, listName?: string) => {
+    const targetList = listName || 'West Coast VIPs';
+    addLeadsToList(targetList, [lead]);
+    showToast(`Added ${lead.name} to "${targetList}"`);
   };
 
   // Functional CSV Export download handler
@@ -777,6 +853,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   return (
     <AppLayout
       activeNav={activeNav}
+      savedCount={savedLeadIds.size}
       onNavChange={(navId) => {
         if (navId === 'datamyne') {
           handleAudienceTabChange('datamyne');
@@ -951,6 +1028,10 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
           onExport={handleExportCsv}
           isExporting={isExporting}
           savedLists={savedLists}
+          selectedSavedLists={selectedSavedLists}
+          onToggleSavedList={handleToggleSavedList}
+          onClearSavedLists={handleClearSavedLists}
+          onToggleSave={handleToggleSaveLead}
           onSearchChange={setSearch}
           onToggleArrayFilter={toggleArrayFilter}
           onToggleStatusFilter={toggleStatusFilter}
@@ -977,7 +1058,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         onSaveToggle={handleToggleSaveLead}
         onCopy={(_text, _type) => {}}
         onAddToSequence={(_l) => {}}
-        onAddToList={(_l) => {}}
+        onAddToList={handleAddDrawerLeadToList}
+        savedLists={savedLists}
         onComposeEmail={(_l) => {}}
       />
 

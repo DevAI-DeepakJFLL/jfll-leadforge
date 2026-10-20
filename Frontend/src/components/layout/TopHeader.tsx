@@ -17,6 +17,7 @@ export interface TopHeaderProps {
   onToggleMobileFilter?: () => void;
   activeFilterCount?: number;
   showSearch?: boolean;
+  savedCount?: number;
   className?: string;
 }
 
@@ -39,6 +40,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   onToggleMobileFilter,
   activeFilterCount = 0,
   showSearch = false,
+  savedCount,
   className = '',
 }) => {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
@@ -79,6 +81,10 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
           >
             {TOP_NAV_TABS.map((tab) => {
               const isActive = activeTab === tab.id;
+              const badge =
+                tab.id === 'saved-lists' && savedCount !== undefined && savedCount > 0
+                  ? String(savedCount)
+                  : tab.badge;
               return (
                 <button
                   key={tab.id}
@@ -91,7 +97,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                   aria-current={isActive ? 'page' : undefined}
                 >
                   <span>{tab.label}</span>
-                  {tab.badge && (
+                  {badge && (
                     <span
                       className={`ml-1 sm:ml-1.5 text-[10px] font-mono font-semibold px-1.5 py-0.2 rounded-full border ${
                         isActive
@@ -99,7 +105,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                           : 'bg-slate-100 text-slate-500 border-slate-200'
                       }`}
                     >
-                      {tab.badge}
+                      {badge}
                     </span>
                   )}
                   {isActive && (

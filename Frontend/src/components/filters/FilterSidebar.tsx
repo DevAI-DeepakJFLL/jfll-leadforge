@@ -31,6 +31,10 @@ export interface FilterSidebarProps {
   ) => void;
   onToggleStatusFilter?: (status: LeadStatus) => void;
   onClearCategory?: (key: keyof FilterParams) => void;
+  savedLists?: string[];
+  selectedSavedLists?: string[];
+  onToggleSavedList?: (listName: string) => void;
+  onClearSavedLists?: () => void;
   onSaveSearch?: () => void;
   onLoadSearch?: () => void;
   isMobileOpen?: boolean;
@@ -139,6 +143,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   filters,
   onToggleArrayFilter,
   onClearCategory,
+  savedLists,
+  selectedSavedLists: propSelectedSavedLists,
+  onToggleSavedList,
+  onClearSavedLists,
   onSaveSearch,
   onLoadSearch,
   isMobileOpen = false,
@@ -175,7 +183,28 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   };
 
   // Local state for UI-only facet selections
-  const [selectedSavedLists, setSelectedSavedLists] = useState<string[]>([]);
+  const [localSelectedSavedLists, setLocalSelectedSavedLists] = useState<string[]>([]);
+  const selectedSavedLists = propSelectedSavedLists !== undefined ? propSelectedSavedLists : localSelectedSavedLists;
+  const availableSavedLists = savedLists && savedLists.length > 0 ? savedLists : PRESETS.savedLists;
+
+  const handleToggleList = (item: string) => {
+    if (onToggleSavedList) {
+      onToggleSavedList(item);
+    } else {
+      setLocalSelectedSavedLists((prev) =>
+        prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
+      );
+    }
+  };
+
+  const handleClearSavedLists = () => {
+    if (onClearSavedLists) {
+      onClearSavedLists();
+    } else {
+      setLocalSelectedSavedLists([]);
+    }
+  };
+
   const [selectedPersonas, setSelectedPersonas] = useState<string[]>([]);
   const [selectedOwners, setSelectedOwners] = useState<string[]>([]);
   const [selectedIntent, setSelectedIntent] = useState<string[]>([]);
@@ -258,12 +287,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           isOpen={openSections.savedLists}
           onToggle={() => toggleSection('savedLists')}
           activeCount={selectedSavedLists.length}
-          onClear={() => setSelectedSavedLists([])}
+          onClear={handleClearSavedLists}
         >
           <SearchableCheckboxList
-            options={PRESETS.savedLists}
+            options={availableSavedLists}
             selectedValues={selectedSavedLists}
-            onToggle={makeLocalToggle(setSelectedSavedLists)}
+            onToggle={handleToggleList}
             searchPlaceholder="Search lists..."
           />
         </FilterAccordion>

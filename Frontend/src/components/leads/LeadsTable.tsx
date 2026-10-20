@@ -20,6 +20,8 @@ import {
   Loader2,
   Building2,
   Search,
+  Bookmark,
+  Users,
 } from 'lucide-react';
 
 export interface LeadsTableProps {
@@ -42,6 +44,9 @@ export interface LeadsTableProps {
   activeCompany?: string;
   onClearCompanyFilter?: () => void;
   onSearchCompanies?: (companyName: string) => void;
+  onToggleSave?: (lead: Lead) => void;
+  activeTab?: string;
+  onTabChange?: (tab: any) => void;
   className?: string;
 }
 
@@ -65,6 +70,9 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
   activeCompany,
   onClearCompanyFilter,
   onSearchCompanies,
+  onToggleSave,
+  activeTab,
+  onTabChange,
   className = '',
 }) => {
   // Define TanStack Table Columns matching Ref.jpg
@@ -205,14 +213,34 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
         ),
       },
 
-      // 6. Action CTA: View Email Button
+      // 6. Action CTA: View Email Button & Bookmark Save
       {
         id: 'actions',
         header: '',
         cell: ({ row }) => {
           const lead = row.original;
           return (
-            <div className="pr-4 text-right shrink-0">
+            <div className="pr-4 flex items-center justify-end gap-1.5 shrink-0">
+              {onToggleSave && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onToggleSave(lead);
+                  }}
+                  className={`p-1.5 rounded-md border text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 ${
+                    lead.saved
+                      ? 'bg-blue-50 border-blue-200 text-apollo hover:bg-blue-100'
+                      : 'bg-white border-slate-200 text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                  }`}
+                  title={lead.saved ? 'Remove from saved leads' : 'Save lead to pipeline'}
+                  aria-label={lead.saved ? 'Unsave lead' : 'Save lead'}
+                >
+                  <Bookmark
+                    className={`w-3.5 h-3.5 ${lead.saved ? 'fill-apollo text-apollo' : ''}`}
+                  />
+                </button>
+              )}
               <button
                 type="button"
                 onClick={(e) => {
@@ -228,10 +256,10 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
             </div>
           );
         },
-        size: 130,
+        size: 160,
       },
     ],
-    [onLeadClick, onViewEmail]
+    [onLeadClick, onViewEmail, onToggleSave]
   );
 
   const table = useReactTable({
@@ -381,6 +409,32 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
               </button>
             )}
           </div>
+        </div>
+      );
+    }
+
+    if (activeTab === 'saved') {
+      return (
+        <div
+          className={`p-10 text-center bg-white rounded-xl border border-slate-200/90 max-w-md mx-auto my-12 shadow-sm animate-in fade-in duration-150 ${className}`}
+        >
+          <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200/70 flex items-center justify-center mx-auto mb-3 text-apollo">
+            <Bookmark className="w-6 h-6 text-apollo" />
+          </div>
+          <h3 className="text-sm font-semibold text-slate-900">No saved leads yet</h3>
+          <p className="text-xs text-slate-500 mt-1 mb-5 leading-relaxed">
+            Select leads from the table and click <strong>Save Leads</strong> or <strong>Add to List</strong> to build your targeted sales pipeline.
+          </p>
+          {onTabChange && (
+            <button
+              type="button"
+              onClick={() => onTabChange('all')}
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-apollo hover:bg-apollo-600 rounded-lg shadow-sm transition-colors cursor-pointer"
+            >
+              <Users className="w-3.5 h-3.5" />
+              <span>Browse All People</span>
+            </button>
+          )}
         </div>
       );
     }

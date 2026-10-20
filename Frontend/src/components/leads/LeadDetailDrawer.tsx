@@ -24,6 +24,8 @@ import {
   ListPlus,
   AlertCircle,
   CheckCircle2,
+  ChevronDown,
+  Plus,
 } from 'lucide-react';
 
 export interface LeadDetailDrawerProps {
@@ -33,8 +35,9 @@ export interface LeadDetailDrawerProps {
   onSaveToggle?: (lead: Lead) => void;
   onCopy?: (text: string, type: 'email' | 'phone') => void;
   onAddToSequence?: (lead: Lead) => void;
-  onAddToList?: (lead: Lead) => void;
+  onAddToList?: (lead: Lead, listName?: string) => void;
   onComposeEmail?: (lead: Lead) => void;
+  savedLists?: string[];
 }
 
 import { useModalDismiss } from '@/hooks/useModalDismiss';
@@ -50,8 +53,12 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
   onAddToSequence,
   onAddToList,
   onComposeEmail,
+  savedLists = ['West Coast VIPs', 'High Growth Accounts', 'Q4 Prospects'],
 }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'company' | 'activity'>('overview');
+  const [isListMenuOpen, setIsListMenuOpen] = useState(false);
+  const [isCreatingList, setIsCreatingList] = useState(false);
+  const [newListName, setNewListName] = useState('');
 
   useModalDismiss({ isOpen, onClose });
 
@@ -160,15 +167,88 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                 <span className="hidden sm:inline">Sequence</span>
               </button>
 
-              <button
-                type="button"
-                onClick={() => onAddToList?.(lead)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-md shadow-2xs transition-colors"
-                title="Add to prospect list"
-              >
-                <ListPlus className="w-3.5 h-3.5 text-slate-500" />
-                <span className="hidden sm:inline">List</span>
-              </button>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsListMenuOpen((prev) => !prev)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-md shadow-2xs transition-colors"
+                  title="Add to prospect list"
+                >
+                  <ListPlus className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="hidden sm:inline">List</span>
+                  <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform ${isListMenuOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {isListMenuOpen && (
+                  <div className="absolute right-0 mt-1 w-52 bg-white rounded-lg shadow-xl border border-slate-200 py-1.5 z-40 text-xs animate-in fade-in zoom-in-95 duration-100">
+                    <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                      Add to List
+                    </div>
+                    {savedLists.map((name) => (
+                      <button
+                        key={name}
+                        type="button"
+                        onClick={() => {
+                          onAddToList?.(lead, name);
+                          setIsListMenuOpen(false);
+                        }}
+                        className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900 flex items-center justify-between"
+                      >
+                        <span className="truncate">{name}</span>
+                      </button>
+                    ))}
+                    <div className="my-1 border-t border-slate-100" />
+                    {!isCreatingList ? (
+                      <button
+                        type="button"
+                        onClick={() => setIsCreatingList(true)}
+                        className="w-full text-left px-3 py-1.5 text-apollo font-medium hover:bg-apollo-50 flex items-center gap-1"
+                      >
+                        <Plus className="w-3 h-3" />
+                        <span>Create New List</span>
+                      </button>
+                    ) : (
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          if (newListName.trim()) {
+                            onAddToList?.(lead, newListName.trim());
+                            setNewListName('');
+                            setIsCreatingList(false);
+                            setIsListMenuOpen(false);
+                          }
+                        }}
+                        className="p-2 space-y-1.5"
+                      >
+                        <input
+                          type="text"
+                          value={newListName}
+                          onChange={(e) => setNewListName(e.target.value)}
+                          placeholder="List name..."
+                          autoFocus
+                          className="w-full px-2 py-1 text-xs border border-slate-300 rounded focus:outline-none focus:border-apollo"
+                        />
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="submit"
+                            disabled={!newListName.trim()}
+                            className="px-2 py-1 bg-apollo text-white text-[11px] font-medium rounded hover:bg-apollo-600 disabled:opacity-50"
+                          >
+                            Save
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setIsCreatingList(false)}
+                            className="px-2 py-1 text-slate-500 hover:text-slate-700 text-[11px]"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </form>
+                    )}
+                  </div>
+                )}
+              </div>
 
               <button
                 type="button"

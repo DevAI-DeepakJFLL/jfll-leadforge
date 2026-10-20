@@ -14,6 +14,7 @@ export interface AppLayoutProps {
   onToggleMobileFilter?: () => void;
   activeFilterCount?: number;
   savedSearchesCount?: number;
+  savedCount?: number;
   onOpenSettings?: () => void;
   onLogout?: () => void;
   className?: string;
@@ -31,6 +32,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onToggleMobileFilter,
   activeFilterCount = 0,
   savedSearchesCount = 0,
+  savedCount,
   onOpenSettings,
   onLogout,
   className = '',
@@ -57,6 +59,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           onSearchSubmit={onSearchSubmit}
           onToggleMobileFilter={onToggleMobileFilter}
           activeFilterCount={activeFilterCount}
+          savedCount={savedCount}
         />
 
         {/* Content Viewport with pb-14 on mobile to accommodate bottom dock */}
