@@ -1,53 +1,74 @@
 import os
+import threading
 from pathlib import Path
+from typing import Optional
 import duckdb
 from src.api.config import settings
 
+_SHARED_CONNECTION: Optional[duckdb.DuckDBPyConnection] = None
+_INIT_LOCK = threading.Lock()
+
 def get_db_connection() -> duckdb.DuckDBPyConnection:
-    """Instantiate a DuckDB connection configured for serverless execution."""
-    con = duckdb.connect(":memory:")
-    try:
-        con.execute("SET home_directory = '/tmp';")
-        con.execute("SET extension_directory = '/tmp/duckdb_extensions';")
-    except Exception:
-        pass
+    """Returns a thread-safe cursor from the persistent singleton DuckDB connection."""
+    global _SHARED_CONNECTION
+    if _SHARED_CONNECTION is None:
+        with _INIT_LOCK:
+            if _SHARED_CONNECTION is None:
+                con = duckdb.connect(":memory:")
+                try:
+                    con.execute("SET home_directory = '/tmp';")
+                    con.execute("SET extension_directory = '/tmp/duckdb_extensions';")
+                except Exception:
+                    pass
 
-    try:
-        con.execute("LOAD httpfs;")
-    except Exception:
-        try:
-            con.execute("INSTALL httpfs; LOAD httpfs;")
-        except Exception:
-            pass  # Local /tmp caching uses native Parquet engine without requiring httpfs
+                # Performance & Memory PRAGMAs for Serverless Lambda
+                try:
+                    con.execute("SET max_memory = '380MB';")
+                    con.execute("SET threads = 1;")
+                    con.execute("SET preserve_insertion_order = false;")
+                    con.execute("SET enable_http_metadata_cache = true;")
+                    con.execute("SET http_keep_alive = true;")
+                except Exception:
+                    pass
 
-    if settings.env == "local":
-        try:
-            con.execute(f"""
-                SET s3_endpoint = '{settings.floci_endpoint}';
-                SET s3_use_ssl = false;
-                SET s3_url_style = 'path';
-                SET s3_access_key_id = '{settings.aws_access_key_id}';
-                SET s3_secret_access_key = '{settings.aws_secret_access_key}';
-            """)
-        except Exception:
-            pass
-    else:
-        try:
-            con.execute(f"SET s3_region = '{settings.aws_region}';")
-            access_key = os.getenv("AWS_ACCESS_KEY_ID")
-            secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-            session_token = os.getenv("AWS_SESSION_TOKEN")
-            if access_key and secret_key:
-                con.execute(f"""
-                    SET s3_access_key_id = '{access_key}';
-                    SET s3_secret_access_key = '{secret_key}';
-                """)
-            if session_token:
-                con.execute(f"SET s3_session_token = '{session_token}';")
-        except Exception:
-            pass
+                try:
+                    con.execute("LOAD httpfs;")
+                except Exception:
+                    try:
+                        con.execute("INSTALL httpfs; LOAD httpfs;")
+                    except Exception:
+                        pass
 
-    return con
+                if settings.env == "local":
+                    try:
+                        con.execute(f"""
+                            SET s3_endpoint = '{settings.floci_endpoint}';
+                            SET s3_use_ssl = false;
+                            SET s3_url_style = 'path';
+                            SET s3_access_key_id = '{settings.aws_access_key_id}';
+                            SET s3_secret_access_key = '{settings.aws_secret_access_key}';
+                        """)
+                    except Exception:
+                        pass
+                else:
+                    try:
+                        con.execute(f"SET s3_region = '{settings.aws_region}';")
+                        access_key = os.getenv("AWS_ACCESS_KEY_ID")
+                        secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
+                        session_token = os.getenv("AWS_SESSION_TOKEN")
+                        if access_key and secret_key:
+                            con.execute(f"""
+                                SET s3_access_key_id = '{access_key}';
+                                SET s3_secret_access_key = '{secret_key}';
+                            """)
+                        if session_token:
+                            con.execute(f"SET s3_session_token = '{session_token}';")
+                    except Exception:
+                        pass
+
+                _SHARED_CONNECTION = con
+
+    return _SHARED_CONNECTION.cursor()
 
 
 def get_cached_parquet_path(dataset: str = "active") -> Path:
