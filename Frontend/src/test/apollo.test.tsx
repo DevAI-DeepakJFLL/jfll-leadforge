@@ -7,6 +7,7 @@ import {
   queryCompanyContactsLocal,
   queryApolloPeopleLeadsLocal,
   fetchApolloPeopleLeads,
+  filterLeadsInMemory,
 } from '@/services/apolloService';
 import {
   ApolloAudienceTabs,
@@ -17,6 +18,7 @@ import {
   ApolloContextBanner,
 } from '@/components/apollo';
 import { ApolloLead } from '@/types/apolloLead';
+import { Lead } from '@/types/lead';
 
 const mockLeads: ApolloLead[] = [
   {
@@ -334,6 +336,164 @@ describe('Apollo Sourcing Tool Suite', () => {
       } finally {
         global.fetch = originalFetch;
       }
+    });
+
+    it('defaults page_size to 250 when organizationId or company is provided to fetchApolloPeopleLeads', async () => {
+      const originalFetch = global.fetch;
+      let requestedUrl = '';
+      global.fetch = vi.fn().mockImplementation((url: string) => {
+        requestedUrl = url;
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({
+            page: 1,
+            page_size: 250,
+            total_records: 0,
+            total_pages: 0,
+            has_next: false,
+            data: [],
+          }),
+        } as unknown as Response);
+      });
+
+      try {
+        await fetchApolloPeopleLeads({ organizationId: 'org-test-123' });
+        expect(requestedUrl).toContain('page_size=250');
+
+        await fetchApolloPeopleLeads({ company: 'Boeing', limit: 500 });
+        expect(requestedUrl).toContain('page_size=500');
+
+        // Without company or orgId, standard limit (25) is used
+        await fetchApolloPeopleLeads({ limit: 25 });
+        expect(requestedUrl).toContain('page_size=25');
+      } finally {
+        global.fetch = originalFetch;
+      }
+    });
+  });
+
+  describe('filterLeadsInMemory client-side engine', () => {
+    const sampleLeads: Lead[] = [
+      {
+        id: 'dm-1',
+        name: 'Sarah Connor',
+        title: 'Director of Global Supply Chain',
+        company: 'Acme Freight Corp',
+        companyLogo: '',
+        industry: 'Freight & Logistics Services',
+        department: 'Supply Chain & Logistics',
+        status: 'NET NEW',
+        decisionMaker: true,
+        location: 'Chicago, Illinois, United States',
+        city: 'Chicago',
+        state: 'Illinois',
+        country: 'United States',
+        email: 'sconnor@acmefreight.com',
+        phone: '+1 (555) 123-4567',
+        employees: '500+ Enterprise',
+        revenue: '$10M+ Enterprise',
+        funding: 'Commercial Freight Shipper',
+        saved: false,
+      },
+      {
+        id: 'dm-2',
+        name: 'John Miller',
+        title: 'VP of Procurement & Operations',
+        company: 'Acme Freight Corp',
+        companyLogo: '',
+        industry: 'Freight & Logistics Services',
+        department: 'Procurement',
+        status: 'COLD',
+        decisionMaker: false,
+        location: 'Dallas, Texas, United States',
+        city: 'Dallas',
+        state: 'Texas',
+        country: 'United States',
+        email: 'jmiller@acmefreight.com',
+        phone: '+1 (555) 987-6543',
+        employees: '500+ Enterprise',
+        revenue: '$10M+ Enterprise',
+        funding: 'Commercial Freight Shipper',
+        saved: true,
+      },
+      {
+        id: 'dm-3',
+        name: 'Elena Rostova',
+        title: 'Logistics Operations Lead',
+        company: 'Acme Freight Corp',
+        companyLogo: '',
+        industry: 'Freight & Logistics Services',
+        department: 'Logistics Operations',
+        status: 'NET NEW',
+        decisionMaker: true,
+        location: 'Hamburg, Germany',
+        city: 'Hamburg',
+        country: 'Germany',
+        email: 'erostova@acmefreight.de',
+        phone: '+49 40 123456',
+        employees: '500+ Enterprise',
+        revenue: '$10M+ Enterprise',
+        funding: 'Commercial Freight Shipper',
+        saved: false,
+      },
+    ];
+
+    it('returns all leads when filters are empty', () => {
+      const result = filterLeadsInMemory(sampleLeads, {});
+      expect(result.length).toBe(3);
+    });
+
+    it('filters by search term q across name, title, company, location, and email', () => {
+      // By name
+      expect(filterLeadsInMemory(sampleLeads, { q: 'Sarah' }).map((l) => l.id)).toEqual(['dm-1']);
+      // By title
+      expect(filterLeadsInMemory(sampleLeads, { q: 'Procurement' }).map((l) => l.id)).toEqual(['dm-2']);
+      // By location
+      expect(filterLeadsInMemory(sampleLeads, { q: 'Hamburg' }).map((l) => l.id)).toEqual(['dm-3']);
+      // By email
+      expect(filterLeadsInMemory(sampleLeads, { q: 'jmiller@' }).map((l) => l.id)).toEqual(['dm-2']);
+      // By company
+      expect(filterLeadsInMemory(sampleLeads, { q: 'Acme' }).length).toBe(3);
+    });
+
+    it('filters by departments', () => {
+      const result = filterLeadsInMemory(sampleLeads, { departments: ['Supply Chain'] });
+      expect(result.length).toBe(1);
+      expect(result[0].id).toBe('dm-1');
+    });
+
+    it('filters by jobTitles', () => {
+      const result = filterLeadsInMemory(sampleLeads, { jobTitles: ['VP'] });
+      expect(result.length).toBe(1);
+      expect(result[0].id).toBe('dm-2');
+    });
+
+    it('filters by locations', () => {
+      const result = filterLeadsInMemory(sampleLeads, { locations: ['Germany'] });
+      expect(result.length).toBe(1);
+      expect(result[0].id).toBe('dm-3');
+    });
+
+    it('filters by status', () => {
+      const result = filterLeadsInMemory(sampleLeads, { status: ['COLD'] });
+      expect(result.length).toBe(1);
+      expect(result[0].id).toBe('dm-2');
+    });
+
+    it('filters by tab "new" to select decisionMaker === true', () => {
+      const result = filterLeadsInMemory(sampleLeads, { tab: 'new' });
+      expect(result.length).toBe(2);
+      expect(result.map((l) => l.id)).toEqual(['dm-1', 'dm-3']);
+    });
+
+    it('filters by combined sub-filters instantly in-memory', () => {
+      const result = filterLeadsInMemory(sampleLeads, {
+        tab: 'new',
+        departments: ['Logistics'],
+        locations: ['Hamburg'],
+      });
+      expect(result.length).toBe(1);
+      expect(result[0].id).toBe('dm-3');
     });
   });
 });

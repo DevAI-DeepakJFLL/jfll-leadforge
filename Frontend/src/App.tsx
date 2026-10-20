@@ -43,6 +43,7 @@ import {
   fetchApolloLeadsFromApi,
   fetchApolloPeopleLeads,
   exportApolloLeadsCsv,
+  filterLeadsInMemory,
 } from '@/services/apolloService';
 import { ApolloLead } from '@/types/apolloLead';
 
@@ -113,12 +114,49 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     clearAllFilters,
   } = useLeadsFilter();
 
+  // Distinguish between Entity-Scoped Mode (company selected) and Global Browsing Mode
+  const isEntityScoped = Boolean(
+    (filters.organizationId && filters.organizationId.trim()) ||
+    (filters.company && filters.company.trim())
+  );
+
+  // In Entity-Scoped Mode, sub-filters (q, departments, locations, status, jobTitles, tab)
+  // are decoupled from queryKey so changing them NEVER triggers a network refetch!
+  const leadsQueryKey = isEntityScoped
+    ? ['leads', 'entity', filters.organizationId, filters.company]
+    : ['leads', 'global', filters];
+
+  const fetchLeadsFn = () => {
+    if (isEntityScoped) {
+      return fetchApolloPeopleLeads({
+        organizationId: filters.organizationId,
+        company: filters.company,
+        page: 1,
+        limit: 250,
+      });
+    }
+    return fetchApolloPeopleLeads(filters);
+  };
+
   // Fetch live Apollo logistics decision-makers synchronized with URL filters
   const { data, isLoading, isFetching, isError, error, refetch } = useQuery<LeadsResponse>({
-    queryKey: ['leads', filters],
-    queryFn: () => fetchApolloPeopleLeads(filters),
+    queryKey: leadsQueryKey,
+    queryFn: fetchLeadsFn,
     placeholderData: (prev, prevQuery) => {
-      const prevFilters = prevQuery?.queryKey?.[1] as FilterParams | undefined;
+      if (isEntityScoped) {
+        const prevKey = prevQuery?.queryKey;
+        if (
+          prevKey &&
+          prevKey[0] === 'leads' &&
+          prevKey[1] === 'entity' &&
+          prevKey[2] === filters.organizationId &&
+          prevKey[3] === filters.company
+        ) {
+          return prev;
+        }
+        return undefined;
+      }
+      const prevFilters = prevQuery?.queryKey?.[2] as FilterParams | undefined;
       if (
         prevFilters &&
         prevFilters.organizationId === filters.organizationId &&
@@ -194,8 +232,56 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     showToast('Search criteria saved to your presets');
   };
 
+  // In-memory filtered leads for active company entity or server items in global mode
+  const filteredLeads = useMemo(() => {
+    if (isEntityScoped) {
+      return filterLeadsInMemory(data?.items || [], filters);
+    }
+    return data?.items || [];
+  }, [isEntityScoped, data?.items, filters]);
+
+  // Client-side pagination for Entity-Scoped Mode
+  const page = filters.page || 1;
+  const limit = filters.limit || 25;
+
+  const items = useMemo(() => {
+    if (isEntityScoped) {
+      const start = (page - 1) * limit;
+      return filteredLeads.slice(start, start + limit);
+    }
+    return data?.items || [];
+  }, [isEntityScoped, filteredLeads, page, limit, data?.items]);
+
+  // Responsive LeadsResponse passed to PeopleView
+  const effectiveData = useMemo<LeadsResponse | undefined>(() => {
+    if (!data) return undefined;
+    if (isEntityScoped) {
+      const total = filteredLeads.length;
+      const totalPages = Math.max(1, Math.ceil(total / limit));
+      const totalFormatted = total >= 1000 ? `${(total / 1000).toFixed(1)}k` : String(total);
+
+      const baseItems = data.items || [];
+      const newCount = baseItems.filter((l) => (l.decisionMaker ?? (l.status === 'NET NEW')) === true).length;
+      const savedCount = baseItems.filter((l) => l.saved).length;
+
+      return {
+        items,
+        totalEstimate: total,
+        totalFormatted,
+        page,
+        limit,
+        totalPages,
+        audienceCounts: {
+          all: baseItems.length,
+          new: newCount,
+          saved: savedCount,
+        },
+      };
+    }
+    return data;
+  }, [data, isEntityScoped, filteredLeads.length, limit, page, items]);
+
   // Selection calculations
-  const items = useMemo(() => data?.items || [], [data?.items]);
   const selectedLeadIds = useMemo(
     () => Object.keys(rowSelection).filter((id) => rowSelection[id]),
     [rowSelection]
@@ -228,7 +314,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
 
   const handleSelectAllTotal = () => {
     const next: RowSelectionState = {};
-    items.forEach((l) => {
+    const allToSelect = isEntityScoped ? filteredLeads : items;
+    allToSelect.forEach((l) => {
       next[l.id] = true;
     });
     setRowSelection(next);
@@ -278,7 +365,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       window.URL.revokeObjectURL(url);
 
       const exportedCount =
-        selectedLeadIds.length > 0 ? selectedLeadIds.length : data?.totalEstimate || items.length;
+        selectedLeadIds.length > 0 ? selectedLeadIds.length : effectiveData?.totalEstimate || items.length;
       showToast(`Exported ${exportedCount} leads to apollo_leads_export.csv`);
     } catch (err: unknown) {
       showToast(
@@ -303,8 +390,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   // Sync drawer lead with latest query data if present
   const activeDrawerLead = useMemo(() => {
     if (!selectedDrawerLead) return null;
-    return items.find((l) => l.id === selectedDrawerLead.id) || selectedDrawerLead;
-  }, [items, selectedDrawerLead]);
+    return (data?.items || items).find((l) => l.id === selectedDrawerLead.id) || selectedDrawerLead;
+  }, [data?.items, items, selectedDrawerLead]);
 
   // JFLL Customers filter and state management
   const {
@@ -813,7 +900,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       ) : (
         <PeopleView
           filters={filters}
-          data={data}
+          data={effectiveData}
           isLoading={isLoading || isFetching}
           isError={isError}
           error={error}

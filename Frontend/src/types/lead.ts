@@ -33,6 +33,7 @@ export const LeadSchema = z.object({
   saved: z.boolean().default(false),
   jobChange: z.boolean().optional(),
   createdAt: z.string().optional(),
+  decisionMaker: z.boolean().optional(),
 });
 
 export type Lead = z.infer<typeof LeadSchema>;

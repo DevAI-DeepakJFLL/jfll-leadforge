@@ -436,6 +436,7 @@ export function mapApolloContactToLead(contact: ApolloContact): Lead {
     industry: contact.department ? `${contact.department} / Freight` : 'Freight & Logistics Services',
     department: contact.department || (contact.is_logistics_role ? 'Supply Chain & Logistics' : 'Operations'),
     status: contact.is_decision_maker ? 'NET NEW' : 'COLD',
+    decisionMaker: contact.is_decision_maker,
     location: location,
     city: contact.contact_city || undefined,
     state: contact.contact_state || undefined,
@@ -603,6 +604,92 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
 }
 
 /**
+ * Filter leads in-memory based on client-side filter parameters.
+ * Provides instant 0ms filtering when exploring contacts within an active company.
+ */
+export function filterLeadsInMemory(
+  leads: Lead[],
+  filters: Partial<FilterParams> = {}
+): Lead[] {
+  let result = leads;
+
+  // 1. Text search q across name, title, company, location, email (case-insensitive)
+  if (filters.q && filters.q.trim()) {
+    const term = filters.q.trim().toLowerCase();
+    result = result.filter((lead) => {
+      const name = (lead.name || '').toLowerCase();
+      const title = (lead.title || '').toLowerCase();
+      const company = (lead.company || '').toLowerCase();
+      const location = (lead.location || '').toLowerCase();
+      const email = (lead.email || '').toLowerCase();
+      return (
+        name.includes(term) ||
+        title.includes(term) ||
+        company.includes(term) ||
+        location.includes(term) ||
+        email.includes(term)
+      );
+    });
+  }
+
+  // 2. Audience tab
+  if (filters.tab === 'new') {
+    result = result.filter((lead) => {
+      if (lead.decisionMaker !== undefined) {
+        return lead.decisionMaker === true;
+      }
+      return lead.status === 'NET NEW';
+    });
+  } else if (filters.tab === 'saved') {
+    result = result.filter((lead) => lead.saved === true);
+  }
+
+  // 3. Departments
+  if (filters.departments && filters.departments.length > 0) {
+    result = result.filter((lead) => {
+      if (!lead.department) return false;
+      const deptLower = lead.department.toLowerCase();
+      return filters.departments!.some((d) => deptLower.includes(d.toLowerCase()));
+    });
+  }
+
+  // 4. Job Titles
+  if (filters.jobTitles && filters.jobTitles.length > 0) {
+    result = result.filter((lead) => {
+      if (!lead.title) return false;
+      const titleLower = lead.title.toLowerCase();
+      return filters.jobTitles!.some((jt) => titleLower.includes(jt.toLowerCase()));
+    });
+  }
+
+  // 5. Locations
+  if (filters.locations && filters.locations.length > 0) {
+    result = result.filter((lead) => {
+      const locLower = (lead.location || '').toLowerCase();
+      const cityLower = (lead.city || '').toLowerCase();
+      const stateLower = (lead.state || '').toLowerCase();
+      const countryLower = (lead.country || '').toLowerCase();
+      return filters.locations!.some((l) => {
+        const target = l.toLowerCase();
+        return (
+          locLower.includes(target) ||
+          cityLower.includes(target) ||
+          stateLower.includes(target) ||
+          countryLower.includes(target)
+        );
+      });
+    });
+  }
+
+  // 6. Status
+  if (filters.status && filters.status.length > 0) {
+    result = result.filter((lead) => filters.status!.includes(lead.status));
+  }
+
+  return result;
+}
+
+/**
  * Fetch Apollo freight decision-makers and contacts from the live backend API.
  * Seamlessly falls back to local preloaded starter data if offline, warming up, or error.
  */
@@ -618,9 +705,14 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
     locations = [],
   } = params;
 
+  // When organizationId or company is present, default request page_size to 250 (unless explicitly specified higher)
+  // so a rich working set for the company is fetched in one fast request.
+  const isEntityScoped = Boolean((organizationId && organizationId.trim()) || (company && company.trim()));
+  const effectiveLimit = isEntityScoped ? Math.max(limit, 250) : limit;
+
   const urlParams = new URLSearchParams();
   urlParams.set('page', String(page));
-  urlParams.set('page_size', String(limit));
+  urlParams.set('page_size', String(effectiveLimit));
 
   // Only restrict global browsing to logistics roles; when an organization or company is targeted,
   // show all verified corporate decision-makers (with logistics specialists ordered first)
@@ -687,8 +779,8 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
         totalEstimate: totalRecords,
         totalFormatted,
         page: result.page || page,
-        limit: result.page_size || limit,
-        totalPages: result.total_pages || (totalRecords > 0 ? Math.ceil(totalRecords / limit) : 1),
+        limit: result.page_size || effectiveLimit,
+        totalPages: result.total_pages || (totalRecords > 0 ? Math.ceil(totalRecords / effectiveLimit) : 1),
         audienceCounts: {
           all: totalRecords,
           new: Math.round(totalRecords * 0.45),
@@ -703,6 +795,9 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
   }
 
   // Fallback to preloaded starter data if offline or network error
-  return queryApolloPeopleLeadsLocal(params);
+  return queryApolloPeopleLeadsLocal({
+    ...params,
+    limit: effectiveLimit,
+  });
 }
 
