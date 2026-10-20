@@ -53,3 +53,34 @@ def test_company_resolution_lru_cache():
     assert resolve_company_ids_cached("", apollo_source, con) == []
     assert resolve_company_ids_cached(None, apollo_source, con) == []
 
+
+def test_company_contacts_peek_pagination():
+    from fastapi.testclient import TestClient
+    from src.api.main import app
+
+    client = TestClient(app)
+    # Boeing org id: 54a1229169702d9a8b695403
+    resp = client.get("/api/v1/apollo/companies/54a1229169702d9a8b695403/contacts?page=1&page_size=5")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert "data" in data
+    assert "has_next" in data
+    assert len(data["data"]) == 5
+    assert data["page"] == 1
+    assert data["page_size"] == 5
+    assert data["has_next"] is True
+    # Peek pagination: total_records should be offset + page_size + 1 = 6, total_pages = 2
+    assert data["total_records"] == 6
+    assert data["total_pages"] == 2
+
+    # Nonexistent company test
+    resp_empty = client.get("/api/v1/apollo/companies/nonexistent_org_id_99999/contacts?page=1&page_size=5")
+    assert resp_empty.status_code == 200
+    data_empty = resp_empty.json()
+    assert data_empty["has_next"] is False
+    assert data_empty["total_records"] == 0
+    assert data_empty["total_pages"] == 0
+    assert len(data_empty["data"]) == 0
+
+
+

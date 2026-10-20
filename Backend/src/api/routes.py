@@ -500,9 +500,6 @@ def list_company_contacts(
 
         where_sql = " AND ".join(conditions)
 
-        count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
-        total_records = con.execute(count_query, params).fetchone()[0]
-
         data_query = f"""
             SELECT 
                 person_id,
@@ -530,11 +527,20 @@ def list_company_contacts(
             ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
             LIMIT ? OFFSET ?
         """
-        query_params = params + [page_size, offset]
+        # Fetch page_size + 1 for peek pagination without full-table scan count(*)
+        query_params = params + [page_size + 1, offset]
         result_cursor = con.execute(data_query, query_params)
         columns = [desc[0] for desc in result_cursor.description]
         rows = result_cursor.fetchall()
-        clean_records = [dict(zip(columns, row)) for row in rows]
+        has_next = len(rows) > page_size
+        clean_rows = rows[:page_size] if has_next else rows
+        clean_records = [dict(zip(columns, row)) for row in clean_rows]
+
+        if has_next:
+            total_records = offset + page_size + 1
+        else:
+            total_records = offset + len(clean_rows)
+
         total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
 
         return {
@@ -542,7 +548,7 @@ def list_company_contacts(
             "page_size": page_size,
             "total_records": total_records,
             "total_pages": total_pages,
-            "has_next": page < total_pages,
+            "has_next": has_next,
             "data": clean_records,
         }
     except HTTPException:
