@@ -1,4 +1,9 @@
+from fastapi.testclient import TestClient
+
+from src.api.cache import clear_company_cache, resolve_company_ids_cached
 from src.api.database import get_db_connection
+from src.api.main import app
+from src.api.routes import get_data_source
 
 
 def test_duckdb_persistent_connection_and_pragmas():
@@ -31,11 +36,8 @@ def test_duckdb_persistent_connection_and_pragmas():
 
 
 def test_company_resolution_lru_cache():
-    from src.api.cache import clear_company_cache, resolve_company_ids_cached
     clear_company_cache()
-    
     con = get_db_connection()
-    from src.api.routes import get_data_source
     apollo_source = get_data_source(con, dataset="apollo")
     
     # First call - queries DB and caches
@@ -55,10 +57,6 @@ def test_company_resolution_lru_cache():
 
 
 def test_company_contacts_peek_pagination():
-    from fastapi.testclient import TestClient
-
-    from src.api.main import app
-
     client = TestClient(app)
     # Boeing org id: 54a1229169702d9a8b695403
     resp = client.get("/api/v1/apollo/companies/54a1229169702d9a8b695403/contacts?page=1&page_size=5")
@@ -85,10 +83,6 @@ def test_company_contacts_peek_pagination():
 
 
 def test_search_apollo_contacts_peek_pagination_and_no_join():
-    from fastapi.testclient import TestClient
-
-    from src.api.main import app
-
     client = TestClient(app)
 
     # 1. Organization ID search: verify peek pagination and resolved employer_name without join
@@ -143,9 +137,6 @@ def test_search_apollo_contacts_peek_pagination_and_no_join():
 
 def test_search_apollo_contacts_supports_page_size_250():
     """Verify that search_apollo_contacts accepts page_size up to 250 without 422 error."""
-    from fastapi.testclient import TestClient
-    from src.api.main import app
-
     client = TestClient(app)
     resp = client.get("/api/v1/apollo/contacts?company=Boeing&page=1&page_size=250")
     assert resp.status_code == 200
@@ -157,9 +148,6 @@ def test_search_apollo_contacts_supports_page_size_250():
 
 def test_search_apollo_contacts_exact_organization_id_prioritized():
     """Verify that when organization_id is passed with company, exact organization_id is queried."""
-    from fastapi.testclient import TestClient
-    from src.api.main import app
-
     client = TestClient(app)
     # Verizon Wireless primary organization ID
     resp = client.get(
@@ -172,8 +160,3 @@ def test_search_apollo_contacts_exact_organization_id_prioritized():
     # Every returned record must match the exact requested organization_id
     for contact in data["data"]:
         assert contact["organization_id"] == "54a120f269702d8cccfb9302"
-
-
-
-
-

@@ -1,10 +1,11 @@
 import uuid
+from typing import Any
 
 from fastapi import APIRouter, Header, HTTPException, Query
 
 from src.api.cache import resolve_company_ids_cached
 from src.api.config import settings
-from src.api.database import get_db_connection
+from src.api.database import get_cached_parquet_path, get_db_connection
 from src.api.helpers import (
     SQL_EXTRACT_EMPLOYER_NAME,
     build_company_search_sql,
@@ -39,10 +40,9 @@ def _handle_db_exception(context_msg: str, err: Exception, source: str = "unknow
     return HTTPException(status_code=500, detail=f"{context_msg}: {err!s}")
 
 
-def get_data_source(con, dataset: str = "active") -> str:
+def get_data_source(con: Any = None, dataset: str = "active") -> str:
     """Returns local cached Parquet file path (via /tmp in Lambda or local disk), falling back to S3 URI if needed."""
     try:
-        from src.api.database import get_cached_parquet_path
         cached_path = get_cached_parquet_path(dataset)
         if cached_path.exists():
             return str(cached_path)

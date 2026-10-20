@@ -8,7 +8,7 @@ import {
   ApolloTable,
   ApolloContextBanner,
 } from '@/components/apollo';
-import { ApolloLead, ApolloFilterParams, ApolloResponse } from '@/types/apolloLead';
+import { ApolloLead, ApolloFilterParams, ApolloResponse, ApolloAudienceTab } from '@/types/apolloLead';
 
 export interface ApolloCompaniesViewProps {
   filters: ApolloFilterParams;
@@ -35,7 +35,7 @@ export interface ApolloCompaniesViewProps {
   onToggleHasLinkedin: () => void;
   onClearCategory: (category: string) => void;
   onClearAllFilters: () => void;
-  onTabChange: (tab: any) => void;
+  onTabChange: (tab: ApolloAudienceTab) => void;
   onPageChange: (page: number) => void;
   onLeadClick: (lead: ApolloLead) => void;
   onFindDecisionMakers: (companyName: string, organizationId?: string) => void;

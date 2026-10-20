@@ -7,7 +7,7 @@ import {
   RowSelectionState,
   OnChangeFn,
 } from '@tanstack/react-table';
-import { Lead } from '@/types/lead';
+import { Lead, AudienceTab } from '@/types/lead';
 import { CompanyAvatar } from './CompanyAvatar';
 import {
   Mail,
@@ -46,7 +46,7 @@ export interface LeadsTableProps {
   onSearchCompanies?: (companyName: string) => void;
   onToggleSave?: (lead: Lead) => void;
   activeTab?: string;
-  onTabChange?: (tab: any) => void;
+  onTabChange?: (tab: AudienceTab) => void;
   className?: string;
 }
 

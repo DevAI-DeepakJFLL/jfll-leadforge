@@ -27,6 +27,9 @@ import {
   ChevronDown,
   Plus,
 } from 'lucide-react';
+import { useModalDismiss } from '@/hooks/useModalDismiss';
+import { useClipboard } from '@/hooks/useClipboard';
+import { formatDate } from '@/utils/formatters';
 
 export interface LeadDetailDrawerProps {
   isOpen: boolean;
@@ -39,10 +42,6 @@ export interface LeadDetailDrawerProps {
   onComposeEmail?: (lead: Lead) => void;
   savedLists?: string[];
 }
-
-import { useModalDismiss } from '@/hooks/useModalDismiss';
-import { useClipboard } from '@/hooks/useClipboard';
-import { formatDate } from '@/utils/formatters';
 
 export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
   isOpen,

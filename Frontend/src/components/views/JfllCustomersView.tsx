@@ -10,6 +10,7 @@ import {
   JfllCustomerFilterParams,
   JfllCustomersResponse,
   JfllCustomer,
+  JfllCustomerTabType,
 } from '@/types/jfllCustomer';
 
 export interface JfllCustomersViewProps {
@@ -30,7 +31,7 @@ export interface JfllCustomersViewProps {
   isExporting: boolean;
   onSearchChange: (query: string) => void;
   onCustomerStatusChange: (status: 'active' | 'inactive') => void;
-  onTabChange: (tab: any) => void;
+  onTabChange: (tab: JfllCustomerTabType) => void;
   onPageChange: (page: number) => void;
   toggleCustomerGroup: (group: string) => void;
   toggleType: (type: string) => void;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Database } from 'lucide-react';
+import { useModalDismiss } from '@/hooks/useModalDismiss';
 
 export interface SettingsModalProps {
   isOpen: boolean;
@@ -7,8 +8,6 @@ export interface SettingsModalProps {
   pageSize: number;
   onPageSizeChange: (size: number) => void;
 }
-
-import { useModalDismiss } from '@/hooks/useModalDismiss';
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({
   isOpen,

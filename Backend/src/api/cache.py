@@ -6,13 +6,13 @@ from functools import lru_cache
 
 import duckdb
 
+from src.api.database import get_db_connection
 from src.api.helpers import build_company_search_sql
 
 
 @lru_cache(maxsize=1024)
 def _cached_lookup(company_term: str, apollo_source: str) -> tuple[str, ...]:
     """Execute parameterized query to resolve corporate search term to organization IDs."""
-    from src.api.database import get_db_connection
     con = get_db_connection()
     comp_sql, comp_params = build_company_search_sql(company_term, col_prefix="a")
     org_rows = con.execute(
@@ -38,6 +38,5 @@ def resolve_company_ids_cached(
 
 
 def clear_company_cache() -> None:
-    """Clear in-memory LRU cache entries for testing and memory resets."""
+    """Clears the LRU company search cache (useful for test resets)."""
     _cached_lookup.cache_clear()
-
