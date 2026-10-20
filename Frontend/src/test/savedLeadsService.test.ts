@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import {
   saveLead,
   unsaveLead,
@@ -14,6 +14,8 @@ import {
   deleteSavedList,
   getLeadsForList,
   resetSavedLeadsStorage,
+  sanitizeListName,
+  MAX_LIST_NAME_LENGTH,
 } from '@/services/savedLeadsService';
 import { Lead } from '@/types/lead';
 
@@ -51,9 +53,33 @@ const mockLead2: Lead = {
   saved: false,
 };
 
+const storageStore = new Map<string, string>();
+const mockStorage: Storage = {
+  getItem: (key: string) => storageStore.get(key) ?? null,
+  setItem: (key: string, val: string) => {
+    storageStore.set(key, val);
+  },
+  removeItem: (key: string) => {
+    storageStore.delete(key);
+  },
+  clear: () => {
+    storageStore.clear();
+  },
+  key: (index: number) => Array.from(storageStore.keys())[index] ?? null,
+  length: storageStore.size,
+};
+
 describe('Saved Leads & Lists Service', () => {
   beforeEach(() => {
+    storageStore.clear();
+    (globalThis as any).window = {
+      localStorage: mockStorage,
+    };
     resetSavedLeadsStorage();
+  });
+
+  afterEach(() => {
+    delete (globalThis as any).window;
   });
 
   describe('Single Lead Save & Unsave', () => {
@@ -162,6 +188,65 @@ describe('Saved Leads & Lists Service', () => {
 
       deleteSavedList('Temporary List');
       expect(getSavedLists().some((l) => l.name === 'Temporary List')).toBe(false);
+    });
+
+    it('cleans up listNames on saved leads when a list is deleted', () => {
+      addLeadsToList('Temp Project', [mockLead1]);
+      const savedLead = getSavedLeads().find((l) => l.id === mockLead1.id);
+      expect(savedLead?.listNames).toContain('Temp Project');
+
+      deleteSavedList('Temp Project');
+      const updatedLead = getSavedLeads().find((l) => l.id === mockLead1.id);
+      expect(updatedLead?.listNames).not.toContain('Temp Project');
+    });
+  });
+
+  describe('Security & Defensive Hardening', () => {
+    it('sanitizes list names by stripping HTML/script tags and trimming whitespace', () => {
+      const sanitized = sanitizeListName('  <b>Special Accounts</b>  ');
+      expect(sanitized).toBe('bSpecial Accounts/b');
+
+      const list = createSavedList('  <script>alert("XSS")</script>VIP Accounts  ');
+      expect(list.name).toBe('scriptalert("XSS")/scriptVIP Accounts');
+      expect(list.name).not.toContain('<');
+      expect(list.name).not.toContain('>');
+    });
+
+    it('enforces maximum length of 50 characters for list names', () => {
+      const longName = 'A'.repeat(80);
+      const list = createSavedList(longName);
+      expect(list.name).toHaveLength(MAX_LIST_NAME_LENGTH);
+      expect(list.name).toBe('A'.repeat(MAX_LIST_NAME_LENGTH));
+    });
+
+    it('rejects reserved prototype pollution names for list names', () => {
+      expect(() => createSavedList('__proto__')).toThrow(/reserved/i);
+      expect(() => createSavedList('constructor')).toThrow(/reserved/i);
+      expect(() => createSavedList('prototype')).toThrow(/reserved/i);
+    });
+
+    it('handles corrupted localStorage JSON gracefully without throwing', () => {
+      mockStorage.setItem('leadforge_saved_leads', 'null');
+      mockStorage.setItem('leadforge_saved_lists', '{"not": "an array"}');
+
+      // Should return safe fallbacks instead of crashing with TypeError
+      expect(getSavedLeads()).toBeInstanceOf(Array);
+      expect(getSavedLists()).toBeInstanceOf(Array);
+      expect(getSavedLeadIds()).toBeInstanceOf(Set);
+    });
+
+    it('prunes dangerous prototype keys from raw storage', () => {
+      mockStorage.setItem(
+        'leadforge_saved_leads',
+        JSON.stringify({
+          __proto__: { injected: true },
+          'lead-test-1': { ...mockLead1, saved: true, savedAt: new Date().toISOString() },
+        })
+      );
+
+      const leads = getSavedLeads();
+      expect(Object.prototype.hasOwnProperty.call(Object.prototype, 'injected')).toBe(false);
+      expect(leads.length).toBeGreaterThanOrEqual(1);
     });
   });
 });

@@ -225,6 +225,7 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                           value={newListName}
                           onChange={(e) => setNewListName(e.target.value)}
                           placeholder="List name..."
+                          maxLength={50}
                           autoFocus
                           className="w-full px-2 py-1 text-xs border border-slate-300 rounded focus:outline-none focus:border-apollo"
                         />

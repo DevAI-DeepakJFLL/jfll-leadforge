@@ -55,6 +55,7 @@ import {
   addLeadsToList,
   subscribeToSavedChanges,
 } from '@/services/savedLeadsService';
+import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
 
 
 interface SavedSearchPreset {
@@ -371,16 +372,21 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     setRowSelection({});
   };
 
+  // Indexed unified map of leads in memory for O(1) lookups during batch operations
+  const getUnifiedLeadMap = () => {
+    const map = new Map<string, Lead>();
+    getSavedLeads().forEach((l) => map.set(l.id, l));
+    (data?.items || []).forEach((l) => map.set(l.id, l));
+    filteredLeads.forEach((l) => map.set(l.id, l));
+    items.forEach((l) => map.set(l.id, l));
+    return map;
+  };
+
   const handleBatchSave = () => {
     if (selectedLeadIds.length === 0) return;
-    const allAvailable = [
-      ...(data?.items || []),
-      ...(filteredLeads || []),
-      ...items,
-      ...getSavedLeads(),
-    ];
+    const leadMap = getUnifiedLeadMap();
     const leadsToSave = selectedLeadIds.map((id) => {
-      const found = allAvailable.find((l) => l.id === id);
+      const found = leadMap.get(id);
       if (found) return found;
       return { id, name: 'Lead', company: 'Company', saved: true } as Lead;
     });
@@ -391,14 +397,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
 
   const handleAddToList = (listName: string) => {
     if (selectedLeadIds.length === 0) return;
-    const allAvailable = [
-      ...(data?.items || []),
-      ...(filteredLeads || []),
-      ...items,
-      ...getSavedLeads(),
-    ];
+    const leadMap = getUnifiedLeadMap();
     const leadsToAdd = selectedLeadIds
-      .map((id) => allAvailable.find((l) => l.id === id))
+      .map((id) => leadMap.get(id))
       .filter((l): l is Lead => Boolean(l));
 
     addLeadsToList(listName, leadsToAdd);
@@ -414,10 +415,32 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     showToast(`Added ${lead.name} to "${targetList}"`);
   };
 
-  // Functional CSV Export download handler
+  // Functional CSV Export download handler with direct client-side generation & server fallback
   const handleExportCsv = async () => {
     try {
       setIsExporting(true);
+
+      // If user selected specific rows, export directly from memory with 100% data fidelity
+      if (selectedLeadIds.length > 0) {
+        const leadMap = getUnifiedLeadMap();
+        const leadsToExport = selectedLeadIds
+          .map((id) => leadMap.get(id))
+          .filter((l): l is Lead => Boolean(l));
+
+        if (leadsToExport.length > 0) {
+          const blob = createCsvBlob(
+            ['ID', 'Name', 'Title', 'Company', 'Industry', 'Department', 'Status', 'Location', 'Email', 'Phone', 'Employees', 'Revenue', 'Funding', 'Saved'],
+            leadsToExport.map((l) => [
+              l.id, l.name, l.title, l.company, l.industry, l.department || '', l.status, l.location, l.email, l.phone, l.employees, l.revenue, l.funding, l.saved ? 'Yes' : 'No'
+            ])
+          );
+          triggerCsvDownload(blob, `apollo_leads_export.csv`);
+          showToast(`Exported ${leadsToExport.length} leads to apollo_leads_export.csv`);
+          return;
+        }
+      }
+
+      // If no specific rows are selected, try server export or export all currently displayed items
       const res = await fetch('/api/leads/export', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -427,23 +450,26 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         }),
       });
 
-      if (!res.ok) {
-        throw new Error(`Export failed with HTTP status ${res.status}`);
+      if (res.ok) {
+        const blob = await res.blob();
+        triggerCsvDownload(blob, 'apollo_leads_export.csv');
+        const exportedCount = effectiveData?.totalEstimate || items.length;
+        showToast(`Exported ${exportedCount} leads to apollo_leads_export.csv`);
+        return;
       }
 
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'apollo_leads_export.csv');
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(url);
-
-      const exportedCount =
-        selectedLeadIds.length > 0 ? selectedLeadIds.length : effectiveData?.totalEstimate || items.length;
-      showToast(`Exported ${exportedCount} leads to apollo_leads_export.csv`);
+      // Fallback: export currently loaded filtered/table leads
+      const fallbackLeads = isEntityScoped || isSavedTab ? filteredLeads : (data?.items || items);
+      if (fallbackLeads.length > 0) {
+        const blob = createCsvBlob(
+          ['ID', 'Name', 'Title', 'Company', 'Industry', 'Department', 'Status', 'Location', 'Email', 'Phone', 'Employees', 'Revenue', 'Funding', 'Saved'],
+          fallbackLeads.map((l) => [
+            l.id, l.name, l.title, l.company, l.industry, l.department || '', l.status, l.location, l.email, l.phone, l.employees, l.revenue, l.funding, l.saved ? 'Yes' : 'No'
+          ])
+        );
+        triggerCsvDownload(blob, 'apollo_leads_export.csv');
+        showToast(`Exported ${fallbackLeads.length} leads to apollo_leads_export.csv`);
+      }
     } catch (err: unknown) {
       showToast(
         (err as Error)?.message || 'Export failed. Please check network connection.',
