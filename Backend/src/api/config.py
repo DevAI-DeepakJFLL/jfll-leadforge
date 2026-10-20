@@ -19,9 +19,9 @@ class Settings(BaseModel):
     api_port: int = Field(default_factory=lambda: int(os.getenv("API_PORT", "8000")))
     auth_secret_key: str = Field(default_factory=lambda: os.getenv("AUTH_SECRET_KEY", "jfll-lead-sourcing-secret-key-2026-enterprise"))
     auth_token_expire_hours: int = Field(default_factory=lambda: int(os.getenv("AUTH_TOKEN_EXPIRE_HOURS", "24")))
-    default_user_email: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_EMAIL", "leads@jfll.com"))
+    default_user_email: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_EMAIL", "deepak.naidu@jfll.com"))
     default_user_password: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_PASSWORD", "Jet@123"))
-    default_user_name: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_NAME", "JFLL"))
+    default_user_name: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_NAME", "Deepak Naidu"))
     default_user_role: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_ROLE", "Internal Team"))
     allowed_emails: list[str] = Field(
         default_factory=lambda: [
