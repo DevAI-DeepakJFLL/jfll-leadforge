@@ -13,6 +13,7 @@ import {
   LogOut,
 } from 'lucide-react';
 import { UserSession } from '@/types/auth';
+import { getStoredSession, DEFAULT_ANONYMOUS_SESSION } from '@/services/authService';
 
 export interface AppDockProps {
   activeNav?: string;
@@ -50,22 +51,7 @@ export const AppDock: React.FC<AppDockProps> = ({
   className = '',
   defaultShowProfileMenu = false,
 }) => {
-  const resolvedUser: UserSession = currentUser || (() => {
-    try {
-      if (typeof window !== 'undefined' && window.sessionStorage) {
-        const raw = window.sessionStorage.getItem('apollo_leads_session');
-        if (raw) return JSON.parse(raw);
-      }
-    } catch {
-      // Ignored
-    }
-    return {
-      name: 'Authorized Personnel',
-      email: 'user@jfll.com',
-      role: 'Team Member',
-      token: '',
-    };
-  })();
+  const resolvedUser: UserSession = currentUser || getStoredSession() || DEFAULT_ANONYMOUS_SESSION;
   const userFirstName = resolvedUser.name?.trim().split(/\s+/)[0] || 'User';
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(defaultShowProfileMenu);

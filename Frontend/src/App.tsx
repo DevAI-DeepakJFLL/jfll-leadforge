@@ -16,6 +16,11 @@ import {
 import { ToastProvider, useToast, ErrorBoundary } from '@/components/ui';
 import { LoginPage } from '@/components/auth/LoginPage';
 import { UserSession } from '@/types/auth';
+import {
+  getStoredSession,
+  setStoredSession,
+  clearStoredSession,
+} from '@/services/authService';
 import { useLeadsFilter } from '@/hooks/useLeadsFilter';
 import { LeadsResponse, Lead, FilterParams } from '@/types/lead';
 import { JfllCustomerDetailDrawer } from '@/components/jfll';
@@ -1218,25 +1223,15 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
 };
 
 export const App: React.FC = () => {
-  const [session, setSession] = useState<UserSession | null>(() => {
-    try {
-      const stored = sessionStorage.getItem('apollo_leads_session');
-      return stored ? JSON.parse(stored) : null;
-    } catch {
-      return null;
-    }
-  });
+  const [session, setSession] = useState<UserSession | null>(getStoredSession);
 
   const handleLoginSuccess = (newSession: UserSession) => {
+    setStoredSession(newSession);
     setSession(newSession);
   };
 
   const handleLogout = () => {
-    try {
-      sessionStorage.removeItem('apollo_leads_session');
-    } catch {
-      // Ignored
-    }
+    clearStoredSession();
     setSession(null);
   };
 

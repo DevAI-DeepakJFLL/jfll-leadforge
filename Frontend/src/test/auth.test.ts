@@ -1,6 +1,12 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { loginUser } from '@/services/authService';
-import { AUTHORIZED_USERS } from '@/types/auth';
+import {
+  loginUser,
+  getStoredSession,
+  setStoredSession,
+  clearStoredSession,
+  AUTH_STORAGE_KEY,
+} from '@/services/authService';
+import { AUTHORIZED_USERS, UserSession } from '@/types/auth';
 
 describe('authService', () => {
   const originalFetch = globalThis.fetch;
@@ -121,5 +127,65 @@ describe('authService', () => {
         email: 'random.person@jfll.com',
       })
     ).rejects.toThrow('Access restricted. Only authorized Jet Freight Logistics personnel can sign in.');
+  });
+
+  describe('Session Storage Helpers', () => {
+    const mockSession: UserSession = {
+      email: 'deepak.naidu@jfll.com',
+      name: 'Deepak Naidu',
+      role: 'Tech Lead',
+      token: 'test-token',
+    };
+
+    let storageMap: Record<string, string> = {};
+
+    beforeEach(() => {
+      storageMap = {};
+      const mockStorage = {
+        getItem: (key: string) => storageMap[key] || null,
+        setItem: (key: string, value: string) => {
+          storageMap[key] = value;
+        },
+        removeItem: (key: string) => {
+          delete storageMap[key];
+        },
+        clear: () => {
+          storageMap = {};
+        },
+      };
+      (globalThis as unknown as { window?: { sessionStorage: typeof mockStorage } }).window = {
+        sessionStorage: mockStorage,
+      };
+    });
+
+    afterEach(() => {
+      delete (globalThis as unknown as { window?: unknown }).window;
+    });
+
+    it('persists and retrieves user session cleanly', () => {
+      expect(getStoredSession()).toBeNull();
+      setStoredSession(mockSession);
+      const retrieved = getStoredSession();
+      expect(retrieved).toEqual(mockSession);
+      expect(storageMap[AUTH_STORAGE_KEY]).toBe(JSON.stringify(mockSession));
+    });
+
+    it('clears stored session on logout', () => {
+      setStoredSession(mockSession);
+      expect(getStoredSession()).not.toBeNull();
+      clearStoredSession();
+      expect(getStoredSession()).toBeNull();
+      expect(storageMap[AUTH_STORAGE_KEY]).toBeUndefined();
+    });
+
+    it('gracefully handles corrupted sessionStorage JSON', () => {
+      storageMap[AUTH_STORAGE_KEY] = '{ invalid_json :::';
+      expect(getStoredSession()).toBeNull();
+    });
+
+    it('returns null safely when window is undefined', () => {
+      delete (globalThis as unknown as { window?: unknown }).window;
+      expect(getStoredSession()).toBeNull();
+    });
   });
 });

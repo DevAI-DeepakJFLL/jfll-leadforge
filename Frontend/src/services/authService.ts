@@ -7,6 +7,56 @@ export interface LoginCredentials {
   password?: string;
 }
 
+export const AUTH_STORAGE_KEY = 'apollo_leads_session';
+
+export const DEFAULT_ANONYMOUS_SESSION: UserSession = {
+  name: 'Authorized Personnel',
+  email: 'user@jfll.com',
+  role: 'Team Member',
+  token: '',
+};
+
+/**
+ * Retrieves the persisted UserSession from browser storage safely.
+ */
+export function getStoredSession(): UserSession | null {
+  try {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const raw = window.sessionStorage.getItem(AUTH_STORAGE_KEY);
+      if (raw) return JSON.parse(raw);
+    }
+  } catch {
+    // Graceful handling of storage access exceptions
+  }
+  return null;
+}
+
+/**
+ * Persists active UserSession to browser storage safely.
+ */
+export function setStoredSession(session: UserSession): void {
+  try {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      window.sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
+    }
+  } catch {
+    // Graceful handling of storage access exceptions
+  }
+}
+
+/**
+ * Clears persisted UserSession from browser storage safely upon logout.
+ */
+export function clearStoredSession(): void {
+  try {
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      window.sessionStorage.removeItem(AUTH_STORAGE_KEY);
+    }
+  } catch {
+    // Graceful handling of storage access exceptions
+  }
+}
+
 export interface BackendAuthResponse {
   email: string;
   name: string;

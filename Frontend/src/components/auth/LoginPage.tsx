@@ -8,10 +8,11 @@ import {
   Layers,
   CheckCircle2,
   Sparkles,
+  Loader2,
 } from 'lucide-react';
 
 import { UserSession } from '@/types/auth';
-import { loginUser } from '@/services/authService';
+import { loginUser, setStoredSession } from '@/services/authService';
 
 export interface LoginPageProps {
   onLoginSuccess: (session: UserSession) => void;
@@ -34,7 +35,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
     try {
       const session = await loginUser({ email: trimmed });
-      sessionStorage.setItem('apollo_leads_session', JSON.stringify(session));
+      setStoredSession(session);
       onLoginSuccess(session);
     } catch (err: unknown) {
       setErrorMessage(
@@ -204,10 +205,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               >
                 {isLoading ? (
                   <div className="flex items-center gap-2">
-                    <svg className="animate-spin w-4 h-4 text-white" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
+                    <Loader2 className="animate-spin w-4 h-4 text-white" />
                     <span>Verifying Work Email...</span>
                   </div>
                 ) : (
