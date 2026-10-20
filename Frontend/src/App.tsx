@@ -64,13 +64,41 @@ interface SavedSearchPreset {
   filters: Partial<FilterParams>;
 }
 
+const DEFAULT_TOP_TAB = 'jfll-customers';
+const STORAGE_TAB_KEY = 'leadforge_active_top_tab';
+
+function getInitialTopTab(): string {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
+      if (
+        saved &&
+        ['jfll-customers', 'companies', 'people', 'datamyne', 'saved-searches', 'saved-lists'].includes(saved)
+      ) {
+        return saved;
+      }
+    }
+  } catch {
+    // Ignore storage errors
+  }
+  return DEFAULT_TOP_TAB;
+}
+
+function getInitialActiveNav(tab: string): string {
+  if (tab === 'datamyne') return 'datamyne';
+  if (tab === 'jfll-customers') return 'jfll-customers';
+  if (tab === 'companies') return 'companies';
+  if (tab === 'saved-searches' || tab === 'saved-lists') return 'saved-searches';
+  return 'search'; // for 'people'
+}
+
 interface AppContentProps {
   onLogout: () => void;
 }
 
 const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
-  const [activeNav, setActiveNav] = useState('companies');
-  const [topTab, setTopTab] = useState('companies');
+  const [topTab, setTopTab] = useState<string>(getInitialTopTab);
+  const [activeNav, setActiveNav] = useState<string>(() => getInitialActiveNav(getInitialTopTab()));
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const { showToast } = useToast();
@@ -839,6 +867,14 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     const normalizedTab = tabId === 'apollo' ? 'companies' : tabId;
     setTopTab(normalizedTab);
     setIsMobileFilterOpen(false);
+
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem(STORAGE_TAB_KEY, normalizedTab);
+      }
+    } catch {
+      // Ignore storage errors
+    }
 
     const wasEntityScoped = Boolean(filters.company || filters.organizationId || filters.q);
 
