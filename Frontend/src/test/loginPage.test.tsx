@@ -4,26 +4,24 @@ import { LoginPage } from '@/components/auth/LoginPage';
 import { AUTHORIZED_USERS } from '@/types/auth';
 
 describe('LoginPage UI Component', () => {
-  it('renders passwordless authentication form with quick select member chips', () => {
+  it('renders clean passwordless authentication form without pre-filled details', () => {
     const html = renderToString(<LoginPage onLoginSuccess={() => {}} />);
 
     // Check header & title
     expect(html).toContain('Welcome back');
     expect(html).toContain('Authorized Personnel Sign-In');
+    expect(html).toContain('Enter your registered work email to access the leads dashboard.');
 
-    // Check all 4 authorized team members are rendered as quick-select chips
+    // Check that pre-filled member chips and personal names are NOT exposed on login screen
     for (const member of AUTHORIZED_USERS) {
-      expect(html).toContain(member.name);
-      expect(html).toContain(member.role);
+      expect(html).not.toContain(member.name);
     }
-    expect(html).toContain('Tyra Theknath');
-    expect(html).toContain('Deepak Naidu');
-    expect(html).toContain('Akash Dhara');
-    expect(html).toContain('Snehal Birje');
+    expect(html).not.toContain('Quick Select Team Member');
 
-    // Check work email input exists
+    // Check neutral work email input exists without pre-filled email
     expect(html).toContain('Work Email Address');
-    expect(html).toContain('placeholder="deepak.naidu@jfll.com"');
+    expect(html).toContain('placeholder="name@jfll.com"');
+    expect(html).not.toContain('placeholder="deepak.naidu@jfll.com"');
 
     // Check primary CTA
     expect(html).toContain('Verify Work Email &amp; Enter');
@@ -39,6 +37,6 @@ describe('LoginPage UI Component', () => {
 
     expect(html).toContain('Jet Freight Logistics');
     expect(html).toContain('Passwordless whitelist authentication');
-    expect(html).toContain('4 Authorized Personnel');
+    expect(html).toContain('Authorized Personnel Only');
   });
 });

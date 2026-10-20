@@ -112,9 +112,10 @@ function getInitialActiveNav(tab: string): string {
 
 interface AppContentProps {
   onLogout: () => void;
+  currentUser?: UserSession | null;
 }
 
-const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
+const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const [topTab, setTopTab] = useState<string>(getInitialTopTab);
   const [activeNav, setActiveNav] = useState<string>(() => getInitialActiveNav(getInitialTopTab()));
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -991,6 +992,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
       savedSearchesCount={savedSearches.length}
       onOpenSettings={() => setIsSettingsOpen(true)}
       onLogout={onLogout}
+      currentUser={currentUser}
       onToggleMobileFilter={() => setIsMobileFilterOpen((prev) => !prev)}
       activeFilterCount={currentActiveFilterCount}
     >
@@ -1244,7 +1246,7 @@ export const App: React.FC = () => {
 
   return (
     <ToastProvider>
-      <AppContent onLogout={handleLogout} />
+      <AppContent onLogout={handleLogout} currentUser={session} />
     </ToastProvider>
   );
 };

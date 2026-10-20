@@ -8,47 +8,14 @@ import {
   Layers,
   CheckCircle2,
   Sparkles,
-  UserCheck,
 } from 'lucide-react';
 
-import { UserSession, AUTHORIZED_USERS } from '@/types/auth';
+import { UserSession } from '@/types/auth';
 import { loginUser } from '@/services/authService';
 
 export interface LoginPageProps {
   onLoginSuccess: (session: UserSession) => void;
 }
-
-const MEMBER_THEMES: Record<string, { bg: string; text: string; border: string }> = {
-  'tyra.theknath@jfll.com': {
-    bg: 'bg-purple-100',
-    text: 'text-purple-700',
-    border: 'border-purple-200',
-  },
-  'deepak.naidu@jfll.com': {
-    bg: 'bg-blue-100',
-    text: 'text-blue-700',
-    border: 'border-blue-200',
-  },
-  'akash.dhara@jfll.com': {
-    bg: 'bg-amber-100',
-    text: 'text-amber-700',
-    border: 'border-amber-200',
-  },
-  'snehal.birje@jfll.com': {
-    bg: 'bg-emerald-100',
-    text: 'text-emerald-700',
-    border: 'border-emerald-200',
-  },
-};
-
-const getInitials = (name: string): string => {
-  return name
-    .split(' ')
-    .map((part) => part[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-};
 
 export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
@@ -81,11 +48,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await performLogin(email);
-  };
-
-  const handleSelectMember = (memberEmail: string) => {
-    setEmail(memberEmail);
-    setErrorMessage('');
   };
 
   return (
@@ -178,7 +140,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>Passwordless Whitelist</span>
             </div>
-            <span className="text-slate-400 text-[10px]">4 Authorized Personnel</span>
+            <span className="text-slate-400 text-[10px]">Authorized Personnel Only</span>
           </div>
         </div>
 
@@ -195,7 +157,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                 Welcome back
               </h1>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                Select your team profile below or enter your authorized work email.
+                Enter your registered work email to access the leads dashboard.
               </p>
             </div>
 
@@ -209,63 +171,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                 <span className="leading-tight">{errorMessage}</span>
               </div>
             )}
-
-            {/* Team Member Quick-Select Chips */}
-            <div className="mb-5">
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-semibold text-slate-700 block">
-                  Quick Select Team Member
-                </label>
-                <span className="text-[11px] text-slate-400 font-medium">Click to select</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2" role="group" aria-label="Authorized team members">
-                {AUTHORIZED_USERS.map((member) => {
-                  const isSelected = email.trim().toLowerCase() === member.email.toLowerCase();
-                  const theme = MEMBER_THEMES[member.email] || {
-                    bg: 'bg-slate-100',
-                    text: 'text-slate-700',
-                    border: 'border-slate-200',
-                  };
-
-                  return (
-                    <button
-                      key={member.email}
-                      type="button"
-                      onClick={() => handleSelectMember(member.email)}
-                      aria-pressed={isSelected}
-                      className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
-                        isSelected
-                          ? 'border-apollo bg-blue-50/70 ring-2 ring-apollo/25 shadow-xs'
-                          : 'border-slate-200/90 bg-white hover:bg-slate-50/80 hover:border-slate-300'
-                      }`}
-                    >
-                      <div
-                        className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 border ${theme.bg} ${theme.text} ${theme.border}`}
-                      >
-                        {getInitials(member.name)}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="text-xs font-semibold text-slate-900 truncate flex items-center gap-1.5">
-                          <span>{member.name}</span>
-                          {isSelected && <UserCheck className="w-3 h-3 text-apollo shrink-0" />}
-                        </div>
-                        <div className="text-[10px] text-slate-500 font-medium truncate">
-                          {member.role}
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Subtle Divider */}
-            <div className="relative my-4 flex items-center justify-center">
-              <div className="border-t border-slate-200 w-full" />
-              <span className="bg-white px-2.5 text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
-                Work Email
-              </span>
-            </div>
 
             {/* Authentication Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -283,7 +188,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                       setEmail(e.target.value);
                       if (errorMessage) setErrorMessage('');
                     }}
-                    placeholder="deepak.naidu@jfll.com"
+                    placeholder="name@jfll.com"
                     required
                     autoComplete="email"
                     className="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium"

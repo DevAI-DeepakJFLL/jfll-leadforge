@@ -10,7 +10,9 @@ import {
   Trash2,
   Building2,
   Database,
+  LogOut,
 } from 'lucide-react';
+import { UserSession } from '@/types/auth';
 
 export interface AppDockProps {
   activeNav?: string;
@@ -18,7 +20,9 @@ export interface AppDockProps {
   savedSearchesCount?: number;
   onOpenSettings?: () => void;
   onLogout?: () => void;
+  currentUser?: UserSession | null;
   className?: string;
+  defaultShowProfileMenu?: boolean;
 }
 
 interface NavItem {
@@ -28,16 +32,41 @@ interface NavItem {
   badge?: number;
 }
 
+const getInitials = (name?: string): string => {
+  if (!name) return 'JF';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
+
 export const AppDock: React.FC<AppDockProps> = ({
   activeNav = 'search',
   onNavChange,
   savedSearchesCount = 0,
   onOpenSettings,
   onLogout,
+  currentUser,
   className = '',
+  defaultShowProfileMenu = false,
 }) => {
+  const resolvedUser: UserSession = currentUser || (() => {
+    try {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
+        const raw = window.sessionStorage.getItem('apollo_leads_session');
+        if (raw) return JSON.parse(raw);
+      }
+    } catch {
+      // Ignored
+    }
+    return {
+      name: 'Authorized Personnel',
+      email: 'user@jfll.com',
+      role: 'Team Member',
+      token: '',
+    };
+  })();
   const [showNotifications, setShowNotifications] = useState(false);
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(defaultShowProfileMenu);
   const [notifications, setNotifications] = useState([
     {
       id: '1',
@@ -257,22 +286,20 @@ export const AppDock: React.FC<AppDockProps> = ({
                   setShowProfileMenu(!showProfileMenu);
                   setShowNotifications(false);
                 }}
-                className="relative w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-apollo-400 group bg-white p-0.5 border border-slate-600 shadow-sm transition-transform active:scale-95"
-                title="User Profile: JFLL"
-                aria-label="User Account"
+                className="relative w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-apollo-400 group bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-xs flex items-center justify-center border border-white/20 shadow-sm transition-transform active:scale-95 cursor-pointer"
+                title={`${resolvedUser.name} (${resolvedUser.email}) · Account & Sign Out`}
+                aria-label={`User Account for ${resolvedUser.name}`}
               >
-                <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-white">
-                  <img
-                    src="/assets/jfll-logo.jpeg"
-                    alt="JFLL User Profile"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+                <span>{getInitials(resolvedUser.name)}</span>
               </button>
               <span
                 className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-dock pointer-events-none z-10"
-                title="Online"
+                title="Active Session"
               />
+
+              <span className="absolute left-14 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 border border-slate-700/60">
+                {`${resolvedUser.name} · ${resolvedUser.role}`}
+              </span>
             </div>
           </div>
         </div>
@@ -325,13 +352,15 @@ export const AppDock: React.FC<AppDockProps> = ({
             setShowProfileMenu(!showProfileMenu);
             setShowNotifications(false);
           }}
-          className="flex flex-col items-center justify-center flex-1 py-1 min-h-[44px] text-slate-400 hover:text-slate-200 relative"
-          aria-label="User Account"
+          className="flex flex-col items-center justify-center flex-1 py-1 min-h-[44px] text-slate-400 hover:text-slate-200 relative cursor-pointer"
+          aria-label={`User Account for ${resolvedUser.name}`}
         >
-          <div className="w-5 h-5 rounded-full overflow-hidden bg-white p-0.5">
-            <img src="/assets/jfll-logo.jpeg" alt="JFLL Profile" className="w-full h-full object-contain" />
+          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-[10px] flex items-center justify-center border border-white/20 shadow-xs">
+            {getInitials(resolvedUser.name)}
           </div>
-          <span className="text-[10px] font-medium tracking-tight mt-0.5">Account</span>
+          <span className="text-[10px] font-medium tracking-tight mt-0.5 truncate max-w-[60px]">
+            {resolvedUser.name.split(' ')[0]}
+          </span>
         </button>
       </nav>
 
@@ -415,18 +444,14 @@ export const AppDock: React.FC<AppDockProps> = ({
             onClick={() => setShowProfileMenu(false)}
             aria-hidden="true"
           />
-          <div className="pointer-events-auto w-full max-w-sm sm:w-64 bg-white rounded-t-2xl sm:rounded-xl shadow-2xl border border-slate-200 z-50 p-4 sm:p-3 text-slate-800 text-xs animate-in fade-in slide-in-from-bottom-4 sm:slide-in-from-left-2 duration-150 mb-14 sm:mb-0 sm:ml-16 sm:mt-auto sm:mb-16">
+          <div className="pointer-events-auto w-full max-w-sm sm:w-72 bg-white rounded-t-2xl sm:rounded-xl shadow-2xl border border-slate-200 z-50 p-4 sm:p-3 text-slate-800 text-xs animate-in fade-in slide-in-from-bottom-4 sm:slide-in-from-left-2 duration-150 mb-14 sm:mb-0 sm:ml-16 sm:mt-auto sm:mb-16">
             <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
-              <div className="w-10 h-10 rounded-full bg-white p-1 border border-slate-200 shadow-2xs flex items-center justify-center shrink-0">
-                <img
-                  src="/assets/jfll-logo.jpeg"
-                  alt="JFLL Logo"
-                  className="w-full h-full object-contain"
-                />
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-sm flex items-center justify-center shrink-0 border border-white/20 shadow-xs">
+                {getInitials(resolvedUser.name)}
               </div>
               <div className="min-w-0 flex-1">
-                <div className="font-semibold text-slate-900 truncate">JFLL</div>
-                <div className="text-[11px] text-slate-500 truncate">leads@jfll.com</div>
+                <div className="font-semibold text-slate-900 truncate text-xs">{resolvedUser.name}</div>
+                <div className="text-[11px] text-slate-500 truncate" title={resolvedUser.email}>{resolvedUser.email}</div>
               </div>
               <button
                 onClick={() => setShowProfileMenu(false)}
@@ -439,9 +464,9 @@ export const AppDock: React.FC<AppDockProps> = ({
 
             <div className="py-2.5 space-y-1.5">
               <div className="flex items-center justify-between py-1 px-1.5 text-slate-600 rounded">
-                <span>Internal Team</span>
+                <span>Role</span>
                 <span className="font-semibold text-slate-900 bg-slate-100 px-1.5 py-0.5 rounded text-[10px]">
-                  Lead Sourcing Admin
+                  {resolvedUser.role || 'Authorized Personnel'}
                 </span>
               </div>
               <div className="flex items-center justify-between py-1 px-1.5 text-slate-600 rounded">
@@ -450,25 +475,32 @@ export const AppDock: React.FC<AppDockProps> = ({
               </div>
             </div>
 
-            <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between">
-              <button
-                onClick={() => {
-                  setShowProfileMenu(false);
-                  onOpenSettings?.();
-                }}
-                className="text-slate-600 hover:text-slate-900 font-medium flex items-center gap-1.5 min-h-[44px]"
-              >
-                <SlidersHorizontal className="w-3.5 h-3.5" />
-                <span>Preferences</span>
-              </button>
+            <div className="pt-2.5 border-t border-slate-100 space-y-2">
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    onOpenSettings?.();
+                  }}
+                  className="text-slate-600 hover:text-slate-900 font-medium flex items-center gap-1.5 min-h-[36px] cursor-pointer"
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  <span>Preferences</span>
+                </button>
+                <span className="text-[10px] text-slate-400 font-mono truncate max-w-[120px]">
+                  {resolvedUser.email}
+                </span>
+              </div>
               <button
                 onClick={() => {
                   setShowProfileMenu(false);
                   onLogout?.();
                 }}
-                className="text-red-600 hover:text-red-700 font-medium min-h-[44px] flex items-center"
+                className="w-full py-2 px-3 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200/80 rounded-lg font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                title={`Sign out ${resolvedUser.name} (${resolvedUser.email})`}
               >
-                Sign out
+                <LogOut className="w-3.5 h-3.5 text-red-600" />
+                <span>{`Sign out (${resolvedUser.name.split(' ')[0]})`}</span>
               </button>
             </div>
           </div>

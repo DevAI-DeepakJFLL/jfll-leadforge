@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppDock } from './AppDock';
 import { TopHeader } from './TopHeader';
+import { UserSession } from '@/types/auth';
 
 export interface AppLayoutProps {
   children?: React.ReactNode;
@@ -17,6 +18,7 @@ export interface AppLayoutProps {
   savedCount?: number;
   onOpenSettings?: () => void;
   onLogout?: () => void;
+  currentUser?: UserSession | null;
   className?: string;
 }
 
@@ -35,6 +37,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   savedCount,
   onOpenSettings,
   onLogout,
+  currentUser,
   className = '',
 }) => {
   return (
@@ -46,6 +49,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         savedSearchesCount={savedSearchesCount}
         onOpenSettings={onOpenSettings}
         onLogout={onLogout}
+        currentUser={currentUser}
       />
 
       {/* Main Workspace Frame */}
