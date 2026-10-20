@@ -471,10 +471,14 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
 
   let filtered = [...APOLLO_CONTACTS_STARTER_DATA];
 
-  // 1. Organization ID exact match (instant 0ms resolution for Find Decision Makers cross-navigation)
+  // 1. Organization ID match (instant 0ms resolution for Find Decision Makers cross-navigation)
   if (organizationId && organizationId.trim()) {
     const orgId = organizationId.trim();
-    filtered = filtered.filter((c) => c.organization_id === orgId);
+    const orgMatches = filtered.filter((c) => c.organization_id === orgId);
+    // If exact match found in starter data, or if no company name was provided, apply org filter
+    if (orgMatches.length > 0 || !company || !company.trim()) {
+      filtered = orgMatches;
+    }
   }
 
   // 2. Company name matching

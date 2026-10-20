@@ -17,6 +17,7 @@ import {
   AlertCircle,
   FilterX,
   RotateCcw,
+  Loader2,
 } from 'lucide-react';
 
 export interface LeadsTableProps {
@@ -242,10 +243,20 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
   const endItem = Math.min(currentPage * pageSize, totalItems || leads.length);
   const displayTotal = totalFormatted || (totalItems > 0 ? totalItems.toLocaleString() : leads.length.toString());
 
-  // 1. Loading Skeleton State
+  // 1. Loading Skeleton State with Spinner Banner
   if (isLoading) {
     return (
       <div className={`bg-white rounded-lg border border-surface-border shadow-xs overflow-hidden ${className}`}>
+        {/* Active Query Status Header with spinner */}
+        <div className="flex items-center justify-between px-4 py-3 bg-blue-50/70 border-b border-blue-100/80">
+          <div className="flex items-center gap-2.5">
+            <Loader2 className="w-4 h-4 text-blue-600 animate-spin shrink-0" />
+            <span className="text-xs font-semibold text-blue-900">
+              Querying verified decision makers...
+            </span>
+          </div>
+          <span className="text-[11px] text-blue-600 font-medium">Filtering contacts</span>
+        </div>
         <div className="divide-y divide-slate-100">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((idx) => (
             <div

@@ -600,8 +600,20 @@ def search_apollo_contacts(
         params = []
 
         if organization_id and organization_id.strip():
-            conditions.append("c.organization_id = ?")
-            params.append(organization_id.strip())
+            matched_org_ids = [organization_id.strip()]
+            if company and company.strip():
+                brand_org_ids = resolve_company_ids_cached(company, apollo_source, con)
+                for b_id in brand_org_ids:
+                    if b_id not in matched_org_ids:
+                        matched_org_ids.append(b_id)
+
+            if len(matched_org_ids) == 1:
+                conditions.append("c.organization_id = ?")
+                params.append(matched_org_ids[0])
+            else:
+                placeholders = ", ".join(["?"] * len(matched_org_ids))
+                conditions.append(f"c.organization_id IN ({placeholders})")
+                params.extend(matched_org_ids)
 
             # If search query was passed alongside organization_id, only apply person/role filter
             # if it isn't simply the company name or domain passed during cross-navigation

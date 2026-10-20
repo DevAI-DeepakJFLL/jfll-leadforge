@@ -114,7 +114,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   } = useLeadsFilter();
 
   // Fetch live Apollo logistics decision-makers synchronized with URL filters
-  const { data, isLoading, isError, error, refetch } = useQuery<LeadsResponse>({
+  const { data, isLoading, isFetching, isError, error, refetch } = useQuery<LeadsResponse>({
     queryKey: ['leads', filters],
     queryFn: () => fetchApolloPeopleLeads(filters),
     placeholderData: (prev, prevQuery) => {
@@ -814,7 +814,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
         <PeopleView
           filters={filters}
           data={data}
-          isLoading={isLoading}
+          isLoading={isLoading || isFetching}
           isError={isError}
           error={error}
           refetch={refetch}

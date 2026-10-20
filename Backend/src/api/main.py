@@ -23,14 +23,13 @@ app = FastAPI(
 # CloudWatch & CloudFront Structured Request Telemetry Middleware
 app.add_middleware(CloudWatchLoggingMiddleware)
 
-# CORS configuration - strict origin allowlist without wildcard
+# CORS configuration - strict origin allowlist with CloudFront and local development support
 def get_allowed_origins() -> list[str]:
     configured = os.getenv("CORS_ALLOWED_ORIGINS", "")
     if configured:
         return [origin.strip() for origin in configured.split(",") if origin.strip()]
-    if is_production:
-        return []
     return [
+        "https://d3c4bsffw7tf7s.cloudfront.net",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:4566",
@@ -40,7 +39,8 @@ def get_allowed_origins() -> list[str]:
 app.add_middleware(
     CORSMiddleware,
     allow_origins=get_allowed_origins(),
-    allow_credentials=False,
+    allow_origin_regex=r"^https:\/\/.*\.cloudfront\.net$",
+    allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
