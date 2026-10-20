@@ -702,9 +702,25 @@ def search_apollo_contacts(
             total_records = 345061
         elif conditions == ["1=1"]:
             total_records = 17457110
-        elif (organization_id and organization_id.strip()) or (search and search.strip()) or (company and company.strip()):
-            count_query = f"SELECT count(*) FROM '{data_source}' c WHERE {where_sql}"
-            total_records = con.execute(count_query, params).fetchone()[0]
+
+        # Resolve company/employer name without remote S3 cross-file LEFT JOIN
+        resolved_employer_name = None
+        if company and company.strip():
+            resolved_employer_name = company.strip().title()
+        elif organization_id and organization_id.strip():
+            org_row = con.execute(
+                f"SELECT organization_name FROM '{apollo_source}' WHERE organization_id = ?",
+                [organization_id.strip()]
+            ).fetchone()
+            if org_row and org_row[0]:
+                resolved_employer_name = org_row[0]
+
+        if resolved_employer_name:
+            employer_select = "COALESCE(?, CASE WHEN c.email IS NOT NULL AND c.email LIKE '%@%' THEN upper(regexp_extract(c.email, '@([^.]+)', 1)) ELSE 'COMMERCIAL SHIPPER' END) as employer_name"
+            employer_param = [resolved_employer_name]
+        else:
+            employer_select = "CASE WHEN c.email IS NOT NULL AND c.email LIKE '%@%' THEN upper(regexp_extract(c.email, '@([^.]+)', 1)) ELSE 'COMMERCIAL SHIPPER' END as employer_name"
+            employer_param = []
 
         data_query = f"""
             SELECT 
@@ -727,15 +743,14 @@ def search_apollo_contacts(
                 c.is_decision_maker,
                 c.is_logistics_role,
                 c.has_email,
-                COALESCE(a.organization_name, CASE WHEN c.email IS NOT NULL AND c.email LIKE '%@%' THEN upper(regexp_extract(c.email, '@([^.]+)', 1)) ELSE 'COMMERCIAL SHIPPER' END) as employer_name
+                {employer_select}
             FROM '{data_source}' c
-            LEFT JOIN '{apollo_source}' a ON c.organization_id = a.organization_id
             WHERE {where_sql}
             ORDER BY c.is_logistics_role DESC, c.is_decision_maker DESC, c.has_email DESC
             LIMIT ? OFFSET ?
         """
         # Fetch page_size + 1 to reliably determine has_next without full table scan
-        query_params = params + [page_size + 1, offset]
+        query_params = employer_param + params + [page_size + 1, offset]
         result_cursor = con.execute(data_query, query_params)
         columns = [desc[0] for desc in result_cursor.description]
         rows = result_cursor.fetchall()
@@ -745,7 +760,7 @@ def search_apollo_contacts(
 
         if total_records is None:
             if has_next:
-                total_records = offset + page_size + 50
+                total_records = offset + page_size + 1
             else:
                 total_records = offset + len(clean_rows)
 

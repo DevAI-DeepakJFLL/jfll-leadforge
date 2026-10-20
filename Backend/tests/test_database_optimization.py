@@ -83,4 +83,61 @@ def test_company_contacts_peek_pagination():
     assert len(data_empty["data"]) == 0
 
 
+def test_search_apollo_contacts_peek_pagination_and_no_join():
+    from fastapi.testclient import TestClient
+    from src.api.main import app
+
+    client = TestClient(app)
+
+    # 1. Organization ID search: verify peek pagination and resolved employer_name without join
+    resp_org = client.get("/api/v1/apollo/contacts?organization_id=54a1229169702d9a8b695403&page=1&page_size=5")
+    assert resp_org.status_code == 200
+    data_org = resp_org.json()
+    assert data_org["page"] == 1
+    assert data_org["page_size"] == 5
+    assert len(data_org["data"]) == 5
+    assert data_org["has_next"] is True
+    # Peek pagination: total_records must be offset (0) + page_size (5) + 1 = 6 (not full count scan 56068)
+    assert data_org["total_records"] == 6
+    assert data_org["total_pages"] == 2
+    # Verify employer_name is resolved
+    assert data_org["data"][0]["employer_name"] == "Boeing"
+    assert data_org["data"][0]["organization_id"] == "54a1229169702d9a8b695403"
+
+    # 2. Page 2 pagination check
+    resp_p2 = client.get("/api/v1/apollo/contacts?organization_id=54a1229169702d9a8b695403&page=2&page_size=5")
+    assert resp_p2.status_code == 200
+    data_p2 = resp_p2.json()
+    assert data_p2["page"] == 2
+    assert data_p2["page_size"] == 5
+    assert len(data_p2["data"]) == 5
+    assert data_p2["has_next"] is True
+    # Peek pagination: total_records must be offset (5) + page_size (5) + 1 = 11
+    assert data_p2["total_records"] == 11
+    assert data_p2["total_pages"] == 3
+
+    # 3. Company parameter search: verify peek pagination and employer_name default
+    resp_comp = client.get("/api/v1/apollo/contacts?company=Boeing&page=1&page_size=5")
+    assert resp_comp.status_code == 200
+    data_comp = resp_comp.json()
+    assert data_comp["page"] == 1
+    assert data_comp["page_size"] == 5
+    assert len(data_comp["data"]) == 5
+    assert data_comp["has_next"] is True
+    # Peek pagination: total_records must be offset (0) + page_size (5) + 1 = 6 (not full count scan 58642)
+    assert data_comp["total_records"] == 6
+    assert data_comp["total_pages"] == 2
+    assert data_comp["data"][0]["employer_name"] == "Boeing"
+
+    # 4. Nonexistent company: zero records
+    resp_empty = client.get("/api/v1/apollo/contacts?company=NONEXISTENT_COMPANY_XYZ_99999&page=1&page_size=5")
+    assert resp_empty.status_code == 200
+    data_empty = resp_empty.json()
+    assert data_empty["has_next"] is False
+    assert data_empty["total_records"] == 0
+    assert data_empty["total_pages"] == 0
+    assert len(data_empty["data"]) == 0
+
+
+
 
