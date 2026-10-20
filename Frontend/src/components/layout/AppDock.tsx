@@ -33,8 +33,9 @@ interface NavItem {
 }
 
 const getInitials = (name?: string): string => {
-  if (!name) return 'JF';
-  const parts = name.trim().split(/\s+/);
+  if (!name || !name.trim()) return 'JF';
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'JF';
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 };
@@ -65,6 +66,7 @@ export const AppDock: React.FC<AppDockProps> = ({
       token: '',
     };
   })();
+  const userFirstName = resolvedUser.name?.trim().split(/\s+/)[0] || 'User';
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(defaultShowProfileMenu);
   const [notifications, setNotifications] = useState([
@@ -359,7 +361,7 @@ export const AppDock: React.FC<AppDockProps> = ({
             {getInitials(resolvedUser.name)}
           </div>
           <span className="text-[10px] font-medium tracking-tight mt-0.5 truncate max-w-[60px]">
-            {resolvedUser.name.split(' ')[0]}
+            {userFirstName}
           </span>
         </button>
       </nav>
@@ -500,7 +502,7 @@ export const AppDock: React.FC<AppDockProps> = ({
                 title={`Sign out ${resolvedUser.name} (${resolvedUser.email})`}
               >
                 <LogOut className="w-3.5 h-3.5 text-red-600" />
-                <span>{`Sign out (${resolvedUser.name.split(' ')[0]})`}</span>
+                <span>{`Sign out (${userFirstName})`}</span>
               </button>
             </div>
           </div>
