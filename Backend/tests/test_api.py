@@ -65,13 +65,13 @@ def test_sql_injection_attempt_is_safe():
 
 
 def test_auth_login_success_and_verify_token():
-    # 1. Successful enterprise login
-    res = client.post("/api/v1/auth/login", json={"email": "leads@jfll.com", "password": "Jet@123"})
+    # 1. Successful passwordless whitelist login
+    res = client.post("/api/v1/auth/login", json={"email": "deepak.naidu@jfll.com"})
     assert res.status_code == 200
     payload = res.json()
-    assert payload["email"] == "leads@jfll.com"
-    assert payload["name"] == "JFLL"
-    assert payload["role"] == "Internal Team"
+    assert payload["email"] == "deepak.naidu@jfll.com"
+    assert payload["name"] == "Deepak Naidu"
+    assert payload["role"] == "Tech Lead"
     assert "token" in payload
     token = payload["token"]
 
@@ -79,19 +79,35 @@ def test_auth_login_success_and_verify_token():
     me_res = client.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token}"})
     assert me_res.status_code == 200
     me_payload = me_res.json()
-    assert me_payload["email"] == "leads@jfll.com"
+    assert me_payload["email"] == "deepak.naidu@jfll.com"
+    assert me_payload["name"] == "Deepak Naidu"
+    assert me_payload["role"] == "Tech Lead"
     assert me_payload["token"] == token
+
+    # 3. Test all other whitelisted members and case/whitespace normalization
+    for email, expected_name, expected_role in [
+        ("  TYRA.THEKNATH@jfll.com  ", "Tyra Theknath", "Leadership"),
+        ("akash.dhara@jfll.com", "Akash Dhara", "Operations"),
+        ("snehal.birje@jfll.com", "Snehal Birje", "Commercial"),
+    ]:
+        team_res = client.post("/api/v1/auth/login", json={"email": email})
+        assert team_res.status_code == 200
+        team_payload = team_res.json()
+        assert team_payload["email"] == email.strip().lower()
+        assert team_payload["name"] == expected_name
+        assert team_payload["role"] == expected_role
 
 
 def test_auth_login_invalid_credentials():
-    # Wrong password
-    res1 = client.post("/api/v1/auth/login", json={"email": "leads@jfll.com", "password": "WrongPassword"})
+    # Unlisted email (previously default email)
+    res1 = client.post("/api/v1/auth/login", json={"email": "leads@jfll.com"})
     assert res1.status_code == 401
-    assert "Invalid work email or password" in res1.json()["detail"]
+    assert "Access restricted. Only authorized Jet Freight Logistics personnel can sign in." in res1.json()["detail"]
 
-    # Unknown user
-    res2 = client.post("/api/v1/auth/login", json={"email": "unknown@company.com", "password": "Jet@123"})
+    # Unknown domain / external user
+    res2 = client.post("/api/v1/auth/login", json={"email": "unauthorized@example.com"})
     assert res2.status_code == 401
+    assert "Access restricted. Only authorized Jet Freight Logistics personnel can sign in." in res2.json()["detail"]
 
 
 def test_auth_me_unauthorized():

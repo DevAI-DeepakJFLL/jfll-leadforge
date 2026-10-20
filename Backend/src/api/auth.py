@@ -90,38 +90,52 @@ def verify_token(token: str) -> dict[str, Any] | None:
     return payload
 
 
+USER_PROFILES: dict[str, dict[str, str]] = {
+    "tyra.theknath@jfll.com": {"name": "Tyra Theknath", "role": "Leadership"},
+    "deepak.naidu@jfll.com": {"name": "Deepak Naidu", "role": "Tech Lead"},
+    "akash.dhara@jfll.com": {"name": "Akash Dhara", "role": "Operations"},
+    "snehal.birje@jfll.com": {"name": "Snehal Birje", "role": "Commercial"},
+}
+
+
 @router.post("/login", response_model=UserSessionResponse, summary="Authenticate enterprise user")
 def login(credentials: LoginRequest):
     """
-    Validates work credentials against enterprise settings using constant-time string comparison.
-    Issues a cryptographically signed HMAC-SHA256 bearer session token.
+    Validates work email against enterprise allowed whitelist.
+    Issues a cryptographically signed HMAC-SHA256 bearer session token without requiring passwords.
     """
     input_email = credentials.email.strip().lower()
-    expected_email = settings.default_user_email.strip().lower()
-    
-    # Constant-time comparison to prevent timing attacks
-    email_matches = secrets.compare_digest(input_email, expected_email)
-    password_matches = secrets.compare_digest(credentials.password, settings.default_user_password)
-    
-    if not (email_matches and password_matches):
+    allowed_set = {e.strip().lower() for e in settings.allowed_emails}
+
+    if input_email not in allowed_set:
         raise HTTPException(
             status_code=401,
-            detail="Invalid work email or password. Please verify your credentials.",
+            detail="Access restricted. Only authorized Jet Freight Logistics personnel can sign in.",
         )
-    
-    token, expires_at = create_token(
+
+    profile = USER_PROFILES.get(
+        input_email,
         {
-            "sub": expected_email,
             "name": settings.default_user_name,
             "role": settings.default_user_role,
         },
+    )
+    name = profile.get("name", settings.default_user_name)
+    role = profile.get("role", settings.default_user_role)
+
+    token, expires_at = create_token(
+        {
+            "sub": input_email,
+            "name": name,
+            "role": role,
+        },
         expires_in_hours=settings.auth_token_expire_hours,
     )
-    
+
     return UserSessionResponse(
-        email=expected_email,
-        name=settings.default_user_name,
-        role=settings.default_user_role,
+        email=input_email,
+        name=name,
+        role=role,
         token=token,
         token_type="Bearer",
         expires_at=expires_at,
@@ -133,16 +147,21 @@ def get_current_user(authorization: str | None = Header(None)):
     """Verifies active Bearer session token and returns authenticated user profile."""
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Missing or malformed Authorization header")
-    
+
     token = authorization.split("Bearer ", 1)[1].strip()
     payload = verify_token(token)
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid or expired session token")
-    
+
+    user_email = payload.get("sub", settings.default_user_email)
+    profile = USER_PROFILES.get(user_email.strip().lower(), {})
+    user_name = payload.get("name") or profile.get("name") or settings.default_user_name
+    user_role = payload.get("role") or profile.get("role") or settings.default_user_role
+
     return UserSessionResponse(
-        email=payload.get("sub", settings.default_user_email),
-        name=payload.get("name", settings.default_user_name),
-        role=payload.get("role", settings.default_user_role),
+        email=user_email,
+        name=user_name,
+        role=user_role,
         token=token,
         token_type="Bearer",
         expires_at=datetime.fromtimestamp(payload.get("exp", 0), UTC).isoformat() if payload.get("exp") else None,

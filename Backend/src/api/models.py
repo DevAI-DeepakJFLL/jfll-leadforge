@@ -41,7 +41,7 @@ class HealthResponse(BaseModel):
 
 class LoginRequest(BaseModel):
     email: str = Field(..., description="Enterprise work email")
-    password: str = Field(..., min_length=1, description="Account password")
+    password: str | None = Field(default=None, description="Optional account password")
 
 
 class UserSessionResponse(BaseModel):

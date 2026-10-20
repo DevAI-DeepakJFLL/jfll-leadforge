@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
-from typing import ClassVar
+from typing import Any, ClassVar
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class Settings(BaseModel):
@@ -23,6 +23,25 @@ class Settings(BaseModel):
     default_user_password: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_PASSWORD", "Jet@123"))
     default_user_name: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_NAME", "JFLL"))
     default_user_role: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_ROLE", "Internal Team"))
+    allowed_emails: list[str] = Field(
+        default_factory=lambda: [
+            e.strip().lower()
+            for e in os.getenv(
+                "ALLOWED_EMAILS",
+                "tyra.theknath@jfll.com,deepak.naidu@jfll.com,akash.dhara@jfll.com,snehal.birje@jfll.com",
+            ).split(",")
+            if e.strip()
+        ]
+    )
+
+    @field_validator("allowed_emails", mode="before")
+    @classmethod
+    def parse_allowed_emails(cls, v: Any) -> list[str]:
+        if isinstance(v, str):
+            return [e.strip().lower() for e in v.split(",") if e.strip()]
+        if isinstance(v, list):
+            return [str(e).strip().lower() for e in v if str(e).strip()]
+        return v
 
     @model_validator(mode="after")
     def validate_production_security(self):
