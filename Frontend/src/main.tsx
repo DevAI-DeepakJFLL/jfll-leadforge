@@ -10,7 +10,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 5,
+      staleTime: 1000 * 60 * 2, // 2 minutes fresh
+      gcTime: 1000 * 60 * 4, // 4 minutes garbage collection (automatically unloads inactive entity datasets from browser RAM)
     },
   },
 });

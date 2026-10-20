@@ -142,6 +142,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   const { data, isLoading, isFetching, isError, error, refetch } = useQuery<LeadsResponse>({
     queryKey: leadsQueryKey,
     queryFn: fetchLeadsFn,
+    gcTime: isEntityScoped ? 1000 * 60 * 3 : 1000 * 60 * 5, // Prunes inactive company batches from browser memory after 3 mins
+    staleTime: 1000 * 60 * 2,
     placeholderData: (prev, prevQuery) => {
       if (isEntityScoped) {
         const prevKey = prevQuery?.queryKey;
