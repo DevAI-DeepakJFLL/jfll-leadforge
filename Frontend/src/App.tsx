@@ -66,6 +66,24 @@ interface SavedSearchPreset {
 
 const DEFAULT_TOP_TAB = 'jfll-customers';
 const STORAGE_TAB_KEY = 'leadforge_active_top_tab';
+const STORAGE_SEARCHES_KEY = 'leadforge_saved_searches';
+
+function getInitialSavedSearches(): SavedSearchPreset[] {
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const raw = window.localStorage.getItem(STORAGE_SEARCHES_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          return parsed;
+        }
+      }
+    }
+  } catch {
+    // Ignore storage parse errors
+  }
+  return [];
+}
 
 function getInitialTopTab(): string {
   try {
@@ -103,18 +121,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const { showToast } = useToast();
 
-  // Saved searches in state/storage
-  const [savedSearches, setSavedSearches] = useState<SavedSearchPreset[]>([
-    {
-      id: 'la-marketing',
-      name: 'LA Marketing Executives',
-      filters: {
-        locations: ['Los Angeles, California'],
-        industries: ['Marketing & Advertising'],
-        jobTitles: ['Executive', 'VP', 'Director'],
-      },
-    },
-  ]);
+  // Saved searches dynamically persisted in localStorage
+  const [savedSearches, setSavedSearches] = useState<SavedSearchPreset[]>(getInitialSavedSearches);
 
   // Saved leads & custom lists managed reactively with localStorage persistence
   const [savedLeadIds, setSavedLeadIds] = useState<Set<string>>(() => getSavedLeadIds());
@@ -140,15 +148,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     setSelectedSavedLists([]);
   };
 
-  // Default row selection for the first 6 leads matching Ref.jpg
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({
-    'lead-1': true,
-    'lead-2': true,
-    'lead-3': true,
-    'lead-4': true,
-    'lead-5': true,
-    'lead-6': true,
-  });
+  // Row selection initialized to clean empty state
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const [isExporting, setIsExporting] = useState(false);
   const [selectedDrawerLead, setSelectedDrawerLead] = useState<Lead | null>(null);
@@ -235,24 +236,43 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
     );
   };
 
-  // Load preset search
-  const handleLoadPresetSearch = () => {
+  // Dynamic load preset search: loads target preset or latest saved search
+  const handleLoadPresetSearch = (preset?: SavedSearchPreset) => {
+    const target = preset || (savedSearches.length > 0 ? savedSearches[savedSearches.length - 1] : null);
+    if (!target) {
+      showToast("No saved searches yet. Click 'Save Search' on any query to save your criteria.");
+      return;
+    }
     applyFilters({
       ...filters,
-      locations: ['Los Angeles, California'],
-      industries: ['Marketing & Advertising'],
+      ...target.filters,
       page: 1,
     });
+    showToast(`Loaded saved search: "${target.name}"`);
   };
 
-  // Save current search
+  // Save current search to localStorage
   const handleSaveSearch = () => {
+    // Exclude pagination counters so saved preset applies from page 1
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { page: _p, limit: _l, ...activeFilters } = filters;
+
     const newPreset: SavedSearchPreset = {
       id: `search-${Date.now()}`,
       name: `Search (${new Date().toLocaleDateString()})`,
-      filters: { ...filters },
+      filters: activeFilters,
     };
-    setSavedSearches((prev) => [...prev, newPreset]);
+    setSavedSearches((prev) => {
+      const updated = [...prev, newPreset];
+      try {
+        if (typeof window !== 'undefined' && window.localStorage) {
+          window.localStorage.setItem(STORAGE_SEARCHES_KEY, JSON.stringify(updated));
+        }
+      } catch {
+        // Ignore storage write errors
+      }
+      return updated;
+    });
     showToast('Search criteria saved to your presets');
   };
 
@@ -438,7 +458,11 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout }) => {
   };
 
   const handleAddDrawerLeadToList = (lead: Lead, listName?: string) => {
-    const targetList = listName || 'West Coast VIPs';
+    const targetList = listName || savedLists[0];
+    if (!targetList) {
+      showToast('Please create or select a list first');
+      return;
+    }
     addLeadsToList(targetList, [lead]);
     showToast(`Added ${lead.name} to "${targetList}"`);
   };

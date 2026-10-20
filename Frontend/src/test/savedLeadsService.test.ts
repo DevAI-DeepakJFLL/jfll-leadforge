@@ -139,13 +139,9 @@ describe('Saved Leads & Lists Service', () => {
   });
 
   describe('Saved Lists Management', () => {
-    it('initializes with default starter lists', () => {
+    it('initializes with an empty list array when no lists created yet', () => {
       const lists = getSavedLists();
-      expect(lists.length).toBeGreaterThanOrEqual(3);
-      const names = lists.map((l) => l.name);
-      expect(names).toContain('West Coast VIPs');
-      expect(names).toContain('High Growth Accounts');
-      expect(names).toContain('Q4 Prospects');
+      expect(lists).toEqual([]);
     });
 
     it('creates a new custom list', () => {

@@ -45,7 +45,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
   onAddToList,
   onExport,
   isExporting = false,
-  savedLists = ['West Coast VIPs', 'High Growth Accounts', 'Q4 Prospects'],
+  savedLists = [],
   searchQuery = '',
   onSearchChange,
   searchPlaceholder = 'Search leads by name, title, company...',
@@ -257,6 +257,11 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
               <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Select Prospect List
               </div>
+              {savedLists.length === 0 && (
+                <div className="px-3 py-2 text-[11px] text-slate-400 italic">
+                  No custom lists yet.
+                </div>
+              )}
               {savedLists.map((name) => (
                 <button
                   key={name}

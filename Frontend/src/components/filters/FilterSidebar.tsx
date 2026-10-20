@@ -84,26 +84,13 @@ const PRESETS = {
     '501-1000',
     '1000+',
   ],
-  savedLists: [
-    'Target Enterprise Accounts',
-    'Q4 Outbound Leads',
-    'SaaS Decision Makers',
-    'High Priority Follow-ups',
-  ],
   personas: [
     'C-Level Executives',
     'VPs & Directors',
     'Sales Leaders',
     'Engineering Leaders',
   ],
-  companies: [
-    '896 Media',
-    'SunMedia',
-    'The Scratch Collective',
-    'Mood Media',
-    'Google',
-    'Amazon',
-  ],
+  companies: [] as string[],
   buyingIntent: [
     'High Intent (Bombora 80+)',
     'Surging Intent (50-79)',
@@ -185,7 +172,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   // Local state for UI-only facet selections
   const [localSelectedSavedLists, setLocalSelectedSavedLists] = useState<string[]>([]);
   const selectedSavedLists = propSelectedSavedLists !== undefined ? propSelectedSavedLists : localSelectedSavedLists;
-  const availableSavedLists = savedLists && savedLists.length > 0 ? savedLists : PRESETS.savedLists;
+  const availableSavedLists = savedLists || [];
 
   const handleToggleList = (item: string) => {
     if (onToggleSavedList) {
@@ -289,12 +276,18 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           activeCount={selectedSavedLists.length}
           onClear={handleClearSavedLists}
         >
-          <SearchableCheckboxList
-            options={availableSavedLists}
-            selectedValues={selectedSavedLists}
-            onToggle={handleToggleList}
-            searchPlaceholder="Search lists..."
-          />
+          {availableSavedLists.length > 0 ? (
+            <SearchableCheckboxList
+              options={availableSavedLists}
+              selectedValues={selectedSavedLists}
+              onToggle={handleToggleList}
+              searchPlaceholder="Search lists..."
+            />
+          ) : (
+            <p className="text-xs text-slate-400 py-2 px-1 italic">
+              No custom lists created yet. Add leads to a list from the table or drawer.
+            </p>
+          )}
         </FilterAccordion>
 
         {/* 2. Personas */}
@@ -374,12 +367,18 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           activeCount={selectedCompanies.length}
           onClear={() => setSelectedCompanies([])}
         >
-          <SearchableCheckboxList
-            options={PRESETS.companies}
-            selectedValues={selectedCompanies}
-            onToggle={makeLocalToggle(setSelectedCompanies)}
-            searchPlaceholder="Search companies..."
-          />
+          {PRESETS.companies.length > 0 ? (
+            <SearchableCheckboxList
+              options={PRESETS.companies}
+              selectedValues={selectedCompanies}
+              onToggle={makeLocalToggle(setSelectedCompanies)}
+              searchPlaceholder="Search companies..."
+            />
+          ) : (
+            <p className="text-xs text-slate-400 py-2 px-1 italic">
+              No company filters active. Use the top search bar or Apollo Companies tab to filter by company.
+            </p>
+          )}
         </FilterAccordion>
 
         {/* 7. # Employees (Active Filter) */}

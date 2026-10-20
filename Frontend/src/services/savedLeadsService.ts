@@ -23,26 +23,7 @@ export const MAX_SAVED_LISTS = 50;
 export const MAX_LIST_NAME_LENGTH = 50;
 const FORBIDDEN_LIST_NAMES = new Set(['__proto__', 'constructor', 'prototype']);
 
-const DEFAULT_LISTS: SavedList[] = [
-  {
-    id: 'list-west-coast-vips',
-    name: 'West Coast VIPs',
-    leadIds: [],
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'list-high-growth-accounts',
-    name: 'High Growth Accounts',
-    leadIds: [],
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: 'list-q4-prospects',
-    name: 'Q4 Prospects',
-    leadIds: [],
-    createdAt: new Date().toISOString(),
-  },
-];
+const DEFAULT_LISTS: SavedList[] = [];
 
 type StateChangeListener = () => void;
 const listeners = new Set<StateChangeListener>();
