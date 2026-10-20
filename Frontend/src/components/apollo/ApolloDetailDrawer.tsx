@@ -512,7 +512,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
               {totalContacts > contacts.length && onFindDecisionMakers && (
                 <div className="pt-2 text-center border-t border-slate-200/60">
                   <button
-                    onClick={() => onFindDecisionMakers(lead.organization_name)}
+                    onClick={() => onFindDecisionMakers(lead.organization_name, lead.organization_id)}
                     className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white border border-blue-200 hover:bg-blue-50 text-apollo text-xs font-semibold rounded-lg shadow-2xs transition-colors"
                   >
                     <span>{`View all ${totalContacts} contacts in People tab`}</span>

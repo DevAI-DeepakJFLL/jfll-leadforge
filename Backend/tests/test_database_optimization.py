@@ -141,5 +141,39 @@ def test_search_apollo_contacts_peek_pagination_and_no_join():
     assert len(data_empty["data"]) == 0
 
 
+def test_search_apollo_contacts_supports_page_size_250():
+    """Verify that search_apollo_contacts accepts page_size up to 250 without 422 error."""
+    from fastapi.testclient import TestClient
+    from src.api.main import app
+
+    client = TestClient(app)
+    resp = client.get("/api/v1/apollo/contacts?company=Boeing&page=1&page_size=250")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["page"] == 1
+    assert data["page_size"] == 250
+    assert len(data["data"]) > 0
+
+
+def test_search_apollo_contacts_exact_organization_id_prioritized():
+    """Verify that when organization_id is passed with company, exact organization_id is queried."""
+    from fastapi.testclient import TestClient
+    from src.api.main import app
+
+    client = TestClient(app)
+    # Verizon Wireless primary organization ID
+    resp = client.get(
+        "/api/v1/apollo/contacts?organization_id=54a120f269702d8cccfb9302&company=Verizon+Wireless&page=1&page_size=25"
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["page"] == 1
+    assert len(data["data"]) > 0
+    # Every returned record must match the exact requested organization_id
+    for contact in data["data"]:
+        assert contact["organization_id"] == "54a120f269702d8cccfb9302"
+
+
+
 
 

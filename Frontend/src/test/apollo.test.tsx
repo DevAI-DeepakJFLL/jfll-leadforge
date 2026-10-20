@@ -438,6 +438,52 @@ describe('Apollo Sourcing Tool Suite', () => {
         global.fetch = originalFetch;
       }
     });
+
+    it('gracefully handles 422 error on large page_size by retrying with page_size=100', async () => {
+      const originalFetch = global.fetch;
+      const requestedUrls: string[] = [];
+      global.fetch = vi.fn().mockImplementation((url: string) => {
+        requestedUrls.push(url);
+        if (url.includes('page_size=250')) {
+          return Promise.resolve({
+            ok: false,
+            status: 422,
+            json: async () => ({ detail: 'page_size must be <= 100' }),
+          } as unknown as Response);
+        }
+        return Promise.resolve({
+          ok: true,
+          status: 200,
+          json: async () => ({
+            page: 1,
+            page_size: 100,
+            total_records: 1,
+            total_pages: 1,
+            has_next: false,
+            data: [
+              {
+                person_id: 'p-1',
+                organization_id: 'org-test-123',
+                person_name: 'Jane Doe',
+                job_title: 'VP Logistics',
+                employer_name: 'Test Corp',
+              },
+            ],
+          }),
+        } as unknown as Response);
+      });
+
+      try {
+        const result = await fetchApolloPeopleLeads({ organizationId: 'org-test-123' });
+        expect(requestedUrls.length).toBe(2);
+        expect(requestedUrls[0]).toContain('page_size=250');
+        expect(requestedUrls[1]).toContain('page_size=100');
+        expect(result.items.length).toBe(1);
+        expect(result.items[0].name).toBe('Jane Doe');
+      } finally {
+        global.fetch = originalFetch;
+      }
+    });
   });
 
   describe('filterLeadsInMemory client-side engine', () => {

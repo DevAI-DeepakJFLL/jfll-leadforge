@@ -464,7 +464,7 @@ def get_apollo_stats():
 def list_company_contacts(
     organization_id: str,
     page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
-    page_size: int = Query(default=20, ge=1, le=100, description="Records per page (max 100)"),
+    page_size: int = Query(default=20, ge=1, le=250, description="Records per page (max 250)"),
     logistics_only: bool | None = Query(default=None, description="Filter for freight/logistics/procurement specialists"),
     decision_makers_only: bool | None = Query(default=None, description="Filter for C-Suite/VP/Director/Manager"),
     has_email_only: bool | None = Query(default=None, description="Require direct business email"),
@@ -565,7 +565,7 @@ def list_company_contacts(
 )
 def search_apollo_contacts(
     page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
-    page_size: int = Query(default=25, ge=1, le=100, description="Records per page (max 100)"),
+    page_size: int = Query(default=25, ge=1, le=250, description="Records per page (max 250)"),
     organization_id: str | None = Query(default=None, description="Filter by exact Apollo organization ID"),
     seniority: str | None = Query(default=None, description="Seniority tier: c_suite, vp, director, manager, senior, entry"),
     department: str | None = Query(default=None, description="Functional department"),
@@ -602,19 +602,8 @@ def search_apollo_contacts(
 
         if organization_id and organization_id.strip():
             matched_org_ids = [organization_id.strip()]
-            if company and company.strip():
-                brand_org_ids = resolve_company_ids_cached(company, apollo_source, con)
-                for b_id in brand_org_ids:
-                    if b_id not in matched_org_ids:
-                        matched_org_ids.append(b_id)
-
-            if len(matched_org_ids) == 1:
-                conditions.append("c.organization_id = ?")
-                params.append(matched_org_ids[0])
-            else:
-                placeholders = ", ".join(["?"] * len(matched_org_ids))
-                conditions.append(f"c.organization_id IN ({placeholders})")
-                params.extend(matched_org_ids)
+            conditions.append("c.organization_id = ?")
+            params.append(matched_org_ids[0])
 
             # If search query was passed alongside organization_id, only apply person/role filter
             # if it isn't simply the company name or domain passed during cross-navigation

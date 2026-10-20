@@ -787,6 +787,44 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
           saved: 0,
         },
       };
+    } else if (response.status === 422 && effectiveLimit > 100) {
+      // Defensive fallback: if backend server enforces a smaller max page_size, retry with 100
+      logger.warn('APOLLO', 'Server rejected large page_size with 422. Retrying with page_size=100.');
+      urlParams.set('page_size', '100');
+      const retryUrl = `${API_BASE_URL}/api/v1/apollo/contacts?${urlParams.toString()}`;
+      const retryResponse = await fetch(retryUrl, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          ...authHeaders,
+        },
+      });
+      if (retryResponse.ok) {
+        const retryResult = await retryResponse.json();
+        const rawContacts: ApolloContact[] = retryResult.data || [];
+        const totalRecords: number = retryResult.total_records || 0;
+        const totalFormatted =
+          totalRecords >= 1000000
+            ? `${(totalRecords / 1000000).toFixed(2)}m`
+            : totalRecords >= 1000
+            ? `${(totalRecords / 1000).toFixed(1)}k`
+            : String(totalRecords);
+        const items: Lead[] = rawContacts.map(mapApolloContactToLead);
+        return {
+          items,
+          totalEstimate: totalRecords,
+          totalFormatted,
+          page: retryResult.page || page,
+          limit: retryResult.page_size || 100,
+          totalPages: retryResult.total_pages || (totalRecords > 0 ? Math.ceil(totalRecords / 100) : 1),
+          audienceCounts: {
+            all: totalRecords,
+            new: Math.round(totalRecords * 0.45),
+            saved: 0,
+          },
+        };
+      }
+      logger.warn('APOLLO', `Apollo contacts retry returned ${retryResponse.status}. Falling back to preloaded data.`);
     } else {
       logger.warn('APOLLO', `Apollo contacts API returned ${response.status}. Falling back to preloaded data.`);
     }
