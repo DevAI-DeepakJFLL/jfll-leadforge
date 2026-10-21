@@ -35,7 +35,8 @@ export interface PeopleViewProps {
   onClearSavedLists?: () => void;
   onToggleSave?: (lead: Lead) => void;
   onSearchChange: (query: string) => void;
-  onToggleArrayFilter: (category: 'departments' | 'jobTitles' | 'locations' | 'industries' | 'companySize', value: string) => void;
+  onToggleArrayFilter: (category: 'departments' | 'jobTitles' | 'seniority' | 'locations' | 'industries' | 'companySize', value: string) => void;
+  onToggleBooleanFilter?: (key: 'logisticsOnly' | 'decisionMakersOnly' | 'hasEmailOnly' | 'hasLinkedinOnly') => void;
   onToggleStatusFilter: (status: LeadStatus) => void;
   onClearCategory: (category: keyof FilterParams) => void;
   onRemoveFilter: (category: keyof FilterParams, value: string) => void;
@@ -79,6 +80,7 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
   onToggleSave,
   onSearchChange,
   onToggleArrayFilter,
+  onToggleBooleanFilter,
   onToggleStatusFilter,
   onClearCategory,
   onRemoveFilter,
@@ -99,6 +101,7 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
       <FilterSidebar
         filters={filters}
         onToggleArrayFilter={onToggleArrayFilter}
+        onToggleBooleanFilter={onToggleBooleanFilter}
         onToggleStatusFilter={onToggleStatusFilter}
         onClearCategory={onClearCategory}
         savedLists={savedLists}

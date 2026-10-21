@@ -696,7 +696,14 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
     limit = 25,
     tab = 'all',
     departments = [],
+    seniority = [],
+    jobTitles = [],
     locations = [],
+    industries = [],
+    logisticsOnly,
+    decisionMakersOnly,
+    hasEmailOnly,
+    hasLinkedinOnly,
   } = params;
 
   // When organizationId or company is present, default request page_size to 250 (unless explicitly specified higher)
@@ -708,14 +715,37 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
   urlParams.set('page', String(page));
   urlParams.set('page_size', String(effectiveLimit));
 
-  // Only restrict global browsing to logistics roles; when an organization or company is targeted,
-  // show all verified corporate decision-makers (with logistics specialists ordered first)
-  if (!organizationId && !company) {
+  // Determine logistics_only: default true for global browsing, or follow explicit user toggle
+  if (logisticsOnly !== undefined) {
+    if (logisticsOnly) {
+      urlParams.set('logistics_only', 'true');
+    }
+  } else if (!organizationId && !company) {
     urlParams.set('logistics_only', 'true');
   }
 
-  if (tab === 'new') {
+  if (decisionMakersOnly || tab === 'new') {
     urlParams.set('decision_makers_only', 'true');
+  }
+
+  if (hasEmailOnly) {
+    urlParams.set('has_email_only', 'true');
+  }
+
+  if (hasLinkedinOnly) {
+    urlParams.set('has_linkedin_only', 'true');
+  }
+
+  if (seniority && seniority.length > 0) {
+    urlParams.set('seniority', seniority.join(','));
+  }
+
+  if (jobTitles && jobTitles.length > 0) {
+    urlParams.set('job_title', jobTitles.join(','));
+  }
+
+  if (industries && industries.length > 0) {
+    urlParams.set('industry', industries[0]);
   }
 
   if (organizationId && organizationId.trim()) {
@@ -731,7 +761,7 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
   }
 
   if (departments && departments.length > 0) {
-    urlParams.set('department', departments[0]);
+    urlParams.set('department', departments.join(','));
   }
 
   if (locations && locations.length > 0) {

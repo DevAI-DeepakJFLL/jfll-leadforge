@@ -168,6 +168,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     setTab,
     setPage,
     toggleArrayFilter,
+    toggleBooleanFilter,
     toggleStatusFilter,
     removeFilterItem,
     clearFilterCategory,
@@ -1111,6 +1112,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onToggleSave={handleToggleSaveLead}
           onSearchChange={setSearch}
           onToggleArrayFilter={toggleArrayFilter}
+          onToggleBooleanFilter={toggleBooleanFilter}
           onToggleStatusFilter={toggleStatusFilter}
           onClearCategory={clearFilterCategory}
           onRemoveFilter={removeFilterItem}

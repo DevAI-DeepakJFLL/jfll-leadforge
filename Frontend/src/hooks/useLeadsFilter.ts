@@ -14,10 +14,15 @@ const DEFAULT_FILTERS: FilterParams = {
   company: undefined,
   jobTitles: [],
   departments: [],
+  seniority: [],
   locations: [],
   industries: [],
   status: [],
   companySize: [],
+  logisticsOnly: true,
+  decisionMakersOnly: false,
+  hasEmailOnly: false,
+  hasLinkedinOnly: false,
   page: 1,
   limit: 25,
   sortBy: undefined,
@@ -74,16 +79,26 @@ export function parseUrlToFilters(search: string): FilterParams {
   const rawSortOrder = params.get('sortOrder');
   const sortOrder = rawSortOrder === 'desc' ? 'desc' : 'asc';
 
+  const logisticsOnly = params.has('logisticsOnly') ? params.get('logisticsOnly') === 'true' : true;
+  const decisionMakersOnly = params.get('decisionMakersOnly') === 'true';
+  const hasEmailOnly = params.get('hasEmailOnly') === 'true';
+  const hasLinkedinOnly = params.get('hasLinkedinOnly') === 'true';
+
   return {
     q,
     organizationId,
     company,
     jobTitles: parseArray('jobTitles'),
     departments: parseArray('departments'),
+    seniority: parseArray('seniority'),
     locations: parseArray('locations'),
     industries: parseArray('industries'),
     status: validStatus,
     companySize: parseArray('companySize'),
+    logisticsOnly,
+    decisionMakersOnly,
+    hasEmailOnly,
+    hasLinkedinOnly,
     page,
     limit,
     sortBy,
@@ -122,10 +137,24 @@ export function serializeFiltersToUrl(filters: FilterParams): string {
 
   appendArray('jobTitles', filters.jobTitles);
   appendArray('departments', filters.departments);
+  appendArray('seniority', filters.seniority);
   appendArray('locations', filters.locations);
   appendArray('industries', filters.industries);
   appendArray('status', filters.status);
   appendArray('companySize', filters.companySize);
+
+  if (filters.logisticsOnly === false) {
+    params.set('logisticsOnly', 'false');
+  }
+  if (filters.decisionMakersOnly === true) {
+    params.set('decisionMakersOnly', 'true');
+  }
+  if (filters.hasEmailOnly === true) {
+    params.set('hasEmailOnly', 'true');
+  }
+  if (filters.hasLinkedinOnly === true) {
+    params.set('hasLinkedinOnly', 'true');
+  }
 
   if (filters.tab && filters.tab !== 'all') {
     params.set('tab', filters.tab);
@@ -226,7 +255,7 @@ export function useLeadsFilter() {
 
   const toggleArrayFilter = useCallback(
     (
-      key: 'jobTitles' | 'departments' | 'locations' | 'industries' | 'companySize',
+      key: 'jobTitles' | 'departments' | 'seniority' | 'locations' | 'industries' | 'companySize',
       item: string
     ) => {
       applyFilters((prev) => {
@@ -239,6 +268,20 @@ export function useLeadsFilter() {
         return {
           ...prev,
           [key]: updatedList,
+          page: 1,
+        };
+      });
+    },
+    [applyFilters]
+  );
+
+  const toggleBooleanFilter = useCallback(
+    (key: 'logisticsOnly' | 'decisionMakersOnly' | 'hasEmailOnly' | 'hasLinkedinOnly') => {
+      applyFilters((prev) => {
+        const current = Boolean(prev[key]);
+        return {
+          ...prev,
+          [key]: !current,
           page: 1,
         };
       });
@@ -274,6 +317,18 @@ export function useLeadsFilter() {
         if (key === 'organizationId' || key === 'company') {
           return { ...prev, organizationId: undefined, company: undefined, page: 1 };
         }
+        if (
+          key === 'logisticsOnly' ||
+          key === 'decisionMakersOnly' ||
+          key === 'hasEmailOnly' ||
+          key === 'hasLinkedinOnly'
+        ) {
+          return {
+            ...prev,
+            [key]: key === 'logisticsOnly' ? false : undefined,
+            page: 1,
+          };
+        }
         if (key === 'status') {
           return {
             ...prev,
@@ -284,6 +339,7 @@ export function useLeadsFilter() {
         if (
           key === 'jobTitles' ||
           key === 'departments' ||
+          key === 'seniority' ||
           key === 'locations' ||
           key === 'industries' ||
           key === 'companySize'
@@ -383,6 +439,51 @@ export function useLeadsFilter() {
       });
     });
 
+    (filters.seniority || []).forEach((val) => {
+      items.push({
+        key: 'seniority',
+        categoryLabel: 'Seniority',
+        value: val,
+        displayValue: val,
+      });
+    });
+
+    if (filters.logisticsOnly) {
+      items.push({
+        key: 'logisticsOnly',
+        categoryLabel: 'Role Focus',
+        value: 'logisticsOnly',
+        displayValue: 'Logistics Roles Only',
+      });
+    }
+
+    if (filters.decisionMakersOnly) {
+      items.push({
+        key: 'decisionMakersOnly',
+        categoryLabel: 'Seniority',
+        value: 'decisionMakersOnly',
+        displayValue: 'Decision Makers Only',
+      });
+    }
+
+    if (filters.hasEmailOnly) {
+      items.push({
+        key: 'hasEmailOnly',
+        categoryLabel: 'Outreach',
+        value: 'hasEmailOnly',
+        displayValue: 'Verified Email',
+      });
+    }
+
+    if (filters.hasLinkedinOnly) {
+      items.push({
+        key: 'hasLinkedinOnly',
+        categoryLabel: 'Outreach',
+        value: 'hasLinkedinOnly',
+        displayValue: 'LinkedIn Profile',
+      });
+    }
+
     (filters.status || []).forEach((val) => {
       items.push({
         key: 'status',
@@ -414,6 +515,7 @@ export function useLeadsFilter() {
     setTab,
     setPage,
     toggleArrayFilter,
+    toggleBooleanFilter,
     toggleStatusFilter,
     removeFilterItem,
     clearFilterCategory,

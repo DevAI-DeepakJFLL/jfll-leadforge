@@ -42,6 +42,51 @@ export const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
     });
   }
 
+  (filters.seniority || []).forEach((s) => {
+    chips.push({
+      key: 'seniority',
+      category: 'Seniority',
+      value: s,
+      label: s,
+    });
+  });
+
+  if (filters.logisticsOnly) {
+    chips.push({
+      key: 'logisticsOnly',
+      category: 'Focus',
+      value: 'true',
+      label: 'Logistics Roles Only',
+    });
+  }
+
+  if (filters.decisionMakersOnly) {
+    chips.push({
+      key: 'decisionMakersOnly',
+      category: 'Role',
+      value: 'true',
+      label: 'Decision Makers Only',
+    });
+  }
+
+  if (filters.hasEmailOnly) {
+    chips.push({
+      key: 'hasEmailOnly',
+      category: 'Outreach',
+      value: 'true',
+      label: 'Verified Email',
+    });
+  }
+
+  if (filters.hasLinkedinOnly) {
+    chips.push({
+      key: 'hasLinkedinOnly',
+      category: 'Outreach',
+      value: 'true',
+      label: 'LinkedIn Profile',
+    });
+  }
+
   (filters.jobTitles || []).forEach((t) => {
     chips.push({
       key: 'jobTitles',
