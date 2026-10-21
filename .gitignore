@@ -24,6 +24,7 @@ Thumbs.db
 *.local
 *.env*
 !Backend/.env.example
+!Frontend/.env.example
 
 # AWS Guides & Sensitive Documentation
 aws_serverless_deployment_guide.md

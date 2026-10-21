@@ -13,25 +13,46 @@ export interface AuthorizedUser {
   avatar?: string;
 }
 
-export const AUTHORIZED_USERS: AuthorizedUser[] = [
-  {
-    email: 'tyra.theknath@jfll.com',
-    name: 'Tyra Theknath',
-    role: 'Leadership',
-  },
-  {
-    email: 'deepak.naidu@jfll.com',
-    name: 'Deepak Naidu',
-    role: 'Tech Lead',
-  },
-  {
-    email: 'akash.dhara@jfll.com',
-    name: 'Akash Dhara',
-    role: 'Operations',
-  },
-  {
-    email: 'snehal.birje@jfll.com',
-    name: 'Snehal Birje',
-    role: 'Commercial',
-  },
-];
+function resolveAuthorizedUsers(): AuthorizedUser[] {
+  // 1. Resolve from secure build-time/local .env variables
+  const envUsersRaw = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_AUTHORIZED_USERS) as string | undefined;
+  if (envUsersRaw) {
+    try {
+      const parsed = JSON.parse(envUsersRaw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    } catch {
+      // fallback
+    }
+  }
+
+  const envEmailsRaw = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_ALLOWED_EMAILS) as string | undefined;
+  if (envEmailsRaw) {
+    return envEmailsRaw.split(',').map((item) => {
+      const email = item.trim().toLowerCase();
+      const derivedName = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+      return {
+        email,
+        name: derivedName || 'Internal Team Member',
+        role: 'Internal Team',
+      };
+    });
+  }
+
+  // 2. Default enterprise roles for offline fallback
+  return [
+    {
+      email: 'admin@jfll.com',
+      name: 'Administrator',
+      role: 'Leadership',
+    },
+    {
+      email: 'team@jfll.com',
+      name: 'Operations Team',
+      role: 'Operations',
+    },
+  ];
+}
+
+export const AUTHORIZED_USERS: AuthorizedUser[] = resolveAuthorizedUsers();

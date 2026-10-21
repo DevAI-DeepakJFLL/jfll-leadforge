@@ -3,6 +3,7 @@ import binascii
 import hashlib
 import hmac
 import json
+import os
 import secrets
 from datetime import UTC, datetime, timedelta
 from typing import Any
@@ -90,19 +91,34 @@ def verify_token(token: str) -> dict[str, Any] | None:
     return payload
 
 
-USER_PROFILES: dict[str, dict[str, str]] = {
-    "tyra.theknath@jfll.com": {"name": "Tyra Theknath", "role": "Leadership"},
-    "deepak.naidu@jfll.com": {"name": "Deepak Naidu", "role": "Tech Lead"},
-    "akash.dhara@jfll.com": {"name": "Akash Dhara", "role": "Operations"},
-    "snehal.birje@jfll.com": {"name": "Snehal Birje", "role": "Commercial"},
-}
+def get_user_profiles() -> dict[str, dict[str, str]]:
+    """Resolves authorized user profiles dynamically from environment configuration."""
+    raw_json = settings.user_profiles_json or os.getenv("AUTH_USER_PROFILES_JSON")
+    if raw_json:
+        try:
+            parsed = json.loads(raw_json)
+            if isinstance(parsed, dict):
+                return {k.strip().lower(): v for k, v in parsed.items()}
+        except Exception:
+            pass
+    return {}
 
 
 def get_user_profile(email: str) -> tuple[str, str]:
     """Resolves official display name and functional role for an authorized work email."""
-    profile = USER_PROFILES.get(email.strip().lower(), {})
-    name = profile.get("name", settings.default_user_name)
+    clean_email = email.strip().lower()
+    profiles = get_user_profiles()
+    profile = profiles.get(clean_email, {})
+
+    name = profile.get("name")
     role = profile.get("role", settings.default_user_role)
+
+    if not name:
+        # Derive clean display name from email (e.g. "deepak.naidu@jfll.com" -> "Deepak Naidu")
+        local_part = clean_email.split("@")[0]
+        derived = local_part.replace(".", " ").replace("_", " ").title()
+        name = derived or settings.default_user_name
+
     return name, role
 
 

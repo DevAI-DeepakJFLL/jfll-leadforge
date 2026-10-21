@@ -5,6 +5,34 @@ from typing import Any, ClassVar
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 
+def _load_env_file() -> None:
+    """Lightweight pure-Python .env file loader for secure local configuration."""
+    base_dir = Path(__file__).resolve().parent.parent.parent
+    for candidate in [
+        base_dir / "Backend" / ".env",
+        base_dir / ".env",
+        Path.cwd() / "Backend" / ".env",
+        Path.cwd() / ".env",
+    ]:
+        if candidate.exists() and candidate.is_file():
+            try:
+                with open(candidate, "r", encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line and not line.startswith("#") and "=" in line:
+                            k, v = line.split("=", 1)
+                            k = k.strip()
+                            v = v.strip().strip("'\"")
+                            if k not in os.environ:
+                                os.environ[k] = v
+            except Exception:
+                pass
+            break
+
+
+_load_env_file()
+
+
 class Settings(BaseModel):
     DEFAULT_INSECURE_SECRET: ClassVar[str] = "jfll-lead-sourcing-secret-key-2026-enterprise"
 
@@ -19,15 +47,16 @@ class Settings(BaseModel):
     api_port: int = Field(default_factory=lambda: int(os.getenv("API_PORT", "8000")))
     auth_secret_key: str = Field(default_factory=lambda: os.getenv("AUTH_SECRET_KEY", "jfll-lead-sourcing-secret-key-2026-enterprise"))
     auth_token_expire_hours: int = Field(default_factory=lambda: int(os.getenv("AUTH_TOKEN_EXPIRE_HOURS", "24")))
-    default_user_email: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_EMAIL", "deepak.naidu@jfll.com"))
-    default_user_name: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_NAME", "Deepak Naidu"))
+    default_user_email: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_EMAIL", "team@jfll.com"))
+    default_user_name: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_NAME", "JFLL Team Member"))
     default_user_role: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_ROLE", "Internal Team"))
+    user_profiles_json: str = Field(default_factory=lambda: os.getenv("AUTH_USER_PROFILES_JSON", ""))
     allowed_emails: list[str] = Field(
         default_factory=lambda: [
             e.strip().lower()
             for e in os.getenv(
                 "ALLOWED_EMAILS",
-                "tyra.theknath@jfll.com,deepak.naidu@jfll.com,akash.dhara@jfll.com,snehal.birje@jfll.com",
+                "admin@jfll.com,team@jfll.com",
             ).split(",")
             if e.strip()
         ]

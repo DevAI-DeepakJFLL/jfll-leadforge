@@ -285,19 +285,14 @@ Lead Sourcing Tool/
 
 ## Authentication & Access
 
-The application enforces passwordless, email-only whitelist authentication restricted strictly to authorized Jet Freight Logistics personnel:
+The application enforces passwordless, email-only whitelist authentication restricted to authorized enterprise personnel:
 
-| Whitelisted Email | User Profile | Department / Role |
-| :--- | :--- | :--- |
-| `deepak.naidu@jfll.com` | Deepak Naidu | Tech Lead |
-| `tyra.theknath@jfll.com` | Tyra Theknath | Leadership |
-| `akash.dhara@jfll.com` | Akash Dhara | Operations |
-| `snehal.birje@jfll.com` | Snehal Birje | Commercial |
-
+- **Access Control:** Restricted strictly to registered work emails configured via environment secrets (`ALLOWED_EMAILS` / `AUTH_USER_PROFILES_JSON`).
 - **Security Protocol:** RFC 7519 Bearer JWT (HS256) signed with backend secret key.
 - **Session Duration:** 24 Hours.
 - **Timing Attack Resistance:** Constant-time token verification via `secrets.compare_digest`.
 - **Zero-Latency Resilience:** Automatic fallback to verified session state if the backend is temporarily offline.
+- **Environment Configuration:** To grant or revoke access, configure `ALLOWED_EMAILS` and `AUTH_USER_PROFILES_JSON` in your private environment file (`.env`) or AWS Lambda Environment Variables. Authorized user lists are kept strictly confidential and are not published or tracked in version control.
 
 ---
 
