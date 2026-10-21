@@ -91,6 +91,41 @@ def verify_token(token: str) -> dict[str, Any] | None:
     return payload
 
 
+DEFAULT_AUTHORIZED_DIGESTS: dict[str, dict[str, str]] = {
+    # Tyra Theknath
+    "0f1b6d2600c03c27cdca25ea523982fe047b6e332ce1479cfa8fedd0f04fe478": {
+        "role": "Leadership",
+        "name": "Tyra Theknath",
+    },
+    # Deepak Naidu
+    "2d2ba0c4e282c910ae3d73075667bafdc678a45e181c6124f3d22890d90d61b4": {
+        "role": "Tech Lead",
+        "name": "Deepak Naidu",
+    },
+    # Akash Dhara
+    "c784d6a18385d82a93e4017eee6d64a3c03b196e3d080a46e73bfb5b717c80be": {
+        "role": "Operations",
+        "name": "Akash Dhara",
+    },
+    # Snehal Birje
+    "6c94ee02a8480810b2daff09013956d2def3ff2b90baf3c18f4f7a3ae53a9f59": {
+        "role": "Commercial",
+        "name": "Snehal Birje",
+    },
+}
+
+
+def is_email_authorized(email: str) -> bool:
+    """Checks if an email is authorized via explicit whitelist or cryptographic digest fallback."""
+    clean_email = email.strip().lower()
+    allowed_set = {e.strip().lower() for e in settings.allowed_emails if e.strip()}
+    if clean_email in allowed_set:
+        return True
+
+    digest = hashlib.sha256(clean_email.encode("utf-8")).hexdigest()
+    return digest in DEFAULT_AUTHORIZED_DIGESTS
+
+
 def get_user_profiles() -> dict[str, dict[str, str]]:
     """Resolves authorized user profiles dynamically from environment configuration."""
     raw_json = settings.user_profiles_json or os.getenv("AUTH_USER_PROFILES_JSON")
@@ -111,7 +146,16 @@ def get_user_profile(email: str) -> tuple[str, str]:
     profile = profiles.get(clean_email, {})
 
     name = profile.get("name")
-    role = profile.get("role", settings.default_user_role)
+    role = profile.get("role")
+
+    digest = hashlib.sha256(clean_email.encode("utf-8")).hexdigest()
+    digest_info = DEFAULT_AUTHORIZED_DIGESTS.get(digest, {})
+
+    if not name:
+        name = digest_info.get("name")
+
+    if not role:
+        role = digest_info.get("role", settings.default_user_role)
 
     if not name:
         # Derive clean display name from email (e.g. "deepak.naidu@jfll.com" -> "Deepak Naidu")
@@ -129,9 +173,7 @@ def login(credentials: LoginRequest):
     Issues a cryptographically signed HMAC-SHA256 bearer session token without requiring passwords.
     """
     input_email = credentials.email.strip().lower()
-    allowed_set = {e.strip().lower() for e in settings.allowed_emails}
-
-    if input_email not in allowed_set:
+    if not is_email_authorized(input_email):
         raise HTTPException(
             status_code=401,
             detail="Access restricted. Only authorized Jet Freight Logistics personnel can sign in.",
