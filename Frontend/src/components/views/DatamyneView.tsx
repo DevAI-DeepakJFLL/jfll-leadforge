@@ -50,7 +50,6 @@ export interface DatamyneViewProps {
   clearAllFilters: () => void;
   activeFilterCount: number;
   onLeadClick: (lead: DatamyneLead) => void;
-  onSearchApollo: (companyName: string) => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
 }
@@ -84,7 +83,6 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   clearAllFilters,
   activeFilterCount,
   onLeadClick,
-  onSearchApollo,
   isMobileOpen,
   onCloseMobile,
 }) => {
@@ -280,7 +278,6 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             rowSelection={rowSelection}
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
-            onSearchApollo={onSearchApollo}
             currentPage={displayPage}
             totalPages={displayTotalPages}
             pageSize={query.limit || 25}

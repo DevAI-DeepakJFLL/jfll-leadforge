@@ -8,7 +8,6 @@ import {
   Eye,
   AlertCircle,
   RotateCcw,
-  Search,
   Plane,
   Ship,
   PhoneOff,
@@ -22,7 +21,6 @@ export interface DatamyneTableProps {
   rowSelection: RowSelectionState;
   onRowSelectionChange: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   onLeadClick: (lead: DatamyneLead) => void;
-  onSearchApollo?: (companyName: string) => void;
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -42,7 +40,6 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   rowSelection,
   onRowSelectionChange,
   onLeadClick,
-  onSearchApollo,
   currentPage,
   totalPages,
   pageSize,
@@ -407,20 +404,6 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                         <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
                         <span>View</span>
                       </button>
-
-                      {onSearchApollo && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onSearchApollo(l.company_name);
-                          }}
-                          className="p-1 text-slate-400 hover:text-apollo hover:bg-blue-50 rounded transition-colors cursor-pointer"
-                          title={`Find decision-makers at ${l.company_name} in People tab`}
-                          aria-label={`Find decision-makers at ${l.company_name}`}
-                        >
-                          <Search className="w-3.5 h-3.5" />
-                        </button>
-                      )}
                     </div>
                   </td>
                 </tr>

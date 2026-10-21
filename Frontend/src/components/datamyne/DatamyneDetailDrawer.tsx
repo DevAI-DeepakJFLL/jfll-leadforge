@@ -11,12 +11,10 @@ import {
   PackageCheck,
   FileText,
   UserCheck,
-  Search,
   AlertCircle,
   Plane,
   Ship,
   PhoneOff,
-  ArrowRight,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -29,7 +27,6 @@ export interface DatamyneDetailDrawerProps {
   isOpen: boolean;
   lead: DatamyneLead | null;
   onClose: () => void;
-  onSearchApollo?: (companyName: string) => void;
   className?: string;
 }
 
@@ -37,7 +34,6 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   isOpen,
   lead,
   onClose,
-  onSearchApollo,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -192,17 +188,6 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
-              {onSearchApollo && (
-                <button
-                  type="button"
-                  onClick={() => onSearchApollo(lead.company_name)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-apollo hover:bg-apollo-600 rounded-lg transition-colors cursor-pointer shadow-xs"
-                  title={`Find verified decision-makers for ${lead.company_name} in People directory`}
-                >
-                  <Search className="w-3.5 h-3.5" />
-                  <span>Find Decision Makers</span>
-                </button>
-              )}
               <button
                 onClick={onClose}
                 className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
@@ -225,18 +210,8 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                   </div>
                   <p className="text-[11px] text-amber-800/90 leading-relaxed">
                     Direct phone and email were not included on customs manifests for this account.
-                    Use the registered address, IEC, or directors to enrich contacts via Apollo.
+                    Refer to registered address, IEC, or directors below for verification.
                   </p>
-                  {onSearchApollo && (
-                    <button
-                      type="button"
-                      onClick={() => onSearchApollo(lead.company_name)}
-                      className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-white bg-amber-700 hover:bg-amber-800 rounded-md transition-colors cursor-pointer shadow-xs"
-                    >
-                      <Search className="w-3 h-3" />
-                      <span>Search Decision Makers in Apollo</span>
-                    </button>
-                  )}
                 </div>
               </div>
             )}
@@ -248,21 +223,9 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                   <Phone className="w-3.5 h-3.5 text-apollo" />
                   Direct Channels
                 </span>
-                <div className="flex items-center gap-2.5">
-                  <span className="text-[10px] text-slate-500 font-mono">
-                    {lead.contact_type}
-                  </span>
-                  {onSearchApollo && (
-                    <button
-                      type="button"
-                      onClick={() => onSearchApollo(lead.company_name)}
-                      className="text-[11px] font-semibold text-apollo hover:underline inline-flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>Find Decision Makers</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </button>
-                  )}
-                </div>
+                <span className="text-[10px] text-slate-500 font-mono">
+                  {lead.contact_type}
+                </span>
               </div>
 
               {/* Categorized Phone Numbers (Mobile Number vs Landline / Telephone Number) */}

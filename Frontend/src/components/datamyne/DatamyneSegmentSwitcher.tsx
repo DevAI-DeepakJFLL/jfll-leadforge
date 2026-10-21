@@ -46,7 +46,7 @@ export const DatamyneSegmentSwitcher: React.FC<DatamyneSegmentSwitcherProps> = (
         'Known trade lanes, shipment frequencies, and HS codes',
         'Requires contact discovery & enrichment',
       ],
-      actionTip: 'Click "Search Decision Makers" to enrich these companies with verified executives via the Apollo directory.',
+      actionTip: 'Customs shipping accounts with confirmed trade volume awaiting direct contact discovery.',
       badge: { text: 'Enrichment Queue', variant: 'amber' as const },
     },
     {

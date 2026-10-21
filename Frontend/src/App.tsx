@@ -733,23 +733,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     }
   };
 
-  // Cross-Navigation: Search inside Apollo Leads for this company
-  const handleSearchInApollo = (companyName: string) => {
-    setSelectedDatamyneLead(null);
-    setTopTab('people');
-    setActiveNav('search');
-    applyFilters({
-      ...filters,
-      q: undefined,
-      company: companyName,
-      organizationId: undefined,
-      page: 1,
-      departments: [],
-      locations: [],
-    });
-    showToast(`Searching People Directory for decision-makers at "${companyName}"`);
-  };
-
   // Cross-Navigation: Search inside People directory for decision-makers at this company
   const handleFindDecisionMakersInPeople = (companyName: string, organizationId?: string) => {
     setSelectedApolloDbLead(null);
@@ -1031,7 +1014,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           clearAllFilters={clearAllDatamyneFilters}
           activeFilterCount={datamyneActiveFilterCount}
           onLeadClick={(lead) => setSelectedDatamyneLead(lead)}
-          onSearchApollo={handleSearchInApollo}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />
@@ -1177,7 +1159,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           isOpen={!!selectedDatamyneLead}
           lead={selectedDatamyneLead}
           onClose={() => setSelectedDatamyneLead(null)}
-          onSearchApollo={handleSearchInApollo}
         />
       </ErrorBoundary>
 
