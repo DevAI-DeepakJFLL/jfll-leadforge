@@ -4,7 +4,41 @@ import {
   DatamyneDatasetType,
   DatamyneAudienceTab,
   TransportMode,
+  INDIA_CITIES,
+  BRAZIL_CITIES,
+  INDIA_CORRIDORS,
+  BRAZIL_CORRIDORS,
 } from '@/types/datamyneLead';
+
+export function pruneFiltersForCountry(
+  countries: string[],
+  cities: string[] = [],
+  tradeLanes: string[] = []
+): { cities: string[]; tradeLanes: string[] } {
+  const isBrazilOnly = countries.length === 1 && countries[0] === 'Brazil';
+  const isIndiaOnly = countries.length === 1 && countries[0] === 'India';
+
+  let prunedCities = [...cities];
+  let prunedTradeLanes = [...tradeLanes];
+
+  if (isBrazilOnly) {
+    prunedCities = prunedCities.filter((city) =>
+      (BRAZIL_CITIES as readonly string[]).includes(city)
+    );
+    prunedTradeLanes = prunedTradeLanes.filter((lane) =>
+      BRAZIL_CORRIDORS.some((c) => c.id === lane)
+    );
+  } else if (isIndiaOnly) {
+    prunedCities = prunedCities.filter((city) =>
+      (INDIA_CITIES as readonly string[]).includes(city)
+    );
+    prunedTradeLanes = prunedTradeLanes.filter((lane) =>
+      INDIA_CORRIDORS.some((c) => c.id === lane)
+    );
+  }
+
+  return { cities: prunedCities, tradeLanes: prunedTradeLanes };
+}
 
 export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
   const [filters, setFilters] = useState<DatamyneFilterParams>({
@@ -12,6 +46,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     tab: 'all',
     page: 1,
     limit: 25,
+    countries: initialParams.countries || [],
     transportModes: [],
     categories: [],
     subcategories: [],
@@ -43,6 +78,37 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
 
   const setLimit = useCallback((limit: number) => {
     setFilters((prev) => ({ ...prev, limit, page: 1 }));
+  }, []);
+
+  const toggleCountry = useCallback((country: string) => {
+    setFilters((prev) => {
+      let updated: string[];
+      if (country === 'All' || country === 'all') {
+        updated = [];
+      } else {
+        const current = prev.countries || [];
+        updated = current.includes(country)
+          ? current.filter((c) => c !== country)
+          : [...current, country];
+      }
+
+      // Smart Context-Aware Filter Pruning:
+      // When exclusively filtered by Brazil, prune Indian cities & Indian trade corridors.
+      // When exclusively filtered by India, prune Brazilian cities & Brazilian trade corridors.
+      const { cities, tradeLanes } = pruneFiltersForCountry(
+        updated,
+        prev.cities,
+        prev.tradeLanes
+      );
+
+      return {
+        ...prev,
+        countries: updated,
+        cities,
+        tradeLanes,
+        page: 1,
+      };
+    });
   }, []);
 
   const toggleCategory = useCallback((category: string) => {
@@ -137,6 +203,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
       tab: 'all',
       page: 1,
       limit: 25,
+      countries: [],
       transportModes: [],
       categories: [],
       subcategories: [],
@@ -153,6 +220,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
 
   const activeFilterCount = useMemo(() => {
     let count = 0;
+    if (filters.countries && filters.countries.length > 0) count += filters.countries.length;
     if (filters.transportModes && filters.transportModes.length > 0) count += filters.transportModes.length;
     if (filters.categories && filters.categories.length > 0) count += filters.categories.length;
     if (filters.subcategories && filters.subcategories.length > 0) count += filters.subcategories.length;
@@ -175,6 +243,8 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     setSearch,
     setPage,
     setLimit,
+    toggleCountry,
+    onRemoveCountry: toggleCountry,
     toggleTransportMode,
     toggleCategory,
     toggleSubcategory,

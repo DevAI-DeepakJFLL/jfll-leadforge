@@ -251,7 +251,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                             : 'bg-blue-50 text-blue-700 border-blue-200'
                         }`}
                       >
-                        {num.type === 'mobile' ? '+91 Mobile' : `STD ${num.prefix}`}
+                        {num.type === 'mobile' ? '+91 Mobile' : num.prefix.startsWith('+') ? num.prefix : `STD ${num.prefix}`}
                       </span>
                     </div>
 

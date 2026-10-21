@@ -114,6 +114,20 @@ export function parseAndFormatContactNumbers(
     let digits = trimmed.replace(/\D/g, '');
     if (!digits || digits.length < 5) continue;
 
+    // 0. International / Direct E.164 Number Check (e.g. Brazil +55)
+    if (trimmed.startsWith('+')) {
+      const isBrazil = trimmed.startsWith('+55');
+      results.push({
+        type: 'landline',
+        label: isBrazil ? 'Brazil Line' : 'International Line',
+        display: trimmed,
+        dialValue: trimmed.replace(/[^\d+]/g, ''),
+        prefix: isBrazil ? '+55' : trimmed.slice(0, 4).trim(),
+        raw: trimmed,
+      });
+      continue;
+    }
+
     // 1. Mobile Number Check:
     // In India, mobile numbers are 10 digits starting with 6, 7, 8, or 9
     let isMobile = false;

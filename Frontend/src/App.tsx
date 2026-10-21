@@ -644,6 +644,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     setSearch: setDatamyneSearch,
     setPage: setDatamynePage,
     setLimit: _setDatamyneLimit,
+    toggleCountry: toggleDatamyneCountry,
     toggleTransportMode: toggleDatamyneTransportMode,
     toggleCategory: toggleDatamyneCategory,
     toggleSubcategory: toggleDatamyneSubcategory,
@@ -1001,6 +1002,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onDatasetChange={setDatamyneDataset}
           onTabChange={setDatamyneTab}
           onPageChange={setDatamynePage}
+          toggleCountry={toggleDatamyneCountry}
           toggleTransportMode={toggleDatamyneTransportMode}
           toggleCategory={toggleDatamyneCategory}
           toggleSubcategory={toggleDatamyneSubcategory}

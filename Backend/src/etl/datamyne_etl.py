@@ -88,6 +88,7 @@ def run_datamyne_etl():
 
     # Enforce data types & cleanup
     for df in [df_val, df_mis, unified_df]:
+        df["country"] = "India"
         df["total_shipments"] = pd.to_numeric(df["total_shipments"], errors="coerce").fillna(0).astype("int64")
         df["total_value_usd"] = pd.to_numeric(df["total_value_usd"], errors="coerce").fillna(0.0).astype("float64")
         df["company_name"] = df["company_name"].astype(str).str.strip()
@@ -104,6 +105,7 @@ def run_datamyne_etl():
     target_columns = [
         "id",
         "company_name",
+        "country",
         "role",
         "transport_mode",
         "category",

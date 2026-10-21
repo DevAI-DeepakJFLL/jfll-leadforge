@@ -122,6 +122,7 @@ coverage.xml
 # Agent & Scratch Artifacts
 .superpowers/
 .gemini/
+audit-screenshots/
 
 # Local Migration Backups & Raw Datasets
 Backend/data/.backups/

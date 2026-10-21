@@ -13,7 +13,15 @@ let cachedFullDataset: DatamyneLead[] | null = null;
 let isLoadingFullData = false;
 
 /**
- * Lazily load full 34,690 records from public JSON in the background
+ * Normalizes city names by stripping diacritics/accents and converting to uppercase
+ * for robust cross-geographic matching (e.g. SÃO PAULO <-> SAO PAULO).
+ */
+export function normalizeCityString(str: string): string {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase();
+}
+
+/**
+ * Lazily load full 40,081 records from public JSON in the background
  */
 export async function loadFullDatamyneDataset(): Promise<DatamyneLead[]> {
   if (cachedFullDataset) return cachedFullDataset;
@@ -49,6 +57,7 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
     q,
     dataset: datasetType = 'valid',
     tab = 'all',
+    countries = [],
     transportModes = [],
     categories = [],
     subcategories = [],
@@ -63,21 +72,144 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
     limit = 25,
   } = params;
 
-  let filtered = [...dataset];
+  // 1. Filter by all sidebar filters (excluding datasetType and audience tab)
+  let baseFiltered = [...dataset];
 
-  // 1. Primary Dataset Filter: 'valid' | 'missing' | 'all'
-  if (datasetType === 'valid') {
-    filtered = filtered.filter((d) => d.dataset_type === 'valid');
-  } else if (datasetType === 'missing') {
-    filtered = filtered.filter((d) => d.dataset_type === 'missing');
+  // 1a. Country Multi-select Filter
+  if (countries && countries.length > 0) {
+    baseFiltered = baseFiltered.filter((d) => countries.includes(d.country || 'India'));
   }
 
   // 1b. Transport Mode Multi-select Filter
   if (transportModes.length > 0) {
-    filtered = filtered.filter((d) => transportModes.includes(d.transport_mode as any));
+    baseFiltered = baseFiltered.filter((d) => transportModes.includes(d.transport_mode as any));
   }
 
-  // 2. Audience Tab Filter
+  // 1c. Search Query
+  if (q && q.trim()) {
+    const query = q.trim().toLowerCase();
+    baseFiltered = baseFiltered.filter(
+      (d) =>
+        d.company_name.toLowerCase().includes(query) ||
+        (d.country && d.country.toLowerCase().includes(query)) ||
+        d.city.toLowerCase().includes(query) ||
+        d.address.toLowerCase().includes(query) ||
+        d.subcategory.toLowerCase().includes(query) ||
+        d.category.toLowerCase().includes(query) ||
+        d.tax_id.toLowerCase().includes(query) ||
+        d.directors.toLowerCase().includes(query) ||
+        d.top_hs_codes.toLowerCase().includes(query)
+    );
+  }
+
+  // 1d. Categories Multi-select (from sidebar)
+  if (categories.length > 0) {
+    baseFiltered = baseFiltered.filter((d) => categories.includes(d.category));
+  }
+
+  // 1e. Subcategories Multi-select
+  if (subcategories.length > 0) {
+    baseFiltered = baseFiltered.filter((d) => subcategories.includes(d.subcategory));
+  }
+
+  // 1f. Trading Role Multi-select
+  if (roles.length > 0) {
+    const hasExp = roles.includes('Exporter');
+    const hasImp = roles.includes('Importer');
+    const hasBoth = roles.includes('Both') || roles.includes('Both (Exporter & Importer)');
+
+    baseFiltered = baseFiltered.filter((d) => {
+      const isDualLead = d.role === 'Both' || d.role === 'Both (Exporter & Importer)';
+      const isExpLead = d.role === 'Exporter';
+      const isImpLead = d.role === 'Importer';
+
+      if (hasBoth && isDualLead) return true;
+      if (hasExp && isExpLead) return true;
+      if (hasImp && isImpLead) return true;
+      // If user checks both Exporter and Importer, companies performing dual trade match
+      if (hasExp && hasImp && isDualLead) return true;
+
+      return false;
+    });
+  }
+
+  // 1g. City Multi-select (Pre-normalized to eliminate redundant inner-loop normalizations)
+  if (cities.length > 0) {
+    const normalizedFilterCities = cities.map(normalizeCityString);
+    baseFiltered = baseFiltered.filter((d) => {
+      if (!d.city || !d.city.trim()) return false;
+      const dCityNorm = normalizeCityString(d.city);
+      return normalizedFilterCities.some(
+        (cNorm) => dCityNorm.includes(cNorm) || cNorm.includes(dCityNorm)
+      );
+    });
+  }
+
+  // 1h. Trade Corridor Multi-select
+  if (tradeLanes.length > 0) {
+    baseFiltered = baseFiltered.filter((d) => tradeLanes.some((tl) => d.trade_lanes.includes(tl)));
+  }
+
+  // 1i. Contact Status Multi-select
+  if (contactStatus.length > 0) {
+    baseFiltered = baseFiltered.filter((d) => {
+      if (contactStatus.includes('both') && d.phone && d.email) return true;
+      if (contactStatus.includes('phone_only') && d.phone && !d.email) return true;
+      if (contactStatus.includes('email_only') && !d.phone && d.email) return true;
+      if (contactStatus.includes('missing') && !d.phone && !d.email) return true;
+      return false;
+    });
+  }
+
+  // 1j. Volume & Value Thresholds
+  if (minShipments && minShipments > 0) {
+    baseFiltered = baseFiltered.filter((d) => d.total_shipments >= minShipments);
+  }
+  if (minTradedValueUsd && minTradedValueUsd > 0) {
+    baseFiltered = baseFiltered.filter((d) => d.total_value_usd >= minTradedValueUsd);
+  }
+
+  // 1k. Has Directors Filter
+  if (hasDirectors) {
+    baseFiltered = baseFiltered.filter((d) => d.directors && d.directors.trim().length > 0);
+  }
+
+  // 2. Data pool counts matching the current active filters
+  const validTotal = baseFiltered.filter((d) => d.dataset_type === 'valid').length;
+  const missingTotal = baseFiltered.filter((d) => d.dataset_type === 'missing').length;
+  const allTotal = baseFiltered.length;
+
+  const datasetCounts = {
+    valid: validTotal,
+    missing: missingTotal,
+    all: allTotal,
+  };
+
+  // 3. Primary Dataset Scope Filter: 'valid' | 'missing' | 'all'
+  const scopeDataset =
+    datasetType === 'valid'
+      ? baseFiltered.filter((d) => d.dataset_type === 'valid')
+      : datasetType === 'missing'
+      ? baseFiltered.filter((d) => d.dataset_type === 'missing')
+      : baseFiltered;
+
+  // 4. Calculate Audience counts based on filtered scope dataset
+  const audienceCounts: DatamyneAudienceCounts = {
+    all: scopeDataset.length,
+    perishables: scopeDataset.filter((d) => d.category === 'Perishables').length,
+    pharma: scopeDataset.filter((d) => d.category === 'Pharma & Healthcare').length,
+    textiles: scopeDataset.filter((d) => d.category === 'Textiles & Apparel').length,
+    engineering: scopeDataset.filter((d) => d.category === 'Engineering & Machinery').length,
+    chemicals: scopeDataset.filter((d) => d.category === 'Chemicals & Materials').length,
+    electronics: scopeDataset.filter((d) => d.category === 'Electronics & Electrical').length,
+    automotive: scopeDataset.filter((d) => d.category === 'Automotive & EV').length,
+    general: scopeDataset.filter((d) => d.category === 'General Cargo').length,
+    validTotal,
+    missingTotal,
+  };
+
+  // 5. Apply Audience Tab Filter
+  let filtered = scopeDataset;
   if (tab === 'perishables') {
     filtered = filtered.filter((d) => d.category === 'Perishables');
   } else if (tab === 'pharma') {
@@ -95,115 +227,6 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
   } else if (tab === 'general') {
     filtered = filtered.filter((d) => d.category === 'General Cargo');
   }
-
-  // 3. Search Query
-  if (q && q.trim()) {
-    const query = q.trim().toLowerCase();
-    filtered = filtered.filter(
-      (d) =>
-        d.company_name.toLowerCase().includes(query) ||
-        d.city.toLowerCase().includes(query) ||
-        d.address.toLowerCase().includes(query) ||
-        d.subcategory.toLowerCase().includes(query) ||
-        d.category.toLowerCase().includes(query) ||
-        d.tax_id.toLowerCase().includes(query) ||
-        d.directors.toLowerCase().includes(query) ||
-        d.top_hs_codes.toLowerCase().includes(query)
-    );
-  }
-
-  // 4. Categories Multi-select
-  if (categories.length > 0) {
-    filtered = filtered.filter((d) => categories.includes(d.category));
-  }
-
-  // 5. Subcategories Multi-select
-  if (subcategories.length > 0) {
-    filtered = filtered.filter((d) => subcategories.includes(d.subcategory));
-  }
-
-  // 6. Trading Role Multi-select
-  if (roles.length > 0) {
-    const hasExp = roles.includes('Exporter');
-    const hasImp = roles.includes('Importer');
-    const hasBoth = roles.includes('Both') || roles.includes('Both (Exporter & Importer)');
-
-    filtered = filtered.filter((d) => {
-      const isDualLead = d.role === 'Both' || d.role === 'Both (Exporter & Importer)';
-      const isExpLead = d.role === 'Exporter';
-      const isImpLead = d.role === 'Importer';
-
-      if (hasBoth && isDualLead) return true;
-      if (hasExp && isExpLead) return true;
-      if (hasImp && isImpLead) return true;
-      // If user checks both Exporter and Importer, companies performing dual trade match
-      if (hasExp && hasImp && isDualLead) return true;
-
-      return false;
-    });
-  }
-
-  // 7. City Multi-select
-  if (cities.length > 0) {
-    filtered = filtered.filter((d) => cities.some((c) => d.city.toUpperCase().includes(c.toUpperCase())));
-  }
-
-  // 8. Trade Corridor Multi-select
-  if (tradeLanes.length > 0) {
-    filtered = filtered.filter((d) => tradeLanes.some((tl) => d.trade_lanes.includes(tl)));
-  }
-
-  // 9. Contact Status Multi-select
-  if (contactStatus.length > 0) {
-    filtered = filtered.filter((d) => {
-      if (contactStatus.includes('both') && d.phone && d.email) return true;
-      if (contactStatus.includes('phone_only') && d.phone && !d.email) return true;
-      if (contactStatus.includes('email_only') && !d.phone && d.email) return true;
-      if (contactStatus.includes('missing') && !d.phone && !d.email) return true;
-      return false;
-    });
-  }
-
-  // 10. Volume & Value Thresholds
-  if (minShipments && minShipments > 0) {
-    filtered = filtered.filter((d) => d.total_shipments >= minShipments);
-  }
-  if (minTradedValueUsd && minTradedValueUsd > 0) {
-    filtered = filtered.filter((d) => d.total_value_usd >= minTradedValueUsd);
-  }
-
-  // 11. Has Directors Filter
-  if (hasDirectors) {
-    filtered = filtered.filter((d) => d.directors && d.directors.trim().length > 0);
-  }
-
-  // Calculate Audience counts based on current dataset mode
-  const scopeDataset =
-    datasetType === 'valid'
-      ? dataset.filter((d) => d.dataset_type === 'valid')
-      : datasetType === 'missing'
-      ? dataset.filter((d) => d.dataset_type === 'missing')
-      : dataset;
-
-  const audienceCounts: DatamyneAudienceCounts = {
-    all: scopeDataset.length,
-    perishables: scopeDataset.filter((d) => d.category === 'Perishables').length,
-    pharma: scopeDataset.filter((d) => d.category === 'Pharma & Healthcare').length,
-    textiles: scopeDataset.filter((d) => d.category === 'Textiles & Apparel').length,
-    engineering: scopeDataset.filter((d) => d.category === 'Engineering & Machinery').length,
-    chemicals: scopeDataset.filter((d) => d.category === 'Chemicals & Materials').length,
-    electronics: scopeDataset.filter((d) => d.category === 'Electronics & Electrical').length,
-    automotive: scopeDataset.filter((d) => d.category === 'Automotive & EV').length,
-    general: scopeDataset.filter((d) => d.category === 'General Cargo').length,
-    validTotal: dataset.filter((d) => d.dataset_type === 'valid').length,
-    missingTotal: dataset.filter((d) => d.dataset_type === 'missing').length,
-  };
-
-  const datasetCounts = {
-    valid: dataset.filter((d) => d.dataset_type === 'valid').length,
-    missing: dataset.filter((d) => d.dataset_type === 'missing').length,
-    all: dataset.length,
-  };
 
   const totalEstimate = filtered.length;
   const totalPages = Math.max(1, Math.ceil(totalEstimate / limit));
@@ -229,6 +252,7 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
 export function exportDatamyneLeadsCsv(leads: DatamyneLead[]): Blob {
   const headers = [
     'Company Name',
+    'Country',
     'Trading Role',
     'Transport Mode',
     'Logistics Category',
@@ -250,6 +274,7 @@ export function exportDatamyneLeadsCsv(leads: DatamyneLead[]): Blob {
 
   const rows = leads.map((l) => [
     l.company_name,
+    l.country || 'India',
     l.role,
     l.transport_mode,
     l.category,

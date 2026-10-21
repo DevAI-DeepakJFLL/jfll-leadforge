@@ -4,6 +4,7 @@ import { DatamyneFilterParams, TransportMode } from '@/types/datamyneLead';
 
 export interface DatamyneActiveFilterChipsProps {
   filters: DatamyneFilterParams;
+  onRemoveCountry?: (country: string) => void;
   onRemoveTransportMode: (mode: TransportMode) => void;
   onRemoveRole: (role: string) => void;
   onRemoveCategory: (category: string) => void;
@@ -26,6 +27,7 @@ interface ChipItem {
 
 export const DatamyneActiveFilterChips: React.FC<DatamyneActiveFilterChipsProps> = ({
   filters,
+  onRemoveCountry,
   onRemoveTransportMode,
   onRemoveRole,
   onRemoveCategory,
@@ -49,6 +51,18 @@ export const DatamyneActiveFilterChips: React.FC<DatamyneActiveFilterChipsProps>
       onRemove: onClearSearch,
     });
   }
+
+  // Geographic Region / Country
+  (filters.countries || [])
+    .filter((c) => c !== 'All' && c !== 'all')
+    .forEach((c) => {
+      chips.push({
+        id: `country-${c}`,
+        category: 'Region',
+        label: c,
+        onRemove: () => onRemoveCountry?.(c),
+      });
+    });
 
   // 2. Transport Modes
   (filters.transportModes || []).forEach((mode) => {

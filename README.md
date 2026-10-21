@@ -1,8 +1,8 @@
 # JFLL LeadForge — Lead Sourcing & Customer Intelligence Platform
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Frontend Tests](https://img.shields.io/badge/Vitest-92%20passed-success.svg)]()
-[![Backend Tests](https://img.shields.io/badge/Pytest-27%20passed-success.svg)]()
+[![Frontend Tests](https://img.shields.io/badge/Vitest-182%20passed-success.svg)]()
+[![Backend Tests](https://img.shields.io/badge/Pytest-70%20passed-success.svg)]()
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)]()
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)]()
 [![DuckDB](https://img.shields.io/badge/DuckDB-1.1-FFF000.svg)]()
@@ -42,16 +42,18 @@ The application provides a unified multi-engine prospecting suite tailored for i
 
 1. **Company Accounts (Apollo Shippers)**: Real-time analytical querying over **690,881 verified commercial freight shipper accounts** across 50 freight-active cargo verticals (Automotive, Chemicals, Pharmaceuticals, Fresh Produce, Electronics, Heavy Machinery). Includes firmographics, employee headcounts, revenue ranges, tech stacks, and one-click **"Find Decision Makers"** cross-navigation.
 2. **People Directory (Apollo Decision Makers)**: Directory of **2.5M+ freight decision-makers** (C-Suite, VP, Director, Operations, Supply Chain & Logistics Managers) with verified email confidence ratings, direct phone numbers, and LinkedIn profile links.
-3. **DataMyne International Trade Directory**: **34,690 verified active trade accounts** segmented into **Air Freight** and **Ocean Freight (FCL/LCL)**, HS code categories, trade lanes, customs shipment volumes, and direct cross-search into Apollo.
-4. **JFLL Customers (Organic Internal Master)**: **729 verified internal accounts** with contact readiness scoring, customer group segmentation (Subagents, Overseas Partners, Shippers/Consignees), and credit/outstanding tracking.
+3. **DataMyne International Trade Directory**: **40,081 verified unified trade accounts** across **India** (34,690 accounts) and **Brazil** (5,391 accounts) segmented into **Air Freight** and **Ocean Freight**, HS code categories, trade corridors (`PER/AIR`, `GCR/Air`, `India-Brazil/Air`, `Brazil-India/Air`, `Brazil-India/Ocean`), Brazilian logistics hubs (São Paulo, Guarulhos, Rio de Janeiro, Curitiba, etc.), customs shipment volumes, and direct cross-search into Apollo.
+4. **JFLL Customers (Organic Internal Master)**: **728 active verified accounts** & **2,010 enriched inactive accounts** with contact readiness scoring, customer group segmentation (Subagents, Overseas Partners, Shippers/Consignees), and credit/outstanding tracking.
 
 ### Architectural Highlights
 
 - **Serverless Analytics Engine**: DuckDB executes vectorized columnar SQL directly over S3 objects (`httpfs` extension), pruning unneeded row groups and columns for low memory consumption and instant pagination.
+- **Dynamic Filter-Responsive Audience Counts**: Real-time aggregation pipeline calculates audience and category counts against active search queries and sidebar facets across all tabs (DataMyne, JFLL Customers, Apollo Companies).
+- **Context-Aware Geographic Filtering**: Seamless UI switches between India-specific and Brazil-specific trade corridors and operational hubs based on region selection.
 - **Ephemeral `/tmp` Caching**: In AWS Lambda, analytical datasets are cached in `/tmp/lead_cache/` on cold start, executing warm queries in **2–5 ms** with **zero S3 GET requests**.
 - **Cross-Directory Navigation**: Deep integration allows sales reps viewing a company in Apollo or DataMyne to click **"Find Decision Makers"** to instantly navigate to the People directory scoped to that company.
-- **Microsecond Token Authentication**: Backend REST endpoints issue signed RFC 7519 HMAC-SHA256 JWT tokens validated with constant-time password matching (`secrets.compare_digest`).
-- **Zero-Latency Resilience**: Frontend employs TanStack Query for background revalidation and automatic offline fallback to internal demo credentials if network partitions occur.
+- **Microsecond Token Authentication**: Backend REST endpoints issue signed RFC 7519 HMAC-SHA256 JWT tokens validated with constant-time verification (`secrets.compare_digest`).
+- **Zero-Latency Resilience**: Frontend employs TanStack Query for background revalidation and automatic offline fallback to internal verified datasets if network partitions occur.
 
 ---
 
@@ -116,13 +118,15 @@ flowchart TD
 - **Customs & Freight Role Targeting**: Filter by specific departments (Operations, Supply Chain, Logistics, Executive, Purchasing).
 
 ### 3. DataMyne Trade Intelligence
-- **34,690 Import/Export Leads**: Cleaned and deduplicated shipment records.
+- **40,081 Import/Export Leads**: Cleaned, verified, and deduplicated shipment records spanning **India** (34,690 accounts) and **Brazil** (5,391 accounts).
 - **Air & Ocean Transport Mode Segmentation**: Filter by transport mode (`Air`, `Ocean`, `Air & Ocean`).
+- **Context-Aware Geographic Filtering**: Seamlessly switches between India-specific and Brazil-specific trade corridors (`PER/AIR`, `GCR/Air`, `India-Brazil/Air`, `Brazil-India/Air`, `Brazil-India/Ocean`) and operational hubs (São Paulo, Guarulhos, Rio de Janeiro, Curitiba, Mumbai, Delhi, etc.).
 - **Trade Lane & HS Code Analytics**: Track shipment frequencies, estimated cargo traded value (USD), and customs categories.
+- **Dynamic Audience Counters**: Horizontal category tabs dynamically recalculate record counts matching active search queries and sidebar criteria.
 
 ### 4. JFLL Internal Customer Intelligence
-- **729 Active Enterprise Accounts**: Internal master customer list with phone, email, and contact readiness scoring.
-- **Segmented Audience Tabs**: Real-time server queries for All (729), Shippers (421), Subagents (168), Overseas Partners (95), and With Contacts (644).
+- **728 Active Enterprise Accounts** & **2,010 Inactive Accounts**: Internal master customer list with phone, email, and contact readiness scoring.
+- **Dynamic Segmented Audience Tabs**: Real-time server and client queries for All (728), Shippers (285), Subagents (389), Overseas Partners (39), and With Contacts (728).
 - **CSV Data Export**: Streaming RFC-4180 compliant CSV export with automatic CWE-1236 formula injection shielding.
 
 ---
@@ -138,7 +142,7 @@ flowchart TD
 | **Analytical Engine** | DuckDB 1.1 with HTTPFS extension |
 | **Data Storage** | Apache Parquet (ZSTD-compressed), AWS S3 |
 | **Security & Auth** | RFC 7519 JWT (PyJWT), Python `secrets.compare_digest`, CWE-1236 CSV protection |
-| **Testing** | Vitest 5.0 (92 tests passed), Pytest 9.1 (27 tests passed) |
+| **Testing** | Vitest 5.0 (182 tests passed), Pytest 9.1 (70 tests passed) |
 | **Cloud Hosting** | Amazon CloudFront (Global CDN), AWS Lambda, Amazon S3 |
 | **Observability** | Structured JSON Logging for AWS CloudWatch and client `__APP_LOGS__` buffer |
 
@@ -181,7 +185,7 @@ Lead Sourcing Tool/
 │   │   │   ├── apolloUtils.ts           # Centralized avatar, revenue, and contact helpers
 │   │   │   ├── logger.ts                # Structured client telemetry
 │   │   │   └── csv.ts                   # RFC-4180 CSV export with formula injection defense
-│   │   └── test/                        # Vitest test suite (92 tests)
+│   │   └── test/                        # Vitest test suite (182 tests)
 │   └── dist/                            # Production build output
 │
 ├── Backend/                             # FastAPI microservice & DuckDB engine
@@ -198,7 +202,8 @@ Lead Sourcing Tool/
 │   │   │   └── logger.py                # CloudWatch JSON formatter & request middleware
 │   │   └── etl/
 │   │       ├── clean_merge.py           # JFLL customer data hygiene and deduplication
-│   │       ├── datamyne_etl.py          # DataMyne Air/Ocean extraction and segmentation
+│   │       ├── datamyne_etl.py          # DataMyne India Air/Ocean extraction and segmentation
+│   │       ├── brazil_datamyne_etl.py   # DataMyne Brazil dataset transformation & schema unification
 │   │       └── apollo_etl.py            # Apollo organizations & contacts transformation
 │   ├── data/
 │   │   ├── raw/                         # Raw source files
@@ -206,8 +211,10 @@ Lead Sourcing Tool/
 │   │   ├── Apollo/                      # Apollo data workflows and exploration reports
 │   │   └── Datamyne/                    # Air & Ocean segmented source directories
 │   ├── scripts/
+│   │   ├── export_datamyne_frontend_json.py # Exports production JSON for frontend bundle
+│   │   ├── unify_datamyne_parquet.py    # Merges India & Brazil Parquet files
 │   │   └── upload_to_floci.py           # S3 bucket seeding script for Floci/AWS
-│   ├── tests/                           # Pytest test suite (27 tests)
+│   ├── tests/                           # Pytest test suite (70 tests)
 │   └── docs/                            # Deep-dive backend documentation
 │       ├── API_DOCUMENTATION.md         # Comprehensive REST API specifications
 │       ├── AWS_FREE_TIER_DEPLOYMENT_RUNBOOK.md # Production deployment and cost runbook
@@ -278,34 +285,36 @@ Lead Sourcing Tool/
 
 ## Authentication & Access
 
-The application includes role-based authentication enforced via the backend API:
+The application enforces passwordless, email-only whitelist authentication restricted strictly to authorized Jet Freight Logistics personnel:
 
-| Parameter | Value |
-| :--- | :--- |
-| **Demo User Email** | `leads@jfll.com` |
-| **Demo Password** | `Jet@123` |
-| **Token Type** | RFC 7519 Bearer JWT |
-| **Session Lifetime** | 8 Hours |
-| **Algorithm** | HS256 with constant-time password validation |
+| Whitelisted Email | User Profile | Department / Role |
+| :--- | :--- | :--- |
+| `deepak.naidu@jfll.com` | Deepak Naidu | Tech Lead |
+| `tyra.theknath@jfll.com` | Tyra Theknath | Leadership |
+| `akash.dhara@jfll.com` | Akash Dhara | Operations |
+| `snehal.birje@jfll.com` | Snehal Birje | Commercial |
 
-*Note: If the backend is temporarily unreachable, the frontend gracefully falls back to verified enterprise credentials to guarantee uninterrupted sales access.*
+- **Security Protocol:** RFC 7519 Bearer JWT (HS256) signed with backend secret key.
+- **Session Duration:** 24 Hours.
+- **Timing Attack Resistance:** Constant-time token verification via `secrets.compare_digest`.
+- **Zero-Latency Resilience:** Automatic fallback to verified session state if the backend is temporarily offline.
 
 ---
 
 ## Testing & Quality Assurance
 
-The codebase includes automated test suites covering API contracts, SQL safety, pagination, authentication, and UI rendering:
+The codebase includes automated test suites covering API contracts, SQL safety, pagination, authentication, ETL transformations, and UI rendering:
 
-### Backend Tests (Pytest: 27/27 Passed)
-Executes 27 automated test cases verifying health endpoints, paginated S3 queries, company searches, contacts filtering, SQL injection immunity, and JWT token issuance.
+### Backend Tests (Pytest: 70/70 Passed)
+Executes 70 automated test cases verifying health endpoints, S3 Parquet DuckDB queries, company searches, contacts filtering, Brazil ETL pipelines, tier scoring, dynamic audience aggregations, and SQL injection immunity.
 
 ```bash
 # Run backend test suite
 PYTHONPATH=Backend python -m pytest Backend/tests -v
 ```
 
-### Frontend Tests (Vitest: 92/92 Passed)
-Executes 92 unit and integration tests across customer filtering, authentication services, action bars, and lead prospecting modules.
+### Frontend Tests (Vitest: 182/182 Passed)
+Executes 182 unit and integration tests across customer filtering, DataMyne Brazil integration, dynamic audience tab counts, phone number normalization, CSV injection defenses, and UI components.
 
 ```bash
 cd Frontend

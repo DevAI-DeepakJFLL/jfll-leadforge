@@ -51,12 +51,12 @@ export function queryApolloLeads(params: ApolloFilterParams = {}): ApolloRespons
     limit = 25,
   } = params;
 
-  let filtered = [...APOLLO_STARTER_DATA];
+  let baseFiltered = [...APOLLO_STARTER_DATA];
 
   // 1. Text search
   if (q && q.trim()) {
     const searchLower = q.trim().toLowerCase();
-    filtered = filtered.filter((lead) => {
+    baseFiltered = baseFiltered.filter((lead) => {
       return (
         lead.organization_name.toLowerCase().includes(searchLower) ||
         lead.domain.toLowerCase().includes(searchLower) ||
@@ -69,44 +69,22 @@ export function queryApolloLeads(params: ApolloFilterParams = {}): ApolloRespons
     });
   }
 
-  // 2. Audience Tab quick filtering
-  if (tab === 'high_headcount') {
-    filtered = filtered.filter((l) => (l.employee_count ?? 0) >= 100);
-  } else if (tab === 'high_revenue') {
-    filtered = filtered.filter((l) => (l.revenue_usd ?? 0) >= 10000000);
-  } else if (tab === 'top_cargo_verticals') {
-    const topSet = new Set([
-      'automotive',
-      'food & beverages',
-      'pharmaceuticals',
-      'electrical/electronic manufacturing',
-      'chemicals',
-      'medical devices',
-      'aviation & aerospace',
-    ]);
-    filtered = filtered.filter((l) => topSet.has(l.industry.toLowerCase()));
-  } else if (tab === 'with_website_linkedin') {
-    filtered = filtered.filter(
-      (l) => l.website_url && l.website_url.trim() !== '' && l.linkedin_url && l.linkedin_url.trim() !== ''
-    );
-  }
-
-  // 3. Multi-select cargo verticals
+  // 2. Multi-select cargo verticals
   if (industries.length > 0) {
     const indSet = new Set(industries.map((i) => i.toLowerCase()));
-    filtered = filtered.filter((l) => indSet.has(l.industry.toLowerCase()));
+    baseFiltered = baseFiltered.filter((l) => indSet.has(l.industry.toLowerCase()));
   }
 
-  // 4. Multi-select countries
+  // 3. Multi-select countries
   if (countries.length > 0) {
     const cSet = new Set(countries.map((c) => c.toLowerCase()));
-    filtered = filtered.filter((l) => l.hq_country && cSet.has(l.hq_country.toLowerCase()));
+    baseFiltered = baseFiltered.filter((l) => l.hq_country && cSet.has(l.hq_country.toLowerCase()));
   }
 
-  // 5. Employee Tiers
+  // 4. Employee Tiers
   if (employeeTiers.length > 0) {
     const activeTiers = APOLLO_EMPLOYEE_TIERS.filter((t) => employeeTiers.includes(t.id));
-    filtered = filtered.filter((l) => {
+    baseFiltered = baseFiltered.filter((l) => {
       const count = l.employee_count ?? 0;
       return activeTiers.some((tier) => {
         const meetsMin = tier.min === undefined || count >= tier.min;
@@ -116,18 +94,18 @@ export function queryApolloLeads(params: ApolloFilterParams = {}): ApolloRespons
     });
   }
 
-  // 6. Explicit min/max employees
+  // 5. Explicit min/max employees
   if (minEmployees !== undefined) {
-    filtered = filtered.filter((l) => (l.employee_count ?? 0) >= minEmployees);
+    baseFiltered = baseFiltered.filter((l) => (l.employee_count ?? 0) >= minEmployees);
   }
   if (maxEmployees !== undefined) {
-    filtered = filtered.filter((l) => (l.employee_count ?? 0) <= maxEmployees);
+    baseFiltered = baseFiltered.filter((l) => (l.employee_count ?? 0) <= maxEmployees);
   }
 
-  // 7. Revenue Ranges
+  // 6. Revenue Ranges
   if (revenueRanges.length > 0) {
     const activeRanges = APOLLO_REVENUE_RANGES.filter((r) => revenueRanges.includes(r.id));
-    filtered = filtered.filter((l) => {
+    baseFiltered = baseFiltered.filter((l) => {
       const rev = l.revenue_usd ?? 0;
       return activeRanges.some((range) => {
         const meetsMin = range.min === undefined || rev >= range.min;
@@ -137,37 +115,53 @@ export function queryApolloLeads(params: ApolloFilterParams = {}): ApolloRespons
     });
   }
   if (minRevenue !== undefined) {
-    filtered = filtered.filter((l) => (l.revenue_usd ?? 0) >= minRevenue);
+    baseFiltered = baseFiltered.filter((l) => (l.revenue_usd ?? 0) >= minRevenue);
   }
 
-  // 8. Contact channels
+  // 7. Contact channels
   if (hasWebsite) {
-    filtered = filtered.filter((l) => Boolean(l.website_url && l.website_url.trim() !== ''));
+    baseFiltered = baseFiltered.filter((l) => Boolean(l.website_url && l.website_url.trim() !== ''));
   }
   if (hasLinkedin) {
-    filtered = filtered.filter((l) => Boolean(l.linkedin_url && l.linkedin_url.trim() !== ''));
+    baseFiltered = baseFiltered.filter((l) => Boolean(l.linkedin_url && l.linkedin_url.trim() !== ''));
   }
 
-  // Calculate Audience Counts across the base starter dataset
+  // 8. Calculate Audience Counts across the filtered base dataset
+  const topSet = new Set([
+    'automotive',
+    'food & beverages',
+    'pharmaceuticals',
+    'electrical/electronic manufacturing',
+    'chemicals',
+    'medical devices',
+    'aviation & aerospace',
+  ]);
+
   const audienceCounts: ApolloAudienceCounts = {
-    all: APOLLO_STARTER_DATA.length,
-    high_headcount: APOLLO_STARTER_DATA.filter((l) => (l.employee_count ?? 0) >= 100).length,
-    high_revenue: APOLLO_STARTER_DATA.filter((l) => (l.revenue_usd ?? 0) >= 10000000).length,
-    top_cargo_verticals: APOLLO_STARTER_DATA.filter((l) =>
-      [
-        'automotive',
-        'food & beverages',
-        'pharmaceuticals',
-        'electrical/electronic manufacturing',
-        'chemicals',
-        'medical devices',
-        'aviation & aerospace',
-      ].includes(l.industry.toLowerCase())
+    all: baseFiltered.length,
+    high_headcount: baseFiltered.filter((l) => (l.employee_count ?? 0) >= 100).length,
+    high_revenue: baseFiltered.filter((l) => (l.revenue_usd ?? 0) >= 10000000).length,
+    top_cargo_verticals: baseFiltered.filter((l) =>
+      topSet.has(l.industry.toLowerCase())
     ).length,
-    with_website_linkedin: APOLLO_STARTER_DATA.filter(
+    with_website_linkedin: baseFiltered.filter(
       (l) => l.website_url && l.website_url.trim() !== '' && l.linkedin_url && l.linkedin_url.trim() !== ''
     ).length,
   };
+
+  // 9. Audience Tab quick filtering (applied to baseFiltered for table items and pagination)
+  let filtered = baseFiltered;
+  if (tab === 'high_headcount') {
+    filtered = filtered.filter((l) => (l.employee_count ?? 0) >= 100);
+  } else if (tab === 'high_revenue') {
+    filtered = filtered.filter((l) => (l.revenue_usd ?? 0) >= 10000000);
+  } else if (tab === 'top_cargo_verticals') {
+    filtered = filtered.filter((l) => topSet.has(l.industry.toLowerCase()));
+  } else if (tab === 'with_website_linkedin') {
+    filtered = filtered.filter(
+      (l) => l.website_url && l.website_url.trim() !== '' && l.linkedin_url && l.linkedin_url.trim() !== ''
+    );
+  }
 
   const totalRecords = filtered.length;
   const totalPages = Math.ceil(totalRecords / limit) || 1;

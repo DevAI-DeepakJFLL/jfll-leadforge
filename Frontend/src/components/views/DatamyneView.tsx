@@ -37,6 +37,7 @@ export interface DatamyneViewProps {
   onDatasetChange: (dataset: DatamyneDatasetType) => void;
   onTabChange: (tab: DatamyneAudienceTab) => void;
   onPageChange: (page: number) => void;
+  toggleCountry?: (country: string) => void;
   toggleTransportMode: (mode: TransportMode) => void;
   toggleCategory: (category: string) => void;
   toggleSubcategory: (subcategory: string) => void;
@@ -70,6 +71,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   onDatasetChange,
   onTabChange,
   onPageChange,
+  toggleCountry,
   toggleTransportMode,
   toggleCategory,
   toggleSubcategory,
@@ -150,6 +152,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
         filters={filters}
         setSearch={onSearchChange}
         setDataset={onDatasetChange}
+        toggleCountry={toggleCountry}
         toggleTransportMode={toggleTransportMode}
         toggleCategory={toggleCategory}
         toggleSubcategory={toggleSubcategory}
@@ -260,6 +263,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
         {/* Active Filter Chips Bar */}
         <DatamyneActiveFilterChips
           filters={filters}
+          onRemoveCountry={toggleCountry}
           onRemoveTransportMode={toggleTransportMode}
           onRemoveRole={toggleRole}
           onRemoveCategory={toggleCategory}

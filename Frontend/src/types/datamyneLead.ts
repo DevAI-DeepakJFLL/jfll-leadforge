@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const DatamyneLeadSchema = z.object({
   id: z.string(),
   company_name: z.string(),
+  country: z.string().default('India'),
   role: z.string(), // "Exporter" | "Importer" | "Both"
   transport_mode: z.enum(['Air', 'Ocean', 'Air & Ocean']).default('Air'),
   category: z.string(), // "Perishables" | "Pharma & Healthcare" | "Textiles & Apparel" | ...
@@ -24,7 +25,9 @@ export const DatamyneLeadSchema = z.object({
   saved: z.boolean().optional(),
 });
 
-export type DatamyneLead = z.infer<typeof DatamyneLeadSchema>;
+export type DatamyneLead = Omit<z.infer<typeof DatamyneLeadSchema>, 'country'> & {
+  country?: string;
+};
 
 export type TransportMode = 'Air' | 'Ocean' | 'Air & Ocean';
 
@@ -45,6 +48,7 @@ export interface DatamyneFilterParams {
   q?: string;
   dataset?: DatamyneDatasetType;
   tab?: DatamyneAudienceTab;
+  countries?: string[];
   transportModes?: TransportMode[];
   categories?: string[];
   subcategories?: string[];
@@ -87,3 +91,39 @@ export interface DatamyneResponse {
     all: number;
   };
 }
+
+export const INDIA_CITIES = [
+  'MUMBAI',
+  'NEW DELHI',
+  'BENGALURU',
+  'CHENNAI',
+  'PUNE',
+  'AHMEDABAD',
+  'KOLKATA',
+  'HYDERABAD',
+  'SURAT',
+  'JAIPUR',
+] as const;
+
+export const BRAZIL_CITIES = [
+  'SÃO PAULO',
+  'GUARULHOS',
+  'RIO DE JANEIRO',
+  'CURITIBA',
+  'SOROCABA',
+  'SUMARÉ',
+  'SANTOS',
+] as const;
+
+export const INDIA_CORRIDORS = [
+  { id: 'PER/AIR', label: 'PER/AIR (Perishables Air)' },
+  { id: 'GCR/Air', label: 'GCR/Air (General Cargo Air)' },
+  { id: 'EX-China_INDIA', label: 'EX-China_INDIA (China Imports)' },
+] as const;
+
+export const BRAZIL_CORRIDORS = [
+  { id: 'India-Brazil/Air', label: 'India-Brazil (Air Export)' },
+  { id: 'Brazil-India/Air', label: 'Brazil-India (Air Import)' },
+  { id: 'Brazil-India/Ocean', label: 'Brazil-India (Ocean Import)' },
+] as const;
+

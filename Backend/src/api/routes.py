@@ -96,14 +96,50 @@ def list_leads(
     con = get_db_connection()
 
     # Use parameterized / safely escaped queries to prevent SQL injection
-    conditions = ["1=1"]
-    params = []
+    base_conditions = ["1=1"]
+    base_params = []
 
     if status:
-        conditions.append('"Status" = ?')
-        params.append(status)
+        base_conditions.append('"Status" = ?')
+        base_params.append(status)
 
-    # Tab shortcut filters
+    # Customer Group multi-select or single
+    combined_groups = list(customer_groups or [])
+    if customer_group and customer_group not in combined_groups:
+        combined_groups.append(customer_group)
+    if combined_groups:
+        placeholders = ", ".join(["?"] * len(combined_groups))
+        base_conditions.append(f'"Customer Group" IN ({placeholders})')
+        base_params.extend(combined_groups)
+
+    # Legal Types multi-select
+    if types:
+        placeholders = ", ".join(["?"] * len(types))
+        base_conditions.append(f'"Type" IN ({placeholders})')
+        base_params.extend(types)
+
+    # Contact readiness
+    if has_phone:
+        base_conditions.append('("Mobile Number" IS NOT NULL AND length(trim("Mobile Number")) > 0 AND trim("Mobile Number") NOT IN (\'-\', \'--\', \'---\', \'+91-\', \'+91\', \'N/A\', \'NA\', \'null\', \'none\'))')
+    if has_email:
+        base_conditions.append('("Email" IS NOT NULL AND length(trim("Email")) > 0)')
+    if has_contact_person:
+        base_conditions.append('("Contact Person Name" IS NOT NULL AND length(trim("Contact Person Name")) > 0)')
+
+    # Full-text / substring search across name, contact person, email, and phone
+    if search:
+        search_pattern = f"%{search.strip()}%"
+        base_conditions.append(
+            '("Full Name" ILIKE ? OR "Contact Person Name" ILIKE ? OR "Email" ILIKE ? OR "Mobile Number" ILIKE ?)'
+        )
+        base_params.extend([search_pattern] * 4)
+
+    where_base_sql = " AND ".join(base_conditions)
+
+    # Tab shortcut filters for records pagination
+    conditions = list(base_conditions)
+    params = list(base_params)
+
     if tab == "shippers":
         conditions.append('"Customer Group" = ?')
         params.append("Shipper / Consignee")
@@ -116,37 +152,6 @@ def list_leads(
     elif tab == "with-contacts":
         conditions.append('("Contact Person Name" IS NOT NULL OR "Email" IS NOT NULL OR "Mobile Number" IS NOT NULL)')
 
-    # Customer Group multi-select or single
-    combined_groups = list(customer_groups or [])
-    if customer_group and customer_group not in combined_groups:
-        combined_groups.append(customer_group)
-    if combined_groups:
-        placeholders = ", ".join(["?"] * len(combined_groups))
-        conditions.append(f'"Customer Group" IN ({placeholders})')
-        params.extend(combined_groups)
-
-    # Legal Types multi-select
-    if types:
-        placeholders = ", ".join(["?"] * len(types))
-        conditions.append(f'"Type" IN ({placeholders})')
-        params.extend(types)
-
-    # Contact readiness
-    if has_phone:
-        conditions.append('("Mobile Number" IS NOT NULL AND length(trim("Mobile Number")) > 0 AND trim("Mobile Number") NOT IN (\'-\', \'--\', \'---\', \'+91-\', \'+91\', \'N/A\', \'NA\', \'null\', \'none\'))')
-    if has_email:
-        conditions.append('("Email" IS NOT NULL AND length(trim("Email")) > 0)')
-    if has_contact_person:
-        conditions.append('("Contact Person Name" IS NOT NULL AND length(trim("Contact Person Name")) > 0)')
-
-    # Full-text / substring search across name, contact person, email, and phone
-    if search:
-        search_pattern = f"%{search.strip()}%"
-        conditions.append(
-            '("Full Name" ILIKE ? OR "Contact Person Name" ILIKE ? OR "Email" ILIKE ? OR "Mobile Number" ILIKE ?)'
-        )
-        params.extend([search_pattern, search_pattern, search_pattern, search_pattern])
-
     where_sql = " AND ".join(conditions)
     try:
         data_source = get_data_source(con)
@@ -155,7 +160,7 @@ def list_leads(
         count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
         total_records = con.execute(count_query, params).fetchone()[0]
 
-        # 2. Audience Tab Aggregate Counts (Single-pass table scan)
+        # 2. Audience Tab Aggregate Counts (Single-pass table scan matching base filters)
         agg_row = con.execute(f"""
             SELECT 
                 count(*) as all_count,
@@ -164,7 +169,8 @@ def list_leads(
                 count(CASE WHEN "Customer Group" = 'Overseas Agent' THEN 1 END) as overseas,
                 count(CASE WHEN ("Contact Person Name" IS NOT NULL OR "Email" IS NOT NULL OR "Mobile Number" IS NOT NULL) THEN 1 END) as with_contacts
             FROM '{data_source}'
-        """).fetchone()
+            WHERE {where_base_sql}
+        """, base_params).fetchone()
 
         audience_counts = AudienceCounts(
             all=agg_row[0],
@@ -273,8 +279,66 @@ def list_apollo_leads(
     data_source = get_data_source(con, dataset="apollo")
 
     try:
-        conditions = ["1=1"]
-        params = []
+        base_conditions = ["1=1"]
+        base_params = []
+
+        if industry and industry.strip():
+            base_conditions.append("lower(industry) = ?")
+            base_params.append(industry.strip().lower())
+
+        if industries:
+            clean_industries = [i.strip().lower() for i in industries if i and i.strip()]
+            if clean_industries:
+                placeholders = ", ".join(["?"] * len(clean_industries))
+                base_conditions.append(f"lower(industry) IN ({placeholders})")
+                base_params.extend(clean_industries)
+
+        if country and country.strip():
+            base_conditions.append("lower(hq_country) = ?")
+            base_params.append(country.strip().lower())
+
+        if countries:
+            clean_countries = [c.strip().lower() for c in countries if c and c.strip()]
+            if clean_countries:
+                placeholders = ", ".join(["?"] * len(clean_countries))
+                base_conditions.append(f"lower(hq_country) IN ({placeholders})")
+                base_params.extend(clean_countries)
+
+        if state and state.strip():
+            base_conditions.append("lower(hq_state) = ?")
+            base_params.append(state.strip().lower())
+
+        if min_employees is not None:
+            base_conditions.append("employee_count >= ?")
+            base_params.append(min_employees)
+
+        if max_employees is not None:
+            base_conditions.append("employee_count <= ?")
+            base_params.append(max_employees)
+
+        if min_revenue is not None:
+            base_conditions.append("revenue_usd >= ?")
+            base_params.append(min_revenue)
+
+        if has_website is True:
+            base_conditions.append("website_url IS NOT NULL AND trim(website_url) != ''")
+
+        if has_linkedin is True:
+            base_conditions.append("linkedin_url IS NOT NULL AND trim(linkedin_url) != ''")
+
+        if search and search.strip():
+            comp_sql, comp_params = build_company_search_sql(search)
+            search_pattern = f"%{search.strip().lower()}%"
+            base_conditions.append(
+                f"({comp_sql} OR lower(COALESCE(keywords, '')) LIKE ? OR lower(COALESCE(specialties, '')) LIKE ?)"
+            )
+            base_params.extend(comp_params + [search_pattern, search_pattern])
+
+        where_base_sql = " AND ".join(base_conditions)
+
+        # Build conditions for records query and pagination by applying tab filter
+        conditions = list(base_conditions)
+        params = list(base_params)
 
         if tab == "high_headcount":
             conditions.append("employee_count >= 100")
@@ -285,65 +349,13 @@ def list_apollo_leads(
         elif tab == "with_website_linkedin":
             conditions.append("website_url IS NOT NULL AND linkedin_url IS NOT NULL")
 
-        if industry and industry.strip():
-            conditions.append("lower(industry) = ?")
-            params.append(industry.strip().lower())
-
-        if industries:
-            clean_industries = [i.strip().lower() for i in industries if i and i.strip()]
-            if clean_industries:
-                placeholders = ", ".join(["?"] * len(clean_industries))
-                conditions.append(f"lower(industry) IN ({placeholders})")
-                params.extend(clean_industries)
-
-        if country and country.strip():
-            conditions.append("lower(hq_country) = ?")
-            params.append(country.strip().lower())
-
-        if countries:
-            clean_countries = [c.strip().lower() for c in countries if c and c.strip()]
-            if clean_countries:
-                placeholders = ", ".join(["?"] * len(clean_countries))
-                conditions.append(f"lower(hq_country) IN ({placeholders})")
-                params.extend(clean_countries)
-
-        if state and state.strip():
-            conditions.append("lower(hq_state) = ?")
-            params.append(state.strip().lower())
-
-        if min_employees is not None:
-            conditions.append("employee_count >= ?")
-            params.append(min_employees)
-
-        if max_employees is not None:
-            conditions.append("employee_count <= ?")
-            params.append(max_employees)
-
-        if min_revenue is not None:
-            conditions.append("revenue_usd >= ?")
-            params.append(min_revenue)
-
-        if has_website is True:
-            conditions.append("website_url IS NOT NULL AND trim(website_url) != ''")
-
-        if has_linkedin is True:
-            conditions.append("linkedin_url IS NOT NULL AND trim(linkedin_url) != ''")
-
-        if search and search.strip():
-            comp_sql, comp_params = build_company_search_sql(search)
-            search_pattern = f"%{search.strip().lower()}%"
-            conditions.append(
-                f"({comp_sql} OR lower(COALESCE(keywords, '')) LIKE ? OR lower(COALESCE(specialties, '')) LIKE ?)"
-            )
-            params.extend(comp_params + [search_pattern, search_pattern])
-
         where_sql = " AND ".join(conditions)
 
         # 1. Total Count Query (Prepared statement)
         count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
         total_records = con.execute(count_query, params).fetchone()[0]
 
-        # 2. Audience Tab Aggregate Counts
+        # 2. Audience Tab Aggregate Counts (Single-pass table scan matching base filters)
         agg_row = con.execute(f"""
             SELECT 
                 count(*) as all_count,
@@ -352,7 +364,8 @@ def list_apollo_leads(
                 count(CASE WHEN lower(industry) IN ('automotive', 'food & beverages', 'pharmaceuticals', 'electrical/electronic manufacturing', 'chemicals', 'medical devices') THEN 1 END) as top_cargo_verticals,
                 count(CASE WHEN (website_url IS NOT NULL AND linkedin_url IS NOT NULL) THEN 1 END) as with_website_linkedin
             FROM '{data_source}'
-        """).fetchone()
+            WHERE {where_base_sql}
+        """, base_params).fetchone()
 
         audience_counts = ApolloAudienceCounts(
             all=agg_row[0],

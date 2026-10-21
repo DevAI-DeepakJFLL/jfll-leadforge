@@ -43,6 +43,33 @@ def test_list_leads_filtering_by_tab_and_group():
     assert payload["total_records"] == 39
 
 
+def test_list_leads_dynamic_audience_counts():
+    # Baseline active leads count
+    res_base = client.get("/api/v1/leads?status=Active")
+    assert res_base.status_code == 200
+    base_counts = res_base.json()["audience_counts"]
+    assert base_counts["all"] == 728
+    assert base_counts["shippers"] == 285
+
+    # Filtered by customer group
+    res_filtered = client.get("/api/v1/leads?status=Active&customer_groups=Shipper+%2F+Consignee")
+    assert res_filtered.status_code == 200
+    filtered_payload = res_filtered.json()
+    filtered_counts = filtered_payload["audience_counts"]
+    assert filtered_payload["total_records"] == 285
+    assert filtered_counts["all"] == 285
+    assert filtered_counts["shippers"] == 285
+    assert filtered_counts["subagents"] == 0
+    assert filtered_counts["overseas"] == 0
+
+    # Filtered by search query
+    res_search = client.get("/api/v1/leads?status=Active&search=3S+CORPORATION")
+    assert res_search.status_code == 200
+    search_payload = res_search.json()
+    assert search_payload["audience_counts"]["all"] == search_payload["total_records"]
+    assert search_payload["audience_counts"]["all"] < 728
+
+
 def test_invalid_status_returns_400():
     response = client.get("/api/v1/leads?status=InvalidStatus")
     assert response.status_code == 400

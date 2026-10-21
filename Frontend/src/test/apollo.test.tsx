@@ -125,6 +125,19 @@ describe('Apollo Sourcing Tool Suite', () => {
       });
     });
 
+    it('updates audienceCounts dynamically based on active filters and search queries', () => {
+      const defaultRes = queryApolloLeads({});
+      const filteredIndustry = queryApolloLeads({ industries: ['automotive'] });
+
+      expect(filteredIndustry.audienceCounts.all).toBeLessThan(defaultRes.audienceCounts.all);
+      expect(filteredIndustry.audienceCounts.all).toBe(filteredIndustry.totalRecords);
+      expect(filteredIndustry.audienceCounts.top_cargo_verticals).toBe(filteredIndustry.totalRecords);
+
+      const searchRes = queryApolloLeads({ q: 'Boeing' });
+      expect(searchRes.audienceCounts.all).toBeLessThan(defaultRes.audienceCounts.all);
+      expect(searchRes.audienceCounts.all).toBe(searchRes.totalRecords);
+    });
+
     it('exports CSV without throwing errors', () => {
       expect(() => exportApolloLeadsCsv(mockLeads, 'test_export.csv')).not.toThrow();
     });

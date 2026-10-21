@@ -87,6 +87,25 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(contactsTab.totalEstimate).toBe(728);
   });
 
+  it('updates audienceCounts dynamically based on active filters and search queries', () => {
+    // When filtered by customer group
+    const shippersFilter = queryJfllCustomers({ customerGroups: ['Shipper / Consignee'] });
+    expect(shippersFilter.audienceCounts.all).toBe(285);
+    expect(shippersFilter.audienceCounts.shippers).toBe(285);
+    expect(shippersFilter.audienceCounts.subagents).toBe(0);
+    expect(shippersFilter.audienceCounts.overseas).toBe(0);
+
+    // When filtered by phone readiness
+    const phoneFilter = queryJfllCustomers({ hasPhone: true });
+    expect(phoneFilter.audienceCounts.all).toBe(655);
+    expect(phoneFilter.audienceCounts.all).toBeLessThan(728);
+
+    // When search query is entered
+    const searchFilter = queryJfllCustomers({ q: '3S CORPORATION' });
+    expect(searchFilter.audienceCounts.all).toBe(searchFilter.totalEstimate);
+    expect(searchFilter.audienceCounts.all).toBeLessThan(10);
+  });
+
   it('exports sanitized CSV preventing formula injection', async () => {
     const sample = [
       {

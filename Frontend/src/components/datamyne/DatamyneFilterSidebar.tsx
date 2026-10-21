@@ -3,6 +3,10 @@ import {
   DatamyneFilterParams,
   DatamyneDatasetType,
   TransportMode,
+  INDIA_CITIES,
+  BRAZIL_CITIES,
+  INDIA_CORRIDORS,
+  BRAZIL_CORRIDORS,
 } from '@/types/datamyneLead';
 import { FilterAccordion } from '@/components/filters/FilterAccordion';
 import {
@@ -19,6 +23,7 @@ import {
   Tags,
   Layers,
   UserCheck,
+  Globe,
   X,
 } from 'lucide-react';
 
@@ -26,6 +31,7 @@ export interface DatamyneFilterSidebarProps {
   filters: DatamyneFilterParams;
   setSearch: (q: string) => void;
   setDataset: (dataset: DatamyneDatasetType) => void;
+  toggleCountry?: (country: string) => void;
   toggleTransportMode: (mode: TransportMode) => void;
   toggleCategory: (category: string) => void;
   toggleSubcategory: (subcategory: string) => void;
@@ -43,10 +49,75 @@ export interface DatamyneFilterSidebarProps {
   className?: string;
 }
 
+const TRANSPORT_MODES_LIST: {
+  id: TransportMode;
+  label: string;
+  icon: React.ReactNode;
+}[] = [
+  {
+    id: 'Air',
+    label: 'Air Freight',
+    icon: <Plane className="w-3.5 h-3.5 text-sky-600 shrink-0" />,
+  },
+  {
+    id: 'Ocean',
+    label: 'Ocean Freight',
+    icon: <Ship className="w-3.5 h-3.5 text-cyan-600 shrink-0" />,
+  },
+  {
+    id: 'Air & Ocean',
+    label: 'Multi-modal (Air & Ocean)',
+    icon: (
+      <span className="flex items-center -space-x-1 shrink-0">
+        <Plane className="w-3 h-3 text-indigo-600" />
+        <Ship className="w-3 h-3 text-indigo-500" />
+      </span>
+    ),
+  },
+];
+
+const CATEGORIES_LIST = [
+  'Perishables',
+  'Pharma & Healthcare',
+  'Textiles & Apparel',
+  'Engineering & Machinery',
+  'Chemicals & Materials',
+  'Electronics & Electrical',
+  'Automotive & EV',
+  'General Cargo',
+];
+
+const SUBCATEGORIES_LIST = [
+  'Fresh Vegetables & Produce',
+  'Fresh Fruits',
+  'Seafood & Marine Products',
+  'Floriculture & Cut Flowers',
+  'Processed Foods & Edible Preparations',
+  'Pharmaceutical Formulations',
+  'Medical & Surgical Devices',
+  'Fabrics & Technical Textiles',
+  'Synthetic Filaments & Yarns',
+  'Apparel & Ready-Made Garments (Woven)',
+  'Industrial Machinery & Boilers',
+  'Iron, Steel & Hardware',
+  'Organic Chemicals & APIs',
+  'Electrical Equipment & Switchgear',
+  'Motor Vehicles, EV & Auto Parts',
+  'Plastics & Polymers',
+];
+
+const ROLES_LIST = ['Exporter', 'Importer', 'Both'];
+
+const COUNTRIES_LIST = [
+  { id: 'India', label: 'India' },
+  { id: 'Brazil', label: 'Brazil' },
+];
+
 export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
   filters,
   setSearch,
   setDataset,
+  toggleCountry,
   toggleTransportMode,
   toggleCategory,
   toggleSubcategory,
@@ -70,83 +141,13 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
     setSearch(searchInput);
   };
 
-  const transportModesList: {
-    id: TransportMode;
-    label: string;
-    icon: React.ReactNode;
-  }[] = [
-    {
-      id: 'Air',
-      label: 'Air Freight',
-      icon: <Plane className="w-3.5 h-3.5 text-sky-600 shrink-0" />,
-    },
-    {
-      id: 'Ocean',
-      label: 'Ocean Freight',
-      icon: <Ship className="w-3.5 h-3.5 text-cyan-600 shrink-0" />,
-    },
-    {
-      id: 'Air & Ocean',
-      label: 'Multi-modal (Air & Ocean)',
-      icon: (
-        <span className="flex items-center -space-x-1 shrink-0">
-          <Plane className="w-3 h-3 text-indigo-600" />
-          <Ship className="w-3 h-3 text-indigo-500" />
-        </span>
-      ),
-    },
-  ];
-
-  const categoriesList = [
-    'Perishables',
-    'Pharma & Healthcare',
-    'Textiles & Apparel',
-    'Engineering & Machinery',
-    'Chemicals & Materials',
-    'Electronics & Electrical',
-    'Automotive & EV',
-    'General Cargo',
-  ];
-
-  const subcategoriesList = [
-    'Fresh Vegetables & Produce',
-    'Fresh Fruits',
-    'Seafood & Marine Products',
-    'Floriculture & Cut Flowers',
-    'Processed Foods & Edible Preparations',
-    'Pharmaceutical Formulations',
-    'Medical & Surgical Devices',
-    'Fabrics & Technical Textiles',
-    'Synthetic Filaments & Yarns',
-    'Apparel & Ready-Made Garments (Woven)',
-    'Industrial Machinery & Boilers',
-    'Iron, Steel & Hardware',
-    'Organic Chemicals & APIs',
-    'Electrical Equipment & Switchgear',
-    'Motor Vehicles, EV & Auto Parts',
-    'Plastics & Polymers',
-  ];
-
-  const rolesList = ['Exporter', 'Importer', 'Both'];
-
-  const corridorsList = [
-    { id: 'PER/AIR', label: 'PER/AIR (Perishables Air)' },
-    { id: 'GCR/Air', label: 'GCR/Air (General Cargo Air)' },
-    { id: 'EX-China_INDIA', label: 'EX-China_INDIA (China Imports)' },
-  ];
-
-  const topCities = [
-    'MUMBAI',
-    'NEW DELHI',
-    'BENGALURU',
-    'CHENNAI',
-    'PUNE',
-    'AHMEDABAD',
-    'KOLKATA',
-    'HYDERABAD',
-    'SURAT',
-    'JAIPUR',
-  ];
+  const isBrazilSelected =
+    Boolean(filters.countries?.includes('Brazil')) &&
+    !Boolean(filters.countries?.includes('India'));
+  const isIndiaSelected =
+    Boolean(filters.countries?.includes('India')) &&
+    !Boolean(filters.countries?.includes('Brazil'));
+  const isAllSelected = !isBrazilSelected && !isIndiaSelected;
 
   const filterContent = (
     <div className="flex-1 flex flex-col h-full overflow-hidden bg-white">
@@ -271,6 +272,40 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         </div>
       </FilterAccordion>
 
+      {/* Accordion: Geographic Region / Country */}
+      <FilterAccordion
+        icon={<Globe className="w-4 h-4" />}
+        label="Geographic Region / Country"
+        defaultOpen={true}
+        activeCount={filters.countries?.length || 0}
+      >
+        <div className="space-y-1.5">
+          <label className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors">
+            <input
+              type="checkbox"
+              checked={!filters.countries || filters.countries.length === 0}
+              onChange={() => toggleCountry?.('All')}
+              className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+            />
+            <span className="text-xs text-slate-700">All Regions</span>
+          </label>
+          {COUNTRIES_LIST.map((country) => (
+            <label
+              key={country.id}
+              className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+            >
+              <input
+                type="checkbox"
+                checked={filters.countries?.includes(country.id) || false}
+                onChange={() => toggleCountry?.(country.id)}
+                className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+              />
+              <span className="text-xs text-slate-700">{country.label}</span>
+            </label>
+          ))}
+        </div>
+      </FilterAccordion>
+
       {/* Accordion 2: Transport Mode (Air / Ocean) */}
       <FilterAccordion
         icon={<Ship className="w-4 h-4" />}
@@ -279,7 +314,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         activeCount={filters.transportModes?.length || 0}
       >
         <div className="space-y-1.5">
-          {transportModesList.map((mode) => (
+          {TRANSPORT_MODES_LIST.map((mode) => (
             <label
               key={mode.id}
               className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
@@ -307,7 +342,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         activeCount={filters.categories?.length || 0}
       >
         <div className="space-y-1.5">
-          {categoriesList.map((cat) => (
+          {CATEGORIES_LIST.map((cat) => (
             <label
               key={cat}
               className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
@@ -332,7 +367,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         activeCount={filters.subcategories?.length || 0}
       >
         <div className="space-y-1.5 max-h-52 overflow-y-auto no-scrollbar">
-          {subcategoriesList.map((sub) => (
+          {SUBCATEGORIES_LIST.map((sub) => (
             <label
               key={sub}
               className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
@@ -359,7 +394,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         activeCount={filters.roles?.length || 0}
       >
         <div className="space-y-1.5">
-          {rolesList.map((r) => (
+          {ROLES_LIST.map((r) => (
             <label
               key={r}
               className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
@@ -378,53 +413,223 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         </div>
       </FilterAccordion>
 
-      {/* Accordion 5: Trade Corridors */}
+      {/* Accordion 5: Trade Corridors (Context-Aware / Grouped) */}
       <FilterAccordion
         icon={<Plane className="w-4 h-4" />}
-        label="Trade Corridors"
-        defaultOpen={false}
+        label={
+          isBrazilSelected
+            ? 'Trade Corridors (Brazil)'
+            : isIndiaSelected
+            ? 'Trade Corridors (India)'
+            : 'Trade Corridors'
+        }
+        defaultOpen={true}
         activeCount={filters.tradeLanes?.length || 0}
       >
-        <div className="space-y-1.5">
-          {corridorsList.map((c) => (
-            <label
-              key={c.id}
-              className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
-            >
-              <input
-                type="checkbox"
-                checked={filters.tradeLanes?.includes(c.id) || false}
-                onChange={() => toggleTradeLane(c.id)}
-                className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
-              />
-              <span className="text-xs text-slate-700">{c.label}</span>
-            </label>
-          ))}
+        <div className="space-y-2">
+          {isBrazilSelected && (
+            <div className="space-y-1.5">
+              {BRAZIL_CORRIDORS.map((c) => (
+                <label
+                  key={c.id}
+                  className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+                >
+                  <input
+                    type="checkbox"
+                    checked={filters.tradeLanes?.includes(c.id) || false}
+                    onChange={() => toggleTradeLane(c.id)}
+                    className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                  />
+                  <span className="text-xs text-slate-700">{c.label}</span>
+                </label>
+              ))}
+            </div>
+          )}
+
+          {isIndiaSelected && (
+            <div className="space-y-1.5">
+              {INDIA_CORRIDORS.map((c) => (
+                <label
+                  key={c.id}
+                  className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+                >
+                  <input
+                    type="checkbox"
+                    checked={filters.tradeLanes?.includes(c.id) || false}
+                    onChange={() => toggleTradeLane(c.id)}
+                    className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                  />
+                  <span className="text-xs text-slate-700">{c.label}</span>
+                </label>
+              ))}
+            </div>
+          )}
+
+          {isAllSelected && (
+            <div className="space-y-2.5">
+              {/* Brazil Corridors Sub-group */}
+              <div>
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
+                  <span>Brazil Corridors</span>
+                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-semibold leading-none">
+                    {BRAZIL_CORRIDORS.length}
+                  </span>
+                </div>
+                <div className="space-y-1.5 pl-0.5">
+                  {BRAZIL_CORRIDORS.map((c) => (
+                    <label
+                      key={c.id}
+                      className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={filters.tradeLanes?.includes(c.id) || false}
+                        onChange={() => toggleTradeLane(c.id)}
+                        className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                      />
+                      <span className="text-xs text-slate-700">{c.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* India Corridors Sub-group */}
+              <div className="border-t border-slate-100 pt-2">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
+                  <span>India Corridors</span>
+                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-semibold leading-none">
+                    {INDIA_CORRIDORS.length}
+                  </span>
+                </div>
+                <div className="space-y-1.5 pl-0.5">
+                  {INDIA_CORRIDORS.map((c) => (
+                    <label
+                      key={c.id}
+                      className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={filters.tradeLanes?.includes(c.id) || false}
+                        onChange={() => toggleTradeLane(c.id)}
+                        className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                      />
+                      <span className="text-xs text-slate-700">{c.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </FilterAccordion>
 
-      {/* Accordion 6: Location (City) */}
+      {/* Accordion 6: Location (City / Operational Hub) (Context-Aware / Grouped) */}
       <FilterAccordion
         icon={<MapPin className="w-4 h-4" />}
-        label="Operational Hub / City"
-        defaultOpen={false}
+        label={
+          isBrazilSelected
+            ? 'Operational Hubs (Brazil)'
+            : isIndiaSelected
+            ? 'Operational Hubs (India)'
+            : 'Operational Hub / City'
+        }
+        defaultOpen={true}
         activeCount={filters.cities?.length || 0}
       >
-        <div className="space-y-1.5 max-h-48 overflow-y-auto no-scrollbar">
-          {topCities.map((city) => (
-            <label
-              key={city}
-              className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
-            >
-              <input
-                type="checkbox"
-                checked={filters.cities?.includes(city) || false}
-                onChange={() => toggleCity(city)}
-                className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
-              />
-              <span className="text-xs text-slate-700">{city}</span>
-            </label>
-          ))}
+        <div className="space-y-2 max-h-56 overflow-y-auto no-scrollbar">
+          {isBrazilSelected && (
+            <div className="space-y-1.5">
+              {BRAZIL_CITIES.map((city) => (
+                <label
+                  key={city}
+                  className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+                >
+                  <input
+                    type="checkbox"
+                    checked={filters.cities?.includes(city) || false}
+                    onChange={() => toggleCity(city)}
+                    className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                  />
+                  <span className="text-xs text-slate-700">{city}</span>
+                </label>
+              ))}
+            </div>
+          )}
+
+          {isIndiaSelected && (
+            <div className="space-y-1.5">
+              {INDIA_CITIES.map((city) => (
+                <label
+                  key={city}
+                  className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+                >
+                  <input
+                    type="checkbox"
+                    checked={filters.cities?.includes(city) || false}
+                    onChange={() => toggleCity(city)}
+                    className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                  />
+                  <span className="text-xs text-slate-700">{city}</span>
+                </label>
+              ))}
+            </div>
+          )}
+
+          {isAllSelected && (
+            <div className="space-y-2.5">
+              {/* Brazil Hubs Sub-group */}
+              <div>
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
+                  <span>Brazil Hubs</span>
+                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-semibold leading-none">
+                    {BRAZIL_CITIES.length}
+                  </span>
+                </div>
+                <div className="space-y-1.5 pl-0.5">
+                  {BRAZIL_CITIES.map((city) => (
+                    <label
+                      key={city}
+                      className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={filters.cities?.includes(city) || false}
+                        onChange={() => toggleCity(city)}
+                        className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                      />
+                      <span className="text-xs text-slate-700">{city}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* India Hubs Sub-group */}
+              <div className="border-t border-slate-100 pt-2">
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
+                  <span>India Hubs</span>
+                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-semibold leading-none">
+                    {INDIA_CITIES.length}
+                  </span>
+                </div>
+                <div className="space-y-1.5 pl-0.5">
+                  {INDIA_CITIES.map((city) => (
+                    <label
+                      key={city}
+                      className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={filters.cities?.includes(city) || false}
+                        onChange={() => toggleCity(city)}
+                        className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                      />
+                      <span className="text-xs text-slate-700">{city}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </FilterAccordion>
 

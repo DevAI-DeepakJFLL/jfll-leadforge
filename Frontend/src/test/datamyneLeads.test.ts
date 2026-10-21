@@ -146,6 +146,51 @@ describe('DataMyne Leads Service & Schemas', () => {
     expect(subcategoryFacets.length).toBeGreaterThan(0);
   });
 
+  describe('Dynamic Audience Tab Counts Filter Responsiveness', () => {
+    it('updates All Verticals and Perishables counts when filtering by Country (Brazil)', () => {
+      const allRes = queryDatamyneLeads({ dataset: 'all' });
+      const brazilRes = queryDatamyneLeads({ dataset: 'all', countries: ['Brazil'] });
+
+      // Brazil count should be strictly smaller than total universe
+      expect(brazilRes.audienceCounts.all).toBeLessThan(allRes.audienceCounts.all);
+      expect(brazilRes.audienceCounts.all).toBeGreaterThan(0);
+      expect(brazilRes.audienceCounts.perishables).toBeLessThanOrEqual(allRes.audienceCounts.perishables);
+      // All verticals count equals the sum of the matching records
+      expect(brazilRes.datasetCounts.all).toBe(brazilRes.audienceCounts.all);
+    });
+
+    it('updates All Verticals and category counts when filtering by Operational Hub / City', () => {
+      const allRes = queryDatamyneLeads({ dataset: 'all' });
+      const mumbaiRes = queryDatamyneLeads({ dataset: 'all', cities: ['MUMBAI'] });
+
+      expect(mumbaiRes.audienceCounts.all).toBeLessThan(allRes.audienceCounts.all);
+      expect(mumbaiRes.audienceCounts.all).toBeGreaterThan(0);
+      expect(mumbaiRes.audienceCounts.perishables).toBeLessThanOrEqual(allRes.audienceCounts.perishables);
+    });
+
+    it('updates counts when filtering by Transport Mode (Air)', () => {
+      const allRes = queryDatamyneLeads({ dataset: 'all' });
+      const airRes = queryDatamyneLeads({ dataset: 'all', transportModes: ['Air'] });
+
+      expect(airRes.audienceCounts.all).toBeLessThan(allRes.audienceCounts.all);
+      expect(airRes.audienceCounts.all).toBeGreaterThan(0);
+    });
+
+    it('preserves sibling vertical category counts when switching active tab to Perishables', () => {
+      const brazilAllTab = queryDatamyneLeads({ dataset: 'all', countries: ['Brazil'], tab: 'all' });
+      const brazilPerishablesTab = queryDatamyneLeads({ dataset: 'all', countries: ['Brazil'], tab: 'perishables' });
+
+      // Total scope and category counts should match regardless of active tab
+      expect(brazilPerishablesTab.audienceCounts.all).toBe(brazilAllTab.audienceCounts.all);
+      expect(brazilPerishablesTab.audienceCounts.perishables).toBe(brazilAllTab.audienceCounts.perishables);
+      expect(brazilPerishablesTab.audienceCounts.pharma).toBe(brazilAllTab.audienceCounts.pharma);
+
+      // But items and totalEstimate must reflect the active tab
+      expect(brazilPerishablesTab.totalEstimate).toBe(brazilPerishablesTab.audienceCounts.perishables);
+      expect(brazilPerishablesTab.items.every((d) => d.category === 'Perishables')).toBe(true);
+    });
+  });
+
   describe('CWE-1236 CSV Injection Defense', () => {
     it('sanitizes formula injection prefixes (=, +, -, @, tab) in exported CSV', async () => {
       const maliciousLeads: DatamyneLead[] = [

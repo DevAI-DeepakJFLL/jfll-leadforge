@@ -39,6 +39,32 @@ def test_apollo_leads_search():
     assert len(data["data"]) <= 3
 
 
+def test_apollo_leads_dynamic_audience_counts():
+    # Baseline apollo leads count
+    res_base = client.get("/api/v1/apollo/leads?page_size=5")
+    assert res_base.status_code == 200
+    base_counts = res_base.json()["audience_counts"]
+    assert base_counts["all"] == 686700
+
+    # Filter by industry
+    res_ind = client.get("/api/v1/apollo/leads?industry=automotive&page_size=5")
+    assert res_ind.status_code == 200
+    ind_payload = res_ind.json()
+    ind_counts = ind_payload["audience_counts"]
+    assert ind_payload["total_records"] == 39850
+    assert ind_counts["all"] == 39850
+    assert ind_counts["top_cargo_verticals"] == 39850
+    assert ind_counts["all"] < base_counts["all"]
+
+    # Filter by search
+    res_search = client.get("/api/v1/apollo/leads?search=boeing&page_size=5")
+    assert res_search.status_code == 200
+    search_payload = res_search.json()
+    search_counts = search_payload["audience_counts"]
+    assert search_counts["all"] == search_payload["total_records"]
+    assert search_counts["all"] < base_counts["all"]
+
+
 def test_apollo_leads_tab_filter():
     response = client.get("/api/v1/apollo/leads?tab=high_headcount&page_size=5")
     assert response.status_code == 200
