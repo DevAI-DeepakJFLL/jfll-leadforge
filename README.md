@@ -1,7 +1,7 @@
 # JFLL LeadForge — Lead Sourcing & Customer Intelligence Platform
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Frontend Tests](https://img.shields.io/badge/Vitest-182%20passed-success.svg)]()
+[![Frontend Tests](https://img.shields.io/badge/Vitest-185%20passed-success.svg)]()
 [![Backend Tests](https://img.shields.io/badge/Pytest-70%20passed-success.svg)]()
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)]()
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)]()
@@ -41,7 +41,7 @@ Enterprise B2B Lead Sourcing and Customer Intelligence Suite developed for **Jet
 The application provides a unified multi-engine prospecting suite tailored for international logistics sales operations:
 
 1. **Company Accounts (Apollo Shippers)**: Real-time analytical querying over **690,881 verified commercial freight shipper accounts** across 50 freight-active cargo verticals (Automotive, Chemicals, Pharmaceuticals, Fresh Produce, Electronics, Heavy Machinery). Includes firmographics, employee headcounts, revenue ranges, tech stacks, and one-click **"Find Decision Makers"** cross-navigation.
-2. **People Directory (Apollo Decision Makers)**: Directory of **2.5M+ freight decision-makers** (C-Suite, VP, Director, Operations, Supply Chain & Logistics Managers) with verified email confidence ratings, direct phone numbers, and LinkedIn profile links.
+2. **People Directory (Apollo Decision Makers)**: Directory of **15.5M profiled freight contacts** across 686k companies, including **766,803 dedicated logistics specialists** and **345,061 high-level decision makers** (C-Suite, VP, Director, Operations, Supply Chain & Logistics Managers) with verified email confidence ratings, direct phone numbers, and LinkedIn profile links.
 3. **DataMyne International Trade Directory**: **40,081 verified unified trade accounts** across **India** (34,690 accounts) and **Brazil** (5,391 accounts) segmented into **Air Freight** and **Ocean Freight**, HS code categories, trade corridors (`PER/AIR`, `GCR/Air`, `India-Brazil/Air`, `Brazil-India/Air`, `Brazil-India/Ocean`), Brazilian logistics hubs (São Paulo, Guarulhos, Rio de Janeiro, Curitiba, etc.), customs shipment volumes, and direct cross-search into Apollo.
 4. **JFLL Customers (Organic Internal Master)**: **728 active verified accounts** & **2,010 enriched inactive accounts** with contact readiness scoring, customer group segmentation (Subagents, Overseas Partners, Shippers/Consignees), and credit/outstanding tracking.
 
@@ -113,9 +113,13 @@ flowchart TD
 - **Company Dossier Slide-Over**: Comprehensive firmographics, website and LinkedIn shortcuts, employee headcount tiers, annual revenue estimates, and technology stack tags.
 
 ### 2. Apollo Decision Makers (People Directory)
-- **2.5M+ Contacts**: Dedicated supply chain leads, import/export managers, logistics directors, VP of operations, and C-suite executives.
-- **Email Deliverability Verification**: Direct email confidence ratings, deliverability status (`Verified` or `Extrapolated`), and copy-to-clipboard utilities.
-- **Customs & Freight Role Targeting**: Filter by specific departments (Operations, Supply Chain, Logistics, Executive, Purchasing).
+- **15.5M Contacts with 766k+ Freight Specialists**: High-intent supply chain leads, import/export managers, logistics directors, VP of operations, and procurement heads across 686k companies.
+- **Streamlined Logistics Role Focus**: Instant one-click toggles for **Logistics Roles Only** (`is_logistics_role = true`) and **Decision Makers Only** (`is_decision_maker = true`).
+- **Standardized Job Title Search**: Autocomplete multi-select across standard freight titles (*"Logistics Director"*, *"Supply Chain Manager"*, *"Head of Import & Export"*, *"Procurement Lead"*, etc.).
+- **Multi-Level Seniority & Department Targeting**: Filter by seniority tiers (`C-Suite`, `VP`, `Director`, `Manager`, `Senior`, `Entry`) and organizational functions (Logistics, Operations, Purchasing, Executive).
+- **Trade Corridor & Geography Filtering**: Filter decision makers across key global freight hubs (India, United States, United Kingdom, Brazil, UAE, Germany, etc.).
+- **Cargo Vertical Alignment**: Filter by 50 active cargo verticals (Automotive, Chemicals, Pharmaceuticals, Fresh Produce, Electronics, Heavy Machinery).
+- **Outreach Readiness**: Deliverability status filtering for **Verified Email Only** and **LinkedIn Profile Only**.
 
 ### 3. DataMyne Trade Intelligence
 - **40,081 Import/Export Leads**: Cleaned, verified, and deduplicated shipment records spanning **India** (34,690 accounts) and **Brazil** (5,391 accounts).
@@ -142,7 +146,7 @@ flowchart TD
 | **Analytical Engine** | DuckDB 1.1 with HTTPFS extension |
 | **Data Storage** | Apache Parquet (ZSTD-compressed), AWS S3 |
 | **Security & Auth** | RFC 7519 JWT (PyJWT), Python `secrets.compare_digest`, CWE-1236 CSV protection |
-| **Testing** | Vitest 5.0 (182 tests passed), Pytest 9.1 (70 tests passed) |
+| **Testing** | Vitest 5.0 (185 tests passed), Pytest 9.1 (70 tests passed) |
 | **Cloud Hosting** | Amazon CloudFront (Global CDN), AWS Lambda, Amazon S3 |
 | **Observability** | Structured JSON Logging for AWS CloudWatch and client `__APP_LOGS__` buffer |
 
@@ -185,7 +189,7 @@ Lead Sourcing Tool/
 │   │   │   ├── apolloUtils.ts           # Centralized avatar, revenue, and contact helpers
 │   │   │   ├── logger.ts                # Structured client telemetry
 │   │   │   └── csv.ts                   # RFC-4180 CSV export with formula injection defense
-│   │   └── test/                        # Vitest test suite (182 tests)
+│   │   └── test/                        # Vitest test suite (185 tests)
 │   └── dist/                            # Production build output
 │
 ├── Backend/                             # FastAPI microservice & DuckDB engine
@@ -308,8 +312,8 @@ Executes 70 automated test cases verifying health endpoints, S3 Parquet DuckDB q
 PYTHONPATH=Backend python -m pytest Backend/tests -v
 ```
 
-### Frontend Tests (Vitest: 182/182 Passed)
-Executes 182 unit and integration tests across customer filtering, DataMyne Brazil integration, dynamic audience tab counts, phone number normalization, CSV injection defenses, and UI components.
+### Frontend Tests (Vitest: 185/185 Passed)
+Executes 185 unit and integration tests across customer filtering, DataMyne Brazil integration, dynamic audience tab counts, phone number normalization, CSV injection defenses, People tab freight filter sidebar, and UI components.
 
 ```bash
 cd Frontend
