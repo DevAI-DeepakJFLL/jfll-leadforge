@@ -11,6 +11,7 @@ from src.api.helpers import (
     build_company_search_sql,
     clean_corporate_term,
     normalize_query,
+    parse_csv_query_param,
     require_auth,
 )
 from src.api.logger import logger
@@ -689,49 +690,42 @@ def search_apollo_contacts(
         if has_linkedin_only is True:
             conditions.append("c.linkedin_url IS NOT NULL AND length(trim(c.linkedin_url)) > 5")
 
-        if seniority and seniority.strip():
-            s_list = [s.strip().lower() for s in seniority.split(",") if s.strip()]
-            if len(s_list) == 1:
-                conditions.append("lower(c.seniority) = ?")
-                params.append(s_list[0])
-            elif len(s_list) > 1:
-                placeholders = ", ".join(["?"] * len(s_list))
-                conditions.append(f"lower(c.seniority) IN ({placeholders})")
-                params.extend(s_list)
+        s_list = parse_csv_query_param(seniority)
+        if len(s_list) == 1:
+            conditions.append("lower(c.seniority) = ?")
+            params.append(s_list[0])
+        elif len(s_list) > 1:
+            placeholders = ", ".join(["?"] * len(s_list))
+            conditions.append(f"lower(c.seniority) IN ({placeholders})")
+            params.extend(s_list)
 
-        if job_title and job_title.strip():
-            j_list = [j.strip().lower() for j in job_title.split(",") if j.strip()]
-            if len(j_list) == 1:
-                conditions.append("(lower(c.job_title) LIKE ? OR lower(COALESCE(c.job_title_normalized, '')) LIKE ?)")
-                params.extend([f"%{j_list[0]}%", f"%{j_list[0]}%"])
-            elif len(j_list) > 1:
-                title_conds = []
-                for j in j_list:
-                    title_conds.append("(lower(c.job_title) LIKE ? OR lower(COALESCE(c.job_title_normalized, '')) LIKE ?)")
-                    params.extend([f"%{j}%", f"%{j}%"])
-                conditions.append(f"({' OR '.join(title_conds)})")
+        j_list = parse_csv_query_param(job_title)
+        if len(j_list) == 1:
+            conditions.append("(lower(c.job_title) LIKE ? OR lower(COALESCE(c.job_title_normalized, '')) LIKE ?)")
+            params.extend([f"%{j_list[0]}%", f"%{j_list[0]}%"])
+        elif len(j_list) > 1:
+            title_conds = ["(lower(c.job_title) LIKE ? OR lower(COALESCE(c.job_title_normalized, '')) LIKE ?)" for _ in j_list]
+            for j in j_list:
+                params.extend([f"%{j}%", f"%{j}%"])
+            conditions.append(f"({' OR '.join(title_conds)})")
 
-        if department and department.strip():
-            d_list = [d.strip().lower() for d in department.split(",") if d.strip()]
-            if len(d_list) == 1:
-                conditions.append("lower(c.department) LIKE ?")
-                params.append(f"%{d_list[0]}%")
-            elif len(d_list) > 1:
-                dept_conds = []
-                for d in d_list:
-                    dept_conds.append("lower(c.department) LIKE ?")
-                    params.append(f"%{d}%")
-                conditions.append(f"({' OR '.join(dept_conds)})")
+        d_list = parse_csv_query_param(department)
+        if len(d_list) == 1:
+            conditions.append("lower(c.department) LIKE ?")
+            params.append(f"%{d_list[0]}%")
+        elif len(d_list) > 1:
+            dept_conds = ["lower(c.department) LIKE ?" for _ in d_list]
+            params.extend([f"%{d}%" for d in d_list])
+            conditions.append(f"({' OR '.join(dept_conds)})")
 
-        if country and country.strip():
-            c_list = [c.strip().lower() for c in country.split(",") if c.strip()]
-            if len(c_list) == 1:
-                conditions.append("lower(c.contact_country) = ?")
-                params.append(c_list[0])
-            elif len(c_list) > 1:
-                placeholders = ", ".join(["?"] * len(c_list))
-                conditions.append(f"lower(c.contact_country) IN ({placeholders})")
-                params.extend(c_list)
+        c_list = parse_csv_query_param(country)
+        if len(c_list) == 1:
+            conditions.append("lower(c.contact_country) = ?")
+            params.append(c_list[0])
+        elif len(c_list) > 1:
+            placeholders = ", ".join(["?"] * len(c_list))
+            conditions.append(f"lower(c.contact_country) IN ({placeholders})")
+            params.extend(c_list)
 
         where_sql = " AND ".join(conditions)
 

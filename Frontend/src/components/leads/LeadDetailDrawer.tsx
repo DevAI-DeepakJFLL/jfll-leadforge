@@ -31,6 +31,7 @@ import { useModalDismiss } from '@/hooks/useModalDismiss';
 import { useClipboard } from '@/hooks/useClipboard';
 import { formatDate } from '@/utils/formatters';
 import { isValidEmailAddress, isValidPhoneNumber } from '@/utils/apolloUtils';
+import { toSafeExternalUrl } from '@/types/apolloLead';
 
 export interface LeadDetailDrawerProps {
   isOpen: boolean;
@@ -466,13 +467,9 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                       <Linkedin className="w-4 h-4 text-[#0A66C2]" />
                       <span className="text-xs font-medium text-slate-700">LinkedIn Profile</span>
                     </div>
-                    {lead.linkedin ? (
+                    {toSafeExternalUrl(lead.linkedin) ? (
                       <a
-                        href={
-                          /^https?:\/\//i.test(lead.linkedin)
-                            ? lead.linkedin
-                            : `https://${lead.linkedin}`
-                        }
+                        href={toSafeExternalUrl(lead.linkedin)!}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs font-semibold text-apollo hover:underline"

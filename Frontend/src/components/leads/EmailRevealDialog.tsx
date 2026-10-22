@@ -16,6 +16,7 @@ import {
   Linkedin,
 } from 'lucide-react';
 import { isValidEmailAddress, isValidPhoneNumber } from '@/utils/apolloUtils';
+import { toSafeExternalUrl } from '@/types/apolloLead';
 
 export interface EmailRevealDialogProps {
   isOpen: boolean;
@@ -299,7 +300,7 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
                   if (onComposeEmail) {
                     onComposeEmail(lead);
                   } else {
-                    window.location.href = `mailto:${lead.email}`;
+                    window.location.href = `mailto:${encodeURIComponent(lead.email)}`;
                   }
                 }}
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-apollo hover:bg-apollo-600 rounded-md shadow-sm transition-colors focus:outline-none min-h-[38px]"
@@ -307,13 +308,9 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
                 <Send className="w-3.5 h-3.5" />
                 <span>Compose Email</span>
               </button>
-            ) : lead.linkedin ? (
+            ) : toSafeExternalUrl(lead.linkedin) ? (
               <a
-                href={
-                  /^https?:\/\//i.test(lead.linkedin)
-                    ? lead.linkedin
-                    : `https://${lead.linkedin}`
-                }
+                href={toSafeExternalUrl(lead.linkedin)!}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-[#0A66C2] hover:bg-[#004182] rounded-md shadow-sm transition-colors focus:outline-none min-h-[38px]"

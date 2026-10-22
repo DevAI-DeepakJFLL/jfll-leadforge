@@ -1,3 +1,5 @@
+import { toSafeExternalUrl } from '@/types/apolloLead';
+
 /**
  * Palette configurations for company avatars matching enterprise design tokens
  */
@@ -122,11 +124,12 @@ export function parseJobFunctions(raw?: string | null): { name: string; count: n
 }
 
 /**
- * Sanitizes LinkedIn URL from array string representation
+ * Sanitizes LinkedIn URL from array string representation with security protocol validation
  */
 export function cleanLinkedinUrl(raw?: string | null): string | null {
   if (!raw) return null;
-  return raw.replace(/[\[\]']/g, '').trim() || null;
+  const stripped = raw.replace(/[\[\]']/g, '').trim();
+  return toSafeExternalUrl(stripped);
 }
 
 /**
@@ -149,24 +152,27 @@ export function formatCompactEmployees(count?: number | null): string {
   return `${count} staff`;
 }
 
+const RFC_EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
 /**
- * Checks whether an email address is valid, deliverable, and not a mock/placeholder string
+ * Checks whether an email address is valid, deliverable, conforming to RFC 5322,
+ * and not a mock/placeholder string.
  */
 export function isValidEmailAddress(email?: string | null): boolean {
   if (!email) return false;
-  const clean = email.trim().toLowerCase();
+  const clean = email.trim();
+  const lower = clean.toLowerCase();
   if (
     clean.length < 5 ||
-    !clean.includes('@') ||
-    !clean.includes('.') ||
-    clean.includes('protected') ||
-    clean.includes('reveal') ||
-    clean.includes('no contact') ||
-    clean.includes('unavailable')
+    clean.length > 254 ||
+    lower.includes('protected') ||
+    lower.includes('reveal') ||
+    lower.includes('no contact') ||
+    lower.includes('unavailable')
   ) {
     return false;
   }
-  return true;
+  return RFC_EMAIL_REGEX.test(clean);
 }
 
 /**

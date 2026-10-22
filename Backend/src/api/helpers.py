@@ -32,6 +32,16 @@ def normalize_query(val: Any, default: Any = None) -> Any:
     return default if isinstance(val, QueryType) else val
 
 
+def parse_csv_query_param(val: str | None) -> list[str]:
+    """
+    Safely parses a comma-separated query parameter string into clean, trimmed lowercase tokens.
+    Returns an empty list if None or whitespace.
+    """
+    if not val or not isinstance(val, str) or not val.strip():
+        return []
+    return [token.strip().lower() for token in val.split(",") if token.strip()]
+
+
 CORPORATE_SUFFIX_REGEX = re.compile(
     r"\b(inc|corp|corporation|llc|ltd|co|company|group|holdings)\b", re.IGNORECASE
 )
