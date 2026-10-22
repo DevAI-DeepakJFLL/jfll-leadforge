@@ -1,7 +1,7 @@
 # JFLL LeadForge — Lead Sourcing & Customer Intelligence Platform
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Frontend Tests](https://img.shields.io/badge/Vitest-185%20passed-success.svg)]()
+[![Frontend Tests](https://img.shields.io/badge/Vitest-192%20passed-success.svg)]()
 [![Backend Tests](https://img.shields.io/badge/Pytest-70%20passed-success.svg)]()
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)]()
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688.svg)]()
@@ -146,7 +146,7 @@ flowchart TD
 | **Analytical Engine** | DuckDB 1.1 with HTTPFS extension |
 | **Data Storage** | Apache Parquet (ZSTD-compressed), AWS S3 |
 | **Security & Auth** | RFC 7519 JWT (PyJWT), Python `secrets.compare_digest`, CWE-1236 CSV protection |
-| **Testing** | Vitest 5.0 (185 tests passed), Pytest 9.1 (70 tests passed) |
+| **Testing** | Vitest 5.0 (192 tests passed), Pytest 9.1 (70 tests passed) |
 | **Cloud Hosting** | Amazon CloudFront (Global CDN), AWS Lambda, Amazon S3 |
 | **Observability** | Structured JSON Logging for AWS CloudWatch and client `__APP_LOGS__` buffer |
 
@@ -189,7 +189,7 @@ Lead Sourcing Tool/
 │   │   │   ├── apolloUtils.ts           # Centralized avatar, revenue, and contact helpers
 │   │   │   ├── logger.ts                # Structured client telemetry
 │   │   │   └── csv.ts                   # RFC-4180 CSV export with formula injection defense
-│   │   └── test/                        # Vitest test suite (185 tests)
+│   │   └── test/                        # Vitest test suite (192 tests)
 │   └── dist/                            # Production build output
 │
 ├── Backend/                             # FastAPI microservice & DuckDB engine
@@ -312,8 +312,8 @@ Executes 70 automated test cases verifying health endpoints, S3 Parquet DuckDB q
 PYTHONPATH=Backend python -m pytest Backend/tests -v
 ```
 
-### Frontend Tests (Vitest: 185/185 Passed)
-Executes 185 unit and integration tests across customer filtering, DataMyne Brazil integration, dynamic audience tab counts, phone number normalization, CSV injection defenses, People tab freight filter sidebar, and UI components.
+### Frontend Tests (Vitest: 192/192 Passed)
+Executes 192 unit and integration tests across customer filtering, DataMyne Brazil integration, dynamic audience tab counts, phone number normalization, CSV injection defenses, People tab freight filter sidebar, contact information resilience, and UI components.
 
 ```bash
 cd Frontend

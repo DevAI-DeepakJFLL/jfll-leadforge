@@ -149,3 +149,44 @@ export function formatCompactEmployees(count?: number | null): string {
   return `${count} staff`;
 }
 
+/**
+ * Checks whether an email address is valid, deliverable, and not a mock/placeholder string
+ */
+export function isValidEmailAddress(email?: string | null): boolean {
+  if (!email) return false;
+  const clean = email.trim().toLowerCase();
+  if (
+    clean.length < 5 ||
+    !clean.includes('@') ||
+    !clean.includes('.') ||
+    clean.includes('protected') ||
+    clean.includes('reveal') ||
+    clean.includes('no contact') ||
+    clean.includes('unavailable')
+  ) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Checks whether a phone number is a valid, real phone number and not a mock/switchboard string
+ */
+export function isValidPhoneNumber(phone?: string | null): boolean {
+  if (!phone) return false;
+  const clean = phone.trim().toLowerCase();
+  if (
+    clean.length < 5 ||
+    clean.includes('switchboard') ||
+    clean.includes('no contact') ||
+    clean.includes('unavailable') ||
+    clean === '—' ||
+    clean === '-'
+  ) {
+    return false;
+  }
+  const digitCount = (clean.match(/\d/g) || []).length;
+  return digitCount >= 6;
+}
+
+

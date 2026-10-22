@@ -14,6 +14,7 @@ import { Lead, FilterParams, LeadsResponse } from '@/types/lead';
 import { logger } from '@/utils/logger';
 import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
 import { API_BASE_URL } from '@/config/api';
+import { isValidEmailAddress } from '@/utils/apolloUtils';
 
 function getAuthHeader(): Record<string, string> {
   try {
@@ -418,6 +419,11 @@ export function mapApolloContactToLead(contact: ApolloContact): Lead {
   const logoColor = BRAND_COLORS[hash % BRAND_COLORS.length];
   const initials = (companyName.replace(/[^A-Za-z0-9]/g, '').slice(0, 2) || 'JF').toUpperCase();
 
+  const emailValue = isValidEmailAddress(contact.email)
+    ? contact.email!.trim()
+    : 'No contact information available';
+  const phoneValue = 'No contact information available';
+
   return {
     id: contact.person_id,
     name: contact.person_name,
@@ -435,8 +441,8 @@ export function mapApolloContactToLead(contact: ApolloContact): Lead {
     city: contact.contact_city || undefined,
     state: contact.contact_state || undefined,
     country: contact.contact_country || undefined,
-    email: contact.email || 'Email Protected (Click Reveal)',
-    phone: '+1 (555) Switchboard',
+    email: emailValue,
+    phone: phoneValue,
     workPhone: undefined,
     linkedin: contact.linkedin_url || undefined,
     employees: '500+ Enterprise',
@@ -572,6 +578,14 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
     });
   }
 
+  // 7. Outreach Readiness (Verified Email & LinkedIn Only)
+  if (params.hasEmailOnly) {
+    filtered = filtered.filter((c) => Boolean(c.email && isValidEmailAddress(c.email)));
+  }
+  if (params.hasLinkedinOnly) {
+    filtered = filtered.filter((c) => Boolean(c.linkedin_url && c.linkedin_url.trim().length > 5));
+  }
+
   // Total estimate (scaled to 766.8k if global search, or matching filtered count if filtered)
   const isGlobal = !q && !organizationId && !company && departments.length === 0 && locations.length === 0;
   const totalRecords = isGlobal ? 766803 : filtered.length;
@@ -678,6 +692,14 @@ export function filterLeadsInMemory(
   // 6. Status
   if (filters.status && filters.status.length > 0) {
     result = result.filter((lead) => filters.status!.includes(lead.status));
+  }
+
+  // 7. Outreach Readiness
+  if (filters.hasEmailOnly) {
+    result = result.filter((lead) => isValidEmailAddress(lead.email));
+  }
+  if (filters.hasLinkedinOnly) {
+    result = result.filter((lead) => Boolean(lead.linkedin && lead.linkedin.trim().length > 5));
   }
 
   return result;

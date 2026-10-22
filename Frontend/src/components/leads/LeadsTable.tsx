@@ -9,6 +9,7 @@ import {
 } from '@tanstack/react-table';
 import { Lead, AudienceTab } from '@/types/lead';
 import { CompanyAvatar } from './CompanyAvatar';
+import { isValidEmailAddress } from '@/utils/apolloUtils';
 import {
   Mail,
   ChevronLeft,
@@ -219,6 +220,8 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
         header: '',
         cell: ({ row }) => {
           const lead = row.original;
+          const hasEmail = isValidEmailAddress(lead.email);
+
           return (
             <div className="pr-4 flex items-center justify-end gap-1.5 shrink-0">
               {onToggleSave && (
@@ -241,18 +244,33 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
                   />
                 </button>
               )}
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onViewEmail?.(lead);
-                }}
-                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-apollo hover:text-white bg-white hover:bg-apollo border border-apollo/40 hover:border-apollo rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 whitespace-nowrap"
-                title={`View verified email for ${lead.name}`}
-              >
-                <Mail className="w-3.5 h-3.5" />
-                <span>View Email</span>
-              </button>
+              {hasEmail ? (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onViewEmail?.(lead);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-apollo hover:text-white bg-white hover:bg-apollo border border-apollo/40 hover:border-apollo rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 whitespace-nowrap"
+                  title={`View verified email for ${lead.name}`}
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>View Email</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onViewEmail?.(lead);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-500 hover:text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-slate-300 whitespace-nowrap"
+                  title={`No contact information available for ${lead.name} (Click to see profile)`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                  <span>No Contact Info</span>
+                </button>
+              )}
             </div>
           );
         },
