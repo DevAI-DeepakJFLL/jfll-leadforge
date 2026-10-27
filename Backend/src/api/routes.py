@@ -436,7 +436,10 @@ def list_apollo_leads(
 
 
 @router.get("/apollo/stats", summary="Retrieve aggregated dataset statistics for Apollo freight leads")
-def get_apollo_stats():
+def get_apollo_stats(
+    authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
+):
+    require_auth(authorization, "Apollo stats")
     con = get_db_connection()
     data_source = get_data_source(con, dataset="apollo")
     try:
@@ -643,7 +646,7 @@ def search_apollo_contacts(
                     params.extend([pat, pat, pat])
 
         elif company and company.strip():
-            matched_org_ids = resolve_company_ids_cached(company, apollo_source, con)
+            matched_org_ids = resolve_company_ids_cached(company, apollo_source)
             if matched_org_ids:
                 placeholders = ", ".join(["?"] * len(matched_org_ids))
                 conditions.append(f"c.organization_id IN ({placeholders})")
@@ -659,7 +662,7 @@ def search_apollo_contacts(
         elif search and search.strip():
             raw_term = search.strip().lower()
             pat = f"%{raw_term}%"
-            matched_org_ids = resolve_company_ids_cached(raw_term, apollo_source, con)
+            matched_org_ids = resolve_company_ids_cached(raw_term, apollo_source)
             if matched_org_ids:
                 placeholders = ", ".join(["?"] * len(matched_org_ids))
                 conditions.append(f"""
@@ -729,14 +732,14 @@ def search_apollo_contacts(
 
         where_sql = " AND ".join(conditions)
 
-        # Fast-path count resolution: never perform full-table scan count(*) over 17.4M rows on S3
+        # Fast-path count resolution: never perform full-table scan count(*) over 15.5M rows on S3
         total_records = None
         if conditions == ["1=1", "c.is_logistics_role = true"]:
             total_records = 766803
         elif conditions == ["1=1", "c.is_logistics_role = true", "c.is_decision_maker = true"]:
             total_records = 345061
         elif conditions == ["1=1"]:
-            total_records = 17457110
+            total_records = 15526269
 
         # Resolve company/employer name without remote S3 cross-file LEFT JOIN
         resolved_employer_name = None

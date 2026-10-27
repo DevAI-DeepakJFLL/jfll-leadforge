@@ -84,6 +84,25 @@ def test_apollo_stats_endpoint():
     assert data["top_industries"][0]["count"] == 91760
 
 
+def test_apollo_stats_unauthorized():
+    from src.api.config import settings
+
+    # 1. Invalid Bearer token
+    res = client.get("/api/v1/apollo/stats", headers={"Authorization": "Bearer invalid.token"})
+    assert res.status_code == 401
+    assert "Invalid or expired session token" in res.json()["detail"]
+
+    # 2. Production env without auth
+    orig_env = settings.env
+    try:
+        settings.env = "production"
+        res_prod = client.get("/api/v1/apollo/stats")
+        assert res_prod.status_code == 401
+        assert "Authentication required to access Apollo stats" in res_prod.json()["detail"]
+    finally:
+        settings.env = orig_env
+
+
 def test_company_contacts_endpoint():
     # Boeing organization_id: 54a1229169702d9a8b695403
     response = client.get("/api/v1/apollo/companies/54a1229169702d9a8b695403/contacts?page=1&page_size=5")

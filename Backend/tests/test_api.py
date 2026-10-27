@@ -147,3 +147,27 @@ def test_auth_me_unauthorized():
     assert res2.status_code == 401
 
 
+def test_cors_origin_restrictions():
+    """Verify that only explicitly allowlisted origins are accepted, not arbitrary CloudFront domains."""
+    # Authorized origin
+    res_allowed = client.options(
+        "/api/v1/health",
+        headers={
+            "Origin": "https://d3c4bsffw7tf7s.cloudfront.net",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+    assert res_allowed.headers.get("access-control-allow-origin") == "https://d3c4bsffw7tf7s.cloudfront.net"
+
+    # Arbitrary CloudFront distribution origin should be rejected
+    res_blocked = client.options(
+        "/api/v1/health",
+        headers={
+            "Origin": "https://evil-unauthorized.cloudfront.net",
+            "Access-Control-Request-Method": "GET",
+        },
+    )
+    assert res_blocked.headers.get("access-control-allow-origin") is None
+
+
+

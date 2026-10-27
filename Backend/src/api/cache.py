@@ -25,7 +25,6 @@ def _cached_lookup(company_term: str, apollo_source: str) -> tuple[str, ...]:
 def resolve_company_ids_cached(
     company_name: str | None,
     apollo_source: str,
-    con: duckdb.DuckDBPyConnection | None = None
 ) -> list[str]:
     """
     Resolves corporate search term to matched organization IDs using in-memory LRU cache.

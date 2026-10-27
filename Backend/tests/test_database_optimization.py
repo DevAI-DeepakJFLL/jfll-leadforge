@@ -41,19 +41,19 @@ def test_company_resolution_lru_cache():
     apollo_source = get_data_source(con, dataset="apollo")
     
     # First call - queries DB and caches
-    ids1 = resolve_company_ids_cached("sanofi", apollo_source, con)
+    ids1 = resolve_company_ids_cached("sanofi", apollo_source)
     # Second call - returns from in-memory cache instantly
-    ids2 = resolve_company_ids_cached("sanofi", apollo_source, con)
+    ids2 = resolve_company_ids_cached("sanofi", apollo_source)
     assert ids1 == ids2
     assert len(ids1) > 0
     
     # Test whitespace and case normalization
-    ids_upper = resolve_company_ids_cached("  SANOFI  ", apollo_source, con)
+    ids_upper = resolve_company_ids_cached("  SANOFI  ", apollo_source)
     assert ids_upper == ids1
 
     # Test empty query
-    assert resolve_company_ids_cached("", apollo_source, con) == []
-    assert resolve_company_ids_cached(None, apollo_source, con) == []
+    assert resolve_company_ids_cached("", apollo_source) == []
+    assert resolve_company_ids_cached(None, apollo_source) == []
 
 
 def test_company_contacts_peek_pagination():
@@ -160,3 +160,22 @@ def test_search_apollo_contacts_exact_organization_id_prioritized():
     # Every returned record must match the exact requested organization_id
     for contact in data["data"]:
         assert contact["organization_id"] == "54a120f269702d8cccfb9302"
+
+
+def test_duckdb_sts_session_token_rotation(monkeypatch):
+    """Verify that get_db_connection detects STS session token rotation in AWS environments."""
+    from src.api.config import settings
+
+    monkeypatch.setattr(settings, "env", "production")
+    monkeypatch.setenv("AWS_SESSION_TOKEN", "initial_sts_token_123")
+
+    con = get_db_connection()
+    token_val = con.execute("SELECT current_setting('s3_session_token')").fetchone()[0]
+    assert token_val == "initial_sts_token_123"
+
+    # Rotate token
+    monkeypatch.setenv("AWS_SESSION_TOKEN", "rotated_sts_token_456")
+    con_rotated = get_db_connection()
+    new_token_val = con_rotated.execute("SELECT current_setting('s3_session_token')").fetchone()[0]
+    assert new_token_val == "rotated_sts_token_456"
+

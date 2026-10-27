@@ -1,14 +1,22 @@
 """Tests for the isolated Tier A / Tier B API router (/api/v1/tiers)."""
 from fastapi.testclient import TestClient
 
+from src.api.auth import create_token
+from src.api.config import settings
 from src.api.main import app
 
 client = TestClient(app)
 
 
+def _get_auth_headers() -> dict[str, str]:
+    token, _ = create_token({"sub": "deepak.naidu@jfll.com", "name": "Deepak Naidu", "role": "Tech Lead"})
+    return {"Authorization": f"Bearer {token}"}
+
+
 def test_get_tier_counts():
     """Verify tier summary counts endpoint."""
-    response = client.get("/api/v1/tiers/counts")
+    headers = _get_auth_headers()
+    response = client.get("/api/v1/tiers/counts", headers=headers)
     assert response.status_code == 200
     data = response.json()
     assert "tier_a" in data
@@ -23,7 +31,8 @@ def test_get_tier_counts():
 
 def test_get_tier_leads_pagination():
     """Verify paginated listing for Tier A leads."""
-    response = client.get("/api/v1/tiers/leads?status=Tier A&page=1&page_size=10")
+    headers = _get_auth_headers()
+    response = client.get("/api/v1/tiers/leads?status=Tier A&page=1&page_size=10", headers=headers)
     assert response.status_code == 200
     data = response.json()
     assert "items" in data
@@ -40,15 +49,51 @@ def test_get_tier_leads_pagination():
 
 def test_get_tier_lead_single_breakdown():
     """Verify single lead breakdown lookup."""
+    headers = _get_auth_headers()
     # First get a lead id
-    list_res = client.get("/api/v1/tiers/leads?status=Tier A&page_size=1")
+    list_res = client.get("/api/v1/tiers/leads?status=Tier A&page_size=1", headers=headers)
     assert list_res.status_code == 200
     lead_id = list_res.json()["items"][0]["id"]
 
-    response = client.get(f"/api/v1/tiers/{lead_id}/breakdown")
+    response = client.get(f"/api/v1/tiers/{lead_id}/breakdown", headers=headers)
     assert response.status_code == 200
     breakdown = response.json()
     assert breakdown["id"] == lead_id
     assert "score_breakdown" in breakdown
     assert "frequency_score" in breakdown["score_breakdown"]
     assert "mode_score" in breakdown["score_breakdown"]
+
+
+def test_tier_endpoints_unauthorized_or_invalid_token():
+    """Verify that invalid/expired token or production unauthenticated request returns 401."""
+    # 1. Invalid Bearer token
+    invalid_headers = {"Authorization": "Bearer invalid.expired.token"}
+    res1 = client.get("/api/v1/tiers/counts", headers=invalid_headers)
+    assert res1.status_code == 401
+    assert "Invalid or expired session token" in res1.json()["detail"]
+
+    res2 = client.get("/api/v1/tiers/leads", headers=invalid_headers)
+    assert res2.status_code == 401
+    assert "Invalid or expired session token" in res2.json()["detail"]
+
+    res3 = client.get("/api/v1/tiers/some-lead-id/breakdown", headers=invalid_headers)
+    assert res3.status_code == 401
+    assert "Invalid or expired session token" in res3.json()["detail"]
+
+    # 2. Production environment without auth
+    orig_env = settings.env
+    try:
+        settings.env = "production"
+        res_prod_counts = client.get("/api/v1/tiers/counts")
+        assert res_prod_counts.status_code == 401
+        assert "Authentication required to access tiered leads" in res_prod_counts.json()["detail"]
+
+        res_prod_leads = client.get("/api/v1/tiers/leads")
+        assert res_prod_leads.status_code == 401
+        assert "Authentication required to access tiered leads" in res_prod_leads.json()["detail"]
+
+        res_prod_breakdown = client.get("/api/v1/tiers/some-lead-id/breakdown")
+        assert res_prod_breakdown.status_code == 401
+        assert "Authentication required to access tiered leads" in res_prod_breakdown.json()["detail"]
+    finally:
+        settings.env = orig_env

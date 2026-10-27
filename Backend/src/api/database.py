@@ -11,10 +11,11 @@ logger = logging.getLogger(__name__)
 
 _SHARED_CONNECTION: duckdb.DuckDBPyConnection | None = None
 _INIT_LOCK = threading.Lock()
+_LAST_SESSION_TOKEN: str | None = None
 
 def get_db_connection() -> duckdb.DuckDBPyConnection:
     """Returns a thread-safe cursor from the persistent singleton DuckDB connection."""
-    global _SHARED_CONNECTION
+    global _SHARED_CONNECTION, _LAST_SESSION_TOKEN
     if _SHARED_CONNECTION is None:
         with _INIT_LOCK:
             if _SHARED_CONNECTION is None:
@@ -73,11 +74,40 @@ def get_db_connection() -> duckdb.DuckDBPyConnection:
                             """)
                         if session_token:
                             clean_st = session_token.replace("'", "''")
+                            try:
+                                con.execute(f"SET GLOBAL s3_session_token = '{clean_st}';")
+                            except Exception:
+                                pass
                             con.execute(f"SET s3_session_token = '{clean_st}';")
+                        _LAST_SESSION_TOKEN = session_token
                     except Exception as err:
                         logger.warning("Error configuring AWS S3 credentials in DuckDB: %s", err)
 
                 _SHARED_CONNECTION = con
+
+    # In AWS environments, handle IAM STS session token rotation dynamically
+    if settings.env != "local":
+        current_session_token = os.getenv("AWS_SESSION_TOKEN")
+        if current_session_token != _LAST_SESSION_TOKEN:
+            with _INIT_LOCK:
+                if current_session_token != _LAST_SESSION_TOKEN and _SHARED_CONNECTION is not None:
+                    try:
+                        if current_session_token:
+                            clean_st = current_session_token.replace("'", "''")
+                            try:
+                                _SHARED_CONNECTION.execute(f"SET GLOBAL s3_session_token = '{clean_st}';")
+                            except Exception:
+                                pass
+                            _SHARED_CONNECTION.execute(f"SET s3_session_token = '{clean_st}';")
+                        else:
+                            try:
+                                _SHARED_CONNECTION.execute("SET GLOBAL s3_session_token = '';")
+                            except Exception:
+                                pass
+                            _SHARED_CONNECTION.execute("SET s3_session_token = '';")
+                        _LAST_SESSION_TOKEN = current_session_token
+                    except Exception as err:
+                        logger.warning("Error updating DuckDB AWS STS session token: %s", err)
 
     return _SHARED_CONNECTION.cursor()
 

@@ -5,10 +5,11 @@ Cleanly decoupled from core leads, datamyne, and apollo endpoints.
 import uuid
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Header, HTTPException, Query
 
 from src.api.config import settings
 from src.api.database import get_cached_parquet_path, get_db_connection
+from src.api.helpers import require_auth
 from src.api.logger import logger
 from src.services.tier_scoring_engine import evaluate_capacity_threshold
 
@@ -43,8 +44,11 @@ def _format_score_breakdown(record: dict[str, Any], pop: bool = False) -> dict[s
 
 
 @tier_router.get("/counts", summary="Get Tier A/B status counts and capacity telemetry")
-def get_tier_counts() -> dict[str, Any]:
+def get_tier_counts(
+    authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
+) -> dict[str, Any]:
     """Returns real-time distribution across Tier A, Tier B, Parked, Excluded, and Unscored."""
+    require_auth(authorization, "tiered leads")
     try:
         tier_path = get_cached_parquet_path("datamyne_tiers")
         con = get_db_connection()
@@ -88,8 +92,10 @@ def get_tier_leads(
     max_score: int | None = Query(default=None, ge=0, le=100),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=25, ge=1, le=100),
+    authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
 ):
     """Returns paginated DataMyne leads joined with their Tier A / Tier B score breakdown."""
+    require_auth(authorization, "tiered leads")
     try:
         dm_path = get_cached_parquet_path("datamyne")
         tier_path = get_cached_parquet_path("datamyne_tiers")
@@ -209,8 +215,12 @@ def get_tier_leads(
 
 
 @tier_router.get("/{lead_id}/breakdown", summary="Get detailed score breakdown for a lead")
-def get_lead_score_breakdown(lead_id: str) -> dict[str, Any]:
+def get_lead_score_breakdown(
+    lead_id: str,
+    authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
+) -> dict[str, Any]:
     """Returns the full criterion-by-criterion score audit for a single lead."""
+    require_auth(authorization, "tiered leads")
     try:
         tier_path = get_cached_parquet_path("datamyne_tiers")
         dm_path = get_cached_parquet_path("datamyne")
