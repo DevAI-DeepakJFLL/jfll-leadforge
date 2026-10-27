@@ -176,23 +176,8 @@ export function isValidEmailAddress(email?: string | null): boolean {
 }
 
 /**
- * Checks whether a phone number is a valid, real phone number and not a mock/switchboard string
+ * @deprecated Use isValidPhoneNumber from '@/utils/phoneUtils' instead.
  */
-export function isValidPhoneNumber(phone?: string | null): boolean {
-  if (!phone) return false;
-  const clean = phone.trim().toLowerCase();
-  if (
-    clean.length < 5 ||
-    clean.includes('switchboard') ||
-    clean.includes('no contact') ||
-    clean.includes('unavailable') ||
-    clean === '—' ||
-    clean === '-'
-  ) {
-    return false;
-  }
-  const digitCount = (clean.match(/\d/g) || []).length;
-  return digitCount >= 6;
-}
+export { isValidPhoneNumber } from './phoneUtils';
 
 

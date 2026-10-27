@@ -9,6 +9,10 @@ import {
 import { logger } from '@/utils/logger';
 import { createCsvBlob } from '@/utils/csv';
 import { API_BASE_URL } from '@/config/api';
+import { isValidPhoneNumber } from '@/utils/phoneUtils';
+import { isOfflineSession } from '@/services/authService';
+
+export { isValidPhoneNumber };
 
 interface ApiLeadRecord {
   full_name?: string;
@@ -69,7 +73,7 @@ export async function fetchJfllCustomersFromApi(
     const rawSession = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('apollo_leads_session') : null;
     if (rawSession) {
       const session = JSON.parse(rawSession);
-      if (session?.token) {
+      if (session?.token && !isOfflineSession(session)) {
         authHeader = { Authorization: `Bearer ${session.token}` };
       }
     }
@@ -133,22 +137,7 @@ export async function fetchJfllCustomersFromApi(
   }
 }
 
-/**
- * Accurately determines if a phone string represents a valid, dialable phone number
- * and not a missing/placeholder indicator like "-", "--", "+91-", "N/A", "null", etc.
- */
-export function isValidPhoneNumber(phone?: string | null): boolean {
-  if (!phone || !phone.trim()) return false;
-  const raw = phone.trim();
-  // Reject known placeholder symbols
-  if (['-', '--', '---', '+91-', '+91', 'N/A', 'NA', 'null', 'none'].includes(raw)) {
-    return false;
-  }
-  // Extract digit characters
-  const digits = raw.replace(/\D/g, '');
-  // Must have at least 5 subscriber digits and not simply be the country code '91'
-  return digits.length >= 5 && digits !== '91';
-}
+
 
 /**
  * Filter and query JFLL Customers dataset synchronously (used as reliable offline fallback)

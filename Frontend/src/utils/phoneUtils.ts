@@ -70,6 +70,40 @@ const CITY_STD_CODES: Record<string, string> = {
 // Recognized standard 3-digit STD codes (starts with 0)
 const MAJOR_3DIGIT_STD = new Set(['022', '020', '011', '040', '080', '044', '033', '079']);
 
+const INVALID_PHONE_PLACEHOLDERS = new Set([
+  '-',
+  '--',
+  '---',
+  '—',
+  '+91-',
+  '+91',
+  'n/a',
+  'na',
+  'null',
+  'none',
+]);
+
+const INVALID_PHONE_PHRASES = ['switchboard', 'no contact', 'unavailable'];
+
+/**
+ * Checks whether a phone number string is valid and dialable,
+ * rejecting null, empty strings, placeholders, and invalid phrases.
+ */
+export function isValidPhoneNumber(phone?: string | null): boolean {
+  if (!phone || !phone.trim()) return false;
+  const clean = phone.trim().toLowerCase();
+  if (INVALID_PHONE_PLACEHOLDERS.has(clean)) {
+    return false;
+  }
+  for (const phrase of INVALID_PHONE_PHRASES) {
+    if (clean.includes(phrase)) {
+      return false;
+    }
+  }
+  const digits = clean.replace(/\D/g, '');
+  return digits.length >= 5 && digits !== '91';
+}
+
 /**
  * Returns the relevant STD code for a given city name, defaulting to '022'
  */

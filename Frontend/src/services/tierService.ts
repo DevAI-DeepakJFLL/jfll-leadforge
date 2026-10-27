@@ -7,14 +7,14 @@ import {
 import { TIER_STARTER_DATA } from '@/data/tierStarterData';
 import { logger } from '@/utils/logger';
 import { API_BASE_URL } from '@/config/api';
-import { getStoredSession } from '@/services/authService';
+import { getStoredSession, isOfflineSession } from '@/services/authService';
 
 const TIER_API_URL = `${API_BASE_URL}/api/v1/tiers`;
 
 function getAuthHeader(): Record<string, string> {
   try {
     const session = getStoredSession();
-    if (session?.token) {
+    if (session?.token && !isOfflineSession(session)) {
       return { Authorization: `Bearer ${session.token}` };
     }
   } catch {

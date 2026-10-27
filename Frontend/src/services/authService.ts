@@ -31,42 +31,11 @@ export function getStoredSession(): UserSession | null {
   return null;
 }
 
-const DEFAULT_AUTHORIZED_DIGESTS: Record<string, { name: string; role: string }> = {
-  // Tyra Theknath
-  '0f1b6d2600c03c27cdca25ea523982fe047b6e332ce1479cfa8fedd0f04fe478': {
-    name: 'Tyra Theknath',
-    role: 'Leadership',
-  },
-  // Deepak Naidu
-  '2d2ba0c4e282c910ae3d73075667bafdc678a45e181c6124f3d22890d90d61b4': {
-    name: 'Deepak Naidu',
-    role: 'Tech Lead',
-  },
-  // Akash Dhara
-  'c784d6a18385d82a93e4017eee6d64a3c03b196e3d080a46e73bfb5b717c80be': {
-    name: 'Akash Dhara',
-    role: 'Operations',
-  },
-  // Snehal Birje
-  '6c94ee02a8480810b2daff09013956d2def3ff2b90baf3c18f4f7a3ae53a9f59': {
-    name: 'Snehal Birje',
-    role: 'Commercial',
-  },
-};
-
-async function getSha256Digest(str: string): Promise<string> {
-  if (typeof crypto !== 'undefined' && crypto.subtle) {
-    try {
-      const buffer = new TextEncoder().encode(str);
-      const hash = await crypto.subtle.digest('SHA-256', buffer);
-      return Array.from(new Uint8Array(hash))
-        .map((b) => b.toString(16).padStart(2, '0'))
-        .join('');
-    } catch {
-      // fallback
-    }
-  }
-  return '';
+/**
+ * Determines whether a session was created in offline fallback mode.
+ */
+export function isOfflineSession(session?: UserSession | null): boolean {
+  return Boolean(session?.isOffline || session?.token?.startsWith('offline_session_'));
 }
 
 /**
@@ -180,21 +149,9 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
 
     if (matchingUser) {
       return {
-        email: matchingUser.email,
-        name: matchingUser.name,
-        role: matchingUser.role,
+        ...matchingUser,
         token: `offline_session_${Date.now()}`,
-      };
-    }
-
-    const digest = await getSha256Digest(normalizedEmail);
-    const digestMatch = DEFAULT_AUTHORIZED_DIGESTS[digest];
-    if (digestMatch) {
-      return {
-        email: normalizedEmail,
-        name: digestMatch.name,
-        role: digestMatch.role,
-        token: `offline_session_${Date.now()}`,
+        isOffline: true,
       };
     }
 

@@ -4,6 +4,7 @@ import {
   getStoredSession,
   setStoredSession,
   clearStoredSession,
+  isOfflineSession,
   AUTH_STORAGE_KEY,
 } from '@/services/authService';
 import { AUTHORIZED_USERS, UserSession } from '@/types/auth';
@@ -110,7 +111,65 @@ describe('authService', () => {
       expect(session.name).toBe(member.name);
       expect(session.role).toBe(member.role);
       expect(session.token).toContain('offline_session_');
+      expect(session.isOffline).toBe(true);
+      expect(isOfflineSession(session)).toBe(true);
     }
+  });
+
+  describe('isOfflineSession', () => {
+    it('correctly identifies offline sessions by isOffline flag or token prefix', () => {
+      expect(
+        isOfflineSession({
+          isOffline: true,
+          token: 'some_token',
+          email: 'test@jfll.com',
+          name: 'Test',
+          role: 'Staff',
+        })
+      ).toBe(true);
+      expect(
+        isOfflineSession({
+          isOffline: false,
+          token: 'offline_session_12345',
+          email: 'test@jfll.com',
+          name: 'Test',
+          role: 'Staff',
+        })
+      ).toBe(true);
+      expect(
+        isOfflineSession({
+          token: 'offline_session_99999',
+          email: 'test@jfll.com',
+          name: 'Test',
+          role: 'Staff',
+        })
+      ).toBe(true);
+    });
+
+    it('returns false for regular online sessions', () => {
+      expect(
+        isOfflineSession({
+          isOffline: false,
+          token: 'valid.jwt.signature',
+          email: 'test@jfll.com',
+          name: 'Test',
+          role: 'Staff',
+        })
+      ).toBe(false);
+      expect(
+        isOfflineSession({
+          token: 'valid.jwt.signature',
+          email: 'test@jfll.com',
+          name: 'Test',
+          role: 'Staff',
+        })
+      ).toBe(false);
+    });
+
+    it('returns false for null or undefined sessions', () => {
+      expect(isOfflineSession(null)).toBe(false);
+      expect(isOfflineSession(undefined)).toBe(false);
+    });
   });
 
   it('strictly rejects unlisted emails in offline fallback mode', async () => {

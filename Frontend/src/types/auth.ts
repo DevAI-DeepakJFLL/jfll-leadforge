@@ -4,6 +4,7 @@ export interface UserSession {
   role: string;
   avatar?: string;
   token: string;
+  isOffline?: boolean;
 }
 
 export interface AuthorizedUser {

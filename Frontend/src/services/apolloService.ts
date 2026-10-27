@@ -15,13 +15,14 @@ import { logger } from '@/utils/logger';
 import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
 import { API_BASE_URL } from '@/config/api';
 import { isValidEmailAddress } from '@/utils/apolloUtils';
+import { isOfflineSession } from '@/services/authService';
 
 function getAuthHeader(): Record<string, string> {
   try {
-    const raw = sessionStorage.getItem('apollo_leads_session');
+    const raw = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('apollo_leads_session') : null;
     if (raw) {
       const session = JSON.parse(raw);
-      if (session?.token) {
+      if (session?.token && !isOfflineSession(session)) {
         return { Authorization: `Bearer ${session.token}` };
       }
     }

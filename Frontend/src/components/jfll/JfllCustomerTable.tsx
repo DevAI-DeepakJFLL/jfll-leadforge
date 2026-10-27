@@ -15,6 +15,7 @@ import {
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
 import { useToast } from '@/components/ui';
+import { isValidPhoneNumber } from '@/utils/phoneUtils';
 
 export interface JfllCustomerTableProps {
   customers: JfllCustomer[];
@@ -77,16 +78,9 @@ export const IndiaFlagIcon: React.FC<{ className?: string }> = ({ className = 'w
  * Returns null if the phone is missing, a placeholder (like "-"), or invalid.
  */
 export function formatPhoneNumber(phone: string | null | undefined): { number: string; raw: string } | null {
-  if (!phone || !phone.trim()) return null;
-  const raw = phone.trim();
-  // Filter out placeholder symbols
-  if (['-', '--', '---', '+91-', '+91', 'N/A', 'NA', 'null', 'none'].includes(raw)) {
-    return null;
-  }
+  if (!isValidPhoneNumber(phone)) return null;
+  const raw = phone!.trim();
   const digits = raw.replace(/\D/g, '');
-  if (digits.length < 5 || digits === '91') {
-    return null;
-  }
   // Strip leading minus if exported from Excel as negative number (e.g. -9810926644)
   let cleaned = raw.replace(/^-/, '');
   // Strip leading +91-, +91, 91-, or +

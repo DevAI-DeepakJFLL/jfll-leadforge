@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { parseAndFormatContactNumbers, getStdCodeForCity } from '@/utils/phoneUtils';
+import {
+  parseAndFormatContactNumbers,
+  getStdCodeForCity,
+  isValidPhoneNumber,
+} from '@/utils/phoneUtils';
 
 describe('Phone Utility (Landline vs Mobile Classification & Prefix Formatting)', () => {
   it('correctly maps city names to STD codes with fallback to 022', () => {
@@ -102,5 +106,68 @@ describe('Phone Utility (Landline vs Mobile Classification & Prefix Formatting)'
     expect(parseAndFormatContactNumbers('')).toEqual([]);
     expect(parseAndFormatContactNumbers(null)).toEqual([]);
     expect(parseAndFormatContactNumbers('   ')).toEqual([]);
+  });
+});
+
+describe('isValidPhoneNumber', () => {
+  it('rejects null, undefined, empty strings, and whitespace', () => {
+    expect(isValidPhoneNumber(null)).toBe(false);
+    expect(isValidPhoneNumber(undefined)).toBe(false);
+    expect(isValidPhoneNumber('')).toBe(false);
+    expect(isValidPhoneNumber('   ')).toBe(false);
+  });
+
+  it('rejects placeholder symbols (case-insensitive and trimmed)', () => {
+    const placeholders = [
+      '-',
+      '--',
+      '---',
+      '—',
+      '+91-',
+      '+91',
+      'n/a',
+      'na',
+      'null',
+      'none',
+      'N/A',
+      'NA',
+      'None',
+      'Null',
+    ];
+    for (const p of placeholders) {
+      expect(isValidPhoneNumber(p)).toBe(false);
+      expect(isValidPhoneNumber(`  ${p}  `)).toBe(false);
+    }
+  });
+
+  it('rejects invalid phrases and mock strings', () => {
+    expect(isValidPhoneNumber('switchboard')).toBe(false);
+    expect(isValidPhoneNumber('+1 (555) Switchboard')).toBe(false);
+    expect(isValidPhoneNumber('no contact')).toBe(false);
+    expect(isValidPhoneNumber('No contact information available')).toBe(false);
+    expect(isValidPhoneNumber('unavailable')).toBe(false);
+    expect(isValidPhoneNumber('Unavailable')).toBe(false);
+  });
+
+  it('validates Indian mobile numbers and landlines', () => {
+    expect(isValidPhoneNumber('9821230317')).toBe(true);
+    expect(isValidPhoneNumber('+91-9821230317')).toBe(true);
+    expect(isValidPhoneNumber('+91 98662 25483')).toBe(true);
+    expect(isValidPhoneNumber('022-25800972')).toBe(true);
+    expect(isValidPhoneNumber('+91-2242643060')).toBe(true);
+    expect(isValidPhoneNumber('040-66281368')).toBe(true);
+    expect(isValidPhoneNumber('6542421')).toBe(true);
+  });
+
+  it('validates international phone numbers with proper digits', () => {
+    expect(isValidPhoneNumber('+1 (408) 555-0199')).toBe(true);
+    expect(isValidPhoneNumber('+44 20 7946 0991')).toBe(true);
+    expect(isValidPhoneNumber('+55 11 3138-5000')).toBe(true);
+  });
+
+  it('rejects numbers with fewer than 5 digits or containing only country code 91', () => {
+    expect(isValidPhoneNumber('1234')).toBe(false);
+    expect(isValidPhoneNumber('+91')).toBe(false);
+    expect(isValidPhoneNumber('91')).toBe(false);
   });
 });
