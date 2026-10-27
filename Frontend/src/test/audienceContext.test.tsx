@@ -99,6 +99,37 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('Direct cargo owners, commercial manufacturers');
   });
 
+  it('renders JfllCustomerAudienceTabs in All mode with Unified Master Directory context', () => {
+    const html = renderToString(
+      <JfllCustomerAudienceTabs
+        customerStatus="all"
+        activeTab="all"
+        counts={{
+          all: 2738,
+          shippers: 285,
+          subagents: 389,
+          overseas: 39,
+          withContacts: 2738,
+          datamyneLeads: 415,
+          archive: 1595,
+          activeTotal: 728,
+          inactiveTotal: 2010,
+          allTotal: 2738,
+        }}
+        totalFormatted="2,738"
+      />
+    );
+
+    expect(html).toContain('All Customers');
+    expect(html).toContain('2,738');
+    expect(html).toContain('Active Customers');
+    expect(html).toContain('728');
+    expect(html).toContain('Inactive Customers');
+    expect(html).toContain('2,010');
+    expect(html).toContain('Unified Master Directory (All 2,738 Accounts)');
+    expect(html).toContain('Unified master directory combining all 2,738 active and inactive accounts');
+  });
+
   it('renders ApolloAudienceTabs with updated deduplicated counts and contextual info triggers', () => {
     const html = renderToString(
       <ApolloAudienceTabs

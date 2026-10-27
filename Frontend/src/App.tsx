@@ -32,6 +32,7 @@ import {
 } from '@/services/jfllCustomerService';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
+import { JFLL_INACTIVE_CUSTOMERS_DATA } from '@/data/jfllInactiveCustomersData';
 import { DatamyneDetailDrawer } from '@/components/datamyne';
 import { useDatamyneFilter } from '@/hooks/useDatamyneFilter';
 import {
@@ -617,19 +618,29 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     try {
       setIsExportingJfll(true);
       const selected = selectedJfllIds
-        .map((id) => jfllItems.find((c) => c.id === id) || JFLL_CUSTOMERS_DATA.find((c) => c.id === id))
+        .map(
+          (id) =>
+            jfllItems.find((c) => c.id === id) ||
+            JFLL_CUSTOMERS_DATA.find((c) => c.id === id) ||
+            JFLL_INACTIVE_CUSTOMERS_DATA.find((c) => c.id === id)
+        )
         .filter(Boolean) as JfllCustomer[];
       const exportList = selected.length > 0 ? selected : jfllItems;
       const blob = exportJfllCustomersCsv(exportList);
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'jfll_active_customers_export.csv');
+      const statusSuffix = jfllFilters.customerStatus || 'active';
+      link.setAttribute('download', `jfll_${statusSuffix}_customers_export.csv`);
       document.body.appendChild(link);
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
-      showToast(`Exported ${exportList.length} JFLL active customers to CSV`);
+      showToast(
+        `Exported ${exportList.length} JFLL ${
+          statusSuffix === 'all' ? 'total' : statusSuffix
+        } customers to CSV`
+      );
     } catch {
       showToast('Export failed. Please check network connection.', 'error');
     } finally {

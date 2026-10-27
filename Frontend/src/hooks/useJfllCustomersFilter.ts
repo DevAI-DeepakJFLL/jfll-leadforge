@@ -15,7 +15,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     ...initialParams,
   });
 
-  const setCustomerStatus = useCallback((customerStatus: 'active' | 'inactive') => {
+  const setCustomerStatus = useCallback((customerStatus: 'active' | 'inactive' | 'all') => {
     setFilters((prev) => ({
       ...prev,
       customerStatus,

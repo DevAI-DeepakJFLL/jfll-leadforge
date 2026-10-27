@@ -14,8 +14,8 @@ import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 import { SegmentContextBanner } from '@/components/ui/SegmentContextBanner';
 
 export interface JfllCustomerAudienceTabsProps {
-  customerStatus: 'active' | 'inactive';
-  onChangeCustomerStatus?: (status: 'active' | 'inactive') => void;
+  customerStatus: 'active' | 'inactive' | 'all';
+  onChangeCustomerStatus?: (status: 'active' | 'inactive' | 'all') => void;
   activeTab?: JfllCustomerTabType;
   onTabChange?: (tab: JfllCustomerTabType) => void;
   counts?: JfllCustomerAudienceCounts;
@@ -50,11 +50,117 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
     withContacts: 728,
     datamyneLeads: 415,
     archive: 1595,
+    activeTotal: 728,
+    inactiveTotal: 2010,
+    allTotal: 2738,
   },
   totalFormatted = '728',
   className = '',
 }) => {
+  const isAll = customerStatus === 'all';
   const isInactive = customerStatus === 'inactive';
+  const isActive = customerStatus === 'active';
+
+  const allTabs: TabDefinition[] = [
+    {
+      id: 'all',
+      label: 'All Customers',
+      count: counts.all,
+      icon: Users,
+      description: 'Unified master directory combining all 2,738 active and inactive accounts across all Jet Freight branches.',
+      criteria: [
+        'Consolidated directory of 728 active ERP clients and 2,010 former/inactive accounts',
+        'Complete view across all branch territories and business lines',
+        'Includes status markers to distinguish active clients from reactivation candidates',
+      ],
+      actionTip: 'Master view: toggle filters by status, branch territory, customer group, or customs activity.',
+      badge: { text: 'Unified Master', variant: 'blue' },
+    },
+    {
+      id: 'shippers',
+      label: 'Shippers & Consignees',
+      count: counts.shippers,
+      icon: Briefcase,
+      description: 'Direct cargo owners, commercial manufacturers, and B2B traders contracting freight directly with Jet Freight.',
+      criteria: [
+        'Customer Group is classified as Shipper / Consignee',
+        'Direct commercial cargo shippers',
+        'Primary source of high-yield contract cargo',
+      ],
+      actionTip: 'Priority enterprise accounts: maintain high service level and cross-sell air/ocean lanes.',
+      badge: { text: 'Direct Cargo', variant: 'blue' },
+    },
+    {
+      id: 'subagents',
+      label: 'Subagents',
+      count: counts.subagents,
+      icon: Network,
+      description: 'Domestic freight booking partners, local cargo agents, and sub-brokers utilizing Jet Freight wholesale capacity.',
+      criteria: [
+        'Customer Group is classified as Subagent',
+        'Books cargo through JFLL airline/shipping line contracts',
+        'Repeat capacity buyers and wholesale partners',
+      ],
+      actionTip: 'Focus on capacity utilization, spot-rate competitiveness, and airline allocations.',
+      badge: { text: 'Wholesale Partners', variant: 'purple' },
+    },
+    {
+      id: 'overseas',
+      label: 'Overseas Agents',
+      count: counts.overseas,
+      icon: Globe,
+      description: 'International freight forwarding partners routing inbound/outbound DAP/DDP shipments into India.',
+      criteria: [
+        'Customer Group is classified as Overseas Agent',
+        'Global freight network partner',
+        'Cross-border origin/destination partner handling',
+      ],
+      actionTip: 'Expand mutual routing agreements and reciprocal cargo opportunities.',
+      badge: { text: 'Global Network', variant: 'blue' },
+    },
+    {
+      id: 'datamyne-leads',
+      label: 'DataMyne Verified',
+      count: counts.datamyneLeads || 415,
+      icon: Layers,
+      description: 'Accounts confirmed to still be actively shipping air/ocean cargo in Indian customs records.',
+      criteria: [
+        'in_datamyne = true (matched live Indian customs bills of lading)',
+        'Active international freight transactions confirmed',
+        'Verified trade lanes and HS codes available',
+      ],
+      actionTip: 'High-intent reactivation targets! Reach out referencing their current trade lanes and shipment volume.',
+      badge: { text: 'Hot Reactivation', variant: 'emerald' },
+    },
+    {
+      id: 'with-contacts',
+      label: 'Direct Contacts Ready',
+      count: counts.withContacts,
+      icon: PhoneCall,
+      description: 'Accounts with at least one verified direct phone number, email address, or key contact person on file.',
+      criteria: [
+        'Direct phone number or mobile verified',
+        'Operational email address available',
+        'Contact person name documented',
+      ],
+      actionTip: 'Ideal for operational communication, billing notices, and schedule updates.',
+      badge: { text: 'Ready to Reach', variant: 'emerald' },
+    },
+    {
+      id: 'archive',
+      label: 'Archived Accounts',
+      count: counts.archive || 1595,
+      icon: Archive,
+      description: 'Legacy inactive accounts that do NOT appear in current customs shipment databases (in_datamyne = false).',
+      criteria: [
+        'Status is Not Active and in_datamyne = false',
+        'Account is dormant, ceased trading, or changed legal IEC',
+        'Preserved for relationship history without pipeline clutter',
+      ],
+      actionTip: 'Preserved for historical lookups. Focus sales outreach on DataMyne Verified accounts.',
+      badge: { text: 'Historical Record', variant: 'amber' },
+    },
+  ];
 
   const activeTabs: TabDefinition[] = [
     {
@@ -188,7 +294,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
     },
   ];
 
-  const tabs = isInactive ? inactiveTabs : activeTabs;
+  const tabs = isAll ? allTabs : isInactive ? inactiveTabs : activeTabs;
   const currentTabMeta = tabs.find((t) => t.id === activeTab) || tabs[0];
 
   return (
@@ -196,7 +302,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
       className={`border-b border-surface-border bg-white select-none ${className}`}
       aria-label="Customer Master Directory"
     >
-      {/* Top Banner: Active vs Inactive Customer Sub-Tab Switcher */}
+      {/* Top Banner: Active vs Inactive vs All Customer Sub-Tab Switcher */}
       <div className="py-2.5 px-3 sm:px-4 lg:px-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/70">
         <div className="flex items-center gap-2 flex-wrap">
           {/* Sub-Tab Segment Switcher */}
@@ -207,10 +313,10 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
           >
             <button
               role="tab"
-              aria-selected={!isInactive}
+              aria-selected={isActive}
               onClick={() => onChangeCustomerStatus?.('active')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
-                !isInactive
+                isActive
                   ? 'bg-white text-slate-900 shadow-xs ring-1 ring-slate-900/5'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
               }`}
@@ -218,7 +324,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
               <Users className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
               <span>Active Customers</span>
               <span className="text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
-                {counts.activeTotal || 728}
+                {(counts.activeTotal || 728).toLocaleString()}
               </span>
             </button>
 
@@ -232,7 +338,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
               }`}
             >
-              <Archive className="w-3.5 h-3.5 text-white shrink-0" />
+              <Archive className={`w-3.5 h-3.5 shrink-0 ${isInactive ? 'text-white' : 'text-amber-600'}`} />
               <span>Inactive Customers</span>
               <span
                 className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
@@ -241,13 +347,41 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                     : 'bg-slate-100 text-slate-600 border border-slate-200'
                 }`}
               >
-                {counts.inactiveTotal || 2010}
+                {(counts.inactiveTotal || 2010).toLocaleString()}
+              </span>
+            </button>
+
+            <button
+              role="tab"
+              aria-selected={isAll}
+              onClick={() => onChangeCustomerStatus?.('all')}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
+                isAll
+                  ? 'bg-blue-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
+              }`}
+            >
+              <Layers className={`w-3.5 h-3.5 shrink-0 ${isAll ? 'text-white' : 'text-blue-600'}`} />
+              <span>All Customers</span>
+              <span
+                className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
+                  isAll
+                    ? 'bg-blue-700 text-blue-50'
+                    : 'bg-slate-100 text-slate-600 border border-slate-200'
+                }`}
+              >
+                {(counts.allTotal || 2738).toLocaleString()}
               </span>
             </button>
           </div>
 
           {/* Context Badge */}
-          {isInactive ? (
+          {isAll ? (
+            <span className="hidden md:inline-flex items-center gap-1.5 text-[11px] font-medium text-blue-800 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200/80 shrink-0">
+              <Layers className="w-3.5 h-3.5 text-blue-600" />
+              Unified Master Directory (All 2,738 Accounts)
+            </span>
+          ) : isInactive ? (
             <span className="hidden md:inline-flex items-center gap-1 text-[11px] font-medium text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200/80 shrink-0">
               <FileCheck className="w-3 h-3 text-amber-600" />
               Reactivation Prospects (Active Customers Purged)
@@ -270,26 +404,30 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
       <div className="px-3 sm:px-4 lg:px-6 py-2 bg-white border-b border-slate-100">
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap min-w-0">
           {tabs.map((tab, idx) => {
-            const isActive = activeTab === tab.id;
+            const isActiveTab = activeTab === tab.id;
             const Icon = tab.icon;
             return (
               <div key={tab.id} className="relative shrink-0 flex items-center">
                 <button
                   onClick={() => onTabChange?.(tab.id)}
                   className={`relative px-3 py-1.5 rounded-lg border text-left transition-all flex items-center gap-2 shrink-0 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-apollo/20 min-h-[40px] cursor-pointer ${
-                    isActive
+                    isActiveTab
                       ? isInactive
                         ? 'bg-amber-50/70 border-amber-500 text-amber-900 font-semibold shadow-xs ring-1 ring-amber-500/30'
+                        : isAll
+                        ? 'bg-blue-50/70 border-blue-600 text-blue-900 font-semibold shadow-xs ring-1 ring-blue-600/30'
                         : 'bg-blue-50/70 border-apollo text-apollo font-semibold shadow-xs ring-1 ring-apollo/30'
                       : 'bg-slate-50/60 hover:bg-slate-100/80 border-slate-200 text-slate-700 hover:text-slate-900'
                   }`}
-                  aria-current={isActive ? 'page' : undefined}
+                  aria-current={isActiveTab ? 'page' : undefined}
                 >
                   <Icon
                     className={`w-3.5 h-3.5 shrink-0 ${
-                      isActive
+                      isActiveTab
                         ? isInactive
                           ? 'text-amber-700'
+                          : isAll
+                          ? 'text-blue-700'
                           : 'text-apollo'
                         : 'text-slate-400'
                     }`}
@@ -297,9 +435,11 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                   <span className="text-xs font-medium">{tab.label}</span>
                   <span
                     className={`text-[10px] sm:text-[11px] px-1.5 py-0.2 rounded-full font-mono shrink-0 ${
-                      isActive
+                      isActiveTab
                         ? isInactive
                           ? 'bg-amber-600 text-white font-semibold'
+                          : isAll
+                          ? 'bg-blue-600 text-white font-semibold'
                           : 'bg-apollo text-white font-semibold'
                         : 'bg-white text-slate-600 border border-slate-200'
                     }`}
@@ -315,7 +455,15 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                     actionTip={tab.actionTip}
                     badge={tab.badge}
                     align={idx === 0 ? 'left' : idx === tabs.length - 1 ? 'right' : 'center'}
-                    iconClassName={isActive ? (isInactive ? 'text-amber-600 hover:text-amber-800' : 'text-blue-500 hover:text-blue-700') : 'text-slate-400 hover:text-slate-600'}
+                    iconClassName={
+                      isActiveTab
+                        ? isInactive
+                          ? 'text-amber-600 hover:text-amber-800'
+                          : isAll
+                          ? 'text-blue-600 hover:text-blue-800'
+                          : 'text-blue-500 hover:text-blue-700'
+                        : 'text-slate-400 hover:text-slate-600'
+                    }
                   />
                 </button>
               </div>
@@ -333,7 +481,13 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
         actionTip={currentTabMeta.actionTip}
         icon={currentTabMeta.icon}
         variant={
-          isInactive
+          isAll
+            ? currentTabMeta.id === 'archive'
+              ? 'slate'
+              : currentTabMeta.id === 'datamyne-leads'
+              ? 'emerald'
+              : 'blue'
+            : isInactive
             ? currentTabMeta.id === 'archive'
               ? 'amber'
               : currentTabMeta.id === 'datamyne-leads'

@@ -30,7 +30,7 @@ export interface JfllCustomersViewProps {
   onExport: () => void;
   isExporting: boolean;
   onSearchChange: (query: string) => void;
-  onCustomerStatusChange: (status: 'active' | 'inactive') => void;
+  onCustomerStatusChange: (status: 'active' | 'inactive' | 'all') => void;
   onTabChange: (tab: JfllCustomerTabType) => void;
   onPageChange: (page: number) => void;
   toggleCustomerGroup: (group: string) => void;

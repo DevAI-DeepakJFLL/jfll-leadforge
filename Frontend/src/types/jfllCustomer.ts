@@ -27,7 +27,7 @@ export type JfllCustomerTabType =
 
 export interface JfllCustomerFilterParams {
   q?: string;
-  customerStatus?: 'active' | 'inactive';
+  customerStatus?: 'active' | 'inactive' | 'all';
   customerGroups?: string[];
   types?: string[];
   hasPhone?: boolean;
@@ -48,6 +48,7 @@ export interface JfllAudienceCounts {
   archive?: number;
   activeTotal?: number;
   inactiveTotal?: number;
+  allTotal?: number;
 }
 
 export type JfllCustomerAudienceCounts = JfllAudienceCounts;

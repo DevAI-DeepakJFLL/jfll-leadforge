@@ -239,8 +239,12 @@ describe('JFLL Customers Dataset & Query Service', () => {
     });
   });
 
-  it('computes contact readiness facet counts accurately for both active and inactive datasets', async () => {
-    const { getContactReadinessFacetCounts } = await import('@/services/jfllCustomerService');
+  it('computes contact readiness facet counts accurately for active, inactive, and all datasets', async () => {
+    const {
+      getContactReadinessFacetCounts,
+      getCustomerGroupFacetCounts,
+      getLegalTypeFacetCounts,
+    } = await import('@/services/jfllCustomerService');
     const activeCounts = getContactReadinessFacetCounts('active');
     expect(activeCounts.hasContactPerson).toBe(728);
     expect(activeCounts.hasPhone).toBe(655);
@@ -251,6 +255,72 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(inactiveCounts.hasPhone).toBe(1883);
     expect(inactiveCounts.hasEmail).toBe(1908);
     expect(inactiveCounts.hasContactPerson + inactiveCounts.hasPhone + inactiveCounts.hasEmail).toBe(5801);
+
+    const allCounts = getContactReadinessFacetCounts('all');
+    expect(allCounts.hasContactPerson).toBe(728 + 2010);
+    expect(allCounts.hasPhone).toBe(655 + 1883);
+    expect(allCounts.hasEmail).toBe(703 + 1908);
+
+    const allGroups = getCustomerGroupFacetCounts('all');
+    expect(allGroups.length).toBeGreaterThanOrEqual(4);
+    const totalGroupCount = allGroups.reduce((acc, g) => acc + g.count, 0);
+    expect(totalGroupCount).toBe(2738);
+
+    const allTypes = getLegalTypeFacetCounts('all');
+    const totalTypeCount = allTypes.reduce((acc, t) => acc + t.count, 0);
+    expect(totalTypeCount).toBe(2738);
+  });
+
+  it('supports unified "all" customer status combining active and inactive accounts (2,738 total)', () => {
+    const allQuery = queryJfllCustomers({ customerStatus: 'all', page: 1, limit: 25 });
+    expect(allQuery.totalEstimate).toBe(2738);
+    expect(allQuery.page).toBe(1);
+    expect(allQuery.limit).toBe(25);
+    expect(allQuery.items.length).toBe(25);
+    expect(allQuery.totalPages).toBe(Math.ceil(2738 / 25));
+
+    // Audience counts in "all" mode
+    expect(allQuery.audienceCounts.all).toBe(2738);
+    expect(allQuery.audienceCounts.shippers).toBe(285);
+    expect(allQuery.audienceCounts.subagents).toBe(389);
+    expect(allQuery.audienceCounts.overseas).toBe(39);
+    expect(allQuery.audienceCounts.datamyneLeads).toBe(415);
+    expect(allQuery.audienceCounts.archive).toBe(1595);
+    expect(allQuery.audienceCounts.withContacts).toBe(2738);
+    expect(allQuery.audienceCounts.activeTotal).toBe(728);
+    expect(allQuery.audienceCounts.inactiveTotal).toBe(2010);
+    expect(allQuery.audienceCounts.allTotal).toBe(2738);
+
+    // Quick sub-tabs in "all" mode
+    const shippersTab = queryJfllCustomers({ customerStatus: 'all', tab: 'shippers' });
+    expect(shippersTab.totalEstimate).toBe(285);
+    shippersTab.items.forEach((c) => expect(c.customerGroup).toBe('Shipper / Consignee'));
+
+    const dmTab = queryJfllCustomers({ customerStatus: 'all', tab: 'datamyne-leads' });
+    expect(dmTab.totalEstimate).toBe(415);
+    dmTab.items.forEach((c) => expect(c.inDataMyne).toBe(true));
+
+    const archiveTab = queryJfllCustomers({ customerStatus: 'all', tab: 'archive' });
+    expect(archiveTab.totalEstimate).toBe(1595);
+    archiveTab.items.forEach((c) => {
+      expect(c.status).toBe('Not Active');
+      expect(c.inDataMyne).toBeFalsy();
+    });
+
+    // Contains both Active and Inactive items
+    const hasActive = allQuery.items.some((c) => c.status === 'Active');
+    expect(hasActive).toBe(true);
+
+    // Filter by customer group across combined dataset
+    const subagentsRes = queryJfllCustomers({ customerStatus: 'all', customerGroups: ['Subagent'] });
+    expect(subagentsRes.totalEstimate).toBe(389);
+
+    // Search query across combined dataset
+    const searchActive = queryJfllCustomers({ customerStatus: 'all', q: '3S CORPORATION' });
+    expect(searchActive.totalEstimate).toBeGreaterThanOrEqual(1);
+
+    const searchInactive = queryJfllCustomers({ customerStatus: 'all', q: 'RAO CLEARING' });
+    expect(searchInactive.totalEstimate).toBeGreaterThanOrEqual(1);
   });
 });
 

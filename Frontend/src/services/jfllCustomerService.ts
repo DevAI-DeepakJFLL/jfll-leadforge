@@ -4,6 +4,7 @@ import {
   JfllCustomer,
   JfllCustomerFilterParams,
   JfllCustomersResponse,
+  JfllAudienceCounts,
 } from '@/types/jfllCustomer';
 import { logger } from '@/utils/logger';
 import { createCsvBlob } from '@/utils/csv';
@@ -40,8 +41,8 @@ export async function fetchJfllCustomersFromApi(
     limit = 25,
   } = params;
 
-  // Inactive customers are loaded from the enriched Inactive Customers dataset
-  if (customerStatus === 'inactive') {
+  // Inactive customers and combined all customers are loaded from the enriched datasets directly
+  if (customerStatus === 'inactive' || customerStatus === 'all') {
     return queryJfllCustomers(params);
   }
 
@@ -123,6 +124,7 @@ export async function fetchJfllCustomersFromApi(
         withContacts: audience.with_contacts ?? JFLL_CUSTOMERS_DATA.length,
         activeTotal: JFLL_CUSTOMERS_DATA.length,
         inactiveTotal: JFLL_INACTIVE_CUSTOMERS_DATA.length,
+        allTotal: JFLL_CUSTOMERS_DATA.length + JFLL_INACTIVE_CUSTOMERS_DATA.length,
       },
     };
   } catch (err) {
@@ -165,8 +167,13 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     limit = 25,
   } = params;
 
+  const isAll = customerStatus === 'all';
   const isInactive = customerStatus === 'inactive';
-  const baseData = isInactive ? JFLL_INACTIVE_CUSTOMERS_DATA : JFLL_CUSTOMERS_DATA;
+  const baseData = isAll
+    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    : isInactive
+    ? JFLL_INACTIVE_CUSTOMERS_DATA
+    : JFLL_CUSTOMERS_DATA;
   let baseFiltered = [...baseData];
 
   // 1. Text Search Query (Full Name, Contact Person, Email, Mobile)
@@ -209,7 +216,21 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
   ).length;
 
-  const audienceCounts = isInactive
+  const totalAllCount = JFLL_CUSTOMERS_DATA.length + JFLL_INACTIVE_CUSTOMERS_DATA.length;
+  const audienceCounts: JfllAudienceCounts = isAll
+    ? {
+        all: baseFiltered.length,
+        shippers: baseFiltered.filter((c) => c.customerGroup === 'Shipper / Consignee').length,
+        subagents: baseFiltered.filter((c) => c.customerGroup === 'Subagent').length,
+        overseas: baseFiltered.filter((c) => c.customerGroup === 'Overseas Agent').length,
+        withContacts: withContactsCount,
+        datamyneLeads: baseFiltered.filter((c) => !!c.inDataMyne).length,
+        archive: baseFiltered.filter((c) => c.status === 'Not Active' && !c.inDataMyne).length,
+        activeTotal: JFLL_CUSTOMERS_DATA.length,
+        inactiveTotal: JFLL_INACTIVE_CUSTOMERS_DATA.length,
+        allTotal: totalAllCount,
+      }
+    : isInactive
     ? {
         all: baseFiltered.length,
         shippers: 0,
@@ -220,6 +241,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         archive: baseFiltered.filter((c) => !c.inDataMyne).length,
         activeTotal: JFLL_CUSTOMERS_DATA.length,
         inactiveTotal: baseFiltered.length,
+        allTotal: totalAllCount,
       }
     : {
         all: baseFiltered.length,
@@ -231,11 +253,28 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         archive: 0,
         activeTotal: baseFiltered.length,
         inactiveTotal: JFLL_INACTIVE_CUSTOMERS_DATA.length,
+        allTotal: totalAllCount,
       };
 
   // 6. Tab Quick Filters (Applied to baseFiltered for table items and pagination)
   let filtered = baseFiltered;
-  if (isInactive) {
+  if (isAll) {
+    if (tab === 'shippers') {
+      filtered = filtered.filter((c) => c.customerGroup === 'Shipper / Consignee');
+    } else if (tab === 'subagents') {
+      filtered = filtered.filter((c) => c.customerGroup === 'Subagent');
+    } else if (tab === 'overseas') {
+      filtered = filtered.filter((c) => c.customerGroup === 'Overseas Agent');
+    } else if (tab === 'datamyne-leads') {
+      filtered = filtered.filter((c) => !!c.inDataMyne);
+    } else if (tab === 'archive') {
+      filtered = filtered.filter((c) => c.status === 'Not Active' && !c.inDataMyne);
+    } else if (tab === 'with-contacts') {
+      filtered = filtered.filter(
+        (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
+      );
+    }
+  } else if (isInactive) {
     if (tab === 'datamyne-leads') {
       filtered = filtered.filter((c) => !!c.inDataMyne);
     } else if (tab === 'archive') {
@@ -308,8 +347,12 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
 /**
  * Dynamically compute actual Customer Group facet counts from dataset
  */
-export function getCustomerGroupFacetCounts(status: 'active' | 'inactive' = 'active'): { label: string; count: number }[] {
-  const data = status === 'inactive' ? JFLL_INACTIVE_CUSTOMERS_DATA : JFLL_CUSTOMERS_DATA;
+export function getCustomerGroupFacetCounts(status: 'active' | 'inactive' | 'all' = 'active'): { label: string; count: number }[] {
+  const data = status === 'all'
+    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    : status === 'inactive'
+    ? JFLL_INACTIVE_CUSTOMERS_DATA
+    : JFLL_CUSTOMERS_DATA;
   const counts: Record<string, number> = {};
   for (const c of data) {
     if (c.customerGroup) {
@@ -324,8 +367,12 @@ export function getCustomerGroupFacetCounts(status: 'active' | 'inactive' = 'act
 /**
  * Dynamically compute actual Legal Type facet counts from dataset
  */
-export function getLegalTypeFacetCounts(status: 'active' | 'inactive' = 'active'): { label: string; count: number }[] {
-  const data = status === 'inactive' ? JFLL_INACTIVE_CUSTOMERS_DATA : JFLL_CUSTOMERS_DATA;
+export function getLegalTypeFacetCounts(status: 'active' | 'inactive' | 'all' = 'active'): { label: string; count: number }[] {
+  const data = status === 'all'
+    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    : status === 'inactive'
+    ? JFLL_INACTIVE_CUSTOMERS_DATA
+    : JFLL_CUSTOMERS_DATA;
   const counts: Record<string, number> = {};
   for (const c of data) {
     if (c.type) {
@@ -340,12 +387,16 @@ export function getLegalTypeFacetCounts(status: 'active' | 'inactive' = 'active'
 /**
  * Dynamically compute actual Contact Readiness facet counts from dataset
  */
-export function getContactReadinessFacetCounts(status: 'active' | 'inactive' = 'active'): {
+export function getContactReadinessFacetCounts(status: 'active' | 'inactive' | 'all' = 'active'): {
   hasContactPerson: number;
   hasPhone: number;
   hasEmail: number;
 } {
-  const data = status === 'inactive' ? JFLL_INACTIVE_CUSTOMERS_DATA : JFLL_CUSTOMERS_DATA;
+  const data = status === 'all'
+    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    : status === 'inactive'
+    ? JFLL_INACTIVE_CUSTOMERS_DATA
+    : JFLL_CUSTOMERS_DATA;
   let hasContactPerson = 0;
   let hasPhone = 0;
   let hasEmail = 0;
