@@ -6,8 +6,22 @@ import {
 } from '@/types/tierSegmentation';
 import { TIER_STARTER_DATA } from '@/data/tierStarterData';
 import { logger } from '@/utils/logger';
+import { API_BASE_URL } from '@/config/api';
+import { getStoredSession } from '@/services/authService';
 
-const API_BASE_URL = '/api/v1/tiers';
+const TIER_API_URL = `${API_BASE_URL}/api/v1/tiers`;
+
+function getAuthHeader(): Record<string, string> {
+  try {
+    const session = getStoredSession();
+    if (session?.token) {
+      return { Authorization: `Bearer ${session.token}` };
+    }
+  } catch {
+    // Graceful handling of storage access exceptions
+  }
+  return {};
+}
 
 export const DEFAULT_STARTER_TIER_COUNTS: TierCountsResponse = {
   tier_a: 3869,
@@ -125,7 +139,12 @@ export function queryTierLeadsLocal(params: TierFilterParams = {}): PaginatedTie
 
 export async function fetchTierCounts(): Promise<TierCountsResponse> {
   try {
-    const res = await fetch(`${API_BASE_URL}/counts`);
+    const res = await fetch(`${TIER_API_URL}/counts`, {
+      headers: {
+        Accept: 'application/json',
+        ...getAuthHeader(),
+      },
+    });
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     }
@@ -158,7 +177,12 @@ export async function fetchTierLeads(params: TierFilterParams = {}): Promise<Pag
   }
 
   try {
-    const res = await fetch(`${API_BASE_URL}/leads?${query.toString()}`);
+    const res = await fetch(`${TIER_API_URL}/leads?${query.toString()}`, {
+      headers: {
+        Accept: 'application/json',
+        ...getAuthHeader(),
+      },
+    });
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     }
@@ -179,7 +203,12 @@ export async function fetchTierLeads(params: TierFilterParams = {}): Promise<Pag
 
 export async function fetchTierLeadBreakdown(leadId: string): Promise<TieredLead | null> {
   try {
-    const res = await fetch(`${API_BASE_URL}/${encodeURIComponent(leadId)}/breakdown`);
+    const res = await fetch(`${TIER_API_URL}/${encodeURIComponent(leadId)}/breakdown`, {
+      headers: {
+        Accept: 'application/json',
+        ...getAuthHeader(),
+      },
+    });
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     }

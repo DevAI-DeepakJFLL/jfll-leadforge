@@ -37,11 +37,9 @@ import { DatamyneDetailDrawer } from '@/components/datamyne';
 import { useDatamyneFilter } from '@/hooks/useDatamyneFilter';
 import {
   queryDatamyneLeads,
-  loadFullDatamyneDataset,
   exportDatamyneLeadsCsv,
   getLoadedDatamyneDataset,
 } from '@/services/datamyneService';
-import { loadFullTierDataset } from '@/services/tierService';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { ApolloDetailDrawer } from '@/components/apollo';
 import { useApolloFilter } from '@/hooks/useApolloFilter';
@@ -671,23 +669,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     activeFilterCount: datamyneActiveFilterCount,
   } = useDatamyneFilter();
 
-  // Lazy-load full 34,690 records in background
-  const { data: datamyneFullLoaded } = useQuery({
-    queryKey: ['datamyne-full-dataset'],
-    queryFn: () => loadFullDatamyneDataset(),
-    staleTime: Infinity,
-  });
-
-  // Lazy-load full 37,273 tiered records in background for offline / static mode
-  useQuery({
-    queryKey: ['tier-full-dataset'],
-    queryFn: () => loadFullTierDataset(),
-    staleTime: Infinity,
-  });
-
   const datamyneQuery = useMemo(() => {
     return queryDatamyneLeads(datamyneFilters);
-  }, [datamyneFilters, datamyneFullLoaded]);
+  }, [datamyneFilters]);
 
   const [datamyneRowSelection, setDatamyneRowSelection] = useState<RowSelectionState>({});
   const [selectedDatamyneLead, setSelectedDatamyneLead] = useState<DatamyneLead | null>(null);

@@ -829,7 +829,7 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
         totalPages: result.total_pages || (totalRecords > 0 ? Math.ceil(totalRecords / effectiveLimit) : 1),
         audienceCounts: {
           all: totalRecords,
-          new: Math.round(totalRecords * 0.45),
+          new: result.audience_counts?.new ?? (result.decision_makers_count ?? rawContacts.filter((c) => c.is_decision_maker).length),
           saved: 0,
         },
       };
@@ -865,7 +865,7 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
           totalPages: retryResult.total_pages || (totalRecords > 0 ? Math.ceil(totalRecords / 100) : 1),
           audienceCounts: {
             all: totalRecords,
-            new: Math.round(totalRecords * 0.45),
+            new: retryResult.audience_counts?.new ?? (retryResult.decision_makers_count ?? rawContacts.filter((c) => c.is_decision_maker).length),
             saved: 0,
           },
         };

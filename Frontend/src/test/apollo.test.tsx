@@ -497,6 +497,37 @@ describe('Apollo Sourcing Tool Suite', () => {
         global.fetch = originalFetch;
       }
     });
+
+    it('calculates audienceCounts.new from decision_makers_count or is_decision_maker flag rather than 45% multiplier', async () => {
+      const originalFetch = global.fetch;
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          total_records: 10,
+          decision_makers_count: 3,
+          data: [
+            {
+              id: 'c-1',
+              person_name: 'Alice',
+              is_decision_maker: true,
+            },
+            {
+              id: 'c-2',
+              person_name: 'Bob',
+              is_decision_maker: false,
+            },
+          ],
+        }),
+      } as unknown as Response);
+
+      try {
+        const result = await fetchApolloPeopleLeads({ q: 'Logistics' });
+        expect(result.audienceCounts.all).toBe(10);
+        expect(result.audienceCounts.new).toBe(3);
+      } finally {
+        global.fetch = originalFetch;
+      }
+    });
   });
 
   describe('filterLeadsInMemory client-side engine', () => {
