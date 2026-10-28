@@ -216,8 +216,8 @@ export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
       </div>
 
       {/* Bottom: Logistics Verticals Strip (Horizontal scrollable to prevent wrapping/overflow) */}
-      <div className="px-3 sm:px-4 lg:px-6 py-2 bg-white border-b border-slate-100">
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap min-w-0">
+      <div className="px-3 sm:px-4 lg:px-6 py-3 sm:py-3.5 bg-white border-b border-slate-200/80">
+        <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap min-w-0 py-1">
           {tabs.map((tab, idx) => {
             const isActive = activeTab === tab.id;
             const Icon = tab.icon;
@@ -225,7 +225,7 @@ export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
               <div key={tab.id} className="relative shrink-0 flex items-center">
                 <button
                   onClick={() => onTabChange?.(tab.id)}
-                  className={`relative px-3 py-1.5 rounded-lg border text-left transition-all flex items-center gap-2 shrink-0 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-apollo/20 min-h-[38px] cursor-pointer ${
+                  className={`relative px-3.5 py-2 rounded-xl border text-left transition-all flex items-center gap-2.5 shrink-0 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-apollo/20 min-h-[42px] cursor-pointer ${
                     isActive
                       ? 'bg-blue-50/70 border-apollo text-apollo font-semibold shadow-xs ring-1 ring-apollo/30'
                       : 'bg-slate-50/60 hover:bg-slate-100/80 border-slate-200 text-slate-700 hover:text-slate-900'
@@ -248,7 +248,7 @@ export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
                   </CategoryInfoTooltip>
                   <span className="text-xs font-medium">{tab.label}</span>
                   <span
-                    className={`text-[10px] sm:text-[11px] px-1.5 py-0.2 rounded-full font-mono shrink-0 ${
+                    className={`text-[10px] sm:text-[11px] px-2 py-0.5 rounded-full font-mono shrink-0 ${
                       isActive
                         ? 'bg-apollo text-white font-semibold'
                         : 'bg-white text-slate-600 border border-slate-200'

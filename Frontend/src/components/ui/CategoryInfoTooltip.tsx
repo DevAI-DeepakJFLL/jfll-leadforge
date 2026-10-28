@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Info, X, Lightbulb, CheckCircle2 } from 'lucide-react';
 
 export interface CategoryInfoTooltipProps {
@@ -28,11 +29,45 @@ export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [coords, setCoords] = useState<{ top: number; left: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const updatePosition = () => {
+    if (!containerRef.current || typeof window === 'undefined') return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const tooltipWidth = window.innerWidth < 640 ? 288 : 320;
+    const margin = 12;
+    const gap = 8;
+
+    let left = rect.left;
+    if (align === 'center') {
+      left = rect.left + rect.width / 2 - tooltipWidth / 2;
+    } else if (align === 'right') {
+      left = rect.right - tooltipWidth;
+    }
+
+    const viewportWidth = window.innerWidth || 1200;
+    const maxLeft = viewportWidth - tooltipWidth - margin;
+    const minLeft = margin;
+    left = Math.max(minLeft, Math.min(left, maxLeft));
+
+    const estimatedHeight = 240;
+    const viewportHeight = window.innerHeight || 800;
+    const spaceBelow = viewportHeight - rect.bottom;
+    const spaceAbove = rect.top;
+
+    let top = rect.bottom + gap;
+    if (spaceBelow < estimatedHeight && spaceAbove > spaceBelow) {
+      top = Math.max(margin, rect.top - estimatedHeight - gap);
+    }
+
+    setCoords({ top, left });
+  };
+
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    updatePosition();
     setIsOpen(true);
   };
 
@@ -46,13 +81,22 @@ export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
     if (!children) {
       e.stopPropagation();
       e.preventDefault();
-      setIsOpen((prev) => !prev);
+      if (!isOpen) {
+        updatePosition();
+        setIsOpen(true);
+      } else {
+        setIsOpen(false);
+      }
     }
   };
 
   useEffect(() => {
+    if (!isOpen) return;
+
+    updatePosition();
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === 'Escape') {
         setIsOpen(false);
       }
     };
@@ -66,17 +110,23 @@ export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
       }
     };
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    const handleScrollOrResize = () => {
+      updatePosition();
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('scroll', handleScrollOrResize, true);
+    window.addEventListener('resize', handleScrollOrResize);
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScrollOrResize, true);
+      window.removeEventListener('resize', handleScrollOrResize);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [isOpen]);
+  }, [isOpen, align]);
 
   const badgeColors = {
     amber: 'bg-amber-50 text-amber-800 border-amber-200',
@@ -86,11 +136,88 @@ export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
     slate: 'bg-slate-100 text-slate-800 border-slate-200',
   };
 
-  const alignmentClasses = {
-    left: 'left-0 sm:left-0',
-    center: 'left-1/2 -translate-x-1/2',
-    right: 'right-0 sm:right-0',
-  };
+  const tooltipDialog = isOpen && (
+    <div
+      role="dialog"
+      aria-label={`${title} description`}
+      onClick={(e) => e.stopPropagation()}
+      onMouseEnter={() => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      }}
+      onMouseLeave={handleMouseLeave}
+      style={
+        coords
+          ? {
+              position: 'fixed',
+              top: `${coords.top}px`,
+              left: `${coords.left}px`,
+            }
+          : undefined
+      }
+      className="fixed z-[9999] w-72 sm:w-80 p-3.5 bg-white/98 backdrop-blur-md border border-slate-200/90 rounded-xl shadow-xl text-left select-text animate-in fade-in zoom-in-95 duration-150"
+    >
+      {/* Header */}
+      <div className="flex items-start justify-between gap-2 pb-2 mb-2 border-b border-slate-100">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="font-semibold text-xs text-slate-900 leading-tight">
+            {title}
+          </span>
+          {badge && (
+            <span
+              className={`text-[9.5px] font-medium px-1.5 py-0.5 rounded-md border leading-none ${
+                badgeColors[badge.variant || 'blue']
+              }`}
+            >
+              {badge.text}
+            </span>
+          )}
+        </div>
+        <button
+          type="button"
+          onClick={() => setIsOpen(false)}
+          className="p-0.5 -mr-1 -mt-0.5 text-slate-400 hover:text-slate-600 rounded-md focus:outline-none cursor-pointer"
+          aria-label="Close"
+        >
+          <X className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
+      {/* Description */}
+      <p className="text-[11.5px] text-slate-600 leading-relaxed mb-2.5">
+        {description}
+      </p>
+
+      {/* Criteria Bullet Points */}
+      {criteria.length > 0 && (
+        <div className="mb-2.5 bg-slate-50 p-2 rounded-lg border border-slate-100">
+          <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">
+            Criteria
+          </span>
+          <ul className="space-y-1">
+            {criteria.map((item, idx) => (
+              <li
+                key={idx}
+                className="flex items-start gap-1.5 text-[11px] text-slate-700 leading-snug"
+              >
+                <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0 mt-0.5" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Actionable Sales Tip */}
+      {actionTip && (
+        <div className="flex items-start gap-1.5 text-[10.5px] text-slate-500 bg-amber-50/60 p-2 rounded-lg border border-amber-100/70">
+          <Lightbulb className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+          <span className="leading-tight text-slate-700 font-medium">
+            {actionTip}
+          </span>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div
@@ -123,75 +250,10 @@ export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
         {children || <Info className="w-3.5 h-3.5" />}
       </span>
 
-      {isOpen && (
-        <div
-          role="dialog"
-          aria-label={`${title} description`}
-          onClick={(e) => e.stopPropagation()}
-          className={`absolute top-full mt-2 z-50 w-72 sm:w-80 p-3.5 bg-white/98 backdrop-blur-md border border-slate-200/90 rounded-xl shadow-xl text-left select-text animate-in fade-in zoom-in-95 duration-150 ${alignmentClasses[align]}`}
-        >
-          {/* Header */}
-          <div className="flex items-start justify-between gap-2 pb-2 mb-2 border-b border-slate-100">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="font-semibold text-xs text-slate-900 leading-tight">
-                {title}
-              </span>
-              {badge && (
-                <span
-                  className={`text-[9.5px] font-medium px-1.5 py-0.5 rounded-md border leading-none ${
-                    badgeColors[badge.variant || 'blue']
-                  }`}
-                >
-                  {badge.text}
-                </span>
-              )}
-            </div>
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="p-0.5 -mr-1 -mt-0.5 text-slate-400 hover:text-slate-600 rounded-md focus:outline-none cursor-pointer"
-              aria-label="Close"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          {/* Description */}
-          <p className="text-[11.5px] text-slate-600 leading-relaxed mb-2.5">
-            {description}
-          </p>
-
-          {/* Criteria Bullet Points */}
-          {criteria.length > 0 && (
-            <div className="mb-2.5 bg-slate-50 p-2 rounded-lg border border-slate-100">
-              <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1">
-                Criteria
-              </span>
-              <ul className="space-y-1">
-                {criteria.map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-start gap-1.5 text-[11px] text-slate-700 leading-snug"
-                  >
-                    <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Actionable Sales Tip */}
-          {actionTip && (
-            <div className="flex items-start gap-1.5 text-[10.5px] text-slate-500 bg-amber-50/60 p-2 rounded-lg border border-amber-100/70">
-              <Lightbulb className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
-              <span className="leading-tight text-slate-700 font-medium">
-                {actionTip}
-              </span>
-            </div>
-          )}
-        </div>
-      )}
+      {isOpen &&
+        (typeof document !== 'undefined' && document.body
+          ? createPortal(tooltipDialog, document.body)
+          : tooltipDialog)}
     </div>
   );
 };
