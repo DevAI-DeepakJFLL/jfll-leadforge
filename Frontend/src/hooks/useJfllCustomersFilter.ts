@@ -3,7 +3,7 @@ import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
 
 export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams = {}) {
   const [filters, setFilters] = useState<JfllCustomerFilterParams>({
-    customerStatus: 'active',
+    customerStatus: 'all',
     tab: 'all',
     page: 1,
     limit: 25,

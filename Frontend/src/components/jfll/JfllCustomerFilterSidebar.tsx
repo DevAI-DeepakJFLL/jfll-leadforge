@@ -47,17 +47,17 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   const [typeSearch, setTypeSearch] = useState('');
 
   const customerGroupsList = React.useMemo(
-    () => getCustomerGroupFacetCounts(filters.customerStatus || 'active'),
+    () => getCustomerGroupFacetCounts(filters.customerStatus || 'all'),
     [filters.customerStatus]
   );
 
   const legalTypesList = React.useMemo(
-    () => getLegalTypeFacetCounts(filters.customerStatus || 'active'),
+    () => getLegalTypeFacetCounts(filters.customerStatus || 'all'),
     [filters.customerStatus]
   );
 
   const contactCounts = React.useMemo(
-    () => getContactReadinessFacetCounts(filters.customerStatus || 'active'),
+    () => getContactReadinessFacetCounts(filters.customerStatus || 'all'),
     [filters.customerStatus]
   );
 

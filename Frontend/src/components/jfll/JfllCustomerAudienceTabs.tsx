@@ -13,7 +13,7 @@ import {
 import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 
 export interface JfllCustomerAudienceTabsProps {
-  customerStatus: 'active' | 'inactive' | 'all';
+  customerStatus?: 'active' | 'inactive' | 'all';
   onChangeCustomerStatus?: (status: 'active' | 'inactive' | 'all') => void;
   activeTab?: JfllCustomerTabType;
   onTabChange?: (tab: JfllCustomerTabType) => void;
@@ -37,23 +37,23 @@ interface TabDefinition {
 }
 
 export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> = ({
-  customerStatus = 'active',
+  customerStatus = 'all',
   onChangeCustomerStatus,
   activeTab = 'all',
   onTabChange,
   counts = {
-    all: 728,
+    all: 2738,
     shippers: 285,
-    subagents: 397,
+    subagents: 389,
     overseas: 39,
-    withContacts: 728,
+    withContacts: 2738,
     datamyneLeads: 415,
     archive: 1595,
     activeTotal: 728,
     inactiveTotal: 2010,
     allTotal: 2738,
   },
-  totalFormatted = '728',
+  totalFormatted = '2,738',
   className = '',
 }) => {
   const isAll = customerStatus === 'all';
@@ -303,104 +303,13 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
       {/* Top Banner: Active vs Inactive vs All Customer Sub-Tab Switcher */}
       <div className="py-2.5 px-3 sm:px-4 lg:px-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/70">
         <div className="flex items-center gap-2 flex-wrap">
-          {/* Sub-Tab Segment Switcher */}
+          {/* Sub-Tab Segment Switcher (Reordered: All → Active → Inactive) */}
           <div
             role="tablist"
             aria-label="Customer Status Switcher"
             className="inline-flex p-1 bg-slate-200/70 rounded-xl shadow-2xs border border-slate-200/80"
           >
-            <button
-              role="tab"
-              aria-selected={isActive}
-              onClick={() => onChangeCustomerStatus?.('active')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
-                isActive
-                  ? 'bg-white text-slate-900 shadow-xs ring-1 ring-slate-900/5'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
-              }`}
-            >
-              <CategoryInfoTooltip
-                title="Active JFLL Customers"
-                description="Verified accounts that have booked freight services or completed shipments with Jet Freight within the last 3 months."
-                badge={{ text: 'Recent Business (90 Days)', variant: 'emerald' }}
-                criteria={[
-                  'Generated active freight bookings or shipments within the last 90 days',
-                  'Valid commercial IEC and verified corporate billing account on file',
-                  'Actively managed by Jet Freight key accounts team',
-                ]}
-                actionTip="Strictly excluded from cold outreach. Direct inquiries through the assigned Key Account Manager."
-                align="left"
-              >
-                <Users className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              </CategoryInfoTooltip>
-              <span>Active Customers</span>
-              <span className="text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
-                {(counts.activeTotal || 728).toLocaleString()}
-              </span>
-              <CategoryInfoTooltip
-                title="Active JFLL Customers"
-                description="Verified accounts that have booked freight services or completed shipments with Jet Freight within the last 3 months."
-                badge={{ text: 'Recent Business (90 Days)', variant: 'emerald' }}
-                criteria={[
-                  'Generated active freight bookings or shipments within the last 90 days',
-                  'Valid commercial IEC and verified corporate billing account on file',
-                  'Actively managed by Jet Freight key accounts team',
-                ]}
-                actionTip="Strictly excluded from cold outreach. Direct inquiries through the assigned Key Account Manager."
-                align="left"
-                iconClassName={isActive ? 'text-slate-500 hover:text-slate-800' : 'text-slate-400 hover:text-slate-600'}
-              />
-            </button>
-
-            <button
-              role="tab"
-              aria-selected={isInactive}
-              onClick={() => onChangeCustomerStatus?.('inactive')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
-                isInactive
-                  ? 'bg-amber-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
-              }`}
-            >
-              <CategoryInfoTooltip
-                title="Inactive JFLL Customers"
-                description="Historical accounts with no recorded freight bookings or shipping transactions with Jet Freight in the last 3 months."
-                badge={{ text: 'Dormant (>90 Days)', variant: 'amber' }}
-                criteria={[
-                  'No active shipments or freight bills generated in the last 90 days',
-                  'Prior commercial customer with established credit and trading history',
-                  'Identified for sales reactivation, lane audits, and win-back outreach',
-                ]}
-                actionTip="Prime prospects for reactivation campaigns. Pitch updated airline rates, sea freight spot tariffs, and new trade lane schedules."
-                align="left"
-              >
-                <Archive className={`w-3.5 h-3.5 shrink-0 ${isInactive ? 'text-white' : 'text-amber-600'}`} />
-              </CategoryInfoTooltip>
-              <span>Inactive Customers</span>
-              <span
-                className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
-                  isInactive
-                    ? 'bg-amber-700 text-amber-50'
-                    : 'bg-slate-100 text-slate-600 border border-slate-200'
-                }`}
-              >
-                {(counts.inactiveTotal || 2010).toLocaleString()}
-              </span>
-              <CategoryInfoTooltip
-                title="Inactive JFLL Customers"
-                description="Historical accounts with no recorded freight bookings or shipping transactions with Jet Freight in the last 3 months."
-                badge={{ text: 'Dormant (>90 Days)', variant: 'amber' }}
-                criteria={[
-                  'No active shipments or freight bills generated in the last 90 days',
-                  'Prior commercial customer with established credit and trading history',
-                  'Identified for sales reactivation, lane audits, and win-back outreach',
-                ]}
-                actionTip="Prime prospects for reactivation campaigns. Pitch updated airline rates, sea freight spot tariffs, and new trade lane schedules."
-                align="left"
-                iconClassName={isInactive ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
-              />
-            </button>
-
+            {/* 1. All Customers (Default) */}
             <button
               role="tab"
               aria-selected={isAll}
@@ -447,6 +356,106 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                 actionTip="Use for company-wide customer lookups, deduplication, and verifying historical business relationships."
                 align="left"
                 iconClassName={isAll ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
+              />
+            </button>
+
+            {/* 2. Active Customers */}
+            <button
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => onChangeCustomerStatus?.('active')}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
+                isActive
+                  ? 'bg-emerald-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
+              }`}
+            >
+              <CategoryInfoTooltip
+                title="Active JFLL Customers"
+                description="Verified accounts that have booked freight services or completed shipments with Jet Freight within the last 3 months."
+                badge={{ text: 'Recent Business (90 Days)', variant: 'emerald' }}
+                criteria={[
+                  'Generated active freight bookings or shipments within the last 90 days',
+                  'Valid commercial IEC and verified corporate billing account on file',
+                  'Actively managed by Jet Freight key accounts team',
+                ]}
+                actionTip="Strictly excluded from cold outreach. Direct inquiries through the assigned Key Account Manager."
+                align="left"
+              >
+                <Users className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-emerald-600'}`} />
+              </CategoryInfoTooltip>
+              <span>Active Customers</span>
+              <span
+                className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
+                  isActive
+                    ? 'bg-emerald-700 text-emerald-50'
+                    : 'bg-slate-100 text-slate-600 border border-slate-200'
+                }`}
+              >
+                {(counts.activeTotal || 728).toLocaleString()}
+              </span>
+              <CategoryInfoTooltip
+                title="Active JFLL Customers"
+                description="Verified accounts that have booked freight services or completed shipments with Jet Freight within the last 3 months."
+                badge={{ text: 'Recent Business (90 Days)', variant: 'emerald' }}
+                criteria={[
+                  'Generated active freight bookings or shipments within the last 90 days',
+                  'Valid commercial IEC and verified corporate billing account on file',
+                  'Actively managed by Jet Freight key accounts team',
+                ]}
+                actionTip="Strictly excluded from cold outreach. Direct inquiries through the assigned Key Account Manager."
+                align="left"
+                iconClassName={isActive ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
+              />
+            </button>
+
+            {/* 3. Inactive Customers */}
+            <button
+              role="tab"
+              aria-selected={isInactive}
+              onClick={() => onChangeCustomerStatus?.('inactive')}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
+                isInactive
+                  ? 'bg-amber-600 text-white shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
+              }`}
+            >
+              <CategoryInfoTooltip
+                title="Inactive JFLL Customers"
+                description="Historical accounts with no recorded freight bookings or shipping transactions with Jet Freight in the last 3 months."
+                badge={{ text: 'Dormant (>90 Days)', variant: 'amber' }}
+                criteria={[
+                  'No active shipments or freight bills generated in the last 90 days',
+                  'Prior commercial customer with established credit and trading history',
+                  'Identified for sales reactivation, lane audits, and win-back outreach',
+                ]}
+                actionTip="Prime prospects for reactivation campaigns. Pitch updated airline rates, sea freight spot tariffs, and new trade lane schedules."
+                align="left"
+              >
+                <Archive className={`w-3.5 h-3.5 shrink-0 ${isInactive ? 'text-white' : 'text-amber-600'}`} />
+              </CategoryInfoTooltip>
+              <span>Inactive Customers</span>
+              <span
+                className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
+                  isInactive
+                    ? 'bg-amber-700 text-amber-50'
+                    : 'bg-slate-100 text-slate-600 border border-slate-200'
+                }`}
+              >
+                {(counts.inactiveTotal || 2010).toLocaleString()}
+              </span>
+              <CategoryInfoTooltip
+                title="Inactive JFLL Customers"
+                description="Historical accounts with no recorded freight bookings or shipping transactions with Jet Freight in the last 3 months."
+                badge={{ text: 'Dormant (>90 Days)', variant: 'amber' }}
+                criteria={[
+                  'No active shipments or freight bills generated in the last 90 days',
+                  'Prior commercial customer with established credit and trading history',
+                  'Identified for sales reactivation, lane audits, and win-back outreach',
+                ]}
+                actionTip="Prime prospects for reactivation campaigns. Pitch updated airline rates, sea freight spot tariffs, and new trade lane schedules."
+                align="left"
+                iconClassName={isInactive ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
               />
             </button>
           </div>

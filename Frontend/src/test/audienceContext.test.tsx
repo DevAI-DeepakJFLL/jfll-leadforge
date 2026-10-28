@@ -150,6 +150,23 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).not.toContain('Unified master directory combining all 2,738 active and inactive accounts');
   });
 
+  it('renders JfllCustomerAudienceTabs with All as default tab and reordered tabs All -> Active -> Inactive', () => {
+    const html = renderToString(<JfllCustomerAudienceTabs />);
+
+    // Check default status is 'all'
+    expect(html).toContain('Unified Master Directory');
+    expect(html).toContain('2,738');
+
+    // Check order of tabs: All Customers must appear before Active Customers, and Active before Inactive
+    const allIndex = html.indexOf('All Customers');
+    const activeIndex = html.indexOf('Active Customers');
+    const inactiveIndex = html.indexOf('Inactive Customers');
+
+    expect(allIndex).toBeGreaterThan(-1);
+    expect(activeIndex).toBeGreaterThan(allIndex);
+    expect(inactiveIndex).toBeGreaterThan(activeIndex);
+  });
+
   it('renders ApolloAudienceTabs with updated deduplicated counts and contextual info triggers', () => {
     const html = renderToString(
       <ApolloAudienceTabs

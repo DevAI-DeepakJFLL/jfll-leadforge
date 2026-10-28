@@ -86,7 +86,7 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
         <JfllCustomerAudienceTabs
-          customerStatus={filters.customerStatus || 'active'}
+          customerStatus={filters.customerStatus || 'all'}
           onChangeCustomerStatus={onCustomerStatusChange}
           activeTab={filters.tab}
           onTabChange={onTabChange}

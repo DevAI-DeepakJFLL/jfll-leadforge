@@ -640,7 +640,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      const statusSuffix = jfllFilters.customerStatus || 'active';
+      const statusSuffix = jfllFilters.customerStatus || 'all';
       link.setAttribute('download', `jfll_${statusSuffix}_customers_export.csv`);
       document.body.appendChild(link);
       link.click();
@@ -1259,12 +1259,26 @@ export const App: React.FC = () => {
   const [session, setSession] = useState<UserSession | null>(getStoredSession);
 
   const handleLoginSuccess = (newSession: UserSession) => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem(STORAGE_TAB_KEY, DEFAULT_TOP_TAB);
+      }
+    } catch {
+      // Ignore
+    }
     setStoredSession(newSession);
     setSession(newSession);
   };
 
   const handleLogout = () => {
     clearStoredSession();
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.removeItem(STORAGE_TAB_KEY);
+      }
+    } catch {
+      // Ignore
+    }
     setSession(null);
   };
 
