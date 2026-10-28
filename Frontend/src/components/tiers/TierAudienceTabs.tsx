@@ -158,10 +158,10 @@ export const TierAudienceTabs: React.FC<TierAudienceTabsProps> = ({
   };
 
   return (
-    <div className={`border-b border-surface-border bg-white ${className}`}>
+    <div className={`border-b border-slate-200/80 bg-white ${className}`}>
       {/* Primary Tier Tabs Scroll Container */}
       <div className="px-3 sm:px-4 lg:px-6">
-        <div className="flex items-center space-x-1 sm:space-x-2 overflow-x-auto no-scrollbar py-2">
+        <div className="flex items-center space-x-1 sm:space-x-1.5 overflow-x-auto no-scrollbar py-2">
           {TIER_TABS.map((tab) => {
             const isActive = activeTab === tab.id;
             const Icon = tab.icon;
@@ -171,35 +171,27 @@ export const TierAudienceTabs: React.FC<TierAudienceTabsProps> = ({
               <button
                 key={tab.id}
                 onClick={() => onTabChange?.(tab.id)}
-                className={`relative px-3 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-150 flex items-center gap-1.5 shrink-0 whitespace-nowrap min-h-[38px] ${
+                className={`relative px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-150 flex items-center gap-1.5 shrink-0 whitespace-nowrap cursor-pointer ${
                   isActive
                     ? 'bg-apollo/10 text-apollo font-semibold border border-apollo/25 shadow-2xs'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 border border-transparent'
                 }`}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <CategoryInfoTooltip
-                  title={tab.tooltip.title}
-                  description={tab.tooltip.description}
-                  badge={tab.tooltip.badge}
-                  criteria={tab.tooltip.criteria}
-                  actionTip={tab.tooltip.salesAction}
-                >
-                  <Icon
-                    className={`w-4 h-4 shrink-0 ${
-                      isActive ? 'text-apollo' : 'text-slate-400'
-                    }`}
-                    aria-hidden="true"
-                  />
-                </CategoryInfoTooltip>
+                <Icon
+                  className={`w-3.5 h-3.5 shrink-0 ${
+                    isActive ? 'text-apollo' : 'text-slate-400'
+                  }`}
+                  aria-hidden="true"
+                />
                 <span>{tab.label}</span>
 
                 {countVal !== undefined && (
                   <span
-                    className={`ml-1 text-[11px] font-mono px-1.5 py-0.5 rounded-full ${
+                    className={`ml-1 text-[10px] sm:text-[11px] font-mono px-1.5 py-0.2 rounded-full tabular-nums shrink-0 ${
                       isActive
-                        ? 'bg-apollo text-white font-bold'
-                        : 'bg-slate-100 text-slate-500 font-semibold'
+                        ? 'bg-apollo text-white font-semibold'
+                        : 'bg-slate-100 text-slate-500 font-medium'
                     }`}
                   >
                     {formatCount(countVal)}

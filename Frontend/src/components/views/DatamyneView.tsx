@@ -193,20 +193,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <CategoryInfoTooltip
-                  title="Logistics Verticals (9 Sectors)"
-                  description="Complete dataset of 37,273 Indian international customs shippers categorized across 9 core industrial cargo sectors."
-                  badge={{ text: '9 Industry Verticals', variant: 'blue' }}
-                  criteria={[
-                    'HS Code Chapter classification (Chapters 01–90)',
-                    'Specialized handling: Cold Chain, Pharma GDP, DGR Chemicals, OOG Cargo',
-                    'Active bills of lading & customs shipping bills',
-                  ]}
-                  actionTip="Select industry verticals to pinpoint high-yield freight opportunities aligned with Jet Freight branch specializations."
-                  align="left"
-                >
-                  <Layers className="w-3.5 h-3.5" />
-                </CategoryInfoTooltip>
+                <Layers className="w-3.5 h-3.5 shrink-0" />
                 <span>Logistics Verticals (9)</span>
                 <CategoryInfoTooltip
                   title="Logistics Verticals (9 Sectors)"
@@ -233,21 +220,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <CategoryInfoTooltip
-                  title="JFLL SOP Stage 2 Lead Scoring"
-                  description="Algorithmic qualification ranking 37,273 customs shippers from Tier A (immediate inside sales priority) down to Parked/Excluded."
-                  badge={{ text: 'SOP Stage 2', variant: 'emerald' }}
-                  criteria={[
-                    'High shipment frequency: 24+ shipments / year (20 pts)',
-                    'Air freight conversion suitability & customs recency (15 pts)',
-                    'Core priority lanes: US, UAE, Europe, LATAM (15 pts)',
-                    'Tier A: Score 70–100 · Tier B: Score 40–69 · Parked: <40',
-                  ]}
-                  actionTip="Focus outbound calling on Tier A priority accounts for immediate 24–48 hour discovery meetings."
-                  align="left"
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                </CategoryInfoTooltip>
+                <Sparkles className="w-3.5 h-3.5 shrink-0" />
                 <span>SOP Tiers (A / B / Parked)</span>
                 <CategoryInfoTooltip
                   title="JFLL SOP Stage 2 Lead Scoring"
