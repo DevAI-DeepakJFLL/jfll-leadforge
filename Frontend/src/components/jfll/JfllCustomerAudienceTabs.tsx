@@ -10,7 +10,6 @@ import {
   Archive,
   FileCheck,
 } from 'lucide-react';
-import { SegmentContextBanner } from '@/components/ui/SegmentContextBanner';
 
 export interface JfllCustomerAudienceTabsProps {
   customerStatus: 'active' | 'inactive' | 'all';
@@ -294,7 +293,6 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
   ];
 
   const tabs = isAll ? allTabs : isInactive ? inactiveTabs : activeTabs;
-  const currentTabMeta = tabs.find((t) => t.id === activeTab) || tabs[0];
 
   return (
     <div
@@ -451,34 +449,6 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
           })}
         </div>
       </div>
-
-      {/* Active Segment Dynamic Context Banner */}
-      <SegmentContextBanner
-        title={currentTabMeta.label}
-        count={currentTabMeta.count}
-        description={currentTabMeta.description}
-        criteria={currentTabMeta.criteria.join(' • ')}
-        actionTip={currentTabMeta.actionTip}
-        icon={currentTabMeta.icon}
-        variant={
-          isAll
-            ? currentTabMeta.id === 'archive'
-              ? 'slate'
-              : currentTabMeta.id === 'datamyne-leads'
-              ? 'emerald'
-              : 'blue'
-            : isInactive
-            ? currentTabMeta.id === 'archive'
-              ? 'amber'
-              : currentTabMeta.id === 'datamyne-leads'
-              ? 'emerald'
-              : 'slate'
-            : currentTabMeta.id === 'all'
-            ? 'emerald'
-            : 'blue'
-        }
-        storageKey={`jfll_${customerStatus}_${currentTabMeta.id}`}
-      />
     </div>
   );
 };

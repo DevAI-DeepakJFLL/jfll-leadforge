@@ -76,17 +76,16 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
       />
     );
 
-    // Verify sub-tabs
+    // Verify sub-tabs and context badge
     expect(html).toContain('Archived Accounts');
     expect(html).toContain('1,595');
     expect(html).toContain('DataMyne Verified Leads');
     expect(html).toContain('415');
     expect(html).toContain('All Inactive Customers');
     expect(html).toContain('2,010');
-
-    // Verify active SegmentContextBanner is rendered for archive
-    expect(html).toContain('Legacy inactive accounts that do NOT appear in current customs shipment databases');
     expect(html).toContain('Reactivation Prospects (Active Customers Purged)');
+    // Verify info row banner is removed
+    expect(html).not.toContain('Legacy inactive accounts that do NOT appear in current customs shipment databases');
   });
 
   it('renders JfllCustomerAudienceTabs in Active mode with verified internal master context', () => {
@@ -111,7 +110,8 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('Subagents');
     expect(html).toContain('397');
     expect(html).toContain('Verified Internal Master');
-    expect(html).toContain('Direct cargo owners, commercial manufacturers');
+    // Verify info row banner is removed
+    expect(html).not.toContain('Direct cargo owners, commercial manufacturers');
   });
 
   it('renders JfllCustomerAudienceTabs in All mode with Unified Master Directory context', () => {
@@ -142,7 +142,7 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('Inactive Customers');
     expect(html).toContain('2,010');
     expect(html).toContain('Unified Master Directory (All 2,738 Accounts)');
-    expect(html).toContain('Unified master directory combining all 2,738 active and inactive accounts');
+    expect(html).not.toContain('Unified master directory combining all 2,738 active and inactive accounts');
   });
 
   it('renders ApolloAudienceTabs with updated deduplicated counts and contextual info triggers', () => {
