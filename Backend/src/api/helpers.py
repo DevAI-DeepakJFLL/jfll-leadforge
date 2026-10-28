@@ -6,6 +6,7 @@ from fastapi.params import Query as QueryType
 
 from src.api.auth import check_session_active, is_headless_user_agent, verify_token
 from src.api.config import settings
+from src.api.logger import logger
 
 
 def require_auth(
@@ -29,6 +30,11 @@ def require_auth(
         if not user:
             raise HTTPException(status_code=401, detail="Invalid or expired session token")
         if not check_session_active(user):
+            user_email = user.get("sub", "unknown")
+            logger.warning(
+                f"Audit: Data request rejected (session displaced) for {user_email}",
+                extra={"event": "SESSION_SUPERSEDED", "user_email": user_email, "resource": resource_name},
+            )
             raise HTTPException(
                 status_code=401,
                 detail="SESSION_SUPERSEDED: Your account was signed in from another device.",

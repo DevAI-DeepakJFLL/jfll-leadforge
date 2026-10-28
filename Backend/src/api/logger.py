@@ -1,9 +1,11 @@
 import json
 import logging
+import os
 import sys
 import time
 import uuid
 from datetime import UTC, datetime
+from logging.handlers import RotatingFileHandler
 from typing import Any
 
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -42,15 +44,35 @@ class CloudWatchJSONFormatter(logging.Formatter):
 
 
 def setup_logger(name: str = "jfll.backend") -> logging.Logger:
-    """Configures structured stdout logging for AWS Lambda and CloudWatch."""
+    """Configures structured stdout logging for AWS Lambda/CloudWatch and optional size-rotated file logging."""
     app_logger = logging.getLogger(name)
     app_logger.setLevel(logging.INFO)
 
     # Avoid duplicate handlers on warm Lambda containers
     if not app_logger.handlers:
-        handler = logging.StreamHandler(sys.stdout)
-        handler.setFormatter(CloudWatchJSONFormatter())
-        app_logger.addHandler(handler)
+        formatter = CloudWatchJSONFormatter()
+
+        # 1. AWS CloudWatch stdout handler
+        stdout_handler = logging.StreamHandler(sys.stdout)
+        stdout_handler.setFormatter(formatter)
+        app_logger.addHandler(stdout_handler)
+
+        # 2. Optional local size-rotating file handler (max 10MB, keep 3 backups)
+        log_file = os.getenv("LOG_FILE_PATH")
+        if log_file:
+            try:
+                os.makedirs(os.path.dirname(os.path.abspath(log_file)), exist_ok=True)
+                file_handler = RotatingFileHandler(
+                    log_file,
+                    maxBytes=10 * 1024 * 1024,  # 10 MB limit
+                    backupCount=3,  # keep up to 3 older files before auto-deleting
+                    encoding="utf-8",
+                )
+                file_handler.setFormatter(formatter)
+                app_logger.addHandler(file_handler)
+            except Exception as err:
+                sys.stderr.write(f"Failed to initialize rotating file logger at {log_file}: {err}\n")
+
         app_logger.propagate = False
 
     return app_logger
@@ -62,7 +84,7 @@ logger = setup_logger()
 class CloudWatchLoggingMiddleware(BaseHTTPMiddleware):
     """
     HTTP Request Telemetry Middleware designed for AWS CloudFront and API Gateway.
-    Captures request correlation ID, viewer client IP, HTTP latency, and status code.
+    Captures request correlation ID, viewer client IP, authenticated user identity, HTTP latency, and status code.
     """
 
     async def dispatch(self, request: Request, call_next) -> Response:
@@ -82,6 +104,19 @@ class CloudWatchLoggingMiddleware(BaseHTTPMiddleware):
             or str(uuid.uuid4())
         )
 
+        # Extract authenticated user identity from Bearer session token
+        auth_header = request.headers.get("authorization")
+        user_email: str | None = None
+        if auth_header and auth_header.startswith("Bearer "):
+            try:
+                from src.api.auth import verify_token
+                token = auth_header.split("Bearer ", 1)[1].strip()
+                payload = verify_token(token)
+                if payload:
+                    user_email = payload.get("sub")
+            except Exception:
+                pass
+
         try:
             response = await call_next(request)
             duration_ms = round((time.perf_counter() - start_time) * 1000, 2)
@@ -92,6 +127,7 @@ class CloudWatchLoggingMiddleware(BaseHTTPMiddleware):
             extra_meta = {
                 "trace_id": trace_id,
                 "client_ip": client_ip,
+                "user_email": user_email,
                 "method": request.method,
                 "path": request.url.path,
                 "query_params": str(request.query_params) if request.query_params else None,

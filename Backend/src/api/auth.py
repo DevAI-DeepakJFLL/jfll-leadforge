@@ -11,6 +11,7 @@ from typing import Any
 from fastapi import APIRouter, Header, HTTPException
 
 from src.api.config import settings
+from src.api.logger import logger
 from src.api.models import LoginRequest, UserSessionResponse
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
@@ -215,6 +216,10 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
     Blocks automated headless browsers and enforces single-device session displacement.
     """
     if is_headless_user_agent(user_agent):
+        logger.warning(
+            "Audit: Automated browser agent login blocked",
+            extra={"event": "BOT_BLOCKED", "user_agent": user_agent},
+        )
         raise HTTPException(
             status_code=403,
             detail="AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
@@ -222,6 +227,10 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
 
     input_email = credentials.email.strip().lower()
     if not is_email_authorized(input_email):
+        logger.warning(
+            f"Audit: Login rejected for unauthorized email: {input_email}",
+            extra={"event": "LOGIN_REJECTED", "attempted_email": input_email},
+        )
         raise HTTPException(
             status_code=401,
             detail="Access restricted. Only authorized Jet Freight Logistics personnel can sign in.",
@@ -240,6 +249,17 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
             "session_id": session_id,
         },
         expires_in_hours=settings.auth_token_expire_hours,
+    )
+
+    logger.info(
+        f"Audit: User login successful: {input_email} ({role})",
+        extra={
+            "event": "LOGIN_SUCCESS",
+            "user_email": input_email,
+            "user_name": name,
+            "role": role,
+            "session_id": session_id,
+        },
     )
 
     return UserSessionResponse(
@@ -270,6 +290,11 @@ def get_current_user(authorization: str | None = Header(None), user_agent: str |
         raise HTTPException(status_code=401, detail="Invalid or expired session token")
 
     if not check_session_active(payload):
+        user_email = payload.get("sub", "unknown")
+        logger.warning(
+            f"Audit: Session displaced on /me for {user_email}",
+            extra={"event": "SESSION_SUPERSEDED", "user_email": user_email},
+        )
         raise HTTPException(
             status_code=401,
             detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
@@ -308,6 +333,11 @@ def session_heartbeat(authorization: str | None = Header(None), user_agent: str 
         raise HTTPException(status_code=401, detail="Invalid or expired session token")
 
     if not check_session_active(payload):
+        user_email = payload.get("sub", "unknown")
+        logger.warning(
+            f"Audit: Session displaced on heartbeat for {user_email}",
+            extra={"event": "SESSION_SUPERSEDED", "user_email": user_email},
+        )
         raise HTTPException(
             status_code=401,
             detail="SESSION_SUPERSEDED: Your account was signed in from another device.",

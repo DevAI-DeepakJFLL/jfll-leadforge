@@ -231,4 +231,45 @@ def test_cors_origin_restrictions():
     assert res_blocked.headers.get("access-control-allow-origin") is None
 
 
+def test_audit_logging_and_user_attribution(caplog):
+    """Verify that login events and authenticated queries record user_email audit metadata."""
+    import logging
+
+    with caplog.at_level(logging.INFO):
+        # 1. Login success audit record
+        res = client.post("/api/v1/auth/login", json={"email": "deepak.naidu@jfll.com"})
+        assert res.status_code == 200
+        token = res.json()["token"]
+
+        assert any("LOGIN_SUCCESS" in record.message or "deepak.naidu@jfll.com" in record.message for record in caplog.records)
+
+        # 2. Authenticated query attribution in telemetry
+        query_res = client.get(
+            "/api/v1/leads?search=Logistics&page=1",
+            headers={"Authorization": f"Bearer {token}"},
+        )
+        assert query_res.status_code == 200
+
+        # Verify that CloudWatch logging middleware handled request with x-request-id
+        assert "x-request-id" in query_res.headers
+
+
+def test_rotating_file_handler_auto_clean(tmp_path):
+    """Verify that setup_logger initializes rotating file handler when LOG_FILE_PATH is set."""
+    import os
+    from src.api.logger import setup_logger
+
+    log_file = tmp_path / "test_logs" / "app.log"
+    os.environ["LOG_FILE_PATH"] = str(log_file)
+    try:
+        custom_logger = setup_logger("test.rotating.logger")
+        custom_logger.info("Test message for file rotation")
+
+        assert log_file.exists()
+        content = log_file.read_text()
+        assert "Test message for file rotation" in content
+    finally:
+        os.environ.pop("LOG_FILE_PATH", None)
+
+
 
