@@ -2,7 +2,6 @@ import React from 'react';
 import { ApolloAudienceTab, ApolloAudienceCounts } from '@/types/apolloLead';
 import { Globe, Users, DollarSign, Sparkles, ShieldCheck } from 'lucide-react';
 import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
-import { SegmentContextBanner } from '@/components/ui/SegmentContextBanner';
 
 export interface ApolloAudienceTabsProps {
   activeTab?: ApolloAudienceTab;
@@ -118,8 +117,6 @@ export const ApolloAudienceTabs: React.FC<ApolloAudienceTabsProps> = ({
     return String(num);
   };
 
-  const currentTabMeta = tabs.find((t) => t.id === activeTab) || tabs[0];
-
   return (
     <div className={`border-b border-surface-border bg-white select-none ${className}`}>
       {/* Scrollable Audience Tabs Header */}
@@ -139,7 +136,16 @@ export const ApolloAudienceTabs: React.FC<ApolloAudienceTabsProps> = ({
                   }`}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  <CategoryInfoTooltip
+                    title={tab.label}
+                    description={tab.description}
+                    criteria={tab.criteria}
+                    actionTip={tab.actionTip}
+                    badge={tab.badge}
+                    align={idx === 0 ? 'left' : idx === tabs.length - 1 ? 'right' : 'center'}
+                  >
+                    <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  </CategoryInfoTooltip>
                   <span>{tab.label}</span>
                   <span
                     className={`ml-1 text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${
@@ -173,26 +179,6 @@ export const ApolloAudienceTabs: React.FC<ApolloAudienceTabsProps> = ({
           </span>
         </div>
       </div>
-
-      {/* Active Segment Dynamic Context Banner */}
-      <SegmentContextBanner
-        title={currentTabMeta.label}
-        count={formatCount(currentTabMeta.count)}
-        description={currentTabMeta.description}
-        criteria={currentTabMeta.criteria.join(' • ')}
-        actionTip={currentTabMeta.actionTip}
-        icon={currentTabMeta.icon}
-        variant={
-          currentTabMeta.id === 'high_revenue'
-            ? 'emerald'
-            : currentTabMeta.id === 'high_headcount'
-            ? 'purple'
-            : currentTabMeta.id === 'top_cargo_verticals'
-            ? 'amber'
-            : 'blue'
-        }
-        storageKey={`apollo_tab_${currentTabMeta.id}`}
-      />
     </div>
   );
 };

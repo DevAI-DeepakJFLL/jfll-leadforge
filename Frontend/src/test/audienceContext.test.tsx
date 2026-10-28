@@ -169,7 +169,9 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('High Revenue ($10M+)');
     expect(html).toContain('Top Cargo Verticals');
     expect(html).toContain('Executive Ready');
-    expect(html).toContain('Global commercial organizations database, 100% sanitized');
+    expect(html).toContain('aria-label="More information about All Commercial Shippers"');
+    // Verify extra banner row is removed
+    expect(html).not.toContain('Global commercial organizations database, 100% sanitized');
   });
 
   it('renders DatamyneSegmentSwitcher and DatamyneAudienceTabs with vertical descriptions and criteria', () => {
