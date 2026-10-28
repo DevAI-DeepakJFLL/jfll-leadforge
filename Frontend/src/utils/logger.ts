@@ -50,7 +50,7 @@ function emit(level: LogLevel, category: string, message: string, context?: Reco
     message,
     context,
     sessionId: currentSessionId,
-    url: typeof window !== 'undefined' ? window.location.href : '',
+    url: typeof window !== 'undefined' && window.location ? window.location.href : '',
   };
 
   // Push to local diagnostic ring-buffer

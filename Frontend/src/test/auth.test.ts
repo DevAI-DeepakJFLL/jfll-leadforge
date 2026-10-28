@@ -5,6 +5,9 @@ import {
   setStoredSession,
   clearStoredSession,
   isOfflineSession,
+  checkSessionHeartbeat,
+  notifySessionSuperseded,
+  SESSION_SUPERSEDED_EVENT,
   AUTH_STORAGE_KEY,
 } from '@/services/authService';
 import { AUTHORIZED_USERS, UserSession } from '@/types/auth';
@@ -245,6 +248,104 @@ describe('authService', () => {
     it('returns null safely when window is undefined', () => {
       delete (globalThis as unknown as { window?: unknown }).window;
       expect(getStoredSession()).toBeNull();
+    });
+  });
+
+  describe('Session Heartbeat and Displacement', () => {
+    let originalWindow: unknown;
+
+    beforeEach(() => {
+      originalWindow = (globalThis as unknown as { window?: unknown }).window;
+      const eventTarget = new EventTarget();
+      (globalThis as unknown as { window: unknown }).window = {
+        addEventListener: eventTarget.addEventListener.bind(eventTarget),
+        removeEventListener: eventTarget.removeEventListener.bind(eventTarget),
+        dispatchEvent: eventTarget.dispatchEvent.bind(eventTarget),
+        location: { href: 'http://localhost:3000' },
+      };
+    });
+
+    afterEach(() => {
+      (globalThis as unknown as { window?: unknown }).window = originalWindow;
+    });
+
+    it('returns active: true when session is valid and healthy', async () => {
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => ({ status: 'active', user: 'deepak.naidu@jfll.com' }),
+      });
+
+      const result = await checkSessionHeartbeat('valid.jwt.token');
+      expect(result).toEqual({ active: true });
+      expect(globalThis.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('/api/v1/auth/heartbeat'),
+        expect.objectContaining({
+          headers: { Authorization: 'Bearer valid.jwt.token' },
+        })
+      );
+    });
+
+    it('returns active: false, superseded: true and dispatches event when displaced by another device', async () => {
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 401,
+        json: async () => ({
+          detail: 'SESSION_SUPERSEDED',
+          message: 'Session has been superseded by a login on another device',
+        }),
+      });
+
+      let eventFired = false;
+      const listener = () => {
+        eventFired = true;
+      };
+      (globalThis as unknown as { window: EventTarget }).window.addEventListener(
+        SESSION_SUPERSEDED_EVENT,
+        listener as EventListener
+      );
+
+      const result = await checkSessionHeartbeat('displaced.jwt.token');
+      expect(result).toEqual({ active: false, superseded: true });
+      expect(eventFired).toBe(true);
+
+      (globalThis as unknown as { window: EventTarget }).window.removeEventListener(
+        SESSION_SUPERSEDED_EVENT,
+        listener as EventListener
+      );
+    });
+
+    it('rejects login with 403 when automated agent is detected by backend', async () => {
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 403,
+        json: async () => ({
+          detail: 'AUTOMATED_AGENT_BLOCKED: Headless browser agents are not permitted',
+        }),
+      });
+
+      await expect(
+        loginUser({ email: 'deepak.naidu@jfll.com' })
+      ).rejects.toThrow('AUTOMATED_AGENT_BLOCKED');
+    });
+
+    it('dispatches SESSION_SUPERSEDED_EVENT via notifySessionSuperseded', () => {
+      let notified = false;
+      const listener = () => {
+        notified = true;
+      };
+      (globalThis as unknown as { window: EventTarget }).window.addEventListener(
+        SESSION_SUPERSEDED_EVENT,
+        listener as EventListener
+      );
+
+      notifySessionSuperseded();
+      expect(notified).toBe(true);
+
+      (globalThis as unknown as { window: EventTarget }).window.removeEventListener(
+        SESSION_SUPERSEDED_EVENT,
+        listener as EventListener
+      );
     });
   });
 });

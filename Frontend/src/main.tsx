@@ -5,6 +5,7 @@ import App from '@/App';
 import '@/styles/globals.css';
 import { initMocks } from '@/mocks/browser';
 import { initGlobalErrorLogging } from '@/utils/logger';
+import { isAutomatedBrowser, renderBotBlockScreen } from '@/utils/antiBotGuard';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,6 +19,14 @@ const queryClient = new QueryClient({
 
 async function renderApp() {
   initGlobalErrorLogging();
+
+  // Enforce Anti-Bot and Anti-Headless Guard before mounting React
+  const botCheck = isAutomatedBrowser();
+  if (botCheck.isBot) {
+    renderBotBlockScreen(botCheck.reason);
+    return;
+  }
+
   await initMocks();
 
   ReactDOM.createRoot(document.getElementById('root')!).render(

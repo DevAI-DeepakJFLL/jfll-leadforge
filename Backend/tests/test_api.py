@@ -147,6 +147,57 @@ def test_auth_me_unauthorized():
     assert res2.status_code == 401
 
 
+def test_single_device_session_displacement():
+    """Verify that logging in from a second device displaces and revokes the active session of the first device."""
+    email = "deepak.naidu@jfll.com"
+
+    # 1. Device 1 logs in and receives token_dev1
+    res1 = client.post("/api/v1/auth/login", json={"email": email})
+    assert res1.status_code == 200
+    token_dev1 = res1.json()["token"]
+
+    # Device 1 token works
+    me1 = client.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token_dev1}"})
+    assert me1.status_code == 200
+    assert me1.json()["email"] == email
+
+    # 2. Device 2 logs in with same email and receives token_dev2
+    res2 = client.post("/api/v1/auth/login", json={"email": email})
+    assert res2.status_code == 200
+    token_dev2 = res2.json()["token"]
+    assert token_dev1 != token_dev2
+
+    # 3. Device 1 is now displaced and rejected with SESSION_SUPERSEDED
+    displaced_res = client.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token_dev1}"})
+    assert displaced_res.status_code == 401
+    assert "SESSION_SUPERSEDED" in displaced_res.json()["detail"]
+
+    # 4. Device 2 continues to work
+    me2 = client.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token_dev2}"})
+    assert me2.status_code == 200
+    assert me2.json()["email"] == email
+
+
+def test_login_rejects_headless_user_agent():
+    """Verify that requests from automated browser engines (HeadlessChrome, Playwright, etc.) are blocked."""
+    email = "deepak.naidu@jfll.com"
+
+    for bot_agent in [
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/122.0.6261.94 Safari/537.36",
+        "Mozilla/5.0 (X11; Linux x86_64) Playwright/1.42.0 Chrome/122.0.6261.94",
+        "Puppeteer/22.0.0 (NodeJS)",
+        "selenium-webdriver/4.18.0",
+        "Mozilla/5.0 (compatible; PhantomJS/2.1.1; Linux x86_64)",
+    ]:
+        res = client.post(
+            "/api/v1/auth/login",
+            json={"email": email},
+            headers={"User-Agent": bot_agent},
+        )
+        assert res.status_code == 403
+        assert "AUTOMATED_AGENT_BLOCKED" in res.json()["detail"]
+
+
 def test_cors_origin_restrictions():
     """Verify that only explicitly allowlisted origins are accepted, not arbitrary CloudFront domains."""
     # Authorized origin

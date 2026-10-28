@@ -15,6 +15,39 @@ from src.api.models import LoginRequest, UserSessionResponse
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
 
+# In-memory registry tracking the single active session_id per user email
+ACTIVE_USER_SESSIONS: dict[str, str] = {}
+
+HEADLESS_USER_AGENTS = (
+    "headlesschrome",
+    "playwright",
+    "puppeteer",
+    "selenium",
+    "phantomjs",
+    "electron",
+)
+
+
+def is_headless_user_agent(user_agent: str | None) -> bool:
+    """Detects automated browser engines and headless runtimes from User-Agent string."""
+    if not user_agent:
+        return False
+    ua_lower = user_agent.lower()
+    return any(bot in ua_lower for bot in HEADLESS_USER_AGENTS)
+
+
+def check_session_active(payload: dict[str, Any]) -> bool:
+    """Verifies that the session_id in the token is still the currently active session for this user."""
+    email = payload.get("sub", "").strip().lower()
+    token_session_id = payload.get("session_id")
+    if not token_session_id or not email:
+        return True  # Backward compatibility for legacy tests without session_id
+    active_session_id = ACTIVE_USER_SESSIONS.get(email)
+    if active_session_id is None:
+        ACTIVE_USER_SESSIONS[email] = token_session_id
+        return True
+    return token_session_id == active_session_id
+
 
 def _base64url_encode(data: bytes) -> str:
     return base64.urlsafe_b64encode(data).rstrip(b"=").decode("utf-8")
@@ -31,8 +64,14 @@ def create_token(payload: dict[str, Any], expires_in_hours: int = 24) -> tuple[s
     expires_at = now + timedelta(hours=expires_in_hours)
     
     header = {"alg": "HS256", "typ": "JWT"}
+    session_id = payload.get("session_id") or secrets.token_hex(16)
+    user_email = payload.get("sub", "").strip().lower()
+    if user_email:
+        ACTIVE_USER_SESSIONS[user_email] = session_id
+
     full_payload = {
         **payload,
+        "session_id": session_id,
         "iat": int(now.timestamp()),
         "exp": int(expires_at.timestamp()),
     }
@@ -167,11 +206,18 @@ def get_user_profile(email: str) -> tuple[str, str]:
 
 
 @router.post("/login", response_model=UserSessionResponse, summary="Authenticate enterprise user")
-def login(credentials: LoginRequest):
+def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
     """
     Validates work email against enterprise allowed whitelist.
     Issues a cryptographically signed HMAC-SHA256 bearer session token without requiring passwords.
+    Blocks automated headless browsers and enforces single-device session displacement.
     """
+    if is_headless_user_agent(user_agent):
+        raise HTTPException(
+            status_code=403,
+            detail="AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
+        )
+
     input_email = credentials.email.strip().lower()
     if not is_email_authorized(input_email):
         raise HTTPException(
@@ -181,11 +227,16 @@ def login(credentials: LoginRequest):
 
     name, role = get_user_profile(input_email)
 
+    # Issue unique session ID and invalidate any prior session for this user
+    session_id = f"sess_{secrets.token_hex(16)}"
+    ACTIVE_USER_SESSIONS[input_email] = session_id
+
     token, expires_at = create_token(
         {
             "sub": input_email,
             "name": name,
             "role": role,
+            "session_id": session_id,
         },
         expires_in_hours=settings.auth_token_expire_hours,
     )
@@ -201,8 +252,14 @@ def login(credentials: LoginRequest):
 
 
 @router.get("/me", response_model=UserSessionResponse, summary="Verify active bearer session token")
-def get_current_user(authorization: str | None = Header(None)):
+def get_current_user(authorization: str | None = Header(None), user_agent: str | None = Header(None)):
     """Verifies active Bearer session token and returns authenticated user profile."""
+    if is_headless_user_agent(user_agent):
+        raise HTTPException(
+            status_code=403,
+            detail="AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
+        )
+
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Missing or malformed Authorization header")
 
@@ -210,6 +267,12 @@ def get_current_user(authorization: str | None = Header(None)):
     payload = verify_token(token)
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid or expired session token")
+
+    if not check_session_active(payload):
+        raise HTTPException(
+            status_code=401,
+            detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
+        )
 
     user_email = payload.get("sub", settings.default_user_email)
     fallback_name, fallback_role = get_user_profile(user_email)
@@ -224,3 +287,29 @@ def get_current_user(authorization: str | None = Header(None)):
         token_type="Bearer",
         expires_at=datetime.fromtimestamp(payload.get("exp", 0), UTC).isoformat() if payload.get("exp") else None,
     )
+
+
+@router.get("/heartbeat", summary="Check if active single-device session is still valid")
+def session_heartbeat(authorization: str | None = Header(None), user_agent: str | None = Header(None)):
+    """Validates whether caller's session_id is still the active session for the account."""
+    if is_headless_user_agent(user_agent):
+        raise HTTPException(
+            status_code=403,
+            detail="AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
+        )
+
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Missing or malformed Authorization header")
+
+    token = authorization.split("Bearer ", 1)[1].strip()
+    payload = verify_token(token)
+    if not payload:
+        raise HTTPException(status_code=401, detail="Invalid or expired session token")
+
+    if not check_session_active(payload):
+        raise HTTPException(
+            status_code=401,
+            detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
+        )
+
+    return {"active": True, "session_id": payload.get("session_id")}

@@ -73,6 +73,13 @@ export interface BackendAuthResponse {
   expires_at?: string;
 }
 
+export class AuthError extends Error {
+  constructor(message: string, public status?: number) {
+    super(message);
+    this.name = 'AuthError';
+  }
+}
+
 /**
  * Authenticates user work email against the Backend AWS/REST API.
  * Gracefully falls back to offline authorized enterprise credentials if backend is completely unreachable.
@@ -99,6 +106,17 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
     const durationMs = performance.now() - startTime;
     logger.apiCall('POST', '/api/v1/auth/login', durationMs, res.status);
 
+    if (res.status === 403) {
+      const errData = await res.json().catch(() => ({}));
+      const message =
+        errData.detail || 'Access forbidden: Automated browser agents and headless environments are not permitted.';
+      logger.warn('AUTH', 'Authentication rejected: Automated agent detected', {
+        email: normalizedEmail,
+        status: 403,
+      });
+      throw new AuthError(message, 403);
+    }
+
     if (res.status === 401) {
       const errData = await res.json().catch(() => ({}));
       const message =
@@ -107,7 +125,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
         email: normalizedEmail,
         status: 401,
       });
-      throw new Error(message);
+      throw new AuthError(message, 401);
     }
 
     if (!res.ok) {
@@ -117,7 +135,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
         email: normalizedEmail,
         status: res.status,
       });
-      throw new Error(message);
+      throw new AuthError(message, res.status);
     }
 
     const data: BackendAuthResponse = await res.json();
@@ -134,9 +152,16 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
       token: data.token,
     };
   } catch (err: unknown) {
+    if (err instanceof AuthError) {
+      throw err;
+    }
+
     const msg = (err as Error)?.message || '';
     if (
       msg.includes('Access restricted') ||
+      msg.includes('Access forbidden') ||
+      msg.includes('AUTOMATED_AGENT_BLOCKED') ||
+      msg.includes('Automated browser agents') ||
       msg.includes('Authentication failed with status HTTP')
     ) {
       throw err;
@@ -156,5 +181,58 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
     }
 
     throw new Error('Access restricted. Only authorized Jet Freight Logistics personnel can sign in.');
+  }
+}
+
+/**
+ * Custom event name fired when the active session is superseded by another device.
+ */
+export const SESSION_SUPERSEDED_EVENT = 'leadforge:session-superseded';
+
+export function notifySessionSuperseded(): void {
+  if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+    window.dispatchEvent(new CustomEvent(SESSION_SUPERSEDED_EVENT));
+  }
+}
+
+export interface SessionHeartbeatResult {
+  active: boolean;
+  superseded?: boolean;
+}
+
+/**
+ * Proactively verifies with the backend that this browser's session is still the single active session.
+ * If another device has logged in with the same account, returns { active: false, superseded: true }.
+ */
+export async function checkSessionHeartbeat(token: string): Promise<SessionHeartbeatResult> {
+  if (!token || token.startsWith('offline_session_')) {
+    return { active: true };
+  }
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/auth/heartbeat`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.ok) {
+      return { active: true };
+    }
+
+    if (res.status === 401) {
+      const data = await res.json().catch(() => ({}));
+      if (data.detail === 'SESSION_SUPERSEDED') {
+        notifySessionSuperseded();
+        return { active: false, superseded: true };
+      }
+      return { active: false };
+    }
+
+    return { active: true };
+  } catch {
+    // If backend network is momentarily unreachable, do not disrupt active user work
+    return { active: true };
   }
 }

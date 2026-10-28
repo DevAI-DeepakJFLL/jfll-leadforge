@@ -4,20 +4,25 @@ from typing import Any
 from fastapi import HTTPException
 from fastapi.params import Query as QueryType
 
-from src.api.auth import verify_token
+from src.api.auth import check_session_active, verify_token
 from src.api.config import settings
 
 
 def require_auth(authorization: str | None, resource_name: str = "leads") -> dict[str, Any]:
     """
-    Validates Bearer token if provided, and enforces authentication in production environments.
-    Returns the decoded user payload or empty dict in local non-production environments without token.
+    Validates Bearer token if provided, enforces active single-device session,
+    and enforces authentication in production environments.
     """
     if authorization and authorization.startswith("Bearer "):
         token = authorization.split("Bearer ", 1)[1].strip()
         user = verify_token(token)
         if not user:
             raise HTTPException(status_code=401, detail="Invalid or expired session token")
+        if not check_session_active(user):
+            raise HTTPException(
+                status_code=401,
+                detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
+            )
         return user
     elif settings.env == "production":
         raise HTTPException(status_code=401, detail=f"Authentication required to access {resource_name}")

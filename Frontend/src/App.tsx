@@ -15,11 +15,15 @@ import {
 } from '@/components/leads';
 import { ToastProvider, useToast, ErrorBoundary } from '@/components/ui';
 import { LoginPage } from '@/components/auth/LoginPage';
+import { SessionSupersededModal } from '@/components/auth/SessionSupersededModal';
 import { UserSession } from '@/types/auth';
 import {
   getStoredSession,
   setStoredSession,
   clearStoredSession,
+  checkSessionHeartbeat,
+  SESSION_SUPERSEDED_EVENT,
+  isOfflineSession,
 } from '@/services/authService';
 import { useLeadsFilter } from '@/hooks/useLeadsFilter';
 import { LeadsResponse, Lead, FilterParams } from '@/types/lead';
@@ -1268,6 +1272,37 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
 
 export const App: React.FC = () => {
   const [session, setSession] = useState<UserSession | null>(getStoredSession);
+  const [isSessionSuperseded, setIsSessionSuperseded] = useState(false);
+
+  // Listen for session superseded events (e.g. from background heartbeats or API 401s)
+  useEffect(() => {
+    const handleSuperseded = () => {
+      clearStoredSession();
+      setSession(null);
+      setIsSessionSuperseded(true);
+    };
+
+    window.addEventListener(SESSION_SUPERSEDED_EVENT, handleSuperseded);
+    return () => {
+      window.removeEventListener(SESSION_SUPERSEDED_EVENT, handleSuperseded);
+    };
+  }, []);
+
+  // Periodic heartbeat every 20 seconds to guarantee single-device session integrity
+  useEffect(() => {
+    if (!session?.token || isOfflineSession(session)) return;
+
+    const interval = setInterval(async () => {
+      const res = await checkSessionHeartbeat(session.token);
+      if (res.superseded) {
+        clearStoredSession();
+        setSession(null);
+        setIsSessionSuperseded(true);
+      }
+    }, 20000);
+
+    return () => clearInterval(interval);
+  }, [session]);
 
   const handleLoginSuccess = (newSession: UserSession) => {
     try {
@@ -1279,6 +1314,7 @@ export const App: React.FC = () => {
     }
     setStoredSession(newSession);
     setSession(newSession);
+    setIsSessionSuperseded(false);
   };
 
   const handleLogout = () => {
@@ -1294,12 +1330,24 @@ export const App: React.FC = () => {
   };
 
   if (!session) {
-    return <LoginPage onLoginSuccess={handleLoginSuccess} />;
+    return (
+      <>
+        <LoginPage onLoginSuccess={handleLoginSuccess} />
+        <SessionSupersededModal
+          isOpen={isSessionSuperseded}
+          onAcknowledge={() => setIsSessionSuperseded(false)}
+        />
+      </>
+    );
   }
 
   return (
     <ToastProvider>
       <AppContent onLogout={handleLogout} currentUser={session} />
+      <SessionSupersededModal
+        isOpen={isSessionSuperseded}
+        onAcknowledge={() => setIsSessionSuperseded(false)}
+      />
     </ToastProvider>
   );
 };
