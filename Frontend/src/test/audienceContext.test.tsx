@@ -146,7 +146,8 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('728');
     expect(html).toContain('Inactive Customers');
     expect(html).toContain('2,010');
-    expect(html).toContain('Unified Master Directory (All 2,738 Accounts)');
+    // Verify the Unified Master Directory chip has been removed
+    expect(html).not.toContain('Unified Master Directory (All 2,738 Accounts)');
     expect(html).not.toContain('Unified master directory combining all 2,738 active and inactive accounts');
   });
 
@@ -154,8 +155,9 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     const html = renderToString(<JfllCustomerAudienceTabs />);
 
     // Check default status is 'all'
-    expect(html).toContain('Unified Master Directory');
+    expect(html).toContain('All Customers');
     expect(html).toContain('2,738');
+    expect(html).not.toContain('Unified Master Directory (All 2,738 Accounts)');
 
     // Check order of tabs: All Customers must appear before Active Customers, and Active before Inactive
     const allIndex = html.indexOf('All Customers');
