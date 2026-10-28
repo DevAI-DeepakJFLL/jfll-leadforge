@@ -8,10 +8,37 @@ import {
 } from '@/types/datamyneLead';
 import { logger } from '@/utils/logger';
 import { createCsvBlob } from '@/utils/csv';
+import { setLoadedTierDataset } from '@/services/tierService';
+import { TieredLead } from '@/types/tierSegmentation';
 
 // In-memory leads storage, starts with the bundled starter set and upgrades if full JSON is loaded
 let cachedFullDataset: DatamyneLead[] | null = null;
 let isLoadingFullData = false;
+
+type DatasetListener = () => void;
+const datasetListeners: Set<DatasetListener> = new Set();
+
+export function subscribeToDatamyneDataset(listener: DatasetListener): () => void {
+  datasetListeners.add(listener);
+  return () => {
+    datasetListeners.delete(listener);
+  };
+}
+
+function notifyDatasetListeners(): void {
+  datasetListeners.forEach((fn) => {
+    try {
+      fn();
+    } catch {
+      // ignore
+    }
+  });
+}
+
+export function setLoadedDatamyneDataset(data: DatamyneLead[]): void {
+  cachedFullDataset = data;
+  notifyDatasetListeners();
+}
 
 /**
  * Normalizes city names by stripping diacritics/accents and converting to uppercase
@@ -22,7 +49,7 @@ export function normalizeCityString(str: string): string {
 }
 
 /**
- * Lazily load full 40,081 records from public JSON in the background
+ * Lazily load full 37,273 records from public JSON in the background
  */
 export async function loadFullDatamyneDataset(): Promise<DatamyneLead[]> {
   if (cachedFullDataset) return cachedFullDataset;
@@ -30,15 +57,21 @@ export async function loadFullDatamyneDataset(): Promise<DatamyneLead[]> {
 
   isLoadingFullData = true;
   try {
-    const res = await fetch('/data/datamyne_leads.json');
+    const res = await fetch('/data/datamyne_tier_segments.json');
     if (res.ok) {
-      const data: DatamyneLead[] = await res.json();
+      const rawData: any[] = await res.json();
+      const data: DatamyneLead[] = rawData.map((d) => ({
+        ...d,
+        country: d.country || 'India',
+      }));
       cachedFullDataset = data;
+      setLoadedTierDataset(data as unknown as TieredLead[]);
       logger.info('DATAMYNE', `Loaded full dataset with ${data.length} records into memory.`);
+      notifyDatasetListeners();
       return data;
     }
   } catch (err) {
-    logger.warn('DATAMYNE', 'Failed to fetch /data/datamyne_leads.json, continuing with starter dataset', { err });
+    logger.warn('DATAMYNE', 'Failed to fetch /data/datamyne_tier_segments.json, continuing with starter dataset', { err });
   } finally {
     isLoadingFullData = false;
   }

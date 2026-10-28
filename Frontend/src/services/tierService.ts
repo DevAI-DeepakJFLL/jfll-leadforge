@@ -45,6 +45,10 @@ export const DEFAULT_STARTER_TIER_COUNTS: TierCountsResponse = {
 let cachedFullTierDataset: TieredLead[] | null = null;
 let isLoadingFullTierData = false;
 
+export function setLoadedTierDataset(data: TieredLead[]): void {
+  cachedFullTierDataset = data;
+}
+
 /**
  * Lazily load full 37,273 scored records from public JSON in the background
  */

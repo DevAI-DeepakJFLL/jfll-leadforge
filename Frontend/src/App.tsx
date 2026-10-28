@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { RowSelectionState } from '@tanstack/react-table';
 import { AppLayout } from '@/components/layout/AppLayout';
@@ -39,6 +39,8 @@ import {
   queryDatamyneLeads,
   exportDatamyneLeadsCsv,
   getLoadedDatamyneDataset,
+  loadFullDatamyneDataset,
+  subscribeToDatamyneDataset,
 } from '@/services/datamyneService';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { ApolloDetailDrawer, ApolloSubTabSwitcher } from '@/components/apollo';
@@ -681,9 +683,18 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     activeFilterCount: datamyneActiveFilterCount,
   } = useDatamyneFilter();
 
+  const [datamyneDatasetVersion, setDatamyneDatasetVersion] = useState(0);
+
+  useEffect(() => {
+    loadFullDatamyneDataset().catch(() => {});
+    return subscribeToDatamyneDataset(() => {
+      setDatamyneDatasetVersion((v) => v + 1);
+    });
+  }, []);
+
   const datamyneQuery = useMemo(() => {
     return queryDatamyneLeads(datamyneFilters);
-  }, [datamyneFilters]);
+  }, [datamyneFilters, datamyneDatasetVersion]);
 
   const [datamyneRowSelection, setDatamyneRowSelection] = useState<RowSelectionState>({});
   const [selectedDatamyneLead, setSelectedDatamyneLead] = useState<DatamyneLead | null>(null);

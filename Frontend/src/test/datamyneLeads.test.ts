@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import {
   queryDatamyneLeads,
   getLoadedDatamyneDataset,
+  setLoadedDatamyneDataset,
+  subscribeToDatamyneDataset,
   exportDatamyneLeadsCsv,
   getDatamyneCategoryFacets,
   getDatamyneSubcategoryFacets,
@@ -307,6 +309,18 @@ describe('DataMyne Leads Service & Schemas', () => {
       expect(CATEGORY_TO_TAB_MAP['Perishables']).toBe('perishables');
       expect(TAB_TO_CATEGORY_MAP['engineering']).toBe('Engineering & Machinery');
       expect(TAB_TO_CATEGORY_MAP['perishables']).toBe('Perishables');
+    });
+
+    it('notifies subscribers when datamyne dataset is hydrated', () => {
+      let notified = false;
+      const unsubscribe = subscribeToDatamyneDataset(() => {
+        notified = true;
+      });
+
+      // Update loaded dataset
+      setLoadedDatamyneDataset(getLoadedDatamyneDataset());
+      expect(notified).toBe(true);
+      unsubscribe();
     });
   });
 });
