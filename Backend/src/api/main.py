@@ -6,7 +6,8 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from src.api.auth import is_headless_user_agent, router as auth_router
+from src.api.auth import is_headless_user_agent
+from src.api.auth import router as auth_router
 from src.api.config import settings
 from src.api.logger import CloudWatchLoggingMiddleware
 from src.api.models import HealthResponse

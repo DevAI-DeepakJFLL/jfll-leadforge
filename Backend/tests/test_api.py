@@ -1,3 +1,5 @@
+import os
+
 from fastapi.testclient import TestClient
 
 from src.api.main import app
@@ -256,7 +258,6 @@ def test_audit_logging_and_user_attribution(caplog):
 
 def test_rotating_file_handler_auto_clean(tmp_path):
     """Verify that setup_logger initializes rotating file handler when LOG_FILE_PATH is set."""
-    import os
     from src.api.logger import setup_logger
 
     log_file = tmp_path / "test_logs" / "app.log"

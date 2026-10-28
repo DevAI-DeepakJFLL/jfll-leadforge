@@ -4,8 +4,6 @@ Prevents repeated full-table or S3 range scans for frequent company queries.
 """
 from functools import lru_cache
 
-import duckdb
-
 from src.api.database import get_db_connection
 from src.api.helpers import build_company_search_sql
 

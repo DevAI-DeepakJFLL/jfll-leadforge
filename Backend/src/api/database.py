@@ -76,8 +76,8 @@ def get_db_connection() -> duckdb.DuckDBPyConnection:
                             clean_st = session_token.replace("'", "''")
                             try:
                                 con.execute(f"SET GLOBAL s3_session_token = '{clean_st}';")
-                            except Exception:
-                                pass
+                            except Exception as err:
+                                logger.debug("Non-critical DuckDB SET GLOBAL notice: %s", err)
                             con.execute(f"SET s3_session_token = '{clean_st}';")
                         _LAST_SESSION_TOKEN = session_token
                     except Exception as err:
@@ -96,14 +96,14 @@ def get_db_connection() -> duckdb.DuckDBPyConnection:
                             clean_st = current_session_token.replace("'", "''")
                             try:
                                 _SHARED_CONNECTION.execute(f"SET GLOBAL s3_session_token = '{clean_st}';")
-                            except Exception:
-                                pass
+                            except Exception as err:
+                                logger.debug("Non-critical DuckDB SET GLOBAL notice: %s", err)
                             _SHARED_CONNECTION.execute(f"SET s3_session_token = '{clean_st}';")
                         else:
                             try:
                                 _SHARED_CONNECTION.execute("SET GLOBAL s3_session_token = '';")
-                            except Exception:
-                                pass
+                            except Exception as err:
+                                logger.debug("Non-critical DuckDB SET GLOBAL notice: %s", err)
                             _SHARED_CONNECTION.execute("SET s3_session_token = '';")
                         _LAST_SESSION_TOKEN = current_session_token
                     except Exception as err:

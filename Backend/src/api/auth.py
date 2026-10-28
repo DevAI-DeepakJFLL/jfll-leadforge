@@ -176,8 +176,8 @@ def get_user_profiles() -> dict[str, dict[str, str]]:
             parsed = json.loads(raw_json)
             if isinstance(parsed, dict):
                 return {k.strip().lower(): v for k, v in parsed.items()}
-        except Exception:
-            pass
+        except (json.JSONDecodeError, TypeError) as err:
+            logger.debug("Non-critical notice parsing user profiles JSON: %s", err)
     return {}
 
 

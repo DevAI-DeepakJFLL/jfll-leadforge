@@ -114,8 +114,8 @@ class CloudWatchLoggingMiddleware(BaseHTTPMiddleware):
                 payload = verify_token(token)
                 if payload:
                     user_email = payload.get("sub")
-            except Exception:
-                pass
+            except Exception as err:
+                logger.debug("Non-critical notice resolving token in logging middleware: %s", err)
 
         try:
             response = await call_next(request)
