@@ -110,6 +110,9 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('Subagents');
     expect(html).toContain('397');
     expect(html).toContain('Verified Internal Master');
+    // Verify (i) info tooltip hover descriptions for Active and Inactive customers
+    expect(html).toContain('aria-label="More information about Active JFLL Customers"');
+    expect(html).toContain('aria-label="More information about Inactive JFLL Customers"');
     // Verify info row banner is removed
     expect(html).not.toContain('Direct cargo owners, commercial manufacturers');
   });

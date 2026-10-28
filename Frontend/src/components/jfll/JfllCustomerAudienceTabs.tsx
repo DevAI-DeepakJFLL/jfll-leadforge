@@ -10,6 +10,7 @@ import {
   Archive,
   FileCheck,
 } from 'lucide-react';
+import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 
 export interface JfllCustomerAudienceTabsProps {
   customerStatus: 'active' | 'inactive' | 'all';
@@ -318,11 +319,37 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
               }`}
             >
-              <Users className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <CategoryInfoTooltip
+                title="Active JFLL Customers"
+                description="Verified accounts that have booked freight services or completed shipments with Jet Freight within the last 3 months."
+                badge={{ text: 'Recent Business (90 Days)', variant: 'emerald' }}
+                criteria={[
+                  'Generated active freight bookings or shipments within the last 90 days',
+                  'Valid commercial IEC and verified corporate billing account on file',
+                  'Actively managed by Jet Freight key accounts team',
+                ]}
+                actionTip="Strictly excluded from cold outreach. Direct inquiries through the assigned Key Account Manager."
+                align="left"
+              >
+                <Users className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              </CategoryInfoTooltip>
               <span>Active Customers</span>
               <span className="text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
                 {(counts.activeTotal || 728).toLocaleString()}
               </span>
+              <CategoryInfoTooltip
+                title="Active JFLL Customers"
+                description="Verified accounts that have booked freight services or completed shipments with Jet Freight within the last 3 months."
+                badge={{ text: 'Recent Business (90 Days)', variant: 'emerald' }}
+                criteria={[
+                  'Generated active freight bookings or shipments within the last 90 days',
+                  'Valid commercial IEC and verified corporate billing account on file',
+                  'Actively managed by Jet Freight key accounts team',
+                ]}
+                actionTip="Strictly excluded from cold outreach. Direct inquiries through the assigned Key Account Manager."
+                align="left"
+                iconClassName={isActive ? 'text-slate-500 hover:text-slate-800' : 'text-slate-400 hover:text-slate-600'}
+              />
             </button>
 
             <button
@@ -335,7 +362,20 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
               }`}
             >
-              <Archive className={`w-3.5 h-3.5 shrink-0 ${isInactive ? 'text-white' : 'text-amber-600'}`} />
+              <CategoryInfoTooltip
+                title="Inactive JFLL Customers"
+                description="Historical accounts with no recorded freight bookings or shipping transactions with Jet Freight in the last 3 months."
+                badge={{ text: 'Dormant (>90 Days)', variant: 'amber' }}
+                criteria={[
+                  'No active shipments or freight bills generated in the last 90 days',
+                  'Prior commercial customer with established credit and trading history',
+                  'Identified for sales reactivation, lane audits, and win-back outreach',
+                ]}
+                actionTip="Prime prospects for reactivation campaigns. Pitch updated airline rates, sea freight spot tariffs, and new trade lane schedules."
+                align="left"
+              >
+                <Archive className={`w-3.5 h-3.5 shrink-0 ${isInactive ? 'text-white' : 'text-amber-600'}`} />
+              </CategoryInfoTooltip>
               <span>Inactive Customers</span>
               <span
                 className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
@@ -346,6 +386,19 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
               >
                 {(counts.inactiveTotal || 2010).toLocaleString()}
               </span>
+              <CategoryInfoTooltip
+                title="Inactive JFLL Customers"
+                description="Historical accounts with no recorded freight bookings or shipping transactions with Jet Freight in the last 3 months."
+                badge={{ text: 'Dormant (>90 Days)', variant: 'amber' }}
+                criteria={[
+                  'No active shipments or freight bills generated in the last 90 days',
+                  'Prior commercial customer with established credit and trading history',
+                  'Identified for sales reactivation, lane audits, and win-back outreach',
+                ]}
+                actionTip="Prime prospects for reactivation campaigns. Pitch updated airline rates, sea freight spot tariffs, and new trade lane schedules."
+                align="left"
+                iconClassName={isInactive ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
+              />
             </button>
 
             <button
@@ -358,7 +411,20 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
               }`}
             >
-              <Layers className={`w-3.5 h-3.5 shrink-0 ${isAll ? 'text-white' : 'text-blue-600'}`} />
+              <CategoryInfoTooltip
+                title="All JFLL Customers"
+                description="Complete internal master customer directory containing both active accounts (last 3 months) and dormant accounts."
+                badge={{ text: 'Unified Master', variant: 'blue' }}
+                criteria={[
+                  'Unified repository of 728 active and 2,010 inactive customer accounts',
+                  'Includes direct shippers, consignees, subagents, and overseas partners',
+                  '100% synchronized with internal Jet Freight ERP records',
+                ]}
+                actionTip="Use for company-wide customer lookups, deduplication, and verifying historical business relationships."
+                align="left"
+              >
+                <Layers className={`w-3.5 h-3.5 shrink-0 ${isAll ? 'text-white' : 'text-blue-600'}`} />
+              </CategoryInfoTooltip>
               <span>All Customers</span>
               <span
                 className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
@@ -369,6 +435,19 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
               >
                 {(counts.allTotal || 2738).toLocaleString()}
               </span>
+              <CategoryInfoTooltip
+                title="All JFLL Customers"
+                description="Complete internal master customer directory containing both active accounts (last 3 months) and dormant accounts."
+                badge={{ text: 'Unified Master', variant: 'blue' }}
+                criteria={[
+                  'Unified repository of 728 active and 2,010 inactive customer accounts',
+                  'Includes direct shippers, consignees, subagents, and overseas partners',
+                  '100% synchronized with internal Jet Freight ERP records',
+                ]}
+                actionTip="Use for company-wide customer lookups, deduplication, and verifying historical business relationships."
+                align="left"
+                iconClassName={isAll ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
+              />
             </button>
           </div>
 
