@@ -344,6 +344,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             totalFormatted={displayTotalFormatted}
             onPageChange={handleDisplayPageChange}
             onClearFilters={clearAllFilters}
+            onResetToAllVerticals={() => onTabChange('all')}
             isLoading={perspective === 'tiers' ? isTierLoading : false}
           />
         </div>

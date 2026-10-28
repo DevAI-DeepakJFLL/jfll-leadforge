@@ -44,6 +44,29 @@ export type DatamyneAudienceTab =
   | 'automotive'
   | 'general';
 
+export const TAB_TO_CATEGORY_MAP: Record<DatamyneAudienceTab, string | null> = {
+  all: null,
+  perishables: 'Perishables',
+  pharma: 'Pharma & Healthcare',
+  textiles: 'Textiles & Apparel',
+  engineering: 'Engineering & Machinery',
+  chemicals: 'Chemicals & Materials',
+  electronics: 'Electronics & Electrical',
+  automotive: 'Automotive & EV',
+  general: 'General Cargo',
+};
+
+export const CATEGORY_TO_TAB_MAP: Record<string, DatamyneAudienceTab> = {
+  'Perishables': 'perishables',
+  'Pharma & Healthcare': 'pharma',
+  'Textiles & Apparel': 'textiles',
+  'Engineering & Machinery': 'engineering',
+  'Chemicals & Materials': 'chemicals',
+  'Electronics & Electrical': 'electronics',
+  'Automotive & EV': 'automotive',
+  'General Cargo': 'general',
+};
+
 export interface DatamyneFilterParams {
   q?: string;
   dataset?: DatamyneDatasetType;

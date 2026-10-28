@@ -28,6 +28,7 @@ export interface DatamyneTableProps {
   totalFormatted?: string;
   onPageChange: (page: number) => void;
   onClearFilters?: () => void;
+  onResetToAllVerticals?: () => void;
   isLoading?: boolean;
   isError?: boolean;
   error?: Error | null;
@@ -47,6 +48,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   totalFormatted,
   onPageChange,
   onClearFilters,
+  onResetToAllVerticals,
   isLoading = false,
   isError = false,
   error = null,
@@ -154,16 +156,28 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
           No DataMyne leads match your filters
         </h3>
         <p className="text-xs text-slate-500 max-w-sm mb-4">
-          Try expanding your search query or switching between With Contacts and Without Contacts pools.
+          Try viewing All Verticals, clearing active category filters, or switching between With Contacts and Without Contacts pools.
         </p>
-        {onClearFilters && (
-          <button
-            onClick={onClearFilters}
-            className="px-3.5 py-1.5 text-xs font-medium text-white bg-apollo hover:bg-apollo-600 rounded-md transition-colors shadow-2xs cursor-pointer"
-          >
-            Reset Filters
-          </button>
-        )}
+        <div className="flex items-center gap-2 flex-wrap justify-center">
+          {onResetToAllVerticals && (
+            <button
+              type="button"
+              onClick={onResetToAllVerticals}
+              className="px-3.5 py-1.5 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-md transition-colors shadow-2xs cursor-pointer"
+            >
+              View All Verticals
+            </button>
+          )}
+          {onClearFilters && (
+            <button
+              type="button"
+              onClick={onClearFilters}
+              className="px-3.5 py-1.5 text-xs font-medium text-white bg-apollo hover:bg-apollo-600 rounded-md transition-colors shadow-2xs cursor-pointer"
+            >
+              Reset Filters
+            </button>
+          )}
+        </div>
       </div>
     );
   }

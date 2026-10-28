@@ -7,6 +7,7 @@ import {
   BRAZIL_CITIES,
   INDIA_CORRIDORS,
   BRAZIL_CORRIDORS,
+  TAB_TO_CATEGORY_MAP,
 } from '@/types/datamyneLead';
 import { FilterAccordion } from '@/components/filters/FilterAccordion';
 import {
@@ -354,23 +355,37 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         icon={<Building2 className="w-4 h-4" />}
         label="Logistics Category"
         defaultOpen={true}
-        activeCount={filters.categories?.length || 0}
+        activeCount={
+          filters.categories && filters.categories.length > 0
+            ? filters.categories.length
+            : filters.tab && filters.tab !== 'all'
+            ? 1
+            : 0
+        }
       >
         <div className="space-y-1.5">
-          {CATEGORIES_LIST.map((cat) => (
-            <label
-              key={cat}
-              className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
-            >
-              <input
-                type="checkbox"
-                checked={filters.categories?.includes(cat) || false}
-                onChange={() => toggleCategory(cat)}
-                className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
-              />
-              <span className="text-xs text-slate-700">{cat}</span>
-            </label>
-          ))}
+          {CATEGORIES_LIST.map((cat) => {
+            const isChecked =
+              filters.categories && filters.categories.length > 0
+                ? filters.categories.includes(cat)
+                : filters.tab !== 'all' &&
+                  TAB_TO_CATEGORY_MAP[filters.tab || 'all'] === cat;
+
+            return (
+              <label
+                key={cat}
+                className="flex items-center gap-2 cursor-pointer hover:text-slate-900 transition-colors"
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => toggleCategory(cat)}
+                  className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                />
+                <span className="text-xs text-slate-700">{cat}</span>
+              </label>
+            );
+          })}
         </div>
       </FilterAccordion>
 

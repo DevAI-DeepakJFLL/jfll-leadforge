@@ -7,6 +7,7 @@ import { ApolloAudienceTabs } from '@/components/apollo/ApolloAudienceTabs';
 import { ApolloCompaniesView } from '@/components/views/ApolloCompaniesView';
 import { DatamyneAudienceTabs } from '@/components/datamyne/DatamyneAudienceTabs';
 import { DatamyneSegmentSwitcher } from '@/components/datamyne/DatamyneSegmentSwitcher';
+import { DatamyneTable } from '@/components/datamyne/DatamyneTable';
 
 describe('Audience Context & Subcategory Explanations Suite', () => {
   it('renders CategoryInfoTooltip with accessibility attributes and info icon', () => {
@@ -248,5 +249,26 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(tabsHtml).toContain('aria-label="More information about Perishables"');
     // Verify extra banner row is removed
     expect(tabsHtml).not.toContain('Time-critical cold-chain cargo');
+  });
+
+  it('renders DatamyneTable empty state with View All Verticals recovery button', () => {
+    const html = renderToString(
+      <DatamyneTable
+        leads={[]}
+        rowSelection={{}}
+        onRowSelectionChange={() => {}}
+        onLeadClick={() => {}}
+        currentPage={1}
+        totalPages={1}
+        pageSize={25}
+        totalItems={0}
+        onPageChange={() => {}}
+        onClearFilters={() => {}}
+        onResetToAllVerticals={() => {}}
+      />
+    );
+    expect(html).toContain('View All Verticals');
+    expect(html).toContain('Reset Filters');
+    expect(html).toContain('Try viewing All Verticals, clearing active category filters');
   });
 });

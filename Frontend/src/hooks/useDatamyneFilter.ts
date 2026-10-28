@@ -8,6 +8,7 @@ import {
   BRAZIL_CITIES,
   INDIA_CORRIDORS,
   BRAZIL_CORRIDORS,
+  CATEGORY_TO_TAB_MAP,
 } from '@/types/datamyneLead';
 
 export function pruneFiltersForCountry(
@@ -65,7 +66,12 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
   }, []);
 
   const setTab = useCallback((tab: DatamyneAudienceTab) => {
-    setFilters((prev) => ({ ...prev, tab, page: 1 }));
+    setFilters((prev) => ({
+      ...prev,
+      tab,
+      categories: [],
+      page: 1,
+    }));
   }, []);
 
   const setSearch = useCallback((q: string) => {
@@ -117,7 +123,30 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
       const updated = current.includes(category)
         ? current.filter((c) => c !== category)
         : [...current, category];
-      return { ...prev, categories: updated, page: 1 };
+
+      // Auto-Sync with top vertical tabs:
+      let nextTab: DatamyneAudienceTab = prev.tab || 'all';
+
+      if (updated.length === 1) {
+        // Single category selected: switch top tab to match this category
+        const matchingTab = CATEGORY_TO_TAB_MAP[updated[0]];
+        if (matchingTab) {
+          nextTab = matchingTab;
+        }
+      } else if (updated.length > 1) {
+        // Multiple categories selected: switch tab to 'all' so query searches across all selected
+        nextTab = 'all';
+      } else if (updated.length === 0) {
+        // All categories unchecked: revert tab to 'all'
+        nextTab = 'all';
+      }
+
+      return {
+        ...prev,
+        categories: updated,
+        tab: nextTab,
+        page: 1,
+      };
     });
   }, []);
 

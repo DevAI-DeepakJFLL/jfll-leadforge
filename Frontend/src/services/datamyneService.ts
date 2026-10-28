@@ -4,6 +4,7 @@ import {
   DatamyneFilterParams,
   DatamyneResponse,
   DatamyneAudienceCounts,
+  TAB_TO_CATEGORY_MAP,
 } from '@/types/datamyneLead';
 import { logger } from '@/utils/logger';
 import { createCsvBlob } from '@/utils/csv';
@@ -210,22 +211,13 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
 
   // 5. Apply Audience Tab Filter
   let filtered = scopeDataset;
-  if (tab === 'perishables') {
-    filtered = filtered.filter((d) => d.category === 'Perishables');
-  } else if (tab === 'pharma') {
-    filtered = filtered.filter((d) => d.category === 'Pharma & Healthcare');
-  } else if (tab === 'textiles') {
-    filtered = filtered.filter((d) => d.category === 'Textiles & Apparel');
-  } else if (tab === 'engineering') {
-    filtered = filtered.filter((d) => d.category === 'Engineering & Machinery');
-  } else if (tab === 'chemicals') {
-    filtered = filtered.filter((d) => d.category === 'Chemicals & Materials');
-  } else if (tab === 'electronics') {
-    filtered = filtered.filter((d) => d.category === 'Electronics & Electrical');
-  } else if (tab === 'automotive') {
-    filtered = filtered.filter((d) => d.category === 'Automotive & EV');
-  } else if (tab === 'general') {
-    filtered = filtered.filter((d) => d.category === 'General Cargo');
+  const tabCategory = TAB_TO_CATEGORY_MAP[tab];
+  if (tabCategory) {
+    // If explicit categories multi-select is active and doesn't include tabCategory,
+    // honor the explicit categories filter to prevent empty impossible intersections.
+    if (categories.length === 0 || categories.includes(tabCategory)) {
+      filtered = filtered.filter((d) => d.category === tabCategory);
+    }
   }
 
   const totalEstimate = filtered.length;

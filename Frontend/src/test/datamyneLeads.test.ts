@@ -6,7 +6,12 @@ import {
   getDatamyneCategoryFacets,
   getDatamyneSubcategoryFacets,
 } from '@/services/datamyneService';
-import { DatamyneLeadSchema, DatamyneLead } from '@/types/datamyneLead';
+import {
+  DatamyneLeadSchema,
+  DatamyneLead,
+  CATEGORY_TO_TAB_MAP,
+  TAB_TO_CATEGORY_MAP,
+} from '@/types/datamyneLead';
 
 describe('DataMyne Leads Service & Schemas', () => {
   it('validates a complete DatamyneLead record using DatamyneLeadSchema', () => {
@@ -284,6 +289,24 @@ describe('DataMyne Leads Service & Schemas', () => {
           (i) => i.role === 'Both' || i.role === 'Both (Exporter & Importer)'
         )
       ).toBe(true);
+    });
+
+    it('gracefully resolves category and tab conflict to prevent false 0-lead empty states', () => {
+      // User is on 'perishables' tab but selects 'Engineering & Machinery' in sidebar
+      const res = queryDatamyneLeads({
+        dataset: 'all',
+        tab: 'perishables',
+        categories: ['Engineering & Machinery'],
+      });
+      expect(res.totalEstimate).toBeGreaterThan(0);
+      expect(res.items.every((i) => i.category === 'Engineering & Machinery')).toBe(true);
+    });
+
+    it('exports correct mapping between categories and tabs', () => {
+      expect(CATEGORY_TO_TAB_MAP['Engineering & Machinery']).toBe('engineering');
+      expect(CATEGORY_TO_TAB_MAP['Perishables']).toBe('perishables');
+      expect(TAB_TO_CATEGORY_MAP['engineering']).toBe('Engineering & Machinery');
+      expect(TAB_TO_CATEGORY_MAP['perishables']).toBe('Perishables');
     });
   });
 });
