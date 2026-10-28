@@ -4,6 +4,7 @@ import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 import { SegmentContextBanner } from '@/components/ui/SegmentContextBanner';
 import { JfllCustomerAudienceTabs } from '@/components/jfll/JfllCustomerAudienceTabs';
 import { ApolloAudienceTabs } from '@/components/apollo/ApolloAudienceTabs';
+import { ApolloCompaniesView } from '@/components/views/ApolloCompaniesView';
 import { DatamyneAudienceTabs } from '@/components/datamyne/DatamyneAudienceTabs';
 import { DatamyneSegmentSwitcher } from '@/components/datamyne/DatamyneSegmentSwitcher';
 
@@ -172,6 +173,45 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('aria-label="More information about All Commercial Shippers"');
     // Verify extra banner row is removed
     expect(html).not.toContain('Global commercial organizations database, 100% sanitized');
+  });
+
+  it('renders ApolloCompaniesView without Corporate Account Directory info banner', () => {
+    const html = renderToString(
+      <ApolloCompaniesView
+        filters={{ tab: 'all' }}
+        isLoading={false}
+        isError={false}
+        refetch={() => {}}
+        rowSelection={{}}
+        onRowSelectionChange={() => {}}
+        selectedCount={0}
+        isAllOnPageSelected={false}
+        isSomeOnPageSelected={false}
+        onToggleSelectAllPage={() => {}}
+        onDeselectAll={() => {}}
+        onExport={() => {}}
+        isExporting={false}
+        onSearchChange={() => {}}
+        onToggleIndustry={() => {}}
+        onToggleCountry={() => {}}
+        onToggleEmployeeTier={() => {}}
+        onToggleRevenueRange={() => {}}
+        onToggleHasWebsite={() => {}}
+        onToggleHasLinkedin={() => {}}
+        onClearCategory={() => {}}
+        onClearAllFilters={() => {}}
+        onTabChange={() => {}}
+        onPageChange={() => {}}
+        onLeadClick={() => {}}
+        onFindDecisionMakers={() => {}}
+        onSwitchToPeople={() => {}}
+        isMobileOpen={false}
+        onCloseMobile={() => {}}
+      />
+    );
+
+    expect(html).not.toContain('Corporate Account Directory:');
+    expect(html).not.toContain('verified in-drawer decision-makers');
   });
 
   it('renders DatamyneSegmentSwitcher and DatamyneAudienceTabs with vertical descriptions and criteria', () => {

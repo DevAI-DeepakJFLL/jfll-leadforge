@@ -6,7 +6,6 @@ import {
   ApolloActiveFilterChips,
   ApolloActionBar,
   ApolloTable,
-  ApolloContextBanner,
 } from '@/components/apollo';
 import { ApolloLead, ApolloFilterParams, ApolloResponse, ApolloAudienceTab } from '@/types/apolloLead';
 
@@ -74,7 +73,7 @@ export const ApolloCompaniesView: React.FC<ApolloCompaniesViewProps> = ({
   onPageChange,
   onLeadClick,
   onFindDecisionMakers,
-  onSwitchToPeople,
+  onSwitchToPeople: _onSwitchToPeople,
   subTabHeader,
   isMobileOpen,
   onCloseMobile,
@@ -99,8 +98,6 @@ export const ApolloCompaniesView: React.FC<ApolloCompaniesViewProps> = ({
 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
         {subTabHeader}
-        {/* Account Directory Scope Notification */}
-        <ApolloContextBanner onSwitchToPeople={onSwitchToPeople} />
 
         <ApolloAudienceTabs
           activeTab={filters.tab}
