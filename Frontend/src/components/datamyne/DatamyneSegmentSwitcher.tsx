@@ -87,7 +87,16 @@ export const DatamyneSegmentSwitcher: React.FC<DatamyneSegmentSwitcherProps> = (
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 shrink-0 ${seg.iconColor}`} />
+              <CategoryInfoTooltip
+                title={seg.label}
+                description={seg.description}
+                criteria={seg.criteria}
+                actionTip={seg.actionTip}
+                badge={seg.badge}
+                align={idx === 0 ? 'left' : idx === segments.length - 1 ? 'right' : 'center'}
+              >
+                <Icon className={`w-3.5 h-3.5 shrink-0 ${seg.iconColor}`} />
+              </CategoryInfoTooltip>
               <span>{seg.label}</span>
               <span
                 className={`px-1.5 py-0.2 rounded-full text-[10px] sm:text-[11px] font-mono ${

@@ -9,6 +9,7 @@ import {
 } from '@/components/datamyne';
 import { Sparkles, Layers } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
+import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 import { TierAudienceTabs } from '@/components/tiers';
 import { useTierFilter } from '@/hooks/useTierFilter';
 import { fetchTierCounts, fetchTierLeads, queryTierLeadsLocal } from '@/services/tierService';
@@ -186,28 +187,82 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
                 role="tab"
                 aria-selected={perspective === 'verticals'}
                 onClick={() => setPerspective('verticals')}
-                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1.5 cursor-pointer ${
                   perspective === 'verticals'
                     ? 'bg-white text-slate-900 font-semibold shadow-2xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <Layers className="w-3.5 h-3.5" />
+                <CategoryInfoTooltip
+                  title="Logistics Verticals (9 Sectors)"
+                  description="Complete dataset of 37,273 Indian international customs shippers categorized across 9 core industrial cargo sectors."
+                  badge={{ text: '9 Industry Verticals', variant: 'blue' }}
+                  criteria={[
+                    'HS Code Chapter classification (Chapters 01–90)',
+                    'Specialized handling: Cold Chain, Pharma GDP, DGR Chemicals, OOG Cargo',
+                    'Active bills of lading & customs shipping bills',
+                  ]}
+                  actionTip="Select industry verticals to pinpoint high-yield freight opportunities aligned with Jet Freight branch specializations."
+                  align="left"
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                </CategoryInfoTooltip>
                 <span>Logistics Verticals (9)</span>
+                <CategoryInfoTooltip
+                  title="Logistics Verticals (9 Sectors)"
+                  description="Complete dataset of 37,273 Indian international customs shippers categorized across 9 core industrial cargo sectors."
+                  badge={{ text: '9 Industry Verticals', variant: 'blue' }}
+                  criteria={[
+                    'HS Code Chapter classification (Chapters 01–90)',
+                    'Specialized handling: Cold Chain, Pharma GDP, DGR Chemicals, OOG Cargo',
+                    'Active bills of lading & customs shipping bills',
+                  ]}
+                  actionTip="Select industry verticals to pinpoint high-yield freight opportunities aligned with Jet Freight branch specializations."
+                  align="left"
+                  iconClassName={perspective === 'verticals' ? 'text-slate-500 hover:text-slate-800' : 'text-slate-400 hover:text-slate-600'}
+                />
               </button>
               <button
                 type="button"
                 role="tab"
                 aria-selected={perspective === 'tiers'}
                 onClick={() => setPerspective('tiers')}
-                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1.5 cursor-pointer ${
                   perspective === 'tiers'
                     ? 'bg-apollo text-white font-semibold shadow-2xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <Sparkles className="w-3.5 h-3.5" />
+                <CategoryInfoTooltip
+                  title="JFLL SOP Stage 2 Lead Scoring"
+                  description="Algorithmic qualification ranking 37,273 customs shippers from Tier A (immediate inside sales priority) down to Parked/Excluded."
+                  badge={{ text: 'SOP Stage 2', variant: 'emerald' }}
+                  criteria={[
+                    'High shipment frequency: 24+ shipments / year (20 pts)',
+                    'Air freight conversion suitability & customs recency (15 pts)',
+                    'Core priority lanes: US, UAE, Europe, LATAM (15 pts)',
+                    'Tier A: Score 70–100 · Tier B: Score 40–69 · Parked: <40',
+                  ]}
+                  actionTip="Focus outbound calling on Tier A priority accounts for immediate 24–48 hour discovery meetings."
+                  align="left"
+                >
+                  <Sparkles className="w-3.5 h-3.5" />
+                </CategoryInfoTooltip>
                 <span>SOP Tiers (A / B / Parked)</span>
+                <CategoryInfoTooltip
+                  title="JFLL SOP Stage 2 Lead Scoring"
+                  description="Algorithmic qualification ranking 37,273 customs shippers from Tier A (immediate inside sales priority) down to Parked/Excluded."
+                  badge={{ text: 'SOP Stage 2', variant: 'emerald' }}
+                  criteria={[
+                    'High shipment frequency: 24+ shipments / year (20 pts)',
+                    'Air freight conversion suitability & customs recency (15 pts)',
+                    'Core priority lanes: US, UAE, Europe, LATAM (15 pts)',
+                    'Tier A: Score 70–100 · Tier B: Score 40–69 · Parked: <40',
+                  ]}
+                  actionTip="Focus outbound calling on Tier A priority accounts for immediate 24–48 hour discovery meetings."
+                  align="left"
+                  iconClassName={perspective === 'tiers' ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
+                />
               </button>
             </div>
           </div>

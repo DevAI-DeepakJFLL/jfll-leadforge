@@ -13,6 +13,7 @@ export interface CategoryInfoTooltipProps {
   align?: 'left' | 'center' | 'right';
   className?: string;
   iconClassName?: string;
+  children?: React.ReactNode;
 }
 
 export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
@@ -24,6 +25,7 @@ export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
   align = 'left',
   className = '',
   iconClassName = '',
+  children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,9 +43,11 @@ export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
   };
 
   const handleToggleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setIsOpen((prev) => !prev);
+    if (!children) {
+      e.stopPropagation();
+      e.preventDefault();
+      setIsOpen((prev) => !prev);
+    }
   };
 
   useEffect(() => {
@@ -101,16 +105,22 @@ export const CategoryInfoTooltip: React.FC<CategoryInfoTooltipProps> = ({
         onClick={handleToggleClick}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleToggleClick(e as any);
+            if (!children) {
+              e.preventDefault();
+              handleToggleClick(e as any);
+            }
           }
         }}
         aria-label={`More information about ${title}`}
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        className={`p-0.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 focus:outline-none focus:ring-2 focus:ring-apollo/40 transition-colors cursor-pointer inline-flex items-center justify-center ${iconClassName}`}
+        className={
+          children
+            ? `focus:outline-none transition-colors cursor-pointer inline-flex items-center justify-center ${iconClassName}`
+            : `p-0.5 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 focus:outline-none focus:ring-2 focus:ring-apollo/40 transition-colors cursor-pointer inline-flex items-center justify-center ${iconClassName}`
+        }
       >
-        <Info className="w-3.5 h-3.5" />
+        {children || <Info className="w-3.5 h-3.5" />}
       </span>
 
       {isOpen && (

@@ -23,6 +23,21 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('aria-haspopup="dialog"');
   });
 
+  it('renders CategoryInfoTooltip wrapping custom children like an icon', () => {
+    const html = renderToString(
+      <CategoryInfoTooltip
+        title="Logistics Verticals (9 Sectors)"
+        description="Complete dataset of 37,273 Indian international customs shippers."
+        badge={{ text: '9 Verticals', variant: 'blue' }}
+      >
+        <span data-testid="custom-icon">ICON</span>
+      </CategoryInfoTooltip>
+    );
+
+    expect(html).toContain('data-testid="custom-icon"');
+    expect(html).toContain('aria-label="More information about Logistics Verticals (9 Sectors)"');
+  });
+
   it('renders SegmentContextBanner with title, count, criteria, and sales tips', () => {
     const html = renderToString(
       <SegmentContextBanner

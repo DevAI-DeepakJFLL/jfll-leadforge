@@ -181,12 +181,20 @@ export const TierAudienceTabs: React.FC<TierAudienceTabsProps> = ({
                 }`}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <Icon
-                  className={`w-4 h-4 shrink-0 ${
-                    isActive ? 'text-apollo' : 'text-slate-400'
-                  }`}
-                  aria-hidden="true"
-                />
+                <CategoryInfoTooltip
+                  title={tab.tooltip.title}
+                  description={tab.tooltip.description}
+                  badge={tab.tooltip.badge}
+                  criteria={tab.tooltip.criteria}
+                  actionTip={tab.tooltip.salesAction}
+                >
+                  <Icon
+                    className={`w-4 h-4 shrink-0 ${
+                      isActive ? 'text-apollo' : 'text-slate-400'
+                    }`}
+                    aria-hidden="true"
+                  />
+                </CategoryInfoTooltip>
                 <span>{tab.label}</span>
 
                 {countVal !== undefined && (
