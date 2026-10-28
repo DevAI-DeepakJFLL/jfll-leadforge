@@ -9,7 +9,6 @@ import {
 } from 'lucide-react';
 import { TierAudienceTab, TierCountsResponse } from '@/types/tierSegmentation';
 import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
-import { SegmentContextBanner } from '@/components/ui/SegmentContextBanner';
 
 export interface TierAudienceTabsProps {
   activeTab?: TierAudienceTab;
@@ -152,8 +151,6 @@ export const TierAudienceTabs: React.FC<TierAudienceTabsProps> = ({
   counts,
   className = '',
 }) => {
-  const activeConfig = TIER_TABS.find((t) => t.id === activeTab) || TIER_TABS[0];
-
   const formatCount = (count?: number) => {
     if (count === undefined) return '';
     if (count >= 1000) return `${(count / 1000).toFixed(1)}k`;
@@ -221,18 +218,6 @@ export const TierAudienceTabs: React.FC<TierAudienceTabsProps> = ({
           })}
         </div>
       </div>
-
-      {/* Dynamic Context Banner Directly Explaining the Selected Tier */}
-      <SegmentContextBanner
-        title={activeConfig.tooltip.title}
-        count={counts ? (counts[activeConfig.countKey] as number) : undefined}
-        description={activeConfig.tooltip.description}
-        criteria={activeConfig.tooltip.criteria.join(' • ')}
-        actionTip={activeConfig.tooltip.salesAction}
-        icon={activeConfig.icon}
-        variant={activeConfig.tooltip.badge.variant}
-        storageKey={`tier_tab_${activeTab}`}
-      />
     </div>
   );
 };

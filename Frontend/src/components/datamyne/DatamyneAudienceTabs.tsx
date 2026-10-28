@@ -17,7 +17,6 @@ import {
   Package,
 } from 'lucide-react';
 import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
-import { SegmentContextBanner } from '@/components/ui/SegmentContextBanner';
 
 export interface DatamyneAudienceTabsProps {
   activeTab?: DatamyneAudienceTab;
@@ -193,8 +192,6 @@ export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
     },
   ];
 
-  const currentTabMeta = tabs.find((t) => t.id === activeTab) || tabs[0];
-
   return (
     <div
       className={`border-b border-surface-border bg-white select-none ${className}`}
@@ -276,26 +273,6 @@ export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
           })}
         </div>
       </div>
-
-      {/* Active Segment Dynamic Context Banner */}
-      <SegmentContextBanner
-        title={currentTabMeta.label}
-        count={currentTabMeta.count > 0 ? currentTabMeta.count : undefined}
-        description={currentTabMeta.description}
-        criteria={currentTabMeta.criteria.join(' • ')}
-        actionTip={currentTabMeta.actionTip}
-        icon={currentTabMeta.icon}
-        variant={
-          currentTabMeta.id === 'perishables' || currentTabMeta.id === 'pharma'
-            ? 'emerald'
-            : currentTabMeta.id === 'chemicals'
-            ? 'amber'
-            : currentTabMeta.id === 'textiles' || currentTabMeta.id === 'electronics'
-            ? 'purple'
-            : 'blue'
-        }
-        storageKey={`datamyne_tab_${currentTabMeta.id}`}
-      />
     </div>
   );
 };

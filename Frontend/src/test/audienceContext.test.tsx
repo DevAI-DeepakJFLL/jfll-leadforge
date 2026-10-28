@@ -203,6 +203,8 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(tabsHtml).toContain('Pharma &amp; Health');
     expect(tabsHtml).toContain('Textiles &amp; Apparel');
     expect(tabsHtml).toContain('Engineering &amp; Mach');
-    expect(tabsHtml).toContain('Time-critical cold-chain cargo');
+    expect(tabsHtml).toContain('aria-label="More information about Perishables"');
+    // Verify extra banner row is removed
+    expect(tabsHtml).not.toContain('Time-critical cold-chain cargo');
   });
 });
