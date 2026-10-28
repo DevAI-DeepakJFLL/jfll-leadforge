@@ -241,11 +241,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           </div>
 
           <div className="text-xs text-slate-500">
-            {perspective === 'tiers' ? (
-              <span className="font-medium text-apollo">
-                JFLL SOP Stage 2 Lead Scoring
-              </span>
-            ) : (
+            {perspective === 'tiers' ? null : (
               <span>Customs Trade Intelligence</span>
             )}
           </div>
