@@ -205,30 +205,45 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
           <label className="text-[11px] font-medium text-slate-500 block mb-1">
             Data Pool:
           </label>
-          <div className="grid grid-cols-2 gap-1.5 mb-2">
+          <div className="grid grid-cols-3 gap-1 mb-2">
             <button
               type="button"
               onClick={() => setDataset('valid')}
-              className={`flex items-center justify-center gap-1.5 px-2 py-1.5 text-xs rounded-md border text-center transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1 px-1 py-1.5 text-[11px] rounded-md border text-center transition-all cursor-pointer ${
                 filters.dataset === 'valid'
                   ? 'bg-emerald-50 border-emerald-300 text-emerald-800 font-semibold'
                   : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
               }`}
+              title="Active shippers confirmed in customs records with direct phone or email on file"
             >
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+              <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
               <span>With Contacts</span>
             </button>
             <button
               type="button"
               onClick={() => setDataset('missing')}
-              className={`flex items-center justify-center gap-1.5 px-2 py-1.5 text-xs rounded-md border text-center transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1 px-1 py-1.5 text-[11px] rounded-md border text-center transition-all cursor-pointer ${
                 filters.dataset === 'missing'
                   ? 'bg-amber-50 border-amber-300 text-amber-800 font-semibold'
                   : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
               }`}
+              title="Active customs shippers awaiting contact discovery & enrichment"
             >
-              <AlertCircle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-              <span>Without Contacts</span>
+              <AlertCircle className="w-3 h-3 text-amber-500 shrink-0" />
+              <span>No Contacts</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setDataset('all')}
+              className={`flex items-center justify-center gap-1 px-1 py-1.5 text-[11px] rounded-md border text-center transition-all cursor-pointer ${
+                filters.dataset === 'all'
+                  ? 'bg-blue-50 border-blue-300 text-blue-800 font-semibold'
+                  : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+              }`}
+              title="Unified customs trade directory of 37.3k Indian air/ocean shippers"
+            >
+              <Layers className="w-3 h-3 text-blue-500 shrink-0" />
+              <span>All Leads</span>
             </button>
           </div>
 

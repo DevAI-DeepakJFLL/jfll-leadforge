@@ -41,7 +41,7 @@ import {
   getLoadedDatamyneDataset,
 } from '@/services/datamyneService';
 import { DatamyneLead } from '@/types/datamyneLead';
-import { ApolloDetailDrawer } from '@/components/apollo';
+import { ApolloDetailDrawer, ApolloSubTabSwitcher } from '@/components/apollo';
 import { useApolloFilter } from '@/hooks/useApolloFilter';
 import {
   fetchApolloLeadsFromApi,
@@ -95,8 +95,9 @@ function getInitialTopTab(): string {
       const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
       if (
         saved &&
-        ['jfll-customers', 'companies', 'people', 'datamyne', 'saved-searches', 'saved-lists'].includes(saved)
+        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'saved-searches', 'saved-lists'].includes(saved)
       ) {
+        if (saved === 'companies' || saved === 'people') return 'apollo';
         return saved;
       }
     }
@@ -109,7 +110,7 @@ function getInitialTopTab(): string {
 function getInitialActiveNav(tab: string): string {
   if (tab === 'datamyne') return 'datamyne';
   if (tab === 'jfll-customers') return 'jfll-customers';
-  if (tab === 'companies') return 'companies';
+  if (tab === 'apollo' || tab === 'companies') return 'companies';
   if (tab === 'saved-searches' || tab === 'saved-lists') return 'saved-searches';
   return 'search'; // for 'people'
 }
@@ -121,6 +122,17 @@ interface AppContentProps {
 
 const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const [topTab, setTopTab] = useState<string>(getInitialTopTab);
+  const [apolloSubTab, setApolloSubTab] = useState<'companies' | 'people'>(() => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
+        if (saved === 'people') return 'people';
+      }
+    } catch {
+      // Ignore
+    }
+    return 'companies';
+  });
   const [activeNav, setActiveNav] = useState<string>(() => getInitialActiveNav(getInitialTopTab()));
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
@@ -748,11 +760,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   };
 
   const handleSwitchToPeople = () => {
+    setApolloSubTab('people');
     setTopTab('people');
     setActiveNav('search');
   };
 
   const handleSwitchToCompanies = (companySearchTerm?: string) => {
+    setApolloSubTab('companies');
     setTopTab('companies');
     setActiveNav('companies');
     if (companySearchTerm && companySearchTerm !== 'Selected Organization') {
@@ -840,7 +854,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
 
   const isJfllCategory = topTab === 'jfll-customers';
   const isDatamyneCategory = topTab === 'datamyne';
-  const isApolloCategory = topTab === 'apollo' || topTab === 'companies';
+  const isApolloCategory = topTab === 'apollo' || topTab === 'companies' || topTab === 'people';
 
   const apolloActiveFilterCount = useMemo(() => {
     let count = 0;
@@ -867,14 +881,20 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     ? datamyneActiveFilterCount
     : isJfllCategory
     ? jfllActiveFilterCount
-    : isApolloCategory
+    : isApolloCategory && apolloSubTab === 'companies'
     ? apolloDbActiveFilterCount
     : apolloActiveFilterCount;
 
-
   // Cleanly handles switching between top-level global directory tabs
   const handleAudienceTabChange = (tabId: string) => {
-    const normalizedTab = tabId === 'apollo' ? 'companies' : tabId;
+    let normalizedTab = tabId;
+    if (tabId === 'companies') {
+      normalizedTab = 'apollo';
+      setApolloSubTab('companies');
+    } else if (tabId === 'people') {
+      normalizedTab = 'apollo';
+      setApolloSubTab('people');
+    }
     setTopTab(normalizedTab);
     setIsMobileFilterOpen(false);
 
@@ -892,8 +912,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       setActiveNav('datamyne');
     } else if (normalizedTab === 'jfll-customers') {
       setActiveNav('jfll-customers');
-    } else if (normalizedTab === 'companies') {
-      setActiveNav('companies');
+    } else if (normalizedTab === 'apollo') {
+      setActiveNav(apolloSubTab === 'people' ? 'search' : 'companies');
     } else if (normalizedTab === 'saved-searches' || normalizedTab === 'saved-lists') {
       setActiveNav('saved-searches');
       if (normalizedTab === 'saved-searches') {
@@ -917,7 +937,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         }),
         true
       );
-    } else if (typeof window !== 'undefined' && window.location.search && normalizedTab !== 'people') {
+    } else if (typeof window !== 'undefined' && window.location.search && normalizedTab !== 'people' && normalizedTab !== 'apollo') {
       window.history.replaceState(null, '', window.location.pathname);
     }
   };
@@ -932,23 +952,27 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         } else if (navId === 'jfll-customers') {
           handleAudienceTabChange('jfll-customers');
         } else if (navId === 'home' || navId === 'companies') {
-          handleAudienceTabChange('companies');
+          setTopTab('apollo');
+          setApolloSubTab('companies');
+          setActiveNav('companies');
         } else if (navId === 'search') {
-          handleAudienceTabChange('people');
+          setTopTab('apollo');
+          setApolloSubTab('people');
+          setActiveNav('search');
         } else if (navId === 'saved-searches') {
           handleAudienceTabChange('saved-searches');
         } else {
           setActiveNav(navId);
         }
       }}
-      activeTab={topTab === 'apollo' ? 'companies' : topTab}
+      activeTab={isApolloCategory ? 'apollo' : topTab}
       onTabChange={handleAudienceTabChange}
       searchQuery={
         isDatamyneCategory
           ? datamyneFilters.q || ''
           : isJfllCategory
           ? jfllFilters.q || ''
-          : isApolloCategory
+          : isApolloCategory && apolloSubTab === 'companies'
           ? apolloDbFilters.q || ''
           : filters.q || ''
       }
@@ -957,7 +981,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           setDatamyneSearch(q);
         } else if (isJfllCategory) {
           setJfllSearch(q);
-        } else if (isApolloCategory) {
+        } else if (isApolloCategory && apolloSubTab === 'companies') {
           setApolloDbSearch(q);
         } else {
           setSearch(q);
@@ -968,7 +992,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           setDatamyneSearch(q);
         } else if (isJfllCategory) {
           setJfllSearch(q);
-        } else if (isApolloCategory) {
+        } else if (isApolloCategory && apolloSubTab === 'companies') {
           setApolloDbSearch(q);
         } else {
           setSearch(q);
@@ -1044,7 +1068,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />
-      ) : isApolloCategory ? (
+      ) : isApolloCategory && apolloSubTab === 'companies' ? (
         <ApolloCompaniesView
           filters={apolloDbFilters}
           data={apolloDbData}
@@ -1073,8 +1097,22 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onTabChange={setApolloDbTab}
           onPageChange={setApolloDbPage}
           onLeadClick={(lead) => setSelectedApolloDbLead(lead)}
-          onFindDecisionMakers={handleFindDecisionMakersInPeople}
+          onFindDecisionMakers={(companyName, organizationId) => {
+            setApolloSubTab('people');
+            handleFindDecisionMakersInPeople(companyName, organizationId);
+          }}
           onSwitchToPeople={handleSwitchToPeople}
+          subTabHeader={
+            <ApolloSubTabSwitcher
+              activeSubTab="companies"
+              onSubTabChange={(tab) => {
+                setApolloSubTab(tab);
+                setActiveNav(tab === 'people' ? 'search' : 'companies');
+              }}
+              companiesCount={apolloDbData?.totalFormatted || '690k'}
+              peopleCount={effectiveData?.totalFormatted || '766k'}
+            />
+          }
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />
@@ -1118,7 +1156,22 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onPageChange={setPage}
           onLeadClick={handleLeadClick}
           onViewEmail={handleViewEmail}
-          onSwitchToCompanies={handleSwitchToCompanies}
+          onSwitchToCompanies={(companyName) => {
+            handleSwitchToCompanies(companyName);
+          }}
+          subTabHeader={
+            isApolloCategory ? (
+              <ApolloSubTabSwitcher
+                activeSubTab="people"
+                onSubTabChange={(tab) => {
+                  setApolloSubTab(tab);
+                  setActiveNav(tab === 'people' ? 'search' : 'companies');
+                }}
+                companiesCount={apolloDbData?.totalFormatted || '690k'}
+                peopleCount={effectiveData?.totalFormatted || '766k'}
+              />
+            ) : null
+          }
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />

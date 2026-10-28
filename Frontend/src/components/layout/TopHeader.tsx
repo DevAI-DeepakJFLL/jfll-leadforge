@@ -21,10 +21,9 @@ export interface TopHeaderProps {
   className?: string;
 }
 
-const TOP_NAV_TABS: TopNavTab[] = [
+export const TOP_NAV_TABS: TopNavTab[] = [
   { id: 'jfll-customers', label: 'JFLL Customers', badge: '2.7k' },
-  { id: 'companies', label: 'Companies', badge: '690k' },
-  { id: 'people', label: 'People', badge: '766k' },
+  { id: 'apollo', label: 'Apollo', badge: '1.45M' },
   { id: 'datamyne', label: 'DataMyne', badge: '37.3k' },
   { id: 'saved-searches', label: 'Saved Searches' },
   { id: 'saved-lists', label: 'Saved Lists' },
@@ -80,7 +79,10 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             aria-label="Audience Entity Tabs"
           >
             {TOP_NAV_TABS.map((tab) => {
-              const isActive = activeTab === tab.id;
+              const isActive =
+                tab.id === 'apollo'
+                  ? activeTab === 'apollo' || activeTab === 'companies' || activeTab === 'people'
+                  : activeTab === tab.id;
               const badge =
                 tab.id === 'saved-lists' && savedCount !== undefined && savedCount > 0
                   ? String(savedCount)

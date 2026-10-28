@@ -48,6 +48,7 @@ export interface PeopleViewProps {
   onLeadClick: (lead: Lead) => void;
   onViewEmail: (lead: Lead) => void;
   onSwitchToCompanies?: (companyName: string) => void;
+  subTabHeader?: React.ReactNode;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
 }
@@ -92,6 +93,7 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
   onLeadClick,
   onViewEmail,
   onSwitchToCompanies,
+  subTabHeader,
   isMobileOpen,
   onCloseMobile,
 }) => {
@@ -116,6 +118,7 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
 
       {/* Right Leads Prospecting Area */}
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
+        {subTabHeader}
         {/* Subheader: Audience Tabs matching Ref.jpg */}
         <AudienceTabs
           activeTab={filters.tab}

@@ -6,3 +6,4 @@ export * from './ApolloTable';
 export * from './ApolloDetailDrawer';
 export * from './ApolloContextBanner';
 export * from './ApolloVerticalBadge';
+export * from './ApolloSubTabSwitcher';

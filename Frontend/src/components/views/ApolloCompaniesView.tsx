@@ -40,6 +40,7 @@ export interface ApolloCompaniesViewProps {
   onLeadClick: (lead: ApolloLead) => void;
   onFindDecisionMakers: (companyName: string, organizationId?: string) => void;
   onSwitchToPeople: () => void;
+  subTabHeader?: React.ReactNode;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
 }
@@ -74,6 +75,7 @@ export const ApolloCompaniesView: React.FC<ApolloCompaniesViewProps> = ({
   onLeadClick,
   onFindDecisionMakers,
   onSwitchToPeople,
+  subTabHeader,
   isMobileOpen,
   onCloseMobile,
 }) => {
@@ -96,6 +98,7 @@ export const ApolloCompaniesView: React.FC<ApolloCompaniesViewProps> = ({
       />
 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
+        {subTabHeader}
         {/* Account Directory Scope Notification */}
         <ApolloContextBanner onSwitchToPeople={onSwitchToPeople} />
 
