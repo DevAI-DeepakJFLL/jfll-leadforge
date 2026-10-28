@@ -10,7 +10,6 @@ import {
   Archive,
   FileCheck,
 } from 'lucide-react';
-import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 import { SegmentContextBanner } from '@/components/ui/SegmentContextBanner';
 
 export interface JfllCustomerAudienceTabsProps {
@@ -403,7 +402,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
       {/* Bottom Category Tabs Row (Horizontal scroll strip to prevent truncation) */}
       <div className="px-3 sm:px-4 lg:px-6 py-2 bg-white border-b border-slate-100">
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap min-w-0">
-          {tabs.map((tab, idx) => {
+          {tabs.map((tab) => {
             const isActiveTab = activeTab === tab.id;
             const Icon = tab.icon;
             return (
@@ -446,25 +445,6 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                   >
                     {tab.count.toLocaleString()}
                   </span>
-
-                  {/* Micro Info Trigger Popover */}
-                  <CategoryInfoTooltip
-                    title={tab.label}
-                    description={tab.description}
-                    criteria={tab.criteria}
-                    actionTip={tab.actionTip}
-                    badge={tab.badge}
-                    align={idx === 0 ? 'left' : idx === tabs.length - 1 ? 'right' : 'center'}
-                    iconClassName={
-                      isActiveTab
-                        ? isInactive
-                          ? 'text-amber-600 hover:text-amber-800'
-                          : isAll
-                          ? 'text-blue-600 hover:text-blue-800'
-                          : 'text-blue-500 hover:text-blue-700'
-                        : 'text-slate-400 hover:text-slate-600'
-                    }
-                  />
                 </button>
               </div>
             );
