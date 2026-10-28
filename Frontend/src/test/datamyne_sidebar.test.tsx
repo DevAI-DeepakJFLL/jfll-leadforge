@@ -273,4 +273,31 @@ describe('DatamyneFilterSidebar Brazil Filters & Operational Hubs', () => {
     expect(hookData!.activeFilterCount).toBe(1);
     expect(typeof hookData!.toggleCountry).toBe('function');
   });
+
+  it('renders horizontal Data Pool filter chips with whitespace-nowrap preventing internal line breaks', () => {
+    const html = renderToString(
+      <DatamyneFilterSidebar
+        filters={{ dataset: 'valid' }}
+        setSearch={vi.fn()}
+        setDataset={vi.fn()}
+        toggleTransportMode={vi.fn()}
+        toggleCategory={vi.fn()}
+        toggleSubcategory={vi.fn()}
+        toggleRole={vi.fn()}
+        toggleCity={vi.fn()}
+        toggleTradeLane={vi.fn()}
+        toggleContactStatus={vi.fn()}
+        toggleHasDirectors={vi.fn()}
+        setMinShipments={vi.fn()}
+        setMinTradedValueUsd={vi.fn()}
+        clearAllFilters={vi.fn()}
+        activeFilterCount={0}
+      />
+    );
+
+    expect(html).toContain('With Contacts');
+    expect(html).toContain('Without Contacts');
+    expect(html).toContain('All Leads');
+    expect(html).toContain('whitespace-nowrap');
+  });
 });
