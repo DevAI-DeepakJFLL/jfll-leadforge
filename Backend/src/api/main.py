@@ -2,8 +2,11 @@ import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import Request
+from starlette.responses import JSONResponse
 
-from src.api.auth import router as auth_router
+from src.api.auth import is_headless_user_agent, router as auth_router
 from src.api.config import settings
 from src.api.logger import CloudWatchLoggingMiddleware
 from src.api.models import HealthResponse
@@ -20,6 +23,22 @@ app = FastAPI(
     redoc_url=None if is_production else "/redoc",
     openapi_url=None if is_production else "/openapi.json",
 )
+
+
+class AntiBotMiddleware(BaseHTTPMiddleware):
+    """Enforces rejection of automated headless browsers across all non-health API endpoints."""
+    async def dispatch(self, request: Request, call_next):
+        if request.method != "OPTIONS" and not request.url.path.endswith("/health"):
+            ua = request.headers.get("user-agent")
+            if is_headless_user_agent(ua):
+                return JSONResponse(
+                    status_code=403,
+                    content={"detail": "AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited."},
+                )
+        return await call_next(request)
+
+
+app.add_middleware(AntiBotMiddleware)
 
 # CloudWatch & CloudFront Structured Request Telemetry Middleware
 app.add_middleware(CloudWatchLoggingMiddleware)

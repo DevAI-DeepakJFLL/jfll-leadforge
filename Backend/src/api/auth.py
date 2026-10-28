@@ -15,7 +15,9 @@ from src.api.models import LoginRequest, UserSessionResponse
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
 
-# In-memory registry tracking the single active session_id per user email
+# shortcut: In-memory registry assumes single-process deployment (or sticky sessions).
+# Horizontal multi-worker scaling (e.g. uvicorn --workers N or multi-instance ECS)
+# requires external shared state (e.g. Redis key `session:{email}` or a database column).
 ACTIVE_USER_SESSIONS: dict[str, str] = {}
 
 HEADLESS_USER_AGENTS = (
@@ -229,7 +231,6 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
 
     # Issue unique session ID and invalidate any prior session for this user
     session_id = f"sess_{secrets.token_hex(16)}"
-    ACTIVE_USER_SESSIONS[input_email] = session_id
 
     token, expires_at = create_token(
         {

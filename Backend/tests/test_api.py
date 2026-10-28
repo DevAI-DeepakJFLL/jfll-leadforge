@@ -198,6 +198,16 @@ def test_login_rejects_headless_user_agent():
         assert "AUTOMATED_AGENT_BLOCKED" in res.json()["detail"]
 
 
+def test_data_routes_reject_headless_user_agent():
+    """Verify that AntiBotMiddleware blocks headless user agents across all data routes."""
+    res = client.get(
+        "/api/v1/leads",
+        headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Playwright/1.42.0"},
+    )
+    assert res.status_code == 403
+    assert "AUTOMATED_AGENT_BLOCKED" in res.json()["detail"]
+
+
 def test_cors_origin_restrictions():
     """Verify that only explicitly allowlisted origins are accepted, not arbitrary CloudFront domains."""
     # Authorized origin

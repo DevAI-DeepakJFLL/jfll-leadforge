@@ -69,26 +69,6 @@ export function isAutomatedBrowser(): BotDetectionResult {
     return { isBot: true, reason: 'Missing browser plugins profile' };
   }
 
-  // 6. WebGL Software Rasterizer Inspection (Cloud VMs / Headless runners)
-  try {
-    const canvas = document.createElement('canvas');
-    const gl =
-      canvas.getContext('webgl') ||
-      (canvas.getContext('experimental-webgl') as WebGLRenderingContext | null);
-
-    if (gl) {
-      const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-      if (debugInfo) {
-        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || '';
-        if (/SwiftShader|llvmpipe|Mesa OffScreen|Software/i.test(String(renderer))) {
-          return { isBot: true, reason: `Software WebGL rasterizer detected (${renderer})` };
-        }
-      }
-    }
-  } catch {
-    // Ignore WebGL detection error in environments where canvas is disabled
-  }
-
   return { isBot: false };
 }
 
