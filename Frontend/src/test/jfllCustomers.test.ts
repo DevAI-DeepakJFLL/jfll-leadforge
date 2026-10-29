@@ -268,6 +268,33 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(totalTypeCount).toBe(2857);
   });
 
+  it('filters accurately by Credit Status and computes facet counts', async () => {
+    const { getCreditStatusFacetCounts } = await import('@/services/jfllCustomerService');
+    const creditFacets = getCreditStatusFacetCounts('active');
+    expect(creditFacets.length).toBe(5);
+
+    const approvedFacet = creditFacets.find((f) => f.value === 'approved');
+    expect(approvedFacet?.count).toBe(400);
+    expect(approvedFacet?.label).toBe('Approved');
+
+    const blockedFacet = creditFacets.find((f) => f.value === 'blocked');
+    expect(blockedFacet?.count).toBe(58);
+    expect(blockedFacet?.label).toBe('Blocked');
+
+    const totalCreditCount = creditFacets.reduce((acc, f) => acc + f.count, 0);
+    expect(totalCreditCount).toBe(578);
+
+    // Filter single credit status
+    const approvedRes = queryJfllCustomers({ creditStatuses: ['approved'] });
+    expect(approvedRes.totalEstimate).toBe(400);
+    approvedRes.items.forEach((c) => expect(c.creditStatus).toBe('approved'));
+
+    // Filter multi credit status
+    const riskRes = queryJfllCustomers({ creditStatuses: ['high_risk', 'blocked'] });
+    expect(riskRes.totalEstimate).toBe(58 + 25);
+    riskRes.items.forEach((c) => expect(['high_risk', 'blocked']).toContain(c.creditStatus));
+  });
+
   it('supports unified "all" customer status combining active and inactive accounts (2,857 total)', () => {
     const allQuery = queryJfllCustomers({ customerStatus: 'all', page: 1, limit: 25 });
     expect(allQuery.totalEstimate).toBe(2857);

@@ -35,6 +35,7 @@ export interface JfllCustomersViewProps {
   onPageChange: (page: number) => void;
   toggleCustomerGroup: (group: string) => void;
   toggleType: (type: string) => void;
+  toggleCreditStatus: (status: string) => void;
   toggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   clearAllFilters: () => void;
   onCustomerClick: (customer: JfllCustomer) => void;
@@ -64,6 +65,7 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
   onPageChange,
   toggleCustomerGroup,
   toggleType,
+  toggleCreditStatus,
   toggleContactOption,
   clearAllFilters,
   onCustomerClick,
@@ -78,6 +80,7 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
         filters={filters}
         onToggleCustomerGroup={toggleCustomerGroup}
         onToggleType={toggleType}
+        onToggleCreditStatus={toggleCreditStatus}
         onToggleContactOption={toggleContactOption}
         onClearAll={clearAllFilters}
         isMobileOpen={isMobileOpen}

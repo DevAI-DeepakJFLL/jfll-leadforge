@@ -23,6 +23,9 @@ interface ApiLeadRecord {
   status?: string;
   customer_group?: string;
   type?: string;
+  credit_status?: string | null;
+  sales_person?: string | null;
+  business_last_3m?: number | null;
 }
 
 /**
@@ -37,6 +40,7 @@ export async function fetchJfllCustomersFromApi(
     customerStatus = 'active',
     customerGroups = [],
     types = [],
+    creditStatuses = [],
     hasPhone,
     hasEmail,
     hasContactPerson,
@@ -64,9 +68,10 @@ export async function fetchJfllCustomersFromApi(
 
   customerGroups.forEach((g) => urlParams.append('customer_groups', g));
   types.forEach((t) => urlParams.append('types', t));
+  creditStatuses.forEach((cs) => urlParams.append('credit_statuses', cs));
 
   const endpoint = `${API_BASE_URL}/api/v1/leads?${urlParams.toString()}`;
-  logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups });
+  logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups, creditStatuses });
 
   let authHeader: Record<string, string> = {};
   try {
@@ -106,6 +111,9 @@ export async function fetchJfllCustomersFromApi(
       status: (row.status as 'Active' | 'Not Active') || 'Active',
       customerGroup: row.customer_group || '',
       type: row.type || '',
+      creditStatus: row.credit_status || undefined,
+      salesPerson: row.sales_person || null,
+      businessLast3m: row.business_last_3m !== null && row.business_last_3m !== undefined ? row.business_last_3m : undefined,
       saved: false,
       inDataMyne: false,
     }));
@@ -148,6 +156,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     customerStatus = 'active',
     customerGroups = [],
     types = [],
+    creditStatuses = [],
     hasPhone,
     hasEmail,
     hasContactPerson,
@@ -187,7 +196,12 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     baseFiltered = baseFiltered.filter((c) => types.includes(c.type));
   }
 
-  // 4. Contact Readiness Filters
+  // 4. Credit Status Multi-select Filter
+  if (creditStatuses.length > 0) {
+    baseFiltered = baseFiltered.filter((c) => !!c.creditStatus && creditStatuses.includes(c.creditStatus));
+  }
+
+  // 5. Contact Readiness Filters
   if (hasPhone) {
     baseFiltered = baseFiltered.filter((c) => isValidPhoneNumber(c.mobileNumber));
   }
@@ -313,6 +327,7 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
     'Customer Group',
     'Legal Type',
     'Status',
+    'Credit Status',
     'Contact Person Name',
     'Mobile Number',
     'Email',
@@ -324,6 +339,7 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
     c.customerGroup,
     c.type,
     c.status,
+    c.creditStatus ? c.creditStatus.replace(/_/g, ' ').toUpperCase() : 'N/A',
     c.contactPersonName,
     c.mobileNumber,
     c.email,
@@ -395,5 +411,42 @@ export function getContactReadinessFacetCounts(status: 'active' | 'inactive' | '
     if (c.email && c.email.trim().length > 0) hasEmail++;
   }
   return { hasContactPerson, hasPhone, hasEmail };
+}
+
+/**
+ * Dynamically compute actual Credit Status facet counts from dataset
+ */
+export function getCreditStatusFacetCounts(status: 'active' | 'inactive' | 'all' = 'active'): {
+  label: string;
+  value: string;
+  count: number;
+}[] {
+  const data = status === 'all'
+    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    : status === 'inactive'
+    ? JFLL_INACTIVE_CUSTOMERS_DATA
+    : JFLL_CUSTOMERS_DATA;
+  const counts: Record<string, number> = {};
+  for (const c of data) {
+    if (c.creditStatus) {
+      counts[c.creditStatus] = (counts[c.creditStatus] || 0) + 1;
+    }
+  }
+
+  const order = ['approved', 'moderate_risk', 'high_risk', 'blocked', 'no_credit'];
+  return Object.entries(counts)
+    .map(([value, count]) => {
+      const label = value
+        .split('_')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+      return { label, value, count };
+    })
+    .sort((a, b) => {
+      const idxA = order.indexOf(a.value);
+      const idxB = order.indexOf(b.value);
+      if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+      return b.count - a.count;
+    });
 }
 

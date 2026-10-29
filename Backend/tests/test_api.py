@@ -45,6 +45,25 @@ def test_list_leads_filtering_by_tab_and_group():
     assert payload["total_records"] == 25
 
 
+def test_list_leads_filtering_by_credit_status():
+    """Verify that credit_status and credit_statuses filters return matching records."""
+    # Single credit status filter
+    res_approved = client.get("/api/v1/leads?status=Active&credit_status=approved")
+    assert res_approved.status_code == 200
+    payload = res_approved.json()
+    assert payload["total_records"] == 400
+    for item in payload["data"]:
+        assert item["credit_status"] == "approved"
+
+    # Multi-select credit statuses
+    res_multi = client.get("/api/v1/leads?status=Active&credit_statuses=blocked&credit_statuses=high_risk")
+    assert res_multi.status_code == 200
+    payload_multi = res_multi.json()
+    assert payload_multi["total_records"] == 58 + 25  # 83
+    for item in payload_multi["data"]:
+        assert item["credit_status"] in ("blocked", "high_risk")
+
+
 def test_list_leads_dynamic_audience_counts():
     # Baseline active leads count
     res_base = client.get("/api/v1/leads?status=Active")

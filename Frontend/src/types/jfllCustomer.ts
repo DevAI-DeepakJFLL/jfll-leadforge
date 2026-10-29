@@ -33,6 +33,7 @@ export interface JfllCustomerFilterParams {
   customerStatus?: 'active' | 'inactive' | 'all';
   customerGroups?: string[];
   types?: string[];
+  creditStatuses?: string[];
   hasPhone?: boolean;
   hasEmail?: boolean;
   hasContactPerson?: boolean;

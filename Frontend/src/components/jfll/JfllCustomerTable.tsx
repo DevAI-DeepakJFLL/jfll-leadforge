@@ -136,6 +136,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                 <th className="py-3 px-4 min-w-[260px]">Company Name</th>
                 <th className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
                 <th className="py-3 px-3.5 min-w-[95px]">Status</th>
+                <th className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
                 <th className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
                 <th className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
                 <th className="py-3 px-3.5 min-w-[190px]">Email</th>
@@ -149,6 +150,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   <td className="py-3.5 px-4"><div className="w-48 h-3.5 bg-slate-200 rounded mb-1.5" /><div className="w-24 h-2.5 bg-slate-100 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-24 h-5 bg-slate-150 rounded-full" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-14 h-4 bg-emerald-100/60 rounded-full" /></td>
+                  <td className="py-3.5 px-3.5"><div className="w-20 h-4 bg-slate-150 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-28 h-3 bg-slate-200 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-28 h-3 bg-slate-200 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-36 h-3 bg-slate-200 rounded" /></td>
@@ -216,7 +218,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
     >
       {/* Table Container */}
       <div className="overflow-x-auto min-w-0">
-        <table className="w-full min-w-[980px] text-left text-xs border-collapse">
+        <table className="w-full min-w-[1080px] text-left text-xs border-collapse">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
               <th className="py-3 px-3 w-10 text-center">
@@ -225,6 +227,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               <th className="py-3 px-4 min-w-[260px]">Company Name</th>
               <th className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
               <th className="py-3 px-3.5 min-w-[95px]">Status</th>
+              <th className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
               <th className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
               <th className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
               <th className="py-3 px-3.5 min-w-[190px]">Email</th>
@@ -310,6 +313,29 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                         Inactive
                       </span>
+                    )}
+                  </td>
+
+                  {/* Credit Status */}
+                  <td className="py-3 px-3.5 align-middle">
+                    {c.creditStatus ? (
+                      <span
+                        className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide whitespace-nowrap ${
+                          c.creditStatus === 'approved'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            : c.creditStatus === 'blocked'
+                            ? 'bg-red-50 text-red-700 border border-red-200'
+                            : c.creditStatus === 'high_risk'
+                            ? 'bg-orange-50 text-orange-700 border border-orange-200'
+                            : c.creditStatus === 'moderate_risk'
+                            ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                            : 'bg-slate-100 text-slate-600 border border-slate-200'
+                        }`}
+                      >
+                        {c.creditStatus.replace(/_/g, ' ')}
+                      </span>
+                    ) : (
+                      <span className="text-slate-400 italic text-xs">—</span>
                     )}
                   </td>
 

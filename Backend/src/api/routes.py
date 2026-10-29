@@ -63,6 +63,8 @@ def list_leads(
     has_phone: bool | None = Query(default=None, description="Require valid phone number"),
     has_email: bool | None = Query(default=None, description="Require valid email address"),
     has_contact_person: bool | None = Query(default=None, description="Require contact person name"),
+    credit_status: str | None = Query(default=None, description="Single Credit Status filter"),
+    credit_statuses: list[str] | None = Query(default=None, description="Multi-select Credit Statuses"),
     tab: str | None = Query(default=None, description="Audience quick tab: all, shippers, subagents, overseas, with-contacts"),
     search: str | None = Query(default=None, min_length=1, max_length=100, description="Search company, contact person or email"),
     authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
@@ -78,6 +80,8 @@ def list_leads(
     has_phone = normalize_query(has_phone)
     has_email = normalize_query(has_email)
     has_contact_person = normalize_query(has_contact_person)
+    credit_status = normalize_query(credit_status)
+    credit_statuses = normalize_query(credit_statuses)
     tab = normalize_query(tab)
     search = normalize_query(search)
 
@@ -118,6 +122,15 @@ def list_leads(
         placeholders = ", ".join(["?"] * len(types))
         base_conditions.append(f'"Type" IN ({placeholders})')
         base_params.extend(types)
+
+    # Credit Status multi-select or single
+    combined_credit = list(credit_statuses or [])
+    if credit_status and credit_status not in combined_credit:
+        combined_credit.append(credit_status)
+    if combined_credit:
+        placeholders = ", ".join(["?"] * len(combined_credit))
+        base_conditions.append(f'"Credit Status" IN ({placeholders})')
+        base_params.extend(combined_credit)
 
     # Contact readiness
     if has_phone:

@@ -7,6 +7,7 @@ import {
   PhoneCall,
   Search,
   SlidersHorizontal,
+  CreditCard,
   X,
 } from 'lucide-react';
 import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
@@ -14,12 +15,14 @@ import {
   getCustomerGroupFacetCounts,
   getLegalTypeFacetCounts,
   getContactReadinessFacetCounts,
+  getCreditStatusFacetCounts,
 } from '@/services/jfllCustomerService';
 
 export interface JfllCustomerFilterSidebarProps {
   filters: JfllCustomerFilterParams;
   onToggleCustomerGroup: (group: string) => void;
   onToggleType: (type: string) => void;
+  onToggleCreditStatus: (status: string) => void;
   onToggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   onClearAll: () => void;
   isMobileOpen?: boolean;
@@ -31,6 +34,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   filters,
   onToggleCustomerGroup,
   onToggleType,
+  onToggleCreditStatus,
   onToggleContactOption,
   onClearAll,
   isMobileOpen = false,
@@ -40,6 +44,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   const [openSections, setOpenSections] = useState({
     groups: true,
     types: true,
+    creditStatus: true,
     contacts: true,
   });
 
@@ -56,17 +61,23 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
     [filters.customerStatus]
   );
 
+  const creditStatusesList = React.useMemo(
+    () => getCreditStatusFacetCounts(filters.customerStatus || 'all'),
+    [filters.customerStatus]
+  );
+
   const contactCounts = React.useMemo(
     () => getContactReadinessFacetCounts(filters.customerStatus || 'all'),
     [filters.customerStatus]
   );
 
-  const toggleSection = (section: 'groups' | 'types' | 'contacts') => {
+  const toggleSection = (section: 'groups' | 'types' | 'creditStatus' | 'contacts') => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
   const selectedGroups = filters.customerGroups || [];
   const selectedTypes = filters.types || [];
+  const selectedCreditStatuses = filters.creditStatuses || [];
 
   const filteredGroups = customerGroupsList.filter((g) =>
     g.label.toLowerCase().includes(groupSearch.toLowerCase())
@@ -79,6 +90,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   const activeCount =
     selectedGroups.length +
     selectedTypes.length +
+    selectedCreditStatuses.length +
     (filters.hasPhone ? 1 : 0) +
     (filters.hasEmail ? 1 : 0) +
     (filters.hasContactPerson ? 1 : 0);
@@ -326,6 +338,80 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
             </div>
           )}
         </div>
+
+        {/* Accordion 4: Credit Status */}
+        {creditStatusesList.length > 0 && (
+          <div>
+            <button
+              onClick={() => toggleSection('creditStatus')}
+              className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <CreditCard className="w-4 h-4 text-emerald-600" />
+                <span className="text-xs font-semibold text-slate-800">
+                  Credit Status
+                </span>
+                {selectedCreditStatuses.length > 0 && (
+                  <span className="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
+                    {selectedCreditStatuses.length}
+                  </span>
+                )}
+              </div>
+              <ChevronDown
+                className={`w-4 h-4 text-slate-400 transition-transform ${
+                  openSections.creditStatus ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+
+            {openSections.creditStatus && (
+              <div className="px-4 pb-3 space-y-1.5">
+                {creditStatusesList.map((cs) => {
+                  const isChecked = selectedCreditStatuses.includes(cs.value);
+                  const dotColor =
+                    cs.value === 'approved'
+                      ? 'bg-emerald-500'
+                      : cs.value === 'moderate_risk'
+                      ? 'bg-amber-500'
+                      : cs.value === 'high_risk'
+                      ? 'bg-orange-500'
+                      : cs.value === 'blocked'
+                      ? 'bg-red-500'
+                      : 'bg-slate-400';
+
+                  return (
+                    <label
+                      key={cs.value}
+                      className="flex items-center justify-between text-xs cursor-pointer group py-0.5"
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => onToggleCreditStatus(cs.value)}
+                          className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer"
+                        />
+                        <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${dotColor}`} />
+                        <span
+                          className={`truncate ${
+                            isChecked
+                              ? 'text-slate-900 font-medium'
+                              : 'text-slate-700 group-hover:text-slate-900'
+                          }`}
+                        >
+                          {cs.label}
+                        </span>
+                      </div>
+                      <span className="text-[11px] font-mono text-slate-400 shrink-0 ml-2">
+                        {cs.count}
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

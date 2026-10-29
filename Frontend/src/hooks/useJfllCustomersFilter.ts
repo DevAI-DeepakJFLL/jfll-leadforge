@@ -9,6 +9,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     limit: 25,
     customerGroups: [],
     types: [],
+    creditStatuses: [],
     hasPhone: false,
     hasEmail: false,
     hasContactPerson: false,
@@ -23,6 +24,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
       page: 1,
       customerGroups: [],
       types: [],
+      creditStatuses: [],
     }));
   }, []);
 
@@ -62,6 +64,16 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     });
   }, []);
 
+  const toggleCreditStatus = useCallback((creditStatus: string) => {
+    setFilters((prev) => {
+      const current = prev.creditStatuses || [];
+      const updated = current.includes(creditStatus)
+        ? current.filter((c) => c !== creditStatus)
+        : [...current, creditStatus];
+      return { ...prev, creditStatuses: updated, page: 1 };
+    });
+  }, []);
+
   const toggleContactOption = useCallback(
     (key: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => {
       setFilters((prev) => ({
@@ -80,6 +92,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
       limit: 25,
       customerGroups: [],
       types: [],
+      creditStatuses: [],
       hasPhone: false,
       hasEmail: false,
       hasContactPerson: false,
@@ -94,6 +107,9 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     }
     if (filters.types && filters.types.length > 0) {
       count += filters.types.length;
+    }
+    if (filters.creditStatuses && filters.creditStatuses.length > 0) {
+      count += filters.creditStatuses.length;
     }
     if (filters.hasPhone) count += 1;
     if (filters.hasEmail) count += 1;
@@ -112,6 +128,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     setLimit,
     toggleCustomerGroup,
     toggleType,
+    toggleCreditStatus,
     toggleContactOption,
     clearAllFilters,
     activeFilterCount,
