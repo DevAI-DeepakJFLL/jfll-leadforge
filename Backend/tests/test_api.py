@@ -310,4 +310,62 @@ def test_single_device_session_displacement_immediate():
     assert heartbeat2.json()["active"] is True
 
 
+def test_enterprise_security_headers():
+    """Verify that SecurityHeadersMiddleware injects enterprise defense-in-depth headers on responses."""
+    res = client.get("/health")
+    assert res.status_code == 200
+    assert res.headers.get("x-content-type-options") == "nosniff"
+    assert res.headers.get("x-frame-options") == "DENY"
+    assert res.headers.get("x-xss-protection") == "1; mode=block"
+    assert res.headers.get("referrer-policy") == "strict-origin-when-cross-origin"
+    assert "geolocation=()" in res.headers.get("permissions-policy", "")
+
+
+def test_token_verification_cryptographic_edge_cases():
+    """Verify that verify_token strictly rejects tokens with missing/invalid exp or future iat."""
+    from src.api.auth import _base64url_encode, verify_token
+    import hmac
+    import hashlib
+    import json
+    from src.api.config import settings
+    from datetime import datetime, UTC
+
+    def make_raw_token(payload_dict):
+        header = {"alg": "HS256", "typ": "JWT"}
+        h_b64 = _base64url_encode(json.dumps(header).encode())
+        p_b64 = _base64url_encode(json.dumps(payload_dict).encode())
+        sig = hmac.new(
+            settings.auth_secret_key.encode("utf-8"),
+            f"{h_b64}.{p_b64}".encode(),
+            hashlib.sha256,
+        ).digest()
+        sig_b64 = _base64url_encode(sig)
+        return f"{h_b64}.{p_b64}.{sig_b64}"
+
+    # 1. Missing exp claim
+    t_no_exp = make_raw_token({"sub": "test@jfll.com"})
+    assert verify_token(t_no_exp) is None
+
+    # 2. Non-numeric exp claim
+    t_str_exp = make_raw_token({"sub": "test@jfll.com", "exp": "2099-01-01"})
+    assert verify_token(t_str_exp) is None
+
+    # 3. Expired token
+    t_expired = make_raw_token({"sub": "test@jfll.com", "exp": 1000000})
+    assert verify_token(t_expired) is None
+
+    # 4. Far future iat claim (> 5 mins clock skew)
+    now_ts = datetime.now(UTC).timestamp()
+    t_future_iat = make_raw_token({"sub": "test@jfll.com", "exp": now_ts + 3600, "iat": now_ts + 600})
+    assert verify_token(t_future_iat) is None
+
+    # 5. Invalid signature / altered payload
+    valid_token = make_raw_token({"sub": "test@jfll.com", "exp": now_ts + 3600, "iat": now_ts})
+    parts = valid_token.split(".")
+    tampered_payload = _base64url_encode(json.dumps({"sub": "hacker@evil.com", "exp": now_ts + 3600}).encode())
+    tampered_token = f"{parts[0]}.{tampered_payload}.{parts[2]}"
+    assert verify_token(tampered_token) is None
+
+
+
 

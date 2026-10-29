@@ -88,33 +88,57 @@ export function renderBotBlockScreen(reason?: string): void {
     'position:fixed;inset:0;background:#090d16;color:#ffffff;display:flex;align-items:center;justify-content:center;z-index:99999999;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:24px;box-sizing:border-box;'
   );
 
-  container.innerHTML = `
-    <div style="max-width:540px;background:#111827;border:1px solid #dc2626;border-radius:16px;padding:36px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.7);text-align:center;">
-      <div style="width:64px;height:64px;background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="M12 8v4"/>
-          <path d="M12 16h.01"/>
-        </svg>
-      </div>
-      <h1 style="font-size:20px;font-weight:700;color:#f87171;margin:0 0 12px;letter-spacing:-0.02em;">
-        Automated Browser Agent Prohibited
-      </h1>
-      <p style="font-size:14px;color:#9ca3af;line-height:1.6;margin:0 0 20px;">
-        Jet Freight Lead Forge has detected an automated browser environment or headless agent.
-        To safeguard proprietary customs intelligence and client records, programmatic browser operations are restricted.
-      </p>
-      ${
-        reason
-          ? `<div style="font-size:11px;font-family:monospace;background:#1f2937;color:#fca5a5;padding:8px 12px;border-radius:8px;margin-bottom:20px;word-break:break-all;">Detection: ${reason}</div>`
-          : ''
-      }
-      <div style="border-top:1px solid #374151;padding-top:20px;font-size:12px;color:#6b7280;line-height:1.5;">
-        Please launch this portal in a standard, interactive desktop browser (Chrome, Safari, Edge, Firefox).
-      </div>
-    </div>
-  `;
+  const card = document.createElement('div');
+  card.setAttribute(
+    'style',
+    'max-width:540px;background:#111827;border:1px solid #dc2626;border-radius:16px;padding:36px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.7);text-align:center;'
+  );
 
+  const iconWrapper = document.createElement('div');
+  iconWrapper.setAttribute(
+    'style',
+    'width:64px;height:64px;background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;'
+  );
+  iconWrapper.innerHTML = `
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <path d="M12 8v4"/>
+      <path d="M12 16h.01"/>
+    </svg>
+  `;
+  card.appendChild(iconWrapper);
+
+  const heading = document.createElement('h1');
+  heading.setAttribute('style', 'font-size:20px;font-weight:700;color:#f87171;margin:0 0 12px;letter-spacing:-0.02em;');
+  heading.textContent = 'Automated Browser Agent Prohibited';
+  card.appendChild(heading);
+
+  const desc = document.createElement('p');
+  desc.setAttribute('style', 'font-size:14px;color:#9ca3af;line-height:1.6;margin:0 0 20px;');
+  desc.textContent =
+    'Jet Freight Lead Forge has detected an automated browser environment or headless agent. To safeguard proprietary customs intelligence and client records, programmatic browser operations are restricted.';
+  card.appendChild(desc);
+
+  if (reason) {
+    const reasonDiv = document.createElement('div');
+    reasonDiv.setAttribute(
+      'style',
+      'font-size:11px;font-family:monospace;background:#1f2937;color:#fca5a5;padding:8px 12px;border-radius:8px;margin-bottom:20px;word-break:break-all;'
+    );
+    reasonDiv.textContent = `Detection: ${reason}`;
+    card.appendChild(reasonDiv);
+  }
+
+  const footer = document.createElement('div');
+  footer.setAttribute(
+    'style',
+    'border-top:1px solid #374151;padding-top:20px;font-size:12px;color:#6b7280;line-height:1.5;'
+  );
+  footer.textContent =
+    'Please launch this portal in a standard, interactive desktop browser (Chrome, Safari, Edge, Firefox).';
+  card.appendChild(footer);
+
+  container.appendChild(card);
   document.body.innerHTML = '';
   document.body.appendChild(container);
 }

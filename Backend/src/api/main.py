@@ -39,6 +39,21 @@ class AntiBotMiddleware(BaseHTTPMiddleware):
         return await call_next(request)
 
 
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    """Enforces enterprise defense-in-depth security headers across all API responses."""
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "geolocation=(), camera=(), microphone=()"
+        if is_production or request.url.scheme == "https":
+            response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        return response
+
+
+app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(AntiBotMiddleware)
 
 # CloudWatch & CloudFront Structured Request Telemetry Middleware
@@ -62,7 +77,15 @@ app.add_middleware(
     allow_origins=get_allowed_origins(),
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["*"],
+    allow_headers=[
+        "Authorization",
+        "Content-Type",
+        "Accept",
+        "Origin",
+        "User-Agent",
+        "X-Request-ID",
+        "X-Amzn-Trace-Id",
+    ],
 )
 
 app.include_router(auth_router)

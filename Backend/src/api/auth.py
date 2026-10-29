@@ -126,10 +126,21 @@ def verify_token(token: str) -> dict[str, Any] | None:
     except (binascii.Error, ValueError, UnicodeDecodeError, json.JSONDecodeError):
         return None
     
+    if not isinstance(payload, dict):
+        return None
+
     exp = payload.get("exp")
-    if exp and datetime.now(UTC).timestamp() > exp:
+    if exp is None or not isinstance(exp, (int, float)):
+        return None  # Numeric exp claim is strictly required
+
+    now_ts = datetime.now(UTC).timestamp()
+    if now_ts > exp:
         return None  # Token expired
-    
+
+    iat = payload.get("iat")
+    if iat is not None and isinstance(iat, (int, float)) and iat > (now_ts + 300):
+        return None  # Rejection: token future-dated beyond clock skew allowance
+
     return payload
 
 
