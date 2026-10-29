@@ -182,21 +182,45 @@ def list_leads(
         )
 
         # 3. Paginated Data Query
-        data_query = f"""
-            SELECT 
-                "Full Name" as full_name,
-                "Territory" as territory,
-                "Contact Person Name" as contact_person_name,
-                "Mobile Number" as mobile_number,
-                "Email" as email,
-                "Status" as status,
-                "Customer Group" as customer_group,
-                "Type" as type
-            FROM '{data_source}'
-            WHERE {where_sql}
-            ORDER BY "Full Name" ASC
-            LIMIT ? OFFSET ?
-        """
+        is_active_source = (status == "Active" or (status is None and "active" in data_source))
+        if is_active_source:
+            data_query = f"""
+                SELECT 
+                    "Full Name" as full_name,
+                    "Territory" as territory,
+                    "Contact Person Name" as contact_person_name,
+                    "Mobile Number" as mobile_number,
+                    "Email" as email,
+                    "Status" as status,
+                    "Customer Group" as customer_group,
+                    "Type" as type,
+                    "Credit Status" as credit_status,
+                    "Sales Person" as sales_person,
+                    "Total Business Received From Cusomer In Last 3 Month" as business_last_3m
+                FROM '{data_source}'
+                WHERE {where_sql}
+                ORDER BY "Full Name" ASC
+                LIMIT ? OFFSET ?
+            """
+        else:
+            data_query = f"""
+                SELECT 
+                    "Full Name" as full_name,
+                    "Territory" as territory,
+                    "Contact Person Name" as contact_person_name,
+                    "Mobile Number" as mobile_number,
+                    "Email" as email,
+                    "Status" as status,
+                    "Customer Group" as customer_group,
+                    "Type" as type,
+                    NULL as credit_status,
+                    NULL as sales_person,
+                    NULL as business_last_3m
+                FROM '{data_source}'
+                WHERE {where_sql}
+                ORDER BY "Full Name" ASC
+                LIMIT ? OFFSET ?
+            """
         query_params = params + [page_size, offset]
         result_cursor = con.execute(data_query, query_params)
         columns = [desc[0] for desc in result_cursor.description]

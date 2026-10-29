@@ -1,22 +1,9 @@
-// 2,010 Inactive Customer Records from Customer with contact.xlsx (Active JFLL Customers Purged)
+// 2,279 Inactive Customer Records from Customer with contact.xlsx (>3 Months Inactivity Window)
 import { JfllCustomer } from '@/types/jfllCustomer';
 
 export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
   {
     "id": "jfll-inact-0001",
-    "fullName": "RAO CLEARING AGENCY",
-    "territory": "All Territories",
-    "contactPersonName": "Rajesh",
-    "mobileNumber": "+91-9591182830",
-    "email": "blrrcaclg@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0002",
     "fullName": "SG GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Sachin  Gupta",
@@ -29,20 +16,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0003",
-    "fullName": "RIFA IMPEX",
-    "territory": "All Territories",
-    "contactPersonName": "Mr. Khalid  Hussain",
-    "mobileNumber": "+91-9448451241",
-    "email": "rifaimpex@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": true
-  },
-  {
-    "id": "jfll-inact-0004",
+    "id": "jfll-inact-0002",
     "fullName": "MERCATUM EXPORT & IMPORT",
     "territory": "All Territories",
     "contactPersonName": "ANURAG",
@@ -55,33 +29,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0005",
-    "fullName": "RD LOGISTICS AND FREIGHT",
-    "territory": "All Territories",
-    "contactPersonName": "Raja  Dhingra",
-    "mobileNumber": "+91-9871277453",
-    "email": "rajadhingra@rdlogistics.co",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0006",
-    "fullName": "RAJVI LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Rahul",
-    "mobileNumber": "+91-9426033331",
-    "email": "rahul.saini@rajvilogistics.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0007",
+    "id": "jfll-inact-0003",
     "fullName": "LOGITRUST GLOBAL SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PANKAJ",
@@ -89,12 +37,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pankaj.kumar@logitrustglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0008",
+    "id": "jfll-inact-0004",
     "fullName": "REKHA SHIPPING AGENCY",
     "territory": "All Territories",
     "contactPersonName": "Ganesh",
@@ -102,25 +50,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@rekhashippingagency.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0009",
-    "fullName": "Alpha TND Private Limited",
-    "territory": "All Territories",
-    "contactPersonName": "Prakash  Shinde",
-    "mobileNumber": "+91-9321747879",
-    "email": "prakash.s@alphatnd.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": true
-  },
-  {
-    "id": "jfll-inact-0010",
+    "id": "jfll-inact-0005",
     "fullName": "DOORA EXPRESS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "JYOTI",
@@ -133,7 +68,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0011",
+    "id": "jfll-inact-0006",
     "fullName": "ON TIME INTERNATIONAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Anant",
@@ -141,51 +76,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "salvister@del.ontime-express.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0012",
-    "fullName": "SRB EXPORTS",
-    "territory": "All Territories",
-    "contactPersonName": "SRBexport",
-    "mobileNumber": "+91-9901524076",
-    "email": "srbexports11@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0013",
+    "id": "jfll-inact-0007",
     "fullName": "GGL LINE PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "GGL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "csexp1.maa@ggl.sg",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0014",
+    "id": "jfll-inact-0008",
     "fullName": "FRIGORIFICO ALLANA PVT. LTD",
     "territory": "All Territories",
     "contactPersonName": "smretiwalla",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "smretiwalla@allana.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0015",
+    "id": "jfll-inact-0009",
+    "fullName": "EAST WEST FREIGHT CARRIERS LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Madhu",
+    "mobileNumber": "+91-8884049459",
+    "email": "madhu@ewfcpl.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0010",
     "fullName": "ENTEL FOOD PRODCUTS PVT.LTD",
     "territory": "All Territories",
     "contactPersonName": "Jijy Titus",
@@ -193,64 +128,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "entelfood@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0016",
-    "fullName": "SDS LOGISTICS SOLUTION",
-    "territory": "All Territories",
-    "contactPersonName": "MR SHIVAM",
-    "mobileNumber": "+91-8097213343",
-    "email": "info@sdslogistics.in",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0017",
-    "fullName": "UNITED BROTHERS GLOBAL",
-    "territory": "All Territories",
-    "contactPersonName": "UNITED BROTHERS GLOBAL",
-    "mobileNumber": "+91-7887799370",
-    "email": "info@ubglobal.in",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0018",
-    "fullName": "SEAGLOBE SHIPPING AGENCY PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "PANKAJ",
-    "mobileNumber": "+91-9029213055",
-    "email": "pankaj@seaglobeshipping.in",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0019",
-    "fullName": "ISH MAXPRO LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "VICTOR",
-    "mobileNumber": "+91-9384817330",
-    "email": "victor@ishmaxpro.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0020",
+    "id": "jfll-inact-0011",
     "fullName": "FALCON CARGO SERVICES (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. CONALD JOSEPH  BAPTIST",
@@ -258,25 +141,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "falcon@falconcargoindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0021",
+    "id": "jfll-inact-0012",
+    "fullName": "LION FOODS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "rahul BHASALE",
+    "mobileNumber": "+91-9727579969",
+    "email": "rahul@lionfoodsindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0013",
     "fullName": "FRESH WAVE EXPORT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "fresh wave",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "freshwaveexport@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0022",
+    "id": "jfll-inact-0014",
     "fullName": "ASAP",
     "territory": "All Territories",
     "contactPersonName": "Shane Fernandes",
@@ -289,7 +185,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0023",
+    "id": "jfll-inact-0015",
     "fullName": "EAGLE FLY LOGISTIC",
     "territory": "All Territories",
     "contactPersonName": "MR.HARSHALA BERDE",
@@ -302,7 +198,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0024",
+    "id": "jfll-inact-0016",
     "fullName": "FRESH JASMINES EXPORT & IMPORT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. MANIMARAN  PALANIAPPAN",
@@ -310,12 +206,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "freshjasminesexport@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0025",
+    "id": "jfll-inact-0017",
     "fullName": "ACE EXPRESS LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "savitric",
@@ -323,12 +219,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "savitric@aeindia.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0026",
+    "id": "jfll-inact-0018",
     "fullName": "OJAS FREIGHT LLP",
     "territory": "All Territories",
     "contactPersonName": "Sales",
@@ -336,12 +232,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@ojasfreight.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0027",
+    "id": "jfll-inact-0019",
+    "fullName": "FLEMINGO LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "sachin",
+    "mobileNumber": "+91-9152196913",
+    "email": "sachin.g@flemingologistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0020",
     "fullName": "VIRYA LOGISTICS TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "sujit",
@@ -349,17 +258,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sujit.s@navexel.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0028",
-    "fullName": "GORDON WOODROFFE LOGISTICS LTD.",
+    "id": "jfll-inact-0021",
+    "fullName": "WELLNESS24 MEDICO",
     "territory": "All Territories",
-    "contactPersonName": "Anushka  Nikam",
-    "mobileNumber": null,
-    "email": "anushka@gordonwoodroffe.com",
+    "contactPersonName": "Shivalee",
+    "mobileNumber": "+91-9075014308",
+    "email": "wellness24global@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -367,7 +276,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0029",
+    "id": "jfll-inact-0022",
     "fullName": "SHRIK AGRO INTERNATIONAL NATURE SOLUTIONS INDIA",
     "territory": "All Territories",
     "contactPersonName": "dulat",
@@ -380,7 +289,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0030",
+    "id": "jfll-inact-0023",
     "fullName": "AK EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "Akbar",
@@ -393,7 +302,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0031",
+    "id": "jfll-inact-0024",
     "fullName": "ARUBHI INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Sudhakar M.  Dabholkar",
@@ -406,20 +315,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0032",
+    "id": "jfll-inact-0025",
     "fullName": "SEKO LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "NIKHIL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "nikhil.tari@sekologistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0033",
+    "id": "jfll-inact-0026",
     "fullName": "OCEAN TRANSWORLD LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHAMAL KHAPRE",
@@ -427,12 +336,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs3@oceantransworld.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0034",
+    "id": "jfll-inact-0027",
     "fullName": "INDOGA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Nufal",
@@ -440,12 +349,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "indogaenterprises@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0035",
+    "id": "jfll-inact-0028",
     "fullName": "SKY 2 C FREIGHT SYSTEMS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Praveen   Chaudhury",
@@ -453,12 +362,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "praveen.c@sky2c.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0036",
+    "id": "jfll-inact-0029",
     "fullName": "ORBIT EXPRESS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Dhrumil",
@@ -471,7 +380,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0037",
+    "id": "jfll-inact-0030",
     "fullName": "IDT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RANJIT PATIL",
@@ -479,12 +388,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@idtlogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0038",
+    "id": "jfll-inact-0031",
     "fullName": "KRISHGEN BIOSYSTEMS",
     "territory": "All Territories",
     "contactPersonName": "Rambahadur  Jaiswar",
@@ -497,11 +406,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0039",
+    "id": "jfll-inact-0032",
     "fullName": "PANKY EXPORT CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "Dinesh",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "pankyexp@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -510,7 +419,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0040",
+    "id": "jfll-inact-0033",
     "fullName": "PASCATI FOODS INDIA LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. DEVANSH  ASHAR",
@@ -518,12 +427,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "indulge@pascati.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0041",
+    "id": "jfll-inact-0034",
+    "fullName": "SKV CARGO SYSTEMS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "VISHAL GADE",
+    "mobileNumber": "+91-9820620809",
+    "email": "export@skvcargo.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0035",
+    "fullName": "SHIVLEELA LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Sayali",
+    "mobileNumber": "-",
+    "email": "shivleelalogistics@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0036",
     "fullName": "SURYA INCC LLP",
     "territory": "All Territories",
     "contactPersonName": "Ms Prajakta Gandhi",
@@ -531,25 +466,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "suryainccllp@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0042",
-    "fullName": "SUN EXPRESS LOGISTICS (INDIA) PRIVATE LIMITED",
+    "id": "jfll-inact-0037",
+    "fullName": "TWOWAYSHIP LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
-    "contactPersonName": "Prashant  Patel",
-    "mobileNumber": null,
-    "email": "cs@sunexpresslogistics.com",
+    "contactPersonName": "Rashi",
+    "mobileNumber": "+91-9867601906",
+    "email": "rashi@twowayship.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0043",
+    "id": "jfll-inact-0038",
+    "fullName": "UNIFIED LOGISTICS SOLUTIONS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "IBRAHIM SHEIKH",
+    "mobileNumber": "+91-9820107557",
+    "email": "is@unifiedlogs.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0039",
+    "fullName": "CONNECTING LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Makrand .",
+    "mobileNumber": "+91-8459317449",
+    "email": "bdmpune@connectinglog.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0040",
     "fullName": "RS CONFECTIONERY",
     "territory": "All Territories",
     "contactPersonName": "GAURAV Director",
@@ -562,7 +523,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0044",
+    "id": "jfll-inact-0041",
     "fullName": "SUZLON ENERGY LTD",
     "territory": "All Territories",
     "contactPersonName": "Ponnambalan",
@@ -570,25 +531,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "m.ponnambalan@suzlon.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0045",
+    "id": "jfll-inact-0042",
     "fullName": "VOESTALPINE BOHLER WELDING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BENJAMIN  RODRIGUES",
     "mobileNumber": "+91-7290024565",
     "email": "benjamin.rodrigues@voestalpine.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0046",
+    "id": "jfll-inact-0043",
     "fullName": "SAATVIK GREEN ENERGY LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SANDEEP  SHARMA",
@@ -596,12 +557,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sandeep.sharma@saatvikgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0047",
+    "id": "jfll-inact-0044",
     "fullName": "WEST WIND SHIPPING AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ravindran",
@@ -609,12 +570,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "westwindops1@westwindslpl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0048",
+    "id": "jfll-inact-0045",
     "fullName": "J M BAXI PORTS & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sudhakar  Pandey",
@@ -622,12 +583,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sudhakarp@jmbaxi.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0049",
+    "id": "jfll-inact-0046",
     "fullName": "TEAM GLOBAL LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Purushothama Reddy.D",
@@ -635,12 +596,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "purushothamar.hyd@teamglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0050",
+    "id": "jfll-inact-0047",
+    "fullName": "DIVINE IMPEX SERVICES PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Arshil",
+    "mobileNumber": "+91-9967588374",
+    "email": "imports@divineimpexservices.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0048",
+    "fullName": "M/S GHAZIABAD ENGINES AND MACHINES P.LTD.",
+    "territory": "All Territories",
+    "contactPersonName": "VIJAY KUMAR",
+    "mobileNumber": "+91-9910379896",
+    "email": "operations@geamguns.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0049",
     "fullName": "BARBARIKA CARGO LLP",
     "territory": "All Territories",
     "contactPersonName": "MANISH",
@@ -648,12 +635,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@barbarikacargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0051",
+    "id": "jfll-inact-0050",
     "fullName": "PSPG CONSULTANCY SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anil Kumar  Garg",
@@ -661,12 +648,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ravi.sharma@indexsupplychain.uk",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0052",
+    "id": "jfll-inact-0051",
     "fullName": "PGA SHIPPING SERVICES INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jyoti Laxman  Wani",
@@ -674,9 +661,22 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accts.mum@pgass.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-0052",
+    "fullName": "MOVERS GLOBAL LOGISTICS LLP",
+    "territory": "All Territories",
+    "contactPersonName": "SaiRam",
+    "mobileNumber": "+91-7331131102",
+    "email": "mglexports@moversglobal777.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
   },
   {
     "id": "jfll-inact-0053",
@@ -687,7 +687,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sameer.m@seamaxshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
@@ -700,7 +700,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "copierexperts@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
@@ -713,12 +713,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bharti@onlinecargo.org",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
     "id": "jfll-inact-0056",
+    "fullName": "MEO INTERNATIONAL LOGISTICS INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. SIMRAN",
+    "mobileNumber": "+91-8585919112",
+    "email": "charu@meointernationallogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0057",
     "fullName": "GOGIA CHEMICAL INDUSTRIES PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "ROHIT",
@@ -726,12 +739,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0057",
+    "id": "jfll-inact-0058",
     "fullName": "DIAMOND COUNTRY CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MANOJ",
@@ -739,25 +752,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manojaccounts@dccpl.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0058",
+    "id": "jfll-inact-0059",
     "fullName": "CARGO WORLD LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AJAY  HANDA",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "ajay.handa@cargoworldlogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0059",
+    "id": "jfll-inact-0060",
     "fullName": "ASE CARGO SERVICES",
     "territory": "All Territories",
     "contactPersonName": "MR. MOHAN  DAS",
@@ -770,7 +783,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0060",
+    "id": "jfll-inact-0061",
     "fullName": "M/S AQUACO INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PALLAVI",
@@ -778,12 +791,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@aquaco.org",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0061",
+    "id": "jfll-inact-0062",
     "fullName": "REGMA EXPORTS AND IMPORTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "JOEL  JOJI",
@@ -791,25 +804,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "regmaexportsandimports@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": true
-  },
-  {
-    "id": "jfll-inact-0062",
-    "fullName": "NISARGASIDDHA BIO PRODUCTS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "NISARGASIDDHA",
-    "mobileNumber": null,
-    "email": "finance.nisargasiddha@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
     "id": "jfll-inact-0063",
+    "fullName": "NISARGASIDDHA BIO PRODUCTS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "NISARGASIDDHA",
+    "mobileNumber": "-",
+    "email": "finance.nisargasiddha@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-0064",
     "fullName": "SOONEST EXPRESS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAGHAVENDRA",
@@ -817,12 +830,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "raghavendra@soonest.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0064",
+    "id": "jfll-inact-0065",
     "fullName": "TRANS SEA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "CHANDRU",
@@ -835,7 +848,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0065",
+    "id": "jfll-inact-0066",
     "fullName": "NEXT SUPPLY CHAIN SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. NIVEDITA  NAGWEKAR",
@@ -843,12 +856,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nivedita@nextsupplychain.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0066",
+    "id": "jfll-inact-0067",
     "fullName": "SSS LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "SELWYN",
@@ -861,7 +874,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0067",
+    "id": "jfll-inact-0068",
     "fullName": "TRANSPEAK CLEARING & FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "vikash  Mishra",
@@ -869,12 +882,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0068",
+    "id": "jfll-inact-0069",
     "fullName": "SKY FLY LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Narpat",
@@ -882,12 +895,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ns@skyflyexpress.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0069",
+    "id": "jfll-inact-0070",
     "fullName": "KONERI FREIGHT FORWARDING",
     "territory": "All Territories",
     "contactPersonName": "K. RAKESH",
@@ -900,7 +913,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0070",
+    "id": "jfll-inact-0071",
     "fullName": "PRAVEGAM SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "N.D Anitha Shree",
@@ -908,25 +921,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "anithashree@pravegashipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0071",
-    "fullName": "PARAMOUNT SHIPPING SERVICES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "V ASHWIN VIJAYAKUMAR",
-    "mobileNumber": null,
-    "email": "ashwin@paramountship.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
     "id": "jfll-inact-0072",
+    "fullName": "PARAMOUNT SHIPPING SERVICES PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "V ASHWIN VIJAYAKUMAR",
+    "mobileNumber": "-",
+    "email": "ashwin@paramountship.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0073",
     "fullName": "FLYHIGH INTEGRATED LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Naresh",
@@ -934,12 +947,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nash@fhil.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0073",
+    "id": "jfll-inact-0074",
     "fullName": "FREIGHT CONSOLIDATORS MADRAS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "sudhir",
@@ -947,12 +960,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sudhirmohapatra@freightconsol.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0074",
+    "id": "jfll-inact-0075",
+    "fullName": "SYGNIUS GLOBAL LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SYGNIUS",
+    "mobileNumber": "+91-9892027039",
+    "email": "operations@sygniuslogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0076",
     "fullName": "VMM LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Naveen",
@@ -960,12 +986,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "naveen@vmmcargologistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0075",
+    "id": "jfll-inact-0077",
     "fullName": "SNSKAR SYSTEMS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Harshitha",
@@ -973,12 +999,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@snskar.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0076",
+    "id": "jfll-inact-0078",
     "fullName": "PRAGATI TRANSMISSION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chaithra T",
@@ -986,25 +1012,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@pragatigears.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0077",
+    "id": "jfll-inact-0079",
     "fullName": "LEVI LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Louis  Nirmal",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "nirmala@levi-logistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0078",
+    "id": "jfll-inact-0080",
     "fullName": "HASTEN EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MAMATHA",
@@ -1012,12 +1038,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@hastenexpress.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0079",
+    "id": "jfll-inact-0081",
     "fullName": "CIRCLE LOGISTICS INDIA PRIVATE LIMITED .",
     "territory": "All Territories",
     "contactPersonName": "PRAGATI BHOSALE",
@@ -1025,25 +1051,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts1@circlelogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0080",
-    "fullName": "CATERPILLAR CARGO SOLUTIONS ( INDIA) PVT.LTD",
+    "id": "jfll-inact-0082",
+    "fullName": "CCI WORLDWIDE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
-    "contactPersonName": "VIPUL",
-    "mobileNumber": "+91-7069054099",
-    "email": "finance-doc@caterpillarcargo.com",
+    "contactPersonName": "VENKAT MOHAN",
+    "mobileNumber": "+91-9885300331",
+    "email": "venkat.mohan@avvshyacci.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0081",
+    "id": "jfll-inact-0083",
     "fullName": "ZEUS AIR SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "M. Rudrappa",
@@ -1051,12 +1077,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bangalore@zeus-air.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0082",
+    "id": "jfll-inact-0084",
+    "fullName": "TRANS IMPEX SHIPPING AND TRADING CO",
+    "territory": "All Territories",
+    "contactPersonName": "Ranjeet\u00a0Chauhan",
+    "mobileNumber": "+91-9152023272",
+    "email": "ranjeet.chauhan@transimpex.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0085",
     "fullName": "SKYLOG MARINE INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASHWINI DA",
@@ -1064,46 +1103,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs.maa@skylogmarine.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0083",
-    "fullName": "BRIGID LIFESCIENCES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Prakash",
-    "mobileNumber": "+91-9121355775",
-    "email": "rao@brigidlife.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0084",
-    "fullName": "M/S R.P.POLY PACKS PVT.LTD",
-    "territory": "All Territories",
-    "contactPersonName": "RAKESH AGARWAL",
-    "mobileNumber": "+91-9415125015",
-    "email": "rppolypacksknp@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0085",
-    "fullName": "FOSTAR INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "IMRAN ALI",
-    "mobileNumber": "+91-8810620318",
-    "email": "fostarind@gamil.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
@@ -1122,6 +1122,32 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
   },
   {
     "id": "jfll-inact-0087",
+    "fullName": "TWINIFY LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Satish  Nair",
+    "mobileNumber": "+91-9133540000",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0088",
+    "fullName": "APPLIED RESEARCH INTERNATIONAL PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "APPLIED",
+    "mobileNumber": "+91-8130723805",
+    "email": "vsharma@arisimulation.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0089",
     "fullName": "ALBATROSS LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "NAVEEN E N",
@@ -1129,12 +1155,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "naveen@albatrosslogistix.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0088",
+    "id": "jfll-inact-0090",
     "fullName": "DHRUVIL EXIM",
     "territory": "All Territories",
     "contactPersonName": "RAJESH DESAI",
@@ -1147,20 +1173,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0089",
-    "fullName": "LOGITRUST XPRESS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Mr. Dharmendera",
-    "mobileNumber": "+91-9873362999",
-    "email": "dharmendra.singh@logitrust.in",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0090",
+    "id": "jfll-inact-0091",
     "fullName": "NAVISYNC FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sharon Samuel",
@@ -1168,30 +1181,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sharon@navisyncfreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0091",
-    "fullName": "SORIGIN LOGISTICS SERVICES INDIA PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "DHARMENDRA V",
-    "mobileNumber": "+91-9819125922",
-    "email": "dharmendra.vadodaria@sorigin.co",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
     "id": "jfll-inact-0092",
-    "fullName": "GLOBESTAR GROUPAGE SERVICES PRIVATE LIMITED",
+    "fullName": "TRIUMPH EXPORTS INTERNATIONAL",
     "territory": "All Territories",
-    "contactPersonName": "Nitesh",
-    "mobileNumber": "+91-9870268612",
-    "email": "airops@globestargroupage.com",
+    "contactPersonName": "VINAYAK  BHANUSHALI",
+    "mobileNumber": "+91-9323866659",
+    "email": "contactbhanuimpex5@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -1200,6 +1200,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
   },
   {
     "id": "jfll-inact-0093",
+    "fullName": "GLOBESTAR GROUPAGE SERVICES PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Nitesh",
+    "mobileNumber": "+91-9870268612",
+    "email": "airops@globestargroupage.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0094",
     "fullName": "ONEWORLD LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "MOHIT MAKHIJA",
@@ -1212,7 +1225,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0094",
+    "id": "jfll-inact-0095",
+    "fullName": "AVION SHIPPING ENTERPRISES PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "SURENDRA  MIRJANKAR",
+    "mobileNumber": "+91-9821646498",
+    "email": "docs1@avionship.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0096",
     "fullName": "AKBAR EXPRESS CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BIJU",
@@ -1220,12 +1246,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts.calicut@akbarcargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0095",
+    "id": "jfll-inact-0097",
     "fullName": "UNICON LOGISTICS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "PRIYANKA  AGRAWAL",
@@ -1233,12 +1259,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "priyanka.agrawal@uniconlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0096",
+    "id": "jfll-inact-0098",
+    "fullName": "STEAM HARBOUR LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Minkle  Jain",
+    "mobileNumber": "+91-9167663668",
+    "email": "minkle@steamharbourlogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0099",
     "fullName": "Swords Logistics",
     "territory": "All Territories",
     "contactPersonName": "Vaibhav Sawant",
@@ -1251,7 +1290,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0097",
+    "id": "jfll-inact-0100",
+    "fullName": "S S CLEARING & FORWARDING AGENCY PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Amit M  Pania",
+    "mobileNumber": "+91-46196302",
+    "email": "amit@ssclearing.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0101",
     "fullName": "OM FREIGHT FORWARDERS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sagar Bhatt",
@@ -1259,12 +1311,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sagar@omfreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0098",
+    "id": "jfll-inact-0102",
     "fullName": "BLUE WATER LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jagat",
@@ -1272,12 +1324,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jagat@bwl.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0099",
+    "id": "jfll-inact-0103",
     "fullName": "APT LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Anup Shinde",
@@ -1290,7 +1342,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0100",
+    "id": "jfll-inact-0104",
     "fullName": "BRUCE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Gauri Sawant",
@@ -1298,12 +1350,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gauri@bruce.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0101",
+    "id": "jfll-inact-0105",
     "fullName": "MSA GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ALIYA",
@@ -1311,12 +1363,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aliya@msaglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0102",
+    "id": "jfll-inact-0106",
     "fullName": "NORD GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Harsh Mansukhani",
@@ -1324,16 +1376,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "harsh@nordglobal.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0103",
+    "id": "jfll-inact-0107",
     "fullName": "APR INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Arvind  Shukla",
-    "mobileNumber": null,
+    "mobileNumber": "+91-",
     "email": "export@aprintl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -1342,20 +1394,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0104",
+    "id": "jfll-inact-0108",
     "fullName": "MARU GLOBAL FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "umesh",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "umesh@maruglobal.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0105",
+    "id": "jfll-inact-0109",
     "fullName": "BR GLOCAL LOGISTIX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "DEEPALI",
@@ -1363,12 +1415,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "oversea@brglocal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0106",
+    "id": "jfll-inact-0110",
+    "fullName": "MARUF INTERNATIONAL SHIPPING & LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Ahad Maruf",
+    "mobileNumber": "+91-9028855328",
+    "email": "maruf@maruf-int.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0111",
     "fullName": "SEA FREIGHT AND LOGISTICS SOLUTION",
     "territory": "All Territories",
     "contactPersonName": "Meckiff",
@@ -1381,7 +1446,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0107",
+    "id": "jfll-inact-0112",
     "fullName": "GSI CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mayur  Gambhe",
@@ -1389,12 +1454,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mayur.gambhe@gsicargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0108",
+    "id": "jfll-inact-0113",
     "fullName": "STL SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sai  Chavan",
@@ -1402,12 +1467,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@saitranslink.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0109",
+    "id": "jfll-inact-0114",
     "fullName": "WISDOM GLOBAL FREIGHT SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BALAKRISHNA",
@@ -1415,12 +1480,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "balakrishna.r@wisdomglobal.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0110",
+    "id": "jfll-inact-0115",
+    "fullName": "SURDHI EXPORTS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Vijay  Singh",
+    "mobileNumber": "+91-9695912033",
+    "email": "accounts1@manmachine.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0116",
     "fullName": "KK INTERNATIONALS",
     "territory": "All Territories",
     "contactPersonName": "Karthik Pothina",
@@ -1433,20 +1511,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0111",
-    "fullName": "KAPALIN LOGICARE LLP",
+    "id": "jfll-inact-0117",
+    "fullName": "JINDAL INDIA LTD",
     "territory": "All Territories",
-    "contactPersonName": "PRATHMESH CHANDE",
-    "mobileNumber": "+91-8369575667",
-    "email": "info@kapalinelogicare.com",
+    "contactPersonName": "Sourav  Das",
+    "mobileNumber": "+91-7044052469",
+    "email": "info@jindalindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0112",
+    "id": "jfll-inact-0118",
+    "fullName": "ANSH ENTERPRISES FZ-LLC",
+    "territory": "All Territories",
+    "contactPersonName": "ANSH",
+    "mobileNumber": "+971-7490053092",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0119",
     "fullName": "SHRI GWAL EXIM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shashi Kumar",
@@ -1454,12 +1545,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@shrigwalexim.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0113",
+    "id": "jfll-inact-0120",
     "fullName": "PURATOS FOOD INGREDIENTS INDIA PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Aslam  Sayyed",
@@ -1467,12 +1558,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "asayyed@puratos.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0114",
+    "id": "jfll-inact-0121",
+    "fullName": "INDOLOG LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. RAKHI",
+    "mobileNumber": "+91-8595511364",
+    "email": "airexpo@indologindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0122",
     "fullName": "NMM LOGISTICS SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Manjunath N",
@@ -1480,12 +1584,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nmm.logistics.blr@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0115",
+    "id": "jfll-inact-0123",
     "fullName": "AAR S LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Sunil Kumar",
@@ -1498,7 +1602,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0116",
+    "id": "jfll-inact-0124",
+    "fullName": "SIRA ENTERPRISES",
+    "territory": "All Territories",
+    "contactPersonName": "Ramanna  manjunath",
+    "mobileNumber": "+91-7338001100",
+    "email": "rmanju1980@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0125",
     "fullName": "OSHANA LOGISTICS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Tushar Navnath",
@@ -1511,7 +1628,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0117",
+    "id": "jfll-inact-0126",
     "fullName": "M S A SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR.MANSUR ABBAS,",
@@ -1519,25 +1636,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "duraitut@msashipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0118",
-    "fullName": "FARM FRESH EXPORTS",
+    "id": "jfll-inact-0127",
+    "fullName": "AIRSEA WORLDWIDE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
-    "contactPersonName": "farmfreshexpor",
-    "mobileNumber": null,
-    "email": "farmfreshexports3600@gmail.com",
+    "contactPersonName": "Rishabh Sharma",
+    "mobileNumber": "-",
+    "email": "air.cs@abslogistics.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0119",
+    "id": "jfll-inact-0128",
+    "fullName": "NORTH STAR CARGO (INDIA) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "KAYZAD MOJIA",
+    "mobileNumber": "+91-9820332545",
+    "email": "kayzad@northstarcargo.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0129",
     "fullName": "SIGMA CONSOLE SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sonali",
@@ -1545,12 +1675,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sonali@sigmaconsole.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0120",
+    "id": "jfll-inact-0130",
     "fullName": "SAR TRANSPORT SYSTEMS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prakash.  Goswami",
@@ -1558,12 +1688,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "prakash.goswami@sarlogisolutions.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0121",
+    "id": "jfll-inact-0131",
+    "fullName": "GARIMA EXPRESS (OPC) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "DHRUV",
+    "mobileNumber": "+91-9773990700",
+    "email": "garimaexpress88@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0132",
     "fullName": "SUBARASHI EXIM PARTNERS LLP",
     "territory": "All Territories",
     "contactPersonName": "Premkumar",
@@ -1571,12 +1714,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "premkumar.kalla@allcargo.global",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0122",
+    "id": "jfll-inact-0133",
     "fullName": "ASILAH INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sarfraz Shaikh",
@@ -1584,12 +1727,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info.asilah@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0123",
+    "id": "jfll-inact-0134",
     "fullName": "CARGO WORLD LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Sanjay Rana",
@@ -1602,7 +1745,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0124",
+    "id": "jfll-inact-0135",
     "fullName": "DK LOGISTICS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "P. Deiva Sigamani",
@@ -1615,7 +1758,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0125",
+    "id": "jfll-inact-0136",
     "fullName": "DHARVI EXPORTS AND LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "DHANUNJAYA",
@@ -1628,7 +1771,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0126",
+    "id": "jfll-inact-0137",
     "fullName": "CHAITANYA LOGISTICS PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "Kishor kumar",
@@ -1636,12 +1779,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "k.kumar@chaitanyalogistics.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0127",
+    "id": "jfll-inact-0138",
     "fullName": "SFLS(INDIA) CARGO MANAGEMENT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ARUP MONDAL",
@@ -1649,12 +1792,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "indpricing@seafreightlogistic.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0128",
+    "id": "jfll-inact-0139",
     "fullName": "9TEN SERVICES",
     "territory": "All Territories",
     "contactPersonName": "JAYANTH  KUMAR",
@@ -1667,7 +1810,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0129",
+    "id": "jfll-inact-0140",
     "fullName": "SAGARA GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Onkar  Kolhe",
@@ -1675,16 +1818,29 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs@sagaraglpl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0141",
+    "fullName": "GURUJI FOODS INC.",
+    "territory": "All Territories",
+    "contactPersonName": "HARVINDER SINGH",
+    "mobileNumber": "+91-1 (778) 320-4001",
+    "email": "info@gurujifoods.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0130",
+    "id": "jfll-inact-0142",
     "fullName": "TRANSYUME CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "Anil Paralkar",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "transyumecorporation@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -1693,7 +1849,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0131",
+    "id": "jfll-inact-0143",
     "fullName": "WATER TANK INDIA",
     "territory": "All Territories",
     "contactPersonName": "IMRAN FIROZ KHATRI",
@@ -1706,7 +1862,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0132",
+    "id": "jfll-inact-0144",
+    "fullName": "NAIK FROZEN FOODS PVT.LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Sangeeta Shetty",
+    "mobileNumber": "+91-9820711586",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0145",
     "fullName": "SANJANA CARGO",
     "territory": "All Territories",
     "contactPersonName": "Sanjan",
@@ -1719,7 +1888,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0133",
+    "id": "jfll-inact-0146",
     "fullName": "WERNER LOGISTICS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "DEV KUMAR  SINGH",
@@ -1732,7 +1901,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0134",
+    "id": "jfll-inact-0147",
     "fullName": "DE SWIFT RUNNER SERVICE",
     "territory": "All Territories",
     "contactPersonName": "DEBJANI  ROY",
@@ -1745,20 +1914,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0135",
+    "id": "jfll-inact-0148",
     "fullName": "FRIGORIFICO ALLANA PVT. LTD (DOMESTICS)",
     "territory": "All Territories",
     "contactPersonName": "JADHAV",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "rjadhav@allana.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0136",
+    "id": "jfll-inact-0149",
+    "fullName": "INTERNATIONAL CARGO EXPRESS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mahesh Satam",
+    "mobileNumber": "+91-8928047949",
+    "email": "mahesh@icegrouplogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0150",
     "fullName": "QUICK STEP SERVICE",
     "territory": "All Territories",
     "contactPersonName": "SANCHITA  ROY",
@@ -1771,7 +1953,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0137",
+    "id": "jfll-inact-0151",
     "fullName": "SM ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Tanzeel  Memon",
@@ -1779,17 +1961,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "memontanzeel8@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0138",
-    "fullName": "VILLA MODE EXPORT INDIA PVT LTD",
+    "id": "jfll-inact-0152",
+    "fullName": "VIOLIFE EXPORTS",
     "territory": "All Territories",
-    "contactPersonName": "Radhakrishnan",
-    "mobileNumber": "+91-46193244",
-    "email": "exportshipping@jay-villagroup.com",
+    "contactPersonName": "TAJINDER SINGH  SURI",
+    "mobileNumber": "+91-0447856160269",
+    "email": "violifebusiness@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -1797,7 +1979,59 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0139",
+    "id": "jfll-inact-0153",
+    "fullName": "A.J. WORLDWIDE SERVICES LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "V KUMAR",
+    "mobileNumber": "-",
+    "email": "v0863793@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0154",
+    "fullName": "MANGOPOINT LLC",
+    "territory": "All Territories",
+    "contactPersonName": "Mr Prasanna",
+    "mobileNumber": "+91-7358712151",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0155",
+    "fullName": "VILLA MODE EXPORT INDIA PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Radhakrishnan",
+    "mobileNumber": "+91-46193244",
+    "email": "exportshipping@jay-villagroup.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0156",
+    "fullName": "AARDOUR WORLDWIDE LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "VIKAS",
+    "mobileNumber": "+91-7893494064",
+    "email": "bm.hyd@aardour.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0157",
     "fullName": "NPR GLOBAL FORWARDING",
     "territory": "All Territories",
     "contactPersonName": "Nitish Kumar",
@@ -1810,12 +2044,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0140",
-    "fullName": "SOUTH OCEAN TRANSPORT PVT LTD",
+    "id": "jfll-inact-0158",
+    "fullName": "VICTORY DISTRIBUTIONS B.V",
     "territory": "All Territories",
-    "contactPersonName": "Nikhil  Singh",
-    "mobileNumber": "+91-9082792154",
-    "email": null,
+    "contactPersonName": "Vijay",
+    "mobileNumber": "-",
+    "email": "info@victorydistributions.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -1823,7 +2057,72 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0141",
+    "id": "jfll-inact-0159",
+    "fullName": "VISION AGRO PRODUCTS LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Paresh  Shash",
+    "mobileNumber": "+504-5063121643",
+    "email": "1info@gcontech.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0160",
+    "fullName": "LOGIFY CARGO SERVICES PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. Bopaiah",
+    "mobileNumber": "+91-9844195159",
+    "email": "bopaiah.k@logifycargoservices.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0161",
+    "fullName": "DB IMPEX",
+    "territory": "All Territories",
+    "contactPersonName": "priyadarshan",
+    "mobileNumber": "+91-9920158500",
+    "email": "priyadarshan@dbimpex.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0162",
+    "fullName": "SOUTH OCEAN TRANSPORT PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Nikhil  Singh",
+    "mobileNumber": "+91-9082792154",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0163",
+    "fullName": "SKY CONNECT LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "Bhagesh Palekar",
+    "mobileNumber": "+91-7208666397",
+    "email": "sales@skyconnectlogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0164",
     "fullName": "SMARTSHYP LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "DHRUV SAREEN",
@@ -1836,7 +2135,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0142",
+    "id": "jfll-inact-0165",
     "fullName": "RDS EXPRESS & LOGISTICS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Makrand Gurav",
@@ -1844,25 +2143,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs.rdsexpress@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0143",
-    "fullName": "ASHAPURA LOGISTICS LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Ganesh  Sawatkar",
-    "mobileNumber": "+91-9820030691",
-    "email": "ganesh.sawatkar@ashapura.in",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0144",
+    "id": "jfll-inact-0166",
     "fullName": "KENSHINE LOGISTICS PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "MR.KRISHNAKUMAR ACHUTHAN NAIR",
@@ -1870,12 +2156,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "delhi@kenshineglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0145",
+    "id": "jfll-inact-0167",
     "fullName": "FREIGHT WING LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "UDAYA KUMAR",
@@ -1883,12 +2169,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kudayakumar@freightwings.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0146",
+    "id": "jfll-inact-0168",
     "fullName": "UNITED PHOSPHORUS INDIA LLP",
     "territory": "All Territories",
     "contactPersonName": "Amit  Pangam",
@@ -1896,12 +2182,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "amit.pangam1@upl-ltd.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0147",
+    "id": "jfll-inact-0169",
+    "fullName": "WWL INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "kayshab",
+    "mobileNumber": "-",
+    "email": "tkashyap@wwllmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0170",
     "fullName": "GAC SHIPPING (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rakesh  Tiwari",
@@ -1909,12 +2208,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rakesh.tiwari@gac.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0148",
+    "id": "jfll-inact-0171",
+    "fullName": "TITAN LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "MR.INDERJIT  SINGH",
+    "mobileNumber": "+91-8744056090",
+    "email": "sikander@titanlog.net",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0172",
     "fullName": "FLANDERS GLOBAL LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nitin",
@@ -1922,12 +2234,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nitin.rd@flandersglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0149",
+    "id": "jfll-inact-0173",
     "fullName": "KGN ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "MOHD RAUF KHAN",
@@ -1935,12 +2247,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mohd.rauf24@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0150",
+    "id": "jfll-inact-0174",
     "fullName": "COMMITTED CARGO CARE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mohan Saxena",
@@ -1948,12 +2260,77 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "acctsmgr@committedgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0175",
+    "fullName": "ARADHYA ABRASIVES",
+    "territory": "All Territories",
+    "contactPersonName": "Mr Santosh  Thakur",
+    "mobileNumber": "+91-9278467416",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0151",
+    "id": "jfll-inact-0176",
+    "fullName": "MAHESH AGRO FOOD INDUSTRIES",
+    "territory": "All Territories",
+    "contactPersonName": "Dhaval Chavd",
+    "mobileNumber": "+91-9898394889",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0177",
+    "fullName": "FREIGHT LINES (INDIA) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Arulraj",
+    "mobileNumber": "+91-8248183914",
+    "email": "chennai@freightlines.co",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0178",
+    "fullName": "HN-ONE FREIGHT PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Manish",
+    "mobileNumber": "+91-9811487598",
+    "email": "manish@hnonefreight.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0179",
+    "fullName": "AMIGO LOGISTICS INDIA PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "accounts",
+    "mobileNumber": "-",
+    "email": "accounts@amigologistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0180",
     "fullName": "VIDIGA FOODS LONDON LTD",
     "territory": "All Territories",
     "contactPersonName": "Ameya",
@@ -1961,25 +2338,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vidigafoods@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0181",
+    "fullName": "MINAL IMPEX",
+    "territory": "All Territories",
+    "contactPersonName": "SANJAY AJMERA",
+    "mobileNumber": "+91-9920423319",
+    "email": "sanjaypkint@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0152",
-    "fullName": "IQRA SEA FOODS",
-    "territory": "All Territories",
-    "contactPersonName": "iqraseafoods",
-    "mobileNumber": null,
-    "email": "iqraseafoods@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": true
-  },
-  {
-    "id": "jfll-inact-0153",
+    "id": "jfll-inact-0182",
     "fullName": "KARGOKART PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ABHINAV CHAUHAN",
@@ -1987,12 +2364,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abhinav.del@kargokart.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0183",
+    "fullName": "YARA EXPORTS",
+    "territory": "All Territories",
+    "contactPersonName": "Mustafa",
+    "mobileNumber": "+91-9633116704",
+    "email": "yaraexports@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0154",
+    "id": "jfll-inact-0184",
     "fullName": "PLOVIT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Parvej\u00a0Alam",
@@ -2000,12 +2390,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "parvej@plovitlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0155",
+    "id": "jfll-inact-0185",
+    "fullName": "ASR LOGISTICS ( INDIA ) PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Pradeep",
+    "mobileNumber": "+91-02243159921",
+    "email": "accounts@asrline.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0186",
     "fullName": "ASCENT INTERNATIONAL FREIGHT SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "DIVYA C",
@@ -2013,12 +2416,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "biz.in@ascentinternational.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0156",
+    "id": "jfll-inact-0187",
     "fullName": "VELAMMAL INC",
     "territory": "All Territories",
     "contactPersonName": "VIJAY  SETHUMADI",
@@ -2031,7 +2434,46 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0157",
+    "id": "jfll-inact-0188",
+    "fullName": "SYMEGA FOOD INGREDIENTS LTD",
+    "territory": "All Territories",
+    "contactPersonName": "BIJU MATHAI",
+    "mobileNumber": "+91-9746474100",
+    "email": "biju@symega.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0189",
+    "fullName": "SAR VEN LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SIVARAMAN",
+    "mobileNumber": "+44-7436939426",
+    "email": "saranvetri570@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0190",
+    "fullName": "OCHELLE GENERAL TRADING LLC",
+    "territory": "All Territories",
+    "contactPersonName": "ACCOUNTS",
+    "mobileNumber": "-",
+    "email": "accounts@ochelle.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0191",
     "fullName": "LUXURY IMPORT& EXPORT",
     "territory": "All Territories",
     "contactPersonName": "M.MURSHIDA BEGUM",
@@ -2044,7 +2486,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0158",
+    "id": "jfll-inact-0192",
     "fullName": "GVR IMPORT LTD",
     "territory": "All Territories",
     "contactPersonName": "Shaseerathan",
@@ -2052,12 +2494,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gvrimportltd@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0159",
+    "id": "jfll-inact-0193",
     "fullName": "GULF GREEN EXPORT AND IMPORT.",
     "territory": "All Territories",
     "contactPersonName": "KAJA  MOHIDEEN",
@@ -2070,7 +2512,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0160",
+    "id": "jfll-inact-0194",
     "fullName": "CLIMATE NATURAL SPICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nibin",
@@ -2078,12 +2520,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "climatenaturals@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0161",
+    "id": "jfll-inact-0195",
+    "fullName": "CAPEDO IMPEX LTD",
+    "territory": "All Territories",
+    "contactPersonName": "CAPEDO",
+    "mobileNumber": "+44-7767969365",
+    "email": "info@ajdailyfresh.co.uk",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0196",
+    "fullName": "ACD EXPORTS (OPC) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "NIKHIL U",
+    "mobileNumber": "+91-8136835349",
+    "email": "nikhilappu794@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0197",
     "fullName": "SHALOM AQUA FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JOSEPH MENDIS  CORDIN MENDIS",
@@ -2091,17 +2559,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "lanikseafoods@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0162",
-    "fullName": "HOEKWEST LOGISTICS SOLUTIONS PRIVATE LIMITED",
+    "id": "jfll-inact-0198",
+    "fullName": "SRI SIVAGAMI FASHIONS",
     "territory": "All Territories",
-    "contactPersonName": "MOHAMMED SHAMEEM",
-    "mobileNumber": "+91-9656434334",
-    "email": "mohdshameemmt@gmail.com",
+    "contactPersonName": "SHIVAKAMI GOVINDASWAMY",
+    "mobileNumber": "+91-9944754972",
+    "email": "srisivagamifashions@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -2109,7 +2577,98 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0163",
+    "id": "jfll-inact-0199",
+    "fullName": "RPRI ESSENCEGLOBAL TRADE PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Ranjith Kumar Ramasamy",
+    "mobileNumber": "+91-9361140426",
+    "email": "ranjithkumarmail21@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0200",
+    "fullName": "PANTONE FREIGHT (IND)",
+    "territory": "All Territories",
+    "contactPersonName": "Jayakrishnan  Gopinath",
+    "mobileNumber": "+91-9995403838",
+    "email": "jk@pantonefreight.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0201",
+    "fullName": "PANTONE FREIGHT",
+    "territory": "All Territories",
+    "contactPersonName": "ANSIF KA",
+    "mobileNumber": "+974-40014332",
+    "email": "accounts.qa@pantonefreight.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0202",
+    "fullName": "KVRM TRADERS",
+    "territory": "All Territories",
+    "contactPersonName": "MOHAN DAS SIVA HARIS",
+    "mobileNumber": "+91-9626966006",
+    "email": "contact@kvrmtraders.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0203",
+    "fullName": "HOEKWEST LOGISTICS SOLUTIONS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "MOHAMMED SHAMEEM",
+    "mobileNumber": "+91-9656434334",
+    "email": "mohdshameemmt@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0204",
+    "fullName": "GUHAN INTERNATIONAL",
+    "territory": "All Territories",
+    "contactPersonName": "GUNALAN VENKATESAN",
+    "mobileNumber": "+91-9940336378",
+    "email": "guhaninter@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0205",
+    "fullName": "FOODLINE TRADERS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "ASIF",
+    "mobileNumber": "+91-9844502828",
+    "email": "sydarfath@yahoo.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0206",
     "fullName": "CARGO POINT LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "GAYATHRI",
@@ -2122,7 +2681,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0164",
+    "id": "jfll-inact-0207",
     "fullName": "BHARAKATH GLOBAL WINGS",
     "territory": "All Territories",
     "contactPersonName": "NOORUL  AMEEN",
@@ -2135,7 +2694,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0165",
+    "id": "jfll-inact-0208",
     "fullName": "ARI FOODS",
     "territory": "All Territories",
     "contactPersonName": "TRUPTI ANIKET",
@@ -2148,11 +2707,24 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0166",
+    "id": "jfll-inact-0209",
+    "fullName": "AM AGRO FRUITS PRIVAT ELIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Ramamurthy S",
+    "mobileNumber": "+91-9840580188",
+    "email": "jjfsenthil@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0210",
     "fullName": "AL.SALAM EXPORT & IMPORT",
     "territory": "All Territories",
     "contactPersonName": "A ABDULSALAM",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "alsalamexports2005@gamil.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
@@ -2161,7 +2733,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0167",
+    "id": "jfll-inact-0211",
+    "fullName": "AL FOUZAN EXPORTS",
+    "territory": "All Territories",
+    "contactPersonName": "HANEEFA A  PARATHODIKA",
+    "mobileNumber": "+91-9447084759",
+    "email": "alfouzanexportsindia@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0212",
     "fullName": "BLACKSTONE SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Uma Subbarayalu",
@@ -2169,12 +2754,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "s.uma@blackstoneshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0168",
+    "id": "jfll-inact-0213",
     "fullName": "RELAY CONTAINER LINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Derix Abraham",
@@ -2182,12 +2767,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "operations@relay-logistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0169",
+    "id": "jfll-inact-0214",
     "fullName": "WAY TO WORLD",
     "territory": "All Territories",
     "contactPersonName": "rohit",
@@ -2200,7 +2785,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0170",
+    "id": "jfll-inact-0215",
     "fullName": "UNION TRANSPORT CARGO SERVICES CO., LTD.",
     "territory": "All Territories",
     "contactPersonName": "DIVYAM BHATIA",
@@ -2208,12 +2793,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "divyam.bhatia@utcservices.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0171",
+    "id": "jfll-inact-0216",
     "fullName": "OC LINES LTD",
     "territory": "All Territories",
     "contactPersonName": "oc line",
@@ -2221,12 +2806,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "import@oc-lines.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0217",
+    "fullName": "VEL EXIM",
+    "territory": "All Territories",
+    "contactPersonName": "Varun",
+    "mobileNumber": "+91-9821666662",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0172",
+    "id": "jfll-inact-0218",
+    "fullName": "GAMASHIP INFO TECH PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Raghunath",
+    "mobileNumber": "+91-8880980999",
+    "email": "raghunath@gamaship.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0219",
+    "fullName": "TRADENEXA EU",
+    "territory": "All Territories",
+    "contactPersonName": "Rama Venkata Satya Narayana Tirumani",
+    "mobileNumber": "+49-15561637206",
+    "email": "ramatirumani1156@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0220",
     "fullName": "LUFTHANSA CARGO AG",
     "territory": "All Territories",
     "contactPersonName": "Abhijeet Kumra",
@@ -2239,7 +2863,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0173",
+    "id": "jfll-inact-0221",
+    "fullName": "KPC FLEXI TUBES PVT. LTD.",
+    "territory": "All Territories",
+    "contactPersonName": "SUNIL",
+    "mobileNumber": "+91-9971499052",
+    "email": "logistics@kpc.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0222",
     "fullName": "KASHAYAN EXPORT AND CARGO SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Asif Khan",
@@ -2252,7 +2889,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0174",
+    "id": "jfll-inact-0223",
     "fullName": "SKYHYDO SHIPPING LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Harry",
@@ -2265,7 +2902,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0175",
+    "id": "jfll-inact-0224",
+    "fullName": "SKY BLISS SHIPPING AND LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SAIMA",
+    "mobileNumber": "-",
+    "email": "pricing@skybliss.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0225",
+    "fullName": "LAXMII FRUIT EXPORTS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "KISHAN PREMJI",
+    "mobileNumber": "-",
+    "email": "laxmifruitexports.pvt.ltd@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0226",
     "fullName": "MEEM CONTINENTAL LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "NISHAD",
@@ -2273,12 +2936,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nadira.meemcontinental@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0176",
+    "id": "jfll-inact-0227",
     "fullName": "EVERMAR INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AMARNATH",
@@ -2286,12 +2949,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "amar@evermarindustries.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0177",
+    "id": "jfll-inact-0228",
     "fullName": "YAHWEH GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KUMAR. A",
@@ -2299,12 +2962,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kumaranuj@yahwehglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0229",
+    "fullName": "NAVIGLO LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Nafisa",
+    "mobileNumber": "+91-9892686338",
+    "email": "nafisa@naviglo.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0230",
+    "fullName": "SAMAYAN COMMODITIES",
+    "territory": "All Territories",
+    "contactPersonName": "Subramanian",
+    "mobileNumber": "+91-9944055482",
+    "email": "info@samayancommodities.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0178",
+    "id": "jfll-inact-0231",
     "fullName": "RSP LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Samir  Parekh",
@@ -2317,12 +3006,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0179",
-    "fullName": "BERRIO LINES PRIVATE LIMITED",
+    "id": "jfll-inact-0232",
+    "fullName": "NAVNET SHIPPING AND TRANSPORT FZC LLC",
     "territory": "All Territories",
-    "contactPersonName": "AKSHAY SAWANT",
-    "mobileNumber": "+91-9021543509",
-    "email": "akshay.sawant@berriolines.com",
+    "contactPersonName": "nethra",
+    "mobileNumber": "+91-9901742643",
+    "email": "nethra@navnetshippingandtransportation.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -2330,7 +3019,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0180",
+    "id": "jfll-inact-0233",
+    "fullName": "LODESTAR CONTAINER LINES PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "maheshd",
+    "mobileNumber": "+91-8828422009",
+    "email": "maheshd@lodestargroup.net",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0234",
     "fullName": "VENUS UNIVERSAL SEAAIR LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "V.Nandakumar",
@@ -2343,7 +3045,85 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0181",
+    "id": "jfll-inact-0235",
+    "fullName": "SPEDITION",
+    "territory": "All Territories",
+    "contactPersonName": "Ms. Hema  Padam",
+    "mobileNumber": "+91-9810804342",
+    "email": "exports@speditionindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0236",
+    "fullName": "HTHC EXPRESS LLC",
+    "territory": "All Territories",
+    "contactPersonName": "dhananjay",
+    "mobileNumber": "+91-9312129912",
+    "email": "info@indiaworlwideexpress.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0237",
+    "fullName": "PR INTEGRATED LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "PARAG  RODE",
+    "mobileNumber": "+91-8080229595",
+    "email": "info@prilpl.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0238",
+    "fullName": "VINAYAK INTERNATIONAL",
+    "territory": "All Territories",
+    "contactPersonName": "SUNIL",
+    "mobileNumber": "+91-9915402838",
+    "email": "doc@vinayakinternational.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0239",
+    "fullName": "NATIONAL COOPERATIVE EXPORTS LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "surjeet",
+    "mobileNumber": "+91-9871775669",
+    "email": "surjeet.chandel@ncel.coop",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0240",
+    "fullName": "VOYAGE MARINE SOLUTIONS (OPC) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SURESH SHARMA",
+    "mobileNumber": "+91-9136013079",
+    "email": "suresh@voyagemarine.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0241",
     "fullName": "HEJAZI FOODSTUFFS",
     "territory": "All Territories",
     "contactPersonName": "HANIF",
@@ -2356,7 +3136,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0182",
+    "id": "jfll-inact-0242",
     "fullName": "IMPERIAL CARGO AND FREIGHT SOLUTIONS LLP",
     "territory": "All Territories",
     "contactPersonName": "rahul",
@@ -2364,12 +3144,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@imperialcargo.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0183",
+    "id": "jfll-inact-0243",
+    "fullName": "NAVIRE LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "puvaneswari",
+    "mobileNumber": "+91-9345344455",
+    "email": "puvaneswari@navirelogistics.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0244",
     "fullName": "R K EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Dinesh Modi",
@@ -2382,7 +3175,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0184",
+    "id": "jfll-inact-0245",
     "fullName": "RICE INDIA EXPORT (P) LTD.",
     "territory": "All Territories",
     "contactPersonName": "Vikas Tiwari",
@@ -2390,12 +3183,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vikash.tiwari@kohinoorfoods.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0185",
+    "id": "jfll-inact-0246",
     "fullName": "RISING RAINBOW WORLDWIDE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ABHIJEET  BHASALE",
@@ -2403,12 +3196,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0186",
+    "id": "jfll-inact-0247",
     "fullName": "SAFE X SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Vinay",
@@ -2421,7 +3214,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0187",
+    "id": "jfll-inact-0248",
     "fullName": "SKY TOUCH AVIATION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MANALI  KADAM",
@@ -2429,25 +3222,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manali@skytouch.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0188",
+    "id": "jfll-inact-0249",
     "fullName": "STAR CONCORD INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Harish Shetty",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "harish.s@starconcord.com.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0189",
+    "id": "jfll-inact-0250",
     "fullName": "SUPERFORM CHEMISTRIES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajkumar Tiwari",
@@ -2455,12 +3248,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shreejith.nair@upl-ltd.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0190",
+    "id": "jfll-inact-0251",
     "fullName": "TANDEM GLOBAL LOGISTICS (I)P.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Nilesh  kadam",
@@ -2468,12 +3261,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "npkadam@tandemlogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0191",
+    "id": "jfll-inact-0252",
     "fullName": "TITAN BIOTECH LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR SUNIL",
@@ -2481,12 +3274,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@titanbiotechltd.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0192",
+    "id": "jfll-inact-0253",
+    "fullName": "VIGOROUS SHIPPING PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "AKHLENDRA TIWARI",
+    "mobileNumber": "+91-7710909783",
+    "email": "akhil@vigoship.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0254",
+    "fullName": "EXPRESS GLOBAL LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Sagar Jagatap",
+    "mobileNumber": "+91-2266339898",
+    "email": "sagar.jagtap@expressworld.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0255",
+    "fullName": "MULTIVERSE EXIM PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "AKSHAY",
+    "mobileNumber": "+91-9870347743",
+    "email": "akshay@mvexim.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0256",
     "fullName": "CANDOR LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "SANJAY",
@@ -2494,12 +3326,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "masoom@candorllp.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0193",
+    "id": "jfll-inact-0257",
+    "fullName": "KALASH GLOBAL LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Sonali  Gaikwad",
+    "mobileNumber": "+91-",
+    "email": "sonali@kglindia.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0258",
     "fullName": "ONTIME GLOBE KYARRIER PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAJESH  SHARMA",
@@ -2507,12 +3352,77 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rsharma@ontimeglobe.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0259",
+    "fullName": "A.HARTRODT (INDIA) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Manjima",
+    "mobileNumber": "+91-8023258942",
+    "email": "manjima.sumesh@hartrodt.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0260",
+    "fullName": "3S CORPORATION",
+    "territory": "All Territories",
+    "contactPersonName": "PRIYANKA",
+    "mobileNumber": "+91-8291360296",
+    "email": "accounts@3scorporation.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0194",
+    "id": "jfll-inact-0261",
+    "fullName": "ATLANTIC TRAVEL AND CARGO PRIVATE LIMITED.",
+    "territory": "All Territories",
+    "contactPersonName": "MOHSIN IQBAL",
+    "mobileNumber": "+91-7651875180",
+    "email": "airfreight@atlanticcargogroup.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0262",
+    "fullName": "EXCELSOURCE INTERNATIONAL PVT.LTD.",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. Chirag Kanani ( General Manager.)",
+    "mobileNumber": "+91-9909928022",
+    "email": "chirag.kanani@excelsource.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0263",
+    "fullName": "PASSIONATE SHIPPING PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Suresh Kumar  Pathak",
+    "mobileNumber": "+91-8800510222",
+    "email": "info@passionateshipping.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0264",
     "fullName": "LOCAL KONNECT LOGISTICS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Babli R. Kamble",
@@ -2525,12 +3435,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0195",
-    "fullName": "PEARL GLOBAL SERVICES AND LOGISTICS",
+    "id": "jfll-inact-0265",
+    "fullName": "KOSURI BALAJI AGRO FOODS PRIVATE LIMITED",
     "territory": "All Territories",
-    "contactPersonName": "RAMESHKUMAR",
-    "mobileNumber": "+91-9791211666",
-    "email": "ramesh@pgsindia.in",
+    "contactPersonName": "K Srinivasa  Rao",
+    "mobileNumber": "+91-9959972304",
+    "email": "balajiagrofoods2016@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0266",
+    "fullName": "UNIVERSAL CLEARING AND FORWARDING",
+    "territory": "All Territories",
+    "contactPersonName": "Maheshwara  Midukuri",
+    "mobileNumber": "+91-98867 59447",
+    "email": "mahesh@ucfblr.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -2538,12 +3461,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0196",
+    "id": "jfll-inact-0267",
     "fullName": "VIGIL WINGS CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VIJAY KUMAR",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "infovigilwingscargo@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0268",
+    "fullName": "PRIDE GLOBAL LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "Anthuraj C",
+    "mobileNumber": "+91-9743402444",
+    "email": "anthuraj@prideglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -2551,7 +3487,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0197",
+    "id": "jfll-inact-0269",
     "fullName": "GIVVEN LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Srija  Dhavamani",
@@ -2559,12 +3495,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abd1@givven.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0198",
+    "id": "jfll-inact-0270",
     "fullName": "EMIRATES LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Bajrang Mishra",
@@ -2572,12 +3508,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bajrang.m@emirateslogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0199",
+    "id": "jfll-inact-0271",
     "fullName": "EMIRATES LOGISTICS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Gaurev Rana",
@@ -2585,12 +3521,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gaurav.r@emirateslogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0272",
+    "fullName": "A.K.CARGO MOVERS",
+    "territory": "All Territories",
+    "contactPersonName": "JAMUNA PRASAD",
+    "mobileNumber": "+91-9958769674",
+    "email": "akcargo2020@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0200",
+    "id": "jfll-inact-0273",
     "fullName": "FASTLINE INDIA",
     "territory": "All Territories",
     "contactPersonName": "ravinder kumar",
@@ -2603,20 +3552,72 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0201",
+    "id": "jfll-inact-0274",
+    "fullName": "FOUR VECTER LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "Rajesh \u00a0 Sapkal",
+    "mobileNumber": "+91-8779317481",
+    "email": "marketing@fourvecter.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0275",
+    "fullName": "7 PEARLS MULTIVENTURE PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "AKSHAT  DUBEY",
+    "mobileNumber": "+91-9654370691",
+    "email": "7pearlsmultiventurepvtltd@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0276",
+    "fullName": "OSMO LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Sandeep",
+    "mobileNumber": "+91-9900077998",
+    "email": "jrchelli@osmologistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0277",
+    "fullName": "ORANGE RFID",
+    "territory": "All Territories",
+    "contactPersonName": "MUKUL  SHARMA",
+    "mobileNumber": "+91-9654031467",
+    "email": "info@orangerfid.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0278",
     "fullName": "ONLINE INSTRUMENTS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Saantosh Naidu",
     "mobileNumber": "+91-9986079630",
     "email": "saantosh.n@onlineinstruments.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0202",
+    "id": "jfll-inact-0279",
     "fullName": "NEUTRAL NVOCC PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Cheeku",
@@ -2624,12 +3625,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "documentation@neultralnvocc.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0203",
+    "id": "jfll-inact-0280",
     "fullName": "MODERN ROLLS & ENGINEERING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAM",
@@ -2637,25 +3638,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@modernrolls.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0204",
+    "id": "jfll-inact-0281",
     "fullName": "MEDION HEALTHCARE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Palak Bheda",
     "mobileNumber": "+91-9136099778",
     "email": "imports@medion.co.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0205",
+    "id": "jfll-inact-0282",
     "fullName": "M/S LUXOR INTERNATIONAL PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "NAND SATI",
@@ -2663,12 +3664,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nand.sati@luxoroffice.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0206",
+    "id": "jfll-inact-0283",
     "fullName": "KLI FREIGHT SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "operations",
@@ -2676,12 +3677,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "operations@kliindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0207",
+    "id": "jfll-inact-0284",
+    "fullName": "KELP SHIPPING LOGISTICS INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SMITA PAALAV",
+    "mobileNumber": "+91-9167021074",
+    "email": "cs_exp@kelplogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0285",
     "fullName": "JAY MARKET CREATORS P. LTD",
     "territory": "All Territories",
     "contactPersonName": "MAHADEB",
@@ -2689,12 +3703,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "finance@malooindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0208",
+    "id": "jfll-inact-0286",
     "fullName": "JAKSON BIOFUELS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kapil  Bhilware",
@@ -2702,29 +3716,29 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kapil.bhilware@jakson.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0209",
+    "id": "jfll-inact-0287",
     "fullName": "HIND INTERNATIONAL TRADING",
     "territory": "All Territories",
     "contactPersonName": "AKIL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "akilshareef@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0210",
+    "id": "jfll-inact-0288",
     "fullName": "MAHADEV EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mahadev Exports",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "mahadevexports0750@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -2733,7 +3747,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0211",
+    "id": "jfll-inact-0289",
+    "fullName": "THRIVEVIRTUE PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "RAHUL BARHATE",
+    "mobileNumber": "+91-9545456382",
+    "email": "rahul@gofrutto.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0290",
     "fullName": "UNOSURE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Irish",
@@ -2741,12 +3768,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ops@unologistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0212",
+    "id": "jfll-inact-0291",
+    "fullName": "H&C LOGISTICS SERVICES LLP",
+    "territory": "All Territories",
+    "contactPersonName": "Heena  SHarma",
+    "mobileNumber": "+91-9599940928",
+    "email": "cs@hnclogistics.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0292",
     "fullName": "FRETZO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr.Ramit Sharma",
@@ -2754,12 +3794,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ramit@fretzo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0293",
+    "fullName": "EXPRESS LOGISTICS SOLUTIONS.",
+    "territory": "All Territories",
+    "contactPersonName": "Santosh Shinde",
+    "mobileNumber": "+91-8928232541",
+    "email": "ss@els-india.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0213",
+    "id": "jfll-inact-0294",
     "fullName": "EROS AGRO & FARMS PRIVATE LIMITD",
     "territory": "All Territories",
     "contactPersonName": "Neeraj Mann",
@@ -2772,20 +3825,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0214",
+    "id": "jfll-inact-0295",
     "fullName": "EIE INSTRUMENTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Satish Panchal",
     "mobileNumber": "+91-9904807500",
     "email": "export@eieinstruments.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0215",
+    "id": "jfll-inact-0296",
     "fullName": "DOLPHIN LEATHERS",
     "territory": "All Territories",
     "contactPersonName": "MD KASEM",
@@ -2798,7 +3851,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0216",
+    "id": "jfll-inact-0297",
     "fullName": "DELTAPLUS INDIA INDUSTRIAL SAFETY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SUVENDU MONDAL",
@@ -2806,12 +3859,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "alam.molla@deltaplus.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0217",
+    "id": "jfll-inact-0298",
+    "fullName": "DELEGATE EXIM SERVICES",
+    "territory": "All Territories",
+    "contactPersonName": "Randhir Singh",
+    "mobileNumber": "+91-9818790025",
+    "email": "delegateeximservices@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0299",
     "fullName": "CASABLANCA INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. UMESH  VERMA",
@@ -2819,12 +3885,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "umesh.verma@casablancaindustries.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0218",
+    "id": "jfll-inact-0300",
+    "fullName": "BIASHARA VENTURES PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "MR. PRAKASH  MURTI",
+    "mobileNumber": "+91-9818788480",
+    "email": "pm.primeventures@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0301",
     "fullName": "BELORG SHIPPING PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Rhutuja  Mhatre",
@@ -2832,12 +3911,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "quote@belrog.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0219",
+    "id": "jfll-inact-0302",
     "fullName": "BALAJI LOGISTICS AND SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Shrikant  Nair",
@@ -2850,7 +3929,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0220",
+    "id": "jfll-inact-0303",
     "fullName": "ATLANTIC INTERNATIONAL EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "prashant naidu",
@@ -2863,7 +3942,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0221",
+    "id": "jfll-inact-0304",
     "fullName": "ASCEND GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AJAY KUMAR",
@@ -2871,12 +3950,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ajay@ascendlogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0222",
+    "id": "jfll-inact-0305",
     "fullName": "AMPLUS LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRASAD N",
@@ -2884,12 +3963,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "oceanpricing.mum@ampluslogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0223",
+    "id": "jfll-inact-0306",
     "fullName": "IPOLY OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "MANISH SHARMA",
@@ -2902,7 +3981,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0224",
+    "id": "jfll-inact-0307",
     "fullName": "M. G. ASSOCIATES",
     "territory": "All Territories",
     "contactPersonName": "MADHAV",
@@ -2915,7 +3994,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0225",
+    "id": "jfll-inact-0308",
     "fullName": "TIPSY-TOPSY EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Manish  Hindocha",
@@ -2928,7 +4007,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0226",
+    "id": "jfll-inact-0309",
     "fullName": "DYLAN GLOBAL LINKS",
     "territory": "All Territories",
     "contactPersonName": "Jiten K",
@@ -2941,7 +4020,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0227",
+    "id": "jfll-inact-0310",
     "fullName": "TRYMAX FURNACES",
     "territory": "All Territories",
     "contactPersonName": "PRANITA NAIK",
@@ -2954,7 +4033,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0228",
+    "id": "jfll-inact-0311",
     "fullName": "GREENTEK PLAST",
     "territory": "All Territories",
     "contactPersonName": "KIRAN",
@@ -2967,7 +4046,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0229",
+    "id": "jfll-inact-0312",
+    "fullName": "TRANSFREIGHT GLOBAL LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "EKTA  SINGH",
+    "mobileNumber": "+91-8793630523",
+    "email": "info@transfreightgloballogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0313",
     "fullName": "VNS LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Akash",
@@ -2980,7 +4072,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0230",
+    "id": "jfll-inact-0314",
     "fullName": "K K INTERNATIONAL AIR COURIERS",
     "territory": "All Territories",
     "contactPersonName": "MOHANLAL BADAN",
@@ -2993,7 +4085,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0231",
+    "id": "jfll-inact-0315",
     "fullName": "SHRE BALAJI AVN FREIGHT MOVERS",
     "territory": "All Territories",
     "contactPersonName": "VINEET  KUMAR",
@@ -3006,7 +4098,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0232",
+    "id": "jfll-inact-0316",
     "fullName": "AL-RUMANA AGRO COMMODITIES",
     "territory": "All Territories",
     "contactPersonName": "YASEEN MOHD",
@@ -3019,7 +4111,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0233",
+    "id": "jfll-inact-0317",
+    "fullName": "S.K. EXPORTS (HUF)",
+    "territory": "All Territories",
+    "contactPersonName": "SUGAM  KARTA",
+    "mobileNumber": "+91-9711219659",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-0318",
     "fullName": "M/S UNIVERSAL FREIGHT",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nitin  Kumar",
@@ -3032,7 +4137,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0234",
+    "id": "jfll-inact-0319",
     "fullName": "SPENCER POLYMERS",
     "territory": "All Territories",
     "contactPersonName": "Amit  Lohia",
@@ -3045,7 +4150,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0235",
+    "id": "jfll-inact-0320",
     "fullName": "ARUNNAI GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "GOPALAKRISHNAN  SUGUMAR",
@@ -3058,7 +4163,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0236",
+    "id": "jfll-inact-0321",
     "fullName": "S N CARGO",
     "territory": "All Territories",
     "contactPersonName": "SHAIKH  REYAZUDDIN",
@@ -3071,7 +4176,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0237",
+    "id": "jfll-inact-0322",
     "fullName": "ANITA & SONS LOGISTICS .",
     "territory": "All Territories",
     "contactPersonName": "MR. AMIT SAHA PODDAR",
@@ -3084,7 +4189,72 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0238",
+    "id": "jfll-inact-0323",
+    "fullName": "SAI EXIM",
+    "territory": "All Territories",
+    "contactPersonName": "KAMAL SINGH NEGI",
+    "mobileNumber": "+91-9810116475",
+    "email": "saieximindia@hotmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0324",
+    "fullName": "SONIGARA JEWELLERS PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Jitendra  Sonigara",
+    "mobileNumber": "+91-9822188524",
+    "email": "jdsonigara@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0325",
+    "fullName": "EMPROS LOGISTICS PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Vikram",
+    "mobileNumber": "+91-9810582127",
+    "email": "vikram@emproslog.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0326",
+    "fullName": "AVM FREIGHT SOLUTIONS LLP",
+    "territory": "All Territories",
+    "contactPersonName": "Manish  Agarwal",
+    "mobileNumber": "+91-9930625299",
+    "email": "ops@avmfreightsolutions.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0327",
+    "fullName": "INDIAN HYDROCOLLOIDS",
+    "territory": "All Territories",
+    "contactPersonName": "PIYUSH PRAJAPATI",
+    "mobileNumber": "+91-8799466539",
+    "email": "documents@inhyco.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0328",
     "fullName": "JWC EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "INFORMATION",
@@ -3092,12 +4262,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@jetwaycargo.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0329",
+    "fullName": "ARD LOGISTICS.",
+    "territory": "All Territories",
+    "contactPersonName": "ASHU",
+    "mobileNumber": "+91-9891106167",
+    "email": "info@ardlogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0239",
+    "id": "jfll-inact-0330",
+    "fullName": "THE MANGO MART",
+    "territory": "All Territories",
+    "contactPersonName": "chetan mendapara",
+    "mobileNumber": "+91-8866660939",
+    "email": "infothemangomart@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0331",
+    "fullName": "DCD LOGISTICS INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Deepak Kumar",
+    "mobileNumber": "+91-78934 94064",
+    "email": "sales@dcdlogisticsindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0332",
     "fullName": "SAV LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VIJAY",
@@ -3105,12 +4314,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vijay.ranjan@savlogisticsgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0240",
+    "id": "jfll-inact-0333",
     "fullName": "K R AVIATION SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KILDEEP",
@@ -3118,12 +4327,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kuldeep@krviationservices.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0241",
+    "id": "jfll-inact-0334",
     "fullName": "SRI DATTA LOGISTICS PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "PHANIKANTH",
@@ -3131,12 +4340,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kanth@sridattalogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0242",
+    "id": "jfll-inact-0335",
     "fullName": "M/S G-SPORTS",
     "territory": "All Territories",
     "contactPersonName": "GANESH  SHARMA",
@@ -3149,7 +4358,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0243",
+    "id": "jfll-inact-0336",
     "fullName": "ABS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr.Abhishek",
@@ -3157,12 +4366,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abhinav.jain@abslogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0244",
+    "id": "jfll-inact-0337",
     "fullName": "GENEXT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sumit  Sharma",
@@ -3170,12 +4379,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ops.del@genextlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0245",
+    "id": "jfll-inact-0338",
     "fullName": "FORTIO LOGISOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRAKASH RAWAT",
@@ -3183,12 +4392,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "prakash@fortio.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0246",
+    "id": "jfll-inact-0339",
     "fullName": "SREEHAR GLOBAL EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "BRIND VIHAR RONGALI",
@@ -3201,7 +4410,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0247",
+    "id": "jfll-inact-0340",
     "fullName": "TRANSHARBOUR LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRAVIN PADMAKAR AHERRAO",
@@ -3209,12 +4418,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pravin@transharbour.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0341",
+    "fullName": "STAAR EXPORTS & IMPORTS",
+    "territory": "All Territories",
+    "contactPersonName": "Mansoor  Basha",
+    "mobileNumber": "+91-9573923765",
+    "email": "mansoor@staarfoods.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0248",
+    "id": "jfll-inact-0342",
+    "fullName": "SS CARGO SYSTEM INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SHIV PRAKASH YADAV",
+    "mobileNumber": "+91-9810549482",
+    "email": "pricing@sscargosystem.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0343",
     "fullName": "TRINITY DIAMONDS",
     "territory": "All Territories",
     "contactPersonName": "MR.AJAY",
@@ -3227,7 +4462,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0249",
+    "id": "jfll-inact-0344",
     "fullName": "SKYROUTE FREIGHT LINES",
     "territory": "All Territories",
     "contactPersonName": "Manpreet Kaur",
@@ -3240,7 +4475,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0250",
+    "id": "jfll-inact-0345",
     "fullName": "APRILE INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Omprakash  Kattimani",
@@ -3248,12 +4483,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "o.kattimani@in.aprilenet.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0251",
+    "id": "jfll-inact-0346",
+    "fullName": "AIRSURGE LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Sarita Kashyap",
+    "mobileNumber": "+91-8448094212",
+    "email": "bookkeeping@airsurgegroup.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0347",
+    "fullName": "SWISSLOG LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "RUCHI SINGH",
+    "mobileNumber": "+91-9650500108",
+    "email": "overseas@swisslog-logistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0348",
+    "fullName": "ROUND THE CLOCK LOGISTICS PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "THOMAS",
+    "mobileNumber": "+91-9920163267",
+    "email": "accounts.head@rtclogistics.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0349",
     "fullName": "RUNWAY LOGISTICS LTD",
     "territory": "All Territories",
     "contactPersonName": "runway",
@@ -3261,12 +4535,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@runway-logistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0350",
+    "fullName": "S S M INTERNATIONAL",
+    "territory": "All Territories",
+    "contactPersonName": "Obaid Memon",
+    "mobileNumber": "+91-9699944650",
+    "email": "sales@ssminternational.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0252",
+    "id": "jfll-inact-0351",
     "fullName": "SEASTAR GLOBAL",
     "territory": "All Territories",
     "contactPersonName": "AMIT  THAKKAR",
@@ -3279,7 +4566,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0253",
+    "id": "jfll-inact-0352",
     "fullName": "DESKMATE GLOBAL EXPRESS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BALA",
@@ -3287,12 +4574,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bala@deskmateglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0254",
+    "id": "jfll-inact-0353",
+    "fullName": "MERIX CARGO LINES PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "merixcargo",
+    "mobileNumber": "+91-9217505039",
+    "email": "merixcargo@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0354",
     "fullName": "17471831 CANADA INC.",
     "territory": "All Territories",
     "contactPersonName": "Rajesh Goel",
@@ -3305,7 +4605,72 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0255",
+    "id": "jfll-inact-0355",
+    "fullName": "RAJTILAK METAL",
+    "territory": "All Territories",
+    "contactPersonName": "Jain Shrenik S",
+    "mobileNumber": "+91-9869506920",
+    "email": "rajtilakmetal@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0356",
+    "fullName": "MASS FREIGHT FORWARDING LLP",
+    "territory": "All Territories",
+    "contactPersonName": "Aparna  Kachwala",
+    "mobileNumber": "-",
+    "email": "arpana@massfreightforwarding.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0357",
+    "fullName": "P N R AGENCY",
+    "territory": "All Territories",
+    "contactPersonName": "rajashekar gowda",
+    "mobileNumber": "+91-9916642439",
+    "email": "pnragency732@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0358",
+    "fullName": "HINDUSTAN LOGISTICS PVT. LTD.",
+    "territory": "All Territories",
+    "contactPersonName": "KUNAL",
+    "mobileNumber": "+91-9702201166",
+    "email": "kunal.tamse@hindustanlogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0359",
+    "fullName": "AVERA GLOBAL LOGISTICS LLP",
+    "territory": "All Territories",
+    "contactPersonName": "Raghuji Phalke 8698166042",
+    "mobileNumber": "-",
+    "email": "contact@averagl.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0360",
     "fullName": "ASIANIC LOGISTICS LTD",
     "territory": "All Territories",
     "contactPersonName": "SURESH MALL",
@@ -3313,17 +4678,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@asianiclogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0256",
-    "fullName": "SIXTH ENERGY TECHNOLOGIES PRIVATE LIMITED",
+    "id": "jfll-inact-0361",
+    "fullName": "GNANAM FOODS",
     "territory": "All Territories",
-    "contactPersonName": "Madhusudhan",
-    "mobileNumber": null,
-    "email": "accounts@6thenergy.com",
+    "contactPersonName": "ANAND DIWANI",
+    "mobileNumber": "+91-8469231302",
+    "email": "gnanamfoods21@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -3331,7 +4696,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0257",
+    "id": "jfll-inact-0362",
+    "fullName": "SIXTH ENERGY TECHNOLOGIES PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Madhusudhan",
+    "mobileNumber": "-",
+    "email": "accounts@6thenergy.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0363",
     "fullName": "C N AIR GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Edwin",
@@ -3339,12 +4717,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "edwin@cnaglogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0258",
+    "id": "jfll-inact-0364",
     "fullName": "CONNECT CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajasekhar",
@@ -3352,12 +4730,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kam2@connectcargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0259",
+    "id": "jfll-inact-0365",
     "fullName": "BLUELINE LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Satish  Kumar",
@@ -3365,12 +4743,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "satish@bluelinelogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0260",
+    "id": "jfll-inact-0366",
+    "fullName": "EPT GLOBAL LOGISTICS PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Vaishali  Thakur",
+    "mobileNumber": "+91-9967531723",
+    "email": "vaishali@eptgl.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0367",
+    "fullName": "RATHI POLYCHEM LLP",
+    "territory": "All Territories",
+    "contactPersonName": "Sanjay  Mehta",
+    "mobileNumber": "+91-8527192213",
+    "email": "rathipolychemllp@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0368",
     "fullName": "M/S. VB MARINE AND INDUSTRIAL SUPPLIERS",
     "territory": "All Territories",
     "contactPersonName": "Dhruv Poojari",
@@ -3383,20 +4787,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0261",
-    "fullName": "M/S WORLDTRADE EXPERTS",
+    "id": "jfll-inact-0369",
+    "fullName": "IKIRAON TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
-    "contactPersonName": "Mr.Anuj",
-    "mobileNumber": "+91-9643826329",
-    "email": "info@worldtradeexperts.in",
+    "contactPersonName": "Avneet",
+    "mobileNumber": "+91-9811069797",
+    "email": "shipping@ikiraon.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0262",
+    "id": "jfll-inact-0370",
+    "fullName": "ALVIK FREIGHT FORWARDERS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SHARAD SHANKAR CHAVAN",
+    "mobileNumber": "+91-9930749516",
+    "email": "sharad@alvikfreight.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0371",
     "fullName": "BOGGLETREE TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Darpan Lamba",
@@ -3404,12 +4821,77 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "partnerships@xportel.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0372",
+    "fullName": "ECU LINE SAUDI ARABIA",
+    "territory": "All Territories",
+    "contactPersonName": "Arsalan",
+    "mobileNumber": "+966-590210944",
+    "email": "arsalana@ecuworldwide.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0263",
+    "id": "jfll-inact-0373",
+    "fullName": "LODESTAR MARITIME",
+    "territory": "All Territories",
+    "contactPersonName": "Abrar Sait",
+    "mobileNumber": "+91-8138001288",
+    "email": "abrar@lodestarmaritimeindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0374",
+    "fullName": "SHREE TIRUPATI BALAJI SHIPPING PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "EASHWARI PATIL",
+    "mobileNumber": "+91-8169237593",
+    "email": "esp@stbsindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0375",
+    "fullName": "TRANSWORLD INTEGRATED LOGISTEK PVT. LTD.",
+    "territory": "All Territories",
+    "contactPersonName": "ROHNI DESHPANDE",
+    "mobileNumber": "+91-9833033913",
+    "email": "rohni.deshpande@transworld.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0376",
+    "fullName": "RSA CONTAINER LINE PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "POOJA",
+    "mobileNumber": "+91-9205992237",
+    "email": "cs@rsacontainerline.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0377",
     "fullName": "AGRICULTURE AVATAR PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dharmendra  Malik",
@@ -3417,17 +4899,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0264",
-    "fullName": "CGTT INDIA PRIVATE LIMITED",
+    "id": "jfll-inact-0378",
+    "fullName": "ABHISHEK LOGISTICS",
     "territory": "All Territories",
-    "contactPersonName": "amit",
-    "mobileNumber": null,
-    "email": "amit.oberoi@cgttgroup.com",
+    "contactPersonName": "SREE KUMAR",
+    "mobileNumber": "+91-7698329480",
+    "email": "accounts@abhisheklogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -3435,7 +4917,59 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0265",
+    "id": "jfll-inact-0379",
+    "fullName": "CROSS SEA EXIM",
+    "territory": "All Territories",
+    "contactPersonName": "Rohit Jaware",
+    "mobileNumber": "+91-8421662919",
+    "email": "jawarerohit3@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0380",
+    "fullName": "YELLOWS AND GREENS AGRI FRESH PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Swetha",
+    "mobileNumber": "+91-8466984669",
+    "email": "swetha.n@yngfresh.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0381",
+    "fullName": "SHARP CALCHEM PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "PARBODH",
+    "mobileNumber": "+91-9811020398",
+    "email": "sharpcalchem@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0382",
+    "fullName": "CGTT INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "amit",
+    "mobileNumber": "-",
+    "email": "amit.oberoi@cgttgroup.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0383",
     "fullName": "PROLOGIS FREIGHT INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Avinash  Khamkar",
@@ -3443,12 +4977,103 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "avinash.khamkar@prologisfreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0266",
+    "id": "jfll-inact-0384",
+    "fullName": "CLASSIC CLEARING AND FORWARDING PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "srinivasan",
+    "mobileNumber": "+91-9941290564",
+    "email": "pricing.maa@classic-logistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0385",
+    "fullName": "SHRI HERSHNE (IMPORTS) LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mr Prasanna",
+    "mobileNumber": "+91-02085773999",
+    "email": "shrihershne@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0386",
+    "fullName": "MEGASTAR SHIPPING & LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "POOJA PANGUL",
+    "mobileNumber": "+91-8828570785",
+    "email": "accounts@megastarshipping.net",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0387",
+    "fullName": "GOODWILL FABRICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "RAJENDRA  BAHERIA",
+    "mobileNumber": "+91-93425 29627",
+    "email": "raj@goodwillfabrics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0388",
+    "fullName": "GATSO LOGISTICS INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "R.VIDHYA",
+    "mobileNumber": "+91-9789900405",
+    "email": "accounts@gatsoindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0389",
+    "fullName": "KWALITY VEGETABLES & FRUIT LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Sanjeev",
+    "mobileNumber": "+91-7491138226",
+    "email": "kwality.vegetablesfruits@yahoo.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0390",
+    "fullName": "BAM FOODS LLP",
+    "territory": "All Territories",
+    "contactPersonName": "ALTAB MOHAMMED",
+    "mobileNumber": "+91-7276294985",
+    "email": "aftab@bamfoodsllp.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0391",
     "fullName": "INDIKOS FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SONAM SINGH",
@@ -3456,12 +5081,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kunal.t@indikos.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0392",
+    "fullName": "AIR-SHIP LOGISTICS SOLUTIONS",
+    "territory": "All Territories",
+    "contactPersonName": "SANJAY PATEL",
+    "mobileNumber": "+91-9714153422",
+    "email": "info.airshiplogistics1410@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0267",
+    "id": "jfll-inact-0393",
+    "fullName": "SPRINT LOGISTECH SOLUTIONS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "VIVEK",
+    "mobileNumber": "+91-9818577816",
+    "email": "vivek@sprintexp.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0394",
     "fullName": "LOGICSMERKAY INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mohammed Siddique",
@@ -3469,12 +5120,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "siddique@merkayindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0268",
+    "id": "jfll-inact-0395",
     "fullName": "LUMINO INDUSTRIES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. VIKASH SINGH",
@@ -3482,12 +5133,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vikash.singh@luminoindustries.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0269",
+    "id": "jfll-inact-0396",
     "fullName": "V V SHIPPING AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shrutika Mara",
@@ -3495,17 +5146,56 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "account@vvshippingandlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0270",
-    "fullName": "CHANNEL FREIGHT SERVICES (I) PVT. LTD.",
+    "id": "jfll-inact-0397",
+    "fullName": "STICHWELL EXPORTS PVT. LTD.",
     "territory": "All Territories",
-    "contactPersonName": "Ms. Sonia  Rawat",
-    "mobileNumber": "+91-8076873187",
-    "email": "mktgdel@cfsipl.com",
+    "contactPersonName": "MR. ARUP SEN",
+    "mobileNumber": "+91-8274963010",
+    "email": "logistics@stichwell.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0398",
+    "fullName": "ARIO SHIPPING & LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Anita Nair",
+    "mobileNumber": "+91-9819161262",
+    "email": "anita@arioshipping.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0399",
+    "fullName": "FREIGHTEX WORLDWIDE PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "RANJAN",
+    "mobileNumber": "+91-9004828282",
+    "email": "sales@freightexworldwide.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0400",
+    "fullName": "GOLDEN EXPORTS",
+    "territory": "All Territories",
+    "contactPersonName": "golden exports",
+    "mobileNumber": "+91-97477873459",
+    "email": "goldenexports.ind@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -3513,7 +5203,46 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0271",
+    "id": "jfll-inact-0401",
+    "fullName": "CIC LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "NIRMAL  GABA",
+    "mobileNumber": "+91-9930966950",
+    "email": "air_ops@ciclogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0402",
+    "fullName": "VENKATESH FORWARDER",
+    "territory": "All Territories",
+    "contactPersonName": "Pratik Mehta",
+    "mobileNumber": "+91-9619474717",
+    "email": "import@venkateshagencies.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0403",
+    "fullName": "CHANNEL FREIGHT SERVICES (I) PVT. LTD.",
+    "territory": "All Territories",
+    "contactPersonName": "Ms. Sonia  Rawat",
+    "mobileNumber": "+91-8076873187",
+    "email": "mktgdel@cfsipl.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0404",
     "fullName": "KERLIN XPRESS",
     "territory": "All Territories",
     "contactPersonName": "BALRAM SHAH  NARULA",
@@ -3526,7 +5255,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0272",
+    "id": "jfll-inact-0405",
+    "fullName": "CONTICO SHIPPING AGENCY PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "KUMAR KUNWAR",
+    "mobileNumber": "+91-7703982913",
+    "email": "mgr.del@contico.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0406",
     "fullName": "ICONIC FREIGHT LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "KARAN SARKAR",
@@ -3534,12 +5276,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "karan@iconicfreightlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0407",
+    "fullName": "INT ENTERPRISE",
+    "territory": "All Territories",
+    "contactPersonName": "PARESH SHAH",
+    "mobileNumber": "+91-9374727072",
+    "email": "paresh@flightpathtravel.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0273",
+    "id": "jfll-inact-0408",
     "fullName": "LINKERS INDIA LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "HARISH  GAUR",
@@ -3547,12 +5302,64 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "harish.gaur@linkers.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0409",
+    "fullName": "HARVEST FOOD EXIM",
+    "territory": "All Territories",
+    "contactPersonName": "SHAHRUKH",
+    "mobileNumber": "+91-7016067795",
+    "email": "shahrukh.indorewala@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0274",
+    "id": "jfll-inact-0410",
+    "fullName": "TRANSCOM GLOBAL LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Jayesh Badala",
+    "mobileNumber": "+91-9983322998",
+    "email": "accounts@transcomlogistics.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0411",
+    "fullName": "SHAH WORLDWIDE LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "gunjan",
+    "mobileNumber": "+91-9870419755",
+    "email": "gunjan@swlindia.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0412",
+    "fullName": "HORTICA FOODS LLP",
+    "territory": "All Territories",
+    "contactPersonName": "CHETAN PATEL",
+    "mobileNumber": "+91-9662593565",
+    "email": "info@horticafoods.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0413",
     "fullName": "RELIABLE TRAVELS AND CARGO PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Avinash  Baliyan",
@@ -3560,12 +5367,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "avinash.baliyan@pacexpress.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0275",
+    "id": "jfll-inact-0414",
+    "fullName": "WW LOGISTICIANS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "ALOK SHAH",
+    "mobileNumber": "+91-9810608855",
+    "email": "alok.sharma@wwlogisticians.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0415",
     "fullName": "MAYCO FREIGHT & TRAVELS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "M.S.PANWAR",
@@ -3573,12 +5393,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@mayco.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0276",
+    "id": "jfll-inact-0416",
     "fullName": "VELOGIC INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ruchi  Singh",
@@ -3586,12 +5406,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "salesc2@velogic-in.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0277",
+    "id": "jfll-inact-0417",
+    "fullName": "QUATTRO FREIGHT PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "VISHNU  SAWANT",
+    "mobileNumber": "+91-9322976622",
+    "email": "vishnu.sawant@quattrofreight.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0418",
     "fullName": "VALIANT POWER PROJECTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "laxmi",
@@ -3599,12 +5432,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "laxmi.girkar@valiantpower.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0278",
+    "id": "jfll-inact-0419",
     "fullName": "LSIELEKTRONICS LLP",
     "territory": "All Territories",
     "contactPersonName": "SATENDRA KUMAR",
@@ -3612,12 +5445,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "skg@lsielektronics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0420",
+    "fullName": "SHRIVEN AGRITECHS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Ramani",
+    "mobileNumber": "+91-7358712151",
+    "email": "accounts@shriven.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-0421",
+    "fullName": "AVISHA OVERSEAS",
+    "territory": "All Territories",
+    "contactPersonName": "DINESH",
+    "mobileNumber": "+91-9359931483",
+    "email": "avishaoverseas@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0279",
+    "id": "jfll-inact-0422",
+    "fullName": "DIA GLOBAL",
+    "territory": "All Territories",
+    "contactPersonName": "ASHUTOSH",
+    "mobileNumber": "+91-9029093009",
+    "email": "diaglobal2023@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-0423",
     "fullName": "VEGAEXPRESS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Akshatha",
@@ -3625,12 +5497,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accts.vegablr@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0424",
+    "fullName": "OMKAR MANGOES LLC",
+    "territory": "All Territories",
+    "contactPersonName": "K Srinivasa Rao",
+    "mobileNumber": "+1-9959972304",
+    "email": "omkarmangoes@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0280",
+    "id": "jfll-inact-0425",
+    "fullName": "KRISHLOGIX PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "PALLAVI",
+    "mobileNumber": "+91-22-45174666",
+    "email": "pricing@krishlogix.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0426",
     "fullName": "SINTON AGRIBID TRADING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ricky Couto",
@@ -3638,12 +5536,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ricky.couto@agribid.ai",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0281",
+    "id": "jfll-inact-0427",
     "fullName": "JDM WORLDWIDE FREIGHT SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. YUJVINDER",
@@ -3651,12 +5549,64 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs@jdmworldwide.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0282",
+    "id": "jfll-inact-0428",
+    "fullName": "MSHIP CARGO FREIGHT STATION PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "NITIN PANDEY",
+    "mobileNumber": "+91-9911204087",
+    "email": "nitin.pandey@mshipcargo.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0429",
+    "fullName": "HYPERFARMS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Manikandan Pattabiraman",
+    "mobileNumber": "+91-9880571217",
+    "email": "mani@hyperfarms.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0430",
+    "fullName": "TGL EXPRESS INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "chandru",
+    "mobileNumber": "-",
+    "email": "chandru@tglexpressindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0431",
+    "fullName": "SPEEDLOG FREIGHT AND LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Puneet  Arora",
+    "mobileNumber": "+91-8585930748",
+    "email": "puneet.arora@speedlogfreight.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0432",
     "fullName": "SIRIUS CARGO SOLUTIONS LLP",
     "territory": "All Territories",
     "contactPersonName": "MRS VIBHUTI WALIA",
@@ -3664,12 +5614,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "acconts@sirius-cargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0433",
+    "fullName": "ADL LOGISTICS & CARGO",
+    "territory": "All Territories",
+    "contactPersonName": "PUNEET  WADHWA",
+    "mobileNumber": "+91-9896076321",
+    "email": "puneet@adlworldwide.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0283",
+    "id": "jfll-inact-0434",
     "fullName": "FAST LOGISTICS CARGO FZCO",
     "territory": "All Territories",
     "contactPersonName": "ARSH ANAND",
@@ -3682,7 +5645,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0284",
+    "id": "jfll-inact-0435",
     "fullName": "PRIMERELIABLE CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "harsh",
@@ -3690,12 +5653,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "harsh.tandon@reliablecargo.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0285",
+    "id": "jfll-inact-0436",
     "fullName": "COLOMBUS FREIGHT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SARAVANAN.V",
@@ -3703,12 +5666,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@colombusfreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0286",
+    "id": "jfll-inact-0437",
+    "fullName": "UPOWER LOGISTICS (INDIA) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SANJEEV",
+    "mobileNumber": "+91-98186 16460",
+    "email": "sanjeev.del@unionpower.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0438",
     "fullName": "SUR BASANT OVERSEAS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Regi Shela",
@@ -3716,12 +5692,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mail@surbasant.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0287",
+    "id": "jfll-inact-0439",
     "fullName": "SAMPOORNA SWADESI",
     "territory": "All Territories",
     "contactPersonName": "Narapareddy Naga Venkata Sivaprasad",
@@ -3734,7 +5710,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0288",
+    "id": "jfll-inact-0440",
     "fullName": "SCM INVENTURE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anup Shinde",
@@ -3742,16 +5718,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs1@scminventure.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0289",
+    "id": "jfll-inact-0441",
     "fullName": "EZIGO FZE",
     "territory": "All Territories",
     "contactPersonName": "rajesh",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "rajesh.goel@committedgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -3760,7 +5736,72 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0290",
+    "id": "jfll-inact-0442",
+    "fullName": "OSPRIO EXPORTS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "shiv  prakasam",
+    "mobileNumber": "+91-9440853786",
+    "email": "osprioexports@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0443",
+    "fullName": "AREM LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "Balaji  Parthsarathy",
+    "mobileNumber": "+91-9840793086",
+    "email": "balaji@aremlogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0444",
+    "fullName": "BLUE ROCK TRADING",
+    "territory": "All Territories",
+    "contactPersonName": "BLUE ROCK TRADING",
+    "mobileNumber": "-",
+    "email": "brtrading2020@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0445",
+    "fullName": "VARDHMAN LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "KOMAL SHAH",
+    "mobileNumber": "+91-9619886013",
+    "email": "account@vardhmanlogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0446",
+    "fullName": "DELA INTERNATIONAL",
+    "territory": "All Territories",
+    "contactPersonName": "samir  goyani",
+    "mobileNumber": "+91-9998666846",
+    "email": "info@delaint.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0447",
     "fullName": "TRIDENT AGROCOM EXPORTS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Saurabh",
@@ -3768,16 +5809,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shippingops@tridentagro.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0291",
+    "id": "jfll-inact-0448",
     "fullName": "STARLINE FOODS INC",
     "territory": "All Territories",
     "contactPersonName": "PARESH BHAI",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "info@gcontech.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -3786,7 +5827,72 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0292",
+    "id": "jfll-inact-0449",
+    "fullName": "EAZY SHIPPER CARGO L.L.C",
+    "territory": "All Territories",
+    "contactPersonName": "Amit Sadu Bangera",
+    "mobileNumber": "+971-1506134356",
+    "email": "eazyshipperae@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0450",
+    "fullName": "TRIO CONSOLIDATORS PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Elangovan. M.",
+    "mobileNumber": "+91-9789697432",
+    "email": "elango@triogroup.net",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0451",
+    "fullName": "SUREWAYS SHIPPING SOLUTIONS",
+    "territory": "All Territories",
+    "contactPersonName": "Mehul Fanasatkar",
+    "mobileNumber": "+91-8850928584",
+    "email": "mehul.fanasatkar@sureways.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0452",
+    "fullName": "CARGOSAFE EXPRESS LOGISTICS INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "ABRAR  KHAJE",
+    "mobileNumber": "+91-9960406775",
+    "email": "cs@cargosafeexpress.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0453",
+    "fullName": "METCO INTERNATIONAL",
+    "territory": "All Territories",
+    "contactPersonName": "ASHRAF ALI",
+    "mobileNumber": "+91-9495983454",
+    "email": "metcointl@yahoo.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0454",
     "fullName": "FREIGHTBASE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SANDEEP KUMAR BANSAL",
@@ -3794,12 +5900,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sbansal@freightbaselogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0293",
+    "id": "jfll-inact-0455",
     "fullName": "JAYCEE AUTOFAB PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAKESH  AGARWAL",
@@ -3807,12 +5913,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@jayceeauto.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0294",
+    "id": "jfll-inact-0456",
+    "fullName": "FIRST FLIGHT AIR GENERAL TRADING",
+    "territory": "All Territories",
+    "contactPersonName": "JITHIN AP",
+    "mobileNumber": "+91-9746993212",
+    "email": "firstflightjhm@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0457",
     "fullName": "VSIX TRADERS",
     "territory": "All Territories",
     "contactPersonName": "NASEEB",
@@ -3820,12 +5939,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vsixtraders@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0295",
+    "id": "jfll-inact-0458",
     "fullName": "IND EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Faisal",
@@ -3838,7 +5957,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0296",
+    "id": "jfll-inact-0459",
+    "fullName": "HBI INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Jankinath  Mali",
+    "mobileNumber": "+91-+8108146004",
+    "email": "jmali@hb-international.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0460",
     "fullName": "VIRTUS PRO LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Deepak Raj. M",
@@ -3846,12 +5978,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "m.deepak@virtusprologistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0297",
+    "id": "jfll-inact-0461",
     "fullName": "HARIKRUSHNA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "SANDIPKUMAR",
@@ -3864,7 +5996,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0298",
+    "id": "jfll-inact-0462",
+    "fullName": "CHAND EXPORTS",
+    "territory": "All Territories",
+    "contactPersonName": "PETER",
+    "mobileNumber": "+91-9819755691",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-0463",
     "fullName": "MASTER EQUIPMENT",
     "territory": "All Territories",
     "contactPersonName": "SHANTO T K",
@@ -3877,7 +6022,111 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0299",
+    "id": "jfll-inact-0464",
+    "fullName": "DHAHINIT FARMS INTERNATIONAL",
+    "territory": "All Territories",
+    "contactPersonName": "DHADUK GAUTHAM",
+    "mobileNumber": "+91-9033110632",
+    "email": "dhahinitfarms1@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0465",
+    "fullName": "GALAXY SHIPPING AGENCY",
+    "territory": "All Territories",
+    "contactPersonName": "DEEPAK",
+    "mobileNumber": "+91-98717777515",
+    "email": "galxyshippingagency@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0466",
+    "fullName": "TRANSIT POINT LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "TRANSIT POINT LOGISTICS PRIVATE LIMITED",
+    "mobileNumber": "-",
+    "email": "accounts@transit.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0467",
+    "fullName": "FALCON INTERNATIONAL COURIER AND CARGO",
+    "territory": "All Territories",
+    "contactPersonName": "NRIPENDER SINGH",
+    "mobileNumber": "+91-9220443006",
+    "email": "nirpender@falconinternational.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0468",
+    "fullName": "FREIGHT CONSOL LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Sumit Finance",
+    "mobileNumber": "-",
+    "email": "sales.mum@fclindia.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0469",
+    "fullName": "INTERJAS LOGISTICS LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "hemant",
+    "mobileNumber": "-",
+    "email": "hemant.pol@interjaslog.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0470",
+    "fullName": "S K AGRO FOODS",
+    "territory": "All Territories",
+    "contactPersonName": "Shubham  Agraval",
+    "mobileNumber": "+91-9637722540",
+    "email": "shu.agr7@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0471",
+    "fullName": "ATC GLOBAL LOGISTICS PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "acsacct",
+    "mobileNumber": "-",
+    "email": "acsacct@atcair.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0472",
     "fullName": "BRISK FREIGHT (INDIA) PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Nagubabu",
@@ -3885,12 +6134,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nagubabu@briskfr8.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0300",
+    "id": "jfll-inact-0473",
     "fullName": "REGENT TRADERS",
     "territory": "All Territories",
     "contactPersonName": "MOHAMMED RAHEEMUDDIN",
@@ -3898,12 +6147,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abdulraheemattari549@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0301",
+    "id": "jfll-inact-0474",
+    "fullName": "OKRAINSIGHT AGRITECH PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "BAKUL CHAUDHARI",
+    "mobileNumber": "+91-9904976147",
+    "email": "faiz.okrainsight@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0475",
     "fullName": "SHREE PORWAL FOODS",
     "territory": "All Territories",
     "contactPersonName": "Suhas  Suhas Hingade",
@@ -3916,12 +6178,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0302",
-    "fullName": "EXPRESS CARGO PORTERS PRIVATE LIMITED",
+    "id": "jfll-inact-0476",
+    "fullName": "A&D GLOBAL FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
-    "contactPersonName": "RAJ",
-    "mobileNumber": null,
-    "email": "nomination@ecppl.in",
+    "contactPersonName": "Amit Bhatt",
+    "mobileNumber": "+91-9654162410",
+    "email": "amit@adglobalfreight.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0477",
+    "fullName": "CARGO ASSURANCE FREIGHT SOLUTIONS LLP",
+    "territory": "All Territories",
+    "contactPersonName": "Jigan S Mota",
+    "mobileNumber": "+91-9867601906",
+    "email": "support@cargoassurance.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0478",
+    "fullName": "A R CREATIONS",
+    "territory": "All Territories",
+    "contactPersonName": "Suhail",
+    "mobileNumber": "+91-9880293507",
+    "email": "sales.arlog@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -3929,7 +6217,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0303",
+    "id": "jfll-inact-0479",
+    "fullName": "EXPRESS CARGO PORTERS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "RAJ",
+    "mobileNumber": "-",
+    "email": "nomination@ecppl.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0480",
+    "fullName": "SAFE MOVE EXPRESS COURIERS LLC",
+    "territory": "All Territories",
+    "contactPersonName": "safemove",
+    "mobileNumber": "-",
+    "email": "safemove@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0481",
     "fullName": "FREIGHTWINGS & TRAVELS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anitha  Noronha",
@@ -3937,12 +6251,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "anoronha@freightwings.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0482",
+    "fullName": "PEARL GROCERIES LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Pearl Groceries",
+    "mobileNumber": "+44-7767114560",
+    "email": "pglprofit9@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0483",
+    "fullName": "P S INTERNATIONAL",
+    "territory": "All Territories",
+    "contactPersonName": "MAHAVIR NEGI",
+    "mobileNumber": "+91-9711119916",
+    "email": "negi.psinternational@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0304",
+    "id": "jfll-inact-0484",
+    "fullName": "FALCON CONTRACTS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Jyotsna  Arora",
+    "mobileNumber": "+91-8295173854",
+    "email": "info@shadetec.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0485",
     "fullName": "OPTIMUM FREIGHT SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Hemant  Bhadekar",
@@ -3950,12 +6303,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "projects@ofspl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0305",
+    "id": "jfll-inact-0486",
     "fullName": "FUTURA SURGICARE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sathya",
@@ -3963,17 +6316,43 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sathya@futuramedtech.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0306",
-    "fullName": "KAPITAN GLOBAL FORWARDING (KGF) PRIVATE LIMITED",
+    "id": "jfll-inact-0487",
+    "fullName": "DUCOM AEROSPACE TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
-    "contactPersonName": "MADHAN.K",
-    "mobileNumber": "+91-8867952044",
-    "email": "gm.blr@kapitanglobal.com",
+    "contactPersonName": "Preethi B.M",
+    "mobileNumber": "+91-9740392560",
+    "email": "preethi@paltro.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0488",
+    "fullName": "ORANGESPARK TECH SHIPPING LINE PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "PRATEEK  BINDAL",
+    "mobileNumber": "+91-9592170995",
+    "email": "prateek@orangetechshipping.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0489",
+    "fullName": "EXCEL INTERNATIONAL-BLR",
+    "territory": "All Territories",
+    "contactPersonName": "Pralhad",
+    "mobileNumber": "+91-7019326914",
+    "email": "interlinkblr@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -3981,7 +6360,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0307",
+    "id": "jfll-inact-0490",
+    "fullName": "KAPITAN GLOBAL FORWARDING (KGF) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "MADHAN.K",
+    "mobileNumber": "+91-8867952044",
+    "email": "gm.blr@kapitanglobal.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0491",
     "fullName": "EXCEL INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "AJIL  GEORGE",
@@ -3994,7 +6386,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0308",
+    "id": "jfll-inact-0492",
+    "fullName": "VALUE FREIGHT MUMBAI PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "ATITA KADAM",
+    "mobileNumber": "+91-9819410395",
+    "email": "atita@superfreight.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0493",
+    "fullName": "KRISHKO LOGISTICS INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "RAMESH",
+    "mobileNumber": "+91-9790861600",
+    "email": "bramesh@krishkologistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0494",
     "fullName": "FREIGHT SYSTEMS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sandeep  Vats",
@@ -4002,12 +6420,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sandeep.vats@freightsystems.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0309",
+    "id": "jfll-inact-0495",
     "fullName": "SHARP GLOBAL AIR SEA LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashok Yadav",
@@ -4015,12 +6433,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashok.yadav@jfll.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0310",
+    "id": "jfll-inact-0496",
+    "fullName": "DEVMAHAVIR SUPPLY LLP",
+    "territory": "All Territories",
+    "contactPersonName": "RONAK NAGDA",
+    "mobileNumber": "+91-9004828282",
+    "email": "ronak@devmahavirsupply.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0497",
+    "fullName": "CARGO CARTERS & LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mr.Sasikumar",
+    "mobileNumber": "+91-9488655152",
+    "email": "creditcontrol@cargo-carriers.net",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0498",
     "fullName": "METAL POWER ANALYTICAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dharmesh Mistry",
@@ -4028,25 +6472,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dharmesh.mistry@metalpower.net",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0311",
-    "fullName": "SUPREME HYDRO ENGINEERING PRIVATE LIMITED",
+    "id": "jfll-inact-0499",
+    "fullName": "LEGERO INTERNATIONAL (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
-    "contactPersonName": "Nikita",
-    "mobileNumber": "+91-26185061",
-    "email": "accounts@shepl.net",
+    "contactPersonName": "Riya Rangawami",
+    "mobileNumber": "-",
+    "email": "riya.rangaswami@legerogroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0312",
+    "id": "jfll-inact-0500",
+    "fullName": "DENON COURIER AND CARGO PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "sucharita",
+    "mobileNumber": "+91-9871115497",
+    "email": "sucharita@dcacworldwide.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0501",
     "fullName": "INDUSTRIAL BEARING HOUSE",
     "territory": "All Territories",
     "contactPersonName": "Joginder Grover",
@@ -4059,7 +6516,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0313",
+    "id": "jfll-inact-0502",
     "fullName": "PONIAS ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Ganesh",
@@ -4067,12 +6524,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "customercare@poniasenterprisescargosolutions.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0314",
+    "id": "jfll-inact-0503",
     "fullName": "GROWTH EXPRESS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "MANISH KUMAR",
@@ -4085,7 +6542,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0315",
+    "id": "jfll-inact-0504",
+    "fullName": "FOODI WORLD LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Imran",
+    "mobileNumber": "+91-0736557231",
+    "email": "imran.exotica@icloud.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0505",
     "fullName": "NATH LOGISTICS AND FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "naman",
@@ -4093,17 +6563,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "naman@nathlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0316",
-    "fullName": "MAZYOONA MUSCAT TRADING",
+    "id": "jfll-inact-0506",
+    "fullName": "MARINE MART LOGISTICS",
     "territory": "All Territories",
-    "contactPersonName": "Venu Nair",
-    "mobileNumber": "+91-7838083515",
-    "email": "venunair@mmtcargo.com",
+    "contactPersonName": "MAYANK TIWARI",
+    "mobileNumber": "+91-8287656956",
+    "email": "mayank@marinemartlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -4111,7 +6581,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0317",
+    "id": "jfll-inact-0507",
+    "fullName": "MAZYOONA MUSCAT TRADING",
+    "territory": "All Territories",
+    "contactPersonName": "Venu Nair",
+    "mobileNumber": "+91-7838083515",
+    "email": "venunair@mmtcargo.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0508",
     "fullName": "LAKSHYA FABRICS",
     "territory": "All Territories",
     "contactPersonName": "Madhuresh Rajendra  Jindal",
@@ -4124,7 +6607,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0318",
+    "id": "jfll-inact-0509",
     "fullName": "VIPUL ORGANICS LTD",
     "territory": "All Territories",
     "contactPersonName": "Renu  Sharma",
@@ -4132,12 +6615,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@vipulorganics.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0319",
+    "id": "jfll-inact-0510",
+    "fullName": "KONICA MINOLTA HEALTHCARE INDIA PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Rahul Hire",
+    "mobileNumber": "+91-9136006381",
+    "email": "rahul.h@mi.konicaminolta.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0511",
     "fullName": "NEW VISION",
     "territory": "All Territories",
     "contactPersonName": "AASHISH GIRISHBHAI  KARIA",
@@ -4150,7 +6646,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0320",
+    "id": "jfll-inact-0512",
+    "fullName": "FILIA GLOBAL LLP",
+    "territory": "All Territories",
+    "contactPersonName": "RHEA HARISH BELANI",
+    "mobileNumber": "+91-7880016066",
+    "email": "export@filiacorp.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0513",
     "fullName": "FREIGHT CONNECT SERVICES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ABDUL RAUF GHAZIANi",
@@ -4158,12 +6667,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@freightcservices.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0321",
+    "id": "jfll-inact-0514",
     "fullName": "HUI XIN SHIPPING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nisha Rawat",
@@ -4171,12 +6680,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nisha@huixinshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0322",
+    "id": "jfll-inact-0515",
     "fullName": "ACSA FREIGHT LINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rohit  Chavan",
@@ -4184,12 +6693,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rohit@acsafreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0516",
+    "fullName": "M.K.EXPORTS",
+    "territory": "All Territories",
+    "contactPersonName": "M.K.EXPORTS",
+    "mobileNumber": "-",
+    "email": "mkexports.04@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0323",
+    "id": "jfll-inact-0517",
     "fullName": "AAUM GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "PRASHANT",
@@ -4202,7 +6724,46 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0324",
+    "id": "jfll-inact-0518",
+    "fullName": "CLEARSHIP FORWARDERS PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "D Rajkumar",
+    "mobileNumber": "+91-9840793865",
+    "email": "crm4.maa@clearship.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0519",
+    "fullName": "MGH LOGISTICS PVT.LTD.",
+    "territory": "All Territories",
+    "contactPersonName": "LOKESH",
+    "mobileNumber": "+91-9289129366",
+    "email": "lokesh.poojary@mgh-logistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0520",
+    "fullName": "COSMO FIRST LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Sagar Dabhade",
+    "mobileNumber": "+91-7507415395",
+    "email": "sagar.dabhade@cosmofilms.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0521",
     "fullName": "FRETLOG INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Ms. Maya",
@@ -4210,12 +6771,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "maya.poojary@fretlog.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0325",
+    "id": "jfll-inact-0522",
     "fullName": "ANDANTE AGRO TECH & MINERALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Krishna",
@@ -4223,12 +6784,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aatmagros@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0326",
+    "id": "jfll-inact-0523",
     "fullName": "SHASTA FREIGHT SERVICES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. srinivas",
@@ -4236,12 +6797,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "srinivas@shastafreight.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0327",
+    "id": "jfll-inact-0524",
+    "fullName": "S J LOGISTICS INDIA LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "JEET RAJAN SHAH",
+    "mobileNumber": "+91-9821313323",
+    "email": "jeet.shah@sjagroup.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0525",
     "fullName": "SAG INDIA FAST FORWARD EXPRESS SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SIDHAANT",
@@ -4249,12 +6823,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sidhaantgupta08@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0328",
+    "id": "jfll-inact-0526",
     "fullName": "SEADECK LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vandana Pandey",
@@ -4262,12 +6836,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@seadeckpl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0329",
+    "id": "jfll-inact-0527",
+    "fullName": "RAISONI COLD STORAGE INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Shubham",
+    "mobileNumber": "+91-8600929393",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0528",
     "fullName": "ECM LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jyoti",
@@ -4275,12 +6862,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jyoti@ecm-logistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0330",
+    "id": "jfll-inact-0529",
     "fullName": "KAJENDRA TRADING COMPANY",
     "territory": "All Territories",
     "contactPersonName": "KAJENDRA RENGAN",
@@ -4288,12 +6875,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kajendrank39@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0331",
+    "id": "jfll-inact-0530",
     "fullName": "AUMKARA GLOBAL INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BHAVIKA SHAH",
@@ -4301,12 +6888,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aumkara.gipl@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0332",
+    "id": "jfll-inact-0531",
+    "fullName": "DEEPBLUE LOGISTICS INTERNATIONAL PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "TANVI",
+    "mobileNumber": "+91-8291886680",
+    "email": "cs1@dblogistics.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0532",
     "fullName": "Y & H CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ramesh Kumar  Mishra",
@@ -4314,12 +6914,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ramesh@yhcargo.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0333",
+    "id": "jfll-inact-0533",
     "fullName": "BRAAHMI VENTURES (EPIC BITES)",
     "territory": "All Territories",
     "contactPersonName": "NISHANT MODI KARTA",
@@ -4332,7 +6932,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0334",
+    "id": "jfll-inact-0534",
+    "fullName": "WHITE STONE CHEMICALS",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. Nikhil  Gupta",
+    "mobileNumber": "+91-9811157867",
+    "email": "whitestonechemical@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0535",
     "fullName": "FM LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "MANJURSHA  MARICAR",
@@ -4345,7 +6958,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0335",
+    "id": "jfll-inact-0536",
+    "fullName": "SHAKTI INDIA",
+    "territory": "All Territories",
+    "contactPersonName": "Rakesh",
+    "mobileNumber": "+91-9920699963",
+    "email": "sonalijambo@yahoo.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-0537",
     "fullName": "SKYSTAR CLEARING AND FORWADRING PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "POOJA",
@@ -4353,12 +6979,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0336",
+    "id": "jfll-inact-0538",
     "fullName": "ZIV LOGISTICS AND SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. ATAUR",
@@ -4366,12 +6992,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "javed.qureshi@zivlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0337",
+    "id": "jfll-inact-0539",
+    "fullName": "GLOBUS LOGISYS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "AJAY  SHARMA",
+    "mobileNumber": "+91-7021452079",
+    "email": "pricing@globuslogisys.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0540",
     "fullName": "LOGISPHERE SOLUTIONS LLP",
     "territory": "All Territories",
     "contactPersonName": "gaurav",
@@ -4379,12 +7018,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gaurav@logi-sphere.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0338",
+    "id": "jfll-inact-0541",
     "fullName": "VERTIX LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHAILLY",
@@ -4392,12 +7031,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shailly@vertixlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0542",
+    "fullName": "KIRAN FOOD EXPORT",
+    "territory": "All Territories",
+    "contactPersonName": "Tejas",
+    "mobileNumber": "+91-8806599453",
+    "email": "tejas@kiranfoodexport.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0339",
+    "id": "jfll-inact-0543",
     "fullName": "MADRAS DELIGHTS",
     "territory": "All Territories",
     "contactPersonName": "Deepika",
@@ -4410,7 +7062,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0340",
+    "id": "jfll-inact-0544",
     "fullName": "SCC LOGISTIC SOLUTION",
     "territory": "All Territories",
     "contactPersonName": "SHAILENDRA KUMAR AMARNATH  JHA",
@@ -4423,7 +7075,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0341",
+    "id": "jfll-inact-0545",
     "fullName": "CJ DARCL LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "GANESH  PILLAI",
@@ -4431,25 +7083,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ganesh.pillai@cjdarcl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0342",
-    "fullName": "DOORTOSHORE LLP",
+    "id": "jfll-inact-0546",
+    "fullName": "SIVAROMA NATURALS PRIVATE LIMITED",
     "territory": "All Territories",
-    "contactPersonName": "RIYAZ  PATEL",
-    "mobileNumber": "+91-9824111710",
-    "email": "riyaz.patel@hotmail.com",
+    "contactPersonName": "Krishna",
+    "mobileNumber": "+91-9599722953",
+    "email": "krishna.s@sivaroma.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0343",
+    "id": "jfll-inact-0547",
     "fullName": "PURE AND PERFECT STORAGE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sudipta Barik",
@@ -4457,12 +7109,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sudipkumar0983@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0344",
+    "id": "jfll-inact-0548",
     "fullName": "OCEANVIEW LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHAGUN",
@@ -4470,12 +7122,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shagun@oceanviewlogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0345",
+    "id": "jfll-inact-0549",
     "fullName": "SAIRAJ INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Tushar Walunj",
@@ -4488,7 +7140,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0346",
+    "id": "jfll-inact-0550",
     "fullName": "SAISHAN ENGINEERS",
     "territory": "All Territories",
     "contactPersonName": "Ajinkya Tanawade",
@@ -4501,7 +7153,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0347",
+    "id": "jfll-inact-0551",
     "fullName": "SAWA FREIGHT & LOGISTICS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "PRAFULL SHEDGE",
@@ -4514,7 +7166,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0348",
+    "id": "jfll-inact-0552",
     "fullName": "VENNER CONSOLE SERVICES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "ABHIMANYU  RAO",
@@ -4522,12 +7174,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0349",
+    "id": "jfll-inact-0553",
     "fullName": "SHIVTEJ CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "UMESH  GHOLAP",
@@ -4535,17 +7187,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "umesh@shivtejcargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0350",
-    "fullName": "ONE FREIGHT FORWARDERS PRIVATE LIMITED",
+    "id": "jfll-inact-0554",
+    "fullName": "ORBIT WORLDWIDE EXPRESS",
     "territory": "All Territories",
-    "contactPersonName": "SUMEET  MEHROLIYA",
-    "mobileNumber": "+91-9821788482",
-    "email": "pricing@onefreight.in",
+    "contactPersonName": "SHISHIR RUNGTA",
+    "mobileNumber": "+91-9820442719",
+    "email": "orbitexp@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -4553,7 +7205,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0351",
+    "id": "jfll-inact-0555",
+    "fullName": "ONE FREIGHT FORWARDERS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SUMEET  MEHROLIYA",
+    "mobileNumber": "+91-9821788482",
+    "email": "pricing@onefreight.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0556",
     "fullName": "NOAH SHIPPING SERVICE",
     "territory": "All Territories",
     "contactPersonName": "ARUL  NADAR",
@@ -4566,33 +7231,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0352",
-    "fullName": "AFM LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Sumitra  Mapwal",
-    "mobileNumber": "+91-9211433887",
-    "email": "pricing@afm.net.in",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0353",
-    "fullName": "TRITON LOGISTICS AND MARITIME PVT LTD",
-    "territory": "All Territories",
-    "contactPersonName": "Prakash Tiwari",
-    "mobileNumber": "+91-8097668123",
-    "email": "prakash_tiwari@tritonmaritime.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0354",
+    "id": "jfll-inact-0557",
     "fullName": "ZHEJIANG STARLINC INTERNATIONAL LOGISTICS CO., LTD.",
     "territory": "All Territories",
     "contactPersonName": "Momoko chen",
@@ -4600,12 +7239,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exp.sales01@starlinc.com.cn",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0355",
+    "id": "jfll-inact-0558",
     "fullName": "DIAMOND CLEARING & FORWARDING PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "AMIR",
@@ -4613,12 +7252,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@dcafpl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0356",
+    "id": "jfll-inact-0559",
     "fullName": "PARIKH PACKAGING PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Komal Mehta",
@@ -4626,12 +7265,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "komal.mehta@sb-cflex.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0357",
+    "id": "jfll-inact-0560",
+    "fullName": "PFA LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "RAJESH",
+    "mobileNumber": "+91-9811040502",
+    "email": "accounts@pfalogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0561",
     "fullName": "NEDLLOYD LOGISTICS CANADA INC.",
     "territory": "All Territories",
     "contactPersonName": "jasmeetk",
@@ -4644,7 +7296,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0358",
+    "id": "jfll-inact-0562",
     "fullName": "NEDLLOYD LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "DAKSHESH BHARAL",
@@ -4652,12 +7304,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "daksheshb@nedlloydgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0359",
+    "id": "jfll-inact-0563",
+    "fullName": "SAR SWIFT LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SUNIL S KAMERIKAR",
+    "mobileNumber": "+91-8108686870",
+    "email": "sunilsk@sarswift.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0564",
     "fullName": "ENTERPRISE TRANSPORT INTERNATIONAL CO LTD",
     "territory": "All Territories",
     "contactPersonName": "Emily",
@@ -4665,12 +7330,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "anchalee@enterprise.co.th",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0565",
+    "fullName": "SAI GLOBAL LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "IMTIYAZ KHAN YASIN KHAN PATHAN",
+    "mobileNumber": "+91-9825897556",
+    "email": "imtiyaz@saiglobal.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0360",
+    "id": "jfll-inact-0566",
     "fullName": "WORLDSTAR SHIPPING SERVICES INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kalai",
@@ -4678,12 +7356,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kalai@worldstarshipping.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0361",
+    "id": "jfll-inact-0567",
     "fullName": "ROYALRAHI GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Neeraj  Chand",
@@ -4691,12 +7369,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0568",
+    "fullName": "COURIER JOURNEY INTERNATIONAL LLC",
+    "territory": "All Territories",
+    "contactPersonName": "Rakesh Patel",
+    "mobileNumber": "+91-8622162712",
+    "email": "patelrutvi84@yahoo.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0362",
+    "id": "jfll-inact-0569",
     "fullName": "M/S MULTITEX FILTRATION ENGINEERS LTD",
     "territory": "All Territories",
     "contactPersonName": "kaushik",
@@ -4704,12 +7395,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "contract@multitexfilters.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0363",
+    "id": "jfll-inact-0570",
     "fullName": "SRI VAVI GLOBAL LOGISTICS PRIAVTE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BALASUBRAMANIAN",
@@ -4717,12 +7408,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bala@svglobal.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0364",
+    "id": "jfll-inact-0571",
     "fullName": "APOYO INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "POOJA PAROTE",
@@ -4730,12 +7421,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "account@apoyosales.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0365",
+    "id": "jfll-inact-0572",
     "fullName": "RADHIKESH INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SUSHIL KUMAR",
@@ -4743,12 +7434,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@radhikesh.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0366",
+    "id": "jfll-inact-0573",
     "fullName": "FIBS LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Gabrial Domnic",
@@ -4756,25 +7447,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gabrial.domnic@fibs-logistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0367",
+    "id": "jfll-inact-0574",
     "fullName": "TFS ORGANIC CHOICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAHUL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "rahul@thefarmersstore.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0368",
+    "id": "jfll-inact-0575",
     "fullName": "SURABHI TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Jeevraj",
@@ -4782,25 +7473,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "surabhitradersmumbai@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0369",
+    "id": "jfll-inact-0576",
     "fullName": "CONSOL EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "CONSOL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "balajih06@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0370",
+    "id": "jfll-inact-0577",
     "fullName": "SURABHI TRADE CENTRE",
     "territory": "All Territories",
     "contactPersonName": "DILIP  KUMAR",
@@ -4813,7 +7504,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0371",
+    "id": "jfll-inact-0578",
     "fullName": "RADIANT X-WAYS LOGISTIC PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Bittu  Gupta",
@@ -4821,12 +7512,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bittu@radiantxwayslogistic.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0372",
+    "id": "jfll-inact-0579",
     "fullName": "A.G.S WORLD FREIGHT AND LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "ACCOUNTS",
@@ -4839,7 +7530,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0373",
+    "id": "jfll-inact-0580",
     "fullName": "TANISHQ LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "PRADEEP SADANAND  GORULE",
@@ -4852,7 +7543,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0374",
+    "id": "jfll-inact-0581",
     "fullName": "KELVIN TRADE",
     "territory": "All Territories",
     "contactPersonName": "Gautam  Patel",
@@ -4865,7 +7556,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0375",
+    "id": "jfll-inact-0582",
     "fullName": "OCEAN PRIDE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shubham Rohella",
@@ -4873,12 +7564,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shubham.rohela@oceanpridelogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0376",
+    "id": "jfll-inact-0583",
     "fullName": "CARGO LINK",
     "territory": "All Territories",
     "contactPersonName": "Sagar  Vasan",
@@ -4891,7 +7582,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0377",
+    "id": "jfll-inact-0584",
     "fullName": "DEE EXPORT SERVICES .",
     "territory": "All Territories",
     "contactPersonName": "SAMIR SETHI DUSSA",
@@ -4904,7 +7595,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0378",
+    "id": "jfll-inact-0585",
     "fullName": "AJ 23",
     "territory": "All Territories",
     "contactPersonName": "Mr. Atul  JAISWAL",
@@ -4917,7 +7608,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0379",
+    "id": "jfll-inact-0586",
     "fullName": "THE WORLD STAGE",
     "territory": "All Territories",
     "contactPersonName": "Neena Sahay",
@@ -4930,7 +7621,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0380",
+    "id": "jfll-inact-0587",
     "fullName": "ARAVALI MINERALS AND CHEMICAL INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Bharatbhai",
@@ -4938,25 +7629,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bharatraj@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0381",
+    "id": "jfll-inact-0588",
     "fullName": "VISION ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "ABHIVAV AGARWAL",
     "mobileNumber": "+91-7498959079",
     "email": "sales@visionenterprises.co.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0382",
+    "id": "jfll-inact-0589",
     "fullName": "WORLDLINK SHIPPING AND LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mariyam  Sayyed",
@@ -4969,20 +7660,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0383",
-    "fullName": "AB STOP INDIA",
-    "territory": "All Territories",
-    "contactPersonName": "Rowhi",
-    "mobileNumber": "+91-9212133252",
-    "email": "oes@stopindia.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0384",
+    "id": "jfll-inact-0590",
     "fullName": "NEUTRAL CONSOLIDATORS FREIGHT L.L.C",
     "territory": "All Territories",
     "contactPersonName": "Joy",
@@ -4995,7 +7673,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0385",
+    "id": "jfll-inact-0591",
+    "fullName": "SELFEX LOGISTECH PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "VISHAL BHATNAGAR",
+    "mobileNumber": "+91-9654624506",
+    "email": "selfexlogitech@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0592",
+    "fullName": "CARGO MARKETING INTERNATIONAL PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Ayun  Paramanick",
+    "mobileNumber": "+91-9874602390",
+    "email": "ayun@cargomarketingintl.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0593",
     "fullName": "EURIM FZ-LLC",
     "territory": "All Territories",
     "contactPersonName": "Pankaj  Mishra",
@@ -5008,7 +7712,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0386",
+    "id": "jfll-inact-0594",
     "fullName": "EAST ASIA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "ABDUL",
@@ -5021,7 +7725,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0387",
+    "id": "jfll-inact-0595",
     "fullName": "HONEYDEW SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "RAKESH   DHAMIJA",
@@ -5034,20 +7738,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0388",
+    "id": "jfll-inact-0596",
     "fullName": "INSAF TRADERS AND EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "KABEER",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "kabeerinsaf5@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0389",
+    "id": "jfll-inact-0597",
     "fullName": "INTERNATIONAL CARGO TERMINAL PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "SACHIN",
@@ -5055,25 +7759,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sachinb@ictpl.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0390",
+    "id": "jfll-inact-0598",
     "fullName": "S.G. ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "VIKAS",
     "mobileNumber": "+91-9312124449",
     "email": "vikas@sgenterprises.co.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0391",
+    "id": "jfll-inact-0599",
     "fullName": "SARANAM LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Ms. Jayathi",
@@ -5086,7 +7790,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0392",
+    "id": "jfll-inact-0600",
     "fullName": "SIDDHIVINAYAK EXPORT",
     "territory": "All Territories",
     "contactPersonName": "KRISHNA YASHWANT GOSAVI",
@@ -5099,7 +7803,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0393",
+    "id": "jfll-inact-0601",
     "fullName": "SIDMAN INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "MR. KIRPAL  SINGH",
@@ -5112,11 +7816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0394",
+    "id": "jfll-inact-0602",
     "fullName": "SMARTLINE XPRESS",
     "territory": "All Territories",
     "contactPersonName": "accounts",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@smartline.net.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -5125,7 +7829,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0395",
+    "id": "jfll-inact-0603",
     "fullName": "SWARA SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "SACHIN  KHAIRE",
@@ -5138,7 +7842,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0396",
+    "id": "jfll-inact-0604",
     "fullName": "ZAYN INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. GILMA",
@@ -5151,7 +7855,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0397",
+    "id": "jfll-inact-0605",
+    "fullName": "MRK CARGO AND SHIPPING SERVICES",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. Amit",
+    "mobileNumber": "+91-9540707696",
+    "email": "accounts@mrkcargo.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0606",
     "fullName": "EAST ASIA APEX",
     "territory": "All Territories",
     "contactPersonName": "NAZEER",
@@ -5164,7 +7881,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0398",
+    "id": "jfll-inact-0607",
     "fullName": "BLOSSOM HEALTHCARE",
     "territory": "All Territories",
     "contactPersonName": "Chirag  PATEL",
@@ -5177,7 +7894,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0399",
+    "id": "jfll-inact-0608",
     "fullName": "ALL ABOUT LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Waveney  Dmello",
@@ -5190,7 +7907,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0400",
+    "id": "jfll-inact-0609",
     "fullName": "INIMAI EXIM SOLUTION",
     "territory": "All Territories",
     "contactPersonName": "accounts",
@@ -5203,7 +7920,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0401",
+    "id": "jfll-inact-0610",
     "fullName": "SAHYADRI LOGISTICS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Umesh Yadav",
@@ -5216,7 +7933,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0402",
+    "id": "jfll-inact-0611",
     "fullName": "IPSONS PHARMA EQUIPMENTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sagar",
@@ -5224,12 +7941,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@ipsonspharma.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0403",
+    "id": "jfll-inact-0612",
     "fullName": "SHUBHADA POLYMERS PRODUCTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Jignesh  Dave",
@@ -5237,12 +7954,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0404",
+    "id": "jfll-inact-0613",
     "fullName": "WINSOME TEXTILE INDUSTRIES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Praveen  Tripathi",
@@ -5250,25 +7967,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics.dom@winsometextile.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0405",
+    "id": "jfll-inact-0614",
     "fullName": "KAAPI SOLUTIONS INDIA OPC PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KAAPI",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@kapisolutions.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0406",
+    "id": "jfll-inact-0615",
     "fullName": "IMAGE CARGO MOVERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Santosh  Mishra",
@@ -5276,12 +7993,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@imagegroup.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0407",
+    "id": "jfll-inact-0616",
     "fullName": "CONSOLIDATED SHIPPING LINE (INDIA) PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Rajesh  Kumar",
@@ -5289,12 +8006,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "csmum@cslindia.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0408",
+    "id": "jfll-inact-0617",
     "fullName": "SEASON COIR WORKS & SEASON COIR EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "SHAJAHAN",
@@ -5307,7 +8024,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0409",
+    "id": "jfll-inact-0618",
     "fullName": "SANGAT OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Mr. SARABJEET  SINGH",
@@ -5320,7 +8037,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0410",
+    "id": "jfll-inact-0619",
     "fullName": "DAY HOUSE INC",
     "territory": "All Territories",
     "contactPersonName": "Mr. Mohd  Rehan",
@@ -5333,7 +8050,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0411",
+    "id": "jfll-inact-0620",
     "fullName": "TRD FREIGHT AND LOGISTIC SERVICES",
     "territory": "All Territories",
     "contactPersonName": "DHIRAJ BHOLA  KAIKADE",
@@ -5346,7 +8063,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0412",
+    "id": "jfll-inact-0621",
     "fullName": "ZALE SHIPPING & LOGISTICS SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mayur",
@@ -5354,12 +8071,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "divya@zaleship.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0413",
+    "id": "jfll-inact-0622",
     "fullName": "WRITABLE INSTRUMENTS LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. MAYANK",
@@ -5367,12 +8084,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exim@writable.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0414",
+    "id": "jfll-inact-0623",
     "fullName": "DEMECH CHEMICAL PRODUCTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tishar Atole",
@@ -5380,12 +8097,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dispatch@demechchemical.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0415",
+    "id": "jfll-inact-0624",
     "fullName": "GLOBAL ORGANIC CLOTHING COMPANY",
     "territory": "All Territories",
     "contactPersonName": "MURUGAN",
@@ -5398,7 +8115,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0416",
+    "id": "jfll-inact-0625",
     "fullName": "AEROCEAN LOGISTIX LLP",
     "territory": "All Territories",
     "contactPersonName": "BHAVIK R.  PARMAR",
@@ -5406,12 +8123,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@aeroceanlogistix.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0417",
+    "id": "jfll-inact-0626",
     "fullName": "Winasia Maritime Private Limited",
     "territory": "All Territories",
     "contactPersonName": "Sushil",
@@ -5419,12 +8136,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "docsdelhi@winasiamaritime.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0418",
+    "id": "jfll-inact-0627",
     "fullName": "SBL EXPRESS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sandeep  Bhosale",
@@ -5432,12 +8149,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sandeep.bhosale@sblexpress.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0419",
+    "id": "jfll-inact-0628",
     "fullName": "WIDNEY INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HARISH  KOURA",
@@ -5445,12 +8162,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "widneyindia@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0420",
+    "id": "jfll-inact-0629",
     "fullName": "COSSMO TEX",
     "territory": "All Territories",
     "contactPersonName": "Mr. MOLAYAPPAGOUNDER",
@@ -5463,7 +8180,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0421",
+    "id": "jfll-inact-0630",
     "fullName": "ASM CASTINGS PVT LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Raman  Jain",
@@ -5471,12 +8188,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@asmcastings.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0422",
+    "id": "jfll-inact-0631",
     "fullName": "BALAJI LOGISTICS & CLEARING",
     "territory": "All Territories",
     "contactPersonName": "Anand  Singh",
@@ -5489,7 +8206,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0423",
+    "id": "jfll-inact-0632",
     "fullName": "EXCELLENT CLEARING AGENCY",
     "territory": "All Territories",
     "contactPersonName": "Ved Prakash",
@@ -5497,12 +8214,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "excellent_clgagncy@yahoo.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0424",
+    "id": "jfll-inact-0633",
     "fullName": "FILTROWIN INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Filtrowin Industries",
@@ -5515,7 +8232,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0425",
+    "id": "jfll-inact-0634",
     "fullName": "AK GLOBALIZED",
     "territory": "All Territories",
     "contactPersonName": "KHOJA ASHPAK  ALIMAMAD",
@@ -5528,7 +8245,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0426",
+    "id": "jfll-inact-0635",
     "fullName": "MAC-NELS CONTAINER LINES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Prempal",
@@ -5536,38 +8253,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "impcsdel@macnelsindia.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0427",
+    "id": "jfll-inact-0636",
     "fullName": "GOEL ALLOY & STEEL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "S.Idiculla",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "exports@goelalloys.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0428",
+    "id": "jfll-inact-0637",
     "fullName": "LINCOLN PHARMACEUTICALS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JIMIT",
     "mobileNumber": "+91-9825078941",
     "email": "export@lincolnpharma.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0429",
+    "id": "jfll-inact-0638",
     "fullName": "CHIRIPAL POLY FILMS LTD",
     "territory": "All Territories",
     "contactPersonName": "JAYPRAKASH CHIRIPAL",
@@ -5575,12 +8292,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export_opp@chiripalgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0430",
+    "id": "jfll-inact-0639",
     "fullName": "HS OBEROI SPIRITS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Satender  Rawat",
@@ -5593,7 +8310,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0431",
+    "id": "jfll-inact-0640",
     "fullName": "SALASAR BOARD & PAPER LAMINATORS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pushp  Bansal",
@@ -5601,12 +8318,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pushpbansal@boardandpaperlaminators.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0432",
+    "id": "jfll-inact-0641",
     "fullName": "WHITE SPACE INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASEEM  SHAIKH",
@@ -5614,12 +8331,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aseem@whitespaceinternational.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0433",
+    "id": "jfll-inact-0642",
     "fullName": "S B Freight Logistics Prop. Praveen Sharma",
     "territory": "All Territories",
     "contactPersonName": "Y Kumar Sharma",
@@ -5632,7 +8349,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0434",
+    "id": "jfll-inact-0643",
     "fullName": "SCCORRA LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SANJEEV",
@@ -5640,12 +8357,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sanjeev@sccorra.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0435",
+    "id": "jfll-inact-0644",
     "fullName": "MARINE BLUE CARGO",
     "territory": "All Territories",
     "contactPersonName": "Ankita  Karande",
@@ -5658,7 +8375,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0436",
+    "id": "jfll-inact-0645",
     "fullName": "INDUSTRIAL BAG PACKAGING",
     "territory": "All Territories",
     "contactPersonName": "NILESH SINGH",
@@ -5671,11 +8388,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0437",
+    "id": "jfll-inact-0646",
     "fullName": "AGROSYN IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Huzefa  Kagzi",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "info@agrosyn.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
@@ -5684,7 +8401,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0438",
+    "id": "jfll-inact-0647",
     "fullName": "DEV AIR CARGO",
     "territory": "All Territories",
     "contactPersonName": "RAVI  SINGH",
@@ -5697,7 +8414,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0439",
+    "id": "jfll-inact-0648",
     "fullName": "PRIME LOGISTICS SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRITI  DSOUZA",
@@ -5705,12 +8422,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@primelogistic.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0440",
+    "id": "jfll-inact-0649",
     "fullName": "ROYAL PETRO SPECIALITIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VIKAS  MAURYA",
@@ -5718,12 +8435,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vikas@royalpetrochem.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0441",
+    "id": "jfll-inact-0650",
     "fullName": "H J INTERNATIONAL EXIM CLEARING AG (AAYUSH LOGISTICS)",
     "territory": "All Territories",
     "contactPersonName": "SANJAY  PANDEY",
@@ -5736,7 +8453,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0442",
+    "id": "jfll-inact-0651",
     "fullName": "CITY LIFTS (INDIA) LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sophia",
@@ -5744,16 +8461,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sophia@citylift.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0443",
+    "id": "jfll-inact-0652",
     "fullName": "ADIYOGI INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "JIGAR LALITBHAI",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "adiyogiinternational11@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
@@ -5762,7 +8479,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0444",
+    "id": "jfll-inact-0653",
     "fullName": "ANKUSH ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "SHASHIKANT SHETH",
@@ -5770,12 +8487,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sheth@ankushenterprise.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0445",
+    "id": "jfll-inact-0654",
     "fullName": "A.M.Q LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "MR. MOHAMED  AFZAL",
@@ -5788,20 +8505,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0446",
+    "id": "jfll-inact-0655",
     "fullName": "BANYAN TREE LOGISTICS SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Atul  Sawant",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "atul.sawant@banyantreelogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0447",
+    "id": "jfll-inact-0656",
     "fullName": "CORUS VITRIFIED PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. SHAILESHBHAI",
@@ -5809,12 +8526,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "docs.granicer@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0448",
+    "id": "jfll-inact-0657",
     "fullName": "STEER-WHEEL INFRA AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rachna  Thakre",
@@ -5822,12 +8539,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rachana@steer-wheel.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0449",
+    "id": "jfll-inact-0658",
     "fullName": "UNITED INDIA SHIPPING AND LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "PARITA TUSHARKUMAR  PATEL",
@@ -5840,20 +8557,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0450",
+    "id": "jfll-inact-0659",
     "fullName": "TATA REALTY AND INFRASTRUCTURE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHRUTI  AGRAWAL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "shrutiagrawal@tatareality.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0451",
+    "id": "jfll-inact-0660",
     "fullName": "VASUDEV WORLD EXPORT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Bipin  Chattopadhay",
@@ -5861,12 +8578,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vasudevworldexport@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0452",
+    "id": "jfll-inact-0661",
     "fullName": "NCUBE LOGISTICS SOLUTION INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RUPESH  JESTE",
@@ -5874,12 +8591,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "roopesh@ncubelogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0453",
+    "id": "jfll-inact-0662",
     "fullName": "TX AIR AND SEA LOGISTICS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASHISH GILBERT",
@@ -5887,12 +8604,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gilbert@tx-logi.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0454",
+    "id": "jfll-inact-0663",
     "fullName": "CARDINAL CUSTOMS BROKER & FORWARDER LLP",
     "territory": "All Territories",
     "contactPersonName": "Kanchan  Mahadik",
@@ -5900,12 +8617,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@cardinalcb.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0455",
+    "id": "jfll-inact-0664",
     "fullName": "MATRIX LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Nilam  Patel",
@@ -5918,20 +8635,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0456",
+    "id": "jfll-inact-0665",
     "fullName": "CILICANT PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Manish",
     "mobileNumber": "+91-9607905138",
     "email": "shambala.honmode@cilicant.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0457",
+    "id": "jfll-inact-0666",
+    "fullName": "C B LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "AMAR RAMCHANDANI",
+    "mobileNumber": "+91-7600135590",
+    "email": "documents@cblogistics.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0667",
     "fullName": "BALMER LAWRIE AND COMPANY LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Subir  Soren",
@@ -5939,12 +8669,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0458",
+    "id": "jfll-inact-0668",
     "fullName": "CONTAINER CORPORATION OF INDIA LTD..",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nitin  Vats",
@@ -5952,25 +8682,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nitin.v@concorindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0459",
+    "id": "jfll-inact-0669",
     "fullName": "CHEMTRON SCIENCE LABORATORIES PRIVATE LTD.",
     "territory": "All Territories",
     "contactPersonName": "Sameer  Nerekar",
     "mobileNumber": "+91-8828301303",
     "email": "sameer.n@chemtron.net.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0460",
+    "id": "jfll-inact-0670",
     "fullName": "SOBA LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vinod",
@@ -5978,12 +8708,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0461",
+    "id": "jfll-inact-0671",
     "fullName": "GAF GLOBAL LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "manish .",
@@ -5991,12 +8721,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manish@gaf-india.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0462",
+    "id": "jfll-inact-0672",
     "fullName": "WORLD ALLIANCE MULTI MODAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jafar  Shaikh",
@@ -6004,12 +8734,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jafar@shiftmycargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0463",
+    "id": "jfll-inact-0673",
     "fullName": "CEEKAY LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "MUSTAFAK",
@@ -6017,12 +8747,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mustafak@ceekaylogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0464",
+    "id": "jfll-inact-0674",
     "fullName": "GST LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SUNIT  GIRKAR",
@@ -6030,25 +8760,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "trupti@gstlogistics.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0465",
+    "id": "jfll-inact-0675",
     "fullName": "PRIMETIME LOGI SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASLAM",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "aslam@primetimelogi.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0466",
+    "id": "jfll-inact-0676",
     "fullName": "SOLUTION LOGISTICS/OCEAN CROWN INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "JAIJEET  DADLANI",
@@ -6061,7 +8791,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0467",
+    "id": "jfll-inact-0677",
     "fullName": "GRANOLAND TILES LLP",
     "territory": "All Territories",
     "contactPersonName": "Meet",
@@ -6069,12 +8799,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0468",
+    "id": "jfll-inact-0678",
     "fullName": "ALCHEMIE GASES & CHEMICALS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "DUSHYANT  KARASKAR",
@@ -6082,12 +8812,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bdm@alchemiegases.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0469",
+    "id": "jfll-inact-0679",
     "fullName": "PURAN CHAND RICE MILLS PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ashit  Gupta",
@@ -6095,12 +8825,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@pcrice.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0470",
+    "id": "jfll-inact-0680",
     "fullName": "AKSHAY IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Darpan",
@@ -6113,7 +8843,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0471",
+    "id": "jfll-inact-0681",
     "fullName": "KISSAN ZINC(INDIA)(P) LTD",
     "territory": "All Territories",
     "contactPersonName": "HARMAN  SINGH",
@@ -6121,12 +8851,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kissanzinc@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0472",
+    "id": "jfll-inact-0682",
     "fullName": "GOEL INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Gaurav  Garg",
@@ -6134,25 +8864,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@goelrice.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0473",
-    "fullName": "HMD AGRO FOODS",
-    "territory": "All Territories",
-    "contactPersonName": "SUFIYAN",
-    "mobileNumber": "+91-7738542595",
-    "email": "munagroindustries@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": true
-  },
-  {
-    "id": "jfll-inact-0474",
+    "id": "jfll-inact-0683",
     "fullName": "HD WORLDWIDE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "PRADIP Dave",
@@ -6165,7 +8882,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0475",
+    "id": "jfll-inact-0684",
     "fullName": "BELRISE INDUSTRIES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Manoj  Argade",
@@ -6173,12 +8890,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mdargade@belriseindustries.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0476",
+    "id": "jfll-inact-0685",
+    "fullName": "GRM OVERSEAS LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Naveen  Chawla",
+    "mobileNumber": "+91-9896443303",
+    "email": "naveen.chawla@grmrice.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0686",
     "fullName": "SKY SHY INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Sky Shy Interna",
@@ -6191,7 +8921,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0477",
+    "id": "jfll-inact-0687",
     "fullName": "BABAJI SHIVRAM CLEARING & CARRIERS PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Akhil  Kumar",
@@ -6199,12 +8929,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "akhil.kumar@babajishivram.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0478",
+    "id": "jfll-inact-0688",
     "fullName": "M/S EDMOUNT INDIA",
     "territory": "All Territories",
     "contactPersonName": "VIKRAM MOTWANI",
@@ -6217,7 +8947,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0479",
+    "id": "jfll-inact-0689",
     "fullName": "SENATE FREIGHT FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "accounts",
@@ -6225,12 +8955,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts1@senatefreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0480",
+    "id": "jfll-inact-0690",
     "fullName": "KBEXPRESS INTERNATIONAL COURIER N CARGO",
     "territory": "All Territories",
     "contactPersonName": "kunal",
@@ -6243,7 +8973,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0481",
+    "id": "jfll-inact-0691",
     "fullName": "RAPID PUNCHING SOLUTIONS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Naveen Kumar",
@@ -6251,12 +8981,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "admin@rapidpunching.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0482",
+    "id": "jfll-inact-0692",
     "fullName": "QUICKBOX GLOBAL EXPRESS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rohan Sharma",
@@ -6264,12 +8994,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rohan.sharma@quickboxindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0483",
+    "id": "jfll-inact-0693",
     "fullName": "CFKR STANDARD TEMPERATURE COURIER PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajesh",
@@ -6277,12 +9007,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rajeshdarla@stccouriers.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0484",
+    "id": "jfll-inact-0694",
     "fullName": "O&O FORWARDING SRL",
     "territory": "All Territories",
     "contactPersonName": "Massimo Ruggeri",
@@ -6295,7 +9025,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0485",
+    "id": "jfll-inact-0695",
+    "fullName": "COUNTRYSIDE EXPRESS LOGISTICS INC.",
+    "territory": "All Territories",
+    "contactPersonName": "HARINDER  SINGH",
+    "mobileNumber": "+91-(+91) 7087600070",
+    "email": "harinder.singh@countrysidecourier.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0696",
     "fullName": "PATEL WORLD WIDE CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "Jignesh",
@@ -6308,7 +9051,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0486",
+    "id": "jfll-inact-0697",
     "fullName": "GOLDEN GROVE FRUIT AND VEGETABLE TRADING",
     "territory": "All Territories",
     "contactPersonName": "SUHAINA",
@@ -6316,12 +9059,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gogrovegetables@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0487",
+    "id": "jfll-inact-0698",
     "fullName": "ANS AIR AND SEA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ARSHIA ARSHAD ALI",
@@ -6329,12 +9072,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@ansairandsea.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0488",
+    "id": "jfll-inact-0699",
     "fullName": "BENIN TEXTILE",
     "territory": "All Territories",
     "contactPersonName": "Manish Chowdhary",
@@ -6347,7 +9090,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0489",
+    "id": "jfll-inact-0700",
     "fullName": "BLUE SEA GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "RAJESH KUMAR",
@@ -6360,7 +9103,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0490",
+    "id": "jfll-inact-0701",
     "fullName": "EXCENTIA FREIGHT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "moin",
@@ -6368,12 +9111,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "moin@excentialogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0491",
+    "id": "jfll-inact-0702",
+    "fullName": "FIRMUS WORLDWIDE LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "KAMAL",
+    "mobileNumber": "+91-9869052580",
+    "email": "info@firmusworldwide.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0703",
     "fullName": "WORLDWIDE LOGISTICS GROUP INC",
     "territory": "All Territories",
     "contactPersonName": "ma",
@@ -6386,7 +9142,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0492",
+    "id": "jfll-inact-0704",
     "fullName": "HIRA LAXMI LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "MAYUR",
@@ -6399,7 +9155,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0493",
+    "id": "jfll-inact-0705",
     "fullName": "NAM MARITIME INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MANOJ SAROJKUMAR PRAJAPATI",
@@ -6407,38 +9163,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "saroj@nammaritime.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0494",
-    "fullName": "VISHAL SHIPPING GLOBAL LOGISTICS LLP",
-    "territory": "All Territories",
-    "contactPersonName": "Nutan  Ganatra",
-    "mobileNumber": "+91-9930363501",
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0495",
+    "id": "jfll-inact-0706",
     "fullName": "ULINK AGRITECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ULINK AGRITECH PRIVATE LIMITED",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accountspayable@inifarms.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0496",
+    "id": "jfll-inact-0707",
     "fullName": "TOTAL SEA LAND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "NIKEETA",
@@ -6446,25 +9189,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "importspricing@tsllpl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0497",
+    "id": "jfll-inact-0708",
     "fullName": "TRANSPEAK COURIERS & LOGISTICS PRIVATE LIMITED .",
     "territory": "All Territories",
     "contactPersonName": "Meeta  Kadam",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "meeta@transpeakww.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0498",
+    "id": "jfll-inact-0709",
     "fullName": "SEAKING SHIPPING AND LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Shoeb Ali",
@@ -6477,7 +9220,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0499",
+    "id": "jfll-inact-0710",
     "fullName": "MANISH CARGO CONTAINER LINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MANISH  SHAH",
@@ -6485,12 +9228,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manish@manishcargo.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0500",
+    "id": "jfll-inact-0711",
     "fullName": "SAFE WATER LINES (I) PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Sandesh Dhumal",
@@ -6498,12 +9241,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sandesh.dhumal@swl.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0501",
+    "id": "jfll-inact-0712",
+    "fullName": "ACCUREX BIOMEDICAL PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Tukaram Patil",
+    "mobileNumber": "+91-8928886405",
+    "email": "tukaram@accurex.net",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0713",
     "fullName": "KARGO KING EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Brian  Soares",
@@ -6511,12 +9267,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "brian@kargoking.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0502",
+    "id": "jfll-inact-0714",
     "fullName": "ATHENS GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Karan",
@@ -6524,12 +9280,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "athensgloballogistics@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0503",
+    "id": "jfll-inact-0715",
     "fullName": "ORANGESTAR LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjeet Das",
@@ -6537,12 +9293,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sanjeet@orangestar.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0504",
+    "id": "jfll-inact-0716",
     "fullName": "METINOX OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Aakash  Shah",
@@ -6555,7 +9311,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0505",
+    "id": "jfll-inact-0717",
     "fullName": "STAR WORLDWIDE GROUP PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Manas  Karmakar",
@@ -6563,12 +9319,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manas@starww.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0506",
+    "id": "jfll-inact-0718",
     "fullName": "SHIBUMI MEDICAL SYSTEMS",
     "territory": "All Territories",
     "contactPersonName": "Harikrishnan P C",
@@ -6581,7 +9337,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0507",
+    "id": "jfll-inact-0719",
     "fullName": "KARGO-LEAGUE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arun Kumar  Agarwal",
@@ -6589,12 +9345,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "arunk@kargo-league.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0508",
+    "id": "jfll-inact-0720",
     "fullName": "ELEVATE GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "HIMANSHU SHARMA",
@@ -6607,7 +9363,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0509",
+    "id": "jfll-inact-0721",
+    "fullName": "SRI SRI FOODS",
+    "territory": "All Territories",
+    "contactPersonName": "SHOBHIT JAIN",
+    "mobileNumber": "+91-8130388392",
+    "email": "shobhitjain@srisrifoods.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0722",
     "fullName": "COSMO SHIPPING SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Accounts",
@@ -6615,12 +9384,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accts@cosmoindia.biz",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0510",
+    "id": "jfll-inact-0723",
     "fullName": "SEAPORT LINES (INDIA) PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "AHAMED  FAWAZ",
@@ -6628,12 +9397,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mumacs@seapol.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0511",
+    "id": "jfll-inact-0724",
     "fullName": "SELVA STONE EXPORT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. S Mohan",
@@ -6641,12 +9410,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@selvastoneexport.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0512",
+    "id": "jfll-inact-0725",
     "fullName": "SHEARWATER GLS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Abdullah",
@@ -6654,12 +9423,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales1@shearwatergls.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0513",
+    "id": "jfll-inact-0726",
     "fullName": "SENMAA LOGISTIC SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PUSHPALATHA",
@@ -6667,12 +9436,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "splatha1999@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0514",
+    "id": "jfll-inact-0727",
     "fullName": "GREENOLFOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RASHID",
@@ -6680,12 +9449,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "greenolfoodsindia@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0515",
+    "id": "jfll-inact-0728",
     "fullName": "U&CO MARINE EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "K.C JAYAN",
@@ -6698,7 +9467,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0516",
+    "id": "jfll-inact-0729",
     "fullName": "ROYAL CLOTHING COMPANY .",
     "territory": "All Territories",
     "contactPersonName": "MURUGAN",
@@ -6711,7 +9480,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0517",
+    "id": "jfll-inact-0730",
     "fullName": "TAKSH LOGI SOLUTIONS LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. MUTHURAJ",
@@ -6719,12 +9488,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "support@takshlogisolutions.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0518",
+    "id": "jfll-inact-0731",
     "fullName": "AUDO VISO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Helan  Jose",
@@ -6732,12 +9501,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@audoviso.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0519",
+    "id": "jfll-inact-0732",
     "fullName": "AMPLE GRAPHICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KESHAV SETHI",
@@ -6745,12 +9514,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0520",
+    "id": "jfll-inact-0733",
     "fullName": "M/S GLOBAL MEDIKIT LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ajay  Mishra",
@@ -6758,12 +9527,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ajay.mishra@globalmedikit.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0521",
+    "id": "jfll-inact-0734",
     "fullName": "ADAM SMITH TRADING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Umesh",
@@ -6771,12 +9540,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@adamsmith.tv",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0522",
+    "id": "jfll-inact-0735",
     "fullName": "ASH AMAIRA RETAIL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sujit  Gupta",
@@ -6784,12 +9553,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "finance@ashamaira.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0523",
+    "id": "jfll-inact-0736",
     "fullName": "BEE LOGISTICS SCM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "UMESH  GHOLAP",
@@ -6797,12 +9566,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales1.bom.in@beelogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0524",
+    "id": "jfll-inact-0737",
     "fullName": "COLORPLAST SYSTEMS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Matbar",
@@ -6810,12 +9579,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0525",
+    "id": "jfll-inact-0738",
     "fullName": "CUIR INDE",
     "territory": "All Territories",
     "contactPersonName": "JAYA",
@@ -6828,7 +9597,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0526",
+    "id": "jfll-inact-0739",
     "fullName": "COLOSSUSTEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. MOHINI",
@@ -6836,12 +9605,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "operations@colossustex.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0527",
+    "id": "jfll-inact-0740",
     "fullName": "EMIRATES SHIPPING LINE FZE",
     "territory": "All Territories",
     "contactPersonName": "Amit Kumar  Dubey",
@@ -6854,7 +9623,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0528",
+    "id": "jfll-inact-0741",
     "fullName": "GLOBALEX LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vishwa",
@@ -6862,12 +9631,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ops@globalexlpl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0529",
+    "id": "jfll-inact-0742",
     "fullName": "HONASA CONSUMER LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SANTANU  GHOSH",
@@ -6875,12 +9644,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "santanu.g@mamaearth.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0530",
+    "id": "jfll-inact-0743",
     "fullName": "IMAGING SYSTEMS",
     "territory": "All Territories",
     "contactPersonName": "Keshav  Sethi",
@@ -6893,7 +9662,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0531",
+    "id": "jfll-inact-0744",
     "fullName": "INDIAN VANLINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KRISHANU",
@@ -6901,12 +9670,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "krishanu@indianvanlines.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0532",
+    "id": "jfll-inact-0745",
     "fullName": "LAKSHMI MOTOR CO",
     "territory": "All Territories",
     "contactPersonName": "Manish  Jain",
@@ -6919,7 +9688,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0533",
+    "id": "jfll-inact-0746",
     "fullName": "LAZZLE SINK PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRAKASH CHAND  HIRAWAT",
@@ -6927,12 +9696,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "lazzlesinkpvtltd@yahoo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0534",
+    "id": "jfll-inact-0747",
     "fullName": "M/S MAN MACHINE WORKS (P) LTD.",
     "territory": "All Territories",
     "contactPersonName": "VIJAY  SINGH",
@@ -6940,12 +9709,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "commercial1@manmachine.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0535",
+    "id": "jfll-inact-0748",
     "fullName": "MACH WORLDWIDE LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "DAISY",
@@ -6953,12 +9722,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "daisy@mach-worldwide.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0536",
+    "id": "jfll-inact-0749",
     "fullName": "NM FOODIMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Heena Ma'am",
@@ -6966,12 +9735,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nmfoods2010@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0750",
+    "fullName": "NPD INTERNATIONAL",
+    "territory": "All Territories",
+    "contactPersonName": "Devender  Singh",
+    "mobileNumber": "+91-9467716343",
+    "email": "npd2k17@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0537",
+    "id": "jfll-inact-0751",
     "fullName": "PRISTINE MEGA LOGISTICS PARK PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anshika  Nigam",
@@ -6979,12 +9761,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "commercial.del1@pristinelogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0538",
+    "id": "jfll-inact-0752",
     "fullName": "PARKER OVERSEAS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "ASHISH  VERMA",
@@ -6992,12 +9774,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "purchase02.po@parkergroup.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0539",
+    "id": "jfll-inact-0753",
     "fullName": "PUNJABI-CHAAP CORNER PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Hemant",
@@ -7005,12 +9787,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@punjabichaapcorner.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0540",
+    "id": "jfll-inact-0754",
+    "fullName": "RAHAT CONTINENTAL PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Pradeep  Virat",
+    "mobileNumber": "+91-8929393493",
+    "email": "p.virat@rahatcontinental.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0755",
     "fullName": "RIBA TEXTILE LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Devendr  Singh",
@@ -7018,12 +9813,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shipping@ribatextiles.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0541",
+    "id": "jfll-inact-0756",
     "fullName": "RUDRAX LOGICARE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JITENDER  VERMA",
@@ -7031,12 +9826,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales.del@rlogicare.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0542",
+    "id": "jfll-inact-0757",
     "fullName": "SNK WORLD",
     "territory": "All Territories",
     "contactPersonName": "\"Jaldeep Singh \"",
@@ -7049,7 +9844,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0543",
+    "id": "jfll-inact-0758",
     "fullName": "SEATRANS AGENCIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. NAAREN",
@@ -7057,12 +9852,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pricing@seatransagencies.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0544",
+    "id": "jfll-inact-0759",
     "fullName": "SGDC INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Naveen Kumar",
@@ -7070,12 +9865,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "naveenkumar@sgdcindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0545",
+    "id": "jfll-inact-0760",
     "fullName": "SURYA CARGO FORWARDERS (P) LTD.",
     "territory": "All Territories",
     "contactPersonName": "Pravin  Bhagat",
@@ -7083,12 +9878,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pravin.bhagat@suryacargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0546",
+    "id": "jfll-inact-0761",
     "fullName": "SOLERA LIFE SCIENCES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dinesh  Khurana",
@@ -7096,12 +9891,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "soleralifesciences@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0547",
+    "id": "jfll-inact-0762",
     "fullName": "SNK GLOBAL",
     "territory": "All Territories",
     "contactPersonName": "Jaldeep  Singh",
@@ -7114,7 +9909,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0548",
+    "id": "jfll-inact-0763",
     "fullName": "TRACK CARGO PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Ms Nisha",
@@ -7122,12 +9917,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@trackcargo.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0549",
+    "id": "jfll-inact-0764",
     "fullName": "PRO KARGO (INDIA) PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "SANTHOSH  SUNDARAM",
@@ -7135,12 +9930,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "santhosh@prokargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0550",
+    "id": "jfll-inact-0765",
     "fullName": "V AUTOMAT AND INSTRUMENTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ishu  Naik",
@@ -7148,12 +9943,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ishu@vautomat.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0551",
+    "id": "jfll-inact-0766",
     "fullName": "MARS EXIM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Aditiya",
@@ -7161,25 +9956,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abhishek.marsexim@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0552",
+    "id": "jfll-inact-0767",
     "fullName": "APEX INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. PRAVEEN",
     "mobileNumber": "+91-9783355513",
     "email": "j.aslam@apexherbex.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0553",
+    "id": "jfll-inact-0768",
     "fullName": "AGARSEN GRANITE AND STONES",
     "territory": "All Territories",
     "contactPersonName": "lokesh",
@@ -7192,7 +9987,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0554",
+    "id": "jfll-inact-0769",
     "fullName": "QUALITY FLAVOURS EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Mr. VEENA",
@@ -7205,7 +10000,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0555",
+    "id": "jfll-inact-0770",
     "fullName": "RESPONSE FABRICS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Amrinder  Singh",
@@ -7213,12 +10008,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0556",
+    "id": "jfll-inact-0771",
     "fullName": "SUNROOF POWER SOLUTION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Aman",
@@ -7226,12 +10021,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ajay.sharma@addwatt.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0557",
+    "id": "jfll-inact-0772",
     "fullName": "INDO SPECIALITY CHEMICALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAHUL PATIL",
@@ -7239,12 +10034,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rahulpatil@indoaminesltd.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0558",
+    "id": "jfll-inact-0773",
     "fullName": "AMEERA SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rubeena Salma  Khan",
@@ -7252,12 +10047,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exp.doc@ameerashipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0559",
+    "id": "jfll-inact-0774",
     "fullName": "ALL ABOUT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Waveney  Dmello",
@@ -7265,12 +10060,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0560",
+    "id": "jfll-inact-0775",
     "fullName": "ANSR LOGISTICS AND FORWARDERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PNVS MAHALAKSHMAYYA",
@@ -7278,12 +10073,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "enquires@ansrlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0561",
+    "id": "jfll-inact-0776",
     "fullName": "BR GLOCAL ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "PRATIMABEN  RAJVANT",
@@ -7291,12 +10086,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0562",
+    "id": "jfll-inact-0777",
+    "fullName": "M/S COGENT LIFE SCIENCE PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "TARAL  SHAH",
+    "mobileNumber": "+91-8591754408",
+    "email": "info@cogentlifescience.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0778",
     "fullName": "COMBI LIFT PROJECT LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AVINASH JADHAV",
@@ -7304,12 +10112,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "avinash.jadhav@harren-group.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0563",
+    "id": "jfll-inact-0779",
     "fullName": "VASA GLOBAL COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Mr. MAYANK",
@@ -7322,7 +10130,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0564",
+    "id": "jfll-inact-0780",
     "fullName": "DRT - ANTHEA AROMA CHEMICALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ROHIT  RODE",
@@ -7330,12 +10138,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rrode@anthea-aromatics.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0565",
+    "id": "jfll-inact-0781",
     "fullName": "DARTSWIFT LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VIKAS  JHETE",
@@ -7343,12 +10151,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vikas@dartswift.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0566",
+    "id": "jfll-inact-0782",
     "fullName": "EXPRESS FREIGHT SYSTEM (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sachin  Gaurav",
@@ -7356,12 +10164,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "coo@efsindia.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0567",
+    "id": "jfll-inact-0783",
     "fullName": "M/S GEM AROMATICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sukhada  Vaje",
@@ -7369,12 +10177,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "s.vaje@gemaromatics.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0568",
+    "id": "jfll-inact-0784",
     "fullName": "WEST COAST FROZEN FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Venkatesh B",
@@ -7382,12 +10190,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "krishna.n@westcoast.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0785",
+    "fullName": "MOHAN INFINITY",
+    "territory": "All Territories",
+    "contactPersonName": "Amit Kumar  Golcha",
+    "mobileNumber": "+91-9711267755",
+    "email": "mohaninfinity@yahoo.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0569",
+    "id": "jfll-inact-0786",
+    "fullName": "ORIENT MICRO ABRASIVES LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "ROHIT",
+    "mobileNumber": "+91-8766399133",
+    "email": "rohit@omal.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0787",
     "fullName": "LANCER CONTAINER LINES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Afrin  khan",
@@ -7395,12 +10229,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "afrin@lancerline.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0788",
+    "fullName": "OCEANBLUES SHIPPING & LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "RISHIT MEHTA",
+    "mobileNumber": "+91-9426551141",
+    "email": "rishit@oceanbluesshipping1.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0570",
+    "id": "jfll-inact-0789",
+    "fullName": "AMBEWAY FREIGHT FORWADING LLP",
+    "territory": "All Territories",
+    "contactPersonName": "Waleed  Shaikh",
+    "mobileNumber": "+91-8097664887",
+    "email": "waleed.shaikh@ambewayfreight.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0790",
     "fullName": "H K DATA SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "APURVA  RANE",
@@ -7408,12 +10268,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@hkdataservices.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0571",
+    "id": "jfll-inact-0791",
     "fullName": "ELLIANCE CONTAINER SERVICES PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "ANIL  SINGH",
@@ -7421,12 +10281,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "doc2@ecsshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0572",
+    "id": "jfll-inact-0792",
     "fullName": "UNILAR FREIGHT SERVICE INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ABDUL  FAZAL",
@@ -7434,12 +10294,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@unilarfreightservice.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0573",
+    "id": "jfll-inact-0793",
     "fullName": "DOLCE AGRO (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vikramjit Singh",
@@ -7447,12 +10307,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dolceagro24@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0574",
+    "id": "jfll-inact-0794",
     "fullName": "TROPICAL TRANSPORT SYSTEMS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MANISH MAINGI",
@@ -7460,12 +10320,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manish@tropialindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0575",
+    "id": "jfll-inact-0795",
     "fullName": "TRISTAR LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Nikhil Philip Jacob",
@@ -7473,12 +10333,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales.cok@tristarindia.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0576",
+    "id": "jfll-inact-0796",
+    "fullName": "VSL LOGISTICS SOLUTIONS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "ARNAB  GHOSH",
+    "mobileNumber": "+91-9892027039",
+    "email": "arnab.ghosh@vsllogistics.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0797",
     "fullName": "NITIKA PHARMACEUTICAL SPECIALITIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BHUSHAN BADWAIK",
@@ -7486,12 +10359,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bhushan.badwaik@nitikapharma.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0577",
+    "id": "jfll-inact-0798",
     "fullName": "AWELLMANN PGL SHIPPING PRIVATE LIMITED .",
     "territory": "All Territories",
     "contactPersonName": "PRASHANT",
@@ -7499,12 +10372,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "prasanth@awellmannpglshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0578",
+    "id": "jfll-inact-0799",
     "fullName": "SAF GLOBAL MARITIME PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "IMAM",
@@ -7512,25 +10385,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "imam@safglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0579",
+    "id": "jfll-inact-0800",
     "fullName": "OMNI LENS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Satish  Parekh",
     "mobileNumber": "+91-9925849447",
     "email": "export@omnilens.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0580",
+    "id": "jfll-inact-0801",
     "fullName": "IndiaFeast Millers Private Limited",
     "territory": "All Territories",
     "contactPersonName": "ANSARI",
@@ -7538,12 +10411,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "contact@indiafeast.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0581",
+    "id": "jfll-inact-0802",
     "fullName": "RIKKI PLASTIC PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Lokesh  Sharma",
@@ -7551,12 +10424,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exim@rikki.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0582",
+    "id": "jfll-inact-0803",
     "fullName": "JC ELETRONICA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Palwinder  Kaur",
@@ -7564,12 +10437,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "palwinder@jcelectronica.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0583",
+    "id": "jfll-inact-0804",
     "fullName": "JASMER FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr Naresh  kanth",
@@ -7577,12 +10450,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jasmerlogistics@jasmergroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0584",
+    "id": "jfll-inact-0805",
     "fullName": "GOENKA ENGG & INDUSTRIAL PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "MEENAKSHI  VERMA",
@@ -7590,12 +10463,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "goenkas@goenkaeng.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0585",
+    "id": "jfll-inact-0806",
     "fullName": "INTER GLOBE LOGISTICS AND CONSULTANTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Harsh  Varshney",
@@ -7603,12 +10476,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exim@interglobe.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0586",
+    "id": "jfll-inact-0807",
     "fullName": "ON TIME INTERNATIONAL LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "SALVISTER",
@@ -7616,12 +10489,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "salvister@ytoglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0587",
+    "id": "jfll-inact-0808",
     "fullName": "OP INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AMRIT PAL  SAINI",
@@ -7629,12 +10502,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "octagona.cs@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0588",
+    "id": "jfll-inact-0809",
     "fullName": "GOSPEL PHARMACEUTICALS",
     "territory": "All Territories",
     "contactPersonName": "Shailesh  Vaghasiya",
@@ -7647,7 +10520,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0589",
+    "id": "jfll-inact-0810",
     "fullName": "LOGENIX LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Aram",
@@ -7655,12 +10528,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aram@logenix.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0590",
+    "id": "jfll-inact-0811",
     "fullName": "MAYURI INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Paras  Kashwani",
@@ -7673,7 +10546,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0591",
+    "id": "jfll-inact-0812",
     "fullName": "PROSCEND COMMUNICATIONS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAKESH KUMAR",
@@ -7681,12 +10554,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rakesh.kumar@proscend.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0592",
+    "id": "jfll-inact-0813",
     "fullName": "MAXIMA FREIGHT INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "maxima",
@@ -7694,12 +10567,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@maximafreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0593",
+    "id": "jfll-inact-0814",
     "fullName": "LP LOGISTICS PLUS CHEMICAL SCM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AYYAPPADAS KURUP",
@@ -7707,25 +10580,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ops.mum@logisticsplus.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0594",
+    "id": "jfll-inact-0815",
+    "fullName": "BILANDER LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Manoj More",
+    "mobileNumber": "+91-9326259901",
+    "email": "sales.inbom@bilanderlogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0816",
     "fullName": "GLOTTIS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "GLOTTIS LIMITED",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "gopal@glottislogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0595",
+    "id": "jfll-inact-0817",
     "fullName": "IP INTEGRATED SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Gopal  Negi",
@@ -7733,12 +10619,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0596",
+    "id": "jfll-inact-0818",
     "fullName": "M/S REVES TECHNOPACK",
     "territory": "All Territories",
     "contactPersonName": "MANOJKUMAR SHOBHNATH SINGH",
@@ -7751,7 +10637,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0597",
+    "id": "jfll-inact-0819",
     "fullName": "THE WEST INDIA POWER EQUIPMENTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Virendra Kumar",
@@ -7759,12 +10645,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "virendkumar9@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0598",
+    "id": "jfll-inact-0820",
     "fullName": "GULSHAN POLYOLS LTD.",
     "territory": "All Territories",
     "contactPersonName": "ARVIND",
@@ -7772,12 +10658,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "akgupta@gulshanindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0599",
+    "id": "jfll-inact-0821",
     "fullName": "DELTA PLUS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASHOK  CHAKRABARTY",
@@ -7785,12 +10671,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "arpita.sarma@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0600",
+    "id": "jfll-inact-0822",
     "fullName": "NAVPURNA FARMER PRODUCER COMPANY LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chetan",
@@ -7798,12 +10684,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@horticafood.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0601",
+    "id": "jfll-inact-0823",
     "fullName": "NEW INDIA ELECTRICALS LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr.Nipul N  Deasi",
@@ -7811,12 +10697,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ndesai@newindiaelectricals.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0602",
+    "id": "jfll-inact-0824",
     "fullName": "KRUSHAL CARGO TRANSIT SOLUTIONS LLP",
     "territory": "All Territories",
     "contactPersonName": "CHANDRA  LOHUMI",
@@ -7824,12 +10710,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "krushalcargo@krushalcargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0603",
+    "id": "jfll-inact-0825",
     "fullName": "AASHIRWAD PRODUCTS",
     "territory": "All Territories",
     "contactPersonName": "Vicky  Bathija",
@@ -7842,7 +10728,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0604",
+    "id": "jfll-inact-0826",
     "fullName": "FLS 1993 (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "M. RAMESH",
@@ -7850,12 +10736,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "m.ramesh@fls-group.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0827",
+    "fullName": "DARSH PRODUCTS",
+    "territory": "All Territories",
+    "contactPersonName": "Jitesh  patil",
+    "mobileNumber": "+91-9371603791",
+    "email": "darshproducts3007@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0605",
+    "id": "jfll-inact-0828",
     "fullName": "QUICKDEL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAVI SHARMA",
@@ -7863,30 +10762,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ravi.sharma@gojavas.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0606",
+    "id": "jfll-inact-0829",
     "fullName": "OSCAR INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "UVAIS",
     "mobileNumber": "+91-7907673122",
     "email": "accountsedappal@oscarinternational.net",
-    "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": true
-  },
-  {
-    "id": "jfll-inact-0607",
-    "fullName": "FAMOUS BLUES (OPC) PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "SATISH",
-    "mobileNumber": "+91-8168787059",
-    "email": "famousblues@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -7894,7 +10780,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0608",
+    "id": "jfll-inact-0830",
+    "fullName": "FAMOUS BLUES (OPC) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SATISH",
+    "mobileNumber": "+91-8168787059",
+    "email": "famousblues@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0831",
     "fullName": "VISHAL PACKAGING",
     "territory": "All Territories",
     "contactPersonName": "VISHAL RAMESHWAR  GUPTA",
@@ -7907,7 +10806,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0609",
+    "id": "jfll-inact-0832",
     "fullName": "E I A INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "TINA",
@@ -7920,7 +10819,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0610",
+    "id": "jfll-inact-0833",
     "fullName": "G R INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "MR. G.S BHATNAGAR  MS. RITU KHAJURIA",
@@ -7933,7 +10832,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0611",
+    "id": "jfll-inact-0834",
     "fullName": "PLP FORTIS INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "MR CHIRAG PATEL",
@@ -7946,7 +10845,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0612",
+    "id": "jfll-inact-0835",
     "fullName": "ROYAL EXPRESS LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "BIREN  JOSHI",
@@ -7954,12 +10853,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "biren@royalshipping.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0613",
+    "id": "jfll-inact-0836",
     "fullName": "43 Logistics Solution",
     "territory": "All Territories",
     "contactPersonName": "Mr. PRAMOD 9136020689",
@@ -7972,7 +10871,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0614",
+    "id": "jfll-inact-0837",
     "fullName": "SHIVAAY INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "ADIT  KOTADIYA",
@@ -7985,7 +10884,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0615",
+    "id": "jfll-inact-0838",
     "fullName": "EXPRESS FREIGHT & LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "SWEETY  RENES",
@@ -7998,7 +10897,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0616",
+    "id": "jfll-inact-0839",
     "fullName": "CARVER FARMS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "FAIZ  KHAN",
@@ -8006,12 +10905,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "faiz.khan@carverfarms.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0617",
+    "id": "jfll-inact-0840",
     "fullName": "APEX SUPPLY CHAIN PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "GAURAV  TALWAR",
@@ -8019,12 +10918,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gt@apexshipping.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0618",
+    "id": "jfll-inact-0841",
     "fullName": "FRESHLINE FLORICULTURE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Bipin  Deo",
@@ -8032,12 +10931,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bipin.deo@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0619",
+    "id": "jfll-inact-0842",
     "fullName": "SANDEEP FREIGHT FORWARDERS",
     "territory": "All Territories",
     "contactPersonName": "Rishabh   Damani",
@@ -8050,7 +10949,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0620",
+    "id": "jfll-inact-0843",
+    "fullName": "ASHINGREDIENTS INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "VASANTHI D",
+    "mobileNumber": "+91-9663189809",
+    "email": "vasanthi@ashingredientsindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0844",
     "fullName": "TRI SQUARE GENERAL TRADING",
     "territory": "All Territories",
     "contactPersonName": "ESMAIL",
@@ -8058,12 +10970,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "in.trisquarelcc@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0621",
+    "id": "jfll-inact-0845",
     "fullName": "BOOST SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nitin Razoura",
@@ -8071,12 +10983,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nitin@boostshipping.global",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0622",
+    "id": "jfll-inact-0846",
     "fullName": "3PL LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ms.Priya",
@@ -8084,12 +10996,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "priya@3pll.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0623",
+    "id": "jfll-inact-0847",
     "fullName": "VENTANA GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rakhi",
@@ -8097,12 +11009,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rakhi@ventanaglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0624",
+    "id": "jfll-inact-0848",
     "fullName": "ROLFE MOTORS & ENERGY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prince Kumar",
@@ -8110,25 +11022,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@jouletap.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0625",
-    "fullName": "GLOBAL INDIA EXPRESS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Roushan Sinha",
-    "mobileNumber": "+91-9958182927",
-    "email": "sales@globalindiaexpress.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0626",
+    "id": "jfll-inact-0849",
     "fullName": "INDLOG SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mahesh  Tiwari",
@@ -8136,12 +11035,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "management@indlogservices.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0627",
+    "id": "jfll-inact-0850",
     "fullName": "LOGPRO SUPPLY CHAIN SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sujoy  Das",
@@ -8149,12 +11048,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales.logproscs@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0628",
+    "id": "jfll-inact-0851",
     "fullName": "NANDA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Pramod  Jadhav",
@@ -8167,12 +11066,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0629",
-    "fullName": "ONELINK LOGISTICS INDIA PRIVATE LIMITED",
+    "id": "jfll-inact-0852",
+    "fullName": "NEL FREIGHT SOLUTIONS",
     "territory": "All Territories",
-    "contactPersonName": "Santosh Gurav",
-    "mobileNumber": "+91-9167479858",
-    "email": null,
+    "contactPersonName": "ASHWIN  SWAMI",
+    "mobileNumber": "+91-9910200250",
+    "email": "ashwin@nel.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -8180,7 +11079,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0630",
+    "id": "jfll-inact-0853",
+    "fullName": "ONELINK LOGISTICS INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Santosh Gurav",
+    "mobileNumber": "+91-9167479858",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0854",
     "fullName": "ORIENTAL SHIPPING MANAGMENT SYSTEM",
     "territory": "All Territories",
     "contactPersonName": "Manoj Kumar  Rao",
@@ -8193,7 +11105,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0631",
+    "id": "jfll-inact-0855",
     "fullName": "OSR FORWARDERS",
     "territory": "All Territories",
     "contactPersonName": "MR. Vishal",
@@ -8206,7 +11118,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0632",
+    "id": "jfll-inact-0856",
+    "fullName": "PAUL MATTER",
+    "territory": "All Territories",
+    "contactPersonName": "RUBEENA",
+    "mobileNumber": "+91-8882574007",
+    "email": "rubeena@paulmatter.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0857",
     "fullName": "PROLOG INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAJAN  MAURYA",
@@ -8214,12 +11139,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rajan.maurya@prologindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0633",
+    "id": "jfll-inact-0858",
     "fullName": "SAMRAAT INDO WORKS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tinku",
@@ -8227,12 +11152,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "account@samraatlogs.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0634",
+    "id": "jfll-inact-0859",
     "fullName": "SANTOSH EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "ABHIJEET SETHIYA",
@@ -8245,7 +11170,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0635",
+    "id": "jfll-inact-0860",
     "fullName": "PACIFIC BLUE CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "balmiki rakesh",
@@ -8253,12 +11178,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "balmikirakesh@pbcargo.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0636",
+    "id": "jfll-inact-0861",
     "fullName": "MADEENA EXPORTERS",
     "territory": "All Territories",
     "contactPersonName": "ABBAS  THOTTATHIL",
@@ -8271,7 +11196,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0637",
+    "id": "jfll-inact-0862",
     "fullName": "POMONA EXPORTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Ashraf",
@@ -8279,12 +11204,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pomonacalicut@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0638",
+    "id": "jfll-inact-0863",
     "fullName": "COMPASS LOGISTICS INTERNATIONAL PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "VINAY  WAREKAR",
@@ -8292,12 +11217,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vinay.warekar@compasslog.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0639",
+    "id": "jfll-inact-0864",
     "fullName": "SASTHA IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Yamuna krishnamurthy Partner",
@@ -8310,7 +11235,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0640",
+    "id": "jfll-inact-0865",
     "fullName": "M/S. S J OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Shashikant Jadhav",
@@ -8323,7 +11248,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0641",
+    "id": "jfll-inact-0866",
     "fullName": "SKY BLISS SHIPPING AGENCY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HASEEB  KHAN",
@@ -8331,12 +11256,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "haseeb@skyblissindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0642",
+    "id": "jfll-inact-0867",
     "fullName": "RCS LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Ismath",
@@ -8344,12 +11269,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ismath.ind@rcs-asia.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0643",
+    "id": "jfll-inact-0868",
     "fullName": "AYYAN ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "AYYAN",
@@ -8357,25 +11282,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ayyanenterprises2025@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0644",
+    "id": "jfll-inact-0869",
     "fullName": "SRV GLOBAL FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Account Ahmedabad",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@srvglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0645",
+    "id": "jfll-inact-0870",
     "fullName": "INDEX LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ANISH KHATRI",
@@ -8383,12 +11308,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ak@indexlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0646",
+    "id": "jfll-inact-0871",
     "fullName": "NMJ MARINE EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "AKHIL J",
@@ -8401,7 +11326,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0647",
+    "id": "jfll-inact-0872",
     "fullName": "S N RATHNAM EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAFIQ SHAIKH",
@@ -8409,12 +11334,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "docs@snrathnameexports.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0648",
+    "id": "jfll-inact-0873",
     "fullName": "EUROPEAN FREIGHT INDIA  PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "SHALINI BAHADUR",
@@ -8422,12 +11347,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "india@europeanfreightlimited.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0649",
+    "id": "jfll-inact-0874",
     "fullName": "SAHARA TRADING AND ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "ALTAF  SHAIKH",
@@ -8435,12 +11360,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "skycostal@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0650",
+    "id": "jfll-inact-0875",
     "fullName": "TRANS WORLD EXPRESS CO., LTD",
     "territory": "All Territories",
     "contactPersonName": "KH Noh",
@@ -8448,12 +11373,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "air@twlk.kr",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0651",
+    "id": "jfll-inact-0876",
     "fullName": "KRTI EXIM",
     "territory": "All Territories",
     "contactPersonName": "Mr. Manjunatha  Parasappa",
@@ -8466,7 +11391,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0652",
+    "id": "jfll-inact-0877",
     "fullName": "GAJRAJ & CO",
     "territory": "All Territories",
     "contactPersonName": "Mr. Gajanand Rajula",
@@ -8479,7 +11404,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0653",
+    "id": "jfll-inact-0878",
     "fullName": "VISHAL SHIPPING AGENCIES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Ms. Nutan  Ganatra",
@@ -8487,12 +11412,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "admin@vishalshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0654",
+    "id": "jfll-inact-0879",
     "fullName": "PINNACLE INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "AKSHAY RAMDAS  SARJINE",
@@ -8505,7 +11430,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0655",
+    "id": "jfll-inact-0880",
     "fullName": "VISHWA LINERS",
     "territory": "All Territories",
     "contactPersonName": "Narayanan  Nadar",
@@ -8518,7 +11443,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0656",
+    "id": "jfll-inact-0881",
     "fullName": "YASTER INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. Robert  Chinnappan",
@@ -8531,7 +11456,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0657",
+    "id": "jfll-inact-0882",
     "fullName": "VAISHNAVI MATA FRUITS AND ONION SUPPLIERS",
     "territory": "All Territories",
     "contactPersonName": "AMIT  VORA",
@@ -8544,7 +11469,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0658",
+    "id": "jfll-inact-0883",
     "fullName": "TROPICA NURSERY LLP.",
     "territory": "All Territories",
     "contactPersonName": "APARNA  HANSOTI",
@@ -8552,12 +11477,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@tropicanursery.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0659",
+    "id": "jfll-inact-0884",
     "fullName": "BLUEBIRD SHIPPING LINE LLP",
     "territory": "All Territories",
     "contactPersonName": "VAIBHAV",
@@ -8565,12 +11490,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bbsl@bluebirdshippingline.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0660",
+    "id": "jfll-inact-0885",
     "fullName": "AHURA EXPRESS SERVIES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Shoyab Sayyed",
@@ -8583,7 +11508,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0661",
+    "id": "jfll-inact-0886",
     "fullName": "VEERVISTA (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MAYA",
@@ -8591,12 +11516,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "veervista3@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0662",
+    "id": "jfll-inact-0887",
     "fullName": "HAYLOR INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "UMESH AHIR",
@@ -8604,12 +11529,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "haylorinternationalpvtltd@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0663",
+    "id": "jfll-inact-0888",
     "fullName": "ADITDHANANIWALA (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. ADIT DHANANIWALA",
@@ -8617,12 +11542,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "adidhananiwala@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0664",
+    "id": "jfll-inact-0889",
     "fullName": "KALYA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "amit",
@@ -8635,7 +11560,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0665",
+    "id": "jfll-inact-0890",
     "fullName": "AIKKA INDIA LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Hanumant",
@@ -8643,12 +11568,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hanumant@aikka.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0666",
+    "id": "jfll-inact-0891",
     "fullName": "ELEVATE IMPEX",
     "territory": "All Territories",
     "contactPersonName": "MR. SHASHIKANT WALKE",
@@ -8661,7 +11586,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0667",
+    "id": "jfll-inact-0892",
+    "fullName": "SHO SHO EXPORT",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. Rohit Jaware",
+    "mobileNumber": "+91-8421662919",
+    "email": "shoshoexport@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0893",
     "fullName": "STARLINE COURIER SERVICES PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "MR. SAYYED",
@@ -8669,12 +11607,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "starlinecourier@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0668",
+    "id": "jfll-inact-0894",
     "fullName": "NINGBO JCTRANS LOGISTICS TECHNOLOGY NETWORK CO.LTD",
     "territory": "All Territories",
     "contactPersonName": "RITA",
@@ -8682,12 +11620,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "yuanping@zxtrans.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0669",
+    "id": "jfll-inact-0895",
     "fullName": "ALLSEAS GLOBAL LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BINTHIYA",
@@ -8695,12 +11633,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "wca@allseasglobal.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0670",
+    "id": "jfll-inact-0896",
     "fullName": "EMERALD RELOCATION SERVICES",
     "territory": "All Territories",
     "contactPersonName": "ajith",
@@ -8713,7 +11651,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0671",
+    "id": "jfll-inact-0897",
     "fullName": "CHALIL INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "RESHMA",
@@ -8726,7 +11664,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0672",
+    "id": "jfll-inact-0898",
     "fullName": "CARGOMASTERS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "UPMA",
@@ -8734,12 +11672,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bdm@cargomaster.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0673",
+    "id": "jfll-inact-0899",
     "fullName": "BANSAL FINEFOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Charu  Nagpal",
@@ -8747,12 +11685,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sc2@bffpl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0674",
+    "id": "jfll-inact-0900",
     "fullName": "B S LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "RAVINDER  PANCHAL",
@@ -8765,7 +11703,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0675",
+    "id": "jfll-inact-0901",
     "fullName": "PACIFIC GOLDEN LOGISTICS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ravi",
@@ -8773,12 +11711,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ravi@pglogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0676",
+    "id": "jfll-inact-0902",
     "fullName": "MODERA FREIGHT SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vicky  Shirke",
@@ -8786,12 +11724,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vicky@moderafreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0677",
+    "id": "jfll-inact-0903",
     "fullName": "JSB CARGO MOVERS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "DEEPIKA SHARMA",
@@ -8799,12 +11737,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@jsb.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0678",
+    "id": "jfll-inact-0904",
     "fullName": "SBMS BUSINESS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Patil",
@@ -8817,7 +11755,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0679",
+    "id": "jfll-inact-0905",
     "fullName": "MATRIX SUPPLY CHAIN MANAGEMENT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BABU  R",
@@ -8825,12 +11763,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "matrixdatasin@matrixff.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0680",
+    "id": "jfll-inact-0906",
     "fullName": "WYNSOME CARGO EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "VINOTHINI MAHADEVAN",
@@ -8843,7 +11781,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0681",
+    "id": "jfll-inact-0907",
     "fullName": "JAZZ INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vikram  Singh",
@@ -8856,7 +11794,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0682",
+    "id": "jfll-inact-0908",
     "fullName": "CEVA LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Avnish  Rathi",
@@ -8864,12 +11802,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "avnish.rathi@cevalogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0683",
+    "id": "jfll-inact-0909",
     "fullName": "HIKMA INTERNATIONAL TRADING",
     "territory": "All Territories",
     "contactPersonName": "JASMIN M",
@@ -8877,12 +11815,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hikmainternationaltrading@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0684",
+    "id": "jfll-inact-0910",
     "fullName": "BRICSOCEAN LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjeev  Kumar",
@@ -8890,12 +11828,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@bricsocean.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0685",
+    "id": "jfll-inact-0911",
     "fullName": "AMITY GRAPHICS",
     "territory": "All Territories",
     "contactPersonName": "JV Singh",
@@ -8908,7 +11846,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0686",
+    "id": "jfll-inact-0912",
     "fullName": "CITY ELEVATORS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sophia",
@@ -8916,25 +11854,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "city@cityelevators.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0687",
+    "id": "jfll-inact-0913",
     "fullName": "ARCTIC SHIPPING SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Zafar",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@arcticshipping.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0688",
+    "id": "jfll-inact-0914",
     "fullName": "FULESHWAR GLOBAL ENTERPRISE.",
     "territory": "All Territories",
     "contactPersonName": "RAMESH R AHIR",
@@ -8947,7 +11885,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0689",
+    "id": "jfll-inact-0915",
     "fullName": "PHOENIX LOGISTICS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Santosh",
@@ -8955,25 +11893,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "santosh.hyd@phoenixlogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0690",
-    "fullName": "WILD MARVEL ORGANICS",
-    "territory": "All Territories",
-    "contactPersonName": "AFNITHA R",
-    "mobileNumber": "+91-9487302082",
-    "email": "sales@wildmarvelorganics.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": true
-  },
-  {
-    "id": "jfll-inact-0691",
+    "id": "jfll-inact-0916",
     "fullName": "SHYAM CARGO PLANNERS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sameer Sharma",
@@ -8986,20 +11911,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0692",
+    "id": "jfll-inact-0917",
     "fullName": "OCEANEMPIRE LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BALA SUBRAMANI",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "bala@oceanempirelog.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0693",
+    "id": "jfll-inact-0918",
+    "fullName": "SANFREIGHT LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Priyanka   Kandurkar",
+    "mobileNumber": "+91-4111990",
+    "email": "accounts@sanfreightintl.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0919",
     "fullName": "AAR WORLDWIDE",
     "territory": "All Territories",
     "contactPersonName": "RAJA",
@@ -9012,7 +11950,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0694",
+    "id": "jfll-inact-0920",
     "fullName": "AIRLIFT TRANS OCEANIC PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Raghavendra",
@@ -9020,16 +11958,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "raghav@airliftusa.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0695",
+    "id": "jfll-inact-0921",
     "fullName": "WORLDWIDE EXPRESS SHIPPING",
     "territory": "All Territories",
     "contactPersonName": "PRABHU GAYATRI",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "prabhugayatri2021@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -9038,7 +11976,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0696",
+    "id": "jfll-inact-0922",
+    "fullName": "NAIK SEAFOODS PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "Sangeeta.",
+    "mobileNumber": "+91-9820711586",
+    "email": "naik9documents@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0923",
     "fullName": "GLOBETRANS WORLDWIDE PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Shraddha",
@@ -9046,12 +11997,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts1.inbom@globetrans.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0697",
+    "id": "jfll-inact-0924",
     "fullName": "GLOBAL TRANSPORTATION SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHIPRA",
@@ -9059,12 +12010,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shipra@aramex.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0698",
+    "id": "jfll-inact-0925",
     "fullName": "SAARC CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "ANUP",
@@ -9077,7 +12028,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0699",
+    "id": "jfll-inact-0926",
     "fullName": "VIVEK FLOWERS EXPORTS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAJESH",
@@ -9085,12 +12036,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vivekflowersexports@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0700",
+    "id": "jfll-inact-0927",
     "fullName": "BETA HEALTHCARE PRODUCTS PVT. LTD",
     "territory": "All Territories",
     "contactPersonName": "ASIF",
@@ -9098,12 +12049,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logisticsbeta21@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0701",
+    "id": "jfll-inact-0928",
     "fullName": "CLASSIC SHIPPING AND LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "RAJNIKANT  UPADHYAY",
@@ -9116,7 +12067,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0702",
+    "id": "jfll-inact-0929",
     "fullName": "CORE TO SHORE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "CORE TO SHORE",
@@ -9124,12 +12075,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ops@coretoshore.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0930",
+    "fullName": "VECTOR GLOBAL LINES",
+    "territory": "All Territories",
+    "contactPersonName": "BIJU  JOSEPH",
+    "mobileNumber": "+91-9995335934",
+    "email": "sales1@omrexports.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0703",
+    "id": "jfll-inact-0931",
     "fullName": "SUPERFIL PRODUCTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. manoj",
@@ -9137,12 +12101,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@superfilindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0704",
+    "id": "jfll-inact-0932",
     "fullName": "ALKOSIGN LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Diana",
@@ -9150,12 +12114,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ecom1@alkosign.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0705",
+    "id": "jfll-inact-0933",
     "fullName": "M/S NEEL SON OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vijay",
@@ -9168,7 +12132,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0706",
+    "id": "jfll-inact-0934",
     "fullName": "BLUE SPARROW LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Ms. Richa",
@@ -9181,7 +12145,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0707",
+    "id": "jfll-inact-0935",
     "fullName": "SARATHI LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Sudarshan  Pawar",
@@ -9194,7 +12158,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0708",
+    "id": "jfll-inact-0936",
     "fullName": "DIGITAL AGE RETAIL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rohan  Jadhav",
@@ -9202,12 +12166,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ismail.sayyad@firstcry.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0709",
+    "id": "jfll-inact-0937",
     "fullName": "RAVDOS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "NILAY  KAMBLI",
@@ -9215,12 +12179,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nilay@ravdoslog.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0710",
+    "id": "jfll-inact-0938",
     "fullName": "KIRIASH EXIM",
     "territory": "All Territories",
     "contactPersonName": "Omkar",
@@ -9233,7 +12197,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0711",
+    "id": "jfll-inact-0939",
     "fullName": "INDIANA GRATINGS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Abhijit  Sunil  Bhosale",
@@ -9241,12 +12205,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abhijit.bhosale@indianagroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0712",
+    "id": "jfll-inact-0940",
     "fullName": "ONWAYY CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. ANUJ",
@@ -9254,12 +12218,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "atul@onwayycargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0713",
+    "id": "jfll-inact-0941",
     "fullName": "FLEXI WORLD LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tanya",
@@ -9267,12 +12231,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "tanya@flexiworldlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0714",
+    "id": "jfll-inact-0942",
     "fullName": "AQUAAIR INTERNATIONAL FREIGHT SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Dixit",
@@ -9285,7 +12249,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0715",
+    "id": "jfll-inact-0943",
     "fullName": "ALP OVERSEAS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Iqbal",
@@ -9293,12 +12257,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ggk_bsr@alpoverseas.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0716",
+    "id": "jfll-inact-0944",
     "fullName": "MILESTONE WORLDWIDE FREIGHT SOLUTIONS PRIVATE LIMITED .",
     "territory": "All Territories",
     "contactPersonName": "AJAY VINAYAK  PATANKAR",
@@ -9306,12 +12270,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "operations@milestoneworldwide.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0717",
+    "id": "jfll-inact-0945",
     "fullName": "OSTRICH SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "OSTRICH SHIPPING SERVICES",
@@ -9324,7 +12288,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0718",
+    "id": "jfll-inact-0946",
     "fullName": "WIL-HAVEN CONTAINER LINE PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Dolrich  D'souza",
@@ -9332,12 +12296,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dolrich@wilhavenindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0719",
+    "id": "jfll-inact-0947",
     "fullName": "SKYTOUCH CERAMIC PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "MR .Jaydip \u00a0 PateL",
@@ -9345,12 +12309,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "doc@skytouchinternational.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0720",
+    "id": "jfll-inact-0948",
     "fullName": "PYC LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Chitrang  Surve",
@@ -9358,16 +12322,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "chitrang@planyourcargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0721",
+    "id": "jfll-inact-0949",
     "fullName": "DS GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "SOMA  MAITI",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@dsgloballogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -9376,20 +12340,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0722",
-    "fullName": "TRANSMODAL MARINE LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "MR. LAXMAN SINGH",
-    "mobileNumber": "+91-9828193686",
-    "email": "acc.jpr@tmlindia.in",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-0723",
+    "id": "jfll-inact-0950",
     "fullName": "DOMINANT GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Jivan  Bisht",
@@ -9397,12 +12348,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "account@dominantglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0724",
+    "id": "jfll-inact-0951",
     "fullName": "BARKAT EXPORTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Siraj",
@@ -9410,25 +12361,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "barkatexport@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0725",
+    "id": "jfll-inact-0952",
     "fullName": "VEGAALINE LOGISTICS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Praveen  Shetty",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "praveen.ind@vegaaline.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0726",
+    "id": "jfll-inact-0953",
     "fullName": "BORA EXIM PRIVATE LIMITED .",
     "territory": "All Territories",
     "contactPersonName": "RAJENDRA  BORA",
@@ -9436,12 +12387,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@bora.tech",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0727",
+    "id": "jfll-inact-0954",
     "fullName": "WMS LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Raj Kumar",
@@ -9454,7 +12405,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0728",
+    "id": "jfll-inact-0955",
     "fullName": "SIKKAS KWICK HANDLING SERVICES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mangesh",
@@ -9462,12 +12413,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mangesh@sikkas.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0729",
+    "id": "jfll-inact-0956",
     "fullName": "SHOBHA PROMPT SERVICES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rakeshkumar V Handa",
@@ -9475,12 +12426,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashish@shobhaprompt.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0730",
+    "id": "jfll-inact-0957",
     "fullName": "GNG ELECTRONICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chandan  paprunia",
@@ -9488,25 +12439,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "chandan.p@electronicsbazaar.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0731",
-    "fullName": "GAUSIA COLD STORAGE PRIVATE LIMITED",
+    "id": "jfll-inact-0958",
+    "fullName": "ALPHA CARGO EXPRESS PVT LTD",
     "territory": "All Territories",
-    "contactPersonName": "VIDYA",
-    "mobileNumber": null,
-    "email": "jetclear@mtnl.net.in",
+    "contactPersonName": "Mr. verma",
+    "mobileNumber": "+91-9769484155",
+    "email": "pricing.alphacargo@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0732",
+    "id": "jfll-inact-0959",
+    "fullName": "GAUSIA COLD STORAGE PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "VIDYA",
+    "mobileNumber": "-",
+    "email": "jetclear@mtnl.net.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0960",
     "fullName": "BARAMATI AGRO LTD",
     "territory": "All Territories",
     "contactPersonName": "Abhishek  Sasawade",
@@ -9514,12 +12478,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abhishek.sasawade@baramatiagro.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0733",
+    "id": "jfll-inact-0961",
     "fullName": "PADDLOG DG SOLUTIONS INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mohammed",
@@ -9527,12 +12491,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shabynawas@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0734",
+    "id": "jfll-inact-0962",
     "fullName": "SUPER FRESH FRUITS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Bhagwandas Bherumal  Ramchandani",
@@ -9540,38 +12504,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "superfruits@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0735",
+    "id": "jfll-inact-0963",
     "fullName": "CARGO PLAN INTERNATIONAL (INDIA) PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "SONAM",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@bom.cargoplanindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0736",
+    "id": "jfll-inact-0964",
     "fullName": "RN CHIDAKASHI TECHNOLOGIES PVT. LTD",
     "territory": "All Territories",
     "contactPersonName": "REHMAN",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "rehman.sayed@miko.ai",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0737",
+    "id": "jfll-inact-0965",
     "fullName": "ICC XPRESS",
     "territory": "All Territories",
     "contactPersonName": "MR. RAHUL  JOHN",
@@ -9584,7 +12548,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0738",
+    "id": "jfll-inact-0966",
     "fullName": "ROHLIG INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Ms. Preksha  Sharma",
@@ -9592,12 +12556,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "preksha.sharma@rohlig.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0739",
+    "id": "jfll-inact-0967",
     "fullName": "WAYPOINT PORT SERVICE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Niranjan Kashinath  Borade",
@@ -9605,12 +12569,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "niranjan.borade@waypointports.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0740",
+    "id": "jfll-inact-0968",
     "fullName": "TLSH GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SANJAY  HULE",
@@ -9618,16 +12582,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sanjay@tlshglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0741",
+    "id": "jfll-inact-0969",
     "fullName": "M/S. SHREE GANESH LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "ganesh",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "india.sglcs@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -9636,7 +12600,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0742",
+    "id": "jfll-inact-0970",
+    "fullName": "GOODRICH MARITIME PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "DHARMA",
+    "mobileNumber": "+91-2267779438",
+    "email": "dharma@goodrichindia.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0971",
     "fullName": "SHAGAI LOGISTIQUES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JAMES",
@@ -9644,12 +12621,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "james@shagaigroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0743",
+    "id": "jfll-inact-0972",
     "fullName": "AAA INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Santhoshkumar",
@@ -9662,7 +12639,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0744",
+    "id": "jfll-inact-0973",
     "fullName": "INDO ASIA OVERSEAS UNLIMITED.",
     "territory": "All Territories",
     "contactPersonName": "RAJESH",
@@ -9670,12 +12647,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "indoasiaunlimited@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0745",
+    "id": "jfll-inact-0974",
     "fullName": "HIGO LOGISTICS SOLUTIONS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "E NATARAJAN",
@@ -9683,12 +12660,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cus.maa@higologistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0746",
+    "id": "jfll-inact-0975",
     "fullName": "IRC EXIM",
     "territory": "All Territories",
     "contactPersonName": "ARUN",
@@ -9701,7 +12678,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0747",
+    "id": "jfll-inact-0976",
     "fullName": "AWORLD EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Rahul Solanki",
@@ -9714,11 +12691,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0748",
+    "id": "jfll-inact-0977",
     "fullName": "MONARI DI NAZMUL AHSAN",
     "territory": "All Territories",
     "contactPersonName": "NAZBD",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "nazbd2000@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -9727,7 +12704,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0749",
+    "id": "jfll-inact-0978",
     "fullName": "BEST SHIPPING AND CLEARING AGENCY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Srinivasan  Sunderasan",
@@ -9735,12 +12712,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ccdesk.blr@bestshippingindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0750",
+    "id": "jfll-inact-0979",
     "fullName": "URGENT AIR WORLWIDE (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tabrez  Shah",
@@ -9748,12 +12725,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "tabrez@urgentair.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0751",
+    "id": "jfll-inact-0980",
     "fullName": "TRANSIT TERMINAL AITECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VEERAVR  THAKUR",
@@ -9761,12 +12738,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "projects@transiterminal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0752",
+    "id": "jfll-inact-0981",
     "fullName": "ULR FREIGHT SERVICES",
     "territory": "All Territories",
     "contactPersonName": "MRS. MANPREET KAUR",
@@ -9779,7 +12756,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0753",
+    "id": "jfll-inact-0982",
     "fullName": "FELIX RUBBERS INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "sanket",
@@ -9792,7 +12769,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0754",
+    "id": "jfll-inact-0983",
     "fullName": "WORLD VIEW SHIPPING AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ajeet Bhati",
@@ -9800,12 +12777,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ajeetbhati@worldviewlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0755",
+    "id": "jfll-inact-0984",
     "fullName": "PLUZ MACHINERY AND TOOLS FZ-LLC",
     "territory": "All Territories",
     "contactPersonName": "PRAGNESH",
@@ -9818,7 +12795,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0756",
+    "id": "jfll-inact-0985",
     "fullName": "G C SEN AGENCY",
     "territory": "All Territories",
     "contactPersonName": "Gulab Sing",
@@ -9826,12 +12803,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0757",
+    "id": "jfll-inact-0986",
     "fullName": "EELS GMBH",
     "territory": "All Territories",
     "contactPersonName": "Balvinder Kalsi",
@@ -9844,7 +12821,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0758",
+    "id": "jfll-inact-0987",
     "fullName": "B5 PLUS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rahul  Ramchandani",
@@ -9852,12 +12829,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0759",
+    "id": "jfll-inact-0988",
     "fullName": "QUEST INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "rakesh",
@@ -9870,7 +12847,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0760",
+    "id": "jfll-inact-0989",
     "fullName": "BELLMAN LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Siddesh Revana",
@@ -9878,12 +12855,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "revana@bellmanlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0761",
+    "id": "jfll-inact-0990",
+    "fullName": "GREENSEAL MARKETING PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "GREENSEAL",
+    "mobileNumber": "+91-8680012320",
+    "email": "hariraj.greenseal@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0991",
     "fullName": "L & L SHIPPING LINE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Afrin Khan",
@@ -9891,12 +12881,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "afrin@landlshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0762",
+    "id": "jfll-inact-0992",
     "fullName": "A2S LOGISTICS SDN BHD.",
     "territory": "All Territories",
     "contactPersonName": "Shivali  Sharma",
@@ -9909,7 +12899,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0763",
+    "id": "jfll-inact-0993",
+    "fullName": "BLUEDIAMOND LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SANDESH MATE",
+    "mobileNumber": "+91-97629 28692",
+    "email": "csdesk.bdl@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0994",
     "fullName": "D S LOGISTICS (PROP. DEEPIKA SADANA)",
     "territory": "All Territories",
     "contactPersonName": "Ms. Deepika",
@@ -9922,7 +12925,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0764",
+    "id": "jfll-inact-0995",
     "fullName": "HAFNER INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Akash  KUMAR",
@@ -9930,12 +12933,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "operation@hafnerlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0765",
+    "id": "jfll-inact-0996",
+    "fullName": "TRANSSAFE GLOBAL FORWARDING PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. MOUNAGURU",
+    "mobileNumber": "+91-9942535406",
+    "email": "abu@transsafe.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-0997",
     "fullName": "SEA WORLD LOGISTICS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "ABHISHEK",
@@ -9948,7 +12964,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0766",
+    "id": "jfll-inact-0998",
     "fullName": "INSYNERGY SUPPLY CHAIN SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arun Sharma",
@@ -9956,12 +12972,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "arun.sharma@insynergyindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0767",
+    "id": "jfll-inact-0999",
     "fullName": "S K LOGISTIC",
     "territory": "All Territories",
     "contactPersonName": "PANKAJ  MISHRA",
@@ -9974,7 +12990,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0768",
+    "id": "jfll-inact-1000",
     "fullName": "RISHI EARTH HARVEST LLC",
     "territory": "All Territories",
     "contactPersonName": "VINAY KUMAR",
@@ -9987,7 +13003,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0769",
+    "id": "jfll-inact-1001",
     "fullName": "INDO GLOBAL EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "MR SATYAJEET BISWAS",
@@ -10000,7 +13016,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0770",
+    "id": "jfll-inact-1002",
     "fullName": "NEWLANE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pramod  Dhamdhere",
@@ -10008,12 +13024,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0771",
+    "id": "jfll-inact-1003",
     "fullName": "LEO GLOBAL EXPRESS LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Karuna Gaikwad",
@@ -10021,12 +13037,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs@leoglobalexpress.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0772",
+    "id": "jfll-inact-1004",
     "fullName": "FREIGHT ERA",
     "territory": "All Territories",
     "contactPersonName": "rizvan",
@@ -10039,7 +13055,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0773",
+    "id": "jfll-inact-1005",
+    "fullName": "BIZ LOGICX FREIGHT SOLUTIONS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "accounts",
+    "mobileNumber": "+91-6353722079",
+    "email": "accounts@bizlogicx.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1006",
     "fullName": "SPACE TRANS LOGISTICS.",
     "territory": "All Territories",
     "contactPersonName": "space trans logistics",
@@ -10052,7 +13081,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0774",
+    "id": "jfll-inact-1007",
     "fullName": "GOLD PLUS FLOAT GLASS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASHUTOSH  MISHRA",
@@ -10060,12 +13089,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashutosh.mishra@goldplusgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0775",
+    "id": "jfll-inact-1008",
     "fullName": "CANADA WORLD LOGISTICS CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "Zehra",
@@ -10078,7 +13107,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0776",
+    "id": "jfll-inact-1009",
     "fullName": "INTERNATIONAL SHIPPING & CARGO AGENCY",
     "territory": "All Territories",
     "contactPersonName": "ARIF  KHAN",
@@ -10086,12 +13115,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "intl.shippingncargoagency@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0777",
+    "id": "jfll-inact-1010",
     "fullName": "SHAH ENTERPRISES FBD PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAKHI KUMARI",
@@ -10099,12 +13128,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@shahenterprisesfbd.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0778",
+    "id": "jfll-inact-1011",
     "fullName": "EXPRESS IMPEX",
     "territory": "All Territories",
     "contactPersonName": "EXPRESS  IMPEX",
@@ -10117,20 +13146,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0779",
+    "id": "jfll-inact-1012",
     "fullName": "CLARION LOGISTICS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "ANILA",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts.sgp@clarionshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0780",
+    "id": "jfll-inact-1013",
     "fullName": "QF TRADING LLP",
     "territory": "All Territories",
     "contactPersonName": "ABDUL",
@@ -10138,12 +13167,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0781",
+    "id": "jfll-inact-1014",
     "fullName": "ADITYA AGRO FARM",
     "territory": "All Territories",
     "contactPersonName": "MARTAND GANPAT THOMBARE",
@@ -10156,12 +13185,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0782",
-    "fullName": "ISA LOGISTICS PRIVATE LIMITED",
+    "id": "jfll-inact-1015",
+    "fullName": "AVIVA FREIGHT SYSTEMS",
     "territory": "All Territories",
-    "contactPersonName": "Anup Ramdas",
-    "mobileNumber": null,
-    "email": "anup.ramdas@isalogistics.in",
+    "contactPersonName": "Rajesh MY",
+    "mobileNumber": "+91-9741000700",
+    "email": "rajesh@aviva-freight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -10169,7 +13198,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0783",
+    "id": "jfll-inact-1016",
+    "fullName": "LYFT LOGISTICS LLP",
+    "territory": "All Territories",
+    "contactPersonName": "KETEN",
+    "mobileNumber": "-",
+    "email": "ketan@lyftlogistics.co.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1017",
+    "fullName": "ISA LOGISTICS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Anup Ramdas",
+    "mobileNumber": "-",
+    "email": "anup.ramdas@isalogistics.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1018",
     "fullName": "HONEY BEE ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Kapani Gowda",
@@ -10177,12 +13232,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0784",
+    "id": "jfll-inact-1019",
     "fullName": "GREEN VALLEY ENGINEERING CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "K. RAO",
@@ -10195,7 +13250,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0785",
+    "id": "jfll-inact-1020",
     "fullName": "UNITED SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Sushil Yadav",
@@ -10208,7 +13263,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0786",
+    "id": "jfll-inact-1021",
+    "fullName": "ARVIND LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "DIPAK",
+    "mobileNumber": "-",
+    "email": "dipak.patni@arvind.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1022",
     "fullName": "R.F.EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "PRASHANTH",
@@ -10221,7 +13289,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0787",
+    "id": "jfll-inact-1023",
     "fullName": "FEBIN MARINE FOODS",
     "territory": "All Territories",
     "contactPersonName": "NAVAS",
@@ -10234,7 +13302,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0788",
+    "id": "jfll-inact-1024",
     "fullName": "RELIABLE GLOBAL SHIPPING",
     "territory": "All Territories",
     "contactPersonName": "SHAILESH SALVI",
@@ -10247,7 +13315,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0789",
+    "id": "jfll-inact-1025",
     "fullName": "SHINE TRAVELS AND CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "GYAN  KUMAR",
@@ -10255,12 +13323,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gyan@shinecargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0790",
+    "id": "jfll-inact-1026",
     "fullName": "ASIAN EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Deeepak",
@@ -10273,7 +13341,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0791",
+    "id": "jfll-inact-1027",
     "fullName": "SUBHO SAI EXIM AGRO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "NILANJAN",
@@ -10281,12 +13349,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "subhosaieximagro@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0792",
+    "id": "jfll-inact-1028",
     "fullName": "ATLANTA OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "SAIF ALI",
@@ -10299,7 +13367,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0793",
+    "id": "jfll-inact-1029",
     "fullName": "HINDUSTAN CARGO SERVICE",
     "territory": "All Territories",
     "contactPersonName": "ashok kumar  SHARMA",
@@ -10312,7 +13380,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0794",
+    "id": "jfll-inact-1030",
     "fullName": "CHATWANI IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Yash Chatwani.",
@@ -10320,12 +13388,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "chatwaniimpex@hotmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0795",
+    "id": "jfll-inact-1031",
     "fullName": "T. ATTARWALA INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "TAUFIQ AHMED ATTARWALA",
@@ -10338,7 +13406,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0796",
+    "id": "jfll-inact-1032",
     "fullName": "GOLDMARINE EXPORTS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "O.Shanmugam.",
@@ -10346,12 +13414,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@goldmarine.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0797",
+    "id": "jfll-inact-1033",
     "fullName": "STANZA SHIPPING (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "P. Shakhti",
@@ -10359,12 +13427,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pricing@stanzalogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0798",
+    "id": "jfll-inact-1034",
     "fullName": "ACTIVE CARGO MOVERS.",
     "territory": "All Territories",
     "contactPersonName": "MIKHIR",
@@ -10377,7 +13445,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0799",
+    "id": "jfll-inact-1035",
     "fullName": "SWAMI SAMARTHA ELECTRONICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "TUSHAR",
@@ -10385,12 +13453,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "tushar9991@hotmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0800",
+    "id": "jfll-inact-1036",
     "fullName": "Dindex International",
     "territory": "All Territories",
     "contactPersonName": "DEEPAKBHAI H DIYORA",
@@ -10403,7 +13471,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0801",
+    "id": "jfll-inact-1037",
     "fullName": "INTIME CARGO LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "sanjay",
@@ -10416,7 +13484,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0802",
+    "id": "jfll-inact-1038",
     "fullName": "G.D. CARGO CARE",
     "territory": "All Territories",
     "contactPersonName": "GOPAL  DASS",
@@ -10429,20 +13497,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0803",
+    "id": "jfll-inact-1039",
     "fullName": "ALIVIRA ANIMAL HEALTH LTD",
     "territory": "All Territories",
     "contactPersonName": "Vijay Hajare",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "vijayvishnu.hajare@sequent.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0804",
+    "id": "jfll-inact-1040",
     "fullName": "MVJ MEDICAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MVJ",
@@ -10450,12 +13518,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@mvj-group.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0805",
+    "id": "jfll-inact-1041",
     "fullName": "SHIP SUPPLY SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Paresh",
@@ -10468,7 +13536,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0806",
+    "id": "jfll-inact-1042",
     "fullName": "LOGISTICS COMPANION INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jeevan L.  Galande",
@@ -10476,12 +13544,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jeevan@logisticscompanion.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0807",
+    "id": "jfll-inact-1043",
     "fullName": "KBC STEEL PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Rajeeva  Singh",
@@ -10489,16 +13557,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rajeeva@kbcsteel.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0808",
+    "id": "jfll-inact-1044",
     "fullName": "JEM LOGISTICS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "KAVITA",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "kavita@jemlogisticssolutions.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -10507,7 +13575,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0809",
+    "id": "jfll-inact-1045",
     "fullName": "JIGNESH AGENCY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mohit  Oza",
@@ -10515,12 +13583,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@japl.org",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0810",
+    "id": "jfll-inact-1046",
     "fullName": "HIMEDIA LABORATORIES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Amruta Raje",
@@ -10528,25 +13596,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "amruta.raje@himedialabs.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0811",
+    "id": "jfll-inact-1047",
+    "fullName": "GLOBELINK W W INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. Tan",
+    "mobileNumber": "+91-8377004379",
+    "email": "ops.logdel@globelinkww.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1048",
     "fullName": "GHARDA CHEMICALS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr.BHARAT HALADANKAR",
     "mobileNumber": "+91-9819351336",
     "email": "bahaladankar@gharda.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0812",
+    "id": "jfll-inact-1049",
     "fullName": "FEI CARGO LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suresh",
@@ -10554,12 +13635,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "suresh.s@feicargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0813",
+    "id": "jfll-inact-1050",
     "fullName": "DELUX LOGISTICS & PACKAGING",
     "territory": "All Territories",
     "contactPersonName": "Rupesh",
@@ -10572,7 +13653,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0814",
+    "id": "jfll-inact-1051",
     "fullName": "DIVINUS EXPRESS LOGISTICS PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "DILIP BHOJANE",
@@ -10580,12 +13661,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dilip.bhojane@clearfastgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0815",
+    "id": "jfll-inact-1052",
     "fullName": "DEXPRO LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ANKITA MADKE",
@@ -10593,12 +13674,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ankita.madke@dexprologistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0816",
+    "id": "jfll-inact-1053",
     "fullName": "HAWKINS COOKERS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shikhar Nandy",
@@ -10606,12 +13687,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shikhar.nandy@hawkinscookers.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0817",
+    "id": "jfll-inact-1054",
+    "fullName": "CARGO CONTAINER TERMINAL INDIA PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "NITIN  PANDEY",
+    "mobileNumber": "+91-9911204087",
+    "email": "nitin.pandey@cct-india.co",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1055",
     "fullName": "DP WORLD MULTIMODAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Mohit  Chowdhary",
@@ -10619,12 +13713,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mohit.choudhary1@dpworld.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0818",
+    "id": "jfll-inact-1056",
     "fullName": "BISMARCK INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shashi",
@@ -10632,12 +13726,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shashi@bismarckgroup.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0819",
+    "id": "jfll-inact-1057",
     "fullName": "ALLPORT LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "PRASEETHA  NAIR",
@@ -10645,12 +13739,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@allport.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0820",
+    "id": "jfll-inact-1058",
     "fullName": "ANTARES LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ms Ashwini  Sawant",
@@ -10658,12 +13752,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashwini@antareslogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0821",
+    "id": "jfll-inact-1059",
     "fullName": "APEX WORLDWIDE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Chitra",
@@ -10676,7 +13770,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0822",
+    "id": "jfll-inact-1060",
     "fullName": "AGRI CHEMICALS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ATUL NEEMA",
@@ -10684,12 +13778,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kalpesh@agri-chemical.net",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0823",
+    "id": "jfll-inact-1061",
     "fullName": "SHREE NATHJI ENTERPRISES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. VK  GUPTA",
@@ -10697,12 +13791,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shreenathjigroup01@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0824",
+    "id": "jfll-inact-1062",
     "fullName": "GXPRESS SOLUTIONS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Praveen",
@@ -10710,12 +13804,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "finance@gxpresss.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0825",
+    "id": "jfll-inact-1063",
     "fullName": "SPACE HANDICRAFT.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Amit",
@@ -10728,7 +13822,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0826",
+    "id": "jfll-inact-1064",
     "fullName": "VEM TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "K. NARESH KUMAR",
@@ -10736,25 +13830,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "knareshkumar@vemtechnologies.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0827",
+    "id": "jfll-inact-1065",
     "fullName": "CARGOMEN LOGISTICS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "ABHIJEET  BAHETI",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "finance@cargomen.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0828",
+    "id": "jfll-inact-1066",
     "fullName": "BLUE WATER LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRANAY",
@@ -10762,12 +13856,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts1@bwl.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0829",
+    "id": "jfll-inact-1067",
     "fullName": "ADMIRAL HITEC LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "CHANDRA SHEKHAR CHAVAN",
@@ -10775,12 +13869,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "chavan@admirallogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0830",
+    "id": "jfll-inact-1068",
     "fullName": "WORK SHELTER EXPORT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ms. Khushi",
@@ -10788,12 +13882,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@workshelter.co",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0831",
+    "id": "jfll-inact-1069",
     "fullName": "VVM EXIM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vishwa",
@@ -10801,12 +13895,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vishwaa@vvmexim.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0832",
+    "id": "jfll-inact-1070",
     "fullName": "HV FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HEMANT VERMA",
@@ -10814,12 +13908,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hemant.verma@hv-freight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0833",
+    "id": "jfll-inact-1071",
     "fullName": "TRANSMEC INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "PRANESH KULKARNI",
@@ -10827,12 +13921,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pkulkarni@transmec.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0834",
+    "id": "jfll-inact-1072",
     "fullName": "ONEGLOBE LOGISTICS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. MONIKA",
@@ -10840,12 +13934,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs@ogairexpress.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0835",
+    "id": "jfll-inact-1073",
     "fullName": "MERGE GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rajan B  Patne",
@@ -10853,12 +13947,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rajan@mergeglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0836",
+    "id": "jfll-inact-1074",
     "fullName": "NTL LOGISTICS (INDIA) PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "LOKESH KUMAR SHARMA",
@@ -10866,12 +13960,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "lokesh.sharma@ntllogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0837",
+    "id": "jfll-inact-1075",
     "fullName": "INDO CHEMICALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jaswinder  Singhk",
@@ -10879,12 +13973,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "indocal1981@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0838",
+    "id": "jfll-inact-1076",
     "fullName": "HEXAGON METROLOGY INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Kailash  Singh Bajetha",
@@ -10892,12 +13986,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kailashsingh.bajetha-ext@hexagon.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0839",
+    "id": "jfll-inact-1077",
     "fullName": "GSI LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HARLEEN KAUR",
@@ -10905,12 +13999,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "imports@gsicargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0840",
+    "id": "jfll-inact-1078",
     "fullName": "FARTHEST LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MS..PREETI  DUBEY",
@@ -10918,12 +14012,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@farthestlogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0841",
+    "id": "jfll-inact-1079",
     "fullName": "AARGUS GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rakesh  Sharma",
@@ -10931,12 +14025,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "delacts2@aargusglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0842",
+    "id": "jfll-inact-1080",
     "fullName": "SYNTHITE INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SAJI T.V",
@@ -10944,12 +14038,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sajitv@synthite.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0843",
+    "id": "jfll-inact-1081",
     "fullName": "OSCAR FISHERIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "FAIZAL RAHMAN",
@@ -10957,12 +14051,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "faizalrahman@oscarft.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0844",
+    "id": "jfll-inact-1082",
     "fullName": "DENTCARE DENTAL LAB PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Preeja  Gheevargheese",
@@ -10970,38 +14064,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "tony@dentcaredental.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0845",
+    "id": "jfll-inact-1083",
     "fullName": "ANAPPADIKKAL TRADING COMPANY PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "ANAPPADIKKAL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "ararun.rrs11@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0846",
+    "id": "jfll-inact-1084",
     "fullName": "SSK SMART MOVE LOGISITCS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "SSK SMART",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@ssksmartmove.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0847",
+    "id": "jfll-inact-1085",
+    "fullName": "SEA HAWK LINES PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SNEHA  SALIAN",
+    "mobileNumber": "+91-02240067103",
+    "email": "exdocmum@shal.asia",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1086",
     "fullName": "ROUND TRANS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mrs. Lakshmi Rekha",
@@ -11009,12 +14116,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "lakshmi@roundtrans.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0848",
+    "id": "jfll-inact-1087",
     "fullName": "MEENAKSHI LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "PRASAD  JITEN",
@@ -11027,7 +14134,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0849",
+    "id": "jfll-inact-1088",
     "fullName": "MSN CONTAINER LINE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "LEKHA",
@@ -11035,12 +14142,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "lekha.l@msncl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0850",
+    "id": "jfll-inact-1089",
     "fullName": "KRONOS LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. Roshith",
@@ -11048,12 +14155,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "roshithms@kronoslogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0851",
+    "id": "jfll-inact-1090",
     "fullName": "HERALD WLS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ms. Joice",
@@ -11061,12 +14168,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs2@heraldwls.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0852",
+    "id": "jfll-inact-1091",
     "fullName": "E PORT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Asheesh",
@@ -11074,12 +14181,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mundragen@eport.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0853",
+    "id": "jfll-inact-1092",
     "fullName": "AEROTRANS GLOBAL FORWARDING INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Satish",
@@ -11087,12 +14194,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0854",
+    "id": "jfll-inact-1093",
     "fullName": "SAI FERTILIZERS & PHOSPHATES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. SANJEEV",
@@ -11100,12 +14207,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "debajyotigope@foglacorp.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0855",
+    "id": "jfll-inact-1094",
     "fullName": "PEEKAY PETROCHEM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rikesh  Jain",
@@ -11113,12 +14220,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rikesh.jain@peekay.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0856",
+    "id": "jfll-inact-1095",
     "fullName": "NISSIN ABC LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr.Ramanand  Sagar",
@@ -11126,12 +14233,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ramanand@nall.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0857",
+    "id": "jfll-inact-1096",
     "fullName": "J B INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. SUSHIL",
@@ -11144,7 +14251,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0858",
+    "id": "jfll-inact-1097",
     "fullName": "GAMEPLAN SPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. PREM",
@@ -11152,12 +14259,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "prem@gameplan.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0859",
+    "id": "jfll-inact-1098",
     "fullName": "FARSANA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Farhan",
@@ -11170,7 +14277,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0860",
+    "id": "jfll-inact-1099",
     "fullName": "EQUITABLE MARKETING ASSOCIATION",
     "territory": "All Territories",
     "contactPersonName": "Mr. Kamal MONDAL",
@@ -11183,7 +14290,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0861",
+    "id": "jfll-inact-1100",
     "fullName": "NARA SKOODLE (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. SHOBHIT",
@@ -11191,12 +14298,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "fma@naraskoodle.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1101",
+    "fullName": "GRANDEUR MED EXIM",
+    "territory": "All Territories",
+    "contactPersonName": "Prince  Shah",
+    "mobileNumber": "+91-9879611475",
+    "email": "info@gmexim.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0862",
+    "id": "jfll-inact-1102",
     "fullName": "DB EXIM",
     "territory": "All Territories",
     "contactPersonName": "Sumeet  Bilimoria",
@@ -11209,33 +14329,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0863",
+    "id": "jfll-inact-1103",
     "fullName": "CARITAS HEALTHCARE PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "CARITAS",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "finance@caritashealthcare.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0864",
+    "id": "jfll-inact-1104",
     "fullName": "ASENCE PHARMA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "SACHIN  SHAH",
     "mobileNumber": "+91-9909911972",
     "email": "sshah@asence.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0865",
+    "id": "jfll-inact-1105",
     "fullName": "ANSHAT SWIFT TRANSPORTATION LLP",
     "territory": "All Territories",
     "contactPersonName": "Deepak  Singh",
@@ -11243,12 +14363,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "deepak@anshat.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0866",
+    "id": "jfll-inact-1106",
     "fullName": "TIMO EVA WELLNESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KOVINA",
@@ -11256,25 +14376,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "koveena07@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0867",
+    "id": "jfll-inact-1107",
     "fullName": "TRANSPEED LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "ANSON",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@transpeedlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0868",
+    "id": "jfll-inact-1108",
     "fullName": "SPARX SHIPPING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAVI PATEL",
@@ -11282,12 +14402,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ravi.patel@sparxlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0869",
+    "id": "jfll-inact-1109",
     "fullName": "SHARP GLOBAL FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Praveen",
@@ -11295,12 +14415,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "csblr@sharpglobalfreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0870",
+    "id": "jfll-inact-1110",
     "fullName": "PANMODAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Edwin  Christopher",
@@ -11308,42 +14428,42 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "edwin@panmodallogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0871",
+    "id": "jfll-inact-1111",
     "fullName": "MELSTAR MANUFACTURING SYSTEMS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Accounts Melstar",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@melstarmanufacturing.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0872",
+    "id": "jfll-inact-1112",
     "fullName": "MIRACLE ELECTRONIC DEVICES PVT LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sathya  narayan",
     "mobileNumber": "+91-080-28362732",
     "email": "accounts@miracle.net.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0873",
+    "id": "jfll-inact-1113",
     "fullName": "IWIN ELECTRONICS",
     "territory": "All Territories",
     "contactPersonName": "BAPAT MANJUNATH  SOUMYA",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "sunil.s@iwinelectronics.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
@@ -11352,7 +14472,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0874",
+    "id": "jfll-inact-1114",
     "fullName": "GKB HI TECH LENSES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR.YESHWANT",
@@ -11360,12 +14480,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0875",
+    "id": "jfll-inact-1115",
     "fullName": "FFAF LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. DOIJODEPREMCHAND",
@@ -11373,12 +14493,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "anil.kumar@flyingfresh.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0876",
+    "id": "jfll-inact-1116",
     "fullName": "EXPLUS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ARIVAZHAGAN R",
@@ -11386,12 +14506,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "arivu@expluslogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0877",
+    "id": "jfll-inact-1117",
     "fullName": "ARCENE SUPPLY SERVICES LLP",
     "territory": "All Territories",
     "contactPersonName": "Pramod M G",
@@ -11399,12 +14519,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@arcenesupply.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0878",
+    "id": "jfll-inact-1118",
     "fullName": "RANDEEP PAPER BOARD MILLS",
     "territory": "All Territories",
     "contactPersonName": "HARMAN",
@@ -11417,7 +14537,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0879",
+    "id": "jfll-inact-1119",
     "fullName": "NABROS PHARMA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KAVIT  SHAH",
@@ -11425,12 +14545,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kavit.shah@nabros.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0880",
+    "id": "jfll-inact-1120",
     "fullName": "KEWIN CHEMICALS P LTD",
     "territory": "All Territories",
     "contactPersonName": "MITESH  SHAH",
@@ -11438,25 +14558,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "miteshshah@kewinchem.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0881",
+    "id": "jfll-inact-1121",
     "fullName": "KEVIN PROCESS TECHNOLOGIES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "MR PINAKI",
     "mobileNumber": "+91-9727794700",
     "email": "pinakin.bhavsar@kevin.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0882",
+    "id": "jfll-inact-1122",
     "fullName": "HARSHLAXMI CHEMISOLV PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "POOJAN KOTHARI",
@@ -11464,12 +14584,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "p.kothari@harshlaxmichemsolv.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0883",
+    "id": "jfll-inact-1123",
     "fullName": "CRYSTALLINE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KEYA SHARMA",
@@ -11477,12 +14597,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "keya@crystallinelogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0884",
+    "id": "jfll-inact-1124",
     "fullName": "CHIPS EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tushar Bhikhabhai  Patel",
@@ -11490,12 +14610,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "chipsamd@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0885",
+    "id": "jfll-inact-1125",
     "fullName": "CLASSIC SHIPPING AGENCY",
     "territory": "All Territories",
     "contactPersonName": "Chirag",
@@ -11503,12 +14623,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "demoship2022@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0886",
+    "id": "jfll-inact-1126",
     "fullName": "DISHMAN CARGOGEN AMCIS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MANOJ",
@@ -11516,12 +14636,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manoj@dishmangroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0887",
+    "id": "jfll-inact-1127",
     "fullName": "CADILA PHARMACEUTICAL LTD",
     "territory": "All Territories",
     "contactPersonName": "KRUNAL",
@@ -11529,12 +14649,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "krunal.rajput@cadilapharma.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0888",
+    "id": "jfll-inact-1128",
     "fullName": "AIRBLUE SHIPPING PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "MINAXI",
@@ -11542,12 +14662,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "account@airblueshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0889",
+    "id": "jfll-inact-1129",
     "fullName": "ANEETA TECHNOPACK PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Parthesh",
@@ -11555,12 +14675,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exports@aneetaindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0890",
+    "id": "jfll-inact-1130",
     "fullName": "SKR SUPPLY CHAIN MANAGEMENT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kavitha",
@@ -11568,12 +14688,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kavitha@skrsupplychain.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0891",
+    "id": "jfll-inact-1131",
+    "fullName": "BUFFER FREIGHT (INDIA) LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "rajesh",
+    "mobileNumber": "+91-9004071139",
+    "email": "rajesh@buffergroup.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1132",
     "fullName": "INTERNATIONAL EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "Mahesh",
@@ -11586,7 +14719,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0892",
+    "id": "jfll-inact-1133",
     "fullName": "KOSTAL INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "KULDEEP",
@@ -11599,7 +14732,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0893",
+    "id": "jfll-inact-1134",
     "fullName": "SREE POORVI VINAYAKA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Krishnamurthy",
@@ -11607,12 +14740,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1135",
+    "fullName": "BORJAN LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "BHAGESH  PALEKAR",
+    "mobileNumber": "+91-7208666397",
+    "email": "ops@borjanlogistics.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0894",
+    "id": "jfll-inact-1136",
     "fullName": "OMSHIVA GLOBAL SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "XAVIER JOHN  FURTADO",
@@ -11620,12 +14766,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@shivaglobal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0895",
+    "id": "jfll-inact-1137",
     "fullName": "AVALON TECHNOLOGY AND SERVICES PVT LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SUMAN.R",
@@ -11633,12 +14779,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "impex@avalontec.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0896",
+    "id": "jfll-inact-1138",
     "fullName": "ZPD SOLUTIONS LLP",
     "territory": "All Territories",
     "contactPersonName": "Piyush  Bahri",
@@ -11646,12 +14792,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "piyush@xpressbuddy.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0897",
+    "id": "jfll-inact-1139",
     "fullName": "SHIBAM ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "Mr PRASUN",
@@ -11664,7 +14810,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0898",
+    "id": "jfll-inact-1140",
     "fullName": "SHARP INDIA .",
     "territory": "All Territories",
     "contactPersonName": "Mr.Soumangshu Prakash  Mukherjee",
@@ -11677,7 +14823,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0899",
+    "id": "jfll-inact-1141",
     "fullName": "SMART TECHNOLOGIES",
     "territory": "All Territories",
     "contactPersonName": "Mr. ARVIND",
@@ -11690,7 +14836,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0900",
+    "id": "jfll-inact-1142",
     "fullName": "DURGA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Kiran",
@@ -11703,7 +14849,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0901",
+    "id": "jfll-inact-1143",
     "fullName": "TKS EXPORT",
     "territory": "All Territories",
     "contactPersonName": "UMMER",
@@ -11716,7 +14862,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0902",
+    "id": "jfll-inact-1144",
     "fullName": "RISHABH LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "VIRALBHAI",
@@ -11729,7 +14875,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0903",
+    "id": "jfll-inact-1145",
     "fullName": "SB ENTERPRISES.",
     "territory": "All Territories",
     "contactPersonName": "Sanjay  Bandivdekar",
@@ -11737,12 +14883,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "parvati1980@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0904",
+    "id": "jfll-inact-1146",
     "fullName": "MAVEN INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. DEEPENDRA  SINGH",
@@ -11755,7 +14901,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0905",
+    "id": "jfll-inact-1147",
     "fullName": "TEAMMATE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "SAGAR  PATEL",
@@ -11768,7 +14914,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0906",
+    "id": "jfll-inact-1148",
     "fullName": "B4 VEG AND FRUITS EXPORTERS",
     "territory": "All Territories",
     "contactPersonName": "SHAMEER",
@@ -11781,7 +14927,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0907",
+    "id": "jfll-inact-1149",
     "fullName": "SD CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "DEEPAK MORE",
@@ -11789,12 +14935,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "deepak.more@sdcargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0908",
+    "id": "jfll-inact-1150",
     "fullName": "CALCUTTA AIR & SEA",
     "territory": "All Territories",
     "contactPersonName": "BISWANATH GHOSH",
@@ -11807,7 +14953,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0909",
+    "id": "jfll-inact-1151",
     "fullName": "KKR ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Mrs. KRISHNAVENI SARAVANAN",
@@ -11815,12 +14961,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0910",
+    "id": "jfll-inact-1152",
     "fullName": "GSR FREIGHT INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "ARIF  AKBAR",
@@ -11833,7 +14979,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0911",
+    "id": "jfll-inact-1153",
     "fullName": "HAVISH FOODS",
     "territory": "All Territories",
     "contactPersonName": "MS. BHAVANI",
@@ -11846,7 +14992,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0912",
+    "id": "jfll-inact-1154",
     "fullName": "OFB TECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Asish  Mohapatr",
@@ -11854,12 +15000,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0913",
+    "id": "jfll-inact-1155",
     "fullName": "DG FREIGHT SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Krishnendu  DuttaGupta",
@@ -11872,20 +15018,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0914",
+    "id": "jfll-inact-1156",
     "fullName": "GAINWELL COMMOSALES PRIVATE LIMITED .",
     "territory": "All Territories",
     "contactPersonName": "SOUMYAJIT GUPTA",
     "mobileNumber": "+91-9830495336",
     "email": "soumyajit@gainwellindia.com",
     "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": false
+    "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0915",
+    "id": "jfll-inact-1157",
     "fullName": "M T LOGISTICS CARE .",
     "territory": "All Territories",
     "contactPersonName": "TARAK NATH GHOSH",
@@ -11898,7 +15044,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0916",
+    "id": "jfll-inact-1158",
     "fullName": "SAI LOGISTICS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Shivakumar",
@@ -11911,7 +15057,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0917",
+    "id": "jfll-inact-1159",
     "fullName": "LOGISBER FORWARDING DO BRASIL LTDA.",
     "territory": "All Territories",
     "contactPersonName": "DANIEL  CASTELLON",
@@ -11919,12 +15065,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "d.castellon@logisber.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0918",
+    "id": "jfll-inact-1160",
     "fullName": "STAR RICE LAND PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SANDEEP CHHABRA",
@@ -11932,12 +15078,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exports@starriceland.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0919",
+    "id": "jfll-inact-1161",
     "fullName": "SMART GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "SHELEF",
@@ -11950,7 +15096,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0920",
+    "id": "jfll-inact-1162",
     "fullName": "BLUE WING GLOBAL FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jitendra Laxmi Narayan  Trigunayat",
@@ -11958,12 +15104,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jitendra.bluewingglobal@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0921",
+    "id": "jfll-inact-1163",
     "fullName": "KERRY INDEV LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "DIKESH",
@@ -11971,12 +15117,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dikesh.patel@kerryindev.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0922",
+    "id": "jfll-inact-1164",
     "fullName": "DORMAKABA INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. SESHU  MADHAV",
@@ -11984,12 +15130,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "seshumadhav.mella@dormakaba.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0923",
+    "id": "jfll-inact-1165",
     "fullName": "M/S. AVALON TECHNOLOGIES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. SUMON",
@@ -11997,12 +15143,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exim@avalontec.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0924",
+    "id": "jfll-inact-1166",
     "fullName": "VISHT AGRO INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "MUKESH",
@@ -12015,7 +15161,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0925",
+    "id": "jfll-inact-1167",
     "fullName": "IPG PHOTONICS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashok KUMAR",
@@ -12023,12 +15169,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "akumar@ipgphotonics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0926",
+    "id": "jfll-inact-1168",
     "fullName": "MAHINDRA AGRI SOLUTIONS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Madhura Karalkar",
@@ -12036,25 +15182,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "karalkar.madhura@mahindra.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0927",
+    "id": "jfll-inact-1169",
     "fullName": "TOPPER & ROUTER LOGISTICS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "gyanender jayant",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accountdesk.de@gamil.co",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0928",
+    "id": "jfll-inact-1170",
     "fullName": "TOPPER & ROUTER LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Gyanender Jayant",
@@ -12062,12 +15208,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accountdesk.del05@topper-router.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0929",
+    "id": "jfll-inact-1171",
     "fullName": "IMPERIAL PARCEL SERVICE",
     "territory": "All Territories",
     "contactPersonName": "SALAM KHAN",
@@ -12080,7 +15226,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0930",
+    "id": "jfll-inact-1172",
     "fullName": "NAUTICAL LINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Hema",
@@ -12088,12 +15234,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hema@nauticallines.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0931",
+    "id": "jfll-inact-1173",
     "fullName": "JAI DURGA CARGO SERVICES",
     "territory": "All Territories",
     "contactPersonName": "vijay pal SINGH",
@@ -12106,7 +15252,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0932",
+    "id": "jfll-inact-1174",
     "fullName": "SIMRAN INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "SUDHIR K BHOSALE",
@@ -12119,7 +15265,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0933",
+    "id": "jfll-inact-1175",
     "fullName": "RIBBON LOGISTICS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Salil Shrivastava",
@@ -12127,12 +15273,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "salil@ribbonlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0934",
+    "id": "jfll-inact-1176",
     "fullName": "SWISS INTERNATIONAL & CARGO INC",
     "territory": "All Territories",
     "contactPersonName": "FURQUAN  KHAN",
@@ -12145,7 +15291,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0935",
+    "id": "jfll-inact-1177",
     "fullName": "LP (INDIA) LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "rachel",
@@ -12153,12 +15299,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rachel.f@liladharpasoo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0936",
+    "id": "jfll-inact-1178",
     "fullName": "M/S HANS METALS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "aksyhya",
@@ -12166,12 +15312,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "akshay@hidemen.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0937",
+    "id": "jfll-inact-1179",
     "fullName": "SAIMAA INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "NITIN  KINRA",
@@ -12184,7 +15330,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0938",
+    "id": "jfll-inact-1180",
     "fullName": "SAI MAX LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "MS SHUBHI GARG",
@@ -12197,7 +15343,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0939",
+    "id": "jfll-inact-1181",
     "fullName": "NEW BHARAT IMPEX",
     "territory": "All Territories",
     "contactPersonName": "PRADEEP",
@@ -12210,7 +15356,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0940",
+    "id": "jfll-inact-1182",
     "fullName": "SARAS CARGO SERVICES",
     "territory": "All Territories",
     "contactPersonName": "RASHID",
@@ -12223,7 +15369,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0941",
+    "id": "jfll-inact-1183",
     "fullName": "KASHTI TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Maruka",
@@ -12231,12 +15377,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jaipurkashti@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0942",
+    "id": "jfll-inact-1184",
     "fullName": "ASHWATH TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "sanjay",
@@ -12244,12 +15390,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashwath@ashwathtech.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0943",
+    "id": "jfll-inact-1185",
     "fullName": "OM TRANS LOGISTICS LTD",
     "territory": "All Territories",
     "contactPersonName": "Yogesh  Yadav",
@@ -12257,12 +15403,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs.wca@omtrans.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0944",
+    "id": "jfll-inact-1186",
     "fullName": "JAI GURUDEV LOGISTICS & TRANSPORT",
     "territory": "All Territories",
     "contactPersonName": "MAMATHA SUDHAKAR  SHETTY",
@@ -12275,7 +15421,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0945",
+    "id": "jfll-inact-1187",
     "fullName": "PAREKH INTEGRATED SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chitra  Kotian",
@@ -12283,12 +15429,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "chitra.kotian@pispl.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0946",
+    "id": "jfll-inact-1188",
     "fullName": "RAM ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Ram",
@@ -12296,12 +15442,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0947",
+    "id": "jfll-inact-1189",
     "fullName": "SRIRAM ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Santosh  Gokulka",
@@ -12309,38 +15455,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gokulka@hotmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0948",
+    "id": "jfll-inact-1190",
     "fullName": "APOTECA PHARMA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Chitra",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "chitrabmsharma@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0949",
+    "id": "jfll-inact-1191",
     "fullName": "RUBAMIN PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Paras Solanki",
     "mobileNumber": "+91-9099082769",
     "email": "paras.solanki@rubamin.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0950",
+    "id": "jfll-inact-1192",
     "fullName": "C M G WORLDWIDE",
     "territory": "All Territories",
     "contactPersonName": "JAYPARKASH",
@@ -12353,7 +15499,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0951",
+    "id": "jfll-inact-1193",
     "fullName": "AGRIGOLD INCORPORATION INDIA",
     "territory": "All Territories",
     "contactPersonName": "Anshuman",
@@ -12366,7 +15512,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0952",
+    "id": "jfll-inact-1194",
     "fullName": "MARINELORD LOGISTICS AND SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VIPIN ARVINDRAO  DESHMUKH",
@@ -12374,12 +15520,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bhavya@marinelord.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0953",
+    "id": "jfll-inact-1195",
     "fullName": "SKY CARE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Nilesh  Vyas",
@@ -12392,7 +15538,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0954",
+    "id": "jfll-inact-1196",
     "fullName": "REENA TRADERS AND EXPORTERS",
     "territory": "All Territories",
     "contactPersonName": "BHOOMIKA",
@@ -12400,12 +15546,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0955",
+    "id": "jfll-inact-1197",
     "fullName": "ALLANA CONSUMER PRODUCTS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Neha  Naik",
@@ -12413,12 +15559,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nnaik@allana.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0956",
+    "id": "jfll-inact-1198",
     "fullName": "FERROTECH STRUCTURALS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suraj  Shinde",
@@ -12426,12 +15572,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "uthaman@ferrotechindia.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0957",
+    "id": "jfll-inact-1199",
     "fullName": "AADYANT GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AASHISH",
@@ -12439,12 +15585,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashish@aadyantgloballogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0958",
+    "id": "jfll-inact-1200",
     "fullName": "GLOBAL CARGO MOVERS",
     "territory": "All Territories",
     "contactPersonName": "shalu",
@@ -12457,7 +15603,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0959",
+    "id": "jfll-inact-1201",
     "fullName": "RASHMI GREEN HYDROGEN STEEL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RASHMI",
@@ -12465,12 +15611,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0960",
+    "id": "jfll-inact-1202",
     "fullName": "EQUINOX LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mrs. Leena  Gotad",
@@ -12478,12 +15624,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "leena@equinoxlogistixs.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0961",
+    "id": "jfll-inact-1203",
     "fullName": "LN VASUKI ENTERPRISES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Revanashiddeshwar",
@@ -12491,16 +15637,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@lnvasuki.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0962",
+    "id": "jfll-inact-1204",
     "fullName": "RP LOGISTICS AND EXIM",
     "territory": "All Territories",
     "contactPersonName": "RP LOGISTICS",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "info@rplogisticsexim.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -12509,7 +15655,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0963",
+    "id": "jfll-inact-1205",
     "fullName": "MAARG LOGISTICS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "VIMAL",
@@ -12522,7 +15668,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0964",
+    "id": "jfll-inact-1206",
     "fullName": "SUNGOLD TRADE (P) LTD.",
     "territory": "All Territories",
     "contactPersonName": "Sana  Khan",
@@ -12530,12 +15676,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "docs@sungoldtrade.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0965",
+    "id": "jfll-inact-1207",
     "fullName": "SEA GOLD LOGISTICS PTE. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Meenakshi",
@@ -12543,12 +15689,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "meenakshi@seagoldlog.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0966",
+    "id": "jfll-inact-1208",
     "fullName": "BRUHAT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASEEM  KHADE",
@@ -12556,12 +15702,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mumbai.pricing@bruhat.co",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0967",
+    "id": "jfll-inact-1209",
     "fullName": "PERFECT TRADE SOLUTION",
     "territory": "All Territories",
     "contactPersonName": "MURTAZA ALI",
@@ -12574,7 +15720,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0968",
+    "id": "jfll-inact-1210",
     "fullName": "M/S D.P.GARG EXPORTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "prakash sharma",
@@ -12582,25 +15728,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "depg.noida@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0969",
+    "id": "jfll-inact-1211",
     "fullName": "I-CHESS-CHEMICALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tejal  Shah",
     "mobileNumber": "+91-8983323083",
     "email": "logistics@i-chess.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0970",
+    "id": "jfll-inact-1212",
     "fullName": "KRISH INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. Himant Chavda",
@@ -12613,7 +15759,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0971",
+    "id": "jfll-inact-1213",
     "fullName": "LOTUS TECHNICALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rekha  Ambal",
@@ -12621,12 +15767,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rekha.ambal@lotustechnicals.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0972",
+    "id": "jfll-inact-1214",
     "fullName": "BIRLA AIRCON",
     "territory": "All Territories",
     "contactPersonName": "MANOJ KUMAR",
@@ -12639,7 +15785,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0973",
+    "id": "jfll-inact-1215",
     "fullName": "CHARGEN LIFE SCIENCE LLP",
     "territory": "All Territories",
     "contactPersonName": "Jayesh",
@@ -12647,12 +15793,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "admin@chargen.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0974",
+    "id": "jfll-inact-1216",
+    "fullName": "SUNRACK TECHNOLOGIES LLP",
+    "territory": "All Territories",
+    "contactPersonName": "ANIL Rathod",
+    "mobileNumber": "+91-9820008769",
+    "email": "anil@gratefix.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-1217",
     "fullName": "CATERLAND HOSPITALITY LTD",
     "territory": "All Territories",
     "contactPersonName": "SHAMBODEB LAHIRI",
@@ -12660,12 +15819,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "theknathj@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0975",
+    "id": "jfll-inact-1218",
     "fullName": "GOODWINGS MARITIME PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHIV KUMAR",
@@ -12673,12 +15832,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0976",
+    "id": "jfll-inact-1219",
     "fullName": "RAJ LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Shailender",
@@ -12691,7 +15850,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0977",
+    "id": "jfll-inact-1220",
     "fullName": "MARINE MERCANTILE INDIA",
     "territory": "All Territories",
     "contactPersonName": "DISHANT",
@@ -12704,7 +15863,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0978",
+    "id": "jfll-inact-1221",
     "fullName": "GTECH BIPOLAR INDUCTIONS",
     "territory": "All Territories",
     "contactPersonName": "priya",
@@ -12717,20 +15876,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0979",
+    "id": "jfll-inact-1222",
     "fullName": "INDUCTOTHERM (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VIJAYAN",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "vijayan@inductothermindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0980",
+    "id": "jfll-inact-1223",
     "fullName": "M/S GARG INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Thomas K K",
@@ -12743,20 +15902,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0981",
+    "id": "jfll-inact-1224",
     "fullName": "POSSE TRADE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SWAMI NATH MISHRA",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "possetrade@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0982",
+    "id": "jfll-inact-1225",
     "fullName": "DYNAMIC SHIPPING AND FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pratik  Gohel",
@@ -12764,12 +15923,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pratik.gohel@dyanamicfreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0983",
+    "id": "jfll-inact-1226",
     "fullName": "CITINETWORK LOGISTIC PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VIKAS ADATE",
@@ -12777,12 +15936,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vikas@citinetwork.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0984",
+    "id": "jfll-inact-1227",
     "fullName": "AFRICA GREEN MOBILITY SOLUTIONS RWANDA LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arun Kumar  Bhandari",
@@ -12790,12 +15949,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "arunkumarbhandari@mautoafrica.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0985",
+    "id": "jfll-inact-1228",
     "fullName": "SHRI BALAJI IMPEX",
     "territory": "All Territories",
     "contactPersonName": "ashwini kumar",
@@ -12808,7 +15967,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0986",
+    "id": "jfll-inact-1229",
     "fullName": "COUNTRY CARGO",
     "territory": "All Territories",
     "contactPersonName": "seema",
@@ -12821,7 +15980,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0987",
+    "id": "jfll-inact-1230",
     "fullName": "HENKO LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KIRAN",
@@ -12829,12 +15988,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@henkologistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0988",
+    "id": "jfll-inact-1231",
     "fullName": "D.B.LOGISTICS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "VAISHALI PATIL",
@@ -12847,7 +16006,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0989",
+    "id": "jfll-inact-1232",
     "fullName": "AADITYA SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Tushar  Satkalmi",
@@ -12860,7 +16019,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0990",
+    "id": "jfll-inact-1233",
+    "fullName": "A-1 OVERSEAS",
+    "territory": "All Territories",
+    "contactPersonName": "VAIBHAV AROTE",
+    "mobileNumber": "+91-9588438994",
+    "email": "a1a.overseas@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1234",
     "fullName": "TEAMWINGS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sheetal Chavan",
@@ -12868,12 +16040,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs@twlbharat.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0991",
+    "id": "jfll-inact-1235",
     "fullName": "SHRI CHANDRA GLOBAL EXIM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAHUL  TARE",
@@ -12881,12 +16053,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rahul.tare@shrichandraglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0992",
+    "id": "jfll-inact-1236",
     "fullName": "AKSHAR AGRI EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Kartik Sakhiya",
@@ -12899,7 +16071,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0993",
+    "id": "jfll-inact-1237",
     "fullName": "CRYSTAL LOGISTICS SERVICES LLC",
     "territory": "All Territories",
     "contactPersonName": "Austin  Gama",
@@ -12912,7 +16084,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0994",
+    "id": "jfll-inact-1238",
     "fullName": "KRISH AIR LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mr. ASHOK MATKAR",
@@ -12925,7 +16097,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0995",
+    "id": "jfll-inact-1239",
     "fullName": "PRAYAAS INTERNATIONAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Sumit  Sinha",
@@ -12938,7 +16110,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0996",
+    "id": "jfll-inact-1240",
     "fullName": "MORFIL EXPRESS SERVICES INC",
     "territory": "All Territories",
     "contactPersonName": "Uma",
@@ -12951,7 +16123,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0997",
+    "id": "jfll-inact-1241",
     "fullName": "MAHAJAN TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Mrs. Bhavika  Mahajan",
@@ -12959,12 +16131,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "come2ae@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-0998",
+    "id": "jfll-inact-1242",
     "fullName": "SK-ANNU EXPORTS LLP",
     "territory": "All Territories",
     "contactPersonName": "SURESH  PATEL",
@@ -12972,12 +16144,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "skannuexports@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-0999",
+    "id": "jfll-inact-1243",
+    "fullName": "LEO GLOBAL TRADERS LTD.",
+    "territory": "All Territories",
+    "contactPersonName": "Shiva",
+    "mobileNumber": "+91-044 7767114560",
+    "email": "leogrocerymart@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1244",
     "fullName": "JAI MA FREIGHT AND FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anil  Kumar",
@@ -12985,12 +16170,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "anil.kumar@jaimalogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1000",
+    "id": "jfll-inact-1245",
     "fullName": "TAPVISH GLOBAL LOGISTICS SOLUTION",
     "territory": "All Territories",
     "contactPersonName": "RONAK",
@@ -13003,7 +16188,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1001",
+    "id": "jfll-inact-1246",
     "fullName": "AFFINITY LOGISTICS & PLANNERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AMIT  KUMAR",
@@ -13011,12 +16196,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "amit.cargosales@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1002",
+    "id": "jfll-inact-1247",
     "fullName": "Z EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "SHAMEEM  VAZHAYIL",
@@ -13029,7 +16214,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1003",
+    "id": "jfll-inact-1248",
     "fullName": "ROSHANI AGRO FARMER PRODUCER COMPANY LIMITED",
     "territory": "All Territories",
     "contactPersonName": "sanjay rajpurohit",
@@ -13037,12 +16222,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rahul@roshaniagro.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1004",
+    "id": "jfll-inact-1249",
     "fullName": "WATSON LOGISTICS PRIAVTE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Yash Dubey",
@@ -13050,12 +16235,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "yash@watson-logistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1005",
+    "id": "jfll-inact-1250",
     "fullName": "CANDID FRESH",
     "territory": "All Territories",
     "contactPersonName": "HIRISHIKESH KISHOR BARADKAR",
@@ -13068,7 +16253,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1006",
+    "id": "jfll-inact-1251",
     "fullName": "BLUE FIN FROZEN FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jidnyasa",
@@ -13076,12 +16261,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bluefindocuments@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1007",
+    "id": "jfll-inact-1252",
     "fullName": "SLS EXPORT (P)LTD.",
     "territory": "All Territories",
     "contactPersonName": "HARi SLS",
@@ -13089,12 +16274,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "slsexportsindia@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1008",
+    "id": "jfll-inact-1253",
     "fullName": "D B Cargo & Logistics",
     "territory": "All Territories",
     "contactPersonName": "RAMAN  KUMAR",
@@ -13107,7 +16292,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1009",
+    "id": "jfll-inact-1254",
     "fullName": "MCS LOGISTICS INDIA PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "BHAGYA",
@@ -13115,12 +16300,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bhagya.g@multiconlines.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1010",
+    "id": "jfll-inact-1255",
     "fullName": "KAUSHA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "JAY  PATEL",
@@ -13133,7 +16318,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1011",
+    "id": "jfll-inact-1256",
     "fullName": "SHREYA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "RAKESH KUMAR  SHARMA",
@@ -13146,7 +16331,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1012",
+    "id": "jfll-inact-1257",
     "fullName": "MEDITERRANEO FREIGHT INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Khanna Parmesh",
@@ -13154,12 +16339,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "finance@mediterraneo-global.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1013",
+    "id": "jfll-inact-1258",
     "fullName": "V ENTIRE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "GIRISH  SENMA",
@@ -13172,7 +16357,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1014",
+    "id": "jfll-inact-1259",
     "fullName": "JAYKAY EXPORTS & IMPORTS",
     "territory": "All Territories",
     "contactPersonName": "Jamuna Kulkarni",
@@ -13185,7 +16370,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1015",
+    "id": "jfll-inact-1260",
     "fullName": "GLOBAL ENTERPRISES.",
     "territory": "All Territories",
     "contactPersonName": "RAMI REDDY",
@@ -13193,12 +16378,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "globalentps.tnk@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1016",
+    "id": "jfll-inact-1261",
     "fullName": "SAINX IMPORT EXPORT AND CARGO SERVICES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "PRASHANT  BHAGAT",
@@ -13206,12 +16391,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sainxiec@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1017",
+    "id": "jfll-inact-1262",
     "fullName": "PREMIER EXPORTS INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "ABDULLA SALIM KARIPURATH",
@@ -13224,7 +16409,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1018",
+    "id": "jfll-inact-1263",
+    "fullName": "MOL LOGISTICS (INDIA) PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Ms.Sonali  Patil",
+    "mobileNumber": "+91-9004601021",
+    "email": "sonali.patil@molgroup.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1264",
+    "fullName": "DOLPHIN LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "MANDAR  PHADKE",
+    "mobileNumber": "+91-9920727271",
+    "email": "mandar@dolphinlogistics.net",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1265",
     "fullName": "SEABORNE MARITIME INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vilas Gorde",
@@ -13232,12 +16443,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vilas@seaborneindia.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1019",
+    "id": "jfll-inact-1266",
     "fullName": "ROZE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "MOHAN  DOBHAL",
@@ -13250,7 +16461,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1020",
+    "id": "jfll-inact-1267",
     "fullName": "SUNRISES LOGISTIC",
     "territory": "All Territories",
     "contactPersonName": "HARISH  SAWLANI",
@@ -13263,7 +16474,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1021",
+    "id": "jfll-inact-1268",
+    "fullName": "FINE FRESH PRODUCE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Sameer Sameer",
+    "mobileNumber": "+91-07720678228 / 07837007778",
+    "email": "info@finefreshproduce.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1269",
     "fullName": "KANAYASINGH & SONS",
     "territory": "All Territories",
     "contactPersonName": "Vanita",
@@ -13276,7 +16500,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1022",
+    "id": "jfll-inact-1270",
     "fullName": "KASHYAP CHATURVEDI.",
     "territory": "All Territories",
     "contactPersonName": "Manju  Kashyap",
@@ -13289,20 +16513,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1023",
+    "id": "jfll-inact-1271",
     "fullName": "SMALL HEATH MAS BAZAAR LIMITED",
     "territory": "All Territories",
     "contactPersonName": "jamal syed",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "jamalsyed77@yahoo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1024",
+    "id": "jfll-inact-1272",
     "fullName": "SHIVA SALES",
     "territory": "All Territories",
     "contactPersonName": "Umesh  Sharma",
@@ -13315,7 +16539,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1025",
+    "id": "jfll-inact-1273",
     "fullName": "POLAR LOGISTICS & HOSPITALITY",
     "territory": "All Territories",
     "contactPersonName": "SUDIN   CHOWDHARY",
@@ -13328,7 +16552,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1026",
+    "id": "jfll-inact-1274",
     "fullName": "EUSU LOGISTICS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Ravi",
@@ -13336,25 +16560,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ravi.v@eusu-logistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1027",
+    "id": "jfll-inact-1275",
     "fullName": "PGS GLOBAL FORWARDING (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KAMAL PREET SINGH",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "ind-kamalpreet@parisigs.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1028",
+    "id": "jfll-inact-1276",
     "fullName": "ATAM APPARELS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Keshav Kumar",
@@ -13362,12 +16586,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics.par@atampost.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1029",
+    "id": "jfll-inact-1277",
     "fullName": "EASTERN INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "DHRUV  KARANI",
@@ -13380,7 +16604,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1030",
+    "id": "jfll-inact-1278",
     "fullName": "CARGO CARE LOGISTICS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Mr SYEDABUBUCKER  RAFIUDEEN",
@@ -13393,7 +16617,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1031",
+    "id": "jfll-inact-1279",
     "fullName": "BLISSON MEDICA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KAILASH PATIL",
@@ -13401,12 +16625,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "distribution1@blisson.health",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1032",
+    "id": "jfll-inact-1280",
     "fullName": "ARATI ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "VIAJY  PANDEY",
@@ -13414,12 +16638,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aratienterprises14@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1033",
+    "id": "jfll-inact-1281",
     "fullName": "ELEPHAS EXIM",
     "territory": "All Territories",
     "contactPersonName": "Venkat",
@@ -13432,7 +16656,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1034",
+    "id": "jfll-inact-1282",
     "fullName": "WORLDWIDE AIR CARGO SERVICES",
     "territory": "All Territories",
     "contactPersonName": "VIJUKUMAR  RAJAMONI",
@@ -13445,7 +16669,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1035",
+    "id": "jfll-inact-1283",
     "fullName": "VENUS SEAAIR LOGISTIX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SURENDRA",
@@ -13453,12 +16677,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "surendra@venuslogistix.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1036",
+    "id": "jfll-inact-1284",
     "fullName": "RSPN EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "NAVEENKUMAR",
@@ -13471,7 +16695,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1037",
+    "id": "jfll-inact-1285",
     "fullName": "RSV AGRICOREASIA TRADING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashwini",
@@ -13479,12 +16703,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1038",
+    "id": "jfll-inact-1286",
     "fullName": "SHIPAL LINE INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suyog  Gurav",
@@ -13492,12 +16716,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "suyog.g@shipal.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1039",
+    "id": "jfll-inact-1287",
     "fullName": "SEAWAVES SHIPPING SOLUTION",
     "territory": "All Territories",
     "contactPersonName": "Sanoj  vishkarma",
@@ -13510,7 +16734,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1040",
+    "id": "jfll-inact-1288",
     "fullName": "KKRR IMPORTS AND EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kishore Kumar Reddy",
@@ -13518,12 +16742,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kishorbyreddy1@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1041",
+    "id": "jfll-inact-1289",
     "fullName": "SURYA SHIPPING & INNOVATIONS",
     "territory": "All Territories",
     "contactPersonName": "RAHUL NAYAK",
@@ -13536,7 +16760,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1042",
+    "id": "jfll-inact-1290",
     "fullName": "NATURE & CARE",
     "territory": "All Territories",
     "contactPersonName": "VAID",
@@ -13549,7 +16773,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1043",
+    "id": "jfll-inact-1291",
     "fullName": "IMPULSE AIR CARGO.",
     "territory": "All Territories",
     "contactPersonName": "RAMESH  CHANDRA",
@@ -13562,7 +16786,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1044",
+    "id": "jfll-inact-1292",
     "fullName": "JV LOGISTICS INDIA",
     "territory": "All Territories",
     "contactPersonName": "Vilas  Figar",
@@ -13575,7 +16799,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1045",
+    "id": "jfll-inact-1293",
     "fullName": "PHARMIX GMBH",
     "territory": "All Territories",
     "contactPersonName": "Mr Joe",
@@ -13588,7 +16812,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1046",
+    "id": "jfll-inact-1294",
+    "fullName": "LIMBACHIYA EXIM",
+    "territory": "All Territories",
+    "contactPersonName": "Vaishnav",
+    "mobileNumber": "+91-9727850894",
+    "email": "limbachiyaexim@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1295",
     "fullName": "M/S DR. NATURE",
     "territory": "All Territories",
     "contactPersonName": "Mr. Akram  Bhag",
@@ -13601,7 +16838,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1047",
+    "id": "jfll-inact-1296",
     "fullName": "ASHOK PUNCH ARTS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "ASHOKKUMAR PANDIYAN  YADAV",
@@ -13609,12 +16846,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "director@ashokpuncharts.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1048",
+    "id": "jfll-inact-1297",
     "fullName": "MORTEC MANUFACTURING CO",
     "territory": "All Territories",
     "contactPersonName": "ARVIND  JAIN",
@@ -13627,7 +16864,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1049",
+    "id": "jfll-inact-1298",
     "fullName": "ONFINITY TECHNOLOGIES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Robin",
@@ -13640,7 +16877,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1050",
+    "id": "jfll-inact-1299",
     "fullName": "STREAMLINE SHIPPING & LOGISTICS SERVICE (SLS)",
     "territory": "All Territories",
     "contactPersonName": "MALIK JOHN IMRAN",
@@ -13653,7 +16890,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1051",
+    "id": "jfll-inact-1300",
     "fullName": "ONLINE NETSYS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "BABITA PATEL",
@@ -13661,12 +16898,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "babita@onlinenetsys.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1052",
+    "id": "jfll-inact-1301",
     "fullName": "SPARK GLOBAL EXIM",
     "territory": "All Territories",
     "contactPersonName": "RK  Nair",
@@ -13679,7 +16916,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1053",
+    "id": "jfll-inact-1302",
     "fullName": "TRADEFORTE CONSULTANCY SERVICES",
     "territory": "All Territories",
     "contactPersonName": "JAVED AKHTAR  HUSSAIN",
@@ -13692,7 +16929,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1054",
+    "id": "jfll-inact-1303",
     "fullName": "EXPERT TRANS LOGISTIC",
     "territory": "All Territories",
     "contactPersonName": "SAGAR",
@@ -13705,7 +16942,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1055",
+    "id": "jfll-inact-1304",
     "fullName": "ASCUS INTERNATIONAL (S) PTE. LTD.",
     "territory": "All Territories",
     "contactPersonName": "RAKESH",
@@ -13713,12 +16950,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rakesh@biocell.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1056",
+    "id": "jfll-inact-1305",
     "fullName": "ATS CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAKESH  NIGAM",
@@ -13726,12 +16963,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rakesh@atscargo.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1057",
+    "id": "jfll-inact-1306",
     "fullName": "G P LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "PRADEEP  ANKUSH  BANDA",
@@ -13744,7 +16981,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1058",
+    "id": "jfll-inact-1307",
     "fullName": "AVG LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dharmendra  Malik",
@@ -13752,12 +16989,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pricing@avglogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1059",
+    "id": "jfll-inact-1308",
     "fullName": "TALALA GIR MANGO",
     "territory": "All Territories",
     "contactPersonName": "Vikram  Gaikwad",
@@ -13770,7 +17007,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1060",
+    "id": "jfll-inact-1309",
     "fullName": "ZERO ARTIFICIAL",
     "territory": "All Territories",
     "contactPersonName": "Nimi",
@@ -13783,20 +17020,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1061",
+    "id": "jfll-inact-1310",
     "fullName": "HYSON CONVENIENCE STORES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Maheesh  SharmA",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "thapleeyal@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1062",
+    "id": "jfll-inact-1311",
     "fullName": "HI LINE SHIPPING SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AGATHIYA",
@@ -13804,12 +17041,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nominations@hilineshipping.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1063",
+    "id": "jfll-inact-1312",
     "fullName": "EXCEL PLANT LINK PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ms Swati",
@@ -13817,12 +17054,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "swati2190@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1064",
+    "id": "jfll-inact-1313",
     "fullName": "COMBINED COURIER",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vipin Kumar  Sharma",
@@ -13835,7 +17072,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1065",
+    "id": "jfll-inact-1314",
     "fullName": "ATMOS CARE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shreyansh  Pathak",
@@ -13843,12 +17080,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shreyansh.pathak@quickshift.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1066",
+    "id": "jfll-inact-1315",
     "fullName": "AUSHN LIFE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vijay  mane",
@@ -13856,12 +17093,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vijay@aushnlife.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1067",
+    "id": "jfll-inact-1316",
     "fullName": "INCREDIBLEFREIGHT",
     "territory": "All Territories",
     "contactPersonName": "ATUL PANJIKAR",
@@ -13874,7 +17111,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1068",
+    "id": "jfll-inact-1317",
     "fullName": "M/s. Z.F. KASHMIRI DRY FRUITS",
     "territory": "All Territories",
     "contactPersonName": "Zahid Mushtaq  Beigh",
@@ -13887,11 +17124,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1069",
+    "id": "jfll-inact-1318",
     "fullName": "BLR Logistics",
     "territory": "All Territories",
     "contactPersonName": "Mukesh  Devnani",
-    "mobileNumber": null,
+    "mobileNumber": "+91-",
     "email": "mukesh@blrlogistiks.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -13900,7 +17137,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1070",
+    "id": "jfll-inact-1319",
     "fullName": "POWERMAXX LUBE INDIA.",
     "territory": "All Territories",
     "contactPersonName": "DHARMESH  RAMNIKLAL SANGHVI",
@@ -13913,7 +17150,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1071",
+    "id": "jfll-inact-1320",
+    "fullName": "ZIYAN IMPEX",
+    "territory": "All Territories",
+    "contactPersonName": "Sameer",
+    "mobileNumber": "+91-8928608614",
+    "email": "ziyanimpex@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-1321",
+    "fullName": "SUNRISE INDUSTRIES",
+    "territory": "All Territories",
+    "contactPersonName": "PANKAJ  BIRDI",
+    "mobileNumber": "+91-9988283096",
+    "email": "sunriseindustries.patiala@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-1322",
     "fullName": "CITY EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "ANWAR  HOSSAIN",
@@ -13926,7 +17189,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1072",
+    "id": "jfll-inact-1323",
     "fullName": "OJIN FOODSTUFF TRADING - SOLE PROPRIETORSHIP LLC",
     "territory": "All Territories",
     "contactPersonName": "JASIR",
@@ -13934,12 +17197,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ojinfresh@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1073",
+    "id": "jfll-inact-1324",
     "fullName": "JCS INTERNATIONAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Leena B",
@@ -13947,12 +17210,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "leena@jcsinternational.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1074",
+    "id": "jfll-inact-1325",
     "fullName": "RJ EXPORTS AND IMPORTS",
     "territory": "All Territories",
     "contactPersonName": "REGI  JOSEPH",
@@ -13965,7 +17228,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1075",
+    "id": "jfll-inact-1326",
     "fullName": "EUREKA SYSTEMS &ELECTRODES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "S.MANJU",
@@ -13973,12 +17236,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exports@eurekaelectrodes.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1076",
+    "id": "jfll-inact-1327",
     "fullName": "DND ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "MR.AJAYKUMAR  PATEL",
@@ -13986,12 +17249,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info.dndenterprise@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1077",
+    "id": "jfll-inact-1328",
     "fullName": "VIKAS PLASTIC",
     "territory": "All Territories",
     "contactPersonName": "VIKAS   MALHOTRA",
@@ -14004,7 +17267,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1078",
+    "id": "jfll-inact-1329",
     "fullName": "EINS LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Rohit Digamber  Tembulkar",
@@ -14017,7 +17280,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1079",
+    "id": "jfll-inact-1330",
     "fullName": "JISNU COMMUNICATIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRITHVI RAJU VENKATA  PENMETSA",
@@ -14025,12 +17288,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "prithvi@jisnu.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1080",
+    "id": "jfll-inact-1331",
     "fullName": "FLORISSANTE CLEARING & FORWARDING LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vaibhav",
@@ -14038,12 +17301,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1081",
+    "id": "jfll-inact-1332",
     "fullName": "TRIPTI LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "TRIPTI",
@@ -14056,7 +17319,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1082",
+    "id": "jfll-inact-1333",
     "fullName": "Badri Logistics",
     "territory": "All Territories",
     "contactPersonName": "SATENDER KUMAR  BHARDWAJ",
@@ -14069,7 +17332,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1083",
+    "id": "jfll-inact-1334",
     "fullName": "EMIRATES SHIPPING AGENCIES(INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Amit Kumar  Dubey",
@@ -14077,12 +17340,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "amit.dubey@in.emiratesline.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1084",
+    "id": "jfll-inact-1335",
     "fullName": "GANAPATI FASHIONS LTD",
     "territory": "All Territories",
     "contactPersonName": "Rishi  Tandon",
@@ -14090,12 +17353,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "tandonrishi2006@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1085",
+    "id": "jfll-inact-1336",
     "fullName": "IDZINES INTERNATIONAL LLP",
     "territory": "All Territories",
     "contactPersonName": "Noor ullah  khan",
@@ -14103,12 +17366,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@idzines.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1086",
+    "id": "jfll-inact-1337",
     "fullName": "ARIHANT INNOCHEM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jayesh  Satamkar",
@@ -14116,12 +17379,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jayesh.s@arihantinnochem.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1087",
+    "id": "jfll-inact-1338",
     "fullName": "MANARTI EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Sohan Singh  Rajput",
@@ -14134,11 +17397,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1088",
+    "id": "jfll-inact-1339",
     "fullName": "DHEER GLOBAL EXPRESS LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "RAN  SINGH",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "ransinghshekhawat86@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -14147,7 +17410,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1089",
+    "id": "jfll-inact-1340",
     "fullName": "ABS FABRICS",
     "territory": "All Territories",
     "contactPersonName": "ABHAY  SACHDEVA",
@@ -14160,7 +17423,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1090",
+    "id": "jfll-inact-1341",
     "fullName": "EXIMKOP BHARAT SERVICES",
     "territory": "All Territories",
     "contactPersonName": "VISHAL NAMDEO  DIGHE",
@@ -14173,7 +17436,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1091",
+    "id": "jfll-inact-1342",
     "fullName": "EAGLESPEED INTERNATIONAL LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "PHANEENDRA KUMAR",
@@ -14181,12 +17444,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "phaneendra@eaglespeed.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1092",
+    "id": "jfll-inact-1343",
     "fullName": "SHAKTHI GLOBISTICKS",
     "territory": "All Territories",
     "contactPersonName": "saravanan",
@@ -14199,7 +17462,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1093",
+    "id": "jfll-inact-1344",
     "fullName": "ROYALZIG LUXURY FURNITURE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashwani Kumar",
@@ -14207,12 +17470,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashwanikumar956@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1094",
+    "id": "jfll-inact-1345",
     "fullName": "HIRNEEV PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BASIK",
@@ -14220,12 +17483,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "baskinternationals@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1095",
+    "id": "jfll-inact-1346",
     "fullName": "LOVMAN LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Manmohan  Singh",
@@ -14238,7 +17501,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1096",
+    "id": "jfll-inact-1347",
     "fullName": "SAAZ IMPORTS AND EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "EKRAM HUSAIN   SHAIKH",
@@ -14251,7 +17514,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1097",
+    "id": "jfll-inact-1348",
     "fullName": "JB BIOELAN",
     "territory": "All Territories",
     "contactPersonName": "Pramodh  DULAM",
@@ -14264,20 +17527,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1098",
+    "id": "jfll-inact-1349",
     "fullName": "IMPERIAL REALTY & DEVELOPMENTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sagri",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "ashutosh@imperialholding.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1099",
+    "id": "jfll-inact-1350",
     "fullName": "INDIZAYKA SPICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RISHI",
@@ -14285,12 +17548,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rishi.indizaykaspices@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1100",
+    "id": "jfll-inact-1351",
     "fullName": "BOARD & PAPER LAMINATORS",
     "territory": "All Territories",
     "contactPersonName": "PUSHP  BANSAL",
@@ -14303,7 +17566,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1101",
+    "id": "jfll-inact-1352",
     "fullName": "ATC TIRES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jinsha  Pant",
@@ -14311,12 +17574,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "j.pant@yokohama-oht.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1102",
+    "id": "jfll-inact-1353",
     "fullName": "3AN TELECOM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vicky",
@@ -14324,12 +17587,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "3an.telecom@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1103",
+    "id": "jfll-inact-1354",
     "fullName": "JSK International",
     "territory": "All Territories",
     "contactPersonName": "Harshit",
@@ -14342,7 +17605,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1104",
+    "id": "jfll-inact-1355",
     "fullName": "S.K.FREIGHT MOVERS",
     "territory": "All Territories",
     "contactPersonName": "SATISH KUMAR KHANNA",
@@ -14355,7 +17618,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1105",
+    "id": "jfll-inact-1356",
     "fullName": "KNAM FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashutosh soni",
@@ -14363,12 +17626,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashutosh@knamfoods.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1106",
+    "id": "jfll-inact-1357",
     "fullName": "INDIKA AGRI INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASHISH  BANSAL",
@@ -14376,12 +17639,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shipping@indikagroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1107",
+    "id": "jfll-inact-1358",
     "fullName": "DKT TRADING PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "MEENAXI  SOLANKI",
@@ -14389,12 +17652,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "meenaxisolanki.dkt@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1108",
+    "id": "jfll-inact-1359",
     "fullName": "BEAT ALL TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Ankur  Dhawan",
@@ -14402,12 +17665,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "beatalltraders@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1109",
+    "id": "jfll-inact-1360",
     "fullName": "CMB EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "JAMAL",
@@ -14420,7 +17683,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1110",
+    "id": "jfll-inact-1361",
     "fullName": "NEW SUNRISE EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mehboob",
@@ -14433,7 +17696,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1111",
+    "id": "jfll-inact-1362",
     "fullName": "MARUTI INTER CITY COURIERS",
     "territory": "All Territories",
     "contactPersonName": "Chandraveer",
@@ -14446,7 +17709,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1112",
+    "id": "jfll-inact-1363",
     "fullName": "EMBERCORE VENTURES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JUBER MUSHTAQUE AHMED",
@@ -14454,12 +17717,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "embercoreventures@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1113",
+    "id": "jfll-inact-1364",
     "fullName": "KAB IMPEX",
     "territory": "All Territories",
     "contactPersonName": "kunjahammed basha",
@@ -14472,7 +17735,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1114",
+    "id": "jfll-inact-1365",
     "fullName": "GLOBEPOINT MULTIMODAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Afrin",
@@ -14480,12 +17743,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "afrin@globepoint.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1115",
+    "id": "jfll-inact-1366",
     "fullName": "AGXINDIA LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "OMKAR  PAWAR",
@@ -14493,12 +17756,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "omkar.mum@agxindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1116",
+    "id": "jfll-inact-1367",
     "fullName": "GALAXY CARGO EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "VIJAY  DIXIT",
@@ -14511,7 +17774,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1117",
+    "id": "jfll-inact-1368",
     "fullName": "DAHNAY LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Somnadh  Sastry",
@@ -14519,12 +17782,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hyd.sastry@dahnaylogix.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1118",
+    "id": "jfll-inact-1369",
     "fullName": "BLESS SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ROBERT",
@@ -14532,12 +17795,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rfiger@blessship.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1119",
+    "id": "jfll-inact-1370",
     "fullName": "ANANTAA GSK INNOVATIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHIVANI  SHARMA",
@@ -14545,12 +17808,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@agskipl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1120",
+    "id": "jfll-inact-1371",
     "fullName": "DEVYANA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "MANISH  SINGH",
@@ -14563,7 +17826,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1121",
+    "id": "jfll-inact-1372",
     "fullName": "INTAT COURIER AND CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. SANDEEP  PATIL",
@@ -14571,12 +17834,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sandeep.patil@intat.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1122",
+    "id": "jfll-inact-1373",
     "fullName": "HARSH INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Kapthak",
@@ -14589,7 +17852,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1123",
+    "id": "jfll-inact-1374",
     "fullName": "Kunals Bike Workshop",
     "territory": "All Territories",
     "contactPersonName": "Kunal  Bhaskaran",
@@ -14602,7 +17865,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1124",
+    "id": "jfll-inact-1375",
     "fullName": "K.M.ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "SOHINI  SHEET",
@@ -14615,7 +17878,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1125",
+    "id": "jfll-inact-1376",
     "fullName": "SHARP LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Darshana  Desai",
@@ -14623,12 +17886,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "darshana.desai@vrsharp.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1126",
+    "id": "jfll-inact-1377",
     "fullName": "RMC READYMIX PORSELANO INDIA LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. R G BABU",
@@ -14636,12 +17899,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exports@rrpil.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1127",
+    "id": "jfll-inact-1378",
     "fullName": "TAKE AGRO INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vishal Devram  Take",
@@ -14649,25 +17912,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "contact@kisanmandi.co",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1128",
+    "id": "jfll-inact-1379",
     "fullName": "SUN AND SOIL ORGANICS LLP",
     "territory": "All Territories",
     "contactPersonName": "Bhupendra  Atulkar",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "pratik@sunandsoilorganics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1129",
+    "id": "jfll-inact-1380",
     "fullName": "ReMac",
     "territory": "All Territories",
     "contactPersonName": "Karan  Shah",
@@ -14680,7 +17943,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1130",
+    "id": "jfll-inact-1381",
     "fullName": "TRANSYS GLOBAL FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Abhijeet Vijay  Surve",
@@ -14688,12 +17951,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abhijeet.surve@tgfworld.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1131",
+    "id": "jfll-inact-1382",
     "fullName": "SEA-AIR MARITIME",
     "territory": "All Territories",
     "contactPersonName": "ASHISH",
@@ -14706,7 +17969,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1132",
+    "id": "jfll-inact-1383",
     "fullName": "SUNMEET LOGISTICS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "OMKAR",
@@ -14714,12 +17977,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@sunmeetlogistic.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1133",
+    "id": "jfll-inact-1384",
     "fullName": "PRIME TIME LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Jagadish",
@@ -14732,7 +17995,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1134",
+    "id": "jfll-inact-1385",
     "fullName": "SQUAREZ",
     "territory": "All Territories",
     "contactPersonName": "SUSHI NAIR",
@@ -14745,7 +18008,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1135",
+    "id": "jfll-inact-1386",
     "fullName": "MI PACKAGING",
     "territory": "All Territories",
     "contactPersonName": "UZAIR  CONTRACTOR",
@@ -14758,20 +18021,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1136",
+    "id": "jfll-inact-1387",
     "fullName": "FAST TRANSPORT CARRIER PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Salim Ismail  Shaikh",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "salim.shaikh@fasttpl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1137",
+    "id": "jfll-inact-1388",
     "fullName": "AQUA GENO EXIM",
     "territory": "All Territories",
     "contactPersonName": "ANAS A",
@@ -14784,7 +18047,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1138",
+    "id": "jfll-inact-1389",
     "fullName": "MILES INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Pravin",
@@ -14797,20 +18060,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1139",
+    "id": "jfll-inact-1390",
     "fullName": "CAMLIN FINE SCIENCES LTD",
     "territory": "All Territories",
     "contactPersonName": "Sumit Khade",
     "mobileNumber": "+91-02267001000",
     "email": null,
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1140",
+    "id": "jfll-inact-1391",
     "fullName": "SALAH AL AMOUDI EST",
     "territory": "All Territories",
     "contactPersonName": "Zubair",
@@ -14823,7 +18086,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1141",
+    "id": "jfll-inact-1392",
     "fullName": "MOON ARC",
     "territory": "All Territories",
     "contactPersonName": "Nitin  Agarwal",
@@ -14836,7 +18099,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1142",
+    "id": "jfll-inact-1393",
     "fullName": "Berrydale Foods Private Limited.",
     "territory": "All Territories",
     "contactPersonName": "SARAVANAN",
@@ -14844,12 +18107,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "saravanan@berrydale.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1143",
+    "id": "jfll-inact-1394",
     "fullName": "SAI LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "SANTOSH  VENDE",
@@ -14862,7 +18125,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1144",
+    "id": "jfll-inact-1395",
     "fullName": "ATLANTIC CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Iqbal",
@@ -14870,12 +18133,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "iqbal@atlanticcargogroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1145",
+    "id": "jfll-inact-1396",
     "fullName": "SALVIA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "AFZAL",
@@ -14888,7 +18151,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1146",
+    "id": "jfll-inact-1397",
     "fullName": "M/S RINKA EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Sunanda Saha",
@@ -14901,7 +18164,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1147",
+    "id": "jfll-inact-1398",
     "fullName": "CLEARFAST AIR CARGO AGENCIES PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Pawan  Prajapati",
@@ -14909,12 +18172,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pawan.prajapati@clearfastgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1148",
+    "id": "jfll-inact-1399",
     "fullName": "CLEARFAST AIR CARGO AGENCIES  PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sushant  Kulkarni",
@@ -14922,12 +18185,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sushant.kulkarni@clearfastgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1149",
+    "id": "jfll-inact-1400",
     "fullName": "M/S KRISHNA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Balkrishana  Roy",
@@ -14935,12 +18198,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "balkrishnaroy@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1150",
+    "id": "jfll-inact-1401",
     "fullName": "TRANSWORLD LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HARDIK  MEHTA",
@@ -14948,12 +18211,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hardik.mehta@transworld.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1151",
+    "id": "jfll-inact-1402",
     "fullName": "GEMINI HEALTHWORLD LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Krutik  Munani",
@@ -14961,12 +18224,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "geminihealthworld@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1152",
+    "id": "jfll-inact-1403",
     "fullName": "JAYON IMPLANTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Manoj Balachandran",
@@ -14974,12 +18237,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jayonimplant@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1153",
+    "id": "jfll-inact-1404",
     "fullName": "BOLD AND BEAUTIFUL TRADING",
     "territory": "All Territories",
     "contactPersonName": "Imran",
@@ -14987,12 +18250,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "labbaiktradinginc@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1154",
+    "id": "jfll-inact-1405",
     "fullName": "EXCEL MANUFACTURING COMPANY",
     "territory": "All Territories",
     "contactPersonName": "AJIL  GEORGE",
@@ -15005,7 +18268,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1155",
+    "id": "jfll-inact-1406",
     "fullName": "ABY MATHEW",
     "territory": "All Territories",
     "contactPersonName": "ABY  MATHEW",
@@ -15018,7 +18281,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1156",
+    "id": "jfll-inact-1407",
     "fullName": "WEDDING FLORA FAB",
     "territory": "All Territories",
     "contactPersonName": "SMITHA  NARAYANAN",
@@ -15031,7 +18294,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1157",
+    "id": "jfll-inact-1408",
     "fullName": "SARASPICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BIJU MK",
@@ -15039,12 +18302,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@annagroup.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1158",
+    "id": "jfll-inact-1409",
     "fullName": "VECTOR SURGICAL DISPOSABLES",
     "territory": "All Territories",
     "contactPersonName": "Prasad",
@@ -15057,7 +18320,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1159",
+    "id": "jfll-inact-1410",
     "fullName": "ZARA GENERAL TRADING",
     "territory": "All Territories",
     "contactPersonName": "Sakariya",
@@ -15065,12 +18328,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "zaak01@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1160",
+    "id": "jfll-inact-1411",
     "fullName": "SPC ZME LLC",
     "territory": "All Territories",
     "contactPersonName": "Olga  Batalova",
@@ -15083,7 +18346,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1161",
+    "id": "jfll-inact-1412",
     "fullName": "M/S AADISH IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rishikesh  Gawde",
@@ -15091,12 +18354,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "documents@aadishimpex.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1162",
+    "id": "jfll-inact-1413",
     "fullName": "INTECH DOSIMETERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AKHIL KUMAR",
@@ -15104,12 +18367,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "purchase@intechdosimeters.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1163",
+    "id": "jfll-inact-1414",
     "fullName": "VANIKS GLOBENTURES",
     "territory": "All Territories",
     "contactPersonName": "VASUDEVAN  VALLIYIL",
@@ -15122,7 +18385,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1164",
+    "id": "jfll-inact-1415",
     "fullName": "SHIV TECHNOLOGY",
     "territory": "All Territories",
     "contactPersonName": "JYOTI  KHAIRNAR",
@@ -15135,7 +18398,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1165",
+    "id": "jfll-inact-1416",
     "fullName": "COASTLINE FISHERIES",
     "territory": "All Territories",
     "contactPersonName": "ALBIN MICHAEL",
@@ -15148,7 +18411,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1166",
+    "id": "jfll-inact-1417",
     "fullName": "HIMI SHIPPING SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ravi  Kolte",
@@ -15156,12 +18419,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ravi@himishipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1167",
+    "id": "jfll-inact-1418",
+    "fullName": "NAVIO SHIPPING PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "HEMANGI  SUBRAMANIUM",
+    "mobileNumber": "+91-7506075949",
+    "email": "pricing.mum@navio-shipping.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1419",
     "fullName": "GREEN WORLD LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "RATHOD  DARSHAN",
@@ -15174,7 +18450,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1168",
+    "id": "jfll-inact-1420",
     "fullName": "A1 INTERNATIONAL COURIER SERVICE",
     "territory": "All Territories",
     "contactPersonName": "NILESH KHATRI",
@@ -15187,7 +18463,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1169",
+    "id": "jfll-inact-1421",
     "fullName": "STAR LINK SEA-AIR LOGISTIKS",
     "territory": "All Territories",
     "contactPersonName": "RAJANI VADODARIYA",
@@ -15200,7 +18476,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1170",
+    "id": "jfll-inact-1422",
     "fullName": "FRUIBLE",
     "territory": "All Territories",
     "contactPersonName": "Shaequa  Sabri",
@@ -15213,7 +18489,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1171",
+    "id": "jfll-inact-1423",
     "fullName": "GREEN AVIATION OPPORTUNITIES LIMITED LIABILITY COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Egorov Vadim  Anatolyevich",
@@ -15221,12 +18497,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@avia-dostavka.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1172",
+    "id": "jfll-inact-1424",
     "fullName": "DHARA IMPEX",
     "territory": "All Territories",
     "contactPersonName": "MANOJ  NAI",
@@ -15239,7 +18515,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1173",
+    "id": "jfll-inact-1425",
     "fullName": "OSCAR FARM TRADERS",
     "territory": "All Territories",
     "contactPersonName": "SHIYAS",
@@ -15247,12 +18523,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1174",
+    "id": "jfll-inact-1426",
     "fullName": "M/S VALAN MULTI PRODUCTS",
     "territory": "All Territories",
     "contactPersonName": "Rubert Anrul Valan  Pakiaraj",
@@ -15265,7 +18541,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1175",
+    "id": "jfll-inact-1427",
     "fullName": "HOLISTIC RESOURCES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BHAVIK",
@@ -15273,12 +18549,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "documents@holisticresources.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1176",
+    "id": "jfll-inact-1428",
     "fullName": "NOWLUN.COM LLC",
     "territory": "All Territories",
     "contactPersonName": "Aliaa Gamal",
@@ -15291,7 +18567,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1177",
+    "id": "jfll-inact-1429",
     "fullName": "SWARANSH AGRO",
     "territory": "All Territories",
     "contactPersonName": "Saurabh Sudam Kale",
@@ -15304,7 +18580,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1178",
+    "id": "jfll-inact-1430",
     "fullName": "ASD LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Bhanu",
@@ -15317,7 +18593,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1179",
+    "id": "jfll-inact-1431",
     "fullName": "F PLUS HEALTHCARE TECHNOLOGIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Siddharth Nandoskar",
@@ -15325,12 +18601,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@fplushealthcare.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1180",
+    "id": "jfll-inact-1432",
     "fullName": "EKAYANA GLOBAL TRADES",
     "territory": "All Territories",
     "contactPersonName": "Fenil  Patel",
@@ -15343,7 +18619,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1181",
+    "id": "jfll-inact-1433",
     "fullName": "SEVEN SEAS LINES",
     "territory": "All Territories",
     "contactPersonName": "Mr. OPINDERPAL",
@@ -15356,7 +18632,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1182",
+    "id": "jfll-inact-1434",
     "fullName": "SEVEN STARS LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "DASS G",
@@ -15369,7 +18645,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1183",
+    "id": "jfll-inact-1435",
     "fullName": "ARKAY EXPRESS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "RADHAKRISHNAN A",
@@ -15382,7 +18658,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1184",
+    "id": "jfll-inact-1436",
     "fullName": "P N D GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Ajay  Mishra",
@@ -15395,7 +18671,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1185",
+    "id": "jfll-inact-1437",
     "fullName": "WESTCOAST PHARMACEUTICAL WORKS LTD",
     "territory": "All Territories",
     "contactPersonName": "WESTCOAST PHARMACEUTICAL WORKS LTD",
@@ -15403,12 +18679,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gm@westcoastin.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1186",
+    "id": "jfll-inact-1438",
     "fullName": "PYRAMO MACHINARY PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "VIKRAM",
@@ -15416,12 +18692,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vikramaditya@pyramogroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1187",
+    "id": "jfll-inact-1439",
     "fullName": "A G P LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "NATRAJ",
@@ -15434,7 +18710,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1188",
+    "id": "jfll-inact-1440",
     "fullName": "QUANTUM AUTO",
     "territory": "All Territories",
     "contactPersonName": "Manish  Dixit",
@@ -15447,7 +18723,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1189",
+    "id": "jfll-inact-1441",
     "fullName": "SAI INTERNATIONAL EXPRESS CARGO AND COURIER",
     "territory": "All Territories",
     "contactPersonName": "AMIT ANKUSH  RAHATE",
@@ -15460,7 +18736,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1190",
+    "id": "jfll-inact-1442",
     "fullName": "D7 INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "siraj",
@@ -15473,7 +18749,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1191",
+    "id": "jfll-inact-1443",
     "fullName": "HUNAR FREIGHT & FORWARDING",
     "territory": "All Territories",
     "contactPersonName": "RAVINDER  KUMAR",
@@ -15486,7 +18762,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1192",
+    "id": "jfll-inact-1444",
     "fullName": "MAXFRESH EXIM",
     "territory": "All Territories",
     "contactPersonName": "POOJA",
@@ -15499,7 +18775,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1193",
+    "id": "jfll-inact-1445",
     "fullName": "AERO TRANSATLANTIC",
     "territory": "All Territories",
     "contactPersonName": "ALIAS",
@@ -15512,7 +18788,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1194",
+    "id": "jfll-inact-1446",
     "fullName": "BASCO EXPORTS AND IMPORTS",
     "territory": "All Territories",
     "contactPersonName": "MUHAMMED BASHEER",
@@ -15525,7 +18801,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1195",
+    "id": "jfll-inact-1447",
     "fullName": "SHAAD INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "HARSHAD",
@@ -15538,7 +18814,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1196",
+    "id": "jfll-inact-1448",
     "fullName": "ZAS INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "SRIDHAR",
@@ -15551,7 +18827,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1197",
+    "id": "jfll-inact-1449",
     "fullName": "OOZROO",
     "territory": "All Territories",
     "contactPersonName": "JASIR SALEEM",
@@ -15564,7 +18840,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1198",
+    "id": "jfll-inact-1450",
     "fullName": "KRIVA AGRO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KRISHANAND PP",
@@ -15572,12 +18848,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "krivaagro@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1199",
+    "id": "jfll-inact-1451",
     "fullName": "MOMS CURRY POWDER",
     "territory": "All Territories",
     "contactPersonName": "NAMSHIJA",
@@ -15590,7 +18866,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1200",
+    "id": "jfll-inact-1452",
     "fullName": "NKM EXPORT AND IMPORT",
     "territory": "All Territories",
     "contactPersonName": "MOITHEEN KUTTY",
@@ -15603,7 +18879,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1201",
+    "id": "jfll-inact-1453",
     "fullName": "NAVEEN INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "BASHEER",
@@ -15616,7 +18892,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1202",
+    "id": "jfll-inact-1454",
     "fullName": "SHAKKEEL AHAMED.N PROP NICE TRADING COMPANY",
     "territory": "All Territories",
     "contactPersonName": "PRAVEEN KUMAR",
@@ -15624,12 +18900,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nicemobilempm@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1203",
+    "id": "jfll-inact-1455",
     "fullName": "LIBHREX TRADING",
     "territory": "All Territories",
     "contactPersonName": "BASHEER",
@@ -15637,12 +18913,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@libhrex.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1204",
+    "id": "jfll-inact-1456",
     "fullName": "ABDUL AZIZ ALI YOUSUF SAUD AL TAMTAMI",
     "territory": "All Territories",
     "contactPersonName": "ABDUL AZIZ",
@@ -15655,7 +18931,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1205",
+    "id": "jfll-inact-1457",
     "fullName": "NAJEM AHMAD AL-MANNAI",
     "territory": "All Territories",
     "contactPersonName": "NAJEM AHMAD",
@@ -15668,7 +18944,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1206",
+    "id": "jfll-inact-1458",
     "fullName": "ABDULLA AL KHATTAL GENERAL TRADING",
     "territory": "All Territories",
     "contactPersonName": "FASAL RAHMAN",
@@ -15676,12 +18952,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aakdubai@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1207",
+    "id": "jfll-inact-1459",
     "fullName": "FRESH GREEN VEGETABLES",
     "territory": "All Territories",
     "contactPersonName": "SIVARAJ",
@@ -15694,7 +18970,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1208",
+    "id": "jfll-inact-1460",
     "fullName": "T.K.AGENCIES",
     "territory": "All Territories",
     "contactPersonName": "ALI  VEERAN",
@@ -15707,7 +18983,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1209",
+    "id": "jfll-inact-1461",
     "fullName": "ALL FINE SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Jangir",
@@ -15720,7 +18996,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1210",
+    "id": "jfll-inact-1462",
     "fullName": "APARNA GLOBAL EXIM ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Bhavatrathan",
@@ -15728,12 +19004,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bhavat@aparnaglobalexim.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1211",
+    "id": "jfll-inact-1463",
     "fullName": "BLUE HORIZON",
     "territory": "All Territories",
     "contactPersonName": "MANISH JAGDISH  GARG",
@@ -15746,7 +19022,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1212",
+    "id": "jfll-inact-1464",
     "fullName": "VEDIC PRESERVATION INITIATIVE",
     "territory": "All Territories",
     "contactPersonName": "Sidharth  Chhabra",
@@ -15759,7 +19035,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1213",
+    "id": "jfll-inact-1465",
     "fullName": "AJANTA CLEARING AND FREIGHT SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Satish Jhaveri",
@@ -15772,7 +19048,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1214",
+    "id": "jfll-inact-1466",
     "fullName": "Dvinity Logistics Private Limited",
     "territory": "All Territories",
     "contactPersonName": "Kshitij  Verma",
@@ -15780,12 +19056,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kshitijv@divinitylogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1215",
+    "id": "jfll-inact-1467",
+    "fullName": "Accurex Biomedical Pvt. Ltd",
+    "territory": "All Territories",
+    "contactPersonName": "Sagar Supal",
+    "mobileNumber": "+91-",
+    "email": "exports@accurex.net",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1468",
     "fullName": "MOHITA FORWARDERS",
     "territory": "All Territories",
     "contactPersonName": "Sohan Singh  Rajput",
@@ -15798,7 +19087,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1216",
+    "id": "jfll-inact-1469",
     "fullName": "ESTHAPANOSE SONS",
     "territory": "All Territories",
     "contactPersonName": "MITTU",
@@ -15811,7 +19100,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1217",
+    "id": "jfll-inact-1470",
     "fullName": "NIRDEEP INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "NIRALI DEEPKUMAR  DEDANIA",
@@ -15824,7 +19113,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1218",
+    "id": "jfll-inact-1471",
     "fullName": "A.M WORLD WIDE",
     "territory": "All Territories",
     "contactPersonName": "Manju",
@@ -15837,7 +19126,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1219",
+    "id": "jfll-inact-1472",
     "fullName": "TEAMLEADER LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Nelson  Rodrigues",
@@ -15845,12 +19134,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "air@teamleader.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1220",
+    "id": "jfll-inact-1473",
     "fullName": "MYCO TECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. RAMASWAMY",
@@ -15858,12 +19147,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kr@mycotech.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1221",
+    "id": "jfll-inact-1474",
     "fullName": "UNIVERSAL WORLDWIDE COURIER",
     "territory": "All Territories",
     "contactPersonName": "Mujib",
@@ -15876,7 +19165,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1222",
+    "id": "jfll-inact-1475",
     "fullName": "SAIDU COURIER AND CARGO",
     "territory": "All Territories",
     "contactPersonName": "ASIF",
@@ -15889,7 +19178,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1223",
+    "id": "jfll-inact-1476",
     "fullName": "SAVECLOCK LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suresh  Kurkute",
@@ -15897,12 +19186,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accts@saveclocklogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1224",
+    "id": "jfll-inact-1477",
     "fullName": "ATLANTIS LOGISTICS LLC",
     "territory": "All Territories",
     "contactPersonName": "Rick  Kerawala",
@@ -15915,7 +19204,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1225",
+    "id": "jfll-inact-1478",
+    "fullName": "THAKUR ENTERPRISES",
+    "territory": "All Territories",
+    "contactPersonName": "RANJNA  THAKUR",
+    "mobileNumber": "+91-9278467416",
+    "email": "thakurenterprises.te@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1479",
+    "fullName": "AIYER SHIPPING AGENCY PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "ANTHONY GARD",
+    "mobileNumber": "+91-9167249372",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1480",
     "fullName": "M.U.N AGRO INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Prashant",
@@ -15923,30 +19238,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1226",
+    "id": "jfll-inact-1481",
     "fullName": "ENVIROCARE",
     "territory": "All Territories",
     "contactPersonName": "Sikander",
     "mobileNumber": "+91-7774375648",
     "email": "envirocare74@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": true
-  },
-  {
-    "id": "jfll-inact-1227",
-    "fullName": "STAR ASIA TRADING AND CONTRACTING",
-    "territory": "All Territories",
-    "contactPersonName": "ARJUN  MUDBHARI",
-    "mobileNumber": "+974-28552423094",
-    "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -15954,7 +19256,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1228",
+    "id": "jfll-inact-1482",
+    "fullName": "STAR ASIA TRADING AND CONTRACTING",
+    "territory": "All Territories",
+    "contactPersonName": "ARJUN  MUDBHARI",
+    "mobileNumber": "+974-28552423094",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1483",
     "fullName": "PRATHAM BUSINESS SOLUTION",
     "territory": "All Territories",
     "contactPersonName": "MR. PARIKH  BABA",
@@ -15967,7 +19282,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1229",
+    "id": "jfll-inact-1484",
     "fullName": "SIA AIRWAYS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ashwin",
@@ -15975,12 +19290,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@siaways.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1230",
+    "id": "jfll-inact-1485",
     "fullName": "WOODFIELD SYSTEMS INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mandar  Unde",
@@ -15988,12 +19303,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@woodfieldsystems.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1231",
+    "id": "jfll-inact-1486",
     "fullName": "S. K. SERVICES",
     "territory": "All Territories",
     "contactPersonName": "SUBHRANSU  KANTI DE",
@@ -16006,7 +19321,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1232",
+    "id": "jfll-inact-1487",
     "fullName": "PARK LOGISTICS AND COURIERS",
     "territory": "All Territories",
     "contactPersonName": "Ashwin L",
@@ -16019,7 +19334,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1233",
+    "id": "jfll-inact-1488",
     "fullName": "AIR MESSAGERIES (INDIA)",
     "territory": "All Territories",
     "contactPersonName": "Mr. SATPAL",
@@ -16032,7 +19347,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1234",
+    "id": "jfll-inact-1489",
     "fullName": "THE PURE CHEM",
     "territory": "All Territories",
     "contactPersonName": "Abhiji  Kamble",
@@ -16045,7 +19360,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1235",
+    "id": "jfll-inact-1490",
     "fullName": "N&M INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "R BAJAJ",
@@ -16058,7 +19373,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1236",
+    "id": "jfll-inact-1491",
     "fullName": "CALYCO PRODUCTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Manish  Kothari",
@@ -16066,12 +19381,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manish@benellc.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1237",
+    "id": "jfll-inact-1492",
     "fullName": "SHARDA ORGANIC",
     "territory": "All Territories",
     "contactPersonName": "Nikhilesh",
@@ -16084,7 +19399,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1238",
+    "id": "jfll-inact-1493",
     "fullName": "SEAWAYS SHIPPING AND LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VINOD",
@@ -16092,12 +19407,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vinodkumar@seawaysindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1239",
+    "id": "jfll-inact-1494",
     "fullName": "SIDDHI ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Sunil  Varpe",
@@ -16105,12 +19420,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sunil@siddhienterprises.net",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1240",
+    "id": "jfll-inact-1495",
     "fullName": "EXPOLANKA FREIGHT LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Lucia",
@@ -16118,12 +19433,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "lucian@efl.global",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1496",
+    "fullName": "AMBEWAY FREIGHT FORWARDERS",
+    "territory": "All Territories",
+    "contactPersonName": "Waleed  Shaikh",
+    "mobileNumber": "+91-8097664887",
+    "email": "devendra@ambewayfreight.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1241",
+    "id": "jfll-inact-1497",
     "fullName": "TESSITURA MONTI INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Anil  Purohit",
@@ -16131,25 +19459,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accountsmgr@monti.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1242",
+    "id": "jfll-inact-1498",
     "fullName": "MILLENNIUM AERO DYNAMICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anurag",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "anurag@millennium.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1243",
+    "id": "jfll-inact-1499",
     "fullName": "TWIN LINK LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "H. IRANTHAR",
@@ -16162,7 +19490,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1244",
+    "id": "jfll-inact-1500",
     "fullName": "COURIER JOURNEY",
     "territory": "All Territories",
     "contactPersonName": "Sandeep Vasudev  Gaikwad",
@@ -16175,7 +19503,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1245",
+    "id": "jfll-inact-1501",
     "fullName": "MOONDUST PAPER PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dolly   Gautam",
@@ -16183,12 +19511,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dolly@captaingogo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1246",
+    "id": "jfll-inact-1502",
     "fullName": "GLOBAL FREIGHT FORWARDING AND SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "NAGMA",
@@ -16201,7 +19529,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1247",
+    "id": "jfll-inact-1503",
     "fullName": "BHAVIMI LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "MR. SANDEEP",
@@ -16209,12 +19537,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sandeep@bhavimi.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1248",
+    "id": "jfll-inact-1504",
     "fullName": "SunEx International",
     "territory": "All Territories",
     "contactPersonName": "Sandip  Gandhi",
@@ -16227,7 +19555,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1249",
+    "id": "jfll-inact-1505",
     "fullName": "VISUAL VIBRATIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Swati",
@@ -16235,12 +19563,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "swati@visualvibrations.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1250",
+    "id": "jfll-inact-1506",
     "fullName": "LITHIUM POWER",
     "territory": "All Territories",
     "contactPersonName": "Deepak  Pathak",
@@ -16253,7 +19581,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1251",
+    "id": "jfll-inact-1507",
     "fullName": "VK ASHARAF ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "ASHRAF",
@@ -16261,12 +19589,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vkasharafenterprises@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1252",
+    "id": "jfll-inact-1508",
     "fullName": "ADVANTEDGE TECHNOGIES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Sachin  Bendre",
@@ -16274,12 +19602,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dispatch.telecom@advantedge.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1253",
+    "id": "jfll-inact-1509",
     "fullName": "D.R. WORLDWIDE LOGISTIC SERVICES",
     "territory": "All Territories",
     "contactPersonName": "DEEPAK",
@@ -16292,7 +19620,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1254",
+    "id": "jfll-inact-1510",
     "fullName": "VARDHAMAN EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "PRATIK  BHORA",
@@ -16305,7 +19633,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1255",
+    "id": "jfll-inact-1511",
     "fullName": "PARVATI FOOD PRODUCTS",
     "territory": "All Territories",
     "contactPersonName": "Ajay  Modi",
@@ -16318,7 +19646,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1256",
+    "id": "jfll-inact-1512",
     "fullName": "VENJOH LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nikhil  Kelaskar",
@@ -16326,12 +19654,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "venjohmum.co@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1257",
+    "id": "jfll-inact-1513",
     "fullName": "DAY FAST LOGISTICS(DFL)",
     "territory": "All Territories",
     "contactPersonName": "VISHAL",
@@ -16344,7 +19672,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1258",
+    "id": "jfll-inact-1514",
     "fullName": "A.M EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "FAHAD",
@@ -16357,7 +19685,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1259",
+    "id": "jfll-inact-1515",
     "fullName": "UNIWIDE OVERSEAS CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "ABDUL  RAHIM",
@@ -16370,7 +19698,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1260",
+    "id": "jfll-inact-1516",
     "fullName": "GDCM LOGISTICS SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Kushal",
@@ -16378,25 +19706,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kushal.solanki@globaldcm.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1261",
+    "id": "jfll-inact-1517",
     "fullName": "EASTERN PETROLEUM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Abdul  Razak",
     "mobileNumber": "+91-8591984143",
     "email": "docs@unicornpetro.co.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1262",
+    "id": "jfll-inact-1518",
     "fullName": "M. M. OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Shoeb Ahmad  Khan",
@@ -16409,7 +19737,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1263",
+    "id": "jfll-inact-1519",
     "fullName": "KOTLI TRADING CO",
     "territory": "All Territories",
     "contactPersonName": "MUHMMAD ANWAR HAQ",
@@ -16417,12 +19745,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "anwarulhaqhaq02@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1264",
+    "id": "jfll-inact-1520",
     "fullName": "AL-RABBANIYYAH FRUITS AND VEGETABLES TRADING W.L.L",
     "territory": "All Territories",
     "contactPersonName": "Suvham  Pal",
@@ -16430,38 +19758,38 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1265",
+    "id": "jfll-inact-1521",
     "fullName": "RAJ INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "AAMIR",
     "mobileNumber": "+91-9892392700",
     "email": "rajint2019@gmail.com",
     "status": "Not Active",
-    "customerGroup": "Inactive Customer",
+    "customerGroup": "Inactive (DataMyne Match)",
     "type": "Company",
     "saved": false,
-    "inDataMyne": false
+    "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1266",
+    "id": "jfll-inact-1522",
     "fullName": "VTRADE WINGS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SUBIN",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "subinsurendar023@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1267",
+    "id": "jfll-inact-1523",
     "fullName": "NEPTUNE TRADING",
     "territory": "All Territories",
     "contactPersonName": "Suvham",
@@ -16469,25 +19797,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1268",
+    "id": "jfll-inact-1524",
     "fullName": "BARCELONASL LTD",
     "territory": "All Territories",
     "contactPersonName": "Rahamatulla Molla",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "ajmerinternationaltrade@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1269",
+    "id": "jfll-inact-1525",
     "fullName": "ARIHANT BATHWARE",
     "territory": "All Territories",
     "contactPersonName": "PRAKASH CHAND  HIRAWAT",
@@ -16500,7 +19828,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1270",
+    "id": "jfll-inact-1526",
     "fullName": "J.D.INTERNATIONAL COURIER",
     "territory": "All Territories",
     "contactPersonName": "JITENDRA RAVAL",
@@ -16513,7 +19841,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1271",
+    "id": "jfll-inact-1527",
     "fullName": "TEKNOVACE WOOD COATINGS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nilesh  Kashyap",
@@ -16521,12 +19849,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nilesh.kashyap@teknovace.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1272",
+    "id": "jfll-inact-1528",
     "fullName": "ROAZAN SUPER MARKET",
     "territory": "All Territories",
     "contactPersonName": "ABDULLAH ALI",
@@ -16539,7 +19867,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1273",
+    "id": "jfll-inact-1529",
     "fullName": "INDO AMINES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "YOGIRAJ PAWAR",
@@ -16547,12 +19875,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics1@indoaminesltd.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1274",
+    "id": "jfll-inact-1530",
     "fullName": "TUBIPRINT EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nikhil  Garg",
@@ -16565,7 +19893,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1275",
+    "id": "jfll-inact-1531",
     "fullName": "B4BRAND TRADING LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dileep Kumar A K",
@@ -16573,12 +19901,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dileep@expluslogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1276",
+    "id": "jfll-inact-1532",
     "fullName": "MAHADEV SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "NIKET  MEHTA",
@@ -16591,7 +19919,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1277",
+    "id": "jfll-inact-1533",
     "fullName": "MAHADEV SHIPPING.",
     "territory": "All Territories",
     "contactPersonName": "NIKET  MEHTA",
@@ -16604,7 +19932,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1278",
+    "id": "jfll-inact-1534",
     "fullName": "DY & DY ORGANICS",
     "territory": "All Territories",
     "contactPersonName": "Sudarshan  Rajendran",
@@ -16617,7 +19945,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1279",
+    "id": "jfll-inact-1535",
     "fullName": "DVL LOGISTICS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "SUNIL  MISHRA",
@@ -16625,12 +19953,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sm@dvlgroup.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1280",
+    "id": "jfll-inact-1536",
     "fullName": "BRIDGE INFOTEL",
     "territory": "All Territories",
     "contactPersonName": "J Kamalakannan",
@@ -16643,7 +19971,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1281",
+    "id": "jfll-inact-1537",
     "fullName": "D S EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "AVINASH",
@@ -16656,7 +19984,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1282",
+    "id": "jfll-inact-1538",
     "fullName": "EURO INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "AKHTER KAMAL",
@@ -16669,7 +19997,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1283",
+    "id": "jfll-inact-1539",
     "fullName": "FAIR EXPORTS (INDIA) PVT LTD. (DOMESTIC DIVISION)",
     "territory": "All Territories",
     "contactPersonName": "MOHAMMED SHAMEER",
@@ -16677,12 +20005,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "fmcgmumbaidoc@fairexports.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1284",
+    "id": "jfll-inact-1540",
     "fullName": "SPEEDOFREIGHT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "FAISAL SHAIKH",
@@ -16690,12 +20018,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "faisal@speedofreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1285",
+    "id": "jfll-inact-1541",
     "fullName": "VISION GLOBE EXIM",
     "territory": "All Territories",
     "contactPersonName": "Rohit  Barve",
@@ -16708,7 +20036,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1286",
+    "id": "jfll-inact-1542",
     "fullName": "ALL INDIA LOGISTICS & SERVICES",
     "territory": "All Territories",
     "contactPersonName": "NAVNATH  GHULE",
@@ -16721,7 +20049,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1287",
+    "id": "jfll-inact-1543",
     "fullName": "MERCURY FREIGHT SERVICES FZE",
     "territory": "All Territories",
     "contactPersonName": "ADNAN AKHTAR",
@@ -16734,7 +20062,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1288",
+    "id": "jfll-inact-1544",
     "fullName": "VBS FORWARDING & LOGISTICS PROP.BABAN SHANKAR SHIRKE",
     "territory": "All Territories",
     "contactPersonName": "BABAN SHIRKE",
@@ -16747,11 +20075,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1289",
+    "id": "jfll-inact-1545",
     "fullName": "MAZ FREIGHT SOLUTION EST",
     "territory": "All Territories",
     "contactPersonName": "YASAR",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "yasar@mazfreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -16760,7 +20088,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1290",
+    "id": "jfll-inact-1546",
     "fullName": "ALAM ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "MS. ALAM  KHATUN",
@@ -16773,7 +20101,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1291",
+    "id": "jfll-inact-1547",
     "fullName": "SUPER LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "ALKA SHAH",
@@ -16786,7 +20114,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1292",
+    "id": "jfll-inact-1548",
     "fullName": "LOTUS INTEGRATED LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Satheesh  RaJ",
@@ -16794,12 +20122,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "satheeshraj@lotusil.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1293",
+    "id": "jfll-inact-1549",
     "fullName": "AMP GLOBAL FRESH",
     "territory": "All Territories",
     "contactPersonName": "Aditya",
@@ -16812,7 +20140,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1294",
+    "id": "jfll-inact-1550",
     "fullName": "WEST COAST FINE FOODSTUFF LLP",
     "territory": "All Territories",
     "contactPersonName": "Venkatesh B",
@@ -16820,25 +20148,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1295",
+    "id": "jfll-inact-1551",
     "fullName": "EMMBI INDUSTRIES LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "Ms. Shalini Khot",
     "mobileNumber": "+91-7498257599",
     "email": "shalini.waradkar@emmbi.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1296",
+    "id": "jfll-inact-1552",
     "fullName": "H B INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Usha Bamlani",
@@ -16851,7 +20179,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1297",
+    "id": "jfll-inact-1553",
     "fullName": "NEPTUNE TRADING CO",
     "territory": "All Territories",
     "contactPersonName": "PRETEE",
@@ -16859,12 +20187,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "preteeshjain@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1298",
+    "id": "jfll-inact-1554",
     "fullName": "POWER COZMO",
     "territory": "All Territories",
     "contactPersonName": "Sriram Murugadass",
@@ -16877,20 +20205,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1299",
+    "id": "jfll-inact-1555",
     "fullName": "SUNRICH LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "sunrich",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "ff@sunrichgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1300",
+    "id": "jfll-inact-1556",
     "fullName": "WAYCOOL FOODS AND PRODUCTS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Raghu  Reddy",
@@ -16898,16 +20226,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "raghunath.g@waycool.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1301",
+    "id": "jfll-inact-1557",
     "fullName": "DEVANG PRAMOD JHAVERI",
     "territory": "All Territories",
     "contactPersonName": "Devang  Javeri",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "jignesh.dave@shubhadapolymers.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -16916,7 +20244,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1302",
+    "id": "jfll-inact-1558",
     "fullName": "JEEDNYA PHARMA",
     "territory": "All Territories",
     "contactPersonName": "Mr. Prahlad  Choudhary",
@@ -16929,20 +20257,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1303",
+    "id": "jfll-inact-1559",
     "fullName": "ALTAJ GLOBAL TRADING LLP",
     "territory": "All Territories",
     "contactPersonName": "A.Ashif",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "aaashif@altaj-global.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1304",
+    "id": "jfll-inact-1560",
     "fullName": "TRANSGLOCAL EXPRESS FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HARSHA KUMAR",
@@ -16950,12 +20278,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "quote@trefl.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1305",
+    "id": "jfll-inact-1561",
     "fullName": "UNIWORLD CARGO LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Ravindra  Salvi",
@@ -16968,7 +20296,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1306",
+    "id": "jfll-inact-1562",
     "fullName": "APAC LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "HIMESH ANEJA",
@@ -16981,7 +20309,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1307",
+    "id": "jfll-inact-1563",
     "fullName": "SUNRAYS SHIPPING SERVICES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "SUMI RAJESH  NAMBIAR",
@@ -16989,12 +20317,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sumi@sunraysshipping.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1308",
+    "id": "jfll-inact-1564",
     "fullName": "TIME GLOBAL SHIPPING VENTURES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. SURENDRA",
@@ -17002,12 +20330,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ops.maa@timeglobalshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1309",
+    "id": "jfll-inact-1565",
     "fullName": "GLOBE MOBILITY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Tarkesh  Mandhare",
@@ -17015,12 +20343,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@gmpl.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1310",
+    "id": "jfll-inact-1566",
     "fullName": "GUCBEC LINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Stanley  Moses",
@@ -17028,12 +20356,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@gucbec.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1311",
+    "id": "jfll-inact-1567",
     "fullName": "SINHAL HERBS",
     "territory": "All Territories",
     "contactPersonName": "MUKESH KUMAR  SINHAL",
@@ -17046,7 +20374,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1312",
+    "id": "jfll-inact-1568",
     "fullName": "NIKETAS GLOBAL TRADE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Aravindan  ravichandran",
@@ -17054,12 +20382,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "arvind.a320@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1313",
+    "id": "jfll-inact-1569",
     "fullName": "SAI SHREE GLOBALL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "KAILASH D. ARGADE",
@@ -17072,7 +20400,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1314",
+    "id": "jfll-inact-1570",
     "fullName": "RADLAX",
     "territory": "All Territories",
     "contactPersonName": "Mr. Raghuvardhan Y",
@@ -17085,7 +20413,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1315",
+    "id": "jfll-inact-1571",
     "fullName": "RYTHME ALLOYS",
     "territory": "All Territories",
     "contactPersonName": "ANIL",
@@ -17098,7 +20426,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1316",
+    "id": "jfll-inact-1572",
     "fullName": "SWIPE MAIL SERVICES",
     "territory": "All Territories",
     "contactPersonName": "DIPEN",
@@ -17111,7 +20439,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1317",
+    "id": "jfll-inact-1573",
     "fullName": "SLP ENGINEERING (MALDIVES) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HARSAN",
@@ -17119,12 +20447,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "harsans@slp-engineering-mep.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1318",
+    "id": "jfll-inact-1574",
     "fullName": "PALKEM INDIA",
     "territory": "All Territories",
     "contactPersonName": "AVIRATH  RAJYAGOR",
@@ -17137,20 +20465,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1319",
+    "id": "jfll-inact-1575",
     "fullName": "T S TRADERS",
     "territory": "All Territories",
     "contactPersonName": "SHIVAM  MORE",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "shivam.more29@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1320",
+    "id": "jfll-inact-1576",
     "fullName": "AVN BUSINESS SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nikhil kumar",
@@ -17158,12 +20486,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@avnbiz.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1321",
+    "id": "jfll-inact-1577",
     "fullName": "M/S A.N.A. AGRO SCIENCE",
     "territory": "All Territories",
     "contactPersonName": "Belal  khan",
@@ -17176,7 +20504,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1322",
+    "id": "jfll-inact-1578",
     "fullName": "NEW CREATION INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Vipul  Bhatt",
@@ -17189,7 +20517,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1323",
+    "id": "jfll-inact-1579",
     "fullName": "MAHALAXMI FREIGHT FORWARDER & LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Hitesh  Rawal",
@@ -17202,7 +20530,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1324",
+    "id": "jfll-inact-1580",
     "fullName": "NAKHWA INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Jayraj Kishor  Koli",
@@ -17215,7 +20543,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1325",
+    "id": "jfll-inact-1581",
     "fullName": "KENSALT LTD.",
     "territory": "All Territories",
     "contactPersonName": "KIRAN KUMAR R",
@@ -17223,12 +20551,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kiran@kensalt.co.ke",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1326",
+    "id": "jfll-inact-1582",
     "fullName": "V AND O LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Sonam",
@@ -17236,12 +20564,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vo.amit@ojhagroups.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1327",
+    "id": "jfll-inact-1583",
     "fullName": "BRILLIANT SHIPPING & PROJECTS WORLD WIDE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nikil Philip  Jacob",
@@ -17249,12 +20577,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales.cok@brilliantshipping.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1328",
+    "id": "jfll-inact-1584",
     "fullName": "AL-ANSARI EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "MD KAYUM ANSARI",
@@ -17267,7 +20595,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1329",
+    "id": "jfll-inact-1585",
     "fullName": "PURE TRUHERB PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Megha  Basappa",
@@ -17275,12 +20603,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "admin@tru-herb.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1330",
+    "id": "jfll-inact-1586",
     "fullName": "SAMBERRY EXOTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Suresh  Babu",
@@ -17288,12 +20616,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sai.tarun@samagri.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1331",
+    "id": "jfll-inact-1587",
     "fullName": "THE CARGO CLINIC",
     "territory": "All Territories",
     "contactPersonName": "Mahesh",
@@ -17306,7 +20634,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1332",
+    "id": "jfll-inact-1588",
     "fullName": "M/S.SYMO TRADING LLC",
     "territory": "All Territories",
     "contactPersonName": "MR. CHRIS",
@@ -17314,12 +20642,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1333",
+    "id": "jfll-inact-1589",
     "fullName": "AR4 BIO FRESH",
     "territory": "All Territories",
     "contactPersonName": "Mr. Mohammed",
@@ -17332,7 +20660,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1334",
+    "id": "jfll-inact-1590",
     "fullName": "YIWU LINGMEI TRADING CO. LTD.",
     "territory": "All Territories",
     "contactPersonName": "WU MENGYU",
@@ -17340,12 +20668,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "lingmeivip@outlook.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1335",
+    "id": "jfll-inact-1591",
     "fullName": "ZAINAB MUSA FRUIT AND VEGETABLES EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Mr. Mahabubbasha",
@@ -17358,7 +20686,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1336",
+    "id": "jfll-inact-1592",
     "fullName": "VASIREN EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ranjith",
@@ -17366,12 +20694,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vaddisrinivas4243@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1337",
+    "id": "jfll-inact-1593",
     "fullName": "IMPALA TERMINALS SWITZERLAND SARL.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nabeel  Lakhani",
@@ -17384,7 +20712,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1338",
+    "id": "jfll-inact-1594",
     "fullName": "KOIBITO VEST PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rohit Dewan",
@@ -17392,12 +20720,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rohitdewan99@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1339",
+    "id": "jfll-inact-1595",
     "fullName": "AV EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "VICKY  YADAV",
@@ -17410,7 +20738,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1340",
+    "id": "jfll-inact-1596",
     "fullName": "GRAND SLAM EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "DIWAKAR  SHETTY",
@@ -17418,12 +20746,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "diwakarshetty@grandslamexpress.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1341",
+    "id": "jfll-inact-1597",
     "fullName": "STARCON LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASHOK D.",
@@ -17431,12 +20759,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashoka@starconlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1342",
+    "id": "jfll-inact-1598",
     "fullName": "VIZAG AMOGH PROJECT MANAGEMENT PRIVATE",
     "territory": "All Territories",
     "contactPersonName": "Anand C",
@@ -17449,7 +20777,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1343",
+    "id": "jfll-inact-1599",
     "fullName": "EXPISYS SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "NIKHIL  SARPOTDAR",
@@ -17457,12 +20785,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nikhil@expisysshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1344",
+    "id": "jfll-inact-1600",
     "fullName": "EMPRESS GLOBAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VIKRAM MAHARANA",
@@ -17470,12 +20798,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vikram@empressglobal.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1345",
+    "id": "jfll-inact-1601",
     "fullName": "FRESHP TRADING COMPANY",
     "territory": "All Territories",
     "contactPersonName": "FAZILA  BEGUM",
@@ -17483,12 +20811,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bappamondalvfx@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1346",
+    "id": "jfll-inact-1602",
     "fullName": "SHELLCARE SHIPPING AND LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "NITHYA",
@@ -17501,7 +20829,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1347",
+    "id": "jfll-inact-1603",
     "fullName": "YAASIC TRADERS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "MR. NEDUMARAN",
@@ -17509,12 +20837,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nedu8882@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1348",
+    "id": "jfll-inact-1604",
     "fullName": "NOVEL NUTRIENTSS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Raushan  Singh",
@@ -17522,12 +20850,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "operations@merllyonscargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1349",
+    "id": "jfll-inact-1605",
     "fullName": "RIYAN GLOBAL SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vinayak",
@@ -17535,12 +20863,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vinayak@riyanglobalsolutions.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1350",
+    "id": "jfll-inact-1606",
     "fullName": "VISKAN LOGISTICS SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Manimaran",
@@ -17548,12 +20876,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manimaran@viskanlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1351",
+    "id": "jfll-inact-1607",
     "fullName": "XHARL FREIGHT GLOBAL LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Hidayath",
@@ -17561,12 +20889,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hidayath@xharlfg.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1352",
+    "id": "jfll-inact-1608",
     "fullName": "KOMAL ATOMIZER PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Vijay  Bora",
@@ -17574,12 +20902,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@komalatomizer.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1353",
+    "id": "jfll-inact-1609",
     "fullName": "VVCARGO LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sandeep",
@@ -17587,12 +20915,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "tarachand@vvcargo.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1354",
+    "id": "jfll-inact-1610",
     "fullName": "FABSTOR",
     "territory": "All Territories",
     "contactPersonName": "Parth",
@@ -17605,7 +20933,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1355",
+    "id": "jfll-inact-1611",
     "fullName": "PETERS WORLDWIDE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRAMILA  AROTE",
@@ -17613,12 +20941,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pramila@petersww.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1612",
+    "fullName": "TK LOGISTICS SOLUTIONS",
+    "territory": "All Territories",
+    "contactPersonName": "ROHIT KHADKE",
+    "mobileNumber": "+91-9422710227",
+    "email": "khadke_rohit@yahoo.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1356",
+    "id": "jfll-inact-1613",
     "fullName": "IRIS IMPORT AND EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Mr. SATHYAPRABU",
@@ -17631,7 +20972,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1357",
+    "id": "jfll-inact-1614",
     "fullName": "TIRUPATI LOGISTICS INC",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sharad  Rastogi",
@@ -17644,7 +20985,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1358",
+    "id": "jfll-inact-1615",
     "fullName": "WORKERS SAFETY UDDYOG",
     "territory": "All Territories",
     "contactPersonName": "Mr. SUJIT",
@@ -17657,7 +20998,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1359",
+    "id": "jfll-inact-1616",
     "fullName": "HOLAPORT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. KUNAL",
@@ -17665,12 +21006,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kunal@xhipment.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1360",
+    "id": "jfll-inact-1617",
     "fullName": "ATLANTAS GLOBAL CO",
     "territory": "All Territories",
     "contactPersonName": "Priya  Yadav",
@@ -17683,7 +21024,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1361",
+    "id": "jfll-inact-1618",
     "fullName": "ASR INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "SHUKAT KHAN",
@@ -17696,7 +21037,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1362",
+    "id": "jfll-inact-1619",
     "fullName": "EAST ASIA EXIM PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "NIZAM",
@@ -17704,12 +21045,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nizam@eastasia.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1363",
+    "id": "jfll-inact-1620",
     "fullName": "DHAVEED EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "LIJU VARGHESE",
@@ -17722,7 +21063,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1364",
+    "id": "jfll-inact-1621",
     "fullName": "NAKUL INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. Harsh",
@@ -17735,7 +21076,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1365",
+    "id": "jfll-inact-1622",
     "fullName": "CROP GROWTH (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HEMA  CHOUHAN",
@@ -17743,12 +21084,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "purchase@cropgrowth.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1366",
+    "id": "jfll-inact-1623",
     "fullName": "SRIMATHA PHARMACEUTICALS",
     "territory": "All Territories",
     "contactPersonName": "MANCHIKANTI MURALI CHANDRASEKHAR",
@@ -17761,11 +21102,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1367",
+    "id": "jfll-inact-1624",
     "fullName": "CHEVRON SEA SHIPPING CO",
     "territory": "All Territories",
     "contactPersonName": "venkatesh",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "venkatesh@chevron-shipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -17774,7 +21115,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1368",
+    "id": "jfll-inact-1625",
     "fullName": "Pump Aid Corporation",
     "territory": "All Territories",
     "contactPersonName": "Chirag  Modi",
@@ -17787,7 +21128,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1369",
+    "id": "jfll-inact-1626",
     "fullName": "SHEETAL FOODS COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Vishal  Mishra",
@@ -17800,7 +21141,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1370",
+    "id": "jfll-inact-1627",
     "fullName": "CARGO CONSOL INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vanitha.T",
@@ -17808,12 +21149,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vanitha@carqoconsol.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1371",
+    "id": "jfll-inact-1628",
     "fullName": "SHAZIL OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "MR. IMRAN",
@@ -17826,7 +21167,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1372",
+    "id": "jfll-inact-1629",
     "fullName": "GK INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Ms. Nidhi",
@@ -17839,7 +21180,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1373",
+    "id": "jfll-inact-1630",
     "fullName": "FRIENDS MARINE INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "AJAYAN",
@@ -17852,7 +21193,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1374",
+    "id": "jfll-inact-1631",
     "fullName": "BHARATH RKF TRADING AND CONTRACTING",
     "territory": "All Territories",
     "contactPersonName": "Rifash",
@@ -17860,12 +21201,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nambipunnilathusmanfasil@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1375",
+    "id": "jfll-inact-1632",
     "fullName": "COASTSIDE FISHERIES AND AGRO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHAFIQ  PATIL",
@@ -17873,12 +21214,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "spatil@occgroup.org",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1376",
+    "id": "jfll-inact-1633",
+    "fullName": "ACE FORWARDERS PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Kiran  Rawat",
+    "mobileNumber": "+91-9811120867",
+    "email": "kiran.rawat@ace.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1634",
     "fullName": "All Trans Cargo Corp S.A.",
     "territory": "All Territories",
     "contactPersonName": "Fabrizio  Moya",
@@ -17891,20 +21245,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1377",
+    "id": "jfll-inact-1635",
     "fullName": "KALA GENSET PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Prakash  Gaikward",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "prakash.gaikwad@kalabiz.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1378",
+    "id": "jfll-inact-1636",
     "fullName": "A.T. ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "UJJAL  SANTRA",
@@ -17917,7 +21271,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1379",
+    "id": "jfll-inact-1637",
     "fullName": "ALL TRANS CARGO COLOMBIA S.A.S",
     "territory": "All Territories",
     "contactPersonName": "Fabriziyo  Moya",
@@ -17930,7 +21284,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1380",
+    "id": "jfll-inact-1638",
     "fullName": "RAJSAVI GROUP CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "Ms. JYOTIPRAKASH",
@@ -17943,7 +21297,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1381",
+    "id": "jfll-inact-1639",
     "fullName": "ARYA HEALTHCARE",
     "territory": "All Territories",
     "contactPersonName": "Ms. Sunita",
@@ -17956,7 +21310,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1382",
+    "id": "jfll-inact-1640",
     "fullName": "BULL MACHINES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Prabhakaran",
@@ -17964,12 +21318,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "celogistics@bullmachine.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1383",
+    "id": "jfll-inact-1641",
     "fullName": "SAI OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "GOUTAM",
@@ -17982,7 +21336,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1384",
+    "id": "jfll-inact-1642",
     "fullName": "HERITAGE TANNING IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "FAISAL AMIR KHAN",
@@ -17990,12 +21344,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "faisal.k04@yahoo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1385",
+    "id": "jfll-inact-1643",
     "fullName": "RAGA PRINTING SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "AHIR BHARATKUMAR TENGABHAI",
@@ -18008,7 +21362,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1386",
+    "id": "jfll-inact-1644",
     "fullName": "JSK EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "MR.. RANY  DUTTA",
@@ -18021,7 +21375,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1387",
+    "id": "jfll-inact-1645",
     "fullName": "SL FREIGHTERS HUB PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Deepak Singh R",
@@ -18029,12 +21383,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "deepak.singh@jfll.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1388",
+    "id": "jfll-inact-1646",
     "fullName": "BOMBINO EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Laxman",
@@ -18042,12 +21396,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bombino@bombinoexp.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1389",
+    "id": "jfll-inact-1647",
     "fullName": "SOLITAIRE IMPEX GENERAL TRADING COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Mr. NAVIN",
@@ -18055,12 +21409,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "docssolitaireimpex@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1390",
+    "id": "jfll-inact-1648",
     "fullName": "RAJSHREE TRADING CO.",
     "territory": "All Territories",
     "contactPersonName": "Mr. SANKHALA",
@@ -18068,38 +21422,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "tushar@rajshreetradingco.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1391",
+    "id": "jfll-inact-1649",
     "fullName": "ANISH PHARMA EQUIP PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "ANISH PHARMA",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@anishpharma.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1392",
+    "id": "jfll-inact-1650",
+    "fullName": "TWAMEV EXPORT PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Rahul  Karangia",
+    "mobileNumber": "+91-9727579969",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1651",
     "fullName": "GBTL LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAHUL AGARWAL",
     "mobileNumber": "+91-016642425577",
     "email": "speaktogbtl@gbtl.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1393",
+    "id": "jfll-inact-1652",
     "fullName": "WHEELS SHIPPING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VENKAT RAMANA",
@@ -18107,12 +21474,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "venkat@wheelsshipping.cpm",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1394",
+    "id": "jfll-inact-1653",
     "fullName": "RAJESWARI TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Mr. RAJESWARI",
@@ -18120,12 +21487,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rajeswaritraders2024@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1395",
+    "id": "jfll-inact-1654",
     "fullName": "V STAINLESS LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Yogesh  Bhandari",
@@ -18133,12 +21500,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gajendra@bhandarigroup.org",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1396",
+    "id": "jfll-inact-1655",
     "fullName": "SAFE CLEARING AND FORWARDING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "sarfaraz",
@@ -18146,12 +21513,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1397",
+    "id": "jfll-inact-1656",
     "fullName": "P V SONS CORN MILLING COMPANY PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Niket",
@@ -18159,12 +21526,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cityoffice@pvcornmilling.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1398",
+    "id": "jfll-inact-1657",
     "fullName": "CARBON LIFESCIENCES",
     "territory": "All Territories",
     "contactPersonName": "MEENA AROTE",
@@ -18177,7 +21544,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1399",
+    "id": "jfll-inact-1658",
     "fullName": "HNS CREATION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Himanshu",
@@ -18185,12 +21552,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@hnscreations.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1400",
+    "id": "jfll-inact-1659",
     "fullName": "PYROTEK INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "\u200b\u200bShirish  Zingade",
@@ -18198,12 +21565,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shizin@pyrotek.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1401",
+    "id": "jfll-inact-1660",
     "fullName": "A.J. FASHIONERA",
     "territory": "All Territories",
     "contactPersonName": "PRADIP",
@@ -18216,7 +21583,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1402",
+    "id": "jfll-inact-1661",
     "fullName": "OLPAD AQUA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PETER",
@@ -18224,12 +21591,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hemantsaid2@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1403",
+    "id": "jfll-inact-1662",
     "fullName": "GLOBE GROUND SHIPPING",
     "territory": "All Territories",
     "contactPersonName": "Mr. Bhushan",
@@ -18242,7 +21609,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1404",
+    "id": "jfll-inact-1663",
     "fullName": "VEENDEEP OILTEK EXPORTS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "PRADEEP  BHANDARI",
@@ -18250,12 +21617,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pmbhandari@veendeep.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1405",
+    "id": "jfll-inact-1664",
     "fullName": "CHOLAMANDAL CARGO CONNECTIONS",
     "territory": "All Territories",
     "contactPersonName": "ANIL  KUMAR",
@@ -18268,7 +21635,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1406",
+    "id": "jfll-inact-1665",
     "fullName": "ORIENT CERAMICS",
     "territory": "All Territories",
     "contactPersonName": "INDRABA",
@@ -18281,7 +21648,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1407",
+    "id": "jfll-inact-1666",
     "fullName": "ARSH WORLD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Gulam",
@@ -18294,7 +21661,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1408",
+    "id": "jfll-inact-1667",
     "fullName": "G.V. (GOD VISHNU) RICE EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Aman  Mehla",
@@ -18302,12 +21669,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "doc@gvrice.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1409",
+    "id": "jfll-inact-1668",
     "fullName": "ARR GLOBAL LOGISTIC SERVICES",
     "territory": "All Territories",
     "contactPersonName": "RAM",
@@ -18320,7 +21687,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1410",
+    "id": "jfll-inact-1669",
     "fullName": "SAVMIC",
     "territory": "All Territories",
     "contactPersonName": "Mr Haj Mohamad  Selman",
@@ -18333,7 +21700,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1411",
+    "id": "jfll-inact-1670",
     "fullName": "P.P. LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Seema",
@@ -18346,7 +21713,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1412",
+    "id": "jfll-inact-1671",
     "fullName": "TAINWALA PERSONAL CARE PRODUCTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "VANDANA",
@@ -18354,12 +21721,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exim@tainwala.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1413",
+    "id": "jfll-inact-1672",
     "fullName": "SAHIL FREIGHT EXPRESS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Suhail  Shaikh",
@@ -18367,12 +21734,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "suhail@sahilgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1414",
+    "id": "jfll-inact-1673",
     "fullName": "KK AXPORTERS",
     "territory": "All Territories",
     "contactPersonName": "Karthikeyan",
@@ -18385,11 +21752,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1415",
+    "id": "jfll-inact-1674",
     "fullName": "A.N.S. LEATHER COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Mr. NEHAL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "ansleatherco@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -18398,7 +21765,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1416",
+    "id": "jfll-inact-1675",
     "fullName": "P V CARGO CARRIERS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. PRAVEEN",
@@ -18406,12 +21773,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vickey.sharmapvc@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1417",
+    "id": "jfll-inact-1676",
     "fullName": "KNACK INTERNATIONAL SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Gauarav  Vaishnav",
@@ -18424,7 +21791,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1418",
+    "id": "jfll-inact-1677",
     "fullName": "M/S M S K EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Nitin  Pandey",
@@ -18437,7 +21804,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1419",
+    "id": "jfll-inact-1678",
     "fullName": "S R GLOBAL",
     "territory": "All Territories",
     "contactPersonName": "MS. RASHI",
@@ -18450,7 +21817,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1420",
+    "id": "jfll-inact-1679",
     "fullName": "AUBERTRANS",
     "territory": "All Territories",
     "contactPersonName": "Jean-Pascal  ALAND",
@@ -18463,7 +21830,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1421",
+    "id": "jfll-inact-1680",
     "fullName": "BOLTCARGO (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. VINAYAK",
@@ -18471,12 +21838,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rishabh.chaudhary@boltcargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1422",
+    "id": "jfll-inact-1681",
     "fullName": "PROPEL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "subramani  Pillai",
@@ -18484,12 +21851,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "subramani.pillai@propelworldwide.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1423",
+    "id": "jfll-inact-1682",
     "fullName": "Cargo World Express",
     "territory": "All Territories",
     "contactPersonName": "Mr. Atib",
@@ -18502,7 +21869,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1424",
+    "id": "jfll-inact-1683",
     "fullName": "ADAM SMITH COMMODITIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Umesh",
@@ -18510,12 +21877,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@adamsmith.tv",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1425",
+    "id": "jfll-inact-1684",
     "fullName": "FARA GROUP INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "RAJEENA  FAIZAL",
@@ -18528,7 +21895,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1426",
+    "id": "jfll-inact-1685",
     "fullName": "EASHA E - MARKET",
     "territory": "All Territories",
     "contactPersonName": "Mrs. NIRANCHANA",
@@ -18541,7 +21908,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1427",
+    "id": "jfll-inact-1686",
     "fullName": "GLOBAL UK NW LTD",
     "territory": "All Territories",
     "contactPersonName": "SAYED BASHIR  AHMED",
@@ -18549,12 +21916,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "saltaenterprises19@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1428",
+    "id": "jfll-inact-1687",
     "fullName": "TRANSPORTES GRUPO CALICHE SL",
     "territory": "All Territories",
     "contactPersonName": "Mr. Raul  conesa",
@@ -18567,7 +21934,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1429",
+    "id": "jfll-inact-1688",
     "fullName": "Salta Enterprises LTD",
     "territory": "All Territories",
     "contactPersonName": "SAYED BASHIR  AHMED",
@@ -18575,12 +21942,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1430",
+    "id": "jfll-inact-1689",
     "fullName": "TRENDS TRANSIT AND SERVICES.",
     "territory": "All Territories",
     "contactPersonName": "Vernyuy Austin  Lamlenn",
@@ -18593,7 +21960,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1431",
+    "id": "jfll-inact-1690",
     "fullName": "DOCKYARD FREIGHT MOVERS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "MR. R.J. YADAV",
@@ -18601,12 +21968,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dockyard98@yahoo.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1432",
+    "id": "jfll-inact-1691",
     "fullName": "THE ANDHRA SUGARS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. NARENDRANATH",
@@ -18614,16 +21981,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mktgaspirin@theandhrasugars.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1433",
+    "id": "jfll-inact-1692",
     "fullName": "KATHIJA IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Muniaraj",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "mkvseafoods@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
@@ -18632,7 +21999,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1434",
+    "id": "jfll-inact-1693",
     "fullName": "SCOTTO TILES LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Kantilal",
@@ -18640,12 +22007,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@scottotiles.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1435",
+    "id": "jfll-inact-1694",
     "fullName": "SKRM FOODS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. KRISHAN",
@@ -18653,12 +22020,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "documents@skrmfood.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1436",
+    "id": "jfll-inact-1695",
     "fullName": "SPARTEN GRANITO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Dilipbhai Harjibhai  Kanjiya",
@@ -18666,12 +22033,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "spartengranito@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1437",
+    "id": "jfll-inact-1696",
     "fullName": "RSM AUTOKAST PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. KASTHURI",
@@ -18679,12 +22046,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "marketing@rsmautokast.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1438",
+    "id": "jfll-inact-1697",
     "fullName": "SARIKA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "ABRAHAM",
@@ -18692,12 +22059,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "donga.prasad99@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1439",
+    "id": "jfll-inact-1698",
     "fullName": "SATI EXPORTS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sandeep Jalan",
@@ -18705,12 +22072,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mahesh.r@sati.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1440",
+    "id": "jfll-inact-1699",
     "fullName": "SHERASIYA TILES LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Dhaval",
@@ -18718,12 +22085,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@alicetiles.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1441",
+    "id": "jfll-inact-1700",
     "fullName": "GRANITO BRUSHES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rajesh",
@@ -18731,12 +22098,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rajesh_tayloor@granitobrushes.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1442",
+    "id": "jfll-inact-1701",
     "fullName": "KROVINYS OCEAN PECIFIC INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Arvind",
@@ -18744,12 +22111,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "arvind.pandey@krovinysocean.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1443",
+    "id": "jfll-inact-1702",
     "fullName": "SWORD CERAMIC LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. SAGAR",
@@ -18757,12 +22124,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "swordintrl@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1444",
+    "id": "jfll-inact-1703",
     "fullName": "SV FREIGHT",
     "territory": "All Territories",
     "contactPersonName": "LEONARD  FERNANDO",
@@ -18775,7 +22142,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1445",
+    "id": "jfll-inact-1704",
     "fullName": "J L GOWARD & CO",
     "territory": "All Territories",
     "contactPersonName": "KINGSHUK  DEY",
@@ -18788,7 +22155,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1446",
+    "id": "jfll-inact-1705",
     "fullName": "SAM GLOBAL",
     "territory": "All Territories",
     "contactPersonName": "M. Prabhakaran",
@@ -18801,20 +22168,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1447",
+    "id": "jfll-inact-1706",
     "fullName": "SAFA AGRO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Adil",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "info@safaagro.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1448",
+    "id": "jfll-inact-1707",
     "fullName": "SHREE PATIDAR TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rohitkumar J  Kavar",
@@ -18822,12 +22189,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@sptindia.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1449",
+    "id": "jfll-inact-1708",
     "fullName": "SKIER EXPORT AND IMPORT PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Anant",
@@ -18835,12 +22202,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exports@skier.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1450",
+    "id": "jfll-inact-1709",
     "fullName": "SOLOREX TILES LLP.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Chirag",
@@ -18848,16 +22215,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@sgsl.org.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1451",
+    "id": "jfll-inact-1710",
     "fullName": "STAARLIGHT EXPORTERS",
     "territory": "All Territories",
     "contactPersonName": "Mr. MUTHUSAMY",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "staarlightexport@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -18866,11 +22233,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1452",
+    "id": "jfll-inact-1711",
     "fullName": "SUNRISE EXIM",
     "territory": "All Territories",
     "contactPersonName": "Mr. Mohammad Muzaffar",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "sunrise-exim@outlook.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -18879,7 +22246,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1453",
+    "id": "jfll-inact-1712",
     "fullName": "TRANS LOGICARE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Yukta/Mohamad Ibrahim",
@@ -18887,12 +22254,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ops.bom@translogicare.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1454",
+    "id": "jfll-inact-1713",
     "fullName": "CAPARO LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AMRINDER   SINGH",
@@ -18900,12 +22267,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "amrinder.singh@caparo.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1455",
+    "id": "jfll-inact-1714",
     "fullName": "INAYAT MOOSA AND COMPANY",
     "territory": "All Territories",
     "contactPersonName": "SANOJ  VISWAKARMA",
@@ -18918,7 +22285,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1456",
+    "id": "jfll-inact-1715",
     "fullName": "JAS GULF SHIPPING SERVICES L.L.C",
     "territory": "All Territories",
     "contactPersonName": "SIRAS",
@@ -18931,7 +22298,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1457",
+    "id": "jfll-inact-1716",
     "fullName": "AARAV GLOBAL LINK",
     "territory": "All Territories",
     "contactPersonName": "E. Ramesh Aravinth",
@@ -18944,7 +22311,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1458",
+    "id": "jfll-inact-1717",
     "fullName": "STYLAM INDUSTRIES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nitin",
@@ -18952,12 +22319,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@stylam.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1459",
+    "id": "jfll-inact-1718",
     "fullName": "SUNSHINE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mr. SRINIVASA",
@@ -18970,7 +22337,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1460",
+    "id": "jfll-inact-1719",
     "fullName": "RBA FERRO INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BANANI  GHOSH",
@@ -18978,12 +22345,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rbaexp@rbaferro.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1461",
+    "id": "jfll-inact-1720",
     "fullName": "EAGABRIZ SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ashish",
@@ -18991,12 +22358,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashish@eagabriz.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1462",
+    "id": "jfll-inact-1721",
     "fullName": "SAAZ FOODS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Darshak",
@@ -19009,7 +22376,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1463",
+    "id": "jfll-inact-1722",
     "fullName": "SRI JOTHI IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Ms. SUBRAMANI",
@@ -19022,7 +22389,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1464",
+    "id": "jfll-inact-1723",
     "fullName": "SWELLKNIT INC",
     "territory": "All Territories",
     "contactPersonName": "Mr. KRISHNASWAMY",
@@ -19035,7 +22402,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1465",
+    "id": "jfll-inact-1724",
     "fullName": "JALPAN GLOBAL",
     "territory": "All Territories",
     "contactPersonName": "MOHHAMMED",
@@ -19048,7 +22415,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1466",
+    "id": "jfll-inact-1725",
     "fullName": "ALFONS FRERIKS LOGISTICS.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Maurice  (Branch Manager)",
@@ -19061,7 +22428,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1467",
+    "id": "jfll-inact-1726",
     "fullName": "AIRSEA FORWARDERS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Lucy  Bothelo",
@@ -19069,25 +22436,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gvr@airseaindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1468",
+    "id": "jfll-inact-1727",
     "fullName": "SRSS AGRO PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Harin",
     "mobileNumber": "+91-8460022226",
     "email": "info@mr-ind.com",
     "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": false
+    "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1469",
+    "id": "jfll-inact-1728",
     "fullName": "LEON INTERNATIONAL LOGISTICS LLP .",
     "territory": "All Territories",
     "contactPersonName": "Mr. Pankaj  Pandey",
@@ -19095,12 +22462,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "billing@theleonintl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1470",
+    "id": "jfll-inact-1729",
     "fullName": "TITANIUM VITRIFIED PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Anand",
@@ -19108,12 +22475,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@titaniumvitrified.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1471",
+    "id": "jfll-inact-1730",
     "fullName": "EXPRESS CLEARING & SHIPPING AGENCY PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Saurabh  Pandey",
@@ -19121,12 +22488,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "saurabh.expclg@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1472",
+    "id": "jfll-inact-1731",
     "fullName": "AGROMACH SPARES CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "BHAVIK",
@@ -19139,7 +22506,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1473",
+    "id": "jfll-inact-1732",
     "fullName": "ARK BUSINESS AND LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ahmed Zeineldin/George Youssef",
@@ -19152,7 +22519,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1474",
+    "id": "jfll-inact-1733",
     "fullName": "AMRIT IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ajay",
@@ -19160,12 +22527,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@amritimpex.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1475",
+    "id": "jfll-inact-1734",
     "fullName": "APPLE FREIGHT AND LOGISTICS LLP",
     "territory": "All Territories",
     "contactPersonName": "KARTHIK",
@@ -19173,12 +22540,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "management@applefreight.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1476",
+    "id": "jfll-inact-1735",
     "fullName": "ASHNOOR TEXTILE MILL LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Suneel",
@@ -19186,25 +22553,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exports@ashnoortex.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1477",
+    "id": "jfll-inact-1736",
     "fullName": "ASIAN GRANITO INDIA LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. KAMLESHKUMAR",
     "mobileNumber": "+91-9591188337",
     "email": "quartz@aglasiangranito.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1478",
+    "id": "jfll-inact-1737",
     "fullName": "V. K. TEX",
     "territory": "All Territories",
     "contactPersonName": "Mr. Satish",
@@ -19217,7 +22584,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1479",
+    "id": "jfll-inact-1738",
     "fullName": "VU IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vivek",
@@ -19230,7 +22597,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1480",
+    "id": "jfll-inact-1739",
     "fullName": "FRIGOGLASS INDIA PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr.Prashant\u200b  Malhotra",
@@ -19238,12 +22605,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pmalhotra@frigoglass.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1481",
+    "id": "jfll-inact-1740",
     "fullName": "ARKITON TILES LLP.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Akash",
@@ -19251,12 +22618,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@arkitontiles.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1482",
+    "id": "jfll-inact-1741",
     "fullName": "VECTIO GLOBAL EXECUTOR PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAJESH  MENON",
@@ -19264,25 +22631,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "service@vectioglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1483",
-    "fullName": "INDO GLOBE SHIPPING SERVICES PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "PRITAM",
-    "mobileNumber": "+91-9958816677",
-    "email": "exhibition@indoglobeservice.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-1484",
+    "id": "jfll-inact-1742",
     "fullName": "URANUS CLEARING AND FORWARDING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "MS. MEENA  RAVI",
@@ -19295,7 +22649,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1485",
+    "id": "jfll-inact-1743",
     "fullName": "HORIZON CONTAINER LINE (NAMDEO SONU PADWAL)",
     "territory": "All Territories",
     "contactPersonName": "NAMDEO  PADWAL",
@@ -19308,7 +22662,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1486",
+    "id": "jfll-inact-1744",
     "fullName": "KARTHIKEYA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Y venkateswara  rao",
@@ -19316,12 +22670,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "venkiyani@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1487",
+    "id": "jfll-inact-1745",
     "fullName": "7 CONTINENTS EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAJESH",
@@ -19329,12 +22683,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rgoel@7cepl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1488",
+    "id": "jfll-inact-1746",
     "fullName": "ABHYANSH SHIPPING SERVICES (INDIA) PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Archit",
@@ -19342,12 +22696,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pricing@abhyanshshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1489",
+    "id": "jfll-inact-1747",
     "fullName": "M/S SPHERICAL DESIGNS",
     "territory": "All Territories",
     "contactPersonName": "Mr. AMIT",
@@ -19360,7 +22714,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1490",
+    "id": "jfll-inact-1748",
     "fullName": "GOLDENPEAK EXPORTERS",
     "territory": "All Territories",
     "contactPersonName": "Mr.Gaurav",
@@ -19373,12 +22727,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1491",
-    "fullName": "APOLLO SUPPLY CHAIN PRIVATE LIMITED",
+    "id": "jfll-inact-1749",
+    "fullName": "SHIPPING STAR LOGISTICS",
     "territory": "All Territories",
-    "contactPersonName": "SACHIN",
-    "mobileNumber": "+91-9930240672",
-    "email": null,
+    "contactPersonName": "BHAVANA  ROTHOD",
+    "mobileNumber": "+91-9987478778",
+    "email": "shippingstar21@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
     "type": "Company",
@@ -19386,7 +22740,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1492",
+    "id": "jfll-inact-1750",
+    "fullName": "APOLLO SUPPLY CHAIN PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "SACHIN",
+    "mobileNumber": "+91-9930240672",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1751",
     "fullName": "SARATHI INTERNATIONAL INC",
     "territory": "All Territories",
     "contactPersonName": "Mr. SAPTHAGIRI",
@@ -19399,11 +22766,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1493",
+    "id": "jfll-inact-1752",
     "fullName": "NOVACRETE",
     "territory": "All Territories",
     "contactPersonName": "Mr. NARAINRAO",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "mailnovacrete@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -19412,7 +22779,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1494",
+    "id": "jfll-inact-1753",
     "fullName": "GUPTA MACHINE TOOLS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Harsh",
@@ -19420,12 +22787,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "im.chamoli@prestamp.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1495",
+    "id": "jfll-inact-1754",
     "fullName": "BROEKMAN LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. RAJIV",
@@ -19433,16 +22800,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gaurav@broekmanlogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1496",
+    "id": "jfll-inact-1755",
     "fullName": "SAHIL INTERNATIONAL (PNP)",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vinod    DHAMJIA",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "info@sahilinternationalpnp.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -19451,7 +22818,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1497",
+    "id": "jfll-inact-1756",
     "fullName": "AARTOS INTERNATIONAL LLP.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ravi",
@@ -19459,12 +22826,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aartosinternational@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1498",
+    "id": "jfll-inact-1757",
     "fullName": "M/S ROOT IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Esmail",
@@ -19477,7 +22844,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1499",
+    "id": "jfll-inact-1758",
     "fullName": "LOGIWIZ LOGISTICS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Shanmukha",
@@ -19485,12 +22852,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts.blr@advantis.world",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1500",
+    "id": "jfll-inact-1759",
     "fullName": "OM CLEARING & FORWARDING",
     "territory": "All Territories",
     "contactPersonName": "DUSHASAN",
@@ -19503,7 +22870,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1501",
+    "id": "jfll-inact-1760",
     "fullName": "RDS FREIGHT INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Amit",
@@ -19511,12 +22878,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "amit@rdsfreight.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1502",
+    "id": "jfll-inact-1761",
     "fullName": "SALZER ELECTRONICS LTD",
     "territory": "All Territories",
     "contactPersonName": "Ms. REVATHI",
@@ -19524,12 +22891,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "revathi.c@salzergroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1503",
+    "id": "jfll-inact-1762",
     "fullName": "SUVINO EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Avishek  Modi",
@@ -19537,12 +22904,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "avishek@suvino.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1504",
+    "id": "jfll-inact-1763",
     "fullName": "M RAJ LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Nuruddin  Badri",
@@ -19555,7 +22922,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1505",
+    "id": "jfll-inact-1764",
     "fullName": "ANNA HARSHA EXPORTS & IMPORTS",
     "territory": "All Territories",
     "contactPersonName": "Kamaruka",
@@ -19568,7 +22935,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1506",
+    "id": "jfll-inact-1765",
     "fullName": "ANTIQUE NON WOVEN PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Atul",
@@ -19576,16 +22943,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@shivament.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1507",
+    "id": "jfll-inact-1766",
     "fullName": "TARA CHAND GUPTA & CO",
     "territory": "All Territories",
     "contactPersonName": "Pushpendu X Bera",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@jutevalley.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -19594,7 +22961,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1508",
+    "id": "jfll-inact-1767",
     "fullName": "VALENZA CERAMIC LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ashvin T.  Vasjaliya",
@@ -19602,12 +22969,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@valenzaceramic.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1509",
+    "id": "jfll-inact-1768",
     "fullName": "EURO ANCHOR SANITARYWARE INDUSTRIES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr.MAYURBHAI",
@@ -19615,12 +22982,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@euroanchor.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1510",
+    "id": "jfll-inact-1769",
     "fullName": "ITA LAKE CERAMIC PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. HIREN",
@@ -19628,12 +22995,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "document@italake.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1511",
+    "id": "jfll-inact-1770",
     "fullName": "SAWARIA PIPES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ravi",
@@ -19641,12 +23008,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "raviacharya@sawaria.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1512",
+    "id": "jfll-inact-1771",
     "fullName": "SWASTIKA OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Kapil",
@@ -19659,7 +23026,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1513",
+    "id": "jfll-inact-1772",
     "fullName": "M/S MARSHAL EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vinayak",
@@ -19672,7 +23039,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1514",
+    "id": "jfll-inact-1773",
     "fullName": "LEOPARD VITRIFIED PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. PRAVINBHAI",
@@ -19680,12 +23047,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@leopardvitrified.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1515",
+    "id": "jfll-inact-1774",
     "fullName": "BHARAT INTERNATIONAL EXPORTS.",
     "territory": "All Territories",
     "contactPersonName": "Mr. ANIL KUMAR K",
@@ -19698,7 +23065,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1516",
+    "id": "jfll-inact-1775",
     "fullName": "TEAM CARGO CONSOLIDATION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shivkumar  Nadar",
@@ -19706,12 +23073,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shiv@tcconsolidation.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1517",
+    "id": "jfll-inact-1776",
     "fullName": "SHREE SAMARTH LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Nuruddin  Badri",
@@ -19724,7 +23091,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1518",
+    "id": "jfll-inact-1777",
     "fullName": "S.P. RICE EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AMAN  MEHLA",
@@ -19732,12 +23099,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "spriceexports@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1519",
+    "id": "jfll-inact-1778",
     "fullName": "AQLU CERAMIC LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Raj",
@@ -19745,16 +23112,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aqluceramicllp@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1520",
+    "id": "jfll-inact-1779",
     "fullName": "AXIS HOUSEWARES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Hiten",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "axis@axishousewares.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -19763,11 +23130,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1521",
+    "id": "jfll-inact-1780",
     "fullName": "SHAGUN INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. Shagun",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "info@shagunintl.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
@@ -19776,7 +23143,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1522",
+    "id": "jfll-inact-1781",
     "fullName": "KHANNA CARPET CO",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sudesh",
@@ -19789,7 +23156,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1523",
+    "id": "jfll-inact-1782",
     "fullName": "M/S RAJAN OVERSEAS INC",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rajan",
@@ -19802,24 +23169,24 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1524",
+    "id": "jfll-inact-1783",
     "fullName": "SAIBABA INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Girdhari",
     "mobileNumber": "+91-9669724678",
     "email": "sushant@saibabaindustries.in",
     "status": "Not Active",
-    "customerGroup": "Inactive Customer",
+    "customerGroup": "Inactive (DataMyne Match)",
     "type": "Company",
     "saved": false,
-    "inDataMyne": false
+    "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1525",
+    "id": "jfll-inact-1784",
     "fullName": "BUROOJ EXPORTERS",
     "territory": "All Territories",
     "contactPersonName": "JAVED  MISTRY",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "buroojexporters@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -19828,7 +23195,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1526",
+    "id": "jfll-inact-1785",
     "fullName": "BOWEING CARGO MOVERS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nitesh  Khanna",
@@ -19841,7 +23208,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1527",
+    "id": "jfll-inact-1786",
     "fullName": "CHANDRA FABRICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. ANKUR",
@@ -19849,12 +23216,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "chandrafab2003@yahoo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1528",
+    "id": "jfll-inact-1787",
     "fullName": "VELZONE GRANITO LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. NILESHKUMAR",
@@ -19862,12 +23229,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "velzonegranito4400@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1529",
+    "id": "jfll-inact-1788",
     "fullName": "VTA OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "MR. NELSON ARVINDBHAI  BHALODIYA",
@@ -19880,7 +23247,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1530",
+    "id": "jfll-inact-1789",
     "fullName": "SHIV SHAKTI HOME",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sunil",
@@ -19893,7 +23260,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1531",
+    "id": "jfll-inact-1790",
     "fullName": "METRO CITY TILES PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Dilip",
@@ -19901,12 +23268,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@groupofmetro.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1532",
+    "id": "jfll-inact-1791",
     "fullName": "M/S MARTKING EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Syed",
@@ -19919,7 +23286,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1533",
+    "id": "jfll-inact-1792",
     "fullName": "NEO CRAFTS IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. SUNIL",
@@ -19927,16 +23294,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shipping@neocrafts.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1534",
+    "id": "jfll-inact-1793",
     "fullName": "VANITA EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vinod",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "document@vanitaexport.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -19945,11 +23312,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1535",
+    "id": "jfll-inact-1794",
     "fullName": "ANAND INCORPORATION.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Anand",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "apandey@anandmerchandising.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -19958,7 +23325,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1536",
+    "id": "jfll-inact-1795",
     "fullName": "HASTKALA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. MANAV",
@@ -19971,7 +23338,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1537",
+    "id": "jfll-inact-1796",
     "fullName": "SHREE RAM STONE & COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Ms. SANTOSH",
@@ -19984,7 +23351,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1538",
+    "id": "jfll-inact-1797",
     "fullName": "BANJARA MARBLE ARTICLES",
     "territory": "All Territories",
     "contactPersonName": "Mr. GORDHAN",
@@ -19997,7 +23364,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1539",
+    "id": "jfll-inact-1798",
     "fullName": "ELBLLOS FASHION",
     "territory": "All Territories",
     "contactPersonName": "ANKITA  JAIN",
@@ -20010,7 +23377,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1540",
+    "id": "jfll-inact-1799",
     "fullName": "BALAS EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Mr. Bala",
@@ -20023,7 +23390,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1541",
+    "id": "jfll-inact-1800",
     "fullName": "SERON INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ravi",
@@ -20036,7 +23403,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1542",
+    "id": "jfll-inact-1801",
     "fullName": "PARADIGM GRANITE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. ANUPAM",
@@ -20044,12 +23411,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exports@paradigmgranite.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1543",
+    "id": "jfll-inact-1802",
     "fullName": "D S LOGISTICS INDIA",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ankit",
@@ -20062,7 +23429,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1544",
+    "id": "jfll-inact-1803",
     "fullName": "C. R. P. FASHION.",
     "territory": "All Territories",
     "contactPersonName": "Mr. CSIVARAJ",
@@ -20075,11 +23442,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1545",
+    "id": "jfll-inact-1804",
     "fullName": "DELTA CERAMIC.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vivek",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "export@geogres.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
@@ -20088,7 +23455,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1546",
+    "id": "jfll-inact-1805",
     "fullName": "TORO GLOBALEDGE LLP.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Bharul",
@@ -20096,12 +23463,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "torotiles.exp@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1547",
+    "id": "jfll-inact-1806",
     "fullName": "TRU LOGISTICS & SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Mr. JASPREET",
@@ -20114,20 +23481,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1548",
+    "id": "jfll-inact-1807",
     "fullName": "LOUIS DREYFUS COMPANY INDIA PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Madhu",
     "mobileNumber": "+91-9972370179",
     "email": "dinesh.devarajan@ldc.com",
     "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": false
+    "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1549",
+    "id": "jfll-inact-1808",
     "fullName": "CLASSIC MARBLE COMPANY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Surender",
@@ -20135,12 +23502,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sanjay.dutta@classicmarble.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1550",
+    "id": "jfll-inact-1809",
     "fullName": "CARGO WORLD FREIGHT SERVICES W.L.L",
     "territory": "All Territories",
     "contactPersonName": "Asainar Asu",
@@ -20153,7 +23520,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1551",
+    "id": "jfll-inact-1810",
     "fullName": "DEEPAS",
     "territory": "All Territories",
     "contactPersonName": "ASHOK KOTIAN",
@@ -20166,7 +23533,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1552",
+    "id": "jfll-inact-1811",
     "fullName": "ANKIT PATEL",
     "territory": "All Territories",
     "contactPersonName": "Nitin  Pandey",
@@ -20179,7 +23546,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1553",
+    "id": "jfll-inact-1812",
     "fullName": "DIMERCO EXPRESS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jason  Fernandes",
@@ -20187,12 +23554,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jason_j_fernandes@dimerco.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1554",
+    "id": "jfll-inact-1813",
     "fullName": "EASTERN CLOTHINGS.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vasudevan",
@@ -20205,7 +23572,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1555",
+    "id": "jfll-inact-1814",
     "fullName": "BALMER LAWRIE & CO LTD ( A GOVT. UNDERTAKING )",
     "territory": "All Territories",
     "contactPersonName": "Subir  Soren",
@@ -20213,12 +23580,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "soren.s@balmerlawrie.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1556",
+    "id": "jfll-inact-1815",
     "fullName": "BORKAR ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "MADHURI SANTOSH",
@@ -20226,12 +23593,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "borkar.enterprises@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1557",
+    "id": "jfll-inact-1816",
     "fullName": "FLOOR GARDENS",
     "territory": "All Territories",
     "contactPersonName": "Mr. SUMESH",
@@ -20244,7 +23611,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1558",
+    "id": "jfll-inact-1817",
     "fullName": "DECTRANS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. RAKESH",
@@ -20252,12 +23619,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@dectrans.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1559",
+    "id": "jfll-inact-1818",
     "fullName": "CRYSTAL CREATION",
     "territory": "All Territories",
     "contactPersonName": "Mr. Irfan Ummar",
@@ -20270,7 +23637,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1560",
+    "id": "jfll-inact-1819",
     "fullName": "EUROTRANS LOGISYS",
     "territory": "All Territories",
     "contactPersonName": "Nandhakumar",
@@ -20283,7 +23650,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1561",
+    "id": "jfll-inact-1820",
     "fullName": "GATEWAYS AVIATION PVT.LTD",
     "territory": "All Territories",
     "contactPersonName": "Ms. Madhu Chauhan",
@@ -20291,16 +23658,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "madhu@gate-ways.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1562",
+    "id": "jfll-inact-1821",
     "fullName": "GENERAL ENGINEERING COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Mr. Raju",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "mayanklogisticsandshipping@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -20309,7 +23676,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1563",
+    "id": "jfll-inact-1822",
     "fullName": "GOKALDAS EXPORTS LTD",
     "territory": "All Territories",
     "contactPersonName": "Ms Vani",
@@ -20317,12 +23684,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vani.n@gokaldasexports.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1564",
+    "id": "jfll-inact-1823",
     "fullName": "BENZENE CORPORATION",
     "territory": "All Territories",
     "contactPersonName": "Mr. Haresh Patel",
@@ -20335,7 +23702,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1565",
+    "id": "jfll-inact-1824",
     "fullName": "DELTA TILES LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Darshan",
@@ -20343,12 +23710,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@deltatiles.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1566",
+    "id": "jfll-inact-1825",
     "fullName": "DALI CERAMICO LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nitin",
@@ -20356,12 +23723,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@daliceramico.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1567",
+    "id": "jfll-inact-1826",
     "fullName": "DELTA EXPRESS INC",
     "territory": "All Territories",
     "contactPersonName": "PRABHOJOT SINGH",
@@ -20374,7 +23741,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1568",
+    "id": "jfll-inact-1827",
     "fullName": "DOLE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "SUKANT MURLIDHAR",
@@ -20387,7 +23754,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1569",
+    "id": "jfll-inact-1828",
     "fullName": "ESWARI GLOBAL METAL INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. PRABHU L.K.",
@@ -20395,12 +23762,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "eximasst@emimetals.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1570",
+    "id": "jfll-inact-1829",
     "fullName": "EVA FORWARDERS",
     "territory": "All Territories",
     "contactPersonName": "Ram  Palandurkar",
@@ -20413,20 +23780,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1571",
+    "id": "jfll-inact-1830",
     "fullName": "GAJVAKTRAM EXPORTS LLP",
     "territory": "All Territories",
     "contactPersonName": "RAHUL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "rahul4162yadav@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1572",
+    "id": "jfll-inact-1831",
     "fullName": "GLOBAL FREIGHT LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "HITESH RUPAREL",
@@ -20439,11 +23806,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1573",
+    "id": "jfll-inact-1832",
     "fullName": "FAIRMACS SHIPPING SERVICE L.L.C",
     "territory": "All Territories",
     "contactPersonName": "ALPHONSA",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "ramesh.s@fairmacsuae.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -20452,7 +23819,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1574",
+    "id": "jfll-inact-1833",
     "fullName": "GLOBAL MERCHANTS.",
     "territory": "All Territories",
     "contactPersonName": "Karishma",
@@ -20465,7 +23832,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1575",
+    "id": "jfll-inact-1834",
     "fullName": "B.M. HOUSE (INDIA) LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. SIDDHARTH",
@@ -20473,12 +23840,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@lavinagranites.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1576",
+    "id": "jfll-inact-1835",
     "fullName": "BLUE PARTNERS LOGISTICS S.A.",
     "territory": "All Territories",
     "contactPersonName": "Korcan",
@@ -20491,20 +23858,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1577",
+    "id": "jfll-inact-1836",
     "fullName": "DEEPAK TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Ms. Bharti",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "info@deepaktraders.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1578",
+    "id": "jfll-inact-1837",
     "fullName": "GOODDOT ENTERPRISES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MANISH  DANI",
@@ -20512,16 +23879,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manish@gooddot.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1579",
+    "id": "jfll-inact-1838",
     "fullName": "CIEL HOME DECORS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sonia",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "abhishek@cielhomedecors.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -20530,7 +23897,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1580",
+    "id": "jfll-inact-1839",
     "fullName": "D.S.EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Deep",
@@ -20543,7 +23910,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1581",
+    "id": "jfll-inact-1840",
     "fullName": "ECOGRESS GLOBAL INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Shileshkumar",
@@ -20551,12 +23918,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "soham@ecogress.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1582",
+    "id": "jfll-inact-1841",
     "fullName": "EUROSPA TERRY TOWELS PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr.Mahesh",
@@ -20564,12 +23931,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "eurospa481@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1583",
+    "id": "jfll-inact-1842",
     "fullName": "AIRGLOW AVIATION SERVICES LLP.",
     "territory": "All Territories",
     "contactPersonName": "Rajesh  Patel",
@@ -20577,16 +23944,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rajesh.p@airglowaviation.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1584",
+    "id": "jfll-inact-1843",
     "fullName": "FINE FIT TEXTILE",
     "territory": "All Territories",
     "contactPersonName": "Mr. KANDALU",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "finefittextile@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -20595,7 +23962,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1585",
+    "id": "jfll-inact-1844",
     "fullName": "GLOBE EXPRESS SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Venkat  Thevar",
@@ -20603,12 +23970,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "venkat.thevar@geslogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1586",
+    "id": "jfll-inact-1845",
     "fullName": "GSN FREIGHT FORWARDING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Malik",
@@ -20616,12 +23983,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gr@vegaexpress.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1587",
+    "id": "jfll-inact-1846",
     "fullName": "B&B MERCHANDISING",
     "territory": "All Territories",
     "contactPersonName": "Mr. MURUGAN",
@@ -20634,7 +24001,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1588",
+    "id": "jfll-inact-1847",
     "fullName": "GOLDFRESH INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Danish",
@@ -20647,7 +24014,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1589",
+    "id": "jfll-inact-1848",
     "fullName": "GREEN LINE COCO PEAT",
     "territory": "All Territories",
     "contactPersonName": "Mr. Arvind",
@@ -20660,7 +24027,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1590",
+    "id": "jfll-inact-1849",
     "fullName": "GOPINATHJI FOOD IMPEX",
     "territory": "All Territories",
     "contactPersonName": "JATIN",
@@ -20673,7 +24040,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1591",
+    "id": "jfll-inact-1850",
     "fullName": "HILTON AIR CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. VINOD",
@@ -20681,12 +24048,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hiltonairexpress@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1592",
+    "id": "jfll-inact-1851",
     "fullName": "CONTOUR GLOBAL HOLDINGS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Manish",
@@ -20694,12 +24061,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manish@zipter.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1593",
+    "id": "jfll-inact-1852",
     "fullName": "EXCLUSIVE TILES",
     "territory": "All Territories",
     "contactPersonName": "Kunal",
@@ -20712,7 +24079,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1594",
+    "id": "jfll-inact-1853",
     "fullName": "GLOBAL MERCHANDISING.",
     "territory": "All Territories",
     "contactPersonName": "Ms. Ginni Gaba",
@@ -20725,7 +24092,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1595",
+    "id": "jfll-inact-1854",
     "fullName": "DELHIVERY LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. ANKIT  KAMAT",
@@ -20733,12 +24100,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ankit.kamat@delhivery.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1596",
+    "id": "jfll-inact-1855",
     "fullName": "DHANVIN TEX",
     "territory": "All Territories",
     "contactPersonName": "Mr. VEERICHETTIAR",
@@ -20751,7 +24118,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1597",
+    "id": "jfll-inact-1856",
     "fullName": "GOVIND STEEL COMPANY LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Bithin Chandra",
@@ -20759,12 +24126,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bithin@govindsteel.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1598",
+    "id": "jfll-inact-1857",
     "fullName": "GRANDOR CERAMICO.",
     "territory": "All Territories",
     "contactPersonName": "Ms. Sharmila",
@@ -20777,7 +24144,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1599",
+    "id": "jfll-inact-1858",
     "fullName": "INOX WORLD INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rambabu",
@@ -20785,12 +24152,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@world-fa.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1600",
+    "id": "jfll-inact-1859",
     "fullName": "JAI AMBE TRADING",
     "territory": "All Territories",
     "contactPersonName": "MR. MEHUL B.",
@@ -20798,12 +24165,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mehul@ieccourier.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1601",
+    "id": "jfll-inact-1860",
     "fullName": "INDIANATILE",
     "territory": "All Territories",
     "contactPersonName": "Mr. Jatin",
@@ -20816,7 +24183,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1602",
+    "id": "jfll-inact-1861",
     "fullName": "KALP SEA FOODS",
     "territory": "All Territories",
     "contactPersonName": "MANISHKUMAR",
@@ -20829,7 +24196,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1603",
+    "id": "jfll-inact-1862",
     "fullName": "LANDLINE IMPORTS & EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rasheed",
@@ -20837,12 +24204,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "landlineexports@landlinegt.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1604",
+    "id": "jfll-inact-1863",
     "fullName": "INDIAN LEATHER COMPANY",
     "territory": "All Territories",
     "contactPersonName": "Ms. Razia K",
@@ -20855,7 +24222,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1605",
+    "id": "jfll-inact-1864",
     "fullName": "HINDUSTAN INFRALOG PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Bala  Subramanian",
@@ -20863,12 +24230,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "balasubramanjan.rbs@dpworld.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1606",
+    "id": "jfll-inact-1865",
     "fullName": "KANAIYA EXPORTS PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Parth",
@@ -20876,12 +24243,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "docs@kanaiyagroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1607",
+    "id": "jfll-inact-1866",
     "fullName": "KRIPA ELECTRONICS (INDIA) PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "PRATIK",
@@ -20889,25 +24256,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "log1@keihifi.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1608",
+    "id": "jfll-inact-1867",
     "fullName": "MABAS MARINE PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "MABAS",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@mabasmarine.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1609",
+    "id": "jfll-inact-1868",
     "fullName": "GTS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JOHEB  MOMIN",
@@ -20915,29 +24282,29 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "joheb@gtllogisticindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1610",
+    "id": "jfll-inact-1869",
     "fullName": "HINDUSTAN PLATINUM PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "ANITA FRANCIS",
     "mobileNumber": "+91-9699331442",
     "email": "anita.francis@hp.co.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1611",
+    "id": "jfll-inact-1870",
     "fullName": "KARPAGHAM TEX",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vasu",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "document@ktex.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -20946,7 +24313,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1612",
+    "id": "jfll-inact-1871",
     "fullName": "KONGU BHARANI AGRO TRADING",
     "territory": "All Territories",
     "contactPersonName": "Sudhakar",
@@ -20954,12 +24321,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kongubharaniagrotradig@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1613",
+    "id": "jfll-inact-1872",
     "fullName": "LITTLE WORLD EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "IMRAN",
@@ -20972,7 +24339,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1614",
+    "id": "jfll-inact-1873",
     "fullName": "KOBUS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. AJAY",
@@ -20980,12 +24347,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cus1@kobuslogistic.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1615",
+    "id": "jfll-inact-1874",
     "fullName": "ITALICA GRANITO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Baldev  Patel",
@@ -20993,12 +24360,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "document@itaca.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1616",
+    "id": "jfll-inact-1875",
     "fullName": "MANORAMA SUPPLY CHAIN SOLUTION (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjukta Kamal Sahu",
@@ -21006,12 +24373,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manoramasupplychainsolution@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1617",
+    "id": "jfll-inact-1876",
     "fullName": "HERCULES AVIATION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Hemant",
@@ -21019,12 +24386,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "finance.del1@herculesaviation.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1618",
+    "id": "jfll-inact-1877",
     "fullName": "IRISH INTERNATIONAL.",
     "territory": "All Territories",
     "contactPersonName": "JONY MAYKAL ANTHONI",
@@ -21037,7 +24404,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1619",
+    "id": "jfll-inact-1878",
     "fullName": "MAJESTIC EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Angathal",
@@ -21050,7 +24417,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1620",
+    "id": "jfll-inact-1879",
     "fullName": "JYOTI ROCKS & EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Surya",
@@ -21058,12 +24425,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@jyotirocks.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1621",
+    "id": "jfll-inact-1880",
     "fullName": "MANE KANCOR INGREDIENTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ARUN",
@@ -21071,12 +24438,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "arun.raj@mane.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1622",
+    "id": "jfll-inact-1881",
     "fullName": "MASTERS LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "NEENU ABHIJIT",
@@ -21089,7 +24456,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1623",
+    "id": "jfll-inact-1882",
     "fullName": "MARBILANO SURFACES LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. ARVIND",
@@ -21097,12 +24464,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales1@marbilano.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1624",
+    "id": "jfll-inact-1883",
     "fullName": "NASANTA FOOD & DRINK PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. RAJESH MAYANI",
@@ -21110,12 +24477,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nasantafd@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1625",
+    "id": "jfll-inact-1884",
     "fullName": "M/S.ANSHIRA VENTURES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. SATHISH K",
@@ -21123,12 +24490,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "satinnair@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1626",
+    "id": "jfll-inact-1885",
     "fullName": "MAITRI INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "VARSHA",
@@ -21141,20 +24508,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1627",
+    "id": "jfll-inact-1886",
     "fullName": "MALIKS TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nitin",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "malikstraders15@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1628",
+    "id": "jfll-inact-1887",
     "fullName": "MSHRIY CONSULTING & ENGINEERING",
     "territory": "All Territories",
     "contactPersonName": "RONAKBHAI R",
@@ -21167,7 +24534,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1629",
+    "id": "jfll-inact-1888",
     "fullName": "NEHANI TILES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR.BHAIVAT SORIA",
@@ -21175,12 +24542,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nehanitiles@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1630",
+    "id": "jfll-inact-1889",
     "fullName": "HNR TRADEX INC",
     "territory": "All Territories",
     "contactPersonName": "Mr. RAMANI",
@@ -21193,7 +24560,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1631",
+    "id": "jfll-inact-1890",
     "fullName": "MS SHRI GI IMPORT-EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Mr.  Mahesh",
@@ -21206,20 +24573,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1632",
+    "id": "jfll-inact-1891",
     "fullName": "HEERA GRANITES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. VIVEK",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "heeragranites@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1633",
+    "id": "jfll-inact-1892",
     "fullName": "LAVISH GRANITO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR.JITENDRA PARSHOTTAMBHAI  ROJMALA",
@@ -21227,12 +24594,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "doc@lavishceramics.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1634",
+    "id": "jfll-inact-1893",
     "fullName": "MAAHER AND MAAHIN FOOD SPECIALITIES",
     "territory": "All Territories",
     "contactPersonName": "Ms. Shaimaa",
@@ -21245,7 +24612,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1635",
+    "id": "jfll-inact-1894",
     "fullName": "NEW BHARAT GRAINS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Aarush Khosla",
@@ -21253,12 +24620,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "expodox@himalayanqueenrice.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1636",
+    "id": "jfll-inact-1895",
     "fullName": "JAY ESS & CO",
     "territory": "All Territories",
     "contactPersonName": "Ms. JYOTHI",
@@ -21271,7 +24638,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1637",
+    "id": "jfll-inact-1896",
     "fullName": "HASH RATE COMMUNICATION PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr.Ammar Patel",
@@ -21279,16 +24646,29 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ammar@hashrate.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1638",
+    "id": "jfll-inact-1897",
+    "fullName": "M R SHIPPING PVT LTD",
+    "territory": "All Territories",
+    "contactPersonName": "palak",
+    "mobileNumber": "+91-9820915608",
+    "email": "palak@mrshipping.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1898",
     "fullName": "MAC LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Dharmendra kumar  yadav",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "dryadav20@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -21297,7 +24677,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1639",
+    "id": "jfll-inact-1899",
     "fullName": "MARVEL ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Abdu  Rahman",
@@ -21305,12 +24685,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "marvelenterprises2001@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1640",
+    "id": "jfll-inact-1900",
     "fullName": "MELCA INTERNATIONAL LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Chirag",
@@ -21318,12 +24698,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@melcainternational.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1641",
+    "id": "jfll-inact-1901",
     "fullName": "HALDYN HEINZ FINE GLASS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Chetan  Vyas",
@@ -21331,12 +24711,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cvyas@haldynheinz.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1642",
+    "id": "jfll-inact-1902",
     "fullName": "MULTILINK EXPRESS KENYA LTD",
     "territory": "All Territories",
     "contactPersonName": "JOEL OKOTH",
@@ -21344,12 +24724,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gertrude@multilinkexpresskenya.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1643",
+    "id": "jfll-inact-1903",
     "fullName": "MR. B GREEN",
     "territory": "All Territories",
     "contactPersonName": "Mr. SEBASTHIRAJ B L RAJESH",
@@ -21362,7 +24742,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1644",
+    "id": "jfll-inact-1904",
+    "fullName": "NEPTUNE REFRIGERATION CO PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. NIKHIL",
+    "mobileNumber": "+91-9841084698",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-1905",
     "fullName": "HOMELINES TEXTILES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Raju",
@@ -21375,7 +24768,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1645",
+    "id": "jfll-inact-1906",
     "fullName": "ICON GRANITO PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "MR.DEEPAKKUMAR MANJIBHAI  TILVA",
@@ -21383,16 +24776,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@icongranito.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1646",
+    "id": "jfll-inact-1907",
     "fullName": "LASER SPARES AND REPAIRS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Renu",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "lasersparesdelhi@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -21401,7 +24794,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1647",
+    "id": "jfll-inact-1908",
     "fullName": "M A B TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rifashudeen B",
@@ -21409,12 +24802,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mabtraders1@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1648",
+    "id": "jfll-inact-1909",
     "fullName": "MITRAYA FARMERS PRODUCER COMPANY LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRAFUL",
@@ -21422,12 +24815,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sdfexports@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1649",
+    "id": "jfll-inact-1910",
     "fullName": "GREEN IND POLYMERS FZE",
     "territory": "All Territories",
     "contactPersonName": "SHREEDHARA K R",
@@ -21440,7 +24833,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1650",
+    "id": "jfll-inact-1911",
     "fullName": "HINDUSTAN ADHESIVES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Madhududan",
@@ -21448,12 +24841,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sandeepjuyal@bagla-group.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1651",
+    "id": "jfll-inact-1912",
     "fullName": "NOOR SEAFOOD EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Sayyed.",
@@ -21466,7 +24859,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1652",
+    "id": "jfll-inact-1913",
     "fullName": "GURIT WIND PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. BOOPALAN",
@@ -21474,25 +24867,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "boopalan.sivanesan@gurit.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1653",
+    "id": "jfll-inact-1914",
     "fullName": "L-TILE GRANITO LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Anil",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "admin@l-tile.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1654",
+    "id": "jfll-inact-1915",
     "fullName": "M/S TAHIRA HANDICRAFTS.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Jameel",
@@ -21505,7 +24898,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1655",
+    "id": "jfll-inact-1916",
     "fullName": "ORINDA INDUSTRIES LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. Hardik",
@@ -21513,12 +24906,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@orindagroups.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1656",
+    "id": "jfll-inact-1917",
     "fullName": "NORATEL INDIA POWER COMPONENTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Ms. MANJU",
@@ -21526,25 +24919,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manju.kk@noratel.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1657",
+    "id": "jfll-inact-1918",
     "fullName": "PACKWELL CRAFT PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "NAGARAJ",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "jetclear77@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1658",
+    "id": "jfll-inact-1919",
     "fullName": "PROMILA EMPORIUM",
     "territory": "All Territories",
     "contactPersonName": "Mr. SANJAY",
@@ -21557,7 +24950,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1659",
+    "id": "jfll-inact-1920",
     "fullName": "PIAGGIO VEHICLES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Saurabh",
@@ -21565,25 +24958,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "saurabh.siddhamshettiwar@piaggio.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1660",
+    "id": "jfll-inact-1921",
     "fullName": "RADHAMANI EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. MUKESH",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "annamalai@radhamanigroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1661",
+    "id": "jfll-inact-1922",
     "fullName": "RAVIRAJ CHEMICALS.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ghanshy",
@@ -21596,7 +24989,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1662",
+    "id": "jfll-inact-1923",
     "fullName": "RISHICHEM DISTRIBUTORS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SEEMA  AGARWAL",
@@ -21604,12 +24997,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "seema@rishichem.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1663",
+    "id": "jfll-inact-1924",
     "fullName": "SHREE AGRO EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Belal",
@@ -21622,7 +25015,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1664",
+    "id": "jfll-inact-1925",
     "fullName": "SHYAM SEL & POWER LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sayan Chaterjee",
@@ -21630,12 +25023,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exop@shyamgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Public Limited",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-1926",
+    "fullName": "SAFCOM EXPORT",
+    "territory": "All Territories",
+    "contactPersonName": "Nizaar",
+    "mobileNumber": "+91-9847198535",
+    "email": "safcomexport@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
     "type": "Company",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1665",
+    "id": "jfll-inact-1927",
     "fullName": "SRRE SAI BALAJI KNITTING",
     "territory": "All Territories",
     "contactPersonName": "Mr. Arumugam",
@@ -21648,7 +25054,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1666",
+    "id": "jfll-inact-1928",
     "fullName": "OMLC CARGO MOVERS",
     "territory": "All Territories",
     "contactPersonName": "Omkar",
@@ -21661,7 +25067,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1667",
+    "id": "jfll-inact-1929",
     "fullName": "SEALTRANS INTERNATIONAL LOGISTICS AND TRADING (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nital  Utekar",
@@ -21669,12 +25075,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "docs@sealtrans.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1668",
+    "id": "jfll-inact-1930",
     "fullName": "SHATAL ENGINEERING INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. PALANISAMY",
@@ -21682,12 +25088,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sei_accounts1@shatal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1669",
+    "id": "jfll-inact-1931",
     "fullName": "SHIVRAM ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "YASH PATEL BHAVESHBHAI",
@@ -21700,7 +25106,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1670",
+    "id": "jfll-inact-1932",
     "fullName": "SIDDHARTH CHEMICALS",
     "territory": "All Territories",
     "contactPersonName": "Shakil",
@@ -21713,7 +25119,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1671",
+    "id": "jfll-inact-1933",
     "fullName": "SRI SAI GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "SUBRAMANIA",
@@ -21726,7 +25132,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1672",
+    "id": "jfll-inact-1934",
     "fullName": "OMKAR LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "ARUN SINGH",
@@ -21739,7 +25145,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1673",
+    "id": "jfll-inact-1935",
     "fullName": "SWASTIK SHIPPING AND FORWARDING SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Abhishek",
@@ -21747,12 +25153,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vivek@swastikshipping.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1674",
+    "id": "jfll-inact-1936",
     "fullName": "THAAZA EXPORTERS & IMPORTERS",
     "territory": "All Territories",
     "contactPersonName": "Dr.Jineesh",
@@ -21765,20 +25171,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1675",
+    "id": "jfll-inact-1937",
     "fullName": "PAREKHPLAST INDIA LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sapna  Bodke",
     "mobileNumber": "+91-2267263502",
     "email": "purchase@parekhplast.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1676",
+    "id": "jfll-inact-1938",
     "fullName": "NEOWORLD",
     "territory": "All Territories",
     "contactPersonName": "MERKETING TEAM",
@@ -21791,7 +25197,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1677",
+    "id": "jfll-inact-1939",
     "fullName": "TMT LOGISTICS PVT LTD .",
     "territory": "All Territories",
     "contactPersonName": "DIENSH",
@@ -21799,12 +25205,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dinesh@tmtlogistics.net",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1678",
+    "id": "jfll-inact-1940",
     "fullName": "S.R. LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "SAMIR",
@@ -21817,7 +25223,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1679",
+    "id": "jfll-inact-1941",
     "fullName": "SAI MARITIME AND MANAGEMENT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mangesh",
@@ -21825,12 +25231,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mangesh@saiship.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1680",
+    "id": "jfll-inact-1942",
     "fullName": "PARAS DEFENCE AND SPACE TECHNOLOGIES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Dinesh",
@@ -21838,12 +25244,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dinesh@parasdefence.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1681",
+    "id": "jfll-inact-1943",
     "fullName": "MAXIMUS COMPLETION SYSTEMS",
     "territory": "All Territories",
     "contactPersonName": "Mr.SRINIVAS KALLURI",
@@ -21856,7 +25262,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1682",
+    "id": "jfll-inact-1944",
     "fullName": "PADIA EXPORTS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Binod",
@@ -21864,12 +25270,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "admin@padia.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1683",
+    "id": "jfll-inact-1945",
     "fullName": "PONTUS FREIGHT INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr.Ramesh",
@@ -21877,12 +25283,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ramesh@pontusfreight.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1684",
+    "id": "jfll-inact-1946",
     "fullName": "RANGE EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Pankaj",
@@ -21890,12 +25296,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rangeexportsdocs2021@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1685",
+    "id": "jfll-inact-1947",
     "fullName": "RASU EXPORTS & IMPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. RAMESH KUCHI",
@@ -21908,7 +25314,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1686",
+    "id": "jfll-inact-1948",
     "fullName": "SHRI KARI EXIM PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "Prakash",
@@ -21916,12 +25322,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashvina1@ashvinatrading.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1687",
+    "id": "jfll-inact-1949",
     "fullName": "KJPISCES PET STORE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "K. LLANGKUMARAN",
@@ -21929,12 +25335,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kjpiscespetstore@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1688",
+    "id": "jfll-inact-1950",
     "fullName": "TENSHI KAIZEN PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Manoj  Kumar",
@@ -21942,16 +25348,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manojkumar.j@tenshi.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1689",
+    "id": "jfll-inact-1951",
     "fullName": "NI-YU TEX INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. MOHANDOSS",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "director@niyutex.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -21960,7 +25366,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1690",
+    "id": "jfll-inact-1952",
     "fullName": "NUTRIVATIVE FOODS PRIVATE LIMITED.",
     "territory": "All Territories",
     "contactPersonName": "MR.K.JAGADEESH",
@@ -21968,12 +25374,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jagadeesh@nourishyou.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1691",
+    "id": "jfll-inact-1953",
     "fullName": "PDP LIFE SCIENCE LOGISTIC INDIA",
     "territory": "All Territories",
     "contactPersonName": "Mr.Afzal Batliwala",
@@ -21986,7 +25392,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1692",
+    "id": "jfll-inact-1954",
     "fullName": "SHREE KUSH MACHINERY AND SPARES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sachin Sharma",
@@ -21999,12 +25405,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1693",
-    "fullName": "PM AGRO BIOTECH PRIVATE LIMITED",
+    "id": "jfll-inact-1955",
+    "fullName": "SUBMARINE INTERNATIONAL",
     "territory": "All Territories",
-    "contactPersonName": "Karthikeyan",
-    "mobileNumber": "+91-9840092637",
-    "email": "karthik@pmagrobiotech.com",
+    "contactPersonName": "Peter",
+    "mobileNumber": "+91-9773807581",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
     "type": "Company",
@@ -22012,7 +25418,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1694",
+    "id": "jfll-inact-1956",
+    "fullName": "PM AGRO BIOTECH PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Karthikeyan",
+    "mobileNumber": "+91-9840092637",
+    "email": "karthik@pmagrobiotech.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-1957",
     "fullName": "PATRIARCH EXIM SERVICES",
     "territory": "All Territories",
     "contactPersonName": "BARKHA",
@@ -22025,7 +25444,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1695",
+    "id": "jfll-inact-1958",
     "fullName": "PIONEER AGRO INDUSTRIES SANVIN LABORATORIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mani Iyer",
@@ -22033,12 +25452,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@sanvin.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1696",
+    "id": "jfll-inact-1959",
     "fullName": "PORCELONA INDIA.",
     "territory": "All Territories",
     "contactPersonName": "Ms. Mamta",
@@ -22051,7 +25470,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1697",
+    "id": "jfll-inact-1960",
     "fullName": "OSTARA GROUP",
     "territory": "All Territories",
     "contactPersonName": "Irena",
@@ -22064,7 +25483,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1698",
+    "id": "jfll-inact-1961",
     "fullName": "SHAHIRA FREIGHT FORWARDERS.",
     "territory": "All Territories",
     "contactPersonName": "Rashid Ayub",
@@ -22077,7 +25496,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1699",
+    "id": "jfll-inact-1962",
     "fullName": "THE CONTRACTORS",
     "territory": "All Territories",
     "contactPersonName": "Mr. HariKrishna",
@@ -22090,7 +25509,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1700",
+    "id": "jfll-inact-1963",
     "fullName": "TITAN SEA AND AIR SERVICES PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Abhijit  More",
@@ -22098,12 +25517,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abhijit.more@tsaspl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1701",
+    "id": "jfll-inact-1964",
     "fullName": "PRIMITIVE ORGANIC PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PAYAL NISHANT",
@@ -22111,12 +25530,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1702",
+    "id": "jfll-inact-1965",
     "fullName": "TRIDENT SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Bala Subramanya K K",
@@ -22129,7 +25548,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1703",
+    "id": "jfll-inact-1966",
     "fullName": "PNC GARMENTS",
     "territory": "All Territories",
     "contactPersonName": "Chirag  Gohil",
@@ -22142,7 +25561,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1704",
+    "id": "jfll-inact-1967",
     "fullName": "POWLE HOME FOODS",
     "territory": "All Territories",
     "contactPersonName": "Prashant Devendra  Powle",
@@ -22155,7 +25574,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1705",
+    "id": "jfll-inact-1968",
     "fullName": "L.I.T. AIR & SEA GM BH",
     "territory": "All Territories",
     "contactPersonName": "Jean-pierre  moellaman",
@@ -22168,7 +25587,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1706",
+    "id": "jfll-inact-1969",
     "fullName": "M/S H LAL ENTER NATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rohit",
@@ -22181,7 +25600,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1707",
+    "id": "jfll-inact-1970",
     "fullName": "OM DARSHAN MARKETING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Vinayak",
@@ -22189,12 +25608,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "odmmarines@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1708",
+    "id": "jfll-inact-1971",
     "fullName": "BHARAT CONNECT CARGO AND COURIER SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Mr. VISHAL",
@@ -22207,7 +25626,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1709",
+    "id": "jfll-inact-1972",
     "fullName": "JAVI HOME PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. VIBHORE",
@@ -22215,12 +25634,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ship2@javihome.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1710",
+    "id": "jfll-inact-1973",
     "fullName": "VSG SHIPPING & LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Akash",
@@ -22228,12 +25647,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "aakash.singh@vsgshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1711",
+    "id": "jfll-inact-1974",
     "fullName": "VMZINC INDIA PVT LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ajay  Shukla",
@@ -22241,12 +25660,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ajay.shukla@vmbuildingsolutions.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1712",
+    "id": "jfll-inact-1975",
     "fullName": "SPRINT WORLD LTD",
     "territory": "All Territories",
     "contactPersonName": "Peter  Gandhi",
@@ -22254,12 +25673,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exports@sprintworld.co.uk",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1713",
+    "id": "jfll-inact-1976",
     "fullName": "D P S GLOBAL LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "AKSHAY",
@@ -22272,7 +25691,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1714",
+    "id": "jfll-inact-1977",
     "fullName": "DEKREDIX FINTECH INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRASHEEL SINGH",
@@ -22280,12 +25699,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "prasheel@dekredix.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1715",
+    "id": "jfll-inact-1978",
     "fullName": "WHITE GLOSS ENGINEERING",
     "territory": "All Territories",
     "contactPersonName": "Ms.Priti Nakat",
@@ -22298,7 +25717,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1716",
+    "id": "jfll-inact-1979",
     "fullName": "VIN CARGO PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vinay",
@@ -22306,12 +25725,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@vincargogroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1717",
+    "id": "jfll-inact-1980",
     "fullName": "4n FRESH VEGETABLES",
     "territory": "All Territories",
     "contactPersonName": "MARZOOK VC",
@@ -22324,7 +25743,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1718",
+    "id": "jfll-inact-1981",
     "fullName": "VIVERA IMPEX.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Gautam",
@@ -22337,7 +25756,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1719",
+    "id": "jfll-inact-1982",
     "fullName": "V & V PHARMA INDUSTRIES.",
     "territory": "All Territories",
     "contactPersonName": "Mr.VISHWAS S. GHARE",
@@ -22350,7 +25769,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1720",
+    "id": "jfll-inact-1983",
     "fullName": "SPACE TRAVEL & CARGO",
     "territory": "All Territories",
     "contactPersonName": "Mr. Man  Singh",
@@ -22363,7 +25782,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1721",
+    "id": "jfll-inact-1984",
     "fullName": "ANAPURNA SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MANMEET SINGH",
@@ -22371,12 +25790,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1722",
+    "id": "jfll-inact-1985",
     "fullName": "EVOLUTE CLEANTECH SOLUTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "APPU  THAKUR",
@@ -22384,12 +25803,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "appu@evolute-cleantech.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1723",
+    "id": "jfll-inact-1986",
     "fullName": "ENCO SHIPPING AGENCY",
     "territory": "All Territories",
     "contactPersonName": "Pramod  Kargutkar",
@@ -22397,12 +25816,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pramod@encoshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1724",
+    "id": "jfll-inact-1987",
     "fullName": "MAGSONS EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "VIRENDER MAGU",
@@ -22415,7 +25834,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1725",
+    "id": "jfll-inact-1988",
     "fullName": "GUNABAI AGRO PRODUCTS TRADING",
     "territory": "All Territories",
     "contactPersonName": "Mr. Subhash  Sutar",
@@ -22423,12 +25842,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "lalchandenterprises70@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1726",
+    "id": "jfll-inact-1989",
     "fullName": "DHARANI FORESTRY & ORCHARDS LTD",
     "territory": "All Territories",
     "contactPersonName": "SHARIF",
@@ -22436,12 +25855,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dfol2001@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1727",
+    "id": "jfll-inact-1990",
     "fullName": "JP EXPORT AND IMPORT",
     "territory": "All Territories",
     "contactPersonName": "MANI KANDAN",
@@ -22454,7 +25873,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1728",
+    "id": "jfll-inact-1991",
     "fullName": "EXPRESS INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Joseph  Sunny",
@@ -22467,7 +25886,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1729",
+    "id": "jfll-inact-1992",
     "fullName": "ZAKIR BRASS EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. MUBASSIR",
@@ -22480,7 +25899,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1730",
+    "id": "jfll-inact-1993",
     "fullName": "SUUMAYA TRANS LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ambrish Singh",
@@ -22488,12 +25907,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1731",
+    "id": "jfll-inact-1994",
     "fullName": "R & D GLOBAL EXPORTS AND IMPORTS",
     "territory": "All Territories",
     "contactPersonName": "DHARANIDRAN R",
@@ -22506,7 +25925,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1732",
+    "id": "jfll-inact-1995",
     "fullName": "LUNCHBOX4YOU INC",
     "territory": "All Territories",
     "contactPersonName": "ABHISHEK  DHANKAR",
@@ -22519,7 +25938,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1733",
+    "id": "jfll-inact-1996",
     "fullName": "CHRISSWORLD PLC",
     "territory": "All Territories",
     "contactPersonName": "Jithmi  Bulegoda",
@@ -22532,7 +25951,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1734",
+    "id": "jfll-inact-1997",
     "fullName": "BEELINE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JINTO YOHANNAN",
@@ -22540,12 +25959,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@beelinelogistics.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1735",
+    "id": "jfll-inact-1998",
     "fullName": "G K SONS EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "NANDHA KUMAR",
@@ -22558,7 +25977,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1736",
+    "id": "jfll-inact-1999",
     "fullName": "ALPAS CERA LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. ASHWIN",
@@ -22566,12 +25985,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "business@alpasinternational.ae",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1737",
+    "id": "jfll-inact-2000",
     "fullName": "SHREE SHAKTI AIR CARGO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PARTH",
@@ -22579,12 +25998,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "int.operations@shakticargo.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1738",
+    "id": "jfll-inact-2001",
     "fullName": "PHOENIX CARPETS",
     "territory": "All Territories",
     "contactPersonName": "Mr. KUMAR",
@@ -22597,7 +26016,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1739",
+    "id": "jfll-inact-2002",
     "fullName": "YAMUNA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "MINTOO  ANANDAN",
@@ -22610,7 +26029,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1740",
+    "id": "jfll-inact-2003",
     "fullName": "ARROWSHIP LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shahnaz  Hussain",
@@ -22618,12 +26037,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shehnaz@arrowshiplogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1741",
+    "id": "jfll-inact-2004",
     "fullName": "ELECTRONICS DEVICES WORLDWIDE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Uttam.N.  chinoy",
@@ -22631,12 +26050,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@edmail.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1742",
+    "id": "jfll-inact-2005",
     "fullName": "NOVEL INNOVATIVE ELECTRONICA LABS",
     "territory": "All Territories",
     "contactPersonName": "KAMESWARA REDDY",
@@ -22649,7 +26068,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1743",
+    "id": "jfll-inact-2006",
     "fullName": "FRESCO EXPORTERS LLP",
     "territory": "All Territories",
     "contactPersonName": "JAFAR",
@@ -22657,12 +26076,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "frescoexporters@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1744",
+    "id": "jfll-inact-2007",
     "fullName": "M/S ORIENT ART & CRAFTS",
     "territory": "All Territories",
     "contactPersonName": "ANUP",
@@ -22675,7 +26094,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1745",
+    "id": "jfll-inact-2008",
     "fullName": "VERTICAL AND HORIZONTALS",
     "territory": "All Territories",
     "contactPersonName": "GINI SEBASTIAN",
@@ -22688,7 +26107,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1746",
+    "id": "jfll-inact-2009",
+    "fullName": "JAIWEEK ORGANICS",
+    "territory": "All Territories",
+    "contactPersonName": "NISCHAL",
+    "mobileNumber": "+91-9930007074",
+    "email": "nischal@agrovilla.in",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-2010",
     "fullName": "RAMAN GROUP",
     "territory": "All Territories",
     "contactPersonName": "Mr. BHUPINDER",
@@ -22701,7 +26133,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1747",
+    "id": "jfll-inact-2011",
     "fullName": "KORE INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Vinay  Jain",
@@ -22714,7 +26146,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1748",
+    "id": "jfll-inact-2012",
     "fullName": "UJWAL INTERNATIONAL LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rupali  Gawand",
@@ -22722,12 +26154,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cs.mum@ujwalinternationallogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1749",
+    "id": "jfll-inact-2013",
     "fullName": "STEVIN EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHILPEE  SINGH",
@@ -22735,12 +26167,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shilpee.mum@stevinexpress.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1750",
+    "id": "jfll-inact-2014",
     "fullName": "DAMIANOS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Naveen  Kumar",
@@ -22748,12 +26180,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "naveenkumar@damianoslogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1751",
+    "id": "jfll-inact-2015",
     "fullName": "AL-AMEEN & CO",
     "territory": "All Territories",
     "contactPersonName": "MOHAMED MUSTAQ",
@@ -22766,7 +26198,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1752",
+    "id": "jfll-inact-2016",
     "fullName": "HYDRODYNE TEIKOKU (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HAARIS  KHORAJIA",
@@ -22774,12 +26206,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "haaris@hydrodynepumps.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1753",
+    "id": "jfll-inact-2017",
     "fullName": "QUEEN-BEE VITALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MANOJ KUMAR V.S",
@@ -22787,12 +26219,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manusree6390@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1754",
+    "id": "jfll-inact-2018",
     "fullName": "RADNIK EXPORTS GLOBAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. AKSHAY",
@@ -22800,12 +26232,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "geetha@radnik.net",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1755",
+    "id": "jfll-inact-2019",
     "fullName": "UDX WORLDWIDE",
     "territory": "All Territories",
     "contactPersonName": "MAHENDRA",
@@ -22818,7 +26250,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1756",
+    "id": "jfll-inact-2020",
     "fullName": "28GLOBAL ECONOMIC TRADE LLP",
     "territory": "All Territories",
     "contactPersonName": "Tyronne  Devros",
@@ -22826,12 +26258,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "tyronne@28-global.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1757",
+    "id": "jfll-inact-2021",
     "fullName": "MAGADH PRECISION EQUIPMENT LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ANKUL  ORIYA",
@@ -22839,12 +26271,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ankul@magadh.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1758",
+    "id": "jfll-inact-2022",
     "fullName": "VKM FOODS PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mr.Mithun",
@@ -22852,12 +26284,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "midhun@vkmfoods.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1759",
+    "id": "jfll-inact-2023",
     "fullName": "HEMANT PRABHAKAR SONAR(PROP.MITALI FREIGHT FORWARDERS HEMANT AND COMPANY )",
     "territory": "All Territories",
     "contactPersonName": "POONAM CHAVAN",
@@ -22870,7 +26302,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1760",
+    "id": "jfll-inact-2024",
     "fullName": "OCEANIC HORIZONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BHEEM  RAO",
@@ -22878,12 +26310,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@oceanichorizons.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1761",
+    "id": "jfll-inact-2025",
     "fullName": "HANDMADA INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. NIKAT",
@@ -22896,7 +26328,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1762",
+    "id": "jfll-inact-2026",
     "fullName": "PATNAIK AVNISH",
     "territory": "All Territories",
     "contactPersonName": "Mr. Avinash",
@@ -22909,7 +26341,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1763",
+    "id": "jfll-inact-2027",
     "fullName": "MARINE CONTAINER SERVICES INDIA PVT. LTD",
     "territory": "All Territories",
     "contactPersonName": "SRIDHAR",
@@ -22917,12 +26349,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mcsmaa@seahoursegroup.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1764",
+    "id": "jfll-inact-2028",
     "fullName": "HMR SPEDITION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. HARSHIT",
@@ -22930,12 +26362,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1765",
+    "id": "jfll-inact-2029",
     "fullName": "MULTIWINGS CARGO SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Dheeraj",
@@ -22948,7 +26380,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1766",
+    "id": "jfll-inact-2030",
     "fullName": "FREIGHTER INDIA",
     "territory": "All Territories",
     "contactPersonName": "Debasis  Dash",
@@ -22961,7 +26393,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1767",
+    "id": "jfll-inact-2031",
     "fullName": "SHREE VISHWA SHIPPING SERVICES",
     "territory": "All Territories",
     "contactPersonName": "SURYANARAYANA",
@@ -22974,7 +26406,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1768",
+    "id": "jfll-inact-2032",
     "fullName": "AJAANI MARINE EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "JIGAR",
@@ -22987,7 +26419,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1769",
+    "id": "jfll-inact-2033",
     "fullName": "BOMBAY KULFI LLP",
     "territory": "All Territories",
     "contactPersonName": "Manish  Kankaria",
@@ -22995,12 +26427,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bombaykulficbe@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1770",
+    "id": "jfll-inact-2034",
     "fullName": "VISION GENERAL TRADING LLC",
     "territory": "All Territories",
     "contactPersonName": "KAILASH KUMAR",
@@ -23008,12 +26440,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "kailashmankani.101@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1771",
+    "id": "jfll-inact-2035",
     "fullName": "FREIGHT BIZ",
     "territory": "All Territories",
     "contactPersonName": "RIYAZ HABIB PANJWANI",
@@ -23026,7 +26458,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1772",
+    "id": "jfll-inact-2036",
     "fullName": "M/S H.N.HANDICRAFTS",
     "territory": "All Territories",
     "contactPersonName": "HASEEN",
@@ -23039,7 +26471,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1773",
+    "id": "jfll-inact-2037",
     "fullName": "FALCON INTERNATIONAL CO",
     "territory": "All Territories",
     "contactPersonName": "Aniket",
@@ -23052,7 +26484,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1774",
+    "id": "jfll-inact-2038",
     "fullName": "VSR SHIPPING & LOGISTICS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Raja  boopathi",
@@ -23060,12 +26492,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "raja.boopathi@vsrshipping.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1775",
+    "id": "jfll-inact-2039",
     "fullName": "AROHANA IMPEX (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ASHAY  RAUL",
@@ -23073,12 +26505,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ashay@arohanaimpex.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1776",
+    "id": "jfll-inact-2040",
     "fullName": "EASY-WAY LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JOSEPH PASANNA",
@@ -23086,12 +26518,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "josephpasanna@easywaylogs.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1777",
+    "id": "jfll-inact-2041",
     "fullName": "M/S RUPESH KUMAR & SONS",
     "territory": "All Territories",
     "contactPersonName": "Mr. RUIPESH",
@@ -23104,7 +26536,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1778",
+    "id": "jfll-inact-2042",
     "fullName": "SC INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "babal  chandran",
@@ -23117,7 +26549,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1779",
+    "id": "jfll-inact-2043",
     "fullName": "SHLOK ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "Mr. HITESHKUMAR",
@@ -23130,7 +26562,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1780",
+    "id": "jfll-inact-2044",
     "fullName": "VAISHNAVI GLOBAL SERVICES",
     "territory": "All Territories",
     "contactPersonName": "MUKESH  YADAV",
@@ -23143,7 +26575,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1781",
+    "id": "jfll-inact-2045",
     "fullName": "CACHET CORP",
     "territory": "All Territories",
     "contactPersonName": "JOSEPH CLEMENT  CHETTIAR",
@@ -23156,7 +26588,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1782",
+    "id": "jfll-inact-2046",
     "fullName": "ZEBION INFOTECH PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr Kartik  Gandhi",
@@ -23164,12 +26596,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "purchasehead@zebion.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1783",
+    "id": "jfll-inact-2047",
     "fullName": "SHARMA ORTHOPEDIC INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Raghuraj",
@@ -23177,12 +26609,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistic@sharmaortho.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1784",
+    "id": "jfll-inact-2048",
     "fullName": "PRIMEX",
     "territory": "All Territories",
     "contactPersonName": "Mr Haj Mohamad  Selman",
@@ -23195,7 +26627,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1785",
+    "id": "jfll-inact-2049",
     "fullName": "TGL SHIPPING SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mayur  Patil",
@@ -23203,12 +26635,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mayur@rightwaysindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1786",
+    "id": "jfll-inact-2050",
     "fullName": "ROSH TRADING COMPANY",
     "territory": "All Territories",
     "contactPersonName": "ABDUL  SATTAR",
@@ -23216,12 +26648,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "roshtradingcom@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1787",
+    "id": "jfll-inact-2051",
     "fullName": "M/S GLOBAL OVERSEAS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sanjay",
@@ -23234,7 +26666,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1788",
+    "id": "jfll-inact-2052",
     "fullName": "DITCON PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JAYESH VIMAL Chellani",
@@ -23242,12 +26674,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jayesh@ditcon.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1789",
+    "id": "jfll-inact-2053",
     "fullName": "HAMZA LEATHER EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "ASAD",
@@ -23260,7 +26692,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1790",
+    "id": "jfll-inact-2054",
     "fullName": "HIGHER WORLD EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "PRAVEEN R",
@@ -23273,7 +26705,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1791",
+    "id": "jfll-inact-2055",
     "fullName": "DIGGER DOWNHOLE TOOLS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Jitender",
@@ -23281,12 +26713,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@diggerdownholetools.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1792",
+    "id": "jfll-inact-2056",
     "fullName": "SRI RAIS IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AMIREDDY  REDDY",
@@ -23294,12 +26726,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sripl.docs@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1793",
+    "id": "jfll-inact-2057",
     "fullName": "JABAL EXIM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "HASAN ABUJABAL",
@@ -23307,12 +26739,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@jabalexim.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1794",
+    "id": "jfll-inact-2058",
+    "fullName": "BROTHERS GROCERY",
+    "territory": "All Territories",
+    "contactPersonName": "RAHUL  KARANJIA",
+    "mobileNumber": "+91-9727579969",
+    "email": "rahulkarangia@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Company",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-2059",
     "fullName": "UNNATI TEXTILE SUPPLIER",
     "territory": "All Territories",
     "contactPersonName": "Mr. Jai Kishan",
@@ -23325,7 +26770,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1795",
+    "id": "jfll-inact-2060",
     "fullName": "G S LOGISTICS INDIA",
     "territory": "All Territories",
     "contactPersonName": "Mr. DIGVIJAY",
@@ -23338,7 +26783,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1796",
+    "id": "jfll-inact-2061",
     "fullName": "FRESHKINGS TRADE LLP",
     "territory": "All Territories",
     "contactPersonName": "Raghav  Rishi",
@@ -23346,12 +26791,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "freshkingstrade@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1797",
+    "id": "jfll-inact-2062",
     "fullName": "RADHAKRISHNA TRADERS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vinayak K  Patil",
@@ -23359,12 +26804,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vkpatil05@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1798",
+    "id": "jfll-inact-2063",
     "fullName": "AVISA SHIPPING AND LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. NARENDRANATH",
@@ -23372,12 +26817,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "pricing@avisaship.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1799",
+    "id": "jfll-inact-2064",
     "fullName": "GOODVILL ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "VIDHI",
@@ -23385,25 +26830,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "goodvill@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1800",
+    "id": "jfll-inact-2065",
     "fullName": "PARAMOUNT HOME COLLECTIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Shariq",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "shariq@paramounthomecollections.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1801",
+    "id": "jfll-inact-2066",
     "fullName": "L.S.A.V. EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Mr. KUSHMAKER",
@@ -23416,7 +26861,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1802",
+    "id": "jfll-inact-2067",
     "fullName": "EXPO FREIGHT PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "ROSHAN",
@@ -23424,12 +26869,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sivas@efl.global",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1803",
+    "id": "jfll-inact-2068",
     "fullName": "MALBROS IMPEX PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. ARUN",
@@ -23437,12 +26882,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shipping@malbros.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1804",
+    "id": "jfll-inact-2069",
     "fullName": "MODERNLINE DISTRIBUTION LLC",
     "territory": "All Territories",
     "contactPersonName": "Mr. Kamran Khalil  Karvinkar",
@@ -23455,7 +26900,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1805",
+    "id": "jfll-inact-2070",
     "fullName": "BETTER YOURSELF BOOKS & MEDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Father Siji  Jose",
@@ -23463,25 +26908,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exim@stpauls.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1806",
+    "id": "jfll-inact-2071",
     "fullName": "JAJOO SURGICALS PRIVATE LIMITED UNIT - 2",
     "territory": "All Territories",
     "contactPersonName": "Mr Puneet",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "eximdocs@jajoosurgical.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1807",
+    "id": "jfll-inact-2072",
     "fullName": "MURARI AND MOKSHAGNA LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sudhakar  Rao",
@@ -23489,25 +26934,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales.blr@mandmlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1808",
+    "id": "jfll-inact-2073",
     "fullName": "SANDOR MEDICAIDS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "P SHARADA",
     "mobileNumber": "+91-9440801509",
     "email": "sharada@sandor.co.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1809",
+    "id": "jfll-inact-2074",
     "fullName": "DHRUV GLOBALS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHRI RAM  GOYAL",
@@ -23515,12 +26960,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jagdish.bhatt@dhruvglobals.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1810",
+    "id": "jfll-inact-2075",
     "fullName": "ASTER INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "ANIL",
@@ -23533,7 +26978,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1811",
+    "id": "jfll-inact-2076",
     "fullName": "PVS FLORA",
     "territory": "All Territories",
     "contactPersonName": "V. Hareshbabu",
@@ -23546,7 +26991,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1812",
+    "id": "jfll-inact-2077",
     "fullName": "GYROCOMPASS LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "V.Vishal",
@@ -23554,12 +26999,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vishnu@gyrocompasslogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1813",
+    "id": "jfll-inact-2078",
     "fullName": "UTKAL MOULDINGS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Palash Banerjee",
@@ -23567,12 +27012,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "utkal@utkalmoulders.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1814",
+    "id": "jfll-inact-2079",
     "fullName": "HITECH ENGINEERING",
     "territory": "All Territories",
     "contactPersonName": "Tarun  Tyagi",
@@ -23585,7 +27030,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1815",
+    "id": "jfll-inact-2080",
     "fullName": "SERA CORP",
     "territory": "All Territories",
     "contactPersonName": "Mr.AMIT HARISH  MALHOTRA",
@@ -23598,7 +27043,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1816",
+    "id": "jfll-inact-2081",
     "fullName": "WELLSECURE OIL TOOLS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. RAJESH",
@@ -23606,12 +27051,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@wellsecureoiltools.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1817",
+    "id": "jfll-inact-2082",
     "fullName": "NIVARITTI INDUSTRY",
     "territory": "All Territories",
     "contactPersonName": "Kamal  Gvalani",
@@ -23624,7 +27069,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1818",
+    "id": "jfll-inact-2083",
     "fullName": "Krushak Overseas",
     "territory": "All Territories",
     "contactPersonName": "MEHUL  PATEL",
@@ -23637,7 +27082,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1819",
+    "id": "jfll-inact-2084",
     "fullName": "THE MOONARC FZCO",
     "territory": "All Territories",
     "contactPersonName": "Nitin  Agarwal",
@@ -23650,7 +27095,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1820",
+    "id": "jfll-inact-2085",
     "fullName": "RELIANCE POLYESTER LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Radhika",
@@ -23658,12 +27103,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "c.nandanan@rilpolyester.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1821",
+    "id": "jfll-inact-2086",
     "fullName": "RODINA FRESH INTERNATIONAL IMPORT & EXPORT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ABDUSAMAD",
@@ -23671,12 +27116,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "fresh@rodinaeng.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1822",
+    "id": "jfll-inact-2087",
     "fullName": "S S WORLDWIDE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Shareef",
@@ -23689,20 +27134,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1823",
+    "id": "jfll-inact-2088",
     "fullName": "RJM ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "RAJ",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "mistryraj143@hotmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1824",
+    "id": "jfll-inact-2089",
     "fullName": "REFLEXALLEN INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ms. Nisha",
@@ -23710,12 +27155,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nish.singh@reflexallen.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1825",
+    "id": "jfll-inact-2090",
     "fullName": "SHIVEN YARN PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ketan",
@@ -23723,69 +27168,17 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "importexport.shivenyarn@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1826",
-    "fullName": "SHREE NM ENTERPRISES",
+    "id": "jfll-inact-2091",
+    "fullName": "SHELAR OVERSEAS",
     "territory": "All Territories",
-    "contactPersonName": "BASKARAN",
-    "mobileNumber": "+91-9840689834",
-    "email": "namologistics2021@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-1827",
-    "fullName": "SSS SAI SHIPPING SERVICES PVT. LTD.",
-    "territory": "All Territories",
-    "contactPersonName": "Harshal  Dhakan",
-    "mobileNumber": "+91-9167230177",
-    "email": "sssmumbai@saishipping.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-1828",
-    "fullName": "OMSONS GLASSWARE PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Mr. Om",
-    "mobileNumber": "+91-9855206120",
-    "email": "overseasshipping2@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-1829",
-    "fullName": "PANSON GLOBAL LOGISTICS PRIVATE LIMITED.",
-    "territory": "All Territories",
-    "contactPersonName": "Ajay  Pandey",
-    "mobileNumber": "+91-7011745897",
-    "email": "sonam@pansongroups.com",
-    "status": "Not Active",
-    "customerGroup": "Inactive Customer",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false
-  },
-  {
-    "id": "jfll-inact-1830",
-    "fullName": "MSM ENTERPRISES",
-    "territory": "All Territories",
-    "contactPersonName": "JITENDRA",
-    "mobileNumber": "+91-09866097961",
-    "email": "msmenterprice@gmail.com",
+    "contactPersonName": "Mr Omkar",
+    "mobileNumber": "+91-8591132683",
+    "email": "omkartamboli94@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
     "type": "Company",
@@ -23793,7 +27186,72 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1831",
+    "id": "jfll-inact-2092",
+    "fullName": "SHREE NM ENTERPRISES",
+    "territory": "All Territories",
+    "contactPersonName": "BASKARAN",
+    "mobileNumber": "+91-9840689834",
+    "email": "namologistics2021@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-2093",
+    "fullName": "SSS SAI SHIPPING SERVICES PVT. LTD.",
+    "territory": "All Territories",
+    "contactPersonName": "Harshal  Dhakan",
+    "mobileNumber": "+91-9167230177",
+    "email": "sssmumbai@saishipping.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-2094",
+    "fullName": "OMSONS GLASSWARE PRIVATE LIMITED",
+    "territory": "All Territories",
+    "contactPersonName": "Mr. Om",
+    "mobileNumber": "+91-9855206120",
+    "email": "overseasshipping2@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-2095",
+    "fullName": "PANSON GLOBAL LOGISTICS PRIVATE LIMITED.",
+    "territory": "All Territories",
+    "contactPersonName": "Ajay  Pandey",
+    "mobileNumber": "+91-7011745897",
+    "email": "sonam@pansongroups.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-2096",
+    "fullName": "MSM ENTERPRISES",
+    "territory": "All Territories",
+    "contactPersonName": "JITENDRA",
+    "mobileNumber": "+91-09866097961",
+    "email": "msmenterprice@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Individual / Proprietorship",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-2097",
     "fullName": "RHISHUS",
     "territory": "All Territories",
     "contactPersonName": "ESWAR",
@@ -23806,7 +27264,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1832",
+    "id": "jfll-inact-2098",
     "fullName": "PARULEKARS SHIPPING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "APOORVA",
@@ -23814,25 +27272,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "anirudhasonawane90.as@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1833",
+    "id": "jfll-inact-2099",
     "fullName": "PETRA INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. ASHISH",
     "mobileNumber": "+91-9979875964",
     "email": "docs@petrabuildcare.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1834",
+    "id": "jfll-inact-2100",
     "fullName": "SARVESHWAR OVERSEAS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rohit",
@@ -23840,12 +27298,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "docs@sarveshwarfoods.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1835",
+    "id": "jfll-inact-2101",
+    "fullName": "SANDOZ PRIVATE LIMITED.",
+    "territory": "All Territories",
+    "contactPersonName": "Kalpana  Kadam",
+    "mobileNumber": "+91-9820293171",
+    "email": "santo1.haiko@gmail.com",
+    "status": "Not Active",
+    "customerGroup": "Inactive (DataMyne Match)",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": true
+  },
+  {
+    "id": "jfll-inact-2102",
     "fullName": "YUSEN LOGISTICS (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Abhishek  Singh",
@@ -23853,12 +27324,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "abhishek.singh@in.yusen-logistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1836",
+    "id": "jfll-inact-2103",
     "fullName": "TRINITY CARGO SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "JEYANTHI  ROSELINE",
@@ -23866,12 +27337,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ops1@trinitycargoservices.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1837",
+    "id": "jfll-inact-2104",
     "fullName": "VELLOZA GRANITO LLP .",
     "territory": "All Territories",
     "contactPersonName": "Mr. Anand  Patel",
@@ -23879,12 +27350,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@vellozagranito.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1838",
+    "id": "jfll-inact-2105",
     "fullName": "UNIQUE LOGISTICS INTERNATIONAL INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "VILAS  JADHAV",
@@ -23892,12 +27363,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vilas.jadhav.bom@unique-logistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-2106",
+    "fullName": "TRANSSAFE LOGISTICS",
+    "territory": "All Territories",
+    "contactPersonName": "Mohammed Abubacker. R",
+    "mobileNumber": "+91-9952435406",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1839",
+    "id": "jfll-inact-2107",
     "fullName": "THE INDIAN HOTELS COMPANY LTD",
     "territory": "All Territories",
     "contactPersonName": "Mrs. MONIKA THAKUR  WASON",
@@ -23905,12 +27389,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "monika.thakur@tajhotels.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1840",
+    "id": "jfll-inact-2108",
     "fullName": "WATERTEC INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. SENTHIL",
@@ -23918,12 +27402,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "senthilkumar.b@watertecindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1841",
+    "id": "jfll-inact-2109",
     "fullName": "JASSPER SHIPPING",
     "territory": "All Territories",
     "contactPersonName": "TATA  RAO",
@@ -23936,7 +27420,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1842",
+    "id": "jfll-inact-2110",
     "fullName": "JESRAJ AGROTECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "KUMAR",
@@ -23944,12 +27428,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jesrajagrotech@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1843",
+    "id": "jfll-inact-2111",
     "fullName": "GIRJA CARGO CARE & LOGISTICS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Ms. Girja",
@@ -23962,7 +27446,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1844",
+    "id": "jfll-inact-2112",
     "fullName": "ASTAVINAYAK UDYOG",
     "territory": "All Territories",
     "contactPersonName": "Mr. Venkat Ratan  Derasaria",
@@ -23975,7 +27459,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1845",
+    "id": "jfll-inact-2113",
     "fullName": "DANGA IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ANIL DANGA",
@@ -23983,12 +27467,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dangaimpexpvtltd@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1846",
+    "id": "jfll-inact-2114",
     "fullName": "VINTY IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SANDEEP SINGH",
@@ -23996,12 +27480,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@pavera.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1847",
+    "id": "jfll-inact-2115",
     "fullName": "VARSHINI ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Ms. PRAKASH",
@@ -24009,12 +27493,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1848",
+    "id": "jfll-inact-2116",
     "fullName": "VESUVIUS INDIA LTD.",
     "territory": "All Territories",
     "contactPersonName": "MR. HARIKRISHNA ARETI",
@@ -24022,12 +27506,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "harikrishna.areti@vesuvius.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1849",
+    "id": "jfll-inact-2117",
     "fullName": "NEWCHROM TECHNOLOGIES",
     "territory": "All Territories",
     "contactPersonName": "Mr. NARAIN",
@@ -24040,20 +27524,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1850",
+    "id": "jfll-inact-2118",
     "fullName": "GKB OPTOLAB PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "MR. YESHWANT M",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "yeshwant.exim@gkbhitech.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1851",
+    "id": "jfll-inact-2119",
     "fullName": "TRIFARMA",
     "territory": "All Territories",
     "contactPersonName": "Jay  Shah",
@@ -24066,20 +27550,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1852",
+    "id": "jfll-inact-2120",
     "fullName": "MANIK ENGINEERS",
     "territory": "All Territories",
     "contactPersonName": "Tejas  Londhe",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "padmanabh.kulkarni@manikengineers.com",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
+    "customerGroup": "Inactive Customer",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1853",
+    "id": "jfll-inact-2121",
     "fullName": "SMOOTH CARE SHIPPING CO. LTD",
     "territory": "All Territories",
     "contactPersonName": "JESSICA",
@@ -24087,12 +27571,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cus2@smcsshipping.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1854",
+    "id": "jfll-inact-2122",
     "fullName": "UTKARSH INDIA LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rakesh Kumar Yadav",
@@ -24100,12 +27584,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rakesh@utkarshindia.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1855",
+    "id": "jfll-inact-2123",
     "fullName": "MN GLOBAL LOGISTICS SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "SHIV",
@@ -24118,7 +27602,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1856",
+    "id": "jfll-inact-2124",
     "fullName": "GSE RENEWABLES INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr Jain",
@@ -24126,12 +27610,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jain@gshoe.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1857",
+    "id": "jfll-inact-2125",
     "fullName": "M/S GUJRAL INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rajesh",
@@ -24144,7 +27628,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1858",
+    "id": "jfll-inact-2126",
     "fullName": "UNITOP CHEMICALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Bhaskar Mudaliar",
@@ -24152,12 +27636,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "unitop.export4@rossari.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1859",
+    "id": "jfll-inact-2127",
     "fullName": "WORLD ZONE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Moses",
@@ -24165,16 +27649,16 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "moses@worldzonelogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1860",
+    "id": "jfll-inact-2128",
     "fullName": "CHIRAG HERITAGE",
     "territory": "All Territories",
     "contactPersonName": "Mr. RANESH",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "chiragenterprises1987@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -24183,7 +27667,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1861",
+    "id": "jfll-inact-2129",
     "fullName": "ARK STONE LLP",
     "territory": "All Territories",
     "contactPersonName": "Mr. AKASH",
@@ -24191,12 +27675,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "export@arkstone.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1862",
+    "id": "jfll-inact-2130",
     "fullName": "PALANIAPPA LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "MAHENDRAN",
@@ -24209,7 +27693,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1863",
+    "id": "jfll-inact-2131",
     "fullName": "SD EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "SANTOSH M  DHADKE",
@@ -24222,7 +27706,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1864",
+    "id": "jfll-inact-2132",
     "fullName": "M/S. RUMANA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Ashfaque  Patni",
@@ -24235,7 +27719,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1865",
+    "id": "jfll-inact-2133",
     "fullName": "WORLD TRADE EXPORT",
     "territory": "All Territories",
     "contactPersonName": "Mr. Shyam  Pandit",
@@ -24248,7 +27732,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1866",
+    "id": "jfll-inact-2134",
     "fullName": "SITARA FARMS",
     "territory": "All Territories",
     "contactPersonName": "SATISH SITARAM  PAWAR",
@@ -24261,7 +27745,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1867",
+    "id": "jfll-inact-2135",
     "fullName": "T V ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Manish Jain",
@@ -24269,12 +27753,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "tventp@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1868",
+    "id": "jfll-inact-2136",
     "fullName": "FLUERON INKS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "BHAUMIK  MEHTA",
@@ -24282,12 +27766,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exim@flueroninks.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1869",
+    "id": "jfll-inact-2137",
     "fullName": "STONE INDIA",
     "territory": "All Territories",
     "contactPersonName": "MR. DEEPAK",
@@ -24300,7 +27784,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1870",
+    "id": "jfll-inact-2138",
     "fullName": "3DH ENERGY SOLUTIONS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Shamal",
@@ -24308,12 +27792,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shamal@3dh.lk",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1871",
+    "id": "jfll-inact-2139",
     "fullName": "N S INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "Mr. SHUJA  ALAM",
@@ -24326,7 +27810,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1872",
+    "id": "jfll-inact-2140",
     "fullName": "RUHATIYA SPINNERS PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Mrs. Suvarna",
@@ -24334,12 +27818,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "suvarna@ruhatiyagroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1873",
+    "id": "jfll-inact-2141",
     "fullName": "PURE INDIA EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "BASILMON  MATHEW",
@@ -24352,7 +27836,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1874",
+    "id": "jfll-inact-2142",
     "fullName": "JAISWAL IMPORT CARGO SERVICES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "GAURAV  JAISWAL",
@@ -24360,12 +27844,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gaurav@chajicsl.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1875",
+    "id": "jfll-inact-2143",
     "fullName": "MONTANA SHIPPING AND CHARTERING PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": "Sapna",
@@ -24373,12 +27857,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sapna@montanalogix.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1876",
+    "id": "jfll-inact-2144",
     "fullName": "RAUT ELECTRO MECH INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "Mr. RIGVED  RAUT",
@@ -24391,7 +27875,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1877",
+    "id": "jfll-inact-2145",
     "fullName": "SHADMA TRADERS",
     "territory": "All Territories",
     "contactPersonName": "MR. ANKIT KAMAT",
@@ -24399,25 +27883,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1878",
+    "id": "jfll-inact-2146",
     "fullName": "AUSTRALIAN ORTHOPAEDIC INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Laxmi  Futane",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "laxmifutane1206@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1879",
+    "id": "jfll-inact-2147",
     "fullName": "GOLDEN OIL INDUSTRIES LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Anant S  Hivraye",
@@ -24425,12 +27909,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "anant@goldenoiltd.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1880",
+    "id": "jfll-inact-2148",
     "fullName": "CONEX METALS (INTL).",
     "territory": "All Territories",
     "contactPersonName": "Mr. Poorna",
@@ -24443,20 +27927,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1881",
+    "id": "jfll-inact-2149",
     "fullName": "INFIFRESH FOODS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PRATHAMESH  PADWAL",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "prathamesh.p@captainfresh.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1882",
+    "id": "jfll-inact-2150",
     "fullName": "VEG VILLAGE",
     "territory": "All Territories",
     "contactPersonName": "ABDULSALAM",
@@ -24469,7 +27953,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1883",
+    "id": "jfll-inact-2151",
     "fullName": "M/S VK FORWARDERS",
     "territory": "All Territories",
     "contactPersonName": "VIVEK KUMAR PANDEY",
@@ -24482,7 +27966,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1884",
+    "id": "jfll-inact-2152",
     "fullName": "MAHAVIR LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Amee  Kothari",
@@ -24495,7 +27979,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1885",
+    "id": "jfll-inact-2153",
     "fullName": "UNICORN LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "HAMEEM AHMMED MJ",
@@ -24508,7 +27992,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1886",
+    "id": "jfll-inact-2154",
     "fullName": "KONARK HERBALS AND HEALTHCARE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sanjay  Varne",
@@ -24516,12 +28000,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sanjay.varne@konarkgroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1887",
+    "id": "jfll-inact-2155",
     "fullName": "THESAY PHARMA DRUG STORE L.L.C.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ilyas",
@@ -24534,7 +28018,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1888",
+    "id": "jfll-inact-2156",
     "fullName": "FAINA UNIVERSAL CO.",
     "territory": "All Territories",
     "contactPersonName": "Faizan",
@@ -24547,7 +28031,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1889",
+    "id": "jfll-inact-2157",
     "fullName": "KIYAN INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": "VIJAY  BHAR",
@@ -24560,7 +28044,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1890",
+    "id": "jfll-inact-2158",
     "fullName": "BAIDYANATH MINERALS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ibrahim  Sutarwala",
@@ -24568,12 +28052,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ibrahim@bmineral.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1891",
+    "id": "jfll-inact-2159",
     "fullName": "SUNTIKA COURIER PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RENOLD SOANS",
@@ -24581,12 +28065,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "soans2210@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1892",
+    "id": "jfll-inact-2160",
     "fullName": "INCNBIZ EXPRESS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "NIYATI  SINHA",
@@ -24594,12 +28078,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "account@acoreleven.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1893",
+    "id": "jfll-inact-2161",
     "fullName": "AASAA DIVINITY LLC",
     "territory": "All Territories",
     "contactPersonName": "ANBHU",
@@ -24612,7 +28096,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1894",
+    "id": "jfll-inact-2162",
     "fullName": "DURGA IMPEX",
     "territory": "All Territories",
     "contactPersonName": "DEEPAK",
@@ -24625,7 +28109,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1895",
+    "id": "jfll-inact-2163",
     "fullName": "ANP TRANSINDIA SUPPLY CHAIN LLP",
     "territory": "All Territories",
     "contactPersonName": "Nilesh Kumar  Rai",
@@ -24633,12 +28117,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nilesh@anpindia.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "LLP",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1896",
+    "id": "jfll-inact-2164",
     "fullName": "ALEXA CARGO SCM PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Arvind  Nirmal",
@@ -24646,12 +28130,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "cargo@alexascm.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1897",
+    "id": "jfll-inact-2165",
     "fullName": "FOURSTAR WORLDWIDE SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "YASH  PATEL",
@@ -24659,12 +28143,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@fourstar.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1898",
+    "id": "jfll-inact-2166",
     "fullName": "GORADIA SAFETY PRODUCTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Nihir  Goradia",
@@ -24672,12 +28156,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "ngoradia23@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1899",
+    "id": "jfll-inact-2167",
     "fullName": "N G PILLAI",
     "territory": "All Territories",
     "contactPersonName": "Rajeev  Nair",
@@ -24690,7 +28174,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1900",
+    "id": "jfll-inact-2168",
     "fullName": "GREEN LEAVES LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Tejal",
@@ -24703,7 +28187,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1901",
+    "id": "jfll-inact-2169",
     "fullName": "SRI BHARANI MIXTURES, SWEETS & SAVOURIES",
     "territory": "All Territories",
     "contactPersonName": "Vijay Anand R A",
@@ -24716,7 +28200,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1902",
+    "id": "jfll-inact-2170",
     "fullName": "RAPID SHIPPING & LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Ravi  Kumareshan",
@@ -24729,7 +28213,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1903",
+    "id": "jfll-inact-2171",
     "fullName": "A S INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": "SHAHNAWAJ  MALIK",
@@ -24742,7 +28226,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1904",
+    "id": "jfll-inact-2172",
     "fullName": "ANGELIC HAIR EXPORTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Vinay  Rai",
@@ -24750,12 +28234,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vnrai28@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1905",
+    "id": "jfll-inact-2173",
     "fullName": "SBM GENERAL TRADING LLC",
     "territory": "All Territories",
     "contactPersonName": "Vijay Arvind R A",
@@ -24763,12 +28247,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "admin@sbmtradinguae.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1906",
+    "id": "jfll-inact-2174",
     "fullName": "AZAM TRADING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SHAHIN KAMALUDEEN",
@@ -24776,12 +28260,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@azamtrading.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1907",
+    "id": "jfll-inact-2175",
     "fullName": "MS BENCHMARK SHIPPING AND LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "MR. AMIT NARAN  MALI",
@@ -24794,7 +28278,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1908",
+    "id": "jfll-inact-2176",
     "fullName": "FREIGHTBORNE SYSTEMS",
     "territory": "All Territories",
     "contactPersonName": "Prabu  Rajaiya",
@@ -24807,7 +28291,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1909",
+    "id": "jfll-inact-2177",
     "fullName": "UV TRADERS",
     "territory": "All Territories",
     "contactPersonName": "UDHAYA KUMAR",
@@ -24815,12 +28299,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "uvtraders2021@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1910",
+    "id": "jfll-inact-2178",
     "fullName": "DELMAR TOTAL TRANSPORTATION PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Chirag",
@@ -24828,12 +28312,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "bhambhanic@delmar-india.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1911",
+    "id": "jfll-inact-2179",
     "fullName": "SCAN GLOBAL LOGISTICS LLC",
     "territory": "All Territories",
     "contactPersonName": "SUDESH",
@@ -24846,11 +28330,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1912",
+    "id": "jfll-inact-2180",
     "fullName": "HEDWIG LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "kunal",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "kunal@hedwiglogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
@@ -24859,7 +28343,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1913",
+    "id": "jfll-inact-2181",
     "fullName": "PRAJAN PILE FOUNDATION",
     "territory": "All Territories",
     "contactPersonName": "DEEPAN  VAASAN",
@@ -24872,7 +28356,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1914",
+    "id": "jfll-inact-2182",
     "fullName": "VETHAM LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "Nayak",
@@ -24885,7 +28369,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1915",
+    "id": "jfll-inact-2183",
     "fullName": "TWARIT LOGISTICS (OPC) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Jagat  Singh",
@@ -24893,12 +28377,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "jagat.singh@twaritlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1916",
+    "id": "jfll-inact-2184",
     "fullName": "LOGIWAYS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ashwin",
@@ -24906,12 +28390,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@logiways.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1917",
+    "id": "jfll-inact-2185",
     "fullName": "NP CARGOS",
     "territory": "All Territories",
     "contactPersonName": "SANTHANAM  NANDHINI",
@@ -24924,7 +28408,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1918",
+    "id": "jfll-inact-2186",
     "fullName": "RGEX EXPRESS",
     "territory": "All Territories",
     "contactPersonName": "Mr.MUKESH  RANJAN",
@@ -24937,7 +28421,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1919",
+    "id": "jfll-inact-2187",
     "fullName": "PICK & DROP LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Keshav  Singh",
@@ -24945,12 +28429,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "keshav@pickndrops.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1920",
+    "id": "jfll-inact-2188",
     "fullName": "DELHI INTERNATIONAL CARGO TERMINAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Sudhakar  Pandey",
@@ -24958,12 +28442,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1921",
+    "id": "jfll-inact-2189",
     "fullName": "GLOBAL LOGISTICAL CONNECTIONS, INC",
     "territory": "All Territories",
     "contactPersonName": "Marcela  Amaya",
@@ -24976,7 +28460,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1922",
+    "id": "jfll-inact-2190",
     "fullName": "RUTIKA LIFESCIENCE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Amit",
@@ -24984,12 +28468,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "amit@rutikalifesci.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1923",
+    "id": "jfll-inact-2191",
     "fullName": "NILA MARINE EXPORT",
     "territory": "All Territories",
     "contactPersonName": "S.KARTHIKEYAN",
@@ -25002,7 +28486,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1924",
+    "id": "jfll-inact-2192",
     "fullName": "COURIER ZONE",
     "territory": "All Territories",
     "contactPersonName": "RABI  PRAMANIK",
@@ -25015,7 +28499,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1925",
+    "id": "jfll-inact-2193",
     "fullName": "SKID INC",
     "territory": "All Territories",
     "contactPersonName": "Mr. Kulbhushan",
@@ -25028,7 +28512,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1926",
+    "id": "jfll-inact-2194",
     "fullName": "TRANSOL CAARGO",
     "territory": "All Territories",
     "contactPersonName": "Pramodini  Sawant",
@@ -25041,7 +28525,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1927",
+    "id": "jfll-inact-2195",
     "fullName": "CENTAUR PHARMACEUTICALS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Nilesh  Rawale",
@@ -25049,12 +28533,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nilesh@centaurlab.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1928",
+    "id": "jfll-inact-2196",
     "fullName": "TARA MAA ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "RANJU  SARKAR",
@@ -25067,7 +28551,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1929",
+    "id": "jfll-inact-2197",
     "fullName": "STC MULTI SERVICES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Satya",
@@ -25075,12 +28559,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hrprakar@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1930",
+    "id": "jfll-inact-2198",
     "fullName": "SOUTHERN STAINLESS STEEL FABRICATION INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VINOD",
@@ -25088,12 +28572,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1931",
+    "id": "jfll-inact-2199",
     "fullName": "JEENE TELECOM",
     "territory": "All Territories",
     "contactPersonName": "MR. RAJESH  AGARWAL",
@@ -25106,7 +28590,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1932",
+    "id": "jfll-inact-2200",
     "fullName": "STALLION TECH SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Ashish Kumar  Pandey",
@@ -25119,7 +28603,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1933",
+    "id": "jfll-inact-2201",
     "fullName": "JOYMATA STORES",
     "territory": "All Territories",
     "contactPersonName": "DEBABRATA  SARKAR",
@@ -25132,7 +28616,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1934",
+    "id": "jfll-inact-2202",
     "fullName": "RADHA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rahul  Kumar",
@@ -25140,12 +28624,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rahulk581992@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1935",
+    "id": "jfll-inact-2203",
     "fullName": "SKYHAWK EXPRESS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Umesh  Pahuja",
@@ -25158,7 +28642,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1936",
+    "id": "jfll-inact-2204",
     "fullName": "M.EXPRESS SERVICE",
     "territory": "All Territories",
     "contactPersonName": "MANJU  KHAN",
@@ -25171,7 +28655,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1937",
+    "id": "jfll-inact-2205",
     "fullName": "GODREJ &BOYCEMFG. CO. LTD.",
     "territory": "All Territories",
     "contactPersonName": "Denzil  Soans",
@@ -25179,12 +28663,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "djs@godrej.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1938",
+    "id": "jfll-inact-2206",
     "fullName": "OVERSEAS CORPORATION PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "TAPAN KR.  GHOSH",
@@ -25192,12 +28676,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@ocplglobal.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1939",
+    "id": "jfll-inact-2207",
+    "fullName": "STELLER BLOSSOM FILMS LLP",
+    "territory": "All Territories",
+    "contactPersonName": "Mr Omkar",
+    "mobileNumber": "+91-8591132683",
+    "email": null,
+    "status": "Not Active",
+    "customerGroup": "Inactive Customer",
+    "type": "LLP",
+    "saved": false,
+    "inDataMyne": false
+  },
+  {
+    "id": "jfll-inact-2208",
     "fullName": "LNV EXIM",
     "territory": "All Territories",
     "contactPersonName": "Hiren",
@@ -25210,7 +28707,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1940",
+    "id": "jfll-inact-2209",
     "fullName": "AL REEM ORNAMENTAL FISH AND BIRDS TRADING",
     "territory": "All Territories",
     "contactPersonName": "ABDULLAH MUSABBEH",
@@ -25218,12 +28715,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1941",
+    "id": "jfll-inact-2210",
     "fullName": "M J SERVICE",
     "territory": "All Territories",
     "contactPersonName": "Mahesh",
@@ -25236,7 +28733,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1942",
+    "id": "jfll-inact-2211",
     "fullName": "GALAXY WORLD WIDE EXPRESS SERVICES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Deeopak Chandra  Mahato",
@@ -25249,7 +28746,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1943",
+    "id": "jfll-inact-2212",
     "fullName": "ELKAY CHEMICALS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "VISHAL  PRABHUNE",
@@ -25257,12 +28754,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "exports@elkaysilicones.co.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1944",
+    "id": "jfll-inact-2213",
     "fullName": "YOGAYOG COURIER PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. MUKESH  AGARWAL",
@@ -25270,12 +28767,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mukesh@yogayog.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1945",
+    "id": "jfll-inact-2214",
     "fullName": "COASTLINE LOGISTICS",
     "territory": "All Territories",
     "contactPersonName": "LALIT R  KASAR",
@@ -25288,7 +28785,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1946",
+    "id": "jfll-inact-2215",
     "fullName": "AL AFAN EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "M.D Ansar Ali",
@@ -25301,7 +28798,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1947",
+    "id": "jfll-inact-2216",
     "fullName": "SPRINGFIELD LEATHER PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": "SATABDI",
@@ -25309,25 +28806,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "satabdislpl02@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1948",
+    "id": "jfll-inact-2217",
     "fullName": "PALANHAAR WORLDWIDE LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ms. Lavanya",
-    "mobileNumber": null,
+    "mobileNumber": "-",
     "email": "accounts@palanhaarlogistics.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1949",
+    "id": "jfll-inact-2218",
     "fullName": "TGV SRAAC LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MR. KRISHNA KUMAR",
@@ -25335,12 +28832,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sraacchtgv@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1950",
+    "id": "jfll-inact-2219",
     "fullName": "SAFE EXPRESS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr PARTHA  LAHIRI",
@@ -25348,12 +28845,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sales@saeexpress.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1951",
+    "id": "jfll-inact-2220",
     "fullName": "MAGEBA BRIDGE PRODUCTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr.ARIJIT SINHA",
@@ -25361,12 +28858,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "asinha@mageba.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1952",
+    "id": "jfll-inact-2221",
     "fullName": "R.E. ROGERS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nidhi  Kashyap",
@@ -25374,25 +28871,25 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "nidhi@rogersworldwideindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1953",
+    "id": "jfll-inact-2222",
     "fullName": "MEENA CIRCUITS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sanjeev",
     "mobileNumber": "+91-9582737205",
     "email": "sanjeev@meenacircuits.co.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1954",
+    "id": "jfll-inact-2223",
     "fullName": "VIKRMA IMPEX PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Roni",
@@ -25400,12 +28897,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "shipping@merichai.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1955",
+    "id": "jfll-inact-2224",
     "fullName": "CAPITHAN EXPORTING CO",
     "territory": "All Territories",
     "contactPersonName": "RAYNOLD",
@@ -25418,7 +28915,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1956",
+    "id": "jfll-inact-2225",
     "fullName": "COMPLETION OIL TOOLS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Sukhbir",
@@ -25426,12 +28923,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@completionoiltools.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1957",
+    "id": "jfll-inact-2226",
     "fullName": "NIBL-KORTA ENGINEERING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Gavisiddesh H",
@@ -25439,12 +28936,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "gavisiddesh@niblkorta.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1958",
+    "id": "jfll-inact-2227",
     "fullName": "DISHA FOODS PVT LTD.",
     "territory": "All Territories",
     "contactPersonName": "NEERAJ",
@@ -25452,12 +28949,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@bakemate.in",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1959",
+    "id": "jfll-inact-2228",
     "fullName": "HLL LIFECARE LTD",
     "territory": "All Territories",
     "contactPersonName": "SAJITH.M.S",
@@ -25465,12 +28962,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sajithms@lifecarehll.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1960",
+    "id": "jfll-inact-2229",
     "fullName": "WELLCARE OIL TOOLS PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Surender",
@@ -25478,12 +28975,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@wellcareoiltools.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1961",
+    "id": "jfll-inact-2230",
     "fullName": "ENCORE FABRICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "PREMA RAMACHANDRA RAO",
@@ -25491,12 +28988,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "prema.r.rao@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1962",
+    "id": "jfll-inact-2231",
     "fullName": "ARIYA AGRO",
     "territory": "All Territories",
     "contactPersonName": "Mr. Apeksha",
@@ -25509,7 +29006,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1963",
+    "id": "jfll-inact-2232",
     "fullName": "BALAJI AGRO PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr Santanu",
@@ -25517,12 +29014,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "vikrma@merichai.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1964",
+    "id": "jfll-inact-2233",
     "fullName": "GENAU EXTRUSIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. VENKATESH",
@@ -25530,12 +29027,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "marketing@genau.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1965",
+    "id": "jfll-inact-2234",
     "fullName": "ARHAM CARGO SOLUTIONS",
     "territory": "All Territories",
     "contactPersonName": "JAINAM  SHAH",
@@ -25548,7 +29045,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1966",
+    "id": "jfll-inact-2235",
     "fullName": "STPi",
     "territory": "All Territories",
     "contactPersonName": "STPi",
@@ -25561,7 +29058,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1967",
+    "id": "jfll-inact-2236",
     "fullName": "S S EXIM CLEARING",
     "territory": "All Territories",
     "contactPersonName": "SAMIRAN SAMANTA",
@@ -25574,7 +29071,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1968",
+    "id": "jfll-inact-2237",
     "fullName": "H AND Y TRADERS",
     "territory": "All Territories",
     "contactPersonName": "HARISH  MOOLYA",
@@ -25582,12 +29079,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "hareeshm2604@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1969",
+    "id": "jfll-inact-2238",
     "fullName": "GALAXY EARTHMOVERS",
     "territory": "All Territories",
     "contactPersonName": "SAMARTH  BATRA",
@@ -25600,7 +29097,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1970",
+    "id": "jfll-inact-2239",
     "fullName": "M S EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "HARISH  LIKAM",
@@ -25613,7 +29110,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1971",
+    "id": "jfll-inact-2240",
     "fullName": "DONGJIN GLOBAL LOGISTICS INC.",
     "territory": "All Territories",
     "contactPersonName": "Mr.YELIN YUN",
@@ -25626,7 +29123,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1972",
+    "id": "jfll-inact-2241",
     "fullName": "SAP SHIPPING & FORWARDING",
     "territory": "All Territories",
     "contactPersonName": "SOMESH ROYCHOWDHURY",
@@ -25639,7 +29136,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1973",
+    "id": "jfll-inact-2242",
     "fullName": "DASEN IMPEX (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "SUBRATA",
@@ -25647,12 +29144,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "dasimpexindia@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1974",
+    "id": "jfll-inact-2243",
     "fullName": "LUKEM ME DMCC",
     "territory": "All Territories",
     "contactPersonName": "Mr.LEN MAULEON",
@@ -25665,7 +29162,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1975",
+    "id": "jfll-inact-2244",
     "fullName": "SAI DURGA ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Krishna",
@@ -25673,12 +29170,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "saidurgaenterprises83@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1976",
+    "id": "jfll-inact-2245",
     "fullName": "SIKHA MEDIEQUIP PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MS.MAINSHA",
@@ -25686,12 +29183,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "info@shikhamediequip.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1977",
+    "id": "jfll-inact-2246",
     "fullName": "V AND S SEAIR LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Lalit Joshi",
@@ -25699,12 +29196,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "lalit.joshi@vands.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1978",
+    "id": "jfll-inact-2247",
     "fullName": "AISC MIDDLE EAST CARGO SERVICES LLC",
     "territory": "All Territories",
     "contactPersonName": "MOHAMMED",
@@ -25717,7 +29214,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1979",
+    "id": "jfll-inact-2248",
     "fullName": "AIR BAY LOGISTIQUE",
     "territory": "All Territories",
     "contactPersonName": "Vijay kumaran",
@@ -25730,7 +29227,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1980",
+    "id": "jfll-inact-2249",
     "fullName": "ANMOL CHEMICALS.",
     "territory": "All Territories",
     "contactPersonName": "Mr. Yogesh Waghela",
@@ -25743,7 +29240,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1981",
+    "id": "jfll-inact-2250",
     "fullName": "BLACK PROJECTS",
     "territory": "All Territories",
     "contactPersonName": "MS. NILOFER",
@@ -25756,7 +29253,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1982",
+    "id": "jfll-inact-2251",
     "fullName": "CASH AND CARRY",
     "territory": "All Territories",
     "contactPersonName": "Sarfaraz",
@@ -25769,7 +29266,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1983",
+    "id": "jfll-inact-2252",
     "fullName": "CONCORD CREATIONS INDIA PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "Arun Kumar Singh",
@@ -25777,12 +29274,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "arun.singh@starconcord.com.in",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1984",
+    "id": "jfll-inact-2253",
     "fullName": "DETCO TEXTILES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Deepesh Ranka",
@@ -25790,12 +29287,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "deepesh@detcogroup.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1985",
+    "id": "jfll-inact-2254",
     "fullName": "DHWANI IMPEX",
     "territory": "All Territories",
     "contactPersonName": "DHWANI M",
@@ -25808,7 +29305,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1986",
+    "id": "jfll-inact-2255",
     "fullName": "DIVYAM HEALTHCARE",
     "territory": "All Territories",
     "contactPersonName": "Chintan",
@@ -25821,7 +29318,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1987",
+    "id": "jfll-inact-2256",
     "fullName": "E S ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": "Mr. Devendra Batra",
@@ -25834,7 +29331,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1988",
+    "id": "jfll-inact-2257",
     "fullName": "FARIZ EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Sajith",
@@ -25847,7 +29344,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1989",
+    "id": "jfll-inact-2258",
     "fullName": "INDIA GILLS",
     "territory": "All Territories",
     "contactPersonName": "Mr.Nikhil Sood",
@@ -25860,7 +29357,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1990",
+    "id": "jfll-inact-2259",
     "fullName": "INTRA INDUSTRIAL TECHNOLOGIES",
     "territory": "All Territories",
     "contactPersonName": "Sampath",
@@ -25873,20 +29370,20 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1991",
+    "id": "jfll-inact-2260",
     "fullName": "JINDAL STAINLESS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAJIB",
     "mobileNumber": "+91-9051475216",
     "email": "rajib.mondal@jindalstainless.co",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1992",
+    "id": "jfll-inact-2261",
     "fullName": "JINDAL UNITED STEEL LIMITED",
     "territory": "All Territories",
     "contactPersonName": "RAJIB",
@@ -25894,12 +29391,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rajib.mondal@jindalstainless.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1993",
+    "id": "jfll-inact-2262",
     "fullName": "IMAGINE MARKETING LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Avelino Fernandes",
@@ -25907,12 +29404,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "accounts@imaginemarketingindia.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Public Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1994",
+    "id": "jfll-inact-2263",
     "fullName": "K I AGRO EXPORTS",
     "territory": "All Territories",
     "contactPersonName": "Mr. Imran",
@@ -25925,7 +29422,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1995",
+    "id": "jfll-inact-2264",
     "fullName": "M/S AGRAWAL TOYES EMPORIUM",
     "territory": "All Territories",
     "contactPersonName": "Mr. Nitin",
@@ -25938,7 +29435,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1996",
+    "id": "jfll-inact-2265",
     "fullName": "MANUSCRIPT LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Anshul",
@@ -25946,12 +29443,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mannulogisticsexport@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1997",
+    "id": "jfll-inact-2266",
     "fullName": "NIGHTJAR FREIGHT PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Satya",
@@ -25959,12 +29456,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "satya@shipnjf.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-1998",
+    "id": "jfll-inact-2267",
     "fullName": "NVENT ELECTRICAL PRODUCTS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rakesh N",
@@ -25972,12 +29469,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rakesh.n@nvent.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-1999",
+    "id": "jfll-inact-2268",
     "fullName": "PESCINA INDICA",
     "territory": "All Territories",
     "contactPersonName": "Mrs. Monideepa",
@@ -25990,7 +29487,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-2000",
+    "id": "jfll-inact-2269",
     "fullName": "RAMAPRASUNA LOGISTICS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Ram",
@@ -25998,12 +29495,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rammohan@ramaprasuna.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-2001",
+    "id": "jfll-inact-2270",
     "fullName": "REINHARDT TEKNIK",
     "territory": "All Territories",
     "contactPersonName": "PRERIT B",
@@ -26016,7 +29513,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-2002",
+    "id": "jfll-inact-2271",
     "fullName": "RVV INTERNATIONAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Satyanarana",
@@ -26024,12 +29521,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "rvv@rvvinternational.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-2003",
+    "id": "jfll-inact-2272",
     "fullName": "SAH ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": "Mr. SAKVAI MOHAMED HASSAN",
@@ -26037,12 +29534,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "sahenterprises2022@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-2004",
+    "id": "jfll-inact-2273",
     "fullName": "SAMRAT TRADING CO",
     "territory": "All Territories",
     "contactPersonName": "Mr. Goutam",
@@ -26050,12 +29547,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": null,
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Individual / Proprietorship",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-2005",
+    "id": "jfll-inact-2274",
     "fullName": "SHUBHESH SALES",
     "territory": "All Territories",
     "contactPersonName": "Mr. Shubhesh  Goel",
@@ -26068,33 +29565,33 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-2006",
+    "id": "jfll-inact-2275",
     "fullName": "SHELTER PHARMA LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Rafiq",
     "mobileNumber": "+91-9904502740",
     "email": "rafiq@shelter.co.in",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-2007",
+    "id": "jfll-inact-2276",
     "fullName": "TIBREWALA ELECTRONICS LTD",
     "territory": "All Territories",
     "contactPersonName": "Mr. Srinivas",
     "mobileNumber": "+91-8919380531",
     "email": "vsr@tibcon.net",
     "status": "Not Active",
-    "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "customerGroup": "Inactive Customer",
+    "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true
+    "inDataMyne": false
   },
   {
-    "id": "jfll-inact-2008",
+    "id": "jfll-inact-2277",
     "fullName": "VASANTHA TOOL CRAFTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Subba  Reddy",
@@ -26102,12 +29599,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "logistics@vasantha.com",
     "status": "Not Active",
     "customerGroup": "Inactive (DataMyne Match)",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": true
   },
   {
-    "id": "jfll-inact-2009",
+    "id": "jfll-inact-2278",
     "fullName": "VATICAN SHONA AGROTECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Mr. Rajesh Singh",
@@ -26115,12 +29612,12 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "manish.saxena@vsapl.org",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   },
   {
-    "id": "jfll-inact-2010",
+    "id": "jfll-inact-2279",
     "fullName": "SAMUN RETAIL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "MD ABDULLAH",
@@ -26128,7 +29625,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "email": "mdabdullah294@gmail.com",
     "status": "Not Active",
     "customerGroup": "Inactive Customer",
-    "type": "Company",
+    "type": "Private Limited",
     "saved": false,
     "inDataMyne": false
   }

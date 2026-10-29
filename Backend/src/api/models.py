@@ -11,6 +11,9 @@ class LeadRecord(BaseModel):
     status: str = Field(..., description="Customer status: Active or Not Active")
     customer_group: str = Field(..., description="Business category")
     type: str = Field(..., description="Legal registration type")
+    credit_status: str | None = Field(None, description="Credit status")
+    sales_person: str | None = Field(None, description="Assigned sales person")
+    business_last_3m: float | None = Field(None, description="Business received in last 3 months")
 
 
 class AudienceCounts(BaseModel):

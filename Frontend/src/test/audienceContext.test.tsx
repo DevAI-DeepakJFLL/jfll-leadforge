@@ -65,26 +65,26 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
         customerStatus="inactive"
         activeTab="archive"
         counts={{
-          all: 2010,
+          all: 2279,
           shippers: 0,
           subagents: 0,
           overseas: 0,
-          withContacts: 2010,
-          datamyneLeads: 415,
-          archive: 1595,
-          activeTotal: 728,
-          inactiveTotal: 2010,
+          withContacts: 2279,
+          datamyneLeads: 391,
+          archive: 1888,
+          activeTotal: 578,
+          inactiveTotal: 2279,
         }}
       />
     );
 
     // Verify sub-tabs and context badge
     expect(html).toContain('Archived Accounts');
-    expect(html).toContain('1,595');
+    expect(html).toContain('1,888');
     expect(html).toContain('DataMyne Verified Leads');
-    expect(html).toContain('415');
+    expect(html).toContain('391');
     expect(html).toContain('All Inactive Customers');
-    expect(html).toContain('2,010');
+    expect(html).toContain('2,279');
     expect(html).toContain('Reactivation Prospects (Active Customers Purged)');
     // Verify info row banner is removed
     expect(html).not.toContain('Legacy inactive accounts that do NOT appear in current customs shipment databases');
@@ -96,21 +96,21 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
         customerStatus="active"
         activeTab="shippers"
         counts={{
-          all: 728,
-          shippers: 285,
-          subagents: 397,
-          overseas: 39,
-          withContacts: 728,
-          activeTotal: 728,
-          inactiveTotal: 2010,
+          all: 578,
+          shippers: 229,
+          subagents: 315,
+          overseas: 25,
+          withContacts: 505,
+          activeTotal: 578,
+          inactiveTotal: 2279,
         }}
       />
     );
 
     expect(html).toContain('Shippers &amp; Consignees');
-    expect(html).toContain('285');
+    expect(html).toContain('229');
     expect(html).toContain('Subagents');
-    expect(html).toContain('397');
+    expect(html).toContain('315');
     expect(html).toContain('Verified Internal Master');
     // Verify (i) info tooltip hover descriptions for Active and Inactive customers
     expect(html).toContain('aria-label="More information about Active JFLL Customers"');
@@ -125,27 +125,27 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
         customerStatus="all"
         activeTab="all"
         counts={{
-          all: 2738,
-          shippers: 285,
-          subagents: 389,
-          overseas: 39,
-          withContacts: 2738,
-          datamyneLeads: 415,
-          archive: 1595,
-          activeTotal: 728,
-          inactiveTotal: 2010,
-          allTotal: 2738,
+          all: 2857,
+          shippers: 229,
+          subagents: 315,
+          overseas: 25,
+          withContacts: 2784,
+          datamyneLeads: 391,
+          archive: 1888,
+          activeTotal: 578,
+          inactiveTotal: 2279,
+          allTotal: 2857,
         }}
-        totalFormatted="2,738"
+        totalFormatted="2,857"
       />
     );
 
     expect(html).toContain('All Customers');
-    expect(html).toContain('2,738');
+    expect(html).toContain('2,857');
     expect(html).toContain('Active Customers');
-    expect(html).toContain('728');
+    expect(html).toContain('578');
     expect(html).toContain('Inactive Customers');
-    expect(html).toContain('2,010');
+    expect(html).toContain('2,279');
     // Verify the Unified Master Directory chip has been removed
     expect(html).not.toContain('Unified Master Directory (All 2,738 Accounts)');
     expect(html).not.toContain('Unified master directory combining all 2,738 active and inactive accounts');
@@ -156,8 +156,8 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
 
     // Check default status is 'all'
     expect(html).toContain('All Customers');
-    expect(html).toContain('2,738');
-    expect(html).not.toContain('Unified Master Directory (All 2,738 Accounts)');
+    expect(html).toContain('2,857');
+    expect(html).not.toContain('Unified Master Directory (All 2,857 Accounts)');
 
     // Check order of tabs: All Customers must appear before Active Customers, and Active before Inactive
     const allIndex = html.indexOf('All Customers');

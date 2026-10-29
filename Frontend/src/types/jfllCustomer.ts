@@ -12,6 +12,9 @@ export const JfllCustomerSchema = z.object({
   type: z.string(),
   saved: z.boolean().default(false),
   inDataMyne: z.boolean().optional(),
+  creditStatus: z.string().optional(),
+  salesPerson: z.string().nullable().optional(),
+  businessLast3m: z.number().optional(),
 });
 
 export type JfllCustomer = z.infer<typeof JfllCustomerSchema>;

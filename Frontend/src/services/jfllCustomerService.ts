@@ -122,9 +122,9 @@ export async function fetchJfllCustomersFromApi(
       totalPages: payload.total_pages ?? Math.max(1, Math.ceil(totalEstimate / limit)),
       audienceCounts: {
         all: audience.all ?? JFLL_CUSTOMERS_DATA.length,
-        shippers: audience.shippers ?? 285,
-        subagents: audience.subagents ?? 389,
-        overseas: audience.overseas ?? 39,
+        shippers: audience.shippers ?? 229,
+        subagents: audience.subagents ?? 315,
+        overseas: audience.overseas ?? 25,
         withContacts: audience.with_contacts ?? JFLL_CUSTOMERS_DATA.length,
         activeTotal: JFLL_CUSTOMERS_DATA.length,
         inactiveTotal: JFLL_INACTIVE_CUSTOMERS_DATA.length,

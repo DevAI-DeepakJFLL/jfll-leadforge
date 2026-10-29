@@ -42,18 +42,18 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
   activeTab = 'all',
   onTabChange,
   counts = {
-    all: 2738,
-    shippers: 285,
-    subagents: 389,
-    overseas: 39,
-    withContacts: 2738,
-    datamyneLeads: 415,
-    archive: 1595,
-    activeTotal: 728,
-    inactiveTotal: 2010,
-    allTotal: 2738,
+    all: 2857,
+    shippers: 229,
+    subagents: 315,
+    overseas: 25,
+    withContacts: 2857,
+    datamyneLeads: 391,
+    archive: 1888,
+    activeTotal: 578,
+    inactiveTotal: 2279,
+    allTotal: 2857,
   },
-  totalFormatted = '2,738',
+  totalFormatted = '2,857',
   className = '',
 }) => {
   const isAll = customerStatus === 'all';
@@ -66,9 +66,9 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
       label: 'All Customers',
       count: counts.all,
       icon: Users,
-      description: 'Unified master directory combining all 2,738 active and inactive accounts across all Jet Freight branches.',
+      description: 'Unified master directory combining all 2,857 active and inactive accounts across all Jet Freight branches.',
       criteria: [
-        'Consolidated directory of 728 active ERP clients and 2,010 former/inactive accounts',
+        'Consolidated directory of 578 active ERP clients and 2,279 former/inactive accounts',
         'Complete view across all branch territories and business lines',
         'Includes status markers to distinguish active clients from reactivation candidates',
       ],
@@ -120,7 +120,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
     {
       id: 'datamyne-leads',
       label: 'DataMyne Verified',
-      count: counts.datamyneLeads || 415,
+      count: counts.datamyneLeads || 391,
       icon: Layers,
       description: 'Accounts confirmed to still be actively shipping air/ocean cargo in Indian customs records.',
       criteria: [
@@ -148,7 +148,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
     {
       id: 'archive',
       label: 'Archived Accounts',
-      count: counts.archive || 1595,
+      count: counts.archive || 1888,
       icon: Archive,
       description: 'Legacy inactive accounts that do NOT appear in current customs shipment databases (in_datamyne = false).',
       criteria: [
@@ -167,9 +167,9 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
       label: 'All Active Customers',
       count: counts.all,
       icon: Users,
-      description: 'Master list of all 728 active revenue-generating accounts across all Jet Freight branch territories.',
+      description: 'Master list of all 578 active revenue-generating accounts across all Jet Freight branch territories.',
       criteria: [
-        'Confirmed active paying customer in JFLL ERP',
+        'Confirmed active paying customer in JFLL ERP (last 3 months)',
         'Valid commercial credit or active booking status',
         'Assigned to branch sales and operations teams',
       ],
@@ -240,10 +240,10 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
       label: 'All Inactive Customers',
       count: counts.all,
       icon: Users,
-      description: 'Complete directory of 2,010 former Jet Freight clients, 100% sanitized of active accounts.',
+      description: 'Complete directory of 2,279 former Jet Freight clients, 100% sanitized of active accounts.',
       criteria: [
-        'Former client with no active bookings in recent periods',
-        'Purged of all 728 active customers',
+        'Former client with no active bookings in recent periods (>3 months inactivity)',
+        'Purged of all 578 active customers',
         'Includes both customs-active shippers and archived records',
       ],
       actionTip: 'Use as a master directory to look up past branch relationships and former client history.',
@@ -252,7 +252,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
     {
       id: 'datamyne-leads',
       label: 'DataMyne Verified Leads',
-      count: counts.datamyneLeads || 415,
+      count: counts.datamyneLeads || 391,
       icon: Layers,
       description: 'Former clients confirmed to still be actively shipping air/ocean cargo in Indian customs records.',
       criteria: [
@@ -266,7 +266,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
     {
       id: 'with-contacts',
       label: 'Direct Contacts Ready',
-      count: counts.withContacts || 2010,
+      count: counts.withContacts || 2279,
       icon: PhoneCall,
       description: 'Inactive accounts with at least one verified phone number, email address, or key contact person on file.',
       criteria: [
@@ -280,7 +280,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
     {
       id: 'archive',
       label: 'Archived Accounts',
-      count: counts.archive || 1595,
+      count: counts.archive || 1888,
       icon: Archive,
       description: 'Legacy inactive accounts that do NOT appear in current customs shipment databases (in_datamyne = false).',
       criteria: [
@@ -325,7 +325,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                 description="Complete internal master customer directory containing both active accounts (last 3 months) and dormant accounts."
                 badge={{ text: 'Unified Master', variant: 'blue' }}
                 criteria={[
-                  'Unified repository of 728 active and 2,010 inactive customer accounts',
+                  'Unified repository of 578 active and 2,279 inactive customer accounts',
                   'Includes direct shippers, consignees, subagents, and overseas partners',
                   '100% synchronized with internal Jet Freight ERP records',
                 ]}
@@ -342,14 +342,14 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                     : 'bg-slate-100 text-slate-600 border border-slate-200'
                 }`}
               >
-                {(counts.allTotal || 2738).toLocaleString()}
+                {(counts.allTotal || 2857).toLocaleString()}
               </span>
               <CategoryInfoTooltip
                 title="All JFLL Customers"
                 description="Complete internal master customer directory containing both active accounts (last 3 months) and dormant accounts."
                 badge={{ text: 'Unified Master', variant: 'blue' }}
                 criteria={[
-                  'Unified repository of 728 active and 2,010 inactive customer accounts',
+                  'Unified repository of 578 active and 2,279 inactive customer accounts',
                   'Includes direct shippers, consignees, subagents, and overseas partners',
                   '100% synchronized with internal Jet Freight ERP records',
                 ]}
@@ -392,7 +392,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                     : 'bg-slate-100 text-slate-600 border border-slate-200'
                 }`}
               >
-                {(counts.activeTotal || 728).toLocaleString()}
+                {(counts.activeTotal || 578).toLocaleString()}
               </span>
               <CategoryInfoTooltip
                 title="Active JFLL Customers"
@@ -442,7 +442,7 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                     : 'bg-slate-100 text-slate-600 border border-slate-200'
                 }`}
               >
-                {(counts.inactiveTotal || 2010).toLocaleString()}
+                {(counts.inactiveTotal || 2279).toLocaleString()}
               </span>
               <CategoryInfoTooltip
                 title="Inactive JFLL Customers"

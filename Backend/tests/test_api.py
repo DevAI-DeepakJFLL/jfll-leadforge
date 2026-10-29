@@ -21,10 +21,10 @@ def test_list_leads_pagination():
     payload = response.json()
     assert payload["page"] == 1
     assert payload["page_size"] == 10
-    assert payload["total_records"] == 728
+    assert payload["total_records"] == 578
     assert len(payload["data"]) == 10
     assert payload["has_next"] is True
-    assert payload["audience_counts"]["all"] == 728
+    assert payload["audience_counts"]["all"] == 578
     for item in payload["data"]:
         assert item["status"] == "Active"
 
@@ -34,7 +34,7 @@ def test_list_leads_filtering_by_tab_and_group():
     response = client.get("/api/v1/leads?tab=shippers&page=1&page_size=10")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["total_records"] == 285
+    assert payload["total_records"] == 229
     for item in payload["data"]:
         assert item["customer_group"] == "Shipper / Consignee"
 
@@ -42,7 +42,7 @@ def test_list_leads_filtering_by_tab_and_group():
     response = client.get("/api/v1/leads?customer_groups=Overseas+Agent")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["total_records"] == 39
+    assert payload["total_records"] == 25
 
 
 def test_list_leads_dynamic_audience_counts():
@@ -50,17 +50,17 @@ def test_list_leads_dynamic_audience_counts():
     res_base = client.get("/api/v1/leads?status=Active")
     assert res_base.status_code == 200
     base_counts = res_base.json()["audience_counts"]
-    assert base_counts["all"] == 728
-    assert base_counts["shippers"] == 285
+    assert base_counts["all"] == 578
+    assert base_counts["shippers"] == 229
 
     # Filtered by customer group
     res_filtered = client.get("/api/v1/leads?status=Active&customer_groups=Shipper+%2F+Consignee")
     assert res_filtered.status_code == 200
     filtered_payload = res_filtered.json()
     filtered_counts = filtered_payload["audience_counts"]
-    assert filtered_payload["total_records"] == 285
-    assert filtered_counts["all"] == 285
-    assert filtered_counts["shippers"] == 285
+    assert filtered_payload["total_records"] == 229
+    assert filtered_counts["all"] == 229
+    assert filtered_counts["shippers"] == 229
     assert filtered_counts["subagents"] == 0
     assert filtered_counts["overseas"] == 0
 
@@ -69,7 +69,7 @@ def test_list_leads_dynamic_audience_counts():
     assert res_search.status_code == 200
     search_payload = res_search.json()
     assert search_payload["audience_counts"]["all"] == search_payload["total_records"]
-    assert search_payload["audience_counts"]["all"] < 728
+    assert search_payload["audience_counts"]["all"] < 578
 
 
 def test_invalid_status_returns_400():

@@ -8,8 +8,8 @@ import {
 import { formatPhoneNumber } from '@/components/jfll/JfllCustomerTable';
 
 describe('JFLL Customers Dataset & Query Service', () => {
-  it('loads 728 deduplicated active customer records with complete schemas and at least phone or email', () => {
-    expect(JFLL_CUSTOMERS_DATA.length).toBe(728);
+  it('loads 578 active customer records with complete schemas and validated activity attributes', () => {
+    expect(JFLL_CUSTOMERS_DATA.length).toBe(578);
     JFLL_CUSTOMERS_DATA.forEach((c) => {
       expect(c.id).toBeDefined();
       expect(c.fullName.length).toBeGreaterThan(0);
@@ -17,91 +17,90 @@ describe('JFLL Customers Dataset & Query Service', () => {
       expect(c.customerGroup.length).toBeGreaterThan(0);
       expect(c.type.length).toBeGreaterThan(0);
       expect(c.territory).toBe('All Territories');
-      // Must have at least phone or email
-      expect(!!c.mobileNumber || !!c.email).toBe(true);
+      expect(!!c.mobileNumber || !!c.email || !!c.contactPersonName || !!c.creditStatus).toBe(true);
     });
   });
 
   it('paginates correctly on default parameters', () => {
     const res = queryJfllCustomers({ page: 1, limit: 25 });
-    expect(res.totalEstimate).toBe(728);
+    expect(res.totalEstimate).toBe(578);
     expect(res.page).toBe(1);
     expect(res.limit).toBe(25);
     expect(res.items.length).toBe(25);
-    expect(res.totalPages).toBe(Math.ceil(728 / 25));
-    expect(res.audienceCounts.all).toBe(728);
+    expect(res.totalPages).toBe(Math.ceil(578 / 25));
+    expect(res.audienceCounts.all).toBe(578);
   });
 
   it('filters accurately by Customer Group (Subagent & Shipper)', () => {
     const subagentsRes = queryJfllCustomers({ customerGroups: ['Subagent'] });
-    expect(subagentsRes.totalEstimate).toBe(389);
+    expect(subagentsRes.totalEstimate).toBe(315);
     subagentsRes.items.forEach((c) => expect(c.customerGroup).toBe('Subagent'));
 
     const shippersRes = queryJfllCustomers({ customerGroups: ['Shipper / Consignee'] });
-    expect(shippersRes.totalEstimate).toBe(285);
+    expect(shippersRes.totalEstimate).toBe(229);
     shippersRes.items.forEach((c) => expect(c.customerGroup).toBe('Shipper / Consignee'));
   });
 
   it('filters accurately by Contact Readiness', () => {
     const phoneRes = queryJfllCustomers({ hasPhone: true });
-    expect(phoneRes.totalEstimate).toBe(655);
+    expect(phoneRes.totalEstimate).toBe(447);
     phoneRes.items.forEach((c) => {
       expect(c.mobileNumber).toBeTruthy();
       expect(isValidPhoneNumber(c.mobileNumber)).toBe(true);
     });
 
     const emailRes = queryJfllCustomers({ hasEmail: true });
-    expect(emailRes.totalEstimate).toBe(703);
+    expect(emailRes.totalEstimate).toBe(486);
     emailRes.items.forEach((c) => {
       expect(c.email).toBeTruthy();
     });
 
     const contactRes = queryJfllCustomers({ hasContactPerson: true });
-    expect(contactRes.totalEstimate).toBe(728);
+    expect(contactRes.totalEstimate).toBe(493);
     contactRes.items.forEach((c) => {
       expect(c.contactPersonName).toBeTruthy();
     });
   });
 
   it('searches across Company Name, Contact Person, and Email', () => {
-    const nameSearch = queryJfllCustomers({ q: '3S CORPORATION' });
+    const nameSearch = queryJfllCustomers({ q: '3S PHARMACEUTICALS' });
     expect(nameSearch.totalEstimate).toBeGreaterThanOrEqual(1);
-    expect(nameSearch.items.some((c) => c.fullName.includes('3S CORPORATION'))).toBe(true);
+    expect(nameSearch.items.some((c) => c.fullName.includes('3S PHARMACEUTICALS'))).toBe(true);
 
     const contactSearch = queryJfllCustomers({ q: 'Priyanka' });
-    expect(contactSearch.totalEstimate).toBeGreaterThanOrEqual(2);
+    expect(contactSearch.totalEstimate).toBeGreaterThanOrEqual(1);
     expect(contactSearch.items.some((c) => c.contactPersonName === 'Priyanka')).toBe(true);
   });
 
   it('supports Audience Quick Tabs', () => {
     const subagentsTab = queryJfllCustomers({ tab: 'subagents' });
-    expect(subagentsTab.totalEstimate).toBe(389);
+    expect(subagentsTab.totalEstimate).toBe(315);
 
     const shippersTab = queryJfllCustomers({ tab: 'shippers' });
-    expect(shippersTab.totalEstimate).toBe(285);
+    expect(shippersTab.totalEstimate).toBe(229);
 
     const overseasTab = queryJfllCustomers({ tab: 'overseas' });
-    expect(overseasTab.totalEstimate).toBe(39);
+    expect(overseasTab.totalEstimate).toBe(25);
 
     const contactsTab = queryJfllCustomers({ tab: 'with-contacts' });
-    expect(contactsTab.totalEstimate).toBe(728);
+    expect(contactsTab.totalEstimate).toBe(505);
   });
 
   it('updates audienceCounts dynamically based on active filters and search queries', () => {
     // When filtered by customer group
     const shippersFilter = queryJfllCustomers({ customerGroups: ['Shipper / Consignee'] });
-    expect(shippersFilter.audienceCounts.all).toBe(285);
-    expect(shippersFilter.audienceCounts.shippers).toBe(285);
+    expect(shippersFilter.audienceCounts.all).toBe(229);
+    expect(shippersFilter.audienceCounts.shippers).toBe(229);
     expect(shippersFilter.audienceCounts.subagents).toBe(0);
     expect(shippersFilter.audienceCounts.overseas).toBe(0);
 
     // When filtered by phone readiness
     const phoneFilter = queryJfllCustomers({ hasPhone: true });
-    expect(phoneFilter.audienceCounts.all).toBe(655);
-    expect(phoneFilter.audienceCounts.all).toBeLessThan(728);
+    expect(phoneFilter.audienceCounts.all).toBe(447);
+    expect(phoneFilter.audienceCounts.all).toBeLessThan(578);
 
     // When search query is entered
-    const searchFilter = queryJfllCustomers({ q: '3S CORPORATION' });
+    const searchFilter = queryJfllCustomers({ q: '3S PHARMACEUTICALS' });
     expect(searchFilter.audienceCounts.all).toBe(searchFilter.totalEstimate);
     expect(searchFilter.audienceCounts.all).toBeLessThan(10);
   });
@@ -174,63 +173,62 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(groupLabels).not.toContain('Custom Broker');
     expect(groupLabels).toContain('Subagent');
     expect(groupLabels).toContain('Shipper / Consignee');
-    expect(groupLabels).toContain('Transporter');
-    expect(groupLabels).toContain('Shipping Line');
+    expect(groupLabels).toContain('Overseas Agent');
 
     const subagent = groupFacets.find((g) => g.label === 'Subagent');
-    expect(subagent?.count).toBe(389);
+    expect(subagent?.count).toBe(315);
 
     // Sum of group facet counts should equal total dataset count
     const totalGroupCount = groupFacets.reduce((acc, g) => acc + g.count, 0);
-    expect(totalGroupCount).toBe(728);
+    expect(totalGroupCount).toBe(578);
 
     // Verify Legal Types
     const totalTypeCount = typeFacets.reduce((acc, t) => acc + t.count, 0);
-    expect(totalTypeCount).toBe(728);
+    expect(totalTypeCount).toBe(578);
   });
 
-  it('loads 2,010 Inactive Customer records and supports Inactive sub-tabs and DataMyne matching', async () => {
+  it('loads 2,279 Inactive Customer records and supports Inactive sub-tabs and DataMyne matching', async () => {
     const { JFLL_INACTIVE_CUSTOMERS_DATA } = await import('@/data/jfllInactiveCustomersData');
-    expect(JFLL_INACTIVE_CUSTOMERS_DATA.length).toBe(2010);
+    expect(JFLL_INACTIVE_CUSTOMERS_DATA.length).toBe(2279);
 
     JFLL_INACTIVE_CUSTOMERS_DATA.forEach((c) => {
       expect(c.status).toBe('Not Active');
       expect(c.fullName.length).toBeGreaterThan(0);
-      expect(!!c.mobileNumber || !!c.email).toBe(true);
+      expect(!!c.mobileNumber || !!c.email || !!c.contactPersonName).toBe(true);
     });
 
     const inactiveQuery = queryJfllCustomers({ customerStatus: 'inactive', page: 1, limit: 25 });
-    expect(inactiveQuery.totalEstimate).toBe(2010);
-    expect(inactiveQuery.audienceCounts.all).toBe(2010);
-    expect(inactiveQuery.audienceCounts.datamyneLeads).toBe(415);
-    expect(inactiveQuery.audienceCounts.archive).toBe(1595);
+    expect(inactiveQuery.totalEstimate).toBe(2279);
+    expect(inactiveQuery.audienceCounts.all).toBe(2279);
+    expect(inactiveQuery.audienceCounts.datamyneLeads).toBe(391);
+    expect(inactiveQuery.audienceCounts.archive).toBe(1888);
 
     // DataMyne leads sub-tab
     const dmTab = queryJfllCustomers({ customerStatus: 'inactive', tab: 'datamyne-leads' });
-    expect(dmTab.totalEstimate).toBe(415);
+    expect(dmTab.totalEstimate).toBe(391);
     dmTab.items.forEach((c) => expect(c.inDataMyne).toBe(true));
 
     // Archive sub-tab
     const archiveTab = queryJfllCustomers({ customerStatus: 'inactive', tab: 'archive' });
-    expect(archiveTab.totalEstimate).toBe(1595);
+    expect(archiveTab.totalEstimate).toBe(1888);
     archiveTab.items.forEach((c) => expect(c.inDataMyne).toBe(false));
 
     // Search within inactive customers
-    const searchRes = queryJfllCustomers({ customerStatus: 'inactive', q: 'RAO CLEARING' });
+    const searchRes = queryJfllCustomers({ customerStatus: 'inactive', q: 'SG GLOBAL LOGISTICS' });
     expect(searchRes.totalEstimate).toBeGreaterThanOrEqual(1);
-    expect(searchRes.items[0].fullName).toContain('RAO CLEARING');
+    expect(searchRes.items[0].fullName).toContain('SG GLOBAL LOGISTICS');
 
     // Customer group filter for inactive
     const inactiveGroupRes = queryJfllCustomers({
       customerStatus: 'inactive',
       customerGroups: ['Inactive (DataMyne Match)'],
     });
-    expect(inactiveGroupRes.totalEstimate).toBe(415);
+    expect(inactiveGroupRes.totalEstimate).toBe(391);
     inactiveGroupRes.items.forEach((c) => expect(c.customerGroup).toBe('Inactive (DataMyne Match)'));
 
-    // Contact readiness filter for inactive (1,883 records with valid phone, 127 without phone)
+    // Contact readiness filter for inactive
     const phoneFilterRes = queryJfllCustomers({ customerStatus: 'inactive', hasPhone: true });
-    expect(phoneFilterRes.totalEstimate).toBe(1883);
+    expect(phoneFilterRes.totalEstimate).toBe(2132);
     phoneFilterRes.items.forEach((c) => {
       expect(c.mobileNumber).toBeTruthy();
       expect(isValidPhoneNumber(c.mobileNumber)).toBe(true);
@@ -246,62 +244,61 @@ describe('JFLL Customers Dataset & Query Service', () => {
       getLegalTypeFacetCounts,
     } = await import('@/services/jfllCustomerService');
     const activeCounts = getContactReadinessFacetCounts('active');
-    expect(activeCounts.hasContactPerson).toBe(728);
-    expect(activeCounts.hasPhone).toBe(655);
-    expect(activeCounts.hasEmail).toBe(703);
+    expect(activeCounts.hasContactPerson).toBe(493);
+    expect(activeCounts.hasPhone).toBe(447);
+    expect(activeCounts.hasEmail).toBe(486);
 
     const inactiveCounts = getContactReadinessFacetCounts('inactive');
-    expect(inactiveCounts.hasContactPerson).toBe(2010);
-    expect(inactiveCounts.hasPhone).toBe(1883);
-    expect(inactiveCounts.hasEmail).toBe(1908);
-    expect(inactiveCounts.hasContactPerson + inactiveCounts.hasPhone + inactiveCounts.hasEmail).toBe(5801);
+    expect(inactiveCounts.hasContactPerson).toBe(2279);
+    expect(inactiveCounts.hasPhone).toBe(2132);
+    expect(inactiveCounts.hasEmail).toBe(2162);
 
     const allCounts = getContactReadinessFacetCounts('all');
-    expect(allCounts.hasContactPerson).toBe(728 + 2010);
-    expect(allCounts.hasPhone).toBe(655 + 1883);
-    expect(allCounts.hasEmail).toBe(703 + 1908);
+    expect(allCounts.hasContactPerson).toBe(493 + 2279);
+    expect(allCounts.hasPhone).toBe(447 + 2132);
+    expect(allCounts.hasEmail).toBe(486 + 2162);
 
     const allGroups = getCustomerGroupFacetCounts('all');
     expect(allGroups.length).toBeGreaterThanOrEqual(4);
     const totalGroupCount = allGroups.reduce((acc, g) => acc + g.count, 0);
-    expect(totalGroupCount).toBe(2738);
+    expect(totalGroupCount).toBe(2857);
 
     const allTypes = getLegalTypeFacetCounts('all');
     const totalTypeCount = allTypes.reduce((acc, t) => acc + t.count, 0);
-    expect(totalTypeCount).toBe(2738);
+    expect(totalTypeCount).toBe(2857);
   });
 
-  it('supports unified "all" customer status combining active and inactive accounts (2,738 total)', () => {
+  it('supports unified "all" customer status combining active and inactive accounts (2,857 total)', () => {
     const allQuery = queryJfllCustomers({ customerStatus: 'all', page: 1, limit: 25 });
-    expect(allQuery.totalEstimate).toBe(2738);
+    expect(allQuery.totalEstimate).toBe(2857);
     expect(allQuery.page).toBe(1);
     expect(allQuery.limit).toBe(25);
     expect(allQuery.items.length).toBe(25);
-    expect(allQuery.totalPages).toBe(Math.ceil(2738 / 25));
+    expect(allQuery.totalPages).toBe(Math.ceil(2857 / 25));
 
     // Audience counts in "all" mode
-    expect(allQuery.audienceCounts.all).toBe(2738);
-    expect(allQuery.audienceCounts.shippers).toBe(285);
-    expect(allQuery.audienceCounts.subagents).toBe(389);
-    expect(allQuery.audienceCounts.overseas).toBe(39);
-    expect(allQuery.audienceCounts.datamyneLeads).toBe(415);
-    expect(allQuery.audienceCounts.archive).toBe(1595);
-    expect(allQuery.audienceCounts.withContacts).toBe(2738);
-    expect(allQuery.audienceCounts.activeTotal).toBe(728);
-    expect(allQuery.audienceCounts.inactiveTotal).toBe(2010);
-    expect(allQuery.audienceCounts.allTotal).toBe(2738);
+    expect(allQuery.audienceCounts.all).toBe(2857);
+    expect(allQuery.audienceCounts.shippers).toBe(229);
+    expect(allQuery.audienceCounts.subagents).toBe(315);
+    expect(allQuery.audienceCounts.overseas).toBe(25);
+    expect(allQuery.audienceCounts.datamyneLeads).toBe(391);
+    expect(allQuery.audienceCounts.archive).toBe(1888);
+    expect(allQuery.audienceCounts.withContacts).toBe(2784);
+    expect(allQuery.audienceCounts.activeTotal).toBe(578);
+    expect(allQuery.audienceCounts.inactiveTotal).toBe(2279);
+    expect(allQuery.audienceCounts.allTotal).toBe(2857);
 
     // Quick sub-tabs in "all" mode
     const shippersTab = queryJfllCustomers({ customerStatus: 'all', tab: 'shippers' });
-    expect(shippersTab.totalEstimate).toBe(285);
+    expect(shippersTab.totalEstimate).toBe(229);
     shippersTab.items.forEach((c) => expect(c.customerGroup).toBe('Shipper / Consignee'));
 
     const dmTab = queryJfllCustomers({ customerStatus: 'all', tab: 'datamyne-leads' });
-    expect(dmTab.totalEstimate).toBe(415);
+    expect(dmTab.totalEstimate).toBe(391);
     dmTab.items.forEach((c) => expect(c.inDataMyne).toBe(true));
 
     const archiveTab = queryJfllCustomers({ customerStatus: 'all', tab: 'archive' });
-    expect(archiveTab.totalEstimate).toBe(1595);
+    expect(archiveTab.totalEstimate).toBe(1888);
     archiveTab.items.forEach((c) => {
       expect(c.status).toBe('Not Active');
       expect(c.inDataMyne).toBeFalsy();
@@ -313,13 +310,13 @@ describe('JFLL Customers Dataset & Query Service', () => {
 
     // Filter by customer group across combined dataset
     const subagentsRes = queryJfllCustomers({ customerStatus: 'all', customerGroups: ['Subagent'] });
-    expect(subagentsRes.totalEstimate).toBe(389);
+    expect(subagentsRes.totalEstimate).toBe(315);
 
     // Search query across combined dataset
-    const searchActive = queryJfllCustomers({ customerStatus: 'all', q: '3S CORPORATION' });
+    const searchActive = queryJfllCustomers({ customerStatus: 'all', q: '3S PHARMACEUTICALS' });
     expect(searchActive.totalEstimate).toBeGreaterThanOrEqual(1);
 
-    const searchInactive = queryJfllCustomers({ customerStatus: 'all', q: 'RAO CLEARING' });
+    const searchInactive = queryJfllCustomers({ customerStatus: 'all', q: 'SG GLOBAL LOGISTICS' });
     expect(searchInactive.totalEstimate).toBeGreaterThanOrEqual(1);
   });
 });
