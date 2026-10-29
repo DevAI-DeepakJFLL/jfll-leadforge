@@ -419,7 +419,6 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                         {filteredAllowlist.map((entry) => {
                           const isRoot =
                             entry.email.toLowerCase() === 'deepak@jfll.com' ||
-                            entry.email.toLowerCase() === 'deepak.naidu@jfll.com' ||
                             entry.email.toLowerCase() === 'tyra.theknath@jfll.com';
                           const isSelf = entry.email.toLowerCase() === currentUserEmail.toLowerCase();
 

@@ -154,12 +154,8 @@ DEFAULT_AUTHORIZED_DIGESTS: dict[str, dict[str, str]] = {
         "role": "Leadership",
         "name": "Tyra Theknath",
     },
-    # Deepak Naidu (deepak@jfll.com and deepak.naidu@jfll.com)
+    # Deepak Naidu (deepak@jfll.com)
     "fb11d6dc98153163787779a2fd66ccf896b369089def0c31cc103e5722db6cf2": {
-        "role": "Tech Lead",
-        "name": "Deepak Naidu",
-    },
-    "2d2ba0c4e282c910ae3d73075667bafdc678a45e181c6124f3d22890d90d61b4": {
         "role": "Tech Lead",
         "name": "Deepak Naidu",
     },

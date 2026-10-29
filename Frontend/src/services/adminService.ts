@@ -400,7 +400,6 @@ export async function revokeAllowlistEntry(
     const cleanEmail = email.trim().toLowerCase();
     if (
       cleanEmail === 'deepak@jfll.com' ||
-      cleanEmail === 'deepak.naidu@jfll.com' ||
       cleanEmail === 'tyra.theknath@jfll.com'
     ) {
       throw new Error(`Root administrator account '${cleanEmail}' cannot be revoked.`);

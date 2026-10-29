@@ -217,7 +217,6 @@ def test_auth_login_success_and_verify_token():
 
     # 3. Test all other whitelisted members and case/whitespace normalization
     for email, expected_name, expected_role in [
-        ("deepak.naidu@jfll.com", "Deepak Naidu", "Tech Lead"),
         ("  TYRA.THEKNATH@jfll.com  ", "Tyra Theknath", "Leadership"),
         ("akash.dhara@jfll.com", "Akash Dhara", "Operations"),
         ("snehal.birje@jfll.com", "Snehal Birje", "Commercial"),
@@ -234,6 +233,11 @@ def test_auth_login_invalid_credentials():
     # Unlisted email (previously default email)
     res1 = client.post("/api/v1/auth/login", json={"email": "leads@jfll.com"})
     assert res1.status_code == 401
+
+    # Old email deepak.naidu@jfll.com is strictly unauthorized
+    res_old = client.post("/api/v1/auth/login", json={"email": "deepak.naidu@jfll.com"})
+    assert res_old.status_code == 401
+    assert "Access restricted" in res_old.json()["detail"]
     assert "Access restricted. Only authorized Jet Freight Logistics personnel can sign in." in res1.json()["detail"]
 
     # Unknown domain / external user
@@ -254,7 +258,7 @@ def test_auth_me_unauthorized():
 
 def test_single_device_session_displacement():
     """Verify that logging in from a second device displaces and revokes the active session of the first device."""
-    email = "deepak.naidu@jfll.com"
+    email = "deepak@jfll.com"
 
     # 1. Device 1 logs in and receives token_dev1
     res1 = client.post("/api/v1/auth/login", json={"email": email})
@@ -285,7 +289,7 @@ def test_single_device_session_displacement():
 
 def test_login_rejects_headless_user_agent():
     """Verify that requests from automated browser engines (HeadlessChrome, Playwright, etc.) are blocked."""
-    email = "deepak.naidu@jfll.com"
+    email = "deepak@jfll.com"
 
     for bot_agent in [
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/122.0.6261.94 Safari/537.36",
@@ -342,11 +346,11 @@ def test_audit_logging_and_user_attribution(caplog):
 
     with caplog.at_level(logging.INFO):
         # 1. Login success audit record
-        res = client.post("/api/v1/auth/login", json={"email": "deepak.naidu@jfll.com"})
+        res = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com"})
         assert res.status_code == 200
         token = res.json()["token"]
 
-        assert any("LOGIN_SUCCESS" in record.message or "deepak.naidu@jfll.com" in record.message for record in caplog.records)
+        assert any("LOGIN_SUCCESS" in record.message or "deepak@jfll.com" in record.message for record in caplog.records)
 
         # 2. Authenticated query attribution in telemetry
         query_res = client.get(
@@ -379,7 +383,7 @@ def test_rotating_file_handler_auto_clean(tmp_path):
 def test_single_device_session_displacement_immediate():
     """Verify that a second login immediately displaces the first device session."""
     # 1. Device 1 logs in
-    res1 = client.post("/api/v1/auth/login", json={"email": "deepak.naidu@jfll.com"})
+    res1 = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com"})
     assert res1.status_code == 200
     token1 = res1.json()["token"]
 
@@ -388,7 +392,7 @@ def test_single_device_session_displacement_immediate():
     assert me1.status_code == 200
 
     # 2. Device 2 logs in with same email
-    res2 = client.post("/api/v1/auth/login", json={"email": "deepak.naidu@jfll.com"})
+    res2 = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com"})
     assert res2.status_code == 200
     token2 = res2.json()["token"]
 

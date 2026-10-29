@@ -63,7 +63,6 @@ export const AppDock: React.FC<AppDockProps> = ({
     resolvedUser.role === 'Tech Lead' ||
     resolvedUser.role === 'Admin' ||
     resolvedUser.email?.toLowerCase() === 'deepak@jfll.com' ||
-    resolvedUser.email?.toLowerCase() === 'deepak.naidu@jfll.com' ||
     resolvedUser.email?.toLowerCase() === 'tyra.theknath@jfll.com';
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(defaultShowProfileMenu);

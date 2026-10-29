@@ -31,7 +31,6 @@ def _rebuild_cache(data: dict[str, Any], storage_path: Path, mtime: float) -> No
 
 ROOT_ADMIN_EMAILS = {
     "deepak@jfll.com",
-    "deepak.naidu@jfll.com",
     "tyra.theknath@jfll.com",
 }
 
@@ -221,7 +220,7 @@ def get_user_profile_by_email(email: str) -> tuple[str, str]:
             return name, role
 
     # Fallback for root admin
-    if clean_email in ("deepak@jfll.com", "deepak.naidu@jfll.com"):
+    if clean_email == "deepak@jfll.com":
         return "Deepak Naidu", "Tech Lead"
     if clean_email == "tyra.theknath@jfll.com":
         return "Tyra Theknath", "Leadership"

@@ -9,7 +9,7 @@ client = TestClient(app)
 
 
 def _get_auth_headers() -> dict[str, str]:
-    token, _ = create_token({"sub": "deepak.naidu@jfll.com", "name": "Deepak Naidu", "role": "Tech Lead"})
+    token, _ = create_token({"sub": "deepak@jfll.com", "name": "Deepak Naidu", "role": "Tech Lead"})
     return {"Authorization": f"Bearer {token}"}
 
 
