@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { RowSelectionState } from '@tanstack/react-table';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { SettingsModal } from '@/components/layout/SettingsModal';
+import { AdminPortalModal } from '@/components/admin';
+import { fetchAdminStats } from '@/services/adminService';
 import {
   PeopleView,
   ApolloCompaniesView,
@@ -46,6 +48,7 @@ import {
   loadFullDatamyneDataset,
   subscribeToDatamyneDataset,
 } from '@/services/datamyneService';
+import { getLoadedTierDataset } from '@/services/tierService';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { ApolloDetailDrawer, ApolloSubTabSwitcher } from '@/components/apollo';
 import { useApolloFilter } from '@/hooks/useApolloFilter';
@@ -141,8 +144,16 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   });
   const [activeNav, setActiveNav] = useState<string>(() => getInitialActiveNav(getInitialTopTab()));
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isAdminPortalOpen, setIsAdminPortalOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const { showToast } = useToast();
+
+  const { data: adminStats } = useQuery({
+    queryKey: ['admin-stats'],
+    queryFn: fetchAdminStats,
+    enabled: !!currentUser,
+    refetchInterval: 30000,
+  });
 
   // Saved searches dynamically persisted in localStorage
   const [savedSearches, setSavedSearches] = useState<SavedSearchPreset[]>(getInitialSavedSearches);
@@ -740,8 +751,14 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     try {
       setIsExportingDatamyne(true);
       const allLeads = getLoadedDatamyneDataset();
+      const allTierLeads = getLoadedTierDataset();
       const selected = selectedDatamyneIds
-        .map((id) => datamyneItems.find((d) => d.id === id) || allLeads.find((d) => d.id === id))
+        .map(
+          (id) =>
+            datamyneItems.find((d) => d.id === id) ||
+            allLeads.find((d) => d.id === id) ||
+            (allTierLeads as unknown as DatamyneLead[]).find((d) => d.id === id)
+        )
         .filter(Boolean) as DatamyneLead[];
       const exportList = selected.length > 0 ? selected : datamyneItems;
       const blob = exportDatamyneLeadsCsv(exportList);
@@ -1019,6 +1036,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       }}
       savedSearchesCount={savedSearches.length}
       onOpenSettings={() => setIsSettingsOpen(true)}
+      onOpenAdminPortal={() => setIsAdminPortalOpen(true)}
+      pendingRequestsCount={adminStats?.pending_requests_count}
       onLogout={onLogout}
       currentUser={currentUser}
       onToggleMobileFilter={() => setIsMobileFilterOpen((prev) => !prev)}
@@ -1273,6 +1292,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         onPageSizeChange={(size) => {
           applyFilters({ ...filters, limit: size, page: 1 });
         }}
+      />
+
+      {/* Root Administration Access Portal */}
+      <AdminPortalModal
+        isOpen={isAdminPortalOpen}
+        onClose={() => setIsAdminPortalOpen(false)}
+        currentUserEmail={currentUser?.email}
       />
     </AppLayout>
   );

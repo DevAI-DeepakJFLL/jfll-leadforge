@@ -17,6 +17,8 @@ export interface AppLayoutProps {
   savedSearchesCount?: number;
   savedCount?: number;
   onOpenSettings?: () => void;
+  onOpenAdminPortal?: () => void;
+  pendingRequestsCount?: number;
   onLogout?: () => void;
   currentUser?: UserSession | null;
   className?: string;
@@ -36,6 +38,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   savedSearchesCount = 0,
   savedCount,
   onOpenSettings,
+  onOpenAdminPortal,
+  pendingRequestsCount = 0,
   onLogout,
   currentUser,
   className = '',
@@ -48,6 +52,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onNavChange={onNavChange}
         savedSearchesCount={savedSearchesCount}
         onOpenSettings={onOpenSettings}
+        onOpenAdminPortal={onOpenAdminPortal}
+        pendingRequestsCount={pendingRequestsCount}
         onLogout={onLogout}
         currentUser={currentUser}
       />

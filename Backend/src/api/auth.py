@@ -12,7 +12,11 @@ from fastapi import APIRouter, Header, HTTPException
 
 from src.api.config import settings
 from src.api.logger import logger
-from src.api.models import LoginRequest, UserSessionResponse
+from src.api.models import (
+    AccessRequestCreate,
+    LoginRequest,
+    UserSessionResponse,
+)
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
 
@@ -150,7 +154,11 @@ DEFAULT_AUTHORIZED_DIGESTS: dict[str, dict[str, str]] = {
         "role": "Leadership",
         "name": "Tyra Theknath",
     },
-    # Deepak Naidu
+    # Deepak Naidu (deepak@jfll.com and deepak.naidu@jfll.com)
+    "fb11d6dc98153163787779a2fd66ccf896b369089def0c31cc103e5722db6cf2": {
+        "role": "Tech Lead",
+        "name": "Deepak Naidu",
+    },
     "2d2ba0c4e282c910ae3d73075667bafdc678a45e181c6124f3d22890d90d61b4": {
         "role": "Tech Lead",
         "name": "Deepak Naidu",
@@ -169,8 +177,22 @@ DEFAULT_AUTHORIZED_DIGESTS: dict[str, dict[str, str]] = {
 
 
 def is_email_authorized(email: str) -> bool:
-    """Checks if an email is authorized via explicit whitelist or cryptographic digest fallback."""
+    """Checks if an email is authorized via active allowlist, explicit whitelist, or cryptographic digest fallback."""
     clean_email = email.strip().lower()
+    if not clean_email:
+        return False
+
+    # Check live allowlist store first - if explicitly revoked, deny immediately
+    try:
+        from src.api.access_control import get_email_status
+        status = get_email_status(clean_email)
+        if status == "revoked":
+            return False
+        if status == "active":
+            return True
+    except Exception as err:
+        logger.debug("Non-critical notice checking live allowlist: %s", err)
+
     allowed_set = {e.strip().lower() for e in settings.allowed_emails if e.strip()}
     if clean_email in allowed_set:
         return True
@@ -195,6 +217,16 @@ def get_user_profiles() -> dict[str, dict[str, str]]:
 def get_user_profile(email: str) -> tuple[str, str]:
     """Resolves official display name and functional role for an authorized work email."""
     clean_email = email.strip().lower()
+
+    # Check live allowlist store first
+    try:
+        from src.api.access_control import get_user_profile_by_email
+        name, role = get_user_profile_by_email(clean_email)
+        if name and role:
+            return name, role
+    except Exception as err:
+        logger.debug("Non-critical notice resolving user profile: %s", err)
+
     profiles = get_user_profiles()
     profile = profiles.get(clean_email, {})
 
@@ -217,6 +249,54 @@ def get_user_profile(email: str) -> tuple[str, str]:
         name = derived or settings.default_user_name
 
     return name, role
+
+
+@router.post(
+    "/access-request",
+    response_model=dict[str, Any],
+    summary="Submit application access request",
+)
+def request_access(
+    payload: AccessRequestCreate,
+    user_agent: str | None = Header(None),
+):
+    """
+    Submits an access request from the public login screen.
+    Surfaces in the Root Admin Portal for administrative review and approval.
+    """
+    if is_headless_user_agent(user_agent):
+        raise HTTPException(
+            status_code=403,
+            detail="AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
+        )
+
+    clean_email = payload.email.strip().lower()
+    clean_name = payload.name.strip()
+    clean_reason = payload.reason.strip()
+
+    try:
+        from src.api.access_control import create_access_request
+        req = create_access_request(clean_email, clean_name, clean_reason)
+        return {
+            "success": True,
+            "message": "Your access request has been submitted successfully. An administrator will review your request.",
+            "request": req,
+        }
+    except ValueError as err:
+        msg = str(err)
+        if msg == "ALREADY_AUTHORIZED":
+            return {
+                "success": True,
+                "already_authorized": True,
+                "message": "Your work email is already authorized! You can sign in directly.",
+            }
+        if msg == "PENDING_EXISTS":
+            return {
+                "success": True,
+                "already_pending": True,
+                "message": "An access request for this work email is already under administrative review.",
+            }
+        raise HTTPException(status_code=400, detail=msg)
 
 
 @router.post("/login", response_model=UserSessionResponse, summary="Authenticate enterprise user")

@@ -127,3 +127,49 @@ class ApolloContactsPaginatedResponse(BaseModel):
     data: list[ApolloContactRecord] = Field(..., description="List of Apollo contact records")
 
 
+class AccessRequestCreate(BaseModel):
+    email: str = Field(..., min_length=3, max_length=150, description="Work email address")
+    name: str = Field(default="", max_length=100, description="Applicant full name")
+    reason: str = Field(..., min_length=5, max_length=1000, description="Reason for requesting access")
+
+
+class AccessRequestResponse(BaseModel):
+    id: str
+    email: str
+    name: str
+    reason: str
+    status: str
+    requested_at: str
+    reviewed_at: str | None = None
+    reviewed_by: str | None = None
+    review_notes: str | None = None
+
+
+class AccessRequestApproval(BaseModel):
+    role: str = Field(default="Commercial", max_length=50, description="Role assigned to user")
+    notes: str | None = Field(default=None, max_length=500, description="Approval notes")
+
+
+class AccessRequestRejection(BaseModel):
+    notes: str | None = Field(default=None, max_length=500, description="Rejection reason")
+
+
+class AllowlistEntryCreate(BaseModel):
+    email: str = Field(..., min_length=3, max_length=150, description="Work email address")
+    name: str = Field(default="", max_length=100, description="Employee full name")
+    role: str = Field(default="Commercial", max_length=50, description="Employee role")
+
+
+class AllowlistEntryResponse(BaseModel):
+    email: str
+    name: str
+    role: str
+    status: str
+    added_at: str
+    added_by: str
+    updated_at: str | None = None
+    updated_by: str | None = None
+    revoked_at: str | None = None
+    revoked_by: str | None = None
+
+

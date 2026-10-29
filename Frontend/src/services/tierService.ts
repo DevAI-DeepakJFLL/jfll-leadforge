@@ -109,122 +109,113 @@ export function queryTierLeadsLocal(params: TierFilterParams = {}): PaginatedTie
     dataset,
   } = params;
 
-  let filtered = [...allLeads];
+  // Pre-compile filter lookup structures for O(1) membership tests and single-pass iteration
+  const countrySet = countries.length > 0 ? new Set(countries) : null;
+  const transportModeSet = transportModes.length > 0 ? new Set(transportModes) : null;
+  const categorySet = categories.length > 0 ? new Set(categories) : null;
+  const subcategorySet = subcategories.length > 0 ? new Set(subcategories) : null;
+  const contactStatusSet = contactStatus.length > 0 ? new Set(contactStatus) : null;
 
-  // 1. Status Filter
-  if (status && status !== 'all') {
-    const sNorm = status.toLowerCase().replace(/[-_]/g, ' ').trim();
-    filtered = filtered.filter((lead) => {
+  const hasExp = roles.includes('Exporter');
+  const hasImp = roles.includes('Importer');
+  const hasBoth = roles.includes('Both') || roles.includes('Both (Exporter & Importer)');
+  const filterRoles = roles.length > 0;
+
+  const normalizedFilterCities = cities.length > 0 ? cities.map(normalizeCityString) : null;
+  const searchTerm = search?.trim().toLowerCase() || null;
+  const statusNorm = status && status !== 'all' ? status.toLowerCase().replace(/[-_]/g, ' ').trim() : null;
+
+  const filtered: TieredLead[] = [];
+
+  for (let i = 0; i < allLeads.length; i++) {
+    const lead = allLeads[i];
+
+    // 1. Status Filter
+    if (statusNorm) {
       const leadStatusNorm = (lead.segment_status || '').toLowerCase().replace(/[-_]/g, ' ').trim();
-      return leadStatusNorm === sNorm;
-    });
-  }
+      if (leadStatusNorm !== statusNorm) continue;
+    }
 
-  // 2. Score Bounds
-  if (minScore !== undefined) {
-    filtered = filtered.filter((lead) => lead.total_score >= minScore);
-  }
-  if (maxScore !== undefined) {
-    filtered = filtered.filter((lead) => lead.total_score <= maxScore);
-  }
+    // 2. Score Bounds
+    if (minScore !== undefined && lead.total_score < minScore) continue;
+    if (maxScore !== undefined && lead.total_score > maxScore) continue;
 
-  // 3. Search Filter (Company, City, Category, Subcategory, HS codes, Address, Tax ID, Directors)
-  if (search && search.trim()) {
-    const term = search.trim().toLowerCase();
-    filtered = filtered.filter((lead) => {
-      return (
-        lead.company_name.toLowerCase().includes(term) ||
-        (lead.city && lead.city.toLowerCase().includes(term)) ||
-        (lead.category && lead.category.toLowerCase().includes(term)) ||
-        (lead.subcategory && lead.subcategory.toLowerCase().includes(term)) ||
-        (lead.top_hs_codes && lead.top_hs_codes.toLowerCase().includes(term)) ||
-        (lead.address && lead.address.toLowerCase().includes(term)) ||
-        (lead.directors && lead.directors.toLowerCase().includes(term)) ||
-        (lead.tax_id && lead.tax_id.toLowerCase().includes(term))
-      );
-    });
-  }
+    // 3. Search Filter
+    if (searchTerm) {
+      const matched =
+        lead.company_name.toLowerCase().includes(searchTerm) ||
+        (lead.city && lead.city.toLowerCase().includes(searchTerm)) ||
+        (lead.category && lead.category.toLowerCase().includes(searchTerm)) ||
+        (lead.subcategory && lead.subcategory.toLowerCase().includes(searchTerm)) ||
+        (lead.top_hs_codes && lead.top_hs_codes.toLowerCase().includes(searchTerm)) ||
+        (lead.address && lead.address.toLowerCase().includes(searchTerm)) ||
+        (lead.directors && lead.directors.toLowerCase().includes(searchTerm)) ||
+        (lead.tax_id && lead.tax_id.toLowerCase().includes(searchTerm));
+      if (!matched) continue;
+    }
 
-  // 4. Country Filter
-  if (countries && countries.length > 0) {
-    filtered = filtered.filter((d) => countries.includes(d.country || 'India'));
-  }
+    // 4. Country Filter
+    if (countrySet && !countrySet.has(lead.country || 'India')) continue;
 
-  // 5. Transport Mode Filter
-  if (transportModes && transportModes.length > 0) {
-    filtered = filtered.filter((d) => transportModes.includes(d.transport_mode as any));
-  }
+    // 5. Transport Mode Filter
+    if (transportModeSet && !transportModeSet.has(lead.transport_mode as any)) continue;
 
-  // 6. Categories Filter
-  if (categories && categories.length > 0) {
-    filtered = filtered.filter((d) => categories.includes(d.category));
-  }
+    // 6. Category Filter
+    if (categorySet && !categorySet.has(lead.category)) continue;
 
-  // 7. Subcategories Filter
-  if (subcategories && subcategories.length > 0) {
-    filtered = filtered.filter((d) => subcategories.includes(d.subcategory));
-  }
+    // 7. Subcategory Filter
+    if (subcategorySet && !subcategorySet.has(lead.subcategory)) continue;
 
-  // 8. Role Filter
-  if (roles && roles.length > 0) {
-    const hasExp = roles.includes('Exporter');
-    const hasImp = roles.includes('Importer');
-    const hasBoth = roles.includes('Both') || roles.includes('Both (Exporter & Importer)');
+    // 8. Role Filter
+    if (filterRoles) {
+      const isDual = lead.role === 'Both' || lead.role === 'Both (Exporter & Importer)';
+      const roleMatches =
+        (hasBoth && isDual) ||
+        (hasExp && lead.role === 'Exporter') ||
+        (hasImp && lead.role === 'Importer') ||
+        (hasExp && hasImp && isDual);
+      if (!roleMatches) continue;
+    }
 
-    filtered = filtered.filter((d) => {
-      const isDual = d.role === 'Both' || d.role === 'Both (Exporter & Importer)';
-      if (hasBoth && isDual) return true;
-      if (hasExp && d.role === 'Exporter') return true;
-      if (hasImp && d.role === 'Importer') return true;
-      if (hasExp && hasImp && isDual) return true;
-      return false;
-    });
-  }
-
-  // 9. Cities Filter (Normalized matching across hub aliases and states)
-  if (cities && cities.length > 0) {
-    const normalizedFilterCities = cities.map(normalizeCityString);
-    filtered = filtered.filter((d) => {
-      if (!d.city || !d.city.trim()) return false;
-      const dCityNorm = normalizeCityString(d.city);
-      return normalizedFilterCities.some(
+    // 9. Cities Filter
+    if (normalizedFilterCities) {
+      if (!lead.city || !lead.city.trim()) continue;
+      const dCityNorm = normalizeCityString(lead.city);
+      const cityMatches = normalizedFilterCities.some(
         (cNorm) => dCityNorm.includes(cNorm) || cNorm.includes(dCityNorm)
       );
-    });
-  }
+      if (!cityMatches) continue;
+    }
 
-  // 10. Trade Lanes Filter
-  if (tradeLanes && tradeLanes.length > 0) {
-    filtered = filtered.filter((d) => tradeLanes.some((tl) => d.trade_lanes.includes(tl)));
-  }
+    // 10. Trade Lanes Filter
+    if (tradeLanes.length > 0) {
+      const tlMatches = tradeLanes.some((tl) => lead.trade_lanes.includes(tl));
+      if (!tlMatches) continue;
+    }
 
-  // 11. Contact Status Filter
-  if (contactStatus && contactStatus.length > 0) {
-    filtered = filtered.filter((d) => {
-      if (contactStatus.includes('both') && d.phone && d.email) return true;
-      if (contactStatus.includes('phone_only') && d.phone && !d.email) return true;
-      if (contactStatus.includes('email_only') && !d.phone && d.email) return true;
-      if (contactStatus.includes('missing') && !d.phone && !d.email) return true;
-      return false;
-    });
-  }
+    // 11. Contact Status Filter
+    if (contactStatusSet) {
+      const hasPhone = Boolean(lead.phone);
+      const hasEmail = Boolean(lead.email);
+      const csMatches =
+        (contactStatusSet.has('both') && hasPhone && hasEmail) ||
+        (contactStatusSet.has('phone_only') && hasPhone && !hasEmail) ||
+        (contactStatusSet.has('email_only') && !hasPhone && hasEmail) ||
+        (contactStatusSet.has('missing') && !hasPhone && !hasEmail);
+      if (!csMatches) continue;
+    }
 
-  // 12. Shipments & Value Thresholds
-  if (minShipments !== undefined && minShipments > 0) {
-    filtered = filtered.filter((d) => d.total_shipments >= minShipments);
-  }
-  if (minTradedValueUsd !== undefined && minTradedValueUsd > 0) {
-    filtered = filtered.filter((d) => d.total_value_usd >= minTradedValueUsd);
-  }
+    // 12. Shipments & Value Thresholds
+    if (minShipments !== undefined && minShipments > 0 && lead.total_shipments < minShipments) continue;
+    if (minTradedValueUsd !== undefined && minTradedValueUsd > 0 && lead.total_value_usd < minTradedValueUsd) continue;
 
-  // 13. Has Directors Filter
-  if (hasDirectors) {
-    filtered = filtered.filter((d) => d.directors && d.directors.trim().length > 0);
-  }
+    // 13. Has Directors Filter
+    if (hasDirectors && (!lead.directors || lead.directors.trim().length === 0)) continue;
 
-  // 14. Dataset Type Filter
-  if (dataset && dataset !== 'all') {
-    filtered = filtered.filter((d) => d.dataset_type === dataset);
+    // 14. Dataset Type Filter
+    if (dataset && dataset !== 'all' && lead.dataset_type !== dataset) continue;
+
+    filtered.push(lead);
   }
 
   const total = filtered.length;

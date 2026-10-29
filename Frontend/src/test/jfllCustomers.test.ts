@@ -479,7 +479,7 @@ describe('JFLL Customers Dataset & Query Service', () => {
       expect(a).toBeGreaterThanOrEqual(b);
     }
 
-    // 2. Sort by Recent Revenue ascending (Smallest revenue accounts first)
+    // 2. Sort by Recent Revenue ascending (Smallest revenue accounts first, NULLS LAST)
     const revAsc = queryJfllCustomers({
       customerStatus: 'active',
       sortBy: 'businessLast3m',
@@ -487,6 +487,16 @@ describe('JFLL Customers Dataset & Query Service', () => {
     });
     expect(revAsc.items.length).toBeGreaterThan(0);
     expect(revAsc.items[0].businessLast3m).toBeLessThan(1000);
+
+    // Verify NULLS LAST when sorting combined active + inactive accounts
+    const revAscAll = queryJfllCustomers({
+      customerStatus: 'all',
+      sortBy: 'businessLast3m',
+      sortOrder: 'asc',
+      limit: 50,
+    });
+    expect(revAscAll.items[0].businessLast3m).toBeDefined();
+    expect(revAscAll.items[0].businessLast3m).not.toBeNull();
 
     // 3. Sort by Company Name descending (Z-A)
     const nameDesc = queryJfllCustomers({

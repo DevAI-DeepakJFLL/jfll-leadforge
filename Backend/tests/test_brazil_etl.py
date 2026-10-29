@@ -1,21 +1,21 @@
 import sys
 from pathlib import Path
-import pytest
+
 import pandas as pd
+import pytest
 
 backend_dir = str(Path(__file__).resolve().parent.parent)
 if backend_dir not in sys.path:
     sys.path.insert(0, backend_dir)
 
 from src.etl.brazil_datamyne_etl import (
+    NOISE_NAMES,
     clean_phone,
-    clean_unicode,
     derive_category_subcategory,
     extract_and_transform_brazil_data,
     load_active_customers,
     norm_email,
     norm_name,
-    NOISE_NAMES,
 )
 
 

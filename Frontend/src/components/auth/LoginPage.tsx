@@ -9,19 +9,32 @@ import {
   CheckCircle2,
   Sparkles,
   Loader2,
+  User,
+  Send,
+  ChevronLeft,
 } from 'lucide-react';
 
 import { UserSession } from '@/types/auth';
 import { loginUser, setStoredSession } from '@/services/authService';
+import { submitAccessRequest } from '@/services/adminService';
 
 export interface LoginPageProps {
   onLoginSuccess: (session: UserSession) => void;
 }
 
 export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
+  const [authMode, setAuthMode] = useState<'signin' | 'request'>('signin');
   const [email, setEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // Access Request Form State
+  const [reqEmail, setReqEmail] = useState('');
+  const [reqName, setReqName] = useState('');
+  const [reqReason, setReqReason] = useState('');
+  const [reqLoading, setReqLoading] = useState(false);
+  const [reqError, setReqError] = useState('');
+  const [reqSuccessMsg, setReqSuccessMsg] = useState('');
 
   const performLogin = async (targetEmail: string) => {
     const trimmed = targetEmail.trim();
@@ -46,9 +59,47 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await performLogin(email);
+  };
+
+  const handleRequestAccessSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const cleanEmail = reqEmail.trim();
+    const cleanReason = reqReason.trim();
+
+    if (!cleanEmail) {
+      setReqError('Please enter your work email address.');
+      return;
+    }
+    if (cleanReason.length < 5) {
+      setReqError('Please provide a reason of at least 5 characters explaining your requirement.');
+      return;
+    }
+
+    setReqError('');
+    setReqLoading(true);
+
+    try {
+      const res = await submitAccessRequest({
+        email: cleanEmail,
+        name: reqName.trim(),
+        reason: cleanReason,
+      });
+
+      if (res.already_authorized) {
+        setEmail(cleanEmail);
+        setAuthMode('signin');
+        setErrorMessage('');
+      } else {
+        setReqSuccessMsg(res.message);
+      }
+    } catch (err: unknown) {
+      setReqError((err as Error)?.message || 'Failed to submit request. Please try again.');
+    } finally {
+      setReqLoading(false);
+    }
   };
 
   return (
@@ -145,77 +196,308 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
           </div>
         </div>
 
-        {/* Right Panel: Clean, Passwordless High-Contrast Authentication Form */}
+        {/* Right Panel: Dual-Mode Clean High-Contrast Auth Panel */}
         <div className="md:w-7/12 bg-white p-5 sm:p-7 md:p-9 flex flex-col justify-between">
           <div>
-            {/* Header Greeting */}
-            <div className="mb-5">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-blue-50 text-apollo-700 text-[11px] font-semibold border border-blue-100 mb-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-apollo" />
-                <span>Authorized Personnel Sign-In</span>
+            {/* Top Mode Segmented Switcher */}
+            <div className="flex items-center justify-between mb-5">
+              <div
+                role="tablist"
+                aria-label="Authentication Mode"
+                className="inline-flex p-1 bg-slate-100 border border-slate-200 rounded-xl text-xs font-semibold"
+              >
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={authMode === 'signin'}
+                  onClick={() => {
+                    setAuthMode('signin');
+                    setReqSuccessMsg('');
+                    setReqError('');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+                    authMode === 'signin'
+                      ? 'bg-white text-slate-900 shadow-2xs font-bold'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-apollo" />
+                  <span>Sign In</span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={authMode === 'request'}
+                  onClick={() => {
+                    setAuthMode('request');
+                    if (email && !reqEmail) setReqEmail(email);
+                    setErrorMessage('');
+                  }}
+                  className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+                    authMode === 'request'
+                      ? 'bg-white text-slate-900 shadow-2xs font-bold'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <Send className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Request Access</span>
+                </button>
               </div>
-              <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-                Welcome back
-              </h1>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                Enter your registered work email to access the leads dashboard.
-              </p>
+
+              <div className="text-[11px] text-slate-400 font-medium hidden sm:block">
+                JFLL Security Gate
+              </div>
             </div>
 
-            {/* Error Banner */}
-            {errorMessage && (
-              <div
-                role="alert"
-                className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2.5 animate-in fade-in duration-150"
-              >
-                <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
-                <span className="leading-tight">{errorMessage}</span>
-              </div>
-            )}
-
-            {/* Authentication Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-1.5">
-                <label htmlFor="work-email-input" className="text-xs font-semibold text-slate-700 block">
-                  Work Email Address
-                </label>
-                <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                  <input
-                    id="work-email-input"
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      if (errorMessage) setErrorMessage('');
-                    }}
-                    placeholder="name@jfll.com"
-                    required
-                    autoComplete="email"
-                    className="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium"
-                  />
-                </div>
-              </div>
-
-              {/* Submit CTA */}
-              <button
-                type="submit"
-                disabled={isLoading || !email.trim()}
-                className="w-full mt-2 py-3 px-4 bg-apollo hover:bg-apollo-600 active:bg-apollo-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-apollo/25 hover:shadow-lg hover:shadow-apollo/30 transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-apollo/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-              >
-                {isLoading ? (
-                  <div className="flex items-center gap-2">
-                    <Loader2 className="animate-spin w-4 h-4 text-white" />
-                    <span>Verifying Work Email...</span>
+            {authMode === 'signin' ? (
+              <>
+                {/* Header Greeting */}
+                <div className="mb-5">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-blue-50 text-apollo-700 text-[11px] font-semibold border border-blue-100 mb-2">
+                    <ShieldCheck className="w-3.5 h-3.5 text-apollo" />
+                    <span>Authorized Personnel Sign-In</span>
                   </div>
-                ) : (
-                  <>
-                    <span>Verify Work Email & Enter</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
+                  <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+                    Welcome back
+                  </h1>
+                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                    Enter your registered work email to access the leads dashboard.
+                  </p>
+                </div>
+
+                {/* Error Banner with Quick Action to Request Access */}
+                {errorMessage && (
+                  <div
+                    role="alert"
+                    className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex flex-col gap-2 animate-in fade-in duration-150"
+                  >
+                    <div className="flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+                      <span className="leading-tight font-medium">{errorMessage}</span>
+                    </div>
+                    {email && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setReqEmail(email);
+                          setAuthMode('request');
+                          setErrorMessage('');
+                        }}
+                        className="text-left text-apollo hover:underline font-semibold text-[11px] pl-6 cursor-pointer"
+                      >
+                        Request access for {email} →
+                      </button>
+                    )}
+                  </div>
                 )}
-              </button>
-            </form>
+
+                {/* Authentication Form */}
+                <form onSubmit={handleLoginSubmit} className="space-y-4">
+                  <div className="space-y-1.5">
+                    <label htmlFor="work-email-input" className="text-xs font-semibold text-slate-700 block">
+                      Work Email Address
+                    </label>
+                    <div className="relative">
+                      <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <input
+                        id="work-email-input"
+                        type="email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          if (errorMessage) setErrorMessage('');
+                        }}
+                        placeholder="name@jfll.com"
+                        required
+                        autoComplete="email"
+                        className="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Submit CTA */}
+                  <button
+                    type="submit"
+                    disabled={isLoading || !email.trim()}
+                    className="w-full mt-2 py-3 px-4 bg-apollo hover:bg-apollo-600 active:bg-apollo-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-apollo/25 hover:shadow-lg hover:shadow-apollo/30 transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-apollo/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  >
+                    {isLoading ? (
+                      <div className="flex items-center gap-2">
+                        <Loader2 className="animate-spin w-4 h-4 text-white" />
+                        <span>Verifying Work Email...</span>
+                      </div>
+                    ) : (
+                      <>
+                        <span>Verify Work Email & Enter</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </form>
+
+                {/* Secondary Request Access Prompt */}
+                <div className="mt-4 text-center">
+                  <span className="text-xs text-slate-500">Not on the allowlist yet? </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (email && !reqEmail) setReqEmail(email);
+                      setAuthMode('request');
+                      setErrorMessage('');
+                    }}
+                    className="text-xs font-semibold text-apollo hover:underline cursor-pointer"
+                  >
+                    Request Application Access
+                  </button>
+                </div>
+              </>
+            ) : reqSuccessMsg ? (
+              /* Success State Card */
+              <div className="py-4 space-y-4 animate-in fade-in duration-200">
+                <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-3">
+                  <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-base font-bold text-emerald-950">
+                      Request Submitted Successfully
+                    </h2>
+                    <p className="text-xs text-emerald-800 mt-1 leading-relaxed">
+                      {reqSuccessMsg}
+                    </p>
+                  </div>
+                  <div className="pt-2 border-t border-emerald-200/80 text-[11px] text-emerald-700">
+                    Once approved by leadership, you can immediately sign in using your work email address without a password.
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail(reqEmail);
+                    setAuthMode('signin');
+                    setReqSuccessMsg('');
+                  }}
+                  className="w-full py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span>Return to Sign In</span>
+                </button>
+              </div>
+            ) : (
+              /* Access Request Form */
+              <>
+                <div className="mb-4">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-800 text-[11px] font-semibold border border-emerald-200 mb-2">
+                    <Send className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Application Access Request</span>
+                  </div>
+                  <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+                    Request Dashboard Access
+                  </h1>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Submit your employee details. Requests surface directly in the Root Admin Portal for review.
+                  </p>
+                </div>
+
+                {reqError && (
+                  <div
+                    role="alert"
+                    className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2 animate-in fade-in duration-150"
+                  >
+                    <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+                    <span className="leading-tight font-medium">{reqError}</span>
+                  </div>
+                )}
+
+                <form onSubmit={handleRequestAccessSubmit} className="space-y-3.5">
+                  <div className="space-y-1">
+                    <label htmlFor="req-email-input" className="text-xs font-semibold text-slate-700 block">
+                      Work Email Address <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <input
+                        id="req-email-input"
+                        type="email"
+                        value={reqEmail}
+                        onChange={(e) => {
+                          setReqEmail(e.target.value);
+                          if (reqError) setReqError('');
+                        }}
+                        placeholder="name@jfll.com"
+                        required
+                        className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label htmlFor="req-name-input" className="text-xs font-semibold text-slate-700 block">
+                      Full Name
+                    </label>
+                    <div className="relative">
+                      <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <input
+                        id="req-name-input"
+                        type="text"
+                        value={reqName}
+                        onChange={(e) => setReqName(e.target.value)}
+                        placeholder="e.g. Priya Patel"
+                        className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label htmlFor="req-reason-input" className="text-xs font-semibold text-slate-700 block">
+                      Reason for Access / Department Requirement <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <textarea
+                        id="req-reason-input"
+                        value={reqReason}
+                        onChange={(e) => {
+                          setReqReason(e.target.value);
+                          if (reqError) setReqError('');
+                        }}
+                        rows={3}
+                        required
+                        placeholder="e.g., Regional sales manager covering Air Freight export accounts in the Gujarat cluster..."
+                        className="w-full p-2.5 text-xs sm:text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium resize-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => setAuthMode('signin')}
+                      className="py-2.5 px-3 border border-slate-200 text-slate-700 hover:bg-slate-100 font-semibold text-xs rounded-xl transition-all cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={reqLoading || !reqEmail.trim() || !reqReason.trim()}
+                      className="flex-1 py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-md shadow-emerald-600/25 transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-emerald-600/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    >
+                      {reqLoading ? (
+                        <div className="flex items-center gap-2">
+                          <Loader2 className="animate-spin w-4 h-4 text-white" />
+                          <span>Submitting Request...</span>
+                        </div>
+                      ) : (
+                        <>
+                          <span>Submit Access Request</span>
+                          <Send className="w-3.5 h-3.5" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </>
+            )}
           </div>
 
           {/* Compliance & Security Footer */}

@@ -197,10 +197,10 @@ def test_sql_injection_attempt_is_safe():
 
 def test_auth_login_success_and_verify_token():
     # 1. Successful passwordless whitelist login
-    res = client.post("/api/v1/auth/login", json={"email": "deepak.naidu@jfll.com"})
+    res = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com"})
     assert res.status_code == 200
     payload = res.json()
-    assert payload["email"] == "deepak.naidu@jfll.com"
+    assert payload["email"] == "deepak@jfll.com"
     assert payload["name"] == "Deepak Naidu"
     assert payload["role"] == "Tech Lead"
     assert "token" in payload
@@ -210,13 +210,14 @@ def test_auth_login_success_and_verify_token():
     me_res = client.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token}"})
     assert me_res.status_code == 200
     me_payload = me_res.json()
-    assert me_payload["email"] == "deepak.naidu@jfll.com"
+    assert me_payload["email"] == "deepak@jfll.com"
     assert me_payload["name"] == "Deepak Naidu"
     assert me_payload["role"] == "Tech Lead"
     assert me_payload["token"] == token
 
     # 3. Test all other whitelisted members and case/whitespace normalization
     for email, expected_name, expected_role in [
+        ("deepak.naidu@jfll.com", "Deepak Naidu", "Tech Lead"),
         ("  TYRA.THEKNATH@jfll.com  ", "Tyra Theknath", "Leadership"),
         ("akash.dhara@jfll.com", "Akash Dhara", "Operations"),
         ("snehal.birje@jfll.com", "Snehal Birje", "Commercial"),
@@ -415,12 +416,13 @@ def test_enterprise_security_headers():
 
 def test_token_verification_cryptographic_edge_cases():
     """Verify that verify_token strictly rejects tokens with missing/invalid exp or future iat."""
-    from src.api.auth import _base64url_encode, verify_token
-    import hmac
     import hashlib
+    import hmac
     import json
+    from datetime import UTC, datetime
+
+    from src.api.auth import _base64url_encode, verify_token
     from src.api.config import settings
-    from datetime import datetime, UTC
 
     def make_raw_token(payload_dict):
         header = {"alg": "HS256", "typ": "JWT"}

@@ -11,6 +11,7 @@ import {
   Building2,
   Database,
   LogOut,
+  ShieldCheck,
 } from 'lucide-react';
 import { UserSession } from '@/types/auth';
 import { getStoredSession, DEFAULT_ANONYMOUS_SESSION } from '@/services/authService';
@@ -20,6 +21,8 @@ export interface AppDockProps {
   onNavChange?: (navId: string) => void;
   savedSearchesCount?: number;
   onOpenSettings?: () => void;
+  onOpenAdminPortal?: () => void;
+  pendingRequestsCount?: number;
   onLogout?: () => void;
   currentUser?: UserSession | null;
   className?: string;
@@ -46,6 +49,8 @@ export const AppDock: React.FC<AppDockProps> = ({
   onNavChange,
   savedSearchesCount = 0,
   onOpenSettings,
+  onOpenAdminPortal,
+  pendingRequestsCount = 0,
   onLogout,
   currentUser,
   className = '',
@@ -53,6 +58,13 @@ export const AppDock: React.FC<AppDockProps> = ({
 }) => {
   const resolvedUser: UserSession = currentUser || getStoredSession() || DEFAULT_ANONYMOUS_SESSION;
   const userFirstName = resolvedUser.name?.trim().split(/\s+/)[0] || 'User';
+  const isAdmin =
+    resolvedUser.role === 'Leadership' ||
+    resolvedUser.role === 'Tech Lead' ||
+    resolvedUser.role === 'Admin' ||
+    resolvedUser.email?.toLowerCase() === 'deepak@jfll.com' ||
+    resolvedUser.email?.toLowerCase() === 'deepak.naidu@jfll.com' ||
+    resolvedUser.email?.toLowerCase() === 'tyra.theknath@jfll.com';
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(defaultShowProfileMenu);
   const [notifications, setNotifications] = useState([
@@ -251,6 +263,24 @@ export const AppDock: React.FC<AppDockProps> = ({
               </span>
             </button>
           </div>
+
+          {/* Root Admin Portal (Only for Admins/Leadership) */}
+          {isAdmin && onOpenAdminPortal && (
+            <button
+              onClick={onOpenAdminPortal}
+              className="w-10 h-10 rounded-lg flex items-center justify-center text-emerald-400 hover:text-emerald-300 hover:bg-dock-hover transition-colors relative group focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer"
+              title="Root Admin Portal (Access & Allowlist)"
+              aria-label="Root Administration Portal"
+            >
+              <ShieldCheck className="w-5 h-5 text-emerald-400" />
+              {pendingRequestsCount > 0 && (
+                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-amber-400 ring-2 ring-dock animate-pulse" />
+              )}
+              <span className="absolute left-14 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50 border border-slate-700/60">
+                Admin Portal {pendingRequestsCount > 0 ? `(${pendingRequestsCount} pending)` : ''}
+              </span>
+            </button>
+          )}
 
           {/* Settings */}
           <button
@@ -462,6 +492,28 @@ export const AppDock: React.FC<AppDockProps> = ({
                 <span className="font-medium text-slate-700">Jet Freight Logistics</span>
               </div>
             </div>
+
+            {isAdmin && onOpenAdminPortal && (
+              <div className="pb-2.5">
+                <button
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    onOpenAdminPortal();
+                  }}
+                  className="w-full py-1.5 px-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-lg font-semibold text-xs transition-colors flex items-center justify-between cursor-pointer border border-emerald-200"
+                >
+                  <div className="flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Root Admin Portal</span>
+                  </div>
+                  {pendingRequestsCount > 0 ? (
+                    <span className="px-1.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold">
+                      {pendingRequestsCount}
+                    </span>
+                  ) : null}
+                </button>
+              </div>
+            )}
 
             <div className="pt-2.5 border-t border-slate-100 space-y-2">
               <div className="flex items-center justify-between">

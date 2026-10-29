@@ -205,31 +205,37 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
 
   // 2. Customer Groups Multi-select Filter
   if (customerGroups.length > 0) {
-    baseFiltered = baseFiltered.filter((c) => customerGroups.includes(c.customerGroup));
+    const groupSet = new Set(customerGroups);
+    baseFiltered = baseFiltered.filter((c) => groupSet.has(c.customerGroup));
   }
 
   // 3. Entity Type Multi-select Filter
   if (types.length > 0) {
-    baseFiltered = baseFiltered.filter((c) => types.includes(c.type));
+    const typeSet = new Set(types);
+    baseFiltered = baseFiltered.filter((c) => typeSet.has(c.type));
   }
 
   // 4. Credit Status Multi-select Filter
   if (creditStatuses.length > 0) {
-    baseFiltered = baseFiltered.filter((c) => !!c.creditStatus && creditStatuses.includes(c.creditStatus));
+    const creditSet = new Set(creditStatuses);
+    baseFiltered = baseFiltered.filter((c) => !!c.creditStatus && creditSet.has(c.creditStatus));
   }
 
   // 5. Sales Person Multi-select Filter
   if (salesPersons.length > 0) {
-    baseFiltered = baseFiltered.filter((c) => !!c.salesPerson && salesPersons.includes(c.salesPerson));
+    const salesSet = new Set(salesPersons);
+    baseFiltered = baseFiltered.filter((c) => !!c.salesPerson && salesSet.has(c.salesPerson));
   }
 
   // 6. Revenue Range Multi-select Filter
   if (revenueRanges.length > 0) {
+    const activeRangeDefs = revenueRanges
+      .map((rangeId) => JFLL_REVENUE_RANGES.find((r) => r.id === rangeId))
+      .filter((def): def is (typeof JFLL_REVENUE_RANGES)[number] => Boolean(def));
+
     baseFiltered = baseFiltered.filter((c) => {
       const rev = c.businessLast3m ?? 0;
-      return revenueRanges.some((rangeId) => {
-        const def = JFLL_REVENUE_RANGES.find((r) => r.id === rangeId);
-        if (!def) return false;
+      return activeRangeDefs.some((def) => {
         if (def.min !== undefined && def.max !== undefined) {
           return rev >= def.min && rev < def.max;
         }
@@ -261,21 +267,39 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     );
   }
 
-  // 5. Audience counts computed from filtered base data
-  const withContactsCount = baseFiltered.filter(
-    (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
-  ).length;
+  // 5. Audience counts computed from filtered base data in a single loop
+  let shippersCount = 0;
+  let subagentsCount = 0;
+  let overseasCount = 0;
+  let withContactsCount = 0;
+  let datamyneLeadsCount = 0;
+  let archiveCount = 0;
+
+  for (const c of baseFiltered) {
+    if (c.customerGroup === 'Shipper / Consignee') shippersCount++;
+    else if (c.customerGroup === 'Subagent') subagentsCount++;
+    else if (c.customerGroup === 'Overseas Agent') overseasCount++;
+
+    if (c.contactPersonName || c.email || isValidPhoneNumber(c.mobileNumber)) {
+      withContactsCount++;
+    }
+    if (c.inDataMyne) {
+      datamyneLeadsCount++;
+    } else if (c.status === 'Not Active') {
+      archiveCount++;
+    }
+  }
 
   const totalAllCount = JFLL_CUSTOMERS_DATA.length + JFLL_INACTIVE_CUSTOMERS_DATA.length;
   const audienceCounts: JfllAudienceCounts = isAll
     ? {
         all: baseFiltered.length,
-        shippers: baseFiltered.filter((c) => c.customerGroup === 'Shipper / Consignee').length,
-        subagents: baseFiltered.filter((c) => c.customerGroup === 'Subagent').length,
-        overseas: baseFiltered.filter((c) => c.customerGroup === 'Overseas Agent').length,
+        shippers: shippersCount,
+        subagents: subagentsCount,
+        overseas: overseasCount,
         withContacts: withContactsCount,
-        datamyneLeads: baseFiltered.filter((c) => !!c.inDataMyne).length,
-        archive: baseFiltered.filter((c) => c.status === 'Not Active' && !c.inDataMyne).length,
+        datamyneLeads: datamyneLeadsCount,
+        archive: archiveCount,
         activeTotal: JFLL_CUSTOMERS_DATA.length,
         inactiveTotal: JFLL_INACTIVE_CUSTOMERS_DATA.length,
         allTotal: totalAllCount,
@@ -287,17 +311,17 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         subagents: 0,
         overseas: 0,
         withContacts: withContactsCount,
-        datamyneLeads: baseFiltered.filter((c) => !!c.inDataMyne).length,
-        archive: baseFiltered.filter((c) => !c.inDataMyne).length,
+        datamyneLeads: datamyneLeadsCount,
+        archive: archiveCount,
         activeTotal: JFLL_CUSTOMERS_DATA.length,
         inactiveTotal: baseFiltered.length,
         allTotal: totalAllCount,
       }
     : {
         all: baseFiltered.length,
-        shippers: baseFiltered.filter((c) => c.customerGroup === 'Shipper / Consignee').length,
-        subagents: baseFiltered.filter((c) => c.customerGroup === 'Subagent').length,
-        overseas: baseFiltered.filter((c) => c.customerGroup === 'Overseas Agent').length,
+        shippers: shippersCount,
+        subagents: subagentsCount,
+        overseas: overseasCount,
         withContacts: withContactsCount,
         datamyneLeads: 0,
         archive: 0,
@@ -352,8 +376,13 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
   if (sortBy) {
     filtered.sort((a, b) => {
       if (sortBy === 'businessLast3m') {
-        const revA = a.businessLast3m ?? -1;
-        const revB = b.businessLast3m ?? -1;
+        const hasA = a.businessLast3m !== undefined && a.businessLast3m !== null;
+        const hasB = b.businessLast3m !== undefined && b.businessLast3m !== null;
+        if (!hasA && !hasB) return a.fullName.localeCompare(b.fullName);
+        if (!hasA) return 1; // NULLS LAST
+        if (!hasB) return -1; // NULLS LAST
+        const revA = a.businessLast3m!;
+        const revB = b.businessLast3m!;
         if (revA !== revB) {
           return sortOrder === 'desc' ? revB - revA : revA - revB;
         }

@@ -468,7 +468,7 @@ def extract_and_transform_brazil_data() -> pd.DataFrame:
     # Deterministic sorting: highest total value first, tie-break by company name
     for nn, c in sorted(companies.items(), key=lambda x: (-x[1]["total_value_usd"], x[1]["company_name"])):
         # Role
-        role = "Both" if len(c["roles"]) > 1 else list(c["roles"])[0]
+        role = "Both" if len(c["roles"]) > 1 else next(iter(c["roles"]))
 
         # Transport Mode
         if "Air" in c["modes"] and "Ocean" in c["modes"]:

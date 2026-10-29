@@ -25,7 +25,7 @@ describe('authService', () => {
 
   it('authenticates successfully via backend API with Deepak Naidu', async () => {
     const mockSessionResponse = {
-      email: 'deepak.naidu@jfll.com',
+      email: 'deepak@jfll.com',
       name: 'Deepak Naidu',
       role: 'Tech Lead',
       token: 'mock.signed.jwt.token',
@@ -40,16 +40,16 @@ describe('authService', () => {
     });
 
     const session = await loginUser({
-      email: 'deepak.naidu@jfll.com',
+      email: 'deepak@jfll.com',
     });
 
     expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/api/v1/auth/login'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'deepak.naidu@jfll.com' }),
+      body: JSON.stringify({ email: 'deepak@jfll.com' }),
     });
 
-    expect(session.email).toBe('deepak.naidu@jfll.com');
+    expect(session.email).toBe('deepak@jfll.com');
     expect(session.name).toBe('Deepak Naidu');
     expect(session.role).toBe('Tech Lead');
     expect(session.token).toBe('mock.signed.jwt.token');
@@ -193,7 +193,7 @@ describe('authService', () => {
 
   describe('Session Storage Helpers', () => {
     const mockSession: UserSession = {
-      email: 'deepak.naidu@jfll.com',
+      email: 'deepak@jfll.com',
       name: 'Deepak Naidu',
       role: 'Tech Lead',
       token: 'test-token',
@@ -273,7 +273,7 @@ describe('authService', () => {
       globalThis.fetch = vi.fn().mockResolvedValue({
         ok: true,
         status: 200,
-        json: async () => ({ status: 'active', user: 'deepak.naidu@jfll.com' }),
+        json: async () => ({ status: 'active', user: 'deepak@jfll.com' }),
       });
 
       const result = await checkSessionHeartbeat('valid.jwt.token');
@@ -324,7 +324,7 @@ describe('authService', () => {
       });
 
       await expect(
-        loginUser({ email: 'deepak.naidu@jfll.com' })
+        loginUser({ email: 'deepak@jfll.com' })
       ).rejects.toThrow('AUTOMATED_AGENT_BLOCKED');
     });
 

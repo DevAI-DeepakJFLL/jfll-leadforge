@@ -319,16 +319,27 @@ def get_tier_counts(
         )
         where_clause = " AND ".join(conditions)
 
-        query = f"""
-            SELECT 
-                t.segment_status,
-                count(*) as count
-            FROM '{dm_path}' d
-            JOIN '{tier_path}' t ON d.id = t.id
-            WHERE {where_clause}
-            GROUP BY t.segment_status
-        """
-        rows = con.execute(query, params).fetchall()
+        if where_clause == "1=1":
+            # Fast path: compute breakdown directly without joining trade leads parquet
+            query = f"""
+                SELECT 
+                    segment_status,
+                    count(*) as count
+                FROM '{tier_path}'
+                GROUP BY segment_status
+            """
+            rows = con.execute(query).fetchall()
+        else:
+            query = f"""
+                SELECT 
+                    t.segment_status,
+                    count(*) as count
+                FROM '{dm_path}' d
+                JOIN '{tier_path}' t ON d.id = t.id
+                WHERE {where_clause}
+                GROUP BY t.segment_status
+            """
+            rows = con.execute(query, params).fetchall()
         counts_map = {r[0]: r[1] for r in rows}
 
         tier_a = counts_map.get("Tier A", 0)

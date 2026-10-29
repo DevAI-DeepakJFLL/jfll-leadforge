@@ -38,5 +38,11 @@ describe('LoginPage UI Component', () => {
     expect(html).toContain('Jet Freight Logistics');
     expect(html).toContain('Passwordless whitelist authentication');
     expect(html).toContain('Authorized Personnel Only');
+
+    // Verify dual-mode switcher and request access trigger
+    expect(html).toContain('Sign In');
+    expect(html).toContain('Request Access');
+    expect(html).toContain('Not on the allowlist yet?');
+    expect(html).toContain('Request Application Access');
   });
 });

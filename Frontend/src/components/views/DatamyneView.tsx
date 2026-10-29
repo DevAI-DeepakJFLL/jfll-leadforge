@@ -10,6 +10,7 @@ import {
 import { Sparkles, Layers } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
+import { useToast } from '@/components/ui';
 import { TierAudienceTabs } from '@/components/tiers';
 import { useTierFilter } from '@/hooks/useTierFilter';
 import {
@@ -17,7 +18,9 @@ import {
   fetchTierLeads,
   queryTierLeadsLocal,
   queryTierCountsLocal,
+  getLoadedTierDataset,
 } from '@/services/tierService';
+import { exportDatamyneLeadsCsv } from '@/services/datamyneService';
 import { TierFilterParams } from '@/types/tierSegmentation';
 import {
   DatamyneFilterParams,
@@ -219,6 +222,59 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   const displayTotalPages = perspective === 'tiers' ? (tierData?.totalPages || 0) : query.totalPages;
   const handleDisplayPageChange = perspective === 'tiers' ? setTierPage : onPageChange;
 
+  const { showToast } = useToast();
+  const [isExportingTiers, setIsExportingTiers] = React.useState(false);
+
+  const isAllTierOnPageSelected =
+    displayItems.length > 0 && displayItems.every((d) => !!rowSelection[d.id]);
+  const isSomeTierOnPageSelected =
+    displayItems.some((d) => !!rowSelection[d.id]) && !isAllTierOnPageSelected;
+
+  const handleToggleSelectAllTierPage = React.useCallback(() => {
+    if (isAllTierOnPageSelected) {
+      onRowSelectionChange((prev) => {
+        const next = { ...prev };
+        displayItems.forEach((d) => {
+          delete next[d.id];
+        });
+        return next;
+      });
+    } else {
+      onRowSelectionChange((prev) => {
+        const next = { ...prev };
+        displayItems.forEach((d) => {
+          next[d.id] = true;
+        });
+        return next;
+      });
+    }
+  }, [displayItems, isAllTierOnPageSelected, onRowSelectionChange]);
+
+  const handleExportTiersCsv = React.useCallback(() => {
+    try {
+      setIsExportingTiers(true);
+      const selectedIds = Object.keys(rowSelection).filter((id) => rowSelection[id]);
+      const selected = selectedIds
+        .map((id) => displayItems.find((d) => d.id === id) || (getLoadedTierDataset() as any[]).find((d) => d.id === id))
+        .filter(Boolean) as DatamyneLead[];
+      const exportList = selected.length > 0 ? selected : displayItems;
+      const blob = exportDatamyneLeadsCsv(exportList);
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `datamyne_sop_${tierTab || 'all'}_tier_leads_export.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      showToast(`Exported ${exportList.length} SOP tiered leads to CSV`);
+    } catch {
+      showToast('Export failed. Please check network connection.', 'error');
+    } finally {
+      setIsExportingTiers(false);
+    }
+  }, [displayItems, rowSelection, showToast, tierTab]);
+
   return (
     <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
       <DatamyneFilterSidebar
@@ -341,12 +397,12 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           selectedCount={selectedCount}
           totalOnPage={displayItems.length}
           totalCount={displayTotal}
-          isAllOnPageSelected={isAllOnPageSelected}
-          isIndeterminate={isSomeOnPageSelected}
-          onToggleSelectAllPage={onToggleSelectAllPage}
+          isAllOnPageSelected={perspective === 'tiers' ? isAllTierOnPageSelected : isAllOnPageSelected}
+          isIndeterminate={perspective === 'tiers' ? isSomeTierOnPageSelected : isSomeOnPageSelected}
+          onToggleSelectAllPage={perspective === 'tiers' ? handleToggleSelectAllTierPage : onToggleSelectAllPage}
           onDeselectAll={onDeselectAll}
-          onExport={onExport}
-          isExporting={isExporting}
+          onExport={perspective === 'tiers' ? handleExportTiersCsv : onExport}
+          isExporting={perspective === 'tiers' ? isExportingTiers : isExporting}
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
           searchPlaceholder={

@@ -50,7 +50,7 @@ describe('Tier Service Suite', () => {
     const mockStorage: Record<string, string> = {
       [AUTH_STORAGE_KEY]: JSON.stringify({
         name: 'Deepak Naidu',
-        email: 'deepak.naidu@jfll.com',
+        email: 'deepak@jfll.com',
         role: 'Tech Lead',
         token: 'mock-auth-token-12345',
       }),

@@ -128,6 +128,8 @@ audit-screenshots/
 # Local Migration Backups & Raw Datasets
 Backend/data/.backups/
 Backend/data/raw/
+Backend/data/access_control.json
+Backend/data/*.tmp
 *.bak
 *.tmp
 
