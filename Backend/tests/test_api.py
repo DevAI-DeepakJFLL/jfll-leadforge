@@ -64,6 +64,25 @@ def test_list_leads_filtering_by_credit_status():
         assert item["credit_status"] in ("blocked", "high_risk")
 
 
+def test_list_leads_filtering_by_sales_person():
+    """Verify that sales_person and sales_persons filters return matching records."""
+    # Single sales person filter
+    res_sp = client.get("/api/v1/leads?status=Active&sales_person=Narendra+Gupta")
+    assert res_sp.status_code == 200
+    payload = res_sp.json()
+    assert payload["total_records"] == 56
+    for item in payload["data"]:
+        assert item["sales_person"] == "Narendra Gupta"
+
+    # Multi-select sales persons
+    res_multi = client.get("/api/v1/leads?status=Active&sales_persons=Irfan+Shaikh&sales_persons=Samuel+Prabhu")
+    assert res_multi.status_code == 200
+    payload_multi = res_multi.json()
+    assert payload_multi["total_records"] == 48 + 35  # 83
+    for item in payload_multi["data"]:
+        assert item["sales_person"] in ("Irfan Shaikh", "Samuel Prabhu")
+
+
 def test_list_leads_dynamic_audience_counts():
     # Baseline active leads count
     res_base = client.get("/api/v1/leads?status=Active")

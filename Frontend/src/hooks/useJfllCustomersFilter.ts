@@ -10,6 +10,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     customerGroups: [],
     types: [],
     creditStatuses: [],
+    salesPersons: [],
     hasPhone: false,
     hasEmail: false,
     hasContactPerson: false,
@@ -25,6 +26,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
       customerGroups: [],
       types: [],
       creditStatuses: [],
+      salesPersons: [],
     }));
   }, []);
 
@@ -74,6 +76,16 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     });
   }, []);
 
+  const toggleSalesPerson = useCallback((salesPerson: string) => {
+    setFilters((prev) => {
+      const current = prev.salesPersons || [];
+      const updated = current.includes(salesPerson)
+        ? current.filter((s) => s !== salesPerson)
+        : [...current, salesPerson];
+      return { ...prev, salesPersons: updated, page: 1 };
+    });
+  }, []);
+
   const toggleContactOption = useCallback(
     (key: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => {
       setFilters((prev) => ({
@@ -93,6 +105,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
       customerGroups: [],
       types: [],
       creditStatuses: [],
+      salesPersons: [],
       hasPhone: false,
       hasEmail: false,
       hasContactPerson: false,
@@ -110,6 +123,9 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     }
     if (filters.creditStatuses && filters.creditStatuses.length > 0) {
       count += filters.creditStatuses.length;
+    }
+    if (filters.salesPersons && filters.salesPersons.length > 0) {
+      count += filters.salesPersons.length;
     }
     if (filters.hasPhone) count += 1;
     if (filters.hasEmail) count += 1;
@@ -129,6 +145,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     toggleCustomerGroup,
     toggleType,
     toggleCreditStatus,
+    toggleSalesPerson,
     toggleContactOption,
     clearAllFilters,
     activeFilterCount,

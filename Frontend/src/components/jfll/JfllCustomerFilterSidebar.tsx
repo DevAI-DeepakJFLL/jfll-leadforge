@@ -8,6 +8,7 @@ import {
   Search,
   SlidersHorizontal,
   CreditCard,
+  UserCheck,
   X,
 } from 'lucide-react';
 import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
@@ -16,6 +17,7 @@ import {
   getLegalTypeFacetCounts,
   getContactReadinessFacetCounts,
   getCreditStatusFacetCounts,
+  getSalesPersonFacetCounts,
 } from '@/services/jfllCustomerService';
 
 export interface JfllCustomerFilterSidebarProps {
@@ -23,6 +25,7 @@ export interface JfllCustomerFilterSidebarProps {
   onToggleCustomerGroup: (group: string) => void;
   onToggleType: (type: string) => void;
   onToggleCreditStatus: (status: string) => void;
+  onToggleSalesPerson: (salesPerson: string) => void;
   onToggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   onClearAll: () => void;
   isMobileOpen?: boolean;
@@ -35,6 +38,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   onToggleCustomerGroup,
   onToggleType,
   onToggleCreditStatus,
+  onToggleSalesPerson,
   onToggleContactOption,
   onClearAll,
   isMobileOpen = false,
@@ -45,11 +49,13 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
     groups: true,
     types: true,
     creditStatus: true,
+    salesPerson: true,
     contacts: true,
   });
 
   const [groupSearch, setGroupSearch] = useState('');
   const [typeSearch, setTypeSearch] = useState('');
+  const [salesPersonSearch, setSalesPersonSearch] = useState('');
 
   const customerGroupsList = React.useMemo(
     () => getCustomerGroupFacetCounts(filters.customerStatus || 'all'),
@@ -66,18 +72,24 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
     [filters.customerStatus]
   );
 
+  const salesPersonsList = React.useMemo(
+    () => getSalesPersonFacetCounts(filters.customerStatus || 'all'),
+    [filters.customerStatus]
+  );
+
   const contactCounts = React.useMemo(
     () => getContactReadinessFacetCounts(filters.customerStatus || 'all'),
     [filters.customerStatus]
   );
 
-  const toggleSection = (section: 'groups' | 'types' | 'creditStatus' | 'contacts') => {
+  const toggleSection = (section: 'groups' | 'types' | 'creditStatus' | 'salesPerson' | 'contacts') => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
   const selectedGroups = filters.customerGroups || [];
   const selectedTypes = filters.types || [];
   const selectedCreditStatuses = filters.creditStatuses || [];
+  const selectedSalesPersons = filters.salesPersons || [];
 
   const filteredGroups = customerGroupsList.filter((g) =>
     g.label.toLowerCase().includes(groupSearch.toLowerCase())
@@ -87,10 +99,15 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
     t.label.toLowerCase().includes(typeSearch.toLowerCase())
   );
 
+  const filteredSalesPersons = salesPersonsList.filter((sp) =>
+    sp.label.toLowerCase().includes(salesPersonSearch.toLowerCase())
+  );
+
   const activeCount =
     selectedGroups.length +
     selectedTypes.length +
     selectedCreditStatuses.length +
+    selectedSalesPersons.length +
     (filters.hasPhone ? 1 : 0) +
     (filters.hasEmail ? 1 : 0) +
     (filters.hasContactPerson ? 1 : 0);
@@ -412,6 +429,83 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
                     </label>
                   );
                 })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Accordion 5: Sales Representative */}
+        {salesPersonsList.length > 0 && (
+          <div>
+            <button
+              onClick={() => toggleSection('salesPerson')}
+              aria-expanded={openSections.salesPerson}
+              className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <UserCheck className="w-4 h-4 text-indigo-600" />
+                <span className="text-xs font-semibold text-slate-800">
+                  Sales Representative
+                </span>
+                {selectedSalesPersons.length > 0 && (
+                  <span className="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
+                    {selectedSalesPersons.length}
+                  </span>
+                )}
+              </div>
+              <ChevronDown
+                className={`w-4 h-4 text-slate-400 transition-transform ${
+                  openSections.salesPerson ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+
+            {openSections.salesPerson && (
+              <div className="px-4 pb-3 space-y-2">
+                {salesPersonsList.length > 5 && (
+                  <div className="relative mb-2">
+                    <Search className="w-3 h-3 text-slate-400 absolute left-2.5 top-2" />
+                    <input
+                      type="text"
+                      value={salesPersonSearch}
+                      onChange={(e) => setSalesPersonSearch(e.target.value)}
+                      placeholder="Search sales person..."
+                      className="w-full pl-7 pr-2 py-1 text-[11px] border border-slate-200 rounded focus:outline-none focus:border-apollo"
+                    />
+                  </div>
+                )}
+                <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                  {filteredSalesPersons.map((sp) => {
+                    const isChecked = selectedSalesPersons.includes(sp.label);
+                    return (
+                      <label
+                        key={sp.label}
+                        className="flex items-center justify-between text-xs cursor-pointer group py-0.5"
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => onToggleSalesPerson(sp.label)}
+                            className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer"
+                          />
+                          <span
+                            className={`truncate ${
+                              isChecked
+                                ? 'text-slate-900 font-medium'
+                                : 'text-slate-700 group-hover:text-slate-900'
+                            }`}
+                          >
+                            {sp.label}
+                          </span>
+                        </div>
+                        <span className="text-[11px] font-mono text-slate-400 shrink-0 ml-2">
+                          {sp.count}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>

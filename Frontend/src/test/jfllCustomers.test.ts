@@ -346,5 +346,49 @@ describe('JFLL Customers Dataset & Query Service', () => {
     const searchInactive = queryJfllCustomers({ customerStatus: 'all', q: 'SG GLOBAL LOGISTICS' });
     expect(searchInactive.totalEstimate).toBeGreaterThanOrEqual(1);
   });
+
+  it('computes exact sales person facet counts and filters by sales person', async () => {
+    const { getSalesPersonFacetCounts } = await import('@/services/jfllCustomerService');
+    const facets = getSalesPersonFacetCounts('active');
+
+    expect(facets.length).toBeGreaterThanOrEqual(60);
+    // Verified top representatives
+    const top = facets[0];
+    expect(top.label).toBe('Narendra Gupta');
+    expect(top.count).toBe(56);
+
+    const irfan = facets.find((f) => f.label === 'Irfan Shaikh');
+    expect(irfan?.count).toBe(48);
+
+    const samuel = facets.find((f) => f.label === 'Samuel Prabhu');
+    expect(samuel?.count).toBe(35);
+
+    // Single sales person filter
+    const singleRes = queryJfllCustomers({
+      customerStatus: 'active',
+      salesPersons: ['Narendra Gupta'],
+    });
+    expect(singleRes.totalEstimate).toBe(56);
+    singleRes.items.forEach((c) => {
+      expect(c.salesPerson).toBe('Narendra Gupta');
+    });
+
+    // Multi-select sales persons filter
+    const multiRes = queryJfllCustomers({
+      customerStatus: 'active',
+      salesPersons: ['Irfan Shaikh', 'Samuel Prabhu'],
+    });
+    expect(multiRes.totalEstimate).toBe(83);
+    multiRes.items.forEach((c) => {
+      expect(['Irfan Shaikh', 'Samuel Prabhu']).toContain(c.salesPerson);
+    });
+
+    // Substring / search query matches sales person
+    const searchRes = queryJfllCustomers({
+      customerStatus: 'active',
+      q: 'Narendra Gupta',
+    });
+    expect(searchRes.totalEstimate).toBeGreaterThanOrEqual(56);
+  });
 });
 

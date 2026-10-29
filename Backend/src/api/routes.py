@@ -65,6 +65,8 @@ def list_leads(
     has_contact_person: bool | None = Query(default=None, description="Require contact person name"),
     credit_status: str | None = Query(default=None, description="Single Credit Status filter"),
     credit_statuses: list[str] | None = Query(default=None, description="Multi-select Credit Statuses"),
+    sales_person: str | None = Query(default=None, description="Single Sales Person filter"),
+    sales_persons: list[str] | None = Query(default=None, description="Multi-select Sales Persons"),
     tab: str | None = Query(default=None, description="Audience quick tab: all, shippers, subagents, overseas, with-contacts"),
     search: str | None = Query(default=None, min_length=1, max_length=100, description="Search company, contact person or email"),
     authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
@@ -82,6 +84,8 @@ def list_leads(
     has_contact_person = normalize_query(has_contact_person)
     credit_status = normalize_query(credit_status)
     credit_statuses = normalize_query(credit_statuses)
+    sales_person = normalize_query(sales_person)
+    sales_persons = normalize_query(sales_persons)
     tab = normalize_query(tab)
     search = normalize_query(search)
 
@@ -132,6 +136,15 @@ def list_leads(
         base_conditions.append(f'"Credit Status" IN ({placeholders})')
         base_params.extend(combined_credit)
 
+    # Sales Person multi-select or single
+    combined_sales = list(sales_persons or [])
+    if sales_person and sales_person not in combined_sales:
+        combined_sales.append(sales_person)
+    if combined_sales:
+        placeholders = ", ".join(["?"] * len(combined_sales))
+        base_conditions.append(f'"Sales Person" IN ({placeholders})')
+        base_params.extend(combined_sales)
+
     # Contact readiness
     if has_phone:
         base_conditions.append('("Mobile Number" IS NOT NULL AND length(trim("Mobile Number")) > 0 AND trim("Mobile Number") NOT IN (\'-\', \'--\', \'---\', \'+91-\', \'+91\', \'N/A\', \'NA\', \'null\', \'none\'))')
@@ -140,13 +153,13 @@ def list_leads(
     if has_contact_person:
         base_conditions.append('("Contact Person Name" IS NOT NULL AND length(trim("Contact Person Name")) > 0)')
 
-    # Full-text / substring search across name, contact person, email, and phone
+    # Full-text / substring search across name, contact person, email, phone, and sales person
     if search:
         search_pattern = f"%{search.strip()}%"
         base_conditions.append(
-            '("Full Name" ILIKE ? OR "Contact Person Name" ILIKE ? OR "Email" ILIKE ? OR "Mobile Number" ILIKE ?)'
+            '("Full Name" ILIKE ? OR "Contact Person Name" ILIKE ? OR "Email" ILIKE ? OR "Mobile Number" ILIKE ? OR "Sales Person" ILIKE ?)'
         )
-        base_params.extend([search_pattern] * 4)
+        base_params.extend([search_pattern] * 5)
 
     where_base_sql = " AND ".join(base_conditions)
 

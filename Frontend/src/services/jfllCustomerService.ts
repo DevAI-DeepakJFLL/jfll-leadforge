@@ -41,6 +41,7 @@ export async function fetchJfllCustomersFromApi(
     customerGroups = [],
     types = [],
     creditStatuses = [],
+    salesPersons = [],
     hasPhone,
     hasEmail,
     hasContactPerson,
@@ -69,9 +70,10 @@ export async function fetchJfllCustomersFromApi(
   customerGroups.forEach((g) => urlParams.append('customer_groups', g));
   types.forEach((t) => urlParams.append('types', t));
   creditStatuses.forEach((cs) => urlParams.append('credit_statuses', cs));
+  salesPersons.forEach((sp) => urlParams.append('sales_persons', sp));
 
   const endpoint = `${API_BASE_URL}/api/v1/leads?${urlParams.toString()}`;
-  logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups, creditStatuses });
+  logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups, creditStatuses, salesPersons });
 
   let authHeader: Record<string, string> = {};
   try {
@@ -157,6 +159,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     customerGroups = [],
     types = [],
     creditStatuses = [],
+    salesPersons = [],
     hasPhone,
     hasEmail,
     hasContactPerson,
@@ -174,7 +177,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     : JFLL_CUSTOMERS_DATA;
   let baseFiltered = [...baseData];
 
-  // 1. Text Search Query (Full Name, Contact Person, Email, Mobile)
+  // 1. Text Search Query (Full Name, Contact Person, Email, Mobile, Sales Person)
   if (q && q.trim()) {
     const query = q.trim().toLowerCase();
     baseFiltered = baseFiltered.filter(
@@ -182,6 +185,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         c.fullName.toLowerCase().includes(query) ||
         (c.contactPersonName && c.contactPersonName.toLowerCase().includes(query)) ||
         (c.email && c.email.toLowerCase().includes(query)) ||
+        (c.salesPerson && c.salesPerson.toLowerCase().includes(query)) ||
         (isValidPhoneNumber(c.mobileNumber) && c.mobileNumber!.toLowerCase().includes(query))
     );
   }
@@ -201,7 +205,12 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     baseFiltered = baseFiltered.filter((c) => !!c.creditStatus && creditStatuses.includes(c.creditStatus));
   }
 
-  // 5. Contact Readiness Filters
+  // 5. Sales Person Multi-select Filter
+  if (salesPersons.length > 0) {
+    baseFiltered = baseFiltered.filter((c) => !!c.salesPerson && salesPersons.includes(c.salesPerson));
+  }
+
+  // 6. Contact Readiness Filters
   if (hasPhone) {
     baseFiltered = baseFiltered.filter((c) => isValidPhoneNumber(c.mobileNumber));
   }
@@ -328,6 +337,7 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
     'Legal Type',
     'Status',
     'Credit Status',
+    'Sales Representative',
     'Contact Person Name',
     'Mobile Number',
     'Email',
@@ -340,6 +350,7 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
     c.type,
     c.status,
     c.creditStatus ? c.creditStatus.replace(/_/g, ' ').toUpperCase() : 'N/A',
+    c.salesPerson || 'N/A',
     c.contactPersonName,
     c.mobileNumber,
     c.email,
@@ -448,5 +459,25 @@ export function getCreditStatusFacetCounts(status: 'active' | 'inactive' | 'all'
       if (idxA !== -1 && idxB !== -1) return idxA - idxB;
       return b.count - a.count;
     });
+}
+
+/**
+ * Dynamically compute actual Sales Person facet counts from dataset
+ */
+export function getSalesPersonFacetCounts(status: 'active' | 'inactive' | 'all' = 'active'): { label: string; count: number }[] {
+  const data = status === 'all'
+    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    : status === 'inactive'
+    ? JFLL_INACTIVE_CUSTOMERS_DATA
+    : JFLL_CUSTOMERS_DATA;
+  const counts: Record<string, number> = {};
+  for (const c of data) {
+    if (c.salesPerson && c.salesPerson.trim().length > 0) {
+      counts[c.salesPerson.trim()] = (counts[c.salesPerson.trim()] || 0) + 1;
+    }
+  }
+  return Object.entries(counts)
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
 }
 
