@@ -4,7 +4,7 @@ from typing import Any
 from fastapi import HTTPException
 from fastapi.params import Query as QueryType
 
-from src.api.auth import check_session_active, is_headless_user_agent, verify_token
+from src.api.auth import check_session_active, verify_token
 from src.api.config import settings
 from src.api.logger import logger
 
@@ -12,18 +12,12 @@ from src.api.logger import logger
 def require_auth(
     authorization: str | None,
     resource_name: str = "leads",
-    user_agent: str | None = None,
 ) -> dict[str, Any]:
     """
-    Validates Bearer token if provided, blocks automated headless agents,
-    enforces active single-device session, and enforces authentication in production environments.
+    Validates Bearer token if provided, enforces active single-device session,
+    and enforces authentication in production environments.
+    Automated headless bots are rejected globally by AntiBotMiddleware.
     """
-    if is_headless_user_agent(user_agent):
-        raise HTTPException(
-            status_code=403,
-            detail="AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
-        )
-
     if authorization and authorization.startswith("Bearer "):
         token = authorization.split("Bearer ", 1)[1].strip()
         user = verify_token(token)

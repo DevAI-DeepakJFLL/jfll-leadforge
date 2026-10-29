@@ -291,8 +291,7 @@ describe('authService', () => {
         ok: false,
         status: 401,
         json: async () => ({
-          detail: 'SESSION_SUPERSEDED',
-          message: 'Session has been superseded by a login on another device',
+          detail: 'SESSION_SUPERSEDED: Your account was signed in from another device.',
         }),
       });
 

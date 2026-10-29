@@ -223,7 +223,7 @@ export async function checkSessionHeartbeat(token: string): Promise<SessionHeart
 
     if (res.status === 401) {
       const data = await res.json().catch(() => ({}));
-      if (data.detail === 'SESSION_SUPERSEDED') {
+      if (typeof data.detail === 'string' && data.detail.startsWith('SESSION_SUPERSEDED')) {
         notifySessionSuperseded();
         return { active: false, superseded: true };
       }

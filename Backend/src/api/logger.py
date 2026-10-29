@@ -80,6 +80,16 @@ def setup_logger(name: str = "jfll.backend") -> logging.Logger:
 
 logger = setup_logger()
 
+_verify_token_fn = None
+
+
+def _get_verify_token():
+    global _verify_token_fn
+    if _verify_token_fn is None:
+        from src.api.auth import verify_token
+        _verify_token_fn = verify_token
+    return _verify_token_fn
+
 
 class CloudWatchLoggingMiddleware(BaseHTTPMiddleware):
     """
@@ -109,7 +119,7 @@ class CloudWatchLoggingMiddleware(BaseHTTPMiddleware):
         user_email: str | None = None
         if auth_header and auth_header.startswith("Bearer "):
             try:
-                from src.api.auth import verify_token
+                verify_token = _get_verify_token()
                 token = auth_header.split("Bearer ", 1)[1].strip()
                 payload = verify_token(token)
                 if payload:

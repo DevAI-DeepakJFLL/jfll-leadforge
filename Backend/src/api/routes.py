@@ -155,7 +155,8 @@ def list_leads(
 
     where_sql = " AND ".join(conditions)
     try:
-        data_source = get_data_source(con)
+        dataset_name = "inactive" if status == "Not Active" else "active"
+        data_source = get_data_source(con, dataset=dataset_name)
 
         # 1. Total Count Query (Prepared statement)
         count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"

@@ -240,6 +240,7 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
 
     # Issue unique session ID and invalidate any prior session for this user
     session_id = f"sess_{secrets.token_hex(16)}"
+    ACTIVE_USER_SESSIONS[input_email] = session_id
 
     token, expires_at = create_token(
         {

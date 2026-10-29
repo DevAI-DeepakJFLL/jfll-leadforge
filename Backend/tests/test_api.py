@@ -72,6 +72,16 @@ def test_list_leads_dynamic_audience_counts():
     assert search_payload["audience_counts"]["all"] < 578
 
 
+def test_list_leads_not_active_dataset():
+    response = client.get("/api/v1/leads?status=Not+Active&page=1&page_size=25")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["total_records"] == 2279
+    assert len(payload["data"]) == 25
+    for item in payload["data"]:
+        assert item["status"] == "Not Active"
+
+
 def test_invalid_status_returns_400():
     response = client.get("/api/v1/leads?status=InvalidStatus")
     assert response.status_code == 400
@@ -271,6 +281,33 @@ def test_rotating_file_handler_auto_clean(tmp_path):
         assert "Test message for file rotation" in content
     finally:
         os.environ.pop("LOG_FILE_PATH", None)
+
+
+def test_single_device_session_displacement_immediate():
+    """Verify that a second login immediately displaces the first device session."""
+    # 1. Device 1 logs in
+    res1 = client.post("/api/v1/auth/login", json={"email": "deepak.naidu@jfll.com"})
+    assert res1.status_code == 200
+    token1 = res1.json()["token"]
+
+    # Device 1 can access /me
+    me1 = client.get("/api/v1/auth/me", headers={"Authorization": f"Bearer {token1}"})
+    assert me1.status_code == 200
+
+    # 2. Device 2 logs in with same email
+    res2 = client.post("/api/v1/auth/login", json={"email": "deepak.naidu@jfll.com"})
+    assert res2.status_code == 200
+    token2 = res2.json()["token"]
+
+    # 3. Device 1's token is immediately superseded without Device 2 needing to query first
+    heartbeat1 = client.get("/api/v1/auth/heartbeat", headers={"Authorization": f"Bearer {token1}"})
+    assert heartbeat1.status_code == 401
+    assert "SESSION_SUPERSEDED" in heartbeat1.json()["detail"]
+
+    # Device 2's token is valid
+    heartbeat2 = client.get("/api/v1/auth/heartbeat", headers={"Authorization": f"Bearer {token2}"})
+    assert heartbeat2.status_code == 200
+    assert heartbeat2.json()["active"] is True
 
 
 

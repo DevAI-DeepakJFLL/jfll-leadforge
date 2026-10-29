@@ -9,6 +9,8 @@ import {
   Copy,
   ShieldCheck,
   Layers,
+  CreditCard,
+  TrendingUp,
 } from 'lucide-react';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
@@ -254,6 +256,42 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                   <span className="text-slate-500">Account Status</span>
                   <span className="text-emerald-700 font-semibold">{customer.status}</span>
                 </div>
+                {customer.salesPerson && (
+                  <div className="p-3 flex justify-between items-center">
+                    <span className="text-slate-500">Sales Representative</span>
+                    <span className="font-semibold text-slate-900">{customer.salesPerson}</span>
+                  </div>
+                )}
+                {customer.creditStatus && (
+                  <div className="p-3 flex justify-between items-center">
+                    <span className="text-slate-500 flex items-center gap-1.5">
+                      <CreditCard className="w-3.5 h-3.5 text-slate-400" />
+                      Credit Status
+                    </span>
+                    <span
+                      className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wide ${
+                        customer.creditStatus === 'approved'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : customer.creditStatus === 'blocked'
+                          ? 'bg-red-50 text-red-700 border border-red-200'
+                          : 'bg-amber-50 text-amber-700 border border-amber-200'
+                      }`}
+                    >
+                      {customer.creditStatus.replace(/_/g, ' ')}
+                    </span>
+                  </div>
+                )}
+                {customer.businessLast3m !== undefined && (
+                  <div className="p-3 flex justify-between items-center">
+                    <span className="text-slate-500 flex items-center gap-1.5">
+                      <TrendingUp className="w-3.5 h-3.5 text-slate-400" />
+                      Revenue (Last 3 Mo)
+                    </span>
+                    <span className="font-mono font-bold text-slate-900">
+                      ₹{customer.businessLast3m.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
 
