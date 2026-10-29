@@ -115,6 +115,28 @@ def test_list_leads_filtering_by_revenue():
     assert res_inact.json()["total_records"] == 0
 
 
+def test_list_leads_column_sorting():
+    """Verify that column-header sorting works accurately for salespeople."""
+    # 1. Sort by Recent Revenue descending (Top revenue accounts first)
+    res_rev = client.get("/api/v1/leads?status=Active&sort_by=businessLast3m&sort_order=desc")
+    assert res_rev.status_code == 200
+    data_rev = res_rev.json()["data"]
+    assert len(data_rev) > 0
+    assert data_rev[0]["full_name"] == "A ENTERPRISES HOLDING INC."
+    assert data_rev[0]["business_last_3m"] > 180000000.0
+    # Verify strictly non-increasing order for businessLast3m
+    for i in range(len(data_rev) - 1):
+        if data_rev[i]["business_last_3m"] is not None and data_rev[i+1]["business_last_3m"] is not None:
+            assert data_rev[i]["business_last_3m"] >= data_rev[i+1]["business_last_3m"]
+
+    # 2. Sort by Full Name descending (Z-A)
+    res_name = client.get("/api/v1/leads?status=Active&sort_by=fullName&sort_order=desc")
+    assert res_name.status_code == 200
+    data_name = res_name.json()["data"]
+    assert len(data_name) > 0
+    assert data_name[0]["full_name"] >= data_name[1]["full_name"]
+
+
 def test_list_leads_dynamic_audience_counts():
     # Baseline active leads count
     res_base = client.get("/api/v1/leads?status=Active")

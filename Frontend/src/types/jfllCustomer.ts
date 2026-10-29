@@ -28,6 +28,14 @@ export type JfllCustomerTabType =
   | 'datamyne-leads'
   | 'archive';
 
+export type JfllCustomerSortField =
+  | 'fullName'
+  | 'customerGroup'
+  | 'status'
+  | 'creditStatus'
+  | 'businessLast3m'
+  | 'contactPersonName';
+
 export interface JfllCustomerFilterParams {
   q?: string;
   customerStatus?: 'active' | 'inactive' | 'all';
@@ -41,6 +49,8 @@ export interface JfllCustomerFilterParams {
   hasEmail?: boolean;
   hasContactPerson?: boolean;
   tab?: JfllCustomerTabType;
+  sortBy?: JfllCustomerSortField;
+  sortOrder?: 'asc' | 'desc';
   page?: number;
   limit?: number;
 }

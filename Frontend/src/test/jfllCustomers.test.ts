@@ -462,5 +462,49 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(formatIndianCurrency(null)).toBe('—');
     expect(formatIndianCurrency(undefined)).toBe('—');
   });
+
+  it('supports column-header sorting across logical fields for salespeople', () => {
+    // 1. Sort by Recent Revenue descending (Top revenue accounts first)
+    const revDesc = queryJfllCustomers({
+      customerStatus: 'active',
+      sortBy: 'businessLast3m',
+      sortOrder: 'desc',
+    });
+    expect(revDesc.items.length).toBeGreaterThan(0);
+    expect(revDesc.items[0].fullName).toBe('A ENTERPRISES HOLDING INC.');
+    expect(revDesc.items[0].businessLast3m).toBeGreaterThan(180000000);
+    for (let i = 0; i < revDesc.items.length - 1; i++) {
+      const a = revDesc.items[i].businessLast3m ?? -1;
+      const b = revDesc.items[i + 1].businessLast3m ?? -1;
+      expect(a).toBeGreaterThanOrEqual(b);
+    }
+
+    // 2. Sort by Recent Revenue ascending (Smallest revenue accounts first)
+    const revAsc = queryJfllCustomers({
+      customerStatus: 'active',
+      sortBy: 'businessLast3m',
+      sortOrder: 'asc',
+    });
+    expect(revAsc.items.length).toBeGreaterThan(0);
+    expect(revAsc.items[0].businessLast3m).toBeLessThan(1000);
+
+    // 3. Sort by Company Name descending (Z-A)
+    const nameDesc = queryJfllCustomers({
+      customerStatus: 'active',
+      sortBy: 'fullName',
+      sortOrder: 'desc',
+    });
+    expect(nameDesc.items.length).toBeGreaterThan(0);
+    expect(nameDesc.items[0].fullName.localeCompare(nameDesc.items[1].fullName)).toBeGreaterThanOrEqual(0);
+
+    // 4. Sort by Customer Group ascending
+    const groupAsc = queryJfllCustomers({
+      customerStatus: 'active',
+      sortBy: 'customerGroup',
+      sortOrder: 'asc',
+    });
+    expect(groupAsc.items.length).toBeGreaterThan(0);
+    expect(groupAsc.items[0].customerGroup).toBe('GSA');
+  });
 });
 

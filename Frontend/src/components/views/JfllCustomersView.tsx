@@ -11,6 +11,7 @@ import {
   JfllCustomersResponse,
   JfllCustomer,
   JfllCustomerTabType,
+  JfllCustomerSortField,
 } from '@/types/jfllCustomer';
 
 export interface JfllCustomersViewProps {
@@ -33,6 +34,7 @@ export interface JfllCustomersViewProps {
   onCustomerStatusChange: (status: 'active' | 'inactive' | 'all') => void;
   onTabChange: (tab: JfllCustomerTabType) => void;
   onPageChange: (page: number) => void;
+  onSortChange?: (field: JfllCustomerSortField) => void;
   toggleCustomerGroup: (group: string) => void;
   toggleType: (type: string) => void;
   toggleCreditStatus: (status: string) => void;
@@ -65,6 +67,7 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
   onCustomerStatusChange,
   onTabChange,
   onPageChange,
+  onSortChange,
   toggleCustomerGroup,
   toggleType,
   toggleCreditStatus,
@@ -133,6 +136,9 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
             pageSize={query.limit}
             totalItems={query.totalEstimate}
             totalFormatted={query.totalFormatted}
+            sortBy={filters.sortBy}
+            sortOrder={filters.sortOrder}
+            onSortChange={onSortChange}
             onPageChange={onPageChange}
             onClearFilters={clearAllFilters}
           />

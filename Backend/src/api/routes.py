@@ -70,6 +70,8 @@ def list_leads(
     revenue_ranges: list[str] | None = Query(default=None, description="Multi-select Revenue ranges"),
     min_revenue: float | None = Query(default=None, ge=0, description="Minimum revenue in INR"),
     max_revenue: float | None = Query(default=None, ge=0, description="Maximum revenue in INR"),
+    sort_by: str | None = Query(default=None, description="Sort column: fullName, businessLast3m, customerGroup, creditStatus, contactPersonName, status"),
+    sort_order: str | None = Query(default="asc", description="Sort order: asc or desc"),
     tab: str | None = Query(default=None, description="Audience quick tab: all, shippers, subagents, overseas, with-contacts"),
     search: str | None = Query(default=None, min_length=1, max_length=100, description="Search company, contact person or email"),
     authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
@@ -92,6 +94,8 @@ def list_leads(
     revenue_ranges = normalize_query(revenue_ranges)
     min_revenue = normalize_query(min_revenue)
     max_revenue = normalize_query(max_revenue)
+    sort_by = normalize_query(sort_by)
+    sort_order = normalize_query(sort_order, "asc").lower()
     tab = normalize_query(tab)
     search = normalize_query(search)
 
@@ -245,7 +249,33 @@ def list_leads(
 
         # 3. Paginated Data Query
         is_active_source = (status == "Active" or (status is None and "active" in data_source))
+        order_direction = "DESC" if sort_order == "desc" else "ASC"
+
         if is_active_source:
+            active_sort_map = {
+                "fullname": '"Full Name"',
+                "full_name": '"Full Name"',
+                "name": '"Full Name"',
+                "businesslast3m": '"Total Business Received From Cusomer In Last 3 Month"',
+                "business_last_3m": '"Total Business Received From Cusomer In Last 3 Month"',
+                "revenue": '"Total Business Received From Cusomer In Last 3 Month"',
+                "customergroup": '"Customer Group"',
+                "customer_group": '"Customer Group"',
+                "creditstatus": '"Credit Status"',
+                "credit_status": '"Credit Status"',
+                "contactpersonname": '"Contact Person Name"',
+                "contact_person_name": '"Contact Person Name"',
+                "status": '"Status"',
+                "salesperson": '"Sales Person"',
+                "sales_person": '"Sales Person"',
+            }
+            sort_key = sort_by.lower().replace("-", "_") if sort_by else "fullname"
+            sort_col = active_sort_map.get(sort_key, '"Full Name"')
+            if "Total Business" in sort_col:
+                order_by_sql = f"{sort_col} {order_direction} NULLS LAST, \"Full Name\" ASC"
+            else:
+                order_by_sql = f"{sort_col} {order_direction} NULLS LAST"
+
             data_query = f"""
                 SELECT 
                     "Full Name" as full_name,
@@ -261,10 +291,24 @@ def list_leads(
                     "Total Business Received From Cusomer In Last 3 Month" as business_last_3m
                 FROM '{data_source}'
                 WHERE {where_sql}
-                ORDER BY "Full Name" ASC
+                ORDER BY {order_by_sql}
                 LIMIT ? OFFSET ?
             """
         else:
+            inactive_sort_map = {
+                "fullname": '"Full Name"',
+                "full_name": '"Full Name"',
+                "name": '"Full Name"',
+                "customergroup": '"Customer Group"',
+                "customer_group": '"Customer Group"',
+                "contactpersonname": '"Contact Person Name"',
+                "contact_person_name": '"Contact Person Name"',
+                "status": '"Status"',
+            }
+            sort_key = sort_by.lower().replace("-", "_") if sort_by else "fullname"
+            sort_col = inactive_sort_map.get(sort_key, '"Full Name"')
+            order_by_sql = f"{sort_col} {order_direction} NULLS LAST"
+
             data_query = f"""
                 SELECT 
                     "Full Name" as full_name,
@@ -280,7 +324,7 @@ def list_leads(
                     NULL as business_last_3m
                 FROM '{data_source}'
                 WHERE {where_sql}
-                ORDER BY "Full Name" ASC
+                ORDER BY {order_by_sql}
                 LIMIT ? OFFSET ?
             """
         query_params = params + [page_size, offset]

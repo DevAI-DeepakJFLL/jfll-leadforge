@@ -49,6 +49,8 @@ export async function fetchJfllCustomersFromApi(
     hasEmail,
     hasContactPerson,
     tab = 'all',
+    sortBy,
+    sortOrder,
     page = 1,
     limit = 25,
   } = params;
@@ -76,9 +78,11 @@ export async function fetchJfllCustomersFromApi(
   salesPersons.forEach((sp) => urlParams.append('sales_persons', sp));
   revenueRanges.forEach((rr) => urlParams.append('revenue_ranges', rr));
   if (minRevenue !== undefined) urlParams.set('min_revenue', String(minRevenue));
+  if (sortBy) urlParams.set('sort_by', sortBy);
+  if (sortOrder) urlParams.set('sort_order', sortOrder);
 
   const endpoint = `${API_BASE_URL}/api/v1/leads?${urlParams.toString()}`;
-  logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups, creditStatuses, salesPersons, revenueRanges });
+  logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups, creditStatuses, salesPersons, revenueRanges, sortBy, sortOrder });
 
   let authHeader: Record<string, string> = {};
   try {
@@ -171,6 +175,8 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     hasEmail,
     hasContactPerson,
     tab = 'all',
+    sortBy,
+    sortOrder,
     page = 1,
     limit = 25,
   } = params;
@@ -340,6 +346,50 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
       );
     }
+  }
+
+  // 7. Column-header sorting
+  if (sortBy) {
+    filtered.sort((a, b) => {
+      if (sortBy === 'businessLast3m') {
+        const revA = a.businessLast3m ?? -1;
+        const revB = b.businessLast3m ?? -1;
+        if (revA !== revB) {
+          return sortOrder === 'desc' ? revB - revA : revA - revB;
+        }
+        return a.fullName.localeCompare(b.fullName);
+      }
+      if (sortBy === 'fullName') {
+        return sortOrder === 'desc'
+          ? b.fullName.localeCompare(a.fullName)
+          : a.fullName.localeCompare(b.fullName);
+      }
+      if (sortBy === 'customerGroup') {
+        return sortOrder === 'desc'
+          ? b.customerGroup.localeCompare(a.customerGroup)
+          : a.customerGroup.localeCompare(b.customerGroup);
+      }
+      if (sortBy === 'creditStatus') {
+        const valA = a.creditStatus || '';
+        const valB = b.creditStatus || '';
+        return sortOrder === 'desc' ? valB.localeCompare(valA) : valA.localeCompare(valB);
+      }
+      if (sortBy === 'contactPersonName') {
+        const valA = a.contactPersonName || '';
+        const valB = b.contactPersonName || '';
+        if (valA && !valB) return -1;
+        if (!valA && valB) return 1;
+        return sortOrder === 'desc' ? valB.localeCompare(valA) : valA.localeCompare(valB);
+      }
+      if (sortBy === 'status') {
+        return sortOrder === 'desc'
+          ? b.status.localeCompare(a.status)
+          : a.status.localeCompare(b.status);
+      }
+      return 0;
+    });
+  } else {
+    filtered.sort((a, b) => a.fullName.localeCompare(b.fullName));
   }
 
   const totalEstimate = filtered.length;

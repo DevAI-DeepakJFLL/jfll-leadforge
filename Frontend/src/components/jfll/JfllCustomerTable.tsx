@@ -11,8 +11,11 @@ import {
   AlertCircle,
   RotateCcw,
   Layers,
+  ArrowUp,
+  ArrowDown,
+  ArrowUpDown,
 } from 'lucide-react';
-import { JfllCustomer } from '@/types/jfllCustomer';
+import { JfllCustomer, JfllCustomerSortField } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
 import { useToast } from '@/components/ui';
 import { isValidPhoneNumber } from '@/utils/phoneUtils';
@@ -28,6 +31,9 @@ export interface JfllCustomerTableProps {
   pageSize: number;
   totalItems: number;
   totalFormatted?: string;
+  sortBy?: JfllCustomerSortField;
+  sortOrder?: 'asc' | 'desc';
+  onSortChange?: (field: JfllCustomerSortField) => void;
   onPageChange: (page: number) => void;
   onClearFilters?: () => void;
   isLoading?: boolean;
@@ -102,6 +108,9 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
   pageSize,
   totalItems,
   totalFormatted,
+  sortBy = 'fullName',
+  sortOrder = 'asc',
+  onSortChange,
   onPageChange,
   onClearFilters,
   isLoading = false,
@@ -124,6 +133,41 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
     e.stopPropagation();
     navigator.clipboard.writeText(text);
     showToast(`Copied ${label} to clipboard`);
+  };
+
+  const renderSortHeader = (
+    field: JfllCustomerSortField,
+    label: string,
+    widthClass: string,
+    tooltip?: string
+  ) => {
+    const isSorted = sortBy === field;
+    return (
+      <th
+        scope="col"
+        aria-sort={isSorted ? (sortOrder === 'asc' ? 'ascending' : 'descending') : 'none'}
+        className={`py-3 ${widthClass} cursor-pointer select-none hover:bg-slate-100/90 transition-colors group/th`}
+        onClick={() => onSortChange?.(field)}
+        title={tooltip || `Sort by ${label} (${isSorted ? (sortOrder === 'asc' ? 'ascending' : 'descending') : 'click to sort'})`}
+      >
+        <div className="flex items-center gap-1.5">
+          <span className={isSorted ? 'text-slate-900 font-bold' : 'text-slate-600 group-hover/th:text-slate-900'}>
+            {label}
+          </span>
+          <span className="shrink-0">
+            {isSorted ? (
+              sortOrder === 'asc' ? (
+                <ArrowUp className="w-3.5 h-3.5 text-apollo font-bold" />
+              ) : (
+                <ArrowDown className="w-3.5 h-3.5 text-apollo font-bold" />
+              )
+            ) : (
+              <ArrowUpDown className="w-3 h-3 text-slate-300 opacity-0 group-hover/th:opacity-100 transition-opacity" />
+            )}
+          </span>
+        </div>
+      </th>
+    );
   };
 
   if (isLoading) {
@@ -227,12 +271,12 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               <th scope="col" className="py-3 px-3 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>
-              <th scope="col" className="py-3 px-4 min-w-[260px]">Company Name</th>
-              <th scope="col" className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
-              <th scope="col" className="py-3 px-3.5 min-w-[95px]">Status</th>
-              <th scope="col" className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
-              <th scope="col" className="py-3 px-3.5 min-w-[125px]">Recent Revenue</th>
-              <th scope="col" className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
+              {renderSortHeader('fullName', 'Company Name', 'px-4 min-w-[260px]', 'Sort alphabetically by company name')}
+              {renderSortHeader('customerGroup', 'Customer Group', 'px-3.5 min-w-[150px]', 'Sort by customer category')}
+              {renderSortHeader('status', 'Status', 'px-3.5 min-w-[95px]', 'Sort by active / inactive status')}
+              {renderSortHeader('creditStatus', 'Credit Status', 'px-3.5 min-w-[120px]', 'Sort by credit approval')}
+              {renderSortHeader('businessLast3m', 'Recent Revenue', 'px-3.5 min-w-[125px]', 'Sort by 90-day business volume (highest first)')}
+              {renderSortHeader('contactPersonName', 'Contact Person', 'px-3.5 min-w-[150px]', 'Sort by named contact person')}
               <th scope="col" className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
               <th scope="col" className="py-3 px-3.5 min-w-[190px]">Email</th>
               <th scope="col" className="py-3 px-4 w-20 text-center">Action</th>
@@ -293,8 +337,14 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                             </span>
                           )}
                         </div>
-                        <div className="text-[11px] text-slate-500 font-normal truncate mt-0.5 leading-tight">
-                          {c.type}
+                        <div className="text-[11px] text-slate-500 font-normal truncate mt-0.5 leading-tight flex items-center gap-1.5 flex-wrap">
+                          <span>{c.type}</span>
+                          {c.salesPerson && (
+                            <>
+                              <span className="text-slate-300">•</span>
+                              <span className="text-indigo-600 font-medium">Rep: {c.salesPerson}</span>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>

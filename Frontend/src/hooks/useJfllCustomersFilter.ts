@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
+import { JfllCustomerFilterParams, JfllCustomerSortField } from '@/types/jfllCustomer';
 
 export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams = {}) {
   const [filters, setFilters] = useState<JfllCustomerFilterParams>({
@@ -7,6 +7,8 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     tab: 'all',
     page: 1,
     limit: 25,
+    sortBy: 'fullName',
+    sortOrder: 'asc',
     customerGroups: [],
     types: [],
     creditStatuses: [],
@@ -98,6 +100,25 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     });
   }, []);
 
+  const handleSortChange = useCallback((field: JfllCustomerSortField) => {
+    setFilters((prev) => {
+      const isSameField = prev.sortBy === field;
+      let newOrder: 'asc' | 'desc';
+      if (isSameField) {
+        newOrder = prev.sortOrder === 'asc' ? 'desc' : 'asc';
+      } else {
+        // Salesperson optimization: revenue defaults to descending (highest business first)
+        newOrder = field === 'businessLast3m' ? 'desc' : 'asc';
+      }
+      return {
+        ...prev,
+        sortBy: field,
+        sortOrder: newOrder,
+        page: 1,
+      };
+    });
+  }, []);
+
   const toggleContactOption = useCallback(
     (key: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => {
       setFilters((prev) => ({
@@ -164,6 +185,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     toggleSalesPerson,
     toggleRevenueRange,
     toggleContactOption,
+    handleSortChange,
     clearAllFilters,
     activeFilterCount,
   };
