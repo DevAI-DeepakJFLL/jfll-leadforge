@@ -83,6 +83,38 @@ def test_list_leads_filtering_by_sales_person():
         assert item["sales_person"] in ("Irfan Shaikh", "Samuel Prabhu")
 
 
+def test_list_leads_filtering_by_revenue():
+    """Verify that revenue_ranges and min_revenue filters return matching records."""
+    # 1. Mega / Enterprise range (₹1 Crore+) -> 25 accounts
+    res_1cr = client.get("/api/v1/leads?status=Active&revenue_ranges=1cr_plus")
+    assert res_1cr.status_code == 200
+    payload_1cr = res_1cr.json()
+    assert payload_1cr["total_records"] == 25
+    for item in payload_1cr["data"]:
+        assert item["business_last_3m"] is not None
+        assert item["business_last_3m"] >= 10000000
+
+    # 2. Starter range (Under ₹1 Lakh) -> 148 accounts
+    res_starter = client.get("/api/v1/leads?status=Active&revenue_ranges=under_1l")
+    assert res_starter.status_code == 200
+    payload_starter = res_starter.json()
+    assert payload_starter["total_records"] == 148
+    for item in payload_starter["data"]:
+        assert item["business_last_3m"] is not None
+        assert item["business_last_3m"] < 100000
+
+    # 3. Multi-range combination (1cr_plus + 25l_1cr) -> 25 + 61 = 86 accounts
+    res_multi = client.get("/api/v1/leads?status=Active&revenue_ranges=1cr_plus&revenue_ranges=25l_1cr")
+    assert res_multi.status_code == 200
+    payload_multi = res_multi.json()
+    assert payload_multi["total_records"] == 86
+
+    # 4. Inactive customers with revenue filter -> 0 records (safe execution)
+    res_inact = client.get("/api/v1/leads?status=Not+Active&revenue_ranges=1cr_plus")
+    assert res_inact.status_code == 200
+    assert res_inact.json()["total_records"] == 0
+
+
 def test_list_leads_dynamic_audience_counts():
     # Baseline active leads count
     res_base = client.get("/api/v1/leads?status=Active")

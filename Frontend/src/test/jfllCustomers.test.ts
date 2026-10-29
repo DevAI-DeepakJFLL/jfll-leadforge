@@ -390,5 +390,77 @@ describe('JFLL Customers Dataset & Query Service', () => {
     });
     expect(searchRes.totalEstimate).toBeGreaterThanOrEqual(56);
   });
+
+  it('computes exact revenue range facet counts and filters by revenue', async () => {
+    const { getRevenueRangeFacetCounts, formatIndianCurrency } = await import('@/services/jfllCustomerService');
+    const facets = getRevenueRangeFacetCounts('active');
+
+    // Verify exact distribution across 578 active accounts
+    const enterprise = facets.find((f) => f.id === '1cr_plus');
+    expect(enterprise?.count).toBe(25);
+
+    const keyAccounts = facets.find((f) => f.id === '25l_1cr');
+    expect(keyAccounts?.count).toBe(61);
+
+    const midMarket = facets.find((f) => f.id === '5l_25l');
+    expect(midMarket?.count).toBe(164);
+
+    const growth = facets.find((f) => f.id === '1l_5l');
+    expect(growth?.count).toBe(180);
+
+    const starter = facets.find((f) => f.id === 'under_1l');
+    expect(starter?.count).toBe(148);
+
+    const totalFromFacets = facets.reduce((acc, f) => acc + f.count, 0);
+    expect(totalFromFacets).toBe(578);
+
+    // Inactive mode returns 0 for all recent business ranges
+    const inactiveFacets = getRevenueRangeFacetCounts('inactive');
+    inactiveFacets.forEach((f) => expect(f.count).toBe(0));
+
+    // Single range filter: 1cr_plus
+    const resEnterprise = queryJfllCustomers({
+      customerStatus: 'active',
+      revenueRanges: ['1cr_plus'],
+    });
+    expect(resEnterprise.totalEstimate).toBe(25);
+    resEnterprise.items.forEach((c) => {
+      expect(c.businessLast3m).toBeGreaterThanOrEqual(10000000);
+    });
+
+    // Single range filter: under_1l
+    const resStarter = queryJfllCustomers({
+      customerStatus: 'active',
+      revenueRanges: ['under_1l'],
+    });
+    expect(resStarter.totalEstimate).toBe(148);
+    resStarter.items.forEach((c) => {
+      expect(c.businessLast3m).toBeLessThan(100000);
+    });
+
+    // Multi-range filter: 1cr_plus + 25l_1cr
+    const resMulti = queryJfllCustomers({
+      customerStatus: 'active',
+      revenueRanges: ['1cr_plus', '25l_1cr'],
+    });
+    expect(resMulti.totalEstimate).toBe(86);
+
+    // Minimum revenue threshold
+    const resMin = queryJfllCustomers({
+      customerStatus: 'active',
+      minRevenue: 5000000,
+    });
+    expect(resMin.totalEstimate).toBeGreaterThanOrEqual(25);
+    resMin.items.forEach((c) => {
+      expect(c.businessLast3m).toBeGreaterThanOrEqual(5000000);
+    });
+
+    // Format currency helper
+    expect(formatIndianCurrency(186325931.19)).toBe('₹18.63 Cr');
+    expect(formatIndianCurrency(828367.51)).toBe('₹8.28 L');
+    expect(formatIndianCurrency(97769)).toBe('₹97,769');
+    expect(formatIndianCurrency(null)).toBe('—');
+    expect(formatIndianCurrency(undefined)).toBe('—');
+  });
 });
 

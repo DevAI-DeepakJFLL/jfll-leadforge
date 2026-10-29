@@ -67,6 +67,9 @@ def list_leads(
     credit_statuses: list[str] | None = Query(default=None, description="Multi-select Credit Statuses"),
     sales_person: str | None = Query(default=None, description="Single Sales Person filter"),
     sales_persons: list[str] | None = Query(default=None, description="Multi-select Sales Persons"),
+    revenue_ranges: list[str] | None = Query(default=None, description="Multi-select Revenue ranges"),
+    min_revenue: float | None = Query(default=None, ge=0, description="Minimum revenue in INR"),
+    max_revenue: float | None = Query(default=None, ge=0, description="Maximum revenue in INR"),
     tab: str | None = Query(default=None, description="Audience quick tab: all, shippers, subagents, overseas, with-contacts"),
     search: str | None = Query(default=None, min_length=1, max_length=100, description="Search company, contact person or email"),
     authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
@@ -86,6 +89,9 @@ def list_leads(
     credit_statuses = normalize_query(credit_statuses)
     sales_person = normalize_query(sales_person)
     sales_persons = normalize_query(sales_persons)
+    revenue_ranges = normalize_query(revenue_ranges)
+    min_revenue = normalize_query(min_revenue)
+    max_revenue = normalize_query(max_revenue)
     tab = normalize_query(tab)
     search = normalize_query(search)
 
@@ -144,6 +150,35 @@ def list_leads(
         placeholders = ", ".join(["?"] * len(combined_sales))
         base_conditions.append(f'"Sales Person" IN ({placeholders})')
         base_params.extend(combined_sales)
+
+    # Revenue Ranges / Thresholds
+    if revenue_ranges or min_revenue is not None or max_revenue is not None:
+        if status == "Not Active":
+            base_conditions.append("1=0")
+        else:
+            if revenue_ranges:
+                range_conditions = []
+                for r in revenue_ranges:
+                    if r == "1cr_plus":
+                        range_conditions.append('"Total Business Received From Cusomer In Last 3 Month" >= 10000000')
+                    elif r == "25l_1cr":
+                        range_conditions.append('("Total Business Received From Cusomer In Last 3 Month" >= 2500000 AND "Total Business Received From Cusomer In Last 3 Month" < 10000000)')
+                    elif r == "5l_25l":
+                        range_conditions.append('("Total Business Received From Cusomer In Last 3 Month" >= 500000 AND "Total Business Received From Cusomer In Last 3 Month" < 2500000)')
+                    elif r == "1l_5l":
+                        range_conditions.append('("Total Business Received From Cusomer In Last 3 Month" >= 100000 AND "Total Business Received From Cusomer In Last 3 Month" < 500000)')
+                    elif r == "under_1l":
+                        range_conditions.append('"Total Business Received From Cusomer In Last 3 Month" < 100000')
+                if range_conditions:
+                    base_conditions.append(f"({' OR '.join(range_conditions)})")
+
+            if min_revenue is not None:
+                base_conditions.append('"Total Business Received From Cusomer In Last 3 Month" >= ?')
+                base_params.append(min_revenue)
+
+            if max_revenue is not None:
+                base_conditions.append('"Total Business Received From Cusomer In Last 3 Month" <= ?')
+                base_params.append(max_revenue)
 
     # Contact readiness
     if has_phone:

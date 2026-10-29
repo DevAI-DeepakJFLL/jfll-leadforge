@@ -16,6 +16,7 @@ import { JfllCustomer } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
 import { useToast } from '@/components/ui';
 import { isValidPhoneNumber } from '@/utils/phoneUtils';
+import { formatIndianCurrency } from '@/services/jfllCustomerService';
 
 export interface JfllCustomerTableProps {
   customers: JfllCustomer[];
@@ -137,6 +138,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                 <th scope="col" className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
                 <th scope="col" className="py-3 px-3.5 min-w-[95px]">Status</th>
                 <th scope="col" className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
+                <th scope="col" className="py-3 px-3.5 min-w-[125px]">Recent Revenue</th>
                 <th scope="col" className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
                 <th scope="col" className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
                 <th scope="col" className="py-3 px-3.5 min-w-[190px]">Email</th>
@@ -151,6 +153,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   <td className="py-3.5 px-3.5"><div className="w-24 h-5 bg-slate-150 rounded-full" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-14 h-4 bg-emerald-100/60 rounded-full" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-20 h-4 bg-slate-150 rounded" /></td>
+                  <td className="py-3.5 px-3.5"><div className="w-16 h-4 bg-slate-150 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-28 h-3 bg-slate-200 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-28 h-3 bg-slate-200 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-36 h-3 bg-slate-200 rounded" /></td>
@@ -228,6 +231,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               <th scope="col" className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
               <th scope="col" className="py-3 px-3.5 min-w-[95px]">Status</th>
               <th scope="col" className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
+              <th scope="col" className="py-3 px-3.5 min-w-[125px]">Recent Revenue</th>
               <th scope="col" className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
               <th scope="col" className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
               <th scope="col" className="py-3 px-3.5 min-w-[190px]">Email</th>
@@ -333,6 +337,20 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         }`}
                       >
                         {c.creditStatus.replace(/_/g, ' ')}
+                      </span>
+                    ) : (
+                      <span className="text-slate-400 italic text-xs">—</span>
+                    )}
+                  </td>
+
+                  {/* Recent Revenue (Last 3 Months) */}
+                  <td className="py-3 px-3.5 align-middle whitespace-nowrap">
+                    {c.businessLast3m !== undefined && c.businessLast3m !== null ? (
+                      <span
+                        className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200"
+                        title={`₹${c.businessLast3m.toLocaleString('en-IN', { minimumFractionDigits: 2 })} in last 3 months`}
+                      >
+                        {formatIndianCurrency(c.businessLast3m)}
                       </span>
                     ) : (
                       <span className="text-slate-400 italic text-xs">—</span>

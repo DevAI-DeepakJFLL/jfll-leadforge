@@ -9,6 +9,7 @@ import {
   SlidersHorizontal,
   CreditCard,
   UserCheck,
+  TrendingUp,
   X,
 } from 'lucide-react';
 import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
@@ -18,6 +19,7 @@ import {
   getContactReadinessFacetCounts,
   getCreditStatusFacetCounts,
   getSalesPersonFacetCounts,
+  getRevenueRangeFacetCounts,
 } from '@/services/jfllCustomerService';
 
 export interface JfllCustomerFilterSidebarProps {
@@ -26,6 +28,7 @@ export interface JfllCustomerFilterSidebarProps {
   onToggleType: (type: string) => void;
   onToggleCreditStatus: (status: string) => void;
   onToggleSalesPerson: (salesPerson: string) => void;
+  onToggleRevenueRange: (rangeId: string) => void;
   onToggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   onClearAll: () => void;
   isMobileOpen?: boolean;
@@ -39,6 +42,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   onToggleType,
   onToggleCreditStatus,
   onToggleSalesPerson,
+  onToggleRevenueRange,
   onToggleContactOption,
   onClearAll,
   isMobileOpen = false,
@@ -46,6 +50,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   className = '',
 }) => {
   const [openSections, setOpenSections] = useState({
+    revenue: true,
     groups: true,
     types: true,
     creditStatus: true,
@@ -56,6 +61,11 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   const [groupSearch, setGroupSearch] = useState('');
   const [typeSearch, setTypeSearch] = useState('');
   const [salesPersonSearch, setSalesPersonSearch] = useState('');
+
+  const revenueRangesList = React.useMemo(
+    () => getRevenueRangeFacetCounts(filters.customerStatus || 'all'),
+    [filters.customerStatus]
+  );
 
   const customerGroupsList = React.useMemo(
     () => getCustomerGroupFacetCounts(filters.customerStatus || 'all'),
@@ -82,10 +92,13 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
     [filters.customerStatus]
   );
 
-  const toggleSection = (section: 'groups' | 'types' | 'creditStatus' | 'salesPerson' | 'contacts') => {
+  const toggleSection = (
+    section: 'revenue' | 'groups' | 'types' | 'creditStatus' | 'salesPerson' | 'contacts'
+  ) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
+  const selectedRevenueRanges = filters.revenueRanges || [];
   const selectedGroups = filters.customerGroups || [];
   const selectedTypes = filters.types || [];
   const selectedCreditStatuses = filters.creditStatuses || [];
@@ -104,6 +117,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   );
 
   const activeCount =
+    selectedRevenueRanges.length +
     selectedGroups.length +
     selectedTypes.length +
     selectedCreditStatuses.length +
@@ -212,7 +226,77 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
           )}
         </div>
 
-        {/* Accordion 2: Customer Group */}
+        {/* Accordion 2: Recent Revenue (Last 3 Months) */}
+        {filters.customerStatus !== 'inactive' && (
+          <div>
+            <button
+              onClick={() => toggleSection('revenue')}
+              aria-expanded={openSections.revenue}
+              className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-emerald-600" />
+                <span className="text-xs font-semibold text-slate-800">
+                  Recent Revenue (3M)
+                </span>
+                {selectedRevenueRanges.length > 0 && (
+                  <span className="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
+                    {selectedRevenueRanges.length}
+                  </span>
+                )}
+              </div>
+              <ChevronDown
+                className={`w-4 h-4 text-slate-400 transition-transform ${
+                  openSections.revenue ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+
+            {openSections.revenue && (
+              <div className="px-4 pb-3 space-y-1.5">
+                {revenueRangesList.map((range) => {
+                  const isChecked = selectedRevenueRanges.includes(range.id);
+                  return (
+                    <label
+                      key={range.id}
+                      className="flex items-center justify-between text-xs cursor-pointer group py-1"
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={() => onToggleRevenueRange(range.id)}
+                          className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer shrink-0"
+                        />
+                        <div className="truncate">
+                          <span
+                            className={`block leading-tight ${
+                              isChecked
+                                ? 'text-slate-900 font-semibold'
+                                : 'text-slate-700 group-hover:text-slate-900'
+                            }`}
+                          >
+                            {range.label}
+                          </span>
+                          {range.sublabel && (
+                            <span className="text-[10px] text-slate-400 block leading-tight">
+                              {range.sublabel}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <span className="text-[11px] font-mono text-slate-400 shrink-0 ml-2">
+                        {range.count}
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Accordion 3: Customer Group */}
         <div>
           <button
             onClick={() => toggleSection('groups')}

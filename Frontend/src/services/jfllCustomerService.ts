@@ -5,6 +5,7 @@ import {
   JfllCustomerFilterParams,
   JfllCustomersResponse,
   JfllAudienceCounts,
+  JFLL_REVENUE_RANGES,
 } from '@/types/jfllCustomer';
 import { logger } from '@/utils/logger';
 import { createCsvBlob } from '@/utils/csv';
@@ -42,6 +43,8 @@ export async function fetchJfllCustomersFromApi(
     types = [],
     creditStatuses = [],
     salesPersons = [],
+    revenueRanges = [],
+    minRevenue,
     hasPhone,
     hasEmail,
     hasContactPerson,
@@ -71,9 +74,11 @@ export async function fetchJfllCustomersFromApi(
   types.forEach((t) => urlParams.append('types', t));
   creditStatuses.forEach((cs) => urlParams.append('credit_statuses', cs));
   salesPersons.forEach((sp) => urlParams.append('sales_persons', sp));
+  revenueRanges.forEach((rr) => urlParams.append('revenue_ranges', rr));
+  if (minRevenue !== undefined) urlParams.set('min_revenue', String(minRevenue));
 
   const endpoint = `${API_BASE_URL}/api/v1/leads?${urlParams.toString()}`;
-  logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups, creditStatuses, salesPersons });
+  logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups, creditStatuses, salesPersons, revenueRanges });
 
   let authHeader: Record<string, string> = {};
   try {
@@ -160,6 +165,8 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     types = [],
     creditStatuses = [],
     salesPersons = [],
+    revenueRanges = [],
+    minRevenue,
     hasPhone,
     hasEmail,
     hasContactPerson,
@@ -210,7 +217,32 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     baseFiltered = baseFiltered.filter((c) => !!c.salesPerson && salesPersons.includes(c.salesPerson));
   }
 
-  // 6. Contact Readiness Filters
+  // 6. Revenue Range Multi-select Filter
+  if (revenueRanges.length > 0) {
+    baseFiltered = baseFiltered.filter((c) => {
+      const rev = c.businessLast3m ?? 0;
+      return revenueRanges.some((rangeId) => {
+        const def = JFLL_REVENUE_RANGES.find((r) => r.id === rangeId);
+        if (!def) return false;
+        if (def.min !== undefined && def.max !== undefined) {
+          return rev >= def.min && rev < def.max;
+        }
+        if (def.min !== undefined) {
+          return rev >= def.min;
+        }
+        if (def.max !== undefined) {
+          return rev < def.max;
+        }
+        return true;
+      });
+    });
+  }
+
+  if (minRevenue !== undefined) {
+    baseFiltered = baseFiltered.filter((c) => (c.businessLast3m ?? 0) >= minRevenue);
+  }
+
+  // 7. Contact Readiness Filters
   if (hasPhone) {
     baseFiltered = baseFiltered.filter((c) => isValidPhoneNumber(c.mobileNumber));
   }
@@ -337,6 +369,7 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
     'Legal Type',
     'Status',
     'Credit Status',
+    'Recent Business (INR)',
     'Sales Representative',
     'Contact Person Name',
     'Mobile Number',
@@ -350,6 +383,7 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
     c.type,
     c.status,
     c.creditStatus ? c.creditStatus.replace(/_/g, ' ').toUpperCase() : 'N/A',
+    c.businessLast3m !== undefined && c.businessLast3m !== null ? c.businessLast3m : 'N/A',
     c.salesPerson || 'N/A',
     c.contactPersonName,
     c.mobileNumber,
@@ -479,5 +513,66 @@ export function getSalesPersonFacetCounts(status: 'active' | 'inactive' | 'all' 
   return Object.entries(counts)
     .map(([label, count]) => ({ label, count }))
     .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+}
+
+/**
+ * Dynamically compute actual Revenue Range facet counts from dataset
+ */
+export function getRevenueRangeFacetCounts(status: 'active' | 'inactive' | 'all' = 'active'): {
+  id: string;
+  label: string;
+  sublabel?: string;
+  count: number;
+}[] {
+  if (status === 'inactive') {
+    return JFLL_REVENUE_RANGES.map((r) => ({
+      id: r.id,
+      label: r.label,
+      sublabel: r.sublabel,
+      count: 0,
+    }));
+  }
+
+  const data = status === 'all'
+    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    : JFLL_CUSTOMERS_DATA;
+
+  return JFLL_REVENUE_RANGES.map((range) => {
+    const count = data.filter((c) => {
+      if (c.status !== 'Active') return false;
+      const rev = c.businessLast3m ?? 0;
+      if (range.min !== undefined && range.max !== undefined) {
+        return rev >= range.min && rev < range.max;
+      }
+      if (range.min !== undefined) {
+        return rev >= range.min;
+      }
+      if (range.max !== undefined) {
+        return rev < range.max;
+      }
+      return true;
+    }).length;
+
+    return {
+      id: range.id,
+      label: range.label,
+      sublabel: range.sublabel,
+      count,
+    };
+  });
+}
+
+/**
+ * Format Indian Rupee currency concisely: ₹1.86 Cr, ₹53.44 L, ₹95,200
+ */
+export function formatIndianCurrency(num: number | null | undefined): string {
+  if (num === null || num === undefined || isNaN(num)) return '—';
+  if (num >= 10000000) {
+    return `₹${(num / 10000000).toFixed(2)} Cr`;
+  }
+  if (num >= 100000) {
+    return `₹${(num / 100000).toFixed(2)} L`;
+  }
+  return `₹${num.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
 }
 

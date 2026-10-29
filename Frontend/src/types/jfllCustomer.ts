@@ -35,6 +35,8 @@ export interface JfllCustomerFilterParams {
   types?: string[];
   creditStatuses?: string[];
   salesPersons?: string[];
+  revenueRanges?: string[];
+  minRevenue?: number;
   hasPhone?: boolean;
   hasEmail?: boolean;
   hasContactPerson?: boolean;
@@ -67,3 +69,19 @@ export interface JfllCustomersResponse {
   totalPages: number;
   audienceCounts: JfllAudienceCounts;
 }
+
+export interface JfllRevenueRange {
+  id: string;
+  label: string;
+  sublabel?: string;
+  min?: number;
+  max?: number;
+}
+
+export const JFLL_REVENUE_RANGES: JfllRevenueRange[] = [
+  { id: '1cr_plus', label: '₹1 Crore+', sublabel: 'Enterprise (₹10M+)', min: 10000000 },
+  { id: '25l_1cr', label: '₹25L - ₹1 Cr', sublabel: 'Key Accounts (₹2.5M - ₹10M)', min: 2500000, max: 10000000 },
+  { id: '5l_25l', label: '₹5L - ₹25L', sublabel: 'Mid-Market (₹500k - ₹2.5M)', min: 500000, max: 2500000 },
+  { id: '1l_5l', label: '₹1L - ₹5L', sublabel: 'Growth (₹100k - ₹500k)', min: 100000, max: 500000 },
+  { id: 'under_1l', label: 'Under ₹1 Lakh', sublabel: 'Starter (< ₹100k)', max: 100000 },
+];

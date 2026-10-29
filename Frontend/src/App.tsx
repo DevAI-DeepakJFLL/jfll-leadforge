@@ -583,6 +583,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     toggleType: toggleJfllType,
     toggleCreditStatus: toggleJfllCreditStatus,
     toggleSalesPerson: toggleJfllSalesPerson,
+    toggleRevenueRange: toggleJfllRevenueRange,
     toggleContactOption: toggleJfllContactOption,
     clearAllFilters: clearAllJfllFilters,
   } = useJfllCustomersFilter();
@@ -1081,6 +1082,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           toggleType={toggleJfllType}
           toggleCreditStatus={toggleJfllCreditStatus}
           toggleSalesPerson={toggleJfllSalesPerson}
+          toggleRevenueRange={toggleJfllRevenueRange}
           toggleContactOption={toggleJfllContactOption}
           clearAllFilters={clearAllJfllFilters}
           onCustomerClick={(c) => setSelectedJfllCustomer(c)}

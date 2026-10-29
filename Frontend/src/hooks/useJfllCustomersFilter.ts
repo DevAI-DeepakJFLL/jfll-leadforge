@@ -11,6 +11,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     types: [],
     creditStatuses: [],
     salesPersons: [],
+    revenueRanges: [],
     hasPhone: false,
     hasEmail: false,
     hasContactPerson: false,
@@ -27,6 +28,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
       types: [],
       creditStatuses: [],
       salesPersons: [],
+      revenueRanges: [],
     }));
   }, []);
 
@@ -86,6 +88,16 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     });
   }, []);
 
+  const toggleRevenueRange = useCallback((rangeId: string) => {
+    setFilters((prev) => {
+      const current = prev.revenueRanges || [];
+      const updated = current.includes(rangeId)
+        ? current.filter((r) => r !== rangeId)
+        : [...current, rangeId];
+      return { ...prev, revenueRanges: updated, page: 1 };
+    });
+  }, []);
+
   const toggleContactOption = useCallback(
     (key: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => {
       setFilters((prev) => ({
@@ -106,6 +118,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
       types: [],
       creditStatuses: [],
       salesPersons: [],
+      revenueRanges: [],
       hasPhone: false,
       hasEmail: false,
       hasContactPerson: false,
@@ -127,6 +140,9 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     if (filters.salesPersons && filters.salesPersons.length > 0) {
       count += filters.salesPersons.length;
     }
+    if (filters.revenueRanges && filters.revenueRanges.length > 0) {
+      count += filters.revenueRanges.length;
+    }
     if (filters.hasPhone) count += 1;
     if (filters.hasEmail) count += 1;
     if (filters.hasContactPerson) count += 1;
@@ -146,6 +162,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     toggleType,
     toggleCreditStatus,
     toggleSalesPerson,
+    toggleRevenueRange,
     toggleContactOption,
     clearAllFilters,
     activeFilterCount,
