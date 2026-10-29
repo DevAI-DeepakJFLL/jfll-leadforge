@@ -1,4 +1,4 @@
-import { DatamyneLead } from './datamyneLead';
+import { DatamyneLead, DatamyneDatasetType, TransportMode } from './datamyneLead';
 
 export type TierSegmentStatus = 'Tier A' | 'Tier B' | 'Parked' | 'Excluded' | 'Unscored';
 
@@ -65,6 +65,19 @@ export interface TierFilterParams {
   maxScore?: number;
   page?: number;
   pageSize?: number;
+  // Datamyne faceted sidebar filters
+  countries?: string[];
+  transportModes?: TransportMode[];
+  categories?: string[];
+  subcategories?: string[];
+  roles?: string[];
+  cities?: string[];
+  tradeLanes?: string[];
+  contactStatus?: string[];
+  minShipments?: number;
+  minTradedValueUsd?: number;
+  hasDirectors?: boolean;
+  dataset?: DatamyneDatasetType;
 }
 
 export interface PaginatedTierResponse {

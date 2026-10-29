@@ -1,9 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import fs from 'fs';
+import path from 'path';
 import {
   fetchTierCounts,
   fetchTierLeads,
   fetchTierLeadBreakdown,
   queryTierLeadsLocal,
+  queryTierCountsLocal,
+  setLoadedTierDataset,
   DEFAULT_STARTER_TIER_COUNTS,
 } from '@/services/tierService';
 import { API_BASE_URL } from '@/config/api';
@@ -186,6 +190,129 @@ describe('Tier Service Suite', () => {
     expect(res?.id).toBe(sampleLeadId);
     expect(res?.segment_status).toBe('Tier A');
     expect(res?.score_breakdown).toBeDefined();
+  });
+
+  describe('Multi-faceted Tier Filtering (Perishables + Mumbai and combinations)', () => {
+    beforeEach(() => {
+      // Load full 37,273 records for accurate production assertion
+      try {
+        const fullJsonPath = path.resolve(__dirname, '../../public/data/datamyne_tier_segments.json');
+        if (fs.existsSync(fullJsonPath)) {
+          const raw = JSON.parse(fs.readFileSync(fullJsonPath, 'utf8'));
+          setLoadedTierDataset(raw);
+        }
+      } catch {
+        // Fallback to starter dataset if file read fails
+      }
+    });
+
+    it('filters SOP Tier A by Perishables accurately', () => {
+      const res = queryTierLeadsLocal({
+        status: 'Tier A',
+        categories: ['Perishables'],
+        pageSize: 100,
+      });
+
+      expect(res.total).toBe(243);
+      expect(res.items.length).toBeGreaterThan(0);
+      expect(res.items.every((l) => l.segment_status === 'Tier A')).toBe(true);
+      expect(res.items.every((l) => l.category === 'Perishables')).toBe(true);
+    });
+
+    it('correctly narrows from all Perishables down to Mumbai Perishables when adding Mumbai filter (user test case)', () => {
+      // 1. All Tier A Perishables
+      const allPerishables = queryTierLeadsLocal({
+        status: 'Tier A',
+        categories: ['Perishables'],
+        pageSize: 1000,
+      });
+      expect(allPerishables.total).toBe(243);
+
+      // 2. Add Mumbai filter: must strictly narrow down to 57 leads
+      const mumbaiPerishables = queryTierLeadsLocal({
+        status: 'Tier A',
+        categories: ['Perishables'],
+        cities: ['MUMBAI'],
+        pageSize: 1000,
+      });
+      expect(mumbaiPerishables.total).toBe(57);
+      expect(mumbaiPerishables.items.length).toBe(57);
+      expect(mumbaiPerishables.total).toBeLessThan(allPerishables.total);
+
+      // Every returned lead must be in Mumbai, Tier A, and Perishables
+      for (const lead of mumbaiPerishables.items) {
+        expect(lead.segment_status).toBe('Tier A');
+        expect(lead.category).toBe('Perishables');
+        expect(lead.city.toUpperCase()).toContain('MUMBAI');
+      }
+    });
+
+    it('filters Tier A + Perishables + Mumbai + Transport Mode Air', () => {
+      const airPerishables = queryTierLeadsLocal({
+        status: 'Tier A',
+        categories: ['Perishables'],
+        cities: ['MUMBAI'],
+        transportModes: ['Air'],
+        pageSize: 100,
+      });
+
+      expect(airPerishables.total).toBe(53);
+      expect(airPerishables.items.every((l) => l.transport_mode === 'Air')).toBe(true);
+    });
+
+    it('filters Tier A + Pharma & Healthcare + Hyderabad', () => {
+      const res = queryTierLeadsLocal({
+        status: 'Tier A',
+        categories: ['Pharma & Healthcare'],
+        cities: ['HYDERABAD'],
+        pageSize: 100,
+      });
+
+      expect(res.total).toBe(92);
+      expect(res.items.every((l) => l.category === 'Pharma & Healthcare')).toBe(true);
+      expect(res.items.every((l) => l.city.toUpperCase().includes('HYDERABAD'))).toBe(true);
+    });
+
+    it('queryTierCountsLocal accurately computes dynamic distribution matching active filters', () => {
+      const counts = queryTierCountsLocal({
+        categories: ['Perishables'],
+        cities: ['MUMBAI'],
+      });
+
+      expect(counts.tier_a).toBe(57);
+      expect(counts.all).toBeGreaterThanOrEqual(57);
+    });
+
+    it('fetchTierLeads serializes categories and cities query params properly', async () => {
+      let capturedUrl = '';
+      global.fetch = vi.fn().mockImplementation((url: string) => {
+        capturedUrl = url;
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({
+            items: [],
+            total: 57,
+            page: 1,
+            page_size: 25,
+            total_pages: 3,
+            has_next: true,
+          }),
+        });
+      });
+
+      const res = await fetchTierLeads({
+        status: 'Tier A',
+        categories: ['Perishables'],
+        cities: ['MUMBAI'],
+        transportModes: ['Air'],
+      });
+
+      expect(res.total).toBe(57);
+      expect(capturedUrl).toContain('status=Tier+A');
+      expect(capturedUrl).toContain('categories=Perishables');
+      expect(capturedUrl).toContain('cities=MUMBAI');
+      expect(capturedUrl).toContain('transport_modes=Air');
+    });
   });
 });
 

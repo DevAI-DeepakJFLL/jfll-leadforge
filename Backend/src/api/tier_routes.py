@@ -43,23 +43,292 @@ def _format_score_breakdown(record: dict[str, Any], pop: bool = False) -> dict[s
     }
 
 
+def _build_tier_filter_conditions(
+    status: str | None = None,
+    search: str | None = None,
+    min_score: int | None = None,
+    max_score: int | None = None,
+    categories: list[str] | None = None,
+    category: str | None = None,
+    subcategories: list[str] | None = None,
+    subcategory: str | None = None,
+    cities: list[str] | None = None,
+    city: str | None = None,
+    countries: list[str] | None = None,
+    country: str | None = None,
+    transport_modes: list[str] | None = None,
+    transport_mode: str | None = None,
+    roles: list[str] | None = None,
+    role: str | None = None,
+    trade_lanes: list[str] | None = None,
+    contact_status: list[str] | None = None,
+    min_shipments: int | None = None,
+    min_value: float | None = None,
+    has_directors: bool | None = None,
+    dataset: str | None = None,
+) -> tuple[list[str], list[Any]]:
+    """Build parameterized WHERE clauses for combined status and Datamyne faceted filters."""
+    conditions = ["1=1"]
+    params: list[Any] = []
+
+    if status and status.strip() and status.strip().lower() != "all":
+        clean_status = status.strip()
+        if clean_status.lower() in ("tier a", "tier_a", "tier-a"):
+            clean_status = "Tier A"
+        elif clean_status.lower() in ("tier b", "tier_b", "tier-b"):
+            clean_status = "Tier B"
+        elif clean_status.lower() == "parked":
+            clean_status = "Parked"
+        elif clean_status.lower() == "excluded":
+            clean_status = "Excluded"
+        elif clean_status.lower() == "unscored":
+            clean_status = "Unscored"
+        conditions.append("t.segment_status = ?")
+        params.append(clean_status)
+
+    if min_score is not None:
+        conditions.append("t.total_score >= ?")
+        params.append(min_score)
+
+    if max_score is not None:
+        conditions.append("t.total_score <= ?")
+        params.append(max_score)
+
+    if search and search.strip():
+        pat = f"%{search.strip().lower()}%"
+        conditions.append(
+            "(lower(d.company_name) LIKE ? OR lower(d.city) LIKE ? OR lower(d.category) LIKE ? OR lower(d.subcategory) LIKE ? OR lower(d.top_hs_codes) LIKE ? OR lower(d.address) LIKE ?)"
+        )
+        params.extend([pat, pat, pat, pat, pat, pat])
+
+    # Categories
+    all_cats: list[str] = []
+    if categories:
+        all_cats.extend(categories if isinstance(categories, list) else [categories])
+    if category and category not in all_cats:
+        all_cats.append(category)
+    flat_cats = []
+    for c in all_cats:
+        if isinstance(c, str):
+            flat_cats.extend([x.strip() for x in c.split(",") if x.strip()])
+    if flat_cats:
+        placeholders = ", ".join(["?"] * len(flat_cats))
+        conditions.append(f"d.category IN ({placeholders})")
+        params.extend(flat_cats)
+
+    # Subcategories
+    all_subs: list[str] = []
+    if subcategories:
+        all_subs.extend(subcategories if isinstance(subcategories, list) else [subcategories])
+    if subcategory and subcategory not in all_subs:
+        all_subs.append(subcategory)
+    flat_subs = []
+    for s in all_subs:
+        if isinstance(s, str):
+            flat_subs.extend([x.strip() for x in s.split(",") if x.strip()])
+    if flat_subs:
+        placeholders = ", ".join(["?"] * len(flat_subs))
+        conditions.append(f"d.subcategory IN ({placeholders})")
+        params.extend(flat_subs)
+
+    # Cities (normalized matching for hub aliases)
+    all_cities: list[str] = []
+    if cities:
+        all_cities.extend(cities if isinstance(cities, list) else [cities])
+    if city and city not in all_cities:
+        all_cities.append(city)
+    flat_cities = []
+    for ct in all_cities:
+        if isinstance(ct, str):
+            flat_cities.extend([x.strip() for x in ct.split(",") if x.strip()])
+    if flat_cities:
+        city_clauses = []
+        for c in flat_cities:
+            city_clauses.append("lower(d.city) LIKE ?")
+            params.append(f"%{c.lower()}%")
+        conditions.append(f"({' OR '.join(city_clauses)})")
+
+    # Countries
+    all_countries: list[str] = []
+    if countries:
+        all_countries.extend(countries if isinstance(countries, list) else [countries])
+    if country and country not in all_countries:
+        all_countries.append(country)
+    flat_countries = []
+    for c in all_countries:
+        if isinstance(c, str):
+            flat_countries.extend([x.strip() for x in c.split(",") if x.strip()])
+    if flat_countries:
+        placeholders = ", ".join(["?"] * len(flat_countries))
+        conditions.append(f"COALESCE(d.country, 'India') IN ({placeholders})")
+        params.extend(flat_countries)
+
+    # Transport Modes
+    all_modes: list[str] = []
+    if transport_modes:
+        all_modes.extend(transport_modes if isinstance(transport_modes, list) else [transport_modes])
+    if transport_mode and transport_mode not in all_modes:
+        all_modes.append(transport_mode)
+    flat_modes = []
+    for m in all_modes:
+        if isinstance(m, str):
+            flat_modes.extend([x.strip() for x in m.split(",") if x.strip()])
+    if flat_modes:
+        placeholders = ", ".join(["?"] * len(flat_modes))
+        conditions.append(f"d.transport_mode IN ({placeholders})")
+        params.extend(flat_modes)
+
+    # Roles
+    all_roles: list[str] = []
+    if roles:
+        all_roles.extend(roles if isinstance(roles, list) else [roles])
+    if role and role not in all_roles:
+        all_roles.append(role)
+    flat_roles = []
+    for r in all_roles:
+        if isinstance(r, str):
+            flat_roles.extend([x.strip() for x in r.split(",") if x.strip()])
+    if flat_roles:
+        has_exp = "Exporter" in flat_roles
+        has_imp = "Importer" in flat_roles
+        has_both = any(x in flat_roles for x in ("Both", "Both (Exporter & Importer)"))
+        role_clauses = []
+        if has_both:
+            role_clauses.append("d.role IN ('Both', 'Both (Exporter & Importer)')")
+        if has_exp:
+            role_clauses.append("d.role = 'Exporter'")
+            if has_imp:
+                role_clauses.append("d.role IN ('Both', 'Both (Exporter & Importer)')")
+        if has_imp:
+            role_clauses.append("d.role = 'Importer'")
+        if role_clauses:
+            conditions.append(f"({' OR '.join(role_clauses)})")
+
+    # Trade Lanes
+    all_lanes: list[str] = []
+    if trade_lanes:
+        all_lanes.extend(trade_lanes if isinstance(trade_lanes, list) else [trade_lanes])
+    flat_lanes = []
+    for tl in all_lanes:
+        if isinstance(tl, str):
+            flat_lanes.extend([x.strip() for x in tl.split(",") if x.strip()])
+    if flat_lanes:
+        lane_clauses = []
+        for lane in flat_lanes:
+            lane_clauses.append("d.trade_lanes LIKE ?")
+            params.append(f"%{lane}%")
+        conditions.append(f"({' OR '.join(lane_clauses)})")
+
+    # Contact Status
+    all_contacts: list[str] = []
+    if contact_status:
+        all_contacts.extend(contact_status if isinstance(contact_status, list) else [contact_status])
+    flat_contacts = []
+    for cs in all_contacts:
+        if isinstance(cs, str):
+            flat_contacts.extend([x.strip() for x in cs.split(",") if x.strip()])
+    if flat_contacts:
+        contact_clauses = []
+        if "both" in flat_contacts:
+            contact_clauses.append("(d.phone IS NOT NULL AND d.phone != '' AND d.email IS NOT NULL AND d.email != '')")
+        if "phone_only" in flat_contacts:
+            contact_clauses.append("(d.phone IS NOT NULL AND d.phone != '' AND (d.email IS NULL OR d.email = ''))")
+        if "email_only" in flat_contacts:
+            contact_clauses.append("((d.phone IS NULL OR d.phone = '') AND d.email IS NOT NULL AND d.email != '')")
+        if "missing" in flat_contacts:
+            contact_clauses.append("((d.phone IS NULL OR d.phone = '') AND (d.email IS NULL OR d.email = ''))")
+        if contact_clauses:
+            conditions.append(f"({' OR '.join(contact_clauses)})")
+
+    # Volume & Value Thresholds
+    if min_shipments is not None and min_shipments > 0:
+        conditions.append("d.total_shipments >= ?")
+        params.append(min_shipments)
+
+    if min_value is not None and min_value > 0:
+        conditions.append("d.total_value_usd >= ?")
+        params.append(min_value)
+
+    # Has Directors
+    if has_directors:
+        conditions.append("d.directors IS NOT NULL AND trim(d.directors) != ''")
+
+    # Dataset Type
+    if dataset and dataset != "all":
+        conditions.append("d.dataset_type = ?")
+        params.append(dataset)
+
+    return conditions, params
+
+
 @tier_router.get("/counts", summary="Get Tier A/B status counts and capacity telemetry")
 def get_tier_counts(
+    search: str | None = Query(default=None),
+    min_score: int | None = Query(default=None, ge=0, le=100),
+    max_score: int | None = Query(default=None, ge=0, le=100),
+    categories: list[str] | None = Query(default=None),
+    category: str | None = Query(default=None),
+    subcategories: list[str] | None = Query(default=None),
+    subcategory: str | None = Query(default=None),
+    cities: list[str] | None = Query(default=None),
+    city: str | None = Query(default=None),
+    countries: list[str] | None = Query(default=None),
+    country: str | None = Query(default=None),
+    transport_modes: list[str] | None = Query(default=None),
+    transport_mode: str | None = Query(default=None),
+    roles: list[str] | None = Query(default=None),
+    role: str | None = Query(default=None),
+    trade_lanes: list[str] | None = Query(default=None),
+    contact_status: list[str] | None = Query(default=None),
+    min_shipments: int | None = Query(default=None),
+    min_value: float | None = Query(default=None),
+    has_directors: bool | None = Query(default=None),
+    dataset: str | None = Query(default=None),
     authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
 ) -> dict[str, Any]:
     """Returns real-time distribution across Tier A, Tier B, Parked, Excluded, and Unscored."""
     require_auth(authorization, "tiered leads")
     try:
+        dm_path = get_cached_parquet_path("datamyne")
         tier_path = get_cached_parquet_path("datamyne_tiers")
         con = get_db_connection()
+
+        conditions, params = _build_tier_filter_conditions(
+            status=None,
+            search=search,
+            min_score=min_score,
+            max_score=max_score,
+            categories=categories,
+            category=category,
+            subcategories=subcategories,
+            subcategory=subcategory,
+            cities=cities,
+            city=city,
+            countries=countries,
+            country=country,
+            transport_modes=transport_modes,
+            transport_mode=transport_mode,
+            roles=roles,
+            role=role,
+            trade_lanes=trade_lanes,
+            contact_status=contact_status,
+            min_shipments=min_shipments,
+            min_value=min_value,
+            has_directors=has_directors,
+            dataset=dataset,
+        )
+        where_clause = " AND ".join(conditions)
+
         query = f"""
             SELECT 
-                segment_status,
+                t.segment_status,
                 count(*) as count
-            FROM '{tier_path}'
-            GROUP BY segment_status
+            FROM '{dm_path}' d
+            JOIN '{tier_path}' t ON d.id = t.id
+            WHERE {where_clause}
+            GROUP BY t.segment_status
         """
-        rows = con.execute(query).fetchall()
+        rows = con.execute(query, params).fetchall()
         counts_map = {r[0]: r[1] for r in rows}
 
         tier_a = counts_map.get("Tier A", 0)
@@ -90,6 +359,24 @@ def get_tier_leads(
     search: str | None = Query(default=None, description="Search company name or city"),
     min_score: int | None = Query(default=None, ge=0, le=100),
     max_score: int | None = Query(default=None, ge=0, le=100),
+    categories: list[str] | None = Query(default=None),
+    category: str | None = Query(default=None),
+    subcategories: list[str] | None = Query(default=None),
+    subcategory: str | None = Query(default=None),
+    cities: list[str] | None = Query(default=None),
+    city: str | None = Query(default=None),
+    countries: list[str] | None = Query(default=None),
+    country: str | None = Query(default=None),
+    transport_modes: list[str] | None = Query(default=None),
+    transport_mode: str | None = Query(default=None),
+    roles: list[str] | None = Query(default=None),
+    role: str | None = Query(default=None),
+    trade_lanes: list[str] | None = Query(default=None),
+    contact_status: list[str] | None = Query(default=None),
+    min_shipments: int | None = Query(default=None),
+    min_value: float | None = Query(default=None),
+    has_directors: bool | None = Query(default=None),
+    dataset: str | None = Query(default=None),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=25, ge=1, le=100),
     authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
@@ -101,38 +388,30 @@ def get_tier_leads(
         tier_path = get_cached_parquet_path("datamyne_tiers")
         con = get_db_connection()
 
-        conditions = ["1=1"]
-        params = []
-
-        if status and status.strip() and status.strip().lower() != "all":
-            clean_status = status.strip()
-            # Handle URL variations like 'tier-a' or 'Tier A'
-            if clean_status.lower() in ("tier a", "tier_a", "tier-a"):
-                clean_status = "Tier A"
-            elif clean_status.lower() in ("tier b", "tier_b", "tier-b"):
-                clean_status = "Tier B"
-            elif clean_status.lower() == "parked":
-                clean_status = "Parked"
-            elif clean_status.lower() == "excluded":
-                clean_status = "Excluded"
-            elif clean_status.lower() == "unscored":
-                clean_status = "Unscored"
-
-            conditions.append("t.segment_status = ?")
-            params.append(clean_status)
-
-        if min_score is not None:
-            conditions.append("t.total_score >= ?")
-            params.append(min_score)
-
-        if max_score is not None:
-            conditions.append("t.total_score <= ?")
-            params.append(max_score)
-
-        if search and search.strip():
-            pat = f"%{search.strip().lower()}%"
-            conditions.append("(lower(d.company_name) LIKE ? OR lower(d.city) LIKE ? OR lower(d.category) LIKE ?)")
-            params.extend([pat, pat, pat])
+        conditions, params = _build_tier_filter_conditions(
+            status=status,
+            search=search,
+            min_score=min_score,
+            max_score=max_score,
+            categories=categories,
+            category=category,
+            subcategories=subcategories,
+            subcategory=subcategory,
+            cities=cities,
+            city=city,
+            countries=countries,
+            country=country,
+            transport_modes=transport_modes,
+            transport_mode=transport_mode,
+            roles=roles,
+            role=role,
+            trade_lanes=trade_lanes,
+            contact_status=contact_status,
+            min_shipments=min_shipments,
+            min_value=min_value,
+            has_directors=has_directors,
+            dataset=dataset,
+        )
 
         where_clause = " AND ".join(conditions)
 

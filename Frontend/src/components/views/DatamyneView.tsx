@@ -12,7 +12,13 @@ import { useQuery } from '@tanstack/react-query';
 import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 import { TierAudienceTabs } from '@/components/tiers';
 import { useTierFilter } from '@/hooks/useTierFilter';
-import { fetchTierCounts, fetchTierLeads, queryTierLeadsLocal } from '@/services/tierService';
+import {
+  fetchTierCounts,
+  fetchTierLeads,
+  queryTierLeadsLocal,
+  queryTierCountsLocal,
+} from '@/services/tierService';
+import { TierFilterParams } from '@/types/tierSegmentation';
 import {
   DatamyneFilterParams,
   DatamyneResponse,
@@ -20,6 +26,7 @@ import {
   TransportMode,
   DatamyneDatasetType,
   DatamyneAudienceTab,
+  TAB_TO_CATEGORY_MAP,
 } from '@/types/datamyneLead';
 
 export interface DatamyneViewProps {
@@ -97,45 +104,110 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
     setPage: setTierPage,
   } = useTierFilter({ status: 'tier-a' });
 
+  // Effective categories: prioritize explicit sidebar categories, fallback to active vertical tab category if selected
+  const effectiveCategories = React.useMemo(() => {
+    if (filters.categories && filters.categories.length > 0) {
+      return filters.categories;
+    }
+    if (filters.tab && filters.tab !== 'all' && TAB_TO_CATEGORY_MAP[filters.tab]) {
+      return [TAB_TO_CATEGORY_MAP[filters.tab]!];
+    }
+    return [];
+  }, [filters.categories, filters.tab]);
+
+  const tierFilterParams: TierFilterParams = React.useMemo(() => {
+    const statusMap: Record<string, string | undefined> = {
+      'tier-a': 'Tier A',
+      'tier-b': 'Tier B',
+      'parked': 'Parked',
+      'excluded': 'Excluded',
+      'unscored': 'Unscored',
+      'all': undefined,
+    };
+    return {
+      status: statusMap[tierTab],
+      page: tierPage,
+      pageSize: query.limit || 25,
+      search: filters.q,
+      countries: filters.countries,
+      transportModes: filters.transportModes,
+      categories: effectiveCategories,
+      subcategories: filters.subcategories,
+      roles: filters.roles,
+      cities: filters.cities,
+      tradeLanes: filters.tradeLanes,
+      contactStatus: filters.contactStatus,
+      minShipments: filters.minShipments,
+      minTradedValueUsd: filters.minTradedValueUsd,
+      hasDirectors: filters.hasDirectors,
+      dataset: filters.dataset,
+    };
+  }, [tierTab, tierPage, query.limit, filters, effectiveCategories]);
+
+  // Reset tierPage to 1 whenever sidebar filters change
+  React.useEffect(() => {
+    setTierPage(1);
+  }, [
+    filters.countries,
+    filters.transportModes,
+    effectiveCategories,
+    filters.subcategories,
+    filters.roles,
+    filters.cities,
+    filters.tradeLanes,
+    filters.contactStatus,
+    filters.minShipments,
+    filters.minTradedValueUsd,
+    filters.hasDirectors,
+    filters.dataset,
+    filters.q,
+    setTierPage,
+  ]);
+
   const { data: tierCounts } = useQuery({
-    queryKey: ['tierCounts'],
-    queryFn: fetchTierCounts,
+    queryKey: [
+      'tierCounts',
+      filters.q,
+      filters.countries,
+      filters.transportModes,
+      effectiveCategories,
+      filters.subcategories,
+      filters.roles,
+      filters.cities,
+      filters.tradeLanes,
+      filters.contactStatus,
+      filters.minShipments,
+      filters.minTradedValueUsd,
+      filters.hasDirectors,
+      filters.dataset,
+    ],
+    queryFn: () => fetchTierCounts(tierFilterParams),
+    placeholderData: (prev) => prev ?? queryTierCountsLocal(tierFilterParams),
     staleTime: 60000,
   });
 
   const { data: tierData, isLoading: isTierLoading } = useQuery({
-    queryKey: ['tierLeads', tierTab, tierPage, filters.q],
-    queryFn: () => {
-      const statusMap: Record<string, string | undefined> = {
-        'tier-a': 'Tier A',
-        'tier-b': 'Tier B',
-        'parked': 'Parked',
-        'excluded': 'Excluded',
-        'unscored': 'Unscored',
-        'all': undefined,
-      };
-      return fetchTierLeads({
-        status: statusMap[tierTab],
-        page: tierPage,
-        pageSize: query.limit || 25,
-        search: filters.q,
-      });
-    },
-    placeholderData: (prev) =>
-      prev ??
-      queryTierLeadsLocal({
-        status: {
-          'tier-a': 'Tier A',
-          'tier-b': 'Tier B',
-          'parked': 'Parked',
-          'excluded': 'Excluded',
-          'unscored': 'Unscored',
-          'all': undefined,
-        }[tierTab],
-        page: tierPage,
-        pageSize: query.limit || 25,
-        search: filters.q,
-      }),
+    queryKey: [
+      'tierLeads',
+      tierTab,
+      tierPage,
+      query.limit || 25,
+      filters.q,
+      filters.countries,
+      filters.transportModes,
+      effectiveCategories,
+      filters.subcategories,
+      filters.roles,
+      filters.cities,
+      filters.tradeLanes,
+      filters.contactStatus,
+      filters.minShipments,
+      filters.minTradedValueUsd,
+      filters.hasDirectors,
+      filters.dataset,
+    ],
+    queryFn: () => fetchTierLeads(tierFilterParams),
+    placeholderData: (prev) => prev ?? queryTierLeadsLocal(tierFilterParams),
     enabled: perspective === 'tiers',
     staleTime: 30000,
   });

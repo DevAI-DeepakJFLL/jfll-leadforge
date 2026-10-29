@@ -97,3 +97,44 @@ def test_tier_endpoints_unauthorized_or_invalid_token():
         assert "Authentication required to access tiered leads" in res_prod_breakdown.json()["detail"]
     finally:
         settings.env = orig_env
+
+
+def test_tier_leads_faceted_filtering_perishables_and_mumbai():
+    """Verify multi-faceted filtering for SOP Tier A with Category, City, Mode, and Role."""
+    headers = _get_auth_headers()
+
+    # 1. Tier A + Perishables
+    res_perishables = client.get("/api/v1/tiers/leads?status=Tier A&categories=Perishables&page_size=10", headers=headers)
+    assert res_perishables.status_code == 200
+    data_p = res_perishables.json()
+    assert data_p["total"] == 243
+    assert all(item["category"] == "Perishables" for item in data_p["items"])
+    assert all(item["segment_status"] == "Tier A" for item in data_p["items"])
+
+    # 2. Tier A + Perishables + Mumbai (verifying the exact user reported test case)
+    res_mumbai = client.get("/api/v1/tiers/leads?status=Tier A&categories=Perishables&cities=MUMBAI&page_size=100", headers=headers)
+    assert res_mumbai.status_code == 200
+    data_m = res_mumbai.json()
+    assert data_m["total"] == 57
+    assert len(data_m["items"]) == 57
+    assert all("mumbai" in item["city"].lower() for item in data_m["items"])
+    assert all(item["category"] == "Perishables" for item in data_m["items"])
+
+    # 3. Tier A + Perishables + Mumbai + Transport Mode Air
+    res_air = client.get("/api/v1/tiers/leads?status=Tier A&categories=Perishables&cities=MUMBAI&transport_modes=Air", headers=headers)
+    assert res_air.status_code == 200
+    data_air = res_air.json()
+    assert data_air["total"] == 53
+    assert all(item["transport_mode"] == "Air" for item in data_air["items"])
+
+    # 4. Tier A + Pharma & Healthcare + Hyderabad (with URL encoded &)
+    res_pharma = client.get("/api/v1/tiers/leads?status=Tier A&categories=Pharma%20%26%20Healthcare&cities=HYDERABAD", headers=headers)
+    assert res_pharma.status_code == 200
+    assert res_pharma.json()["total"] == 92
+
+    # 5. Filtered Tier Counts
+    res_counts = client.get("/api/v1/tiers/counts?categories=Perishables&cities=MUMBAI", headers=headers)
+    assert res_counts.status_code == 200
+    counts = res_counts.json()
+    assert counts["tier_a"] == 57
+
