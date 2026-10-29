@@ -13,7 +13,7 @@ import {
   Layers,
   ArrowUp,
   ArrowDown,
-  ArrowUpDown,
+  ChevronsUpDown,
 } from 'lucide-react';
 import { JfllCustomer, JfllCustomerSortField } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
@@ -139,33 +139,57 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
     field: JfllCustomerSortField,
     label: string,
     widthClass: string,
-    tooltip?: string
+    customTooltip?: string
   ) => {
     const isSorted = sortBy === field;
+    const isAsc = isSorted && sortOrder === 'asc';
     return (
       <th
         scope="col"
-        aria-sort={isSorted ? (sortOrder === 'asc' ? 'ascending' : 'descending') : 'none'}
-        className={`py-3 ${widthClass} cursor-pointer select-none hover:bg-slate-100/90 transition-colors group/th`}
-        onClick={() => onSortChange?.(field)}
-        title={tooltip || `Sort by ${label} (${isSorted ? (sortOrder === 'asc' ? 'ascending' : 'descending') : 'click to sort'})`}
+        aria-sort={isSorted ? (isAsc ? 'ascending' : 'descending') : 'none'}
+        className={`py-2.5 ${widthClass} select-none transition-colors ${
+          isSorted ? 'bg-blue-50/70 text-apollo-900' : 'hover:bg-slate-100/80'
+        }`}
       >
-        <div className="flex items-center gap-1.5">
-          <span className={isSorted ? 'text-slate-900 font-bold' : 'text-slate-600 group-hover/th:text-slate-900'}>
+        <button
+          type="button"
+          onClick={() => onSortChange?.(field)}
+          className="w-full flex items-center justify-between gap-1.5 text-left font-semibold text-[11px] uppercase tracking-wider focus:outline-none focus-visible:ring-2 focus-visible:ring-apollo rounded py-0.5 cursor-pointer group/btn"
+          title={
+            customTooltip ||
+            (isSorted
+              ? `Sorted ${isAsc ? 'A to Z / lowest first' : 'Z to A / highest first'} — Click to reverse order`
+              : `Sort by ${label}`)
+          }
+        >
+          <span
+            className={`truncate transition-colors ${
+              isSorted
+                ? 'text-apollo-700 font-bold'
+                : 'text-slate-600 group-hover/btn:text-slate-900'
+            }`}
+          >
             {label}
           </span>
-          <span className="shrink-0">
+          <span
+            className={`shrink-0 flex items-center justify-center w-5 h-5 rounded-md transition-all ${
+              isSorted
+                ? 'bg-apollo text-white shadow-2xs'
+                : 'text-slate-400 group-hover/btn:text-slate-700 group-hover/btn:bg-slate-200/70'
+            }`}
+            aria-hidden="true"
+          >
             {isSorted ? (
-              sortOrder === 'asc' ? (
-                <ArrowUp className="w-3.5 h-3.5 text-apollo font-bold" />
+              isAsc ? (
+                <ArrowUp className="w-3.5 h-3.5 stroke-[2.5]" />
               ) : (
-                <ArrowDown className="w-3.5 h-3.5 text-apollo font-bold" />
+                <ArrowDown className="w-3.5 h-3.5 stroke-[2.5]" />
               )
             ) : (
-              <ArrowUpDown className="w-3 h-3 text-slate-300 opacity-0 group-hover/th:opacity-100 transition-opacity" />
+              <ChevronsUpDown className="w-3.5 h-3.5 stroke-[2]" />
             )}
           </span>
-        </div>
+        </button>
       </th>
     );
   };
@@ -177,16 +201,16 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-                <th scope="col" className="py-3 px-3 w-10 text-center"><span className="sr-only">Select</span></th>
-                <th scope="col" className="py-3 px-4 min-w-[260px]">Company Name</th>
-                <th scope="col" className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
-                <th scope="col" className="py-3 px-3.5 min-w-[95px]">Status</th>
-                <th scope="col" className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
-                <th scope="col" className="py-3 px-3.5 min-w-[125px]">Recent Revenue</th>
-                <th scope="col" className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
-                <th scope="col" className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
-                <th scope="col" className="py-3 px-3.5 min-w-[190px]">Email</th>
-                <th scope="col" className="py-3 px-4 w-20 text-center">Action</th>
+                <th scope="col" className="py-2.5 px-3 w-10 text-center"><span className="sr-only">Select</span></th>
+                <th scope="col" className="py-2.5 px-4 min-w-[260px]">Company Name</th>
+                <th scope="col" className="py-2.5 px-3.5 min-w-[150px]">Customer Group</th>
+                <th scope="col" className="py-2.5 px-3.5 min-w-[95px]">Status</th>
+                <th scope="col" className="py-2.5 px-3.5 min-w-[120px]">Credit Status</th>
+                <th scope="col" className="py-2.5 px-3.5 min-w-[125px]">Recent Revenue</th>
+                <th scope="col" className="py-2.5 px-3.5 min-w-[150px]">Contact Person</th>
+                <th scope="col" className="py-2.5 px-3.5 min-w-[155px]">Phone Number</th>
+                <th scope="col" className="py-2.5 px-3.5 min-w-[190px]">Email</th>
+                <th scope="col" className="py-2.5 px-4 w-20 text-center">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -268,7 +292,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
         <table className="w-full min-w-[1080px] text-left text-xs border-collapse">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-              <th scope="col" className="py-3 px-3 w-10 text-center">
+              <th scope="col" className="py-2.5 px-3 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>
               {renderSortHeader('fullName', 'Company Name', 'px-4 min-w-[260px]', 'Sort alphabetically by company name')}
@@ -277,9 +301,9 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               {renderSortHeader('creditStatus', 'Credit Status', 'px-3.5 min-w-[120px]', 'Sort by credit approval')}
               {renderSortHeader('businessLast3m', 'Recent Revenue', 'px-3.5 min-w-[125px]', 'Sort by 90-day business volume (highest first)')}
               {renderSortHeader('contactPersonName', 'Contact Person', 'px-3.5 min-w-[150px]', 'Sort by named contact person')}
-              <th scope="col" className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
-              <th scope="col" className="py-3 px-3.5 min-w-[190px]">Email</th>
-              <th scope="col" className="py-3 px-4 w-20 text-center">Action</th>
+              <th scope="col" className="py-2.5 px-3.5 min-w-[155px]">Phone Number</th>
+              <th scope="col" className="py-2.5 px-3.5 min-w-[190px]">Email</th>
+              <th scope="col" className="py-2.5 px-4 w-20 text-center">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
