@@ -129,6 +129,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
         <div>
           <button
             onClick={() => toggleSection('contacts')}
+            aria-expanded={openSections.contacts}
             className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
           >
             <div className="flex items-center gap-2">
@@ -198,6 +199,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
         <div>
           <button
             onClick={() => toggleSection('groups')}
+            aria-expanded={openSections.groups}
             className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
           >
             <div className="flex items-center gap-2">
@@ -271,6 +273,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
         <div>
           <button
             onClick={() => toggleSection('types')}
+            aria-expanded={openSections.types}
             className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
           >
             <div className="flex items-center gap-2">
@@ -344,6 +347,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
           <div>
             <button
               onClick={() => toggleSection('creditStatus')}
+              aria-expanded={openSections.creditStatus}
               className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
             >
               <div className="flex items-center gap-2">

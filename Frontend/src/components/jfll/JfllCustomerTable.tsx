@@ -132,15 +132,15 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-                <th className="py-3 px-3 w-10 text-center"><span className="sr-only">Select</span></th>
-                <th className="py-3 px-4 min-w-[260px]">Company Name</th>
-                <th className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
-                <th className="py-3 px-3.5 min-w-[95px]">Status</th>
-                <th className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
-                <th className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
-                <th className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
-                <th className="py-3 px-3.5 min-w-[190px]">Email</th>
-                <th className="py-3 px-4 w-20 text-center">Action</th>
+                <th scope="col" className="py-3 px-3 w-10 text-center"><span className="sr-only">Select</span></th>
+                <th scope="col" className="py-3 px-4 min-w-[260px]">Company Name</th>
+                <th scope="col" className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
+                <th scope="col" className="py-3 px-3.5 min-w-[95px]">Status</th>
+                <th scope="col" className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
+                <th scope="col" className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
+                <th scope="col" className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
+                <th scope="col" className="py-3 px-3.5 min-w-[190px]">Email</th>
+                <th scope="col" className="py-3 px-4 w-20 text-center">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -221,17 +221,17 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
         <table className="w-full min-w-[1080px] text-left text-xs border-collapse">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-              <th className="py-3 px-3 w-10 text-center">
+              <th scope="col" className="py-3 px-3 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>
-              <th className="py-3 px-4 min-w-[260px]">Company Name</th>
-              <th className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
-              <th className="py-3 px-3.5 min-w-[95px]">Status</th>
-              <th className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
-              <th className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
-              <th className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
-              <th className="py-3 px-3.5 min-w-[190px]">Email</th>
-              <th className="py-3 px-4 w-20 text-center">Action</th>
+              <th scope="col" className="py-3 px-4 min-w-[260px]">Company Name</th>
+              <th scope="col" className="py-3 px-3.5 min-w-[150px]">Customer Group</th>
+              <th scope="col" className="py-3 px-3.5 min-w-[95px]">Status</th>
+              <th scope="col" className="py-3 px-3.5 min-w-[120px]">Credit Status</th>
+              <th scope="col" className="py-3 px-3.5 min-w-[150px]">Contact Person</th>
+              <th scope="col" className="py-3 px-3.5 min-w-[155px]">Phone Number</th>
+              <th scope="col" className="py-3 px-3.5 min-w-[190px]">Email</th>
+              <th scope="col" className="py-3 px-4 w-20 text-center">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -305,7 +305,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   <td className="py-3 px-3.5">
                     {c.status === 'Active' ? (
                       <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 whitespace-nowrap">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse motion-reduce:animate-none" />
                         Active
                       </span>
                     ) : (

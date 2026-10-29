@@ -95,7 +95,7 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                   </span>
                   {customer.status === 'Active' ? (
                     <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse motion-reduce:animate-none" />
                       Active Account
                     </span>
                   ) : (
