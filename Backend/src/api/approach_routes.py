@@ -83,6 +83,9 @@ def load_approach_data() -> dict[str, Any]:
             "Approach Logs: Could not read JSON storage (%s), using empty fallback",
             err,
         )
+        _CACHED_DATA = None
+        _CACHED_MTIME = None
+        _CACHED_STORAGE_KEY = None
         return _build_empty_store()
 
 

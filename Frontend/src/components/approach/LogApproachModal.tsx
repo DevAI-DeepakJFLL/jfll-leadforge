@@ -167,7 +167,7 @@ export const LogApproachModal: React.FC<LogApproachModalProps> = ({
                 id="approach-action-select"
                 value={action}
                 onChange={(e) => setAction(e.target.value as SalesAction)}
-                className="w-full appearance-none px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 shadow-2xs focus:outline-hidden focus:ring-2 focus:ring-apollo/20 focus:border-apollo transition-all cursor-pointer"
+                className="w-full appearance-none px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 shadow-xs focus:outline-hidden focus:ring-2 focus:ring-apollo/20 focus:border-apollo transition-all cursor-pointer"
                 required
               >
                 {ALL_SALES_ACTIONS.map((act) => (
@@ -214,7 +214,7 @@ export const LogApproachModal: React.FC<LogApproachModalProps> = ({
                 id="approach-status-select"
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value as SalesStatus)}
-                className={`w-full appearance-none px-3.5 py-2.5 bg-white border rounded-xl text-xs font-medium text-slate-800 shadow-2xs focus:outline-hidden focus:ring-2 transition-all cursor-pointer ${
+                className={`w-full appearance-none px-3.5 py-2.5 bg-white border rounded-xl text-xs font-medium text-slate-800 shadow-xs focus:outline-hidden focus:ring-2 transition-all cursor-pointer ${
                   isBackward
                     ? 'border-rose-300 focus:ring-rose-200 focus:border-rose-500'
                     : 'border-slate-300 focus:ring-apollo/20 focus:border-apollo'
@@ -255,7 +255,7 @@ export const LogApproachModal: React.FC<LogApproachModalProps> = ({
                   ? 'Please explain the reason for this status change...'
                   : 'Enter conversation summary, quotes discussed, or next steps...'
               }
-              className={`w-full px-3.5 py-2.5 bg-white border rounded-xl text-xs text-slate-800 placeholder:text-slate-400 shadow-2xs focus:outline-hidden focus:ring-2 transition-all resize-none ${
+              className={`w-full px-3.5 py-2.5 bg-white border rounded-xl text-xs text-slate-800 placeholder:text-slate-400 shadow-xs focus:outline-hidden focus:ring-2 transition-all resize-none ${
                 isNoteRequired && !note.trim()
                   ? 'border-amber-300 focus:ring-amber-200 focus:border-amber-500 bg-amber-50/15'
                   : 'border-slate-300 focus:ring-apollo/20 focus:border-apollo'

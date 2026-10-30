@@ -219,15 +219,19 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
     });
   }
 
-  // 2. Data pool counts matching the current active filters
-  const validTotal = baseFiltered.filter((d) => d.dataset_type === 'valid').length;
-  const missingTotal = baseFiltered.filter((d) => d.dataset_type === 'missing').length;
-  const allTotal = baseFiltered.length;
+  // 2. Data pool counts matching the current active filters in a single O(N) pass
+  let validTotal = 0;
+  let missingTotal = 0;
+  for (let i = 0; i < baseFiltered.length; i++) {
+    const itemType = baseFiltered[i].dataset_type;
+    if (itemType === 'valid') validTotal++;
+    else if (itemType === 'missing') missingTotal++;
+  }
 
   const datasetCounts = {
     valid: validTotal,
     missing: missingTotal,
-    all: allTotal,
+    all: baseFiltered.length,
   };
 
   // 3. Primary Dataset Scope Filter: 'valid' | 'missing' | 'all'
@@ -238,20 +242,32 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
       ? baseFiltered.filter((d) => d.dataset_type === 'missing')
       : baseFiltered;
 
-  // 4. Calculate Audience counts based on filtered scope dataset
+  // 4. Calculate Audience counts based on filtered scope dataset in a single O(N) pass
   const audienceCounts: DatamyneAudienceCounts = {
     all: scopeDataset.length,
-    perishables: scopeDataset.filter((d) => d.category === 'Perishables').length,
-    pharma: scopeDataset.filter((d) => d.category === 'Pharma & Healthcare').length,
-    textiles: scopeDataset.filter((d) => d.category === 'Textiles & Apparel').length,
-    engineering: scopeDataset.filter((d) => d.category === 'Engineering & Machinery').length,
-    chemicals: scopeDataset.filter((d) => d.category === 'Chemicals & Materials').length,
-    electronics: scopeDataset.filter((d) => d.category === 'Electronics & Electrical').length,
-    automotive: scopeDataset.filter((d) => d.category === 'Automotive & EV').length,
-    general: scopeDataset.filter((d) => d.category === 'General Cargo').length,
+    perishables: 0,
+    pharma: 0,
+    textiles: 0,
+    engineering: 0,
+    chemicals: 0,
+    electronics: 0,
+    automotive: 0,
+    general: 0,
     validTotal,
     missingTotal,
   };
+
+  for (let i = 0; i < scopeDataset.length; i++) {
+    const cat = scopeDataset[i].category;
+    if (cat === 'Perishables') audienceCounts.perishables++;
+    else if (cat === 'Pharma & Healthcare') audienceCounts.pharma++;
+    else if (cat === 'Textiles & Apparel') audienceCounts.textiles++;
+    else if (cat === 'Engineering & Machinery') audienceCounts.engineering++;
+    else if (cat === 'Chemicals & Materials') audienceCounts.chemicals++;
+    else if (cat === 'Electronics & Electrical') audienceCounts.electronics++;
+    else if (cat === 'Automotive & EV') audienceCounts.automotive++;
+    else if (cat === 'General Cargo') audienceCounts.general++;
+  }
 
   // 5. Apply Audience Tab Filter
   let filtered = scopeDataset;

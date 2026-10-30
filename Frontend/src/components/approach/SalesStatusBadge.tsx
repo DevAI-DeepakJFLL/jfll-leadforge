@@ -33,7 +33,7 @@ export const SalesStatusBadge: React.FC<SalesStatusBadgeProps> = ({
     case 'Not Contacted':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-slate-100 text-slate-700 border border-slate-200/90 shadow-2xs whitespace-nowrap ${sizeClasses} ${className}`}
+          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-slate-100 text-slate-700 border border-slate-200/90 shadow-xs whitespace-nowrap ${sizeClasses} ${className}`}
           title="Status: Not Contacted"
         >
           {showIcon && <MinusCircle className={`${iconSizeClass} text-slate-400 shrink-0`} />}
@@ -44,7 +44,7 @@ export const SalesStatusBadge: React.FC<SalesStatusBadgeProps> = ({
     case 'Contacted':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs whitespace-nowrap ${sizeClasses} ${className}`}
+          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-blue-50 text-blue-700 border border-blue-200 shadow-xs whitespace-nowrap ${sizeClasses} ${className}`}
           title="Status: Contacted"
         >
           {showIcon && <PhoneCall className={`${iconSizeClass} text-blue-500 shrink-0`} />}
@@ -55,7 +55,7 @@ export const SalesStatusBadge: React.FC<SalesStatusBadgeProps> = ({
     case 'Report Sent':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200 shadow-2xs whitespace-nowrap ${sizeClasses} ${className}`}
+          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-cyan-50 text-cyan-800 border border-cyan-200 shadow-xs whitespace-nowrap ${sizeClasses} ${className}`}
           title="Status: Report Sent"
         >
           {showIcon && <FileCheck className={`${iconSizeClass} text-cyan-600 shrink-0`} />}
@@ -66,7 +66,7 @@ export const SalesStatusBadge: React.FC<SalesStatusBadgeProps> = ({
     case 'Working on It':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-purple-50 text-purple-700 border border-purple-200 shadow-2xs whitespace-nowrap ${sizeClasses} ${className}`}
+          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-purple-50 text-purple-700 border border-purple-200 shadow-xs whitespace-nowrap ${sizeClasses} ${className}`}
           title="Status: Working on It"
         >
           {showIcon && <Headphones className={`${iconSizeClass} text-purple-500 shrink-0`} />}
@@ -77,7 +77,7 @@ export const SalesStatusBadge: React.FC<SalesStatusBadgeProps> = ({
     case 'In Progress':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-amber-50 text-amber-800 border border-amber-200 shadow-2xs whitespace-nowrap ${sizeClasses} ${className}`}
+          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-amber-50 text-amber-800 border border-amber-200 shadow-xs whitespace-nowrap ${sizeClasses} ${className}`}
           title="Status: In Progress"
         >
           {showIcon && (
@@ -93,7 +93,7 @@ export const SalesStatusBadge: React.FC<SalesStatusBadgeProps> = ({
     case 'On Hold':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-orange-50 text-orange-800 border border-orange-200 shadow-2xs whitespace-nowrap ${sizeClasses} ${className}`}
+          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-orange-50 text-orange-800 border border-orange-200 shadow-xs whitespace-nowrap ${sizeClasses} ${className}`}
           title="Status: On Hold"
         >
           {showIcon && <Clock className={`${iconSizeClass} text-orange-500 shrink-0`} />}
@@ -104,7 +104,7 @@ export const SalesStatusBadge: React.FC<SalesStatusBadgeProps> = ({
     case 'No Response':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-slate-100 text-slate-600 border border-slate-300 shadow-2xs whitespace-nowrap ${sizeClasses} ${className}`}
+          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-slate-100 text-slate-600 border border-slate-300 shadow-xs whitespace-nowrap ${sizeClasses} ${className}`}
           title="Status: No Response"
         >
           {showIcon && <UserX className={`${iconSizeClass} text-slate-400 shrink-0`} />}
@@ -115,7 +115,7 @@ export const SalesStatusBadge: React.FC<SalesStatusBadgeProps> = ({
     case 'Not Interested':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-rose-50 text-rose-700 border border-rose-200 shadow-2xs whitespace-nowrap ${sizeClasses} ${className}`}
+          className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-rose-50 text-rose-700 border border-rose-200 shadow-xs whitespace-nowrap ${sizeClasses} ${className}`}
           title="Status: Not Interested"
         >
           {showIcon && <XCircle className={`${iconSizeClass} text-rose-500 shrink-0`} />}
@@ -126,7 +126,7 @@ export const SalesStatusBadge: React.FC<SalesStatusBadgeProps> = ({
     case 'Converted to Active':
       return (
         <span
-          className={`inline-flex items-center gap-1.5 font-semibold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300 shadow-2xs whitespace-nowrap ${sizeClasses} ${className}`}
+          className={`inline-flex items-center gap-1.5 font-semibold rounded-full bg-emerald-50 text-emerald-800 border border-emerald-300 shadow-xs whitespace-nowrap ${sizeClasses} ${className}`}
           title="Status: Converted to Active"
         >
           {showIcon && <CheckCircle2 className={`${iconSizeClass} text-emerald-600 shrink-0`} />}
