@@ -38,20 +38,24 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
 
   const variantStyles = {
     emerald: {
-      iconBg: 'bg-emerald-100 text-emerald-700',
-      btn: 'bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white',
+      iconBg: 'bg-emerald-50 text-emerald-600 border border-emerald-200/80',
+      ring: 'ring-emerald-50',
+      btn: 'bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white shadow-xs',
     },
     amber: {
-      iconBg: 'bg-amber-100 text-amber-700',
-      btn: 'bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white',
+      iconBg: 'bg-amber-50 text-amber-600 border border-amber-200/80',
+      ring: 'ring-amber-50',
+      btn: 'bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white shadow-xs',
     },
     rose: {
-      iconBg: 'bg-rose-100 text-rose-700',
-      btn: 'bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white',
+      iconBg: 'bg-rose-50 text-rose-600 border border-rose-200/80',
+      ring: 'ring-rose-50',
+      btn: 'bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white shadow-xs',
     },
     blue: {
-      iconBg: 'bg-blue-100 text-blue-700',
-      btn: 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white',
+      iconBg: 'bg-blue-50 text-blue-600 border border-blue-200/80',
+      ring: 'ring-blue-50',
+      btn: 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white shadow-xs',
     },
   }[variant];
 
@@ -61,18 +65,18 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
       aria-modal="true"
       aria-labelledby="confirm-dialog-title"
       aria-describedby="confirm-dialog-desc"
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/65 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs animate-in fade-in duration-150"
       onClick={() => {
         if (!isLoading) onClose();
       }}
     >
       <div
-        className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col p-6 animate-in zoom-in-95 duration-150 select-none"
+        className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-200/90 overflow-hidden flex flex-col p-6 animate-in zoom-in-95 duration-150 select-none"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start gap-3.5">
+        <div className="flex items-start gap-4">
           <div
-            className={`w-10 h-10 rounded-xl shrink-0 flex items-center justify-center ${variantStyles.iconBg} shadow-xs`}
+            className={`w-11 h-11 rounded-xl shrink-0 flex items-center justify-center ${variantStyles.iconBg} ring-4 ${variantStyles.ring} shadow-2xs`}
           >
             {variant === 'emerald' ? (
               <CheckCircle2 className="w-5 h-5 stroke-[2.2]" />
@@ -84,7 +88,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
           </div>
 
           <div className="flex-1 min-w-0">
-            <h3 id="confirm-dialog-title" className="text-base font-bold text-slate-900 leading-snug">
+            <h3 id="confirm-dialog-title" className="text-base font-bold text-slate-900 leading-snug tracking-tight">
               {title}
             </h3>
             <div id="confirm-dialog-desc" className="mt-2 text-xs text-slate-600 leading-relaxed">
@@ -103,12 +107,12 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
           </button>
         </div>
 
-        <div className="flex items-center justify-end gap-2.5 mt-5 pt-4 border-t border-slate-100">
+        <div className="flex items-center justify-end gap-2.5 mt-6 pt-4 border-t border-slate-100">
           <button
             type="button"
             onClick={onClose}
             disabled={isLoading}
-            className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
+            className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
           >
             {cancelText}
           </button>

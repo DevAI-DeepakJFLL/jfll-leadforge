@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   AlertCircle,
+  ArrowRight,
+  Building2,
   CheckCircle2,
   Loader2,
   ShieldCheck,
@@ -37,14 +39,18 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
   const todayStr = new Date().toISOString().split('T')[0];
   const [startDate, setStartDate] = useState(todayStr);
   const [note, setNote] = useState('');
+  const [isConfirmed, setIsConfirmed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [highlightConfirm, setHighlightConfirm] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setStartDate(new Date().toISOString().split('T')[0]);
       setNote('');
+      setIsConfirmed(false);
       setErrorMessage(null);
+      setHighlightConfirm(false);
       // Auto-focus on date input after modal mounts
       const timer = setTimeout(() => {
         dateInputRef.current?.focus();
@@ -99,7 +105,7 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, isSubmitting, startDate, note, onClose]);
+  }, [isOpen, isSubmitting, startDate, note, isConfirmed, onClose]);
 
   if (!isOpen) return null;
 
@@ -109,6 +115,12 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
     if (!startDate || !startDate.trim()) {
       setErrorMessage('Effective start date is required.');
       dateInputRef.current?.focus();
+      return;
+    }
+
+    if (!isConfirmed) {
+      setHighlightConfirm(true);
+      setErrorMessage('Please check the confirmation box to authorize customer activation.');
       return;
     }
 
@@ -145,27 +157,32 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
     >
       <div
         ref={modalRef}
-        className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden flex flex-col"
+        className="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header - Authoritative Freight Enterprise styling */}
-        <div className="px-6 py-4.5 bg-gradient-to-r from-emerald-600 to-teal-700 text-white flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-md flex items-center justify-center text-white font-bold shadow-xs">
-              <ShieldCheck className="w-5 h-5 text-emerald-200" />
+        {/* Header - Crisp Modern Enterprise Design */}
+        <div className="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-white">
+          <div className="flex items-center gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/80 text-emerald-600 flex items-center justify-center shadow-2xs shrink-0">
+              <Building2 className="w-5 h-5 text-emerald-700" />
             </div>
             <div>
-              <h2 id="convert-active-title" className="text-base font-bold leading-tight">
-                Convert to Active Customer
-              </h2>
-              <p className="text-xs text-emerald-100 truncate max-w-xs mt-0.5" title={companyName}>
-                {companyName}
+              <div className="flex items-center gap-2">
+                <h2 id="convert-active-title" className="text-base font-bold text-slate-900 tracking-tight leading-none">
+                  Convert to Active Customer
+                </h2>
+                <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-full">
+                  Activation Milestone
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-1 truncate max-w-xs" title={companyName}>
+                Re-classify <span className="font-medium text-slate-800">{companyName}</span> into active billing master
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-emerald-100 hover:text-white hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -173,13 +190,27 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {/* Informational Callout */}
-          <div className="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-900 leading-relaxed flex items-start gap-2.5">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-            <div>
-              <strong className="font-semibold block mb-0.5">Activation Milestone</strong>
-              This will transition the customer from Inactive to <strong>Active</strong> in Jet Freight's customer master, update their status across the portfolio, and permanently retain the entire outreach log history.
+        <form onSubmit={handleSubmit} className="p-6 space-y-4.5">
+          {/* Target Account Transition Strip */}
+          <div className="bg-slate-50/80 border border-slate-200/70 rounded-xl p-3.5 flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-xs font-semibold text-slate-900 truncate" title={companyName}>
+                {companyName}
+              </div>
+              <div className="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
+                <span className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
+                  {entityType === 'datamyne' ? 'Datamyne Lead' : 'JFLL Customer'}
+                </span>
+                <span>•</span>
+                <span>ID: {entityId}</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1.5 shrink-0 bg-white px-2.5 py-1 rounded-lg border border-slate-200/80 text-[11px] shadow-2xs font-medium">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-slate-400" />
+              <span className="text-slate-600">Inactive</span>
+              <ArrowRight className="w-3 h-3 text-slate-400" />
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="text-emerald-700 font-bold">Active Customer</span>
             </div>
           </div>
 
@@ -194,7 +225,7 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-800 shadow-xs focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all cursor-pointer"
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-900 shadow-2xs focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all cursor-pointer"
               required
             />
             <p className="mt-1 text-[11px] text-slate-500">
@@ -216,27 +247,68 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
               maxLength={2000}
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="e.g. Agreement signed for air cargo ex-BOM to DXB; assigned to commercial desk..."
-              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs text-slate-800 placeholder:text-slate-400 shadow-xs focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all resize-none"
+              placeholder="e.g. Commercial rate agreement confirmed for air cargo ex-BOM to DXB; assigned to sales desk..."
+              className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs text-slate-800 placeholder:text-slate-400 shadow-2xs focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all resize-none"
             />
           </div>
 
-          {/* Inline Milestone & Audit Confirmation Card (replaces secondary modal) */}
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-1.5">
-            <div className="flex items-start gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <div>
-                <span className="font-semibold text-slate-900 block">Verification & Audit Trail</span>
-                <span className="text-slate-600 leading-normal">
-                  Converting will re-classify <strong className="text-slate-900">{companyName}</strong> into Jet Freight's active billing master with effective date <strong className="text-emerald-800 font-medium">{startDate || 'today'}</strong>.
-                </span>
+          {/* The Redesigned Confirm Box (Interactive Authorization Checkpoint) */}
+          <div
+            className={`rounded-xl border transition-all duration-200 p-3.5 select-none ${
+              isConfirmed
+                ? 'bg-emerald-50/70 border-emerald-300 ring-2 ring-emerald-500/10'
+                : highlightConfirm
+                ? 'bg-amber-50/80 border-amber-300 ring-2 ring-amber-500/20'
+                : 'bg-slate-50/90 border-slate-200/90 hover:border-slate-300'
+            }`}
+          >
+            <label className="flex items-start gap-3 cursor-pointer">
+              <div className="pt-0.5">
+                <input
+                  type="checkbox"
+                  checked={isConfirmed}
+                  onChange={(e) => {
+                    setIsConfirmed(e.target.checked);
+                    if (e.target.checked) {
+                      setHighlightConfirm(false);
+                      setErrorMessage(null);
+                    }
+                  }}
+                  className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500/20 cursor-pointer"
+                />
               </div>
-            </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-900">
+                    <ShieldCheck
+                      className={`w-4 h-4 transition-colors ${
+                        isConfirmed ? 'text-emerald-600' : 'text-slate-400'
+                      }`}
+                    />
+                    <span>Confirmation & Authorization</span>
+                  </div>
+                  <span
+                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider transition-colors ${
+                      isConfirmed
+                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-200/60'
+                        : highlightConfirm
+                        ? 'bg-amber-100 text-amber-800 border border-amber-200/60'
+                        : 'bg-slate-200/80 text-slate-600'
+                    }`}
+                  >
+                    {isConfirmed ? 'Verified' : 'Sign-Off Required'}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-600 mt-1.5 leading-relaxed">
+                  I verify that commercial terms are finalized for <strong className="text-slate-900">{companyName}</strong>. Transitioning updates Jet Freight's active master effective <strong className="text-emerald-800 font-semibold">{startDate || 'selected date'}</strong> and permanently retains all outreach logs.
+                </p>
+              </div>
+            </label>
           </div>
 
           {/* Error Banner */}
           {errorMessage && (
-            <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-start gap-2">
+            <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-start gap-2 animate-in fade-in duration-150">
               <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
               <span>{errorMessage}</span>
             </div>
@@ -255,7 +327,7 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
           </div>
 
           {/* Footer Actions */}
-          <div className="flex items-center justify-between pt-3">
+          <div className="flex items-center justify-between pt-2">
             <span className="text-[11px] text-slate-400 hidden sm:inline">
               Press <kbd className="px-1.5 py-0.5 text-[10px] bg-slate-100 border border-slate-300 rounded text-slate-600 font-mono">⌘+Enter</kbd> to confirm
             </span>
@@ -264,14 +336,18 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
                 type="button"
                 onClick={onClose}
                 disabled={isSubmitting}
-                className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
+                className="px-4 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-xl transition-colors disabled:opacity-50 cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 rounded-xl shadow-xs transition-all disabled:opacity-50 cursor-pointer"
+                className={`inline-flex items-center gap-1.5 px-5 py-2 text-xs font-semibold rounded-xl shadow-xs transition-all disabled:opacity-50 cursor-pointer ${
+                  isConfirmed
+                    ? 'text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800'
+                    : 'text-emerald-800 bg-emerald-100 hover:bg-emerald-200 active:bg-emerald-300 border border-emerald-300'
+                }`}
               >
                 {isSubmitting ? (
                   <>
@@ -292,3 +368,5 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
     </div>
   );
 };
+
+export default ConvertToActiveModal;
