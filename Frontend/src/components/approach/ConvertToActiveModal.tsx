@@ -11,6 +11,7 @@ import {
 import { convertClientToActive } from '@/services/approachLogService';
 import { getStoredSession } from '@/services/authService';
 import { useToast } from '@/components/ui';
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 
 export interface ConvertToActiveModalProps {
   isOpen: boolean;
@@ -36,6 +37,7 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
   const todayStr = new Date().toISOString().split('T')[0];
   const [startDate, setStartDate] = useState(todayStr);
   const [note, setNote] = useState('');
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -43,6 +45,7 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
     if (isOpen) {
       setStartDate(new Date().toISOString().split('T')[0]);
       setNote('');
+      setShowConfirmDialog(false);
       setErrorMessage(null);
     }
   }, [isOpen]);
@@ -50,16 +53,20 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        onClose();
+        if (showConfirmDialog) {
+          setShowConfirmDialog(false);
+        } else {
+          onClose();
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, showConfirmDialog, onClose]);
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage(null);
 
@@ -68,7 +75,13 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
       return;
     }
 
+    // Intercept with confirmation dialog so accidental clicks can be cancelled
+    setShowConfirmDialog(true);
+  };
+
+  const handleFinalConfirm = async () => {
     setIsSubmitting(true);
+    setErrorMessage(null);
     try {
       await convertClientToActive(entityType, entityId, {
         start_date: startDate.trim(),
@@ -76,12 +89,14 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
       });
 
       showToast(`Successfully converted "${companyName}" to Active!`, 'success');
+      setShowConfirmDialog(false);
       onSuccess?.();
       onClose();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Failed to convert client to active.';
       setErrorMessage(msg);
       showToast(msg, 'error');
+      setShowConfirmDialog(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -223,6 +238,42 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
           </div>
         </form>
       </div>
+
+      {/* Confirmation Dialog for Accidental Click Prevention */}
+      <ConfirmDialog
+        isOpen={showConfirmDialog}
+        onClose={() => setShowConfirmDialog(false)}
+        onConfirm={handleFinalConfirm}
+        title="Confirm Customer Activation"
+        description={
+          <div className="space-y-2.5">
+            <p>
+              Are you sure you want to convert{' '}
+              <strong className="text-slate-900 font-semibold">{companyName}</strong> to an{' '}
+              <strong className="text-emerald-700 font-semibold">Active Customer</strong>?
+            </p>
+            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-700 space-y-1">
+              <div>
+                <span className="text-slate-500 font-medium">Effective Start Date: </span>
+                <span className="font-semibold text-emerald-800">{startDate}</span>
+              </div>
+              {note.trim() && (
+                <div className="truncate">
+                  <span className="text-slate-500 font-medium">Handover Notes: </span>
+                  <span className="italic">"{note.trim()}"</span>
+                </div>
+              )}
+            </div>
+            <p className="text-[11px] text-slate-500 leading-normal">
+              This will transition the customer from Inactive to Active and record a permanent activation milestone in the outreach history.
+            </p>
+          </div>
+        }
+        confirmText="Yes, Convert to Active"
+        cancelText="Cancel"
+        variant="emerald"
+        isLoading={isSubmitting}
+      />
     </div>
   );
 };

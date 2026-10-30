@@ -9,6 +9,7 @@ import {
 } from '@/components/approach';
 import { DatamyneTable } from '@/components/datamyne/DatamyneTable';
 import { JfllCustomerFilterSidebar } from '@/components/jfll/JfllCustomerFilterSidebar';
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { DatamyneLead } from '@/types/datamyneLead';
 import {
   ALL_SALES_ACTIONS,
@@ -144,6 +145,59 @@ describe('Sales Approach & Active Conversion Suite', () => {
       expect(html).toContain('Activation Milestone');
       expect(html).toContain('Activation / Handover Notes');
       expect(html).toContain('Confirm &amp; Convert to Active');
+    });
+  });
+
+  describe('ConfirmDialog Component (Accidental Action Protection)', () => {
+    it('renders alert dialog with title, details, and cancel CTA when open', () => {
+      const html = renderToString(
+        <ConfirmDialog
+          isOpen={true}
+          onClose={vi.fn()}
+          onConfirm={vi.fn()}
+          title="Confirm Customer Activation"
+          description="Are you sure you want to convert Acme Corp to Active?"
+          confirmText="Yes, Convert to Active"
+          cancelText="Cancel"
+          variant="emerald"
+        />
+      );
+
+      expect(html).toContain('role="alertdialog"');
+      expect(html).toContain('Confirm Customer Activation');
+      expect(html).toContain('Are you sure you want to convert Acme Corp to Active?');
+      expect(html).toContain('Cancel');
+      expect(html).toContain('Yes, Convert to Active');
+    });
+
+    it('returns null when isOpen is false', () => {
+      const html = renderToString(
+        <ConfirmDialog
+          isOpen={false}
+          onClose={vi.fn()}
+          onConfirm={vi.fn()}
+          title="Confirm Customer Activation"
+          description="Hidden"
+        />
+      );
+
+      expect(html).toBe('');
+    });
+
+    it('renders loader state during submission', () => {
+      const html = renderToString(
+        <ConfirmDialog
+          isOpen={true}
+          onClose={vi.fn()}
+          onConfirm={vi.fn()}
+          title="Confirm Customer Activation"
+          description="Details"
+          isLoading={true}
+        />
+      );
+
+      expect(html).toContain('Processing...');
+      expect(html).toContain('animate-spin');
     });
   });
 
