@@ -128,6 +128,14 @@ jobs:
             --s3-bucket "${DATA_BUCKET}" \
             --s3-key "lambda/function.zip"
 
+      - name: Enforce CloudWatch Log Retention (14 Days)
+        run: |
+          LAMBDA_NAME="${{ secrets.LAMBDA_FUNCTION_NAME || vars.LAMBDA_FUNCTION_NAME }}"
+          LOG_GROUP="/aws/lambda/${LAMBDA_NAME}"
+          echo "Setting CloudWatch log retention for ${LOG_GROUP} to 14 days..."
+          aws logs create-log-group --log-group-name "${LOG_GROUP}" 2>/dev/null || true
+          aws logs put-retention-policy --log-group-name "${LOG_GROUP}" --retention-in-days 14 || echo "::warning::CloudWatch retention update skipped (check IAM logs permissions)"
+
   deploy-frontend:
     name: Build & Deploy Frontend to S3 and CloudFront
     needs: [ deploy-backend ]
