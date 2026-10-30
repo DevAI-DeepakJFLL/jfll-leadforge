@@ -57,6 +57,7 @@ export interface DatamyneViewProps {
   toggleTradeLane: (lane: string) => void;
   toggleContactStatus: (status: string) => void;
   toggleApproachStatus?: (status: string) => void;
+  setApproachStatuses?: (statuses: string[]) => void;
   toggleHasDirectors: () => void;
   setMinShipments: (min: number) => void;
   setMinTradedValueUsd: (min: number) => void;
@@ -94,6 +95,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   toggleTradeLane,
   toggleContactStatus,
   toggleApproachStatus,
+  setApproachStatuses,
   toggleHasDirectors,
   setMinShipments,
   setMinTradedValueUsd,
@@ -296,6 +298,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
         toggleTradeLane={toggleTradeLane}
         toggleContactStatus={toggleContactStatus}
         toggleApproachStatus={toggleApproachStatus}
+        setApproachStatuses={setApproachStatuses}
         toggleHasDirectors={toggleHasDirectors}
         setMinShipments={setMinShipments}
         setMinTradedValueUsd={setMinTradedValueUsd}

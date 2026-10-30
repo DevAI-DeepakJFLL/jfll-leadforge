@@ -221,6 +221,14 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     });
   }, []);
 
+  const setApproachStatuses = useCallback((statuses: string[]) => {
+    setFilters((prev) => ({
+      ...prev,
+      approachStatuses: statuses,
+      page: 1,
+    }));
+  }, []);
+
   const toggleHasDirectors = useCallback(() => {
     setFilters((prev) => ({
       ...prev,
@@ -295,6 +303,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     toggleTradeLane,
     toggleContactStatus,
     toggleApproachStatus,
+    setApproachStatuses,
     toggleHasDirectors,
     setMinShipments,
     setMinTradedValueUsd,

@@ -5,6 +5,7 @@ import {
   LogApproachModal,
   ConvertToActiveModal,
   SalesApproachTimeline,
+  CompactSalesApproachFilter,
 } from '@/components/approach';
 import { DatamyneTable } from '@/components/datamyne/DatamyneTable';
 import { DatamyneLead } from '@/types/datamyneLead';
@@ -310,6 +311,66 @@ describe('Sales Approach & Active Conversion Suite', () => {
       expect(html).toContain('Approach');
       expect(html).toContain('Convert');
       expect(html).toContain('Convert TEST EXPORTER CORP to Active customer');
+    });
+  });
+
+  describe('CompactSalesApproachFilter Component', () => {
+    it('renders all 9 compact status chips with their dots', () => {
+      const html = renderToString(
+        <CompactSalesApproachFilter
+          selectedStatuses={[]}
+          onToggleStatus={vi.fn()}
+          onSelectStatuses={vi.fn()}
+          onClear={vi.fn()}
+        />
+      );
+
+      // Verify all 9 status labels are rendered
+      expect(html).toContain('Not Contacted');
+      expect(html).toContain('Contacted');
+      expect(html).toContain('Report Sent');
+      expect(html).toContain('Working on It');
+      expect(html).toContain('In Progress');
+      expect(html).toContain('On Hold');
+      expect(html).toContain('No Response');
+      expect(html).toContain('Not Interested');
+      expect(html).toContain('Converted to Active');
+
+      // Verify preset micro-bar options
+      expect(html).toContain('Pipeline');
+      expect(html).toContain('New');
+      expect(html).toContain('Won');
+      expect(html).toContain('All');
+    });
+
+    it('highlights selected statuses with active styles and check icons', () => {
+      const html = renderToString(
+        <CompactSalesApproachFilter
+          selectedStatuses={['Contacted', 'In Progress']}
+          onToggleStatus={vi.fn()}
+          onSelectStatuses={vi.fn()}
+          onClear={vi.fn()}
+        />
+      );
+
+      expect(html).toContain('2 of 9 selected');
+      expect(html).toContain('Reset to all');
+      expect(html).toContain('bg-blue-50');
+      expect(html).toContain('bg-amber-50');
+    });
+
+    it('highlights the Pipeline preset tab when all pipeline statuses are selected', () => {
+      const html = renderToString(
+        <CompactSalesApproachFilter
+          selectedStatuses={['Contacted', 'Report Sent', 'Working on It', 'In Progress']}
+          onToggleStatus={vi.fn()}
+          onSelectStatuses={vi.fn()}
+          onClear={vi.fn()}
+        />
+      );
+
+      expect(html).toContain('text-blue-700 shadow-2xs font-bold');
+      expect(html).toContain('4 of 9 selected');
     });
   });
 });

@@ -28,8 +28,7 @@ import {
   PhoneCall,
   X,
 } from 'lucide-react';
-import { ALL_SALES_STATUSES } from '@/types/approachLog';
-import { SalesStatusBadge } from '@/components/approach';
+import { CompactSalesApproachFilter } from '@/components/approach';
 
 export interface DatamyneFilterSidebarProps {
   filters: DatamyneFilterParams;
@@ -44,6 +43,7 @@ export interface DatamyneFilterSidebarProps {
   toggleTradeLane: (lane: string) => void;
   toggleContactStatus: (status: string) => void;
   toggleApproachStatus?: (status: string) => void;
+  setApproachStatuses?: (statuses: string[]) => void;
   toggleHasDirectors: () => void;
   setMinShipments: (min: number) => void;
   setMinTradedValueUsd: (min: number) => void;
@@ -131,6 +131,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
   toggleTradeLane,
   toggleContactStatus,
   toggleApproachStatus,
+  setApproachStatuses,
   toggleHasDirectors,
   setMinShipments,
   setMinTradedValueUsd,
@@ -293,34 +294,32 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         </div>
       </FilterAccordion>
 
-      {/* Accordion: Sales Approach Status */}
+      {/* Accordion: Sales Approach Status (Compact Smart Presentation) */}
       <FilterAccordion
         icon={<PhoneCall className="w-4 h-4 text-apollo" />}
         label="Sales Approach Status"
         defaultOpen={true}
         activeCount={filters.approachStatuses?.length || 0}
+        onClear={() => {
+          if (setApproachStatuses) {
+            setApproachStatuses([]);
+          } else if (filters.approachStatuses && toggleApproachStatus) {
+            filters.approachStatuses.forEach((st) => toggleApproachStatus(st));
+          }
+        }}
       >
-        <div className="space-y-1.5">
-          {ALL_SALES_STATUSES.map((st) => {
-            const isChecked = filters.approachStatuses?.includes(st) || false;
-            return (
-              <label
-                key={st}
-                className="flex items-center justify-between text-xs cursor-pointer group py-0.5"
-              >
-                <div className="flex items-center gap-2 min-w-0">
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={() => toggleApproachStatus?.(st)}
-                    className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
-                  />
-                  <SalesStatusBadge status={st} size="sm" />
-                </div>
-              </label>
-            );
-          })}
-        </div>
+        <CompactSalesApproachFilter
+          selectedStatuses={filters.approachStatuses || []}
+          onToggleStatus={(st) => toggleApproachStatus?.(st)}
+          onSelectStatuses={setApproachStatuses}
+          onClear={() => {
+            if (setApproachStatuses) {
+              setApproachStatuses([]);
+            } else if (filters.approachStatuses && toggleApproachStatus) {
+              filters.approachStatuses.forEach((st) => toggleApproachStatus(st));
+            }
+          }}
+        />
       </FilterAccordion>
 
       {/* Accordion: Geographic Region / Country */}

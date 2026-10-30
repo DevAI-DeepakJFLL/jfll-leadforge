@@ -599,6 +599,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     toggleSalesPerson: toggleJfllSalesPerson,
     toggleRevenueRange: toggleJfllRevenueRange,
     toggleApproachStatus: toggleJfllApproachStatus,
+    setApproachStatuses: setJfllApproachStatuses,
     toggleContactOption: toggleJfllContactOption,
     handleSortChange: handleJfllSortChange,
     clearAllFilters: clearAllJfllFilters,
@@ -700,6 +701,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     toggleTradeLane: toggleDatamyneTradeLane,
     toggleContactStatus: toggleDatamyneContactStatus,
     toggleApproachStatus: toggleDatamyneApproachStatus,
+    setApproachStatuses: setDatamyneApproachStatuses,
     toggleHasDirectors: toggleDatamyneHasDirectors,
     setMinShipments: setDatamyneMinShipments,
     setMinTradedValueUsd: setDatamyneMinTradedValueUsd,
@@ -1128,6 +1130,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           toggleTradeLane={toggleDatamyneTradeLane}
           toggleContactStatus={toggleDatamyneContactStatus}
           toggleApproachStatus={toggleDatamyneApproachStatus}
+          setApproachStatuses={setDatamyneApproachStatuses}
           toggleHasDirectors={toggleDatamyneHasDirectors}
           setMinShipments={setDatamyneMinShipments}
           setMinTradedValueUsd={setDatamyneMinTradedValueUsd}
@@ -1167,6 +1170,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           toggleSalesPerson={toggleJfllSalesPerson}
           toggleRevenueRange={toggleJfllRevenueRange}
           toggleApproachStatus={toggleJfllApproachStatus}
+          setApproachStatuses={setJfllApproachStatuses}
           toggleContactOption={toggleJfllContactOption}
           clearAllFilters={clearAllJfllFilters}
           onCustomerClick={(c) => setSelectedJfllCustomer(c)}

@@ -41,6 +41,7 @@ export interface JfllCustomersViewProps {
   toggleSalesPerson: (salesPerson: string) => void;
   toggleRevenueRange: (rangeId: string) => void;
   toggleApproachStatus?: (status: string) => void;
+  setApproachStatuses?: (statuses: string[]) => void;
   toggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   clearAllFilters: () => void;
   onCustomerClick: (customer: JfllCustomer) => void;
@@ -77,6 +78,7 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
   toggleSalesPerson,
   toggleRevenueRange,
   toggleApproachStatus,
+  setApproachStatuses,
   toggleContactOption,
   clearAllFilters,
   onCustomerClick,
@@ -97,6 +99,7 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
         onToggleSalesPerson={toggleSalesPerson}
         onToggleRevenueRange={toggleRevenueRange}
         onToggleApproachStatus={toggleApproachStatus}
+        setApproachStatuses={setApproachStatuses}
         onToggleContactOption={toggleContactOption}
         onClearAll={clearAllFilters}
         isMobileOpen={isMobileOpen}

@@ -21,8 +21,7 @@ import {
   getSalesPersonFacetCounts,
   getRevenueRangeFacetCounts,
 } from '@/services/jfllCustomerService';
-import { ALL_SALES_STATUSES } from '@/types/approachLog';
-import { SalesStatusBadge } from '@/components/approach';
+import { CompactSalesApproachFilter } from '@/components/approach';
 
 export interface JfllCustomerFilterSidebarProps {
   filters: JfllCustomerFilterParams;
@@ -32,6 +31,7 @@ export interface JfllCustomerFilterSidebarProps {
   onToggleSalesPerson: (salesPerson: string) => void;
   onToggleRevenueRange: (rangeId: string) => void;
   onToggleApproachStatus?: (status: string) => void;
+  setApproachStatuses?: (statuses: string[]) => void;
   onToggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   onClearAll: () => void;
   isMobileOpen?: boolean;
@@ -47,6 +47,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   onToggleSalesPerson,
   onToggleRevenueRange,
   onToggleApproachStatus,
+  setApproachStatuses,
   onToggleContactOption,
   onClearAll,
   isMobileOpen = false,
@@ -189,26 +190,19 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
           </button>
 
           {openSections.approach && (
-            <div className="px-4 pb-3 space-y-1.5">
-              {ALL_SALES_STATUSES.map((st) => {
-                const isChecked = selectedApproachStatuses.includes(st);
-                return (
-                  <label
-                    key={st}
-                    className="flex items-center justify-between text-xs cursor-pointer group py-0.5"
-                  >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => onToggleApproachStatus?.(st)}
-                        className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer"
-                      />
-                      <SalesStatusBadge status={st} size="sm" />
-                    </div>
-                  </label>
-                );
-              })}
+            <div className="px-4 pb-3">
+              <CompactSalesApproachFilter
+                selectedStatuses={selectedApproachStatuses}
+                onToggleStatus={(st) => onToggleApproachStatus?.(st)}
+                onSelectStatuses={setApproachStatuses}
+                onClear={() => {
+                  if (setApproachStatuses) {
+                    setApproachStatuses([]);
+                  } else if (onToggleApproachStatus) {
+                    selectedApproachStatuses.forEach((st) => onToggleApproachStatus(st));
+                  }
+                }}
+              />
             </div>
           )}
         </div>

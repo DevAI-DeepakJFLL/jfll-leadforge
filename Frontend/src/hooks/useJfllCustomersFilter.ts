@@ -141,6 +141,14 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     });
   }, []);
 
+  const setApproachStatuses = useCallback((statuses: string[]) => {
+    setFilters((prev) => ({
+      ...prev,
+      approachStatuses: statuses,
+      page: 1,
+    }));
+  }, []);
+
   const clearAllFilters = useCallback(() => {
     setFilters({
       tab: 'all',
@@ -200,6 +208,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     toggleSalesPerson,
     toggleRevenueRange,
     toggleApproachStatus,
+    setApproachStatuses,
     toggleContactOption,
     handleSortChange,
     clearAllFilters,
