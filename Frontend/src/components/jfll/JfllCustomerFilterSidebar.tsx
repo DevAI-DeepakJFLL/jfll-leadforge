@@ -164,48 +164,50 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
 
       {/* Accordion List */}
       <div className="flex-1 overflow-y-auto divide-y divide-slate-100">
-        {/* Accordion: Sales Approach Status (Always available, crucial for Inactive leads) */}
-        <div>
-          <button
-            onClick={() => toggleSection('approach')}
-            aria-expanded={openSections.approach}
-            className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
-          >
-            <div className="flex items-center gap-2">
-              <PhoneCall className="w-4 h-4 text-apollo" />
-              <span className="text-xs font-semibold text-slate-800">
-                Sales Approach Status
-              </span>
-              {selectedApproachStatuses.length > 0 && (
-                <span className="bg-apollo/10 text-apollo text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
-                  {selectedApproachStatuses.length}
+        {/* Accordion: Sales Approach Status (Hidden on Active Customer tab) */}
+        {filters.customerStatus !== 'active' && (
+          <div>
+            <button
+              onClick={() => toggleSection('approach')}
+              aria-expanded={openSections.approach}
+              className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <PhoneCall className="w-4 h-4 text-apollo" />
+                <span className="text-xs font-semibold text-slate-800">
+                  Sales Approach Status
                 </span>
-              )}
-            </div>
-            <ChevronDown
-              className={`w-4 h-4 text-slate-400 transition-transform ${
-                openSections.approach ? 'rotate-180' : ''
-              }`}
-            />
-          </button>
-
-          {openSections.approach && (
-            <div className="px-4 pb-3">
-              <CompactSalesApproachFilter
-                selectedStatuses={selectedApproachStatuses}
-                onToggleStatus={(st) => onToggleApproachStatus?.(st)}
-                onSelectStatuses={setApproachStatuses}
-                onClear={() => {
-                  if (setApproachStatuses) {
-                    setApproachStatuses([]);
-                  } else if (onToggleApproachStatus) {
-                    selectedApproachStatuses.forEach((st) => onToggleApproachStatus(st));
-                  }
-                }}
+                {selectedApproachStatuses.length > 0 && (
+                  <span className="bg-apollo/10 text-apollo text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
+                    {selectedApproachStatuses.length}
+                  </span>
+                )}
+              </div>
+              <ChevronDown
+                className={`w-4 h-4 text-slate-400 transition-transform ${
+                  openSections.approach ? 'rotate-180' : ''
+                }`}
               />
-            </div>
-          )}
-        </div>
+            </button>
+
+            {openSections.approach && (
+              <div className="px-4 pb-3">
+                <CompactSalesApproachFilter
+                  selectedStatuses={selectedApproachStatuses}
+                  onToggleStatus={(st) => onToggleApproachStatus?.(st)}
+                  onSelectStatuses={setApproachStatuses}
+                  onClear={() => {
+                    if (setApproachStatuses) {
+                      setApproachStatuses([]);
+                    } else if (onToggleApproachStatus) {
+                      selectedApproachStatuses.forEach((st) => onToggleApproachStatus(st));
+                    }
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Accordion 1: Contact Readiness */}
         <div>

@@ -269,8 +269,8 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     );
   }
 
-  // 8. Sales Approach Status Multi-select Filter
-  if (approachStatuses && approachStatuses.length > 0) {
+  // 8. Sales Approach Status Multi-select Filter (Only applies to Inactive / All, not Active)
+  if (customerStatus !== 'active' && approachStatuses && approachStatuses.length > 0) {
     const statusSet = new Set(approachStatuses);
     baseFiltered = baseFiltered.filter((c) => {
       const st = getCachedApproachStatus('jfll_customer', c.id);

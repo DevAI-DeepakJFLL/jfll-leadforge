@@ -516,5 +516,17 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(groupAsc.items.length).toBeGreaterThan(0);
     expect(groupAsc.items[0].customerGroup).toBe('GSA');
   });
+
+  describe('Sales Approach Query Service Rules for Active Customers', () => {
+    it('ignores approachStatuses filter when customerStatus is active', () => {
+      // Inactive approach status shouldn't filter out active customers
+      const res = queryJfllCustomers({
+        customerStatus: 'active',
+        approachStatuses: ['Contacted', 'In Progress'],
+      });
+      // All 578 active customers are preserved
+      expect(res.totalEstimate).toBe(578);
+    });
+  });
 });
 

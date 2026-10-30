@@ -32,6 +32,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
       creditStatuses: [],
       salesPersons: [],
       revenueRanges: [],
+      approachStatuses: customerStatus === 'active' ? [] : prev.approachStatuses,
     }));
   }, []);
 
@@ -184,7 +185,11 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     if (filters.revenueRanges && filters.revenueRanges.length > 0) {
       count += filters.revenueRanges.length;
     }
-    if (filters.approachStatuses && filters.approachStatuses.length > 0) {
+    if (
+      filters.customerStatus !== 'active' &&
+      filters.approachStatuses &&
+      filters.approachStatuses.length > 0
+    ) {
       count += filters.approachStatuses.length;
     }
     if (filters.hasPhone) count += 1;

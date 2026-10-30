@@ -8,6 +8,7 @@ import {
   CompactSalesApproachFilter,
 } from '@/components/approach';
 import { DatamyneTable } from '@/components/datamyne/DatamyneTable';
+import { JfllCustomerFilterSidebar } from '@/components/jfll/JfllCustomerFilterSidebar';
 import { DatamyneLead } from '@/types/datamyneLead';
 import {
   ALL_SALES_ACTIONS,
@@ -371,6 +372,67 @@ describe('Sales Approach & Active Conversion Suite', () => {
 
       expect(html).toContain('text-blue-700 shadow-2xs font-bold');
       expect(html).toContain('4 of 9 selected');
+    });
+  });
+
+  describe('Sales Approach Filter Visibility Rules in JfllCustomerFilterSidebar', () => {
+    it('hides the Sales Approach Status filter when on the Active Customer tab', () => {
+      const html = renderToString(
+        <JfllCustomerFilterSidebar
+          filters={{ customerStatus: 'active' }}
+          onToggleCustomerGroup={vi.fn()}
+          onToggleType={vi.fn()}
+          onToggleCreditStatus={vi.fn()}
+          onToggleSalesPerson={vi.fn()}
+          onToggleRevenueRange={vi.fn()}
+          onToggleApproachStatus={vi.fn()}
+          onToggleContactOption={vi.fn()}
+          onClearAll={vi.fn()}
+        />
+      );
+
+      // Verify other standard filters exist
+      expect(html).toContain('Customer Group');
+      expect(html).toContain('Contact Readiness');
+
+      // Verify Sales Approach Status is NOT displayed
+      expect(html).not.toContain('Sales Approach Status');
+    });
+
+    it('displays the Sales Approach Status filter when on the Inactive Customer tab', () => {
+      const html = renderToString(
+        <JfllCustomerFilterSidebar
+          filters={{ customerStatus: 'inactive' }}
+          onToggleCustomerGroup={vi.fn()}
+          onToggleType={vi.fn()}
+          onToggleCreditStatus={vi.fn()}
+          onToggleSalesPerson={vi.fn()}
+          onToggleRevenueRange={vi.fn()}
+          onToggleApproachStatus={vi.fn()}
+          onToggleContactOption={vi.fn()}
+          onClearAll={vi.fn()}
+        />
+      );
+
+      expect(html).toContain('Sales Approach Status');
+    });
+
+    it('displays the Sales Approach Status filter when on the All Customers tab', () => {
+      const html = renderToString(
+        <JfllCustomerFilterSidebar
+          filters={{ customerStatus: 'all' }}
+          onToggleCustomerGroup={vi.fn()}
+          onToggleType={vi.fn()}
+          onToggleCreditStatus={vi.fn()}
+          onToggleSalesPerson={vi.fn()}
+          onToggleRevenueRange={vi.fn()}
+          onToggleApproachStatus={vi.fn()}
+          onToggleContactOption={vi.fn()}
+          onClearAll={vi.fn()}
+        />
+      );
+
+      expect(html).toContain('Sales Approach Status');
     });
   });
 });
