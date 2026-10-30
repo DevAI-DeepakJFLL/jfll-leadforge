@@ -121,7 +121,30 @@ curl -s "https://uxfmnbd6owxk3wxemhizp4gqsa0exlge.lambda-url.ap-southeast-2.on.a
 
 ---
 
-## 5. Setting Up the $0.01 AWS Billing Alarm (Zero-Risk Guarantee)
+## 5. Setting CloudWatch Log Retention to 14 Days (Free Tier Protection)
+
+By default, CloudWatch log groups have a retention period of **"Never Expire"**, which causes execution logs to accumulate indefinitely and eventually breach the 5.0 GB CloudWatch free tier.
+
+LeadForge automatically enforces 14-day log retention in CI/CD via [`.github/workflows/deploy.yml`](file:///Users/deepak/Development/Jet%20Freight%20Logistics/Lead%20Sourcing%20Tool/.github/workflows/deploy.yml). To set or verify it manually right now:
+
+### Option A: AWS Management Console (GUI)
+1. Open the [AWS CloudWatch Console](https://console.aws.amazon.com/cloudwatch) in `ap-southeast-2` (Sydney).
+2. In the left navigation pane, choose **Logs** > **Log groups**.
+3. Search for `/aws/lambda/jfll-leadforge-api` (or your configured Lambda name).
+4. Select the log group checkbox, click **Actions** > **Edit retention setting**.
+5. Select **14 days (2 weeks)** and click **Save**.
+
+### Option B: AWS CLI / CloudShell (Single Command)
+```bash
+aws logs put-retention-policy \
+  --log-group-name "/aws/lambda/jfll-leadforge-api" \
+  --retention-in-days 14 \
+  --region ap-southeast-2
+```
+
+---
+
+## 6. Setting Up the $0.01 AWS Billing Alarm (Zero-Risk Guarantee)
 
 To ensure complete peace of mind, configure a CloudWatch billing alarm in the AWS Management Console:
 
