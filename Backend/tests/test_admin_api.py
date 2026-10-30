@@ -413,3 +413,61 @@ def test_device_level_blocking_preserves_email_id():
     assert "DEVICE_BLOCKED" in blocked_token_req.json()["detail"]
 
 
+def test_only_admin_can_remove_restriction_and_device_status_endpoint():
+    """
+    Verifies that:
+    1. /api/v1/auth/device-status correctly reports restriction state.
+    2. Non-admin cannot unblock a restricted device.
+    3. ONLY an admin can remove restrictions.
+    4. Once unblocked by admin, /api/v1/auth/device-status confirms clearance.
+    """
+    admin_headers = get_admin_headers()
+    target_fp = "fp_restricted_device_abc"
+
+    # 1. Block the device via Admin
+    block_res = client.post(
+        "/api/v1/admin/blocked-devices",
+        json={"fingerprint": target_fp, "reason": "Security restriction policy"},
+        headers=admin_headers,
+    )
+    assert block_res.status_code == 200
+    ban_id = block_res.json()["entry"]["id"]
+
+    # 2. Public /device-status reflects that the device is blocked
+    status_res = client.get(f"/api/v1/auth/device-status?fingerprint={target_fp}")
+    assert status_res.status_code == 200
+    assert status_res.json()["blocked"] is True
+    assert status_res.json()["reason"] == "Security restriction policy"
+
+    # 3. Unauthorized/anonymous user CANNOT unblock the device
+    anon_unblock = client.delete(f"/api/v1/admin/blocked-devices/{ban_id}")
+    assert anon_unblock.status_code in (401, 403)
+
+    # 4. Non-admin employee CANNOT unblock the device
+    from src.api.auth import create_token
+    user_token, _ = create_token({"sub": "user@jfll.com", "role": "Commercial"})
+    user_unblock = client.delete(
+        f"/api/v1/admin/blocked-devices/{ban_id}",
+        headers={"Authorization": f"Bearer {user_token}"},
+    )
+    assert user_unblock.status_code in (401, 403)
+
+    # Device remains blocked
+    status_res = client.get(f"/api/v1/auth/device-status?fingerprint={target_fp}")
+    assert status_res.json()["blocked"] is True
+
+    # 5. ONLY Admin unblocks the device
+    admin_unblock = client.delete(
+        f"/api/v1/admin/blocked-devices/{ban_id}",
+        headers=admin_headers,
+    )
+    assert admin_unblock.status_code == 200
+    assert admin_unblock.json()["success"] is True
+
+    # 6. /device-status now reflects clearance
+    status_cleared = client.get(f"/api/v1/auth/device-status?fingerprint={target_fp}")
+    assert status_cleared.status_code == 200
+    assert status_cleared.json()["blocked"] is False
+
+
+

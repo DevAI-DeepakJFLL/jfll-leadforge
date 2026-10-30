@@ -8,7 +8,7 @@ import secrets
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
-from fastapi import APIRouter, Header, HTTPException, Request
+from fastapi import APIRouter, Header, HTTPException, Query, Request
 from pydantic import BaseModel, Field
 
 from src.api.config import settings
@@ -495,4 +495,33 @@ def report_bot_activity(
         "status": "blocked",
         "detail": "DEVICE_BLOCKED: Machine identified as automated bot and permanently restricted.",
         "ban_id": entry.get("id"),
+    }
+
+
+@router.get("/device-status", summary="Check whether a device is restricted")
+def check_device_status(fingerprint: str = Query(default="", description="Device hardware fingerprint")):
+    """
+    Public verification endpoint allowing a client to check if its hardware fingerprint
+    has been restricted or if an administrator has lifted the restriction.
+    Only an administrator can lift restrictions on the server.
+    """
+    from src.api.access_control import is_device_blocked, get_blocked_devices
+
+    clean_fp = fingerprint.strip() if fingerprint else ""
+    if not clean_fp:
+        return {"fingerprint": "", "blocked": False, "status": "clear"}
+
+    blocked = is_device_blocked(clean_fp)
+    reason = None
+    if blocked:
+        for entry in get_blocked_devices(status="active"):
+            if entry.get("fingerprint") == clean_fp:
+                reason = entry.get("reason")
+                break
+
+    return {
+        "fingerprint": clean_fp,
+        "blocked": blocked,
+        "reason": reason,
+        "status": "blocked" if blocked else "clear",
     }

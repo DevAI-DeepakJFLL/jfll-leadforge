@@ -161,6 +161,39 @@ export async function reportBotToBackend(reason: string, artifacts: string[] = [
 }
 
 /**
+ * Queries the backend security service to verify if a device hardware fingerprint
+ * has been unblocked by an administrator. Only an administrator can lift restrictions on the server.
+ */
+export async function checkDeviceStatusOnline(
+  fingerprint: string
+): Promise<{ blocked: boolean; reason?: string }> {
+  if (typeof window === 'undefined' || typeof fetch === 'undefined') {
+    return { blocked: isMachineLocallyPoisoned() };
+  }
+  const cleanFp = fingerprint.trim();
+  if (!cleanFp) {
+    return { blocked: false };
+  }
+  try {
+    const res = await fetch(`/api/v1/auth/device-status?fingerprint=${encodeURIComponent(cleanFp)}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'X-Device-Fingerprint': cleanFp,
+      },
+    });
+    if (!res.ok) {
+      return { blocked: true };
+    }
+    const data = await res.json();
+    return { blocked: !!data.blocked, reason: data.reason };
+  } catch {
+    // If server is unreachable, maintain local poison status
+    return { blocked: isMachineLocallyPoisoned() };
+  }
+}
+
+/**
  * Inspects browser environment for tell-tale signatures of headless and automated engines.
  */
 export function isAutomatedBrowser(): BotDetectionResult {
@@ -168,13 +201,9 @@ export function isAutomatedBrowser(): BotDetectionResult {
     return { isBot: false };
   }
 
-  // Developer & Root Admin Bypass:
-  // If URL has ?unban=true or ?clear_ban=true, or if user is root administrator, clear poison pill immediately.
+  // Root Administrator Session Bypass:
+  // Active sessions belonging to root administrators are never locked out.
   try {
-    if (window.location && (window.location.search.includes('unban') || window.location.search.includes('clear_ban'))) {
-      clearMachinePoisonPill();
-      return { isBot: false };
-    }
     if (window.sessionStorage) {
       const rawSession = window.sessionStorage.getItem('apollo_leads_session');
       if (rawSession) {
@@ -245,10 +274,12 @@ export function isAutomatedBrowser(): BotDetectionResult {
 /**
  * Replaces the entire DOM with an enterprise Security Access Denied block screen.
  * Halts React execution and prevents unauthorized headless interaction.
+ * Only an administrator can remove the restriction.
  */
-export function renderBotBlockScreen(reason?: string): void {
+export function renderBotBlockScreen(reason?: string, fingerprint?: string): void {
   if (typeof document === 'undefined') return;
 
+  const fp = fingerprint || getDeviceFingerprint();
   document.title = 'Access Restricted · Jet Freight Security';
 
   const container = document.createElement('div');
@@ -280,54 +311,143 @@ export function renderBotBlockScreen(reason?: string): void {
 
   const heading = document.createElement('h1');
   heading.setAttribute('style', 'font-size:20px;font-weight:700;color:#f87171;margin:0 0 12px;letter-spacing:-0.02em;');
-  heading.textContent = 'Automated Browser Agent Prohibited';
+  heading.textContent = 'Device Access Restricted';
   card.appendChild(heading);
 
   const desc = document.createElement('p');
   desc.setAttribute('style', 'font-size:14px;color:#9ca3af;line-height:1.6;margin:0 0 20px;');
   desc.textContent =
-    'Jet Freight Lead Forge has detected an automated browser environment or headless agent. To safeguard proprietary customs intelligence and client records, programmatic browser operations are restricted.';
+    'This device has been restricted by Jet Freight Security. Only an Administrator can remove restrictions from any user or machine.';
   card.appendChild(desc);
 
   if (reason) {
     const reasonDiv = document.createElement('div');
     reasonDiv.setAttribute(
       'style',
-      'font-size:11px;font-family:monospace;background:#1f2937;color:#fca5a5;padding:8px 12px;border-radius:8px;margin-bottom:20px;word-break:break-all;'
+      'font-size:11px;font-family:monospace;background:#1f2937;color:#fca5a5;padding:8px 12px;border-radius:8px;margin-bottom:16px;word-break:break-all;'
     );
     reasonDiv.textContent = `Detection: ${reason}`;
     card.appendChild(reasonDiv);
   }
 
+  // Device Reference ID block
+  const idBox = document.createElement('div');
+  idBox.setAttribute(
+    'style',
+    'background:#1e293b;border:1px solid #334155;border-radius:10px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:8px;'
+  );
+  const idLeft = document.createElement('div');
+  idLeft.setAttribute('style', 'text-align:left;overflow:hidden;');
+  const idLabel = document.createElement('div');
+  idLabel.setAttribute('style', 'font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:#94a3b8;font-weight:600;');
+  idLabel.textContent = 'Device Reference ID';
+  const idValue = document.createElement('div');
+  idValue.setAttribute('style', 'font-size:12px;font-family:monospace;color:#38bdf8;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;');
+  idValue.textContent = fp;
+  idLeft.appendChild(idLabel);
+  idLeft.appendChild(idValue);
+  idBox.appendChild(idLeft);
+
+  const copyBtn = document.createElement('button');
+  copyBtn.setAttribute(
+    'style',
+    'background:#0f172a;border:1px solid #475569;color:#e2e8f0;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;shrink:0;transition:all 0.2s;'
+  );
+  copyBtn.textContent = 'Copy ID';
+  copyBtn.onclick = () => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(fp).then(() => {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy ID';
+        }, 2000);
+      });
+    }
+  };
+  idBox.appendChild(copyBtn);
+  card.appendChild(idBox);
+
+  // Status feedback container
+  const statusBanner = document.createElement('div');
+  statusBanner.id = 'security-status-banner';
+  statusBanner.setAttribute(
+    'style',
+    'display:none;font-size:12px;padding:10px 14px;border-radius:8px;margin-bottom:16px;font-weight:500;'
+  );
+  card.appendChild(statusBanner);
+
   const footer = document.createElement('div');
   footer.setAttribute(
     'style',
-    'border-top:1px solid #374151;padding-top:20px;font-size:12px;color:#6b7280;line-height:1.5;display:flex;flex-direction:column;gap:12px;align-items:center;'
+    'border-top:1px solid #374151;padding-top:20px;font-size:12px;color:#94a3b8;line-height:1.5;display:flex;flex-direction:column;gap:14px;align-items:center;'
   );
-  footer.textContent =
-    'Please launch this portal in a standard, interactive desktop browser (Chrome, Safari, Edge, Firefox).';
 
-  const restoreBtn = document.createElement('button');
-  restoreBtn.setAttribute(
+  const adminHelp = document.createElement('div');
+  adminHelp.textContent =
+    'To request unblocking, please share your Device Reference ID with an administrator (deepak@jfll.com). Only an administrator can unblock your device.';
+  footer.appendChild(adminHelp);
+
+  const verifyBtn = document.createElement('button');
+  verifyBtn.setAttribute(
     'style',
-    'background:#1e293b;border:1px solid #475569;color:#e2e8f0;padding:8px 16px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s;'
+    'background:#1e293b;border:1px solid #38bdf8;color:#38bdf8;padding:8px 20px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;'
   );
-  restoreBtn.textContent = 'Jet Freight Staff: Restore Browser Access';
-  restoreBtn.onmouseover = () => {
-    restoreBtn.style.background = '#334155';
+  verifyBtn.textContent = 'Verify Restriction Status';
+  verifyBtn.onmouseover = () => {
+    verifyBtn.style.background = '#0369a1';
+    verifyBtn.style.color = '#ffffff';
   };
-  restoreBtn.onmouseout = () => {
-    restoreBtn.style.background = '#1e293b';
+  verifyBtn.onmouseout = () => {
+    verifyBtn.style.background = '#1e293b';
+    verifyBtn.style.color = '#38bdf8';
   };
-  restoreBtn.onclick = () => {
-    clearMachinePoisonPill();
-    window.location.href = window.location.pathname;
+
+  verifyBtn.onclick = async () => {
+    verifyBtn.textContent = 'Checking administrator records...';
+    verifyBtn.style.opacity = '0.7';
+    verifyBtn.style.cursor = 'wait';
+
+    try {
+      const status = await checkDeviceStatusOnline(fp);
+      if (!status.blocked) {
+        // Admin lifted the restriction!
+        clearMachinePoisonPill();
+        statusBanner.style.display = 'block';
+        statusBanner.style.background = 'rgba(16, 185, 129, 0.15)';
+        statusBanner.style.border = '1px solid #10b981';
+        statusBanner.style.color = '#6ee7b7';
+        statusBanner.textContent = 'Restriction removed by administrator! Restoring access...';
+        verifyBtn.textContent = 'Access Restored';
+        setTimeout(() => {
+          window.location.reload();
+        }, 600);
+      } else {
+        statusBanner.style.display = 'block';
+        statusBanner.style.background = 'rgba(239, 68, 68, 0.15)';
+        statusBanner.style.border = '1px solid #ef4444';
+        statusBanner.style.color = '#fca5a5';
+        statusBanner.textContent =
+          'Device restriction is still active. Please contact an administrator to approve your device.';
+        verifyBtn.textContent = 'Verify Restriction Status';
+        verifyBtn.style.opacity = '1';
+        verifyBtn.style.cursor = 'pointer';
+      }
+    } catch {
+      statusBanner.style.display = 'block';
+      statusBanner.style.background = 'rgba(234, 179, 8, 0.15)';
+      statusBanner.style.border = '1px solid #eab308';
+      statusBanner.style.color = '#fef08a';
+      statusBanner.textContent = 'Unable to reach security server. Please ensure network connectivity.';
+      verifyBtn.textContent = 'Verify Restriction Status';
+      verifyBtn.style.opacity = '1';
+      verifyBtn.style.cursor = 'pointer';
+    }
   };
-  footer.appendChild(restoreBtn);
+  footer.appendChild(verifyBtn);
 
   card.appendChild(footer);
-
   container.appendChild(card);
+
   document.body.innerHTML = '';
   document.body.appendChild(container);
 }

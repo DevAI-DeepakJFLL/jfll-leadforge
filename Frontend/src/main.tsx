@@ -5,7 +5,12 @@ import App from '@/App';
 import '@/styles/globals.css';
 import { initMocks } from '@/mocks/browser';
 import { initGlobalErrorLogging } from '@/utils/logger';
-import { isAutomatedBrowser, renderBotBlockScreen } from '@/utils/antiBotGuard';
+import {
+  isAutomatedBrowser,
+  renderBotBlockScreen,
+  checkDeviceStatusOnline,
+  clearMachinePoisonPill,
+} from '@/utils/antiBotGuard';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,8 +28,25 @@ async function renderApp() {
   // Enforce Anti-Bot and Anti-Headless Guard before mounting React
   const botCheck = isAutomatedBrowser();
   if (botCheck.isBot) {
-    renderBotBlockScreen(botCheck.reason);
-    return;
+    // If flagged by prior local storage lock, verify whether an administrator has lifted the restriction
+    if (botCheck.fingerprint) {
+      try {
+        const liveStatus = await checkDeviceStatusOnline(botCheck.fingerprint);
+        if (!liveStatus.blocked) {
+          // Restriction cleared by administrator on the server
+          clearMachinePoisonPill();
+        } else {
+          renderBotBlockScreen(liveStatus.reason || botCheck.reason, botCheck.fingerprint);
+          return;
+        }
+      } catch {
+        renderBotBlockScreen(botCheck.reason, botCheck.fingerprint);
+        return;
+      }
+    } else {
+      renderBotBlockScreen(botCheck.reason);
+      return;
+    }
   }
 
   await initMocks();

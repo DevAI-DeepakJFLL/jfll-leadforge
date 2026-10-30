@@ -698,18 +698,18 @@ def block_entity(
 
 
 def unblock_entity(ban_id: str, unblocked_by: str = "admin") -> dict[str, Any]:
-    """Removes a permanent block from an entity by ban ID."""
+    """Removes a permanent block from an entity by ban ID or device fingerprint."""
+    target_identifier = ban_id.strip()
     with _ACCESS_LOCK:
         data = load_access_data()
         entities = data.get("blocked_entities", [])
         target = None
         for entity in entities:
-            if entity.get("id") == ban_id:
+            if entity.get("id") == target_identifier or entity.get("fingerprint") == target_identifier:
                 entity["status"] = "unblocked"
                 entity["unblocked_at"] = datetime.now(UTC).isoformat()
                 entity["unblocked_by"] = unblocked_by
                 target = entity
-                break
 
         if not target:
             raise KeyError(f"Ban record '{ban_id}' not found.")

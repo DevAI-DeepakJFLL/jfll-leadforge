@@ -33,7 +33,12 @@ app = FastAPI(
 class AntiBotMiddleware(BaseHTTPMiddleware):
     """Enforces permanent rejection of blocked machines and auto-bans detected headless browsers."""
     async def dispatch(self, request: Request, call_next):
-        if request.method != "OPTIONS" and not request.url.path.endswith("/health"):
+        path = request.url.path
+        if (
+            request.method != "OPTIONS"
+            and not path.endswith("/health")
+            and not path.endswith("/device-status")
+        ):
             ip = get_client_ip(request)
             fingerprint = request.headers.get("x-device-fingerprint")
 
