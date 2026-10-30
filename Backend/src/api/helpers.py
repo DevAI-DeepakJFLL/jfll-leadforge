@@ -1,12 +1,32 @@
 import re
 from typing import Any
 
-from fastapi import HTTPException
+from fastapi import HTTPException, Request
 from fastapi.params import Query as QueryType
 
 from src.api.auth import check_session_active, verify_token
 from src.api.config import settings
 from src.api.logger import logger
+
+
+def get_client_ip(request: Request) -> str:
+    """Safely extracts client public IP address considering proxies, CloudFront, and Lambda URL."""
+    cf_connecting_ip = request.headers.get("cf-connecting-ip")
+    if cf_connecting_ip:
+        return cf_connecting_ip.split(",")[0].strip()
+
+    x_forwarded_for = request.headers.get("x-forwarded-for")
+    if x_forwarded_for:
+        return x_forwarded_for.split(",")[0].strip()
+
+    x_real_ip = request.headers.get("x-real-ip")
+    if x_real_ip:
+        return x_real_ip.strip()
+
+    if request.client and request.client.host:
+        return request.client.host.strip()
+
+    return "unknown"
 
 
 def require_auth(

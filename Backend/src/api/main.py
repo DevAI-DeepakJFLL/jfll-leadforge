@@ -6,12 +6,14 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
+from src.api.access_control import block_entity, is_ip_or_fingerprint_blocked
 from src.api.admin_routes import admin_router
 from src.api.approach_routes import approach_router
 from src.api.auth import is_headless_user_agent
 from src.api.auth import router as auth_router
 from src.api.config import settings
-from src.api.logger import CloudWatchLoggingMiddleware
+from src.api.helpers import get_client_ip
+from src.api.logger import CloudWatchLoggingMiddleware, logger
 from src.api.models import HealthResponse
 from src.api.routes import router as leads_router
 from src.api.tier_routes import tier_router
@@ -29,14 +31,44 @@ app = FastAPI(
 
 
 class AntiBotMiddleware(BaseHTTPMiddleware):
-    """Enforces rejection of automated headless browsers across all non-health API endpoints."""
+    """Enforces permanent rejection of blocked machines and auto-bans detected headless browsers."""
     async def dispatch(self, request: Request, call_next):
         if request.method != "OPTIONS" and not request.url.path.endswith("/health"):
-            ua = request.headers.get("user-agent")
-            if is_headless_user_agent(ua):
+            ip = get_client_ip(request)
+            fingerprint = request.headers.get("x-device-fingerprint")
+
+            # 1. Immediate check: Is this IP or machine fingerprint permanently banned?
+            if is_ip_or_fingerprint_blocked(ip, fingerprint):
                 return JSONResponse(
                     status_code=403,
-                    content={"detail": "AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited."},
+                    content={
+                        "detail": "DEVICE_BLOCKED: This machine and network have been permanently blocked due to unauthorized bot activity.",
+                        "code": "PERMANENT_DEVICE_BAN",
+                    },
+                )
+
+            # 2. Check for automated headless signature
+            ua = request.headers.get("user-agent")
+            if is_headless_user_agent(ua):
+                # Auto-ban this IP and device fingerprint permanently
+                if ip and ip != "unknown" and ip != "127.0.0.1" and ip != "testclient":
+                    try:
+                        block_entity(
+                            ip=ip,
+                            fingerprint=fingerprint,
+                            reason=f"Automated headless bot detected: {ua}",
+                            user_agent=ua,
+                            actor="AntiBotMiddleware",
+                        )
+                    except Exception as err:
+                        logger.warning("Could not auto-ban entity: %s", err)
+
+                return JSONResponse(
+                    status_code=403,
+                    content={
+                        "detail": "AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
+                        "code": "AUTOMATED_AGENT_BLOCKED",
+                    },
                 )
         return await call_next(request)
 

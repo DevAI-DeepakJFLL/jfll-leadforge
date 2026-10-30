@@ -45,7 +45,7 @@ describe('authService', () => {
 
     expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/api/v1/auth/login'), {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: expect.objectContaining({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ email: 'deepak@jfll.com' }),
     });
 
@@ -77,7 +77,7 @@ describe('authService', () => {
 
     expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/api/v1/auth/login'), {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: expect.objectContaining({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ email: 'tyra.theknath@jfll.com' }),
     });
 
@@ -281,7 +281,7 @@ describe('authService', () => {
       expect(globalThis.fetch).toHaveBeenCalledWith(
         expect.stringContaining('/api/v1/auth/heartbeat'),
         expect.objectContaining({
-          headers: { Authorization: 'Bearer valid.jwt.token' },
+          headers: expect.objectContaining({ Authorization: 'Bearer valid.jwt.token' }),
         })
       );
     });

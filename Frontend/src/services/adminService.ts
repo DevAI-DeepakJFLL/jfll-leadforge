@@ -1,11 +1,13 @@
 import { API_BASE_URL } from '@/config/api';
 import { getStoredSession } from '@/services/authService';
 import { logger } from '@/utils/logger';
+import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 import {
   AccessRequest,
   AdminStats,
   AllowlistEntry,
   ApproveAccessRequestPayload,
+  BlockedEntity,
   CreateAccessRequestPayload,
   CreateAccessRequestResponse,
   CreateAllowlistEntryPayload,
@@ -54,6 +56,7 @@ function getAuthHeaders(): HeadersInit {
   const session = getStoredSession();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    'X-Device-Fingerprint': getDeviceFingerprint(),
   };
   if (session?.token) {
     headers['Authorization'] = `Bearer ${session.token}`;
@@ -117,7 +120,10 @@ export async function submitAccessRequest(
   try {
     const res = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Device-Fingerprint': getDeviceFingerprint(),
+      },
       body: JSON.stringify(payload),
     });
 
@@ -523,3 +529,40 @@ export async function revokeAllowlistEntry(
     };
   }
 }
+
+// ==========================================
+// Blocked Entities & Anti-Bot Defense API
+// ==========================================
+
+export async function fetchBlockedEntities(status: string = 'active'): Promise<BlockedEntity[]> {
+  const endpoint = `${API_BASE_URL}/api/v1/admin/blocked-entities?status=${encodeURIComponent(status)}`;
+  try {
+    const res = await fetch(endpoint, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (err) {
+    logger.warn('ADMIN_SERVICE', 'Failed to fetch blocked entities from API', { error: String(err) });
+  }
+  return [];
+}
+
+export async function unblockEntity(banId: string): Promise<boolean> {
+  const endpoint = `${API_BASE_URL}/api/v1/admin/blocked-entities/${encodeURIComponent(banId)}`;
+  try {
+    const res = await fetch(endpoint, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+    });
+    if (res.ok) {
+      return true;
+    }
+  } catch (err) {
+    logger.warn('ADMIN_SERVICE', 'Failed to unblock entity', { banId, error: String(err) });
+  }
+  return false;
+}
+

@@ -13,6 +13,7 @@ import { API_BASE_URL } from '@/config/api';
 import { isValidPhoneNumber } from '@/utils/phoneUtils';
 import { isOfflineSession } from '@/services/authService';
 import { getCachedApproachStatus } from '@/services/approachLogService';
+import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 
 export { isValidPhoneNumber };
 
@@ -85,13 +86,15 @@ export async function fetchJfllCustomersFromApi(
   const endpoint = `${API_BASE_URL}/api/v1/leads?${urlParams.toString()}`;
   logger.info('API', 'Querying JFLL customer leads', { page, limit, tab, q, customerGroups, creditStatuses, salesPersons, revenueRanges, sortBy, sortOrder });
 
-  let authHeader: Record<string, string> = {};
+  let authHeader: Record<string, string> = {
+    'X-Device-Fingerprint': getDeviceFingerprint(),
+  };
   try {
     const rawSession = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('apollo_leads_session') : null;
     if (rawSession) {
       const session = JSON.parse(rawSession);
       if (session?.token && !isOfflineSession(session)) {
-        authHeader = { Authorization: `Bearer ${session.token}` };
+        authHeader['Authorization'] = `Bearer ${session.token}`;
       }
     }
   } catch {

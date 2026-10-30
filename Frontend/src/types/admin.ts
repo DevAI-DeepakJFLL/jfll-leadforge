@@ -69,3 +69,18 @@ export interface CreateAllowlistEntryPayload {
   name: string;
   role: FunctionalRole | string;
 }
+
+export interface BlockedEntity {
+  id: string;
+  ip?: string;
+  fingerprint?: string;
+  user_agent?: string;
+  reason: string;
+  artifacts?: string[];
+  blocked_at: string;
+  blocked_by: string;
+  status: 'active' | 'unblocked';
+  unblocked_at?: string | null;
+  unblocked_by?: string | null;
+}
+

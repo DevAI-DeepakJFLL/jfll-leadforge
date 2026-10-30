@@ -8,7 +8,8 @@ import secrets
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Header, HTTPException, Request
+from pydantic import BaseModel, Field
 
 from src.api.config import settings
 from src.api.logger import logger
@@ -455,3 +456,43 @@ def session_heartbeat(authorization: str | None = Header(None), user_agent: str 
         )
 
     return {"active": True, "session_id": payload.get("session_id")}
+
+
+class BotReportRequest(BaseModel):
+    fingerprint: str | None = None
+    reason: str
+    artifacts: list[str] = Field(default_factory=list)
+
+
+@router.post("/report-bot", summary="Report client-side automated bot detection and ban entity")
+def report_bot_activity(
+    payload: BotReportRequest,
+    request: Request,
+    user_agent: str | None = Header(None, alias="User-Agent"),
+):
+    """
+    Called by client AntiBotGuard when automation artifacts (Playwright, Puppeteer, Selenium)
+    are discovered. Permanently registers the machine's IP and hardware fingerprint into the ban list.
+    """
+    from src.api.access_control import block_entity
+    from src.api.helpers import get_client_ip
+
+    ip = get_client_ip(request)
+    fp = payload.fingerprint or request.headers.get("x-device-fingerprint")
+    reason_detail = f"Client AntiBot detection: {payload.reason}"
+    if payload.artifacts:
+        reason_detail += f" ({', '.join(payload.artifacts)})"
+
+    entry = block_entity(
+        ip=ip,
+        fingerprint=fp,
+        reason=reason_detail,
+        user_agent=user_agent,
+        actor="ClientAntiBotGuard",
+    )
+    return {
+        "success": True,
+        "status": "blocked",
+        "detail": "DEVICE_BLOCKED: Machine identified as automated bot and permanently restricted.",
+        "ban_id": entry.get("id"),
+    }

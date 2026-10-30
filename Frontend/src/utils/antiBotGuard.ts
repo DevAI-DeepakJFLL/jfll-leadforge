@@ -2,11 +2,132 @@
  * Anti-Bot & Headless Browser Detection Guard
  * Protects Jet Freight Lead Forge from automated headless runners (Playwright, Puppeteer, Selenium, WebDriver)
  * and unauthorized browser agents.
+ * Features persistent multi-storage machine banning and hardware fingerprinting.
  */
 
 export interface BotDetectionResult {
   isBot: boolean;
   reason?: string;
+  fingerprint?: string;
+}
+
+export const BAN_STORAGE_KEY = 'jfll_sec_machine_permanently_blocked';
+export const BAN_COOKIE_NAME = 'jfll_machine_ban';
+
+/**
+ * Deterministically computes a hardware & runtime fingerprint of the client machine.
+ */
+export function getDeviceFingerprint(): string {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return 'node_headless_runtime';
+  }
+  try {
+    const components: string[] = [];
+    // 1. Hardware concurrency & memory
+    components.push(`cores:${navigator.hardwareConcurrency || 0}`);
+    components.push(`mem:${(navigator as unknown as { deviceMemory?: number }).deviceMemory || 0}`);
+    // 2. Screen & pixel ratio
+    if (window.screen) {
+      components.push(`scr:${window.screen.width}x${window.screen.height}x${window.screen.colorDepth}`);
+    }
+    // 3. Timezone offset
+    components.push(`tz:${new Date().getTimezoneOffset()}`);
+    // 4. WebGL unmasked renderer
+    try {
+      if (typeof document !== 'undefined') {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (gl && 'getExtension' in gl) {
+          const ext = (gl as WebGLRenderingContext).getExtension('WEBGL_debug_renderer_info');
+          if (ext) {
+            const renderer = (gl as WebGLRenderingContext).getParameter(ext.UNMASKED_RENDERER_WEBGL);
+            components.push(`gpu:${renderer}`);
+          }
+        }
+      }
+    } catch {}
+
+    const str = components.join('|');
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash << 5) - hash + str.charCodeAt(i);
+      hash |= 0;
+    }
+    return `fp_${Math.abs(hash).toString(36)}`;
+  } catch {
+    return 'fp_fallback';
+  }
+}
+
+/**
+ * Checks whether this machine has previously been tagged with the permanent security poison pill.
+ */
+export function isMachineLocallyPoisoned(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    if (window.localStorage && window.localStorage.getItem(BAN_STORAGE_KEY) === 'true') {
+      return true;
+    }
+    if (window.sessionStorage && window.sessionStorage.getItem(BAN_STORAGE_KEY) === 'true') {
+      return true;
+    }
+    if (typeof document !== 'undefined' && document.cookie.includes(`${BAN_COOKIE_NAME}=1`)) {
+      return true;
+    }
+  } catch {}
+  return false;
+}
+
+/**
+ * Permanently locks this browser profile across LocalStorage, SessionStorage, Cookies, and IndexedDB.
+ */
+export function poisonMachineStorage(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    if (window.localStorage) {
+      window.localStorage.setItem(BAN_STORAGE_KEY, 'true');
+    }
+    if (window.sessionStorage) {
+      window.sessionStorage.setItem(BAN_STORAGE_KEY, 'true');
+    }
+    if (typeof document !== 'undefined') {
+      document.cookie = `${BAN_COOKIE_NAME}=1; path=/; max-age=315360000; SameSite=Strict`;
+    }
+    if (window.indexedDB) {
+      const req = window.indexedDB.open('jfll_sec_vault', 1);
+      req.onupgradeneeded = () => {
+        req.result.createObjectStore('security_tokens', { keyPath: 'id' });
+      };
+      req.onsuccess = () => {
+        const db = req.result;
+        const tx = db.transaction('security_tokens', 'readwrite');
+        tx.objectStore('security_tokens').put({ id: 'ban_status', blocked: true, at: Date.now() });
+      };
+    }
+  } catch {}
+}
+
+/**
+ * Asynchronously notifies the backend about detected automation to auto-ban IP & device fingerprint.
+ */
+export async function reportBotToBackend(reason: string, artifacts: string[] = []): Promise<void> {
+  if (typeof window === 'undefined' || typeof fetch === 'undefined') return;
+  try {
+    const fingerprint = getDeviceFingerprint();
+    const endpoint = '/api/v1/auth/report-bot';
+    await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Device-Fingerprint': fingerprint,
+      },
+      body: JSON.stringify({
+        fingerprint,
+        reason,
+        artifacts,
+      }),
+    }).catch(() => {});
+  } catch {}
 }
 
 /**
@@ -17,9 +138,22 @@ export function isAutomatedBrowser(): BotDetectionResult {
     return { isBot: false };
   }
 
+  const fingerprint = getDeviceFingerprint();
+
+  // 0. Check for existing machine poison pill
+  if (isMachineLocallyPoisoned()) {
+    return {
+      isBot: true,
+      reason: 'This machine has been permanently restricted due to prior automated bot activity.',
+      fingerprint,
+    };
+  }
+
   // 1. Explicit navigator.webdriver flag (W3C standard automated browser flag)
   if (navigator.webdriver === true) {
-    return { isBot: true, reason: 'navigator.webdriver flag is active' };
+    poisonMachineStorage();
+    reportBotToBackend('navigator.webdriver flag is active');
+    return { isBot: true, reason: 'navigator.webdriver flag is active', fingerprint };
   }
 
   // 2. Global automation runtime objects injected by test frameworks
@@ -36,16 +170,23 @@ export function isAutomatedBrowser(): BotDetectionResult {
     'cdc_adoQpoasnfa76pfcZLmcfl_Promise',
   ];
 
-  for (const artifact of automationArtifacts) {
-    if (artifact in win) {
-      return { isBot: true, reason: `Automation driver detected (${artifact})` };
-    }
+  const foundArtifacts = automationArtifacts.filter((artifact) => artifact in win);
+  if (foundArtifacts.length > 0) {
+    poisonMachineStorage();
+    reportBotToBackend(`Automation drivers detected: ${foundArtifacts.join(', ')}`, foundArtifacts);
+    return {
+      isBot: true,
+      reason: `Automation driver detected (${foundArtifacts.join(', ')})`,
+      fingerprint,
+    };
   }
 
   // 3. User-Agent explicit headless signature
   const ua = navigator.userAgent || '';
   if (/HeadlessChrome|PhantomJS|Electron/i.test(ua)) {
-    return { isBot: true, reason: 'Headless User-Agent signature' };
+    poisonMachineStorage();
+    reportBotToBackend('Headless User-Agent signature');
+    return { isBot: true, reason: 'Headless User-Agent signature', fingerprint };
   }
 
   // 4. Zero dimensions check (Headless Chrome typically has outerWidth/Height 0)
@@ -55,7 +196,9 @@ export function isAutomatedBrowser(): BotDetectionResult {
     window.outerWidth === 0 &&
     window.outerHeight === 0
   ) {
-    return { isBot: true, reason: 'Zero display dimensions detected' };
+    poisonMachineStorage();
+    reportBotToBackend('Zero display dimensions detected');
+    return { isBot: true, reason: 'Zero display dimensions detected', fingerprint };
   }
 
   // 5. Desktop Chrome plugins check
@@ -66,10 +209,12 @@ export function isAutomatedBrowser(): BotDetectionResult {
     !/Edg/i.test(ua);
 
   if (isChromeDesktop && navigator.plugins && navigator.plugins.length === 0) {
-    return { isBot: true, reason: 'Missing browser plugins profile' };
+    poisonMachineStorage();
+    reportBotToBackend('Missing browser plugins profile');
+    return { isBot: true, reason: 'Missing browser plugins profile', fingerprint };
   }
 
-  return { isBot: false };
+  return { isBot: false, fingerprint };
 }
 
 /**

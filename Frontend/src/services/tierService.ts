@@ -9,19 +9,23 @@ import { logger } from '@/utils/logger';
 import { API_BASE_URL } from '@/config/api';
 import { getStoredSession, isOfflineSession } from '@/services/authService';
 import { normalizeCityString } from '@/services/datamyneService';
+import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 
 const TIER_API_URL = `${API_BASE_URL}/api/v1/tiers`;
 
 function getAuthHeader(): Record<string, string> {
+  const headers: Record<string, string> = {
+    'X-Device-Fingerprint': getDeviceFingerprint(),
+  };
   try {
     const session = getStoredSession();
     if (session?.token && !isOfflineSession(session)) {
-      return { Authorization: `Bearer ${session.token}` };
+      headers['Authorization'] = `Bearer ${session.token}`;
     }
   } catch {
     // Graceful handling of storage access exceptions
   }
-  return {};
+  return headers;
 }
 
 export const DEFAULT_STARTER_TIER_COUNTS: TierCountsResponse = {

@@ -1,6 +1,7 @@
 import { API_BASE_URL } from '@/config/api';
 import { getStoredSession } from '@/services/authService';
 import { logger } from '@/utils/logger';
+import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 import {
   ApproachLogCreatePayload,
   ApproachLogEntry,
@@ -91,6 +92,7 @@ function getAuthHeaders(): Record<string, string> {
   const session = getStoredSession();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    'X-Device-Fingerprint': getDeviceFingerprint(),
   };
   if (session?.token) {
     headers['Authorization'] = `Bearer ${session.token}`;

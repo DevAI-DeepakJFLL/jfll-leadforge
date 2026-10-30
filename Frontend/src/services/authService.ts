@@ -1,6 +1,7 @@
 import { UserSession, AUTHORIZED_USERS } from '@/types/auth';
 import { logger } from '@/utils/logger';
 import { API_BASE_URL } from '@/config/api';
+import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 
 export interface LoginCredentials {
   email: string;
@@ -103,6 +104,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-Device-Fingerprint': getDeviceFingerprint(),
       },
       body: JSON.stringify(payload),
     });
@@ -242,6 +244,7 @@ export async function checkSessionHeartbeat(token: string): Promise<SessionHeart
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
+        'X-Device-Fingerprint': getDeviceFingerprint(),
       },
     });
 

@@ -16,10 +16,12 @@ _CACHED_DATA: dict[str, Any] | None = None
 _CACHED_MTIME: float = 0.0
 _CACHED_STORAGE_KEY: str = ""
 _CACHED_ALLOWLIST_MAP: dict[str, dict[str, Any]] = {}
+_CACHED_BLOCKED_IPS: set[str] = set()
+_CACHED_BLOCKED_FINGERPRINTS: set[str] = set()
 
 
 def _rebuild_cache(data: dict[str, Any], storage_path: Path, mtime: float) -> None:
-    global _CACHED_DATA, _CACHED_STORAGE_KEY, _CACHED_MTIME, _CACHED_ALLOWLIST_MAP
+    global _CACHED_DATA, _CACHED_STORAGE_KEY, _CACHED_MTIME, _CACHED_ALLOWLIST_MAP, _CACHED_BLOCKED_IPS, _CACHED_BLOCKED_FINGERPRINTS
     _CACHED_DATA = data
     _CACHED_STORAGE_KEY = str(storage_path)
     _CACHED_MTIME = mtime
@@ -27,6 +29,16 @@ def _rebuild_cache(data: dict[str, Any], storage_path: Path, mtime: float) -> No
         entry.get("email", "").strip().lower(): entry
         for entry in data.get("allowlist", [])
         if entry.get("email")
+    }
+    _CACHED_BLOCKED_IPS = {
+        entry.get("ip", "").strip()
+        for entry in data.get("blocked_entities", [])
+        if entry.get("ip") and entry.get("status", "active") == "active"
+    }
+    _CACHED_BLOCKED_FINGERPRINTS = {
+        entry.get("fingerprint", "").strip()
+        for entry in data.get("blocked_entities", [])
+        if entry.get("fingerprint") and entry.get("status", "active") == "active"
     }
 
 ROOT_ADMIN_EMAILS = {
@@ -146,6 +158,7 @@ def _seed_initial_data() -> dict[str, Any]:
         "version": 1,
         "allowlist": allowlist,
         "access_requests": [],
+        "blocked_entities": [],
     }
 
 
@@ -176,6 +189,8 @@ def load_access_data() -> dict[str, Any]:
                 data["allowlist"] = []
             if "access_requests" not in data:
                 data["access_requests"] = []
+            if "blocked_entities" not in data:
+                data["blocked_entities"] = []
             _rebuild_cache(data, storage_path, current_mtime)
             return data
     except Exception as err:
@@ -557,3 +572,119 @@ def reject_access_request(
         },
     )
     return target_request
+
+
+def is_ip_or_fingerprint_blocked(ip: str | None, fingerprint: str | None = None) -> bool:
+    """Checks whether an IP address or device fingerprint is in the permanent blocklist."""
+    clean_ip = ip.strip() if ip else ""
+    clean_fp = fingerprint.strip() if fingerprint else ""
+    if not clean_ip and not clean_fp:
+        return False
+
+    with _ACCESS_LOCK:
+        load_access_data()
+        if clean_ip and clean_ip in _CACHED_BLOCKED_IPS:
+            return True
+        if clean_fp and clean_fp in _CACHED_BLOCKED_FINGERPRINTS:
+            return True
+    return False
+
+
+def block_entity(
+    ip: str | None,
+    fingerprint: str | None = None,
+    reason: str = "Automated bot activity detected",
+    user_agent: str | None = None,
+    actor: str = "system_auto_bot_guard",
+) -> dict[str, Any]:
+    """Permanently adds an IP address and/or hardware fingerprint to the blocked list."""
+    clean_ip = ip.strip() if ip else ""
+    clean_fp = fingerprint.strip() if fingerprint else ""
+    if not clean_ip and not clean_fp:
+        raise ValueError("Must provide at least an IP address or device fingerprint to block.")
+
+    now_str = datetime.now(UTC).isoformat()
+    ban_id = f"ban_{secrets.token_hex(6)}"
+
+    with _ACCESS_LOCK:
+        data = load_access_data()
+        entities = data.setdefault("blocked_entities", [])
+
+        # Check if already blocked to update last seen timestamp
+        for entity in entities:
+            if entity.get("status", "active") == "active":
+                if clean_ip and entity.get("ip") == clean_ip:
+                    entity["last_seen_at"] = now_str
+                    entity["reason"] = reason
+                    if clean_fp and not entity.get("fingerprint"):
+                        entity["fingerprint"] = clean_fp
+                    save_access_data(data)
+                    return entity
+                if clean_fp and entity.get("fingerprint") == clean_fp:
+                    entity["last_seen_at"] = now_str
+                    entity["reason"] = reason
+                    if clean_ip and not entity.get("ip"):
+                        entity["ip"] = clean_ip
+                    save_access_data(data)
+                    return entity
+
+        new_entry = {
+            "id": ban_id,
+            "ip": clean_ip,
+            "fingerprint": clean_fp,
+            "reason": reason,
+            "user_agent": user_agent or "",
+            "status": "active",
+            "blocked_at": now_str,
+            "last_seen_at": now_str,
+            "blocked_by": actor,
+        }
+        entities.append(new_entry)
+        data["blocked_entities"] = entities
+        save_access_data(data)
+
+    logger.warning(
+        "Security Guard: Permanently blocked entity %s (IP: %s, FP: %s) for: %s",
+        ban_id,
+        clean_ip,
+        clean_fp,
+        reason,
+        extra={"event": "ENTITY_PERMANENTLY_BLOCKED", "ban_id": ban_id, "ip": clean_ip, "fingerprint": clean_fp},
+    )
+    return new_entry
+
+
+def unblock_entity(ban_id: str, unblocked_by: str = "admin") -> dict[str, Any]:
+    """Removes a permanent block from an entity by ban ID."""
+    with _ACCESS_LOCK:
+        data = load_access_data()
+        entities = data.get("blocked_entities", [])
+        target = None
+        for entity in entities:
+            if entity.get("id") == ban_id:
+                entity["status"] = "unblocked"
+                entity["unblocked_at"] = datetime.now(UTC).isoformat()
+                entity["unblocked_by"] = unblocked_by
+                target = entity
+                break
+
+        if not target:
+            raise KeyError(f"Ban record '{ban_id}' not found.")
+
+        data["blocked_entities"] = entities
+        save_access_data(data)
+
+    logger.info("Security Guard: Unblocked entity %s by %s", ban_id, unblocked_by)
+    return target
+
+
+def get_blocked_entities(status: str = "active") -> list[dict[str, Any]]:
+    """Retrieves all blocked entity records."""
+    with _ACCESS_LOCK:
+        data = load_access_data()
+        entities = list(data.get("blocked_entities", []))
+
+    if status and status.lower() != "all":
+        entities = [e for e in entities if e.get("status", "active").lower() == status.lower()]
+
+    return sorted(entities, key=lambda e: e.get("blocked_at", ""), reverse=True)

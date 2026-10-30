@@ -1,11 +1,37 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { isAutomatedBrowser } from '@/utils/antiBotGuard';
+import {
+  isAutomatedBrowser,
+  getDeviceFingerprint,
+  poisonMachineStorage,
+  isMachineLocallyPoisoned,
+  BAN_STORAGE_KEY,
+} from '@/utils/antiBotGuard';
 
 describe('Anti-Bot & Headless Browser Detection Guard', () => {
+  const mockLocalStorage: Record<string, string> = {};
+
   beforeEach(() => {
+    for (const key of Object.keys(mockLocalStorage)) {
+      delete mockLocalStorage[key];
+    }
+
     (globalThis as unknown as { window: unknown }).window = {
       outerWidth: 1440,
       outerHeight: 900,
+      localStorage: {
+        getItem: (k: string) => mockLocalStorage[k] || null,
+        setItem: (k: string, v: string) => {
+          mockLocalStorage[k] = v;
+        },
+        removeItem: (k: string) => {
+          delete mockLocalStorage[k];
+        },
+      },
+      sessionStorage: {
+        getItem: () => null,
+        setItem: () => {},
+        removeItem: () => {},
+      },
     };
     Object.defineProperty(navigator, 'webdriver', {
       value: false,
@@ -32,7 +58,25 @@ describe('Anti-Bot & Headless Browser Detection Guard', () => {
     });
   });
 
-  it('detects when navigator.webdriver is true', () => {
+  it('generates a deterministic device hardware fingerprint', () => {
+    const fp = getDeviceFingerprint();
+    expect(fp).toBeDefined();
+    expect(fp.startsWith('fp_')).toBe(true);
+  });
+
+  it('poisons machine storage and detects locally poisoned machine', () => {
+    expect(isMachineLocallyPoisoned()).toBe(false);
+    poisonMachineStorage();
+    expect(isMachineLocallyPoisoned()).toBe(true);
+    expect(mockLocalStorage[BAN_STORAGE_KEY]).toBe('true');
+
+    // Even if other bot indicators are false, poisoned machine is blocked
+    const res = isAutomatedBrowser();
+    expect(res.isBot).toBe(true);
+    expect(res.reason).toContain('permanently restricted');
+  });
+
+  it('detects when navigator.webdriver is true and auto-poisons storage', () => {
     Object.defineProperty(navigator, 'webdriver', {
       value: true,
       configurable: true,
@@ -42,6 +86,7 @@ describe('Anti-Bot & Headless Browser Detection Guard', () => {
     const result = isAutomatedBrowser();
     expect(result.isBot).toBe(true);
     expect(result.reason).toContain('navigator.webdriver');
+    expect(isMachineLocallyPoisoned()).toBe(true);
   });
 
   it('detects global automation driver artifacts (e.g. __playwright__)', () => {

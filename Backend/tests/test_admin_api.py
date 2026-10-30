@@ -248,3 +248,94 @@ def test_admin_stats_telemetry():
     assert "active_allowlist_count" in data
     assert "total_requests_count" in data
     assert data["active_allowlist_count"] >= 4
+
+
+def test_bot_reporting_and_machine_blocking():
+    admin_headers = get_admin_headers()
+
+    # 1. Bot reporter endpoint called from client
+    report_res = client.post(
+        "/api/v1/auth/report-bot",
+        json={
+            "fingerprint": "fp_testbot999",
+            "reason": "Headless webdriver detected",
+            "artifacts": ["navigator.webdriver=true", "window.outerWidth=0"],
+        },
+        headers={"User-Agent": "Mozilla/5.0", "X-Forwarded-For": "198.51.100.42"},
+    )
+    assert report_res.status_code == 200
+    assert report_res.json()["success"] is True
+
+    # 2. Verify IP is blocked at middleware
+    blocked_by_ip = client.get(
+        "/api/v1/auth/me",
+        headers={"User-Agent": "Mozilla/5.0", "X-Forwarded-For": "198.51.100.42"},
+    )
+    assert blocked_by_ip.status_code == 403
+    assert "DEVICE_BLOCKED" in blocked_by_ip.json()["detail"]
+
+    # 3. Verify hardware fingerprint is blocked even if IP changes
+    blocked_by_fp = client.get(
+        "/api/v1/auth/me",
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "X-Forwarded-For": "198.51.100.99",
+            "X-Device-Fingerprint": "fp_testbot999",
+        },
+    )
+    assert blocked_by_fp.status_code == 403
+    assert "DEVICE_BLOCKED" in blocked_by_fp.json()["detail"]
+
+    # 4. Admin lists blocked entities
+    entities_res = client.get("/api/v1/admin/blocked-entities", headers=admin_headers)
+    assert entities_res.status_code == 200
+    entities = entities_res.json()
+    assert len(entities) >= 1
+    target = next((e for e in entities if e.get("fingerprint") == "fp_testbot999"), None)
+    assert target is not None
+    assert target["status"] == "active"
+    assert "Headless webdriver detected" in target["reason"]
+
+    # 5. Admin unblocks the entity
+    ban_id = target["id"]
+    unblock_res = client.delete(f"/api/v1/admin/blocked-entities/{ban_id}", headers=admin_headers)
+    assert unblock_res.status_code == 200
+    assert unblock_res.json()["success"] is True
+
+    # 6. Verify traffic is now allowed through again
+    allowed_by_fp = client.get(
+        "/api/v1/auth/me",
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "X-Forwarded-For": "198.51.100.99",
+            "X-Device-Fingerprint": "fp_testbot999",
+            **admin_headers,
+        },
+    )
+    assert allowed_by_fp.status_code == 200
+
+
+def test_user_agent_bot_autoban():
+    # Automated headless bot makes a request with suspicious User-Agent
+    bot_ip = "203.0.113.88"
+    bot_res = client.get(
+        "/api/v1/leads",
+        headers={
+            "User-Agent": "Mozilla/5.0 HeadlessChrome/120.0 (Playwright)",
+            "X-Forwarded-For": bot_ip,
+        },
+    )
+    assert bot_res.status_code == 403
+    assert "AUTOMATED_AGENT_BLOCKED" in bot_res.json()["detail"]
+
+    # Subsequent request with normal browser User-Agent from same machine/IP is permanently blocked
+    spoofed_res = client.get(
+        "/api/v1/leads",
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+            "X-Forwarded-For": bot_ip,
+        },
+    )
+    assert spoofed_res.status_code == 403
+    assert "DEVICE_BLOCKED" in spoofed_res.json()["detail"]
+

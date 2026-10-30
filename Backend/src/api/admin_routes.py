@@ -7,9 +7,11 @@ from src.api.access_control import (
     approve_access_request,
     get_access_requests,
     get_allowlist,
+    get_blocked_entities,
     is_admin_user,
     reject_access_request,
     remove_from_allowlist,
+    unblock_entity,
 )
 from src.api.helpers import require_auth
 from src.api.logger import logger
@@ -219,3 +221,38 @@ def revoke_allowlist_entry(
         raise HTTPException(status_code=400, detail=str(err))
     except KeyError:
         raise HTTPException(status_code=404, detail=f"Email '{email}' not found in allowlist.")
+
+
+@admin_router.get(
+    "/blocked-entities",
+    summary="List permanently blocked bot machines and IP addresses",
+)
+def list_blocked_entities(
+    status: str = Query(default="active", description="active, unblocked, all"),
+    authorization: str | None = Header(None),
+) -> list[dict[str, Any]]:
+    """Returns directory of machines and IPs permanently blocked for automated bot activity."""
+    require_admin(authorization)
+    return get_blocked_entities(status=status)
+
+
+@admin_router.delete(
+    "/blocked-entities/{ban_id}",
+    summary="Unblock a machine or IP address",
+)
+def delete_blocked_entity(
+    ban_id: str,
+    authorization: str | None = Header(None),
+) -> dict[str, Any]:
+    """Removes a permanent block from a previously banned machine or IP."""
+    admin = require_admin(authorization)
+    admin_email = admin.get("sub", "admin")
+    try:
+        entry = unblock_entity(ban_id=ban_id, unblocked_by=admin_email)
+        return {
+            "success": True,
+            "message": f"Unblocked {entry.get('ip') or entry.get('fingerprint')}.",
+            "entry": entry,
+        }
+    except KeyError:
+        raise HTTPException(status_code=404, detail=f"Ban record '{ban_id}' not found.")
