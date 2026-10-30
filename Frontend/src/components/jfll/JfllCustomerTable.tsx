@@ -14,18 +14,27 @@ import {
   ArrowUp,
   ArrowDown,
   ChevronsUpDown,
+  PhoneCall,
+  Sparkles,
 } from 'lucide-react';
 import { JfllCustomer, JfllCustomerSortField } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
 import { useToast } from '@/components/ui';
 import { isValidPhoneNumber } from '@/utils/phoneUtils';
 import { formatIndianCurrency } from '@/services/jfllCustomerService';
+import { SalesStatusBadge } from '@/components/approach';
+import {
+  APPROACH_STATUS_CHANGED_EVENT,
+  getCachedApproachStatus,
+} from '@/services/approachLogService';
 
 export interface JfllCustomerTableProps {
   customers: JfllCustomer[];
   rowSelection: RowSelectionState;
   onRowSelectionChange: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   onCustomerClick: (customer: JfllCustomer) => void;
+  onLogApproach?: (customer: JfllCustomer) => void;
+  onConvertToActive?: (customer: JfllCustomer) => void;
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -103,6 +112,8 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
   rowSelection,
   onRowSelectionChange,
   onCustomerClick,
+  onLogApproach,
+  onConvertToActive,
   currentPage,
   totalPages,
   pageSize,
@@ -120,6 +131,13 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
   className = '',
 }) => {
   const { showToast } = useToast();
+  const [, setUpdateTrigger] = React.useState(0);
+
+  React.useEffect(() => {
+    const handler = () => setUpdateTrigger((v) => v + 1);
+    window.addEventListener(APPROACH_STATUS_CHANGED_EVENT, handler);
+    return () => window.removeEventListener(APPROACH_STATUS_CHANGED_EVENT, handler);
+  }, []);
 
   const handleToggleRow = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -298,12 +316,13 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               {renderSortHeader('fullName', 'Company Name', 'px-4 min-w-[260px]', 'Sort alphabetically by company name')}
               {renderSortHeader('customerGroup', 'Customer Group', 'px-3.5 min-w-[150px]', 'Sort by customer category')}
               {renderSortHeader('status', 'Status', 'px-3.5 min-w-[95px]', 'Sort by active / inactive status')}
+              <th scope="col" className="py-2.5 px-3.5 min-w-[130px]">Approach Status</th>
               {renderSortHeader('creditStatus', 'Credit Status', 'px-3.5 min-w-[120px]', 'Sort by credit approval')}
               {renderSortHeader('businessLast3m', 'Recent Revenue', 'px-3.5 min-w-[125px]', 'Sort by 90-day business volume (highest first)')}
               {renderSortHeader('contactPersonName', 'Contact Person', 'px-3.5 min-w-[150px]', 'Sort by named contact person')}
               <th scope="col" className="py-2.5 px-3.5 min-w-[155px]">Phone Number</th>
               <th scope="col" className="py-2.5 px-3.5 min-w-[190px]">Email</th>
-              <th scope="col" className="py-2.5 px-4 w-20 text-center">Action</th>
+              <th scope="col" className="py-2.5 px-4 min-w-[160px] text-center">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -391,6 +410,18 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                         Inactive
                       </span>
+                    )}
+                  </td>
+
+                  {/* Approach Status (For Inactive customers) */}
+                  <td className="py-3 px-3.5 align-middle">
+                    {c.status !== 'Active' ? (
+                      <SalesStatusBadge
+                        status={getCachedApproachStatus('jfll_customer', c.id)}
+                        size="sm"
+                      />
+                    ) : (
+                      <span className="text-slate-400 italic text-xs">—</span>
                     )}
                   </td>
 
@@ -495,19 +526,51 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                     )}
                   </td>
 
-                  {/* Action CTA: View Button */}
+                  {/* Action CTA: View, Approach, Convert */}
                   <td className="py-3 px-4 text-center align-middle">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onCustomerClick(c);
-                      }}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn cursor-pointer"
-                      title={`View details for ${c.fullName}`}
-                    >
-                      <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
-                      <span>View</span>
-                    </button>
+                    <div className="flex items-center justify-center gap-1.5">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onCustomerClick(c);
+                        }}
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn cursor-pointer"
+                        title={`View details for ${c.fullName}`}
+                      >
+                        <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
+                        <span>View</span>
+                      </button>
+
+                      {c.status !== 'Active' && onLogApproach && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onLogApproach(c);
+                          }}
+                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-apollo bg-apollo/10 hover:bg-apollo hover:text-white border border-apollo/30 rounded-md transition-all shadow-2xs cursor-pointer"
+                          title={`Log sales approach for ${c.fullName}`}
+                        >
+                          <PhoneCall className="w-3.5 h-3.5" />
+                          <span>Approach</span>
+                        </button>
+                      )}
+
+                      {c.status !== 'Active' &&
+                        onConvertToActive &&
+                        getCachedApproachStatus('jfll_customer', c.id) !== 'Converted to Active' && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onConvertToActive(c);
+                            }}
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-600 hover:text-white border border-emerald-300 rounded-md transition-all shadow-2xs cursor-pointer"
+                            title={`Convert ${c.fullName} to Active customer`}
+                          >
+                            <Sparkles className="w-3.5 h-3.5 text-emerald-600 group-hover:text-white" />
+                            <span>Convert</span>
+                          </button>
+                        )}
+                    </div>
                   </td>
                 </tr>
               );

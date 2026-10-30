@@ -10,6 +10,7 @@ import { logger } from '@/utils/logger';
 import { createCsvBlob } from '@/utils/csv';
 import { setLoadedTierDataset } from '@/services/tierService';
 import { TieredLead } from '@/types/tierSegmentation';
+import { getCachedApproachStatus } from '@/services/approachLogService';
 
 // In-memory leads storage, starts with the bundled starter set and upgrades if full JSON is loaded
 let cachedFullDataset: DatamyneLead[] | null = null;
@@ -99,6 +100,7 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
     cities = [],
     tradeLanes = [],
     contactStatus = [],
+    approachStatuses = [],
     minShipments,
     minTradedValueUsd,
     hasDirectors,
@@ -206,6 +208,15 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
   // 1k. Has Directors Filter
   if (hasDirectors) {
     baseFiltered = baseFiltered.filter((d) => d.directors && d.directors.trim().length > 0);
+  }
+
+  // 1l. Sales Approach Status Multi-select
+  if (approachStatuses && approachStatuses.length > 0) {
+    const statusSet = new Set(approachStatuses);
+    baseFiltered = baseFiltered.filter((d) => {
+      const st = getCachedApproachStatus('datamyne', d.id);
+      return statusSet.has(st);
+    });
   }
 
   // 2. Data pool counts matching the current active filters

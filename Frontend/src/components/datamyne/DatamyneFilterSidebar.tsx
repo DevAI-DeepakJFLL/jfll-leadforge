@@ -25,8 +25,11 @@ import {
   Layers,
   UserCheck,
   Globe,
+  PhoneCall,
   X,
 } from 'lucide-react';
+import { ALL_SALES_STATUSES } from '@/types/approachLog';
+import { SalesStatusBadge } from '@/components/approach';
 
 export interface DatamyneFilterSidebarProps {
   filters: DatamyneFilterParams;
@@ -40,6 +43,7 @@ export interface DatamyneFilterSidebarProps {
   toggleCity: (city: string) => void;
   toggleTradeLane: (lane: string) => void;
   toggleContactStatus: (status: string) => void;
+  toggleApproachStatus?: (status: string) => void;
   toggleHasDirectors: () => void;
   setMinShipments: (min: number) => void;
   setMinTradedValueUsd: (min: number) => void;
@@ -126,6 +130,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
   toggleCity,
   toggleTradeLane,
   toggleContactStatus,
+  toggleApproachStatus,
   toggleHasDirectors,
   setMinShipments,
   setMinTradedValueUsd,
@@ -285,6 +290,36 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
               </span>
             </label>
           </div>
+        </div>
+      </FilterAccordion>
+
+      {/* Accordion: Sales Approach Status */}
+      <FilterAccordion
+        icon={<PhoneCall className="w-4 h-4 text-apollo" />}
+        label="Sales Approach Status"
+        defaultOpen={true}
+        activeCount={filters.approachStatuses?.length || 0}
+      >
+        <div className="space-y-1.5">
+          {ALL_SALES_STATUSES.map((st) => {
+            const isChecked = filters.approachStatuses?.includes(st) || false;
+            return (
+              <label
+                key={st}
+                className="flex items-center justify-between text-xs cursor-pointer group py-0.5"
+              >
+                <div className="flex items-center gap-2 min-w-0">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() => toggleApproachStatus?.(st)}
+                    className="w-3.5 h-3.5 text-apollo rounded border-slate-300 focus:ring-apollo/20 cursor-pointer"
+                  />
+                  <SalesStatusBadge status={st} size="sm" />
+                </div>
+              </label>
+            );
+          })}
         </div>
       </FilterAccordion>
 

@@ -22,11 +22,14 @@ import { TierScoreBadge, TierScoreBreakdownModal } from '@/components/tiers';
 import { TieredLead } from '@/types/tierSegmentation';
 import { useToast } from '@/components/ui';
 import { parseAndFormatContactNumbers } from '@/utils/phoneUtils';
+import { SalesApproachTimeline, SalesStatusBadge } from '@/components/approach';
+import { getCachedApproachStatus } from '@/services/approachLogService';
 
 export interface DatamyneDetailDrawerProps {
   isOpen: boolean;
   lead: DatamyneLead | null;
   onClose: () => void;
+  onLogApproach?: (lead: DatamyneLead) => void;
   className?: string;
 }
 
@@ -34,6 +37,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   isOpen,
   lead,
   onClose,
+  onLogApproach,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -397,6 +401,25 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                   </span>
                 </div>
               </div>
+            </div>
+
+            {/* Sales Coordinator Outreach & Funnel Timeline Card */}
+            <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3 shadow-2xs">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-apollo" />
+                  <span className="font-bold text-slate-900 text-xs uppercase tracking-wider">
+                    Sales Outreach & Funnel
+                  </span>
+                </div>
+                <SalesStatusBadge status={getCachedApproachStatus('datamyne', lead.id)} size="sm" />
+              </div>
+              <SalesApproachTimeline
+                entityType="datamyne"
+                entityId={lead.id}
+                companyName={lead.company_name}
+                onOpenLogModal={() => onLogApproach?.(lead)}
+              />
             </div>
 
             {/* Trade Volume & Commodity HS Codes Card */}

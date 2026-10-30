@@ -11,16 +11,23 @@ import {
   Plane,
   Ship,
   PhoneOff,
+  PhoneCall,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
 import { TierScoreBadge } from '@/components/tiers';
+import { SalesStatusBadge } from '@/components/approach';
+import {
+  APPROACH_STATUS_CHANGED_EVENT,
+  getCachedApproachStatus,
+} from '@/services/approachLogService';
 
 export interface DatamyneTableProps {
   leads: DatamyneLead[];
   rowSelection: RowSelectionState;
   onRowSelectionChange: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   onLeadClick: (lead: DatamyneLead) => void;
+  onLogApproach?: (lead: DatamyneLead) => void;
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -41,6 +48,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   rowSelection,
   onRowSelectionChange,
   onLeadClick,
+  onLogApproach,
   currentPage,
   totalPages,
   pageSize,
@@ -55,6 +63,13 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   onRetry,
   className = '',
 }) => {
+  const [, setUpdateTrigger] = React.useState(0);
+
+  React.useEffect(() => {
+    const handler = () => setUpdateTrigger((v) => v + 1);
+    window.addEventListener(APPROACH_STATUS_CHANGED_EVENT, handler);
+    return () => window.removeEventListener(APPROACH_STATUS_CHANGED_EVENT, handler);
+  }, []);
   const handleToggleRow = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     onRowSelectionChange((prev) => ({
@@ -80,7 +95,8 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                 <th className="py-3 px-3.5 min-w-[150px]">City & Corridor</th>
                 <th className="py-3 px-3.5 min-w-[160px]">Shipments & Value</th>
                 <th className="py-3 px-3.5 min-w-[150px]">Contact Readiness</th>
-                <th className="py-3 px-4 w-28 text-center">Action</th>
+                <th className="py-3 px-3.5 min-w-[130px]">Sales Status</th>
+                <th className="py-3 px-4 min-w-[150px] text-center">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -198,7 +214,8 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
               <th className="py-3 px-3.5 min-w-[160px]">City & Corridor</th>
               <th className="py-3 px-3.5 min-w-[170px]">Shipments & Traded Value</th>
               <th className="py-3 px-3.5 min-w-[170px] whitespace-nowrap">Contact Readiness</th>
-              <th className="py-3 px-4 w-32 text-center">Action</th>
+              <th className="py-3 px-3.5 min-w-[140px] whitespace-nowrap">Sales Status</th>
+              <th className="py-3 px-4 min-w-[160px] text-center">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -404,7 +421,15 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                     )}
                   </td>
 
-                  {/* Action CTA */}
+                  {/* Sales Approach Status */}
+                  <td className="py-3 px-3.5 whitespace-nowrap align-middle">
+                    <SalesStatusBadge
+                      status={getCachedApproachStatus('datamyne', l.id)}
+                      size="sm"
+                    />
+                  </td>
+
+                  {/* Action CTA: View & Approach */}
                   <td className="py-3 px-4 text-center align-middle">
                     <div className="flex items-center justify-center gap-1.5">
                       <button
@@ -418,6 +443,20 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                         <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
                         <span>View</span>
                       </button>
+
+                      {onLogApproach && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onLogApproach(l);
+                          }}
+                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-apollo bg-apollo/10 hover:bg-apollo hover:text-white border border-apollo/30 rounded-md transition-all shadow-2xs cursor-pointer"
+                          title={`Log sales approach for ${l.company_name}`}
+                        >
+                          <PhoneCall className="w-3.5 h-3.5" />
+                          <span>Approach</span>
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>

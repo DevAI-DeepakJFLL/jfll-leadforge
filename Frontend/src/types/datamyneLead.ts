@@ -79,6 +79,7 @@ export interface DatamyneFilterParams {
   cities?: string[];
   tradeLanes?: string[];
   contactStatus?: string[]; // "both" | "phone_only" | "email_only" | "missing"
+  approachStatuses?: string[];
   minShipments?: number;
   minTradedValueUsd?: number;
   hasDirectors?: boolean;

@@ -44,6 +44,7 @@ export interface JfllCustomerFilterParams {
   creditStatuses?: string[];
   salesPersons?: string[];
   revenueRanges?: string[];
+  approachStatuses?: string[];
   minRevenue?: number;
   hasPhone?: boolean;
   hasEmail?: boolean;

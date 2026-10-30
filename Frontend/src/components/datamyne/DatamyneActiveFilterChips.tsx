@@ -12,6 +12,7 @@ export interface DatamyneActiveFilterChipsProps {
   onRemoveCity: (city: string) => void;
   onRemoveTradeLane: (tradeLane: string) => void;
   onRemoveContactStatus: (status: string) => void;
+  onRemoveApproachStatus?: (status: string) => void;
   onToggleHasDirectors: () => void;
   onClearSearch: () => void;
   onClearAll: () => void;
@@ -35,6 +36,7 @@ export const DatamyneActiveFilterChips: React.FC<DatamyneActiveFilterChipsProps>
   onRemoveCity,
   onRemoveTradeLane,
   onRemoveContactStatus,
+  onRemoveApproachStatus,
   onToggleHasDirectors,
   onClearSearch,
   onClearAll,
@@ -147,6 +149,16 @@ export const DatamyneActiveFilterChips: React.FC<DatamyneActiveFilterChipsProps>
       category: 'Contact',
       label: statusLabels[status] || status,
       onRemove: () => onRemoveContactStatus(status),
+    });
+  });
+
+  // 9. Sales Approach Status
+  (filters.approachStatuses || []).forEach((st) => {
+    chips.push({
+      id: `approach-${st}`,
+      category: 'Sales Status',
+      label: st,
+      onRemove: () => onRemoveApproachStatus?.(st),
     });
   });
 

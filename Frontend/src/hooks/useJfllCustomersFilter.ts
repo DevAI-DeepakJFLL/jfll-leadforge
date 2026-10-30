@@ -14,6 +14,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     creditStatuses: [],
     salesPersons: [],
     revenueRanges: [],
+    approachStatuses: [],
     hasPhone: false,
     hasEmail: false,
     hasContactPerson: false,
@@ -130,6 +131,16 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     []
   );
 
+  const toggleApproachStatus = useCallback((status: string) => {
+    setFilters((prev) => {
+      const current = prev.approachStatuses || [];
+      const updated = current.includes(status)
+        ? current.filter((s) => s !== status)
+        : [...current, status];
+      return { ...prev, approachStatuses: updated, page: 1 };
+    });
+  }, []);
+
   const clearAllFilters = useCallback(() => {
     setFilters({
       tab: 'all',
@@ -140,6 +151,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
       creditStatuses: [],
       salesPersons: [],
       revenueRanges: [],
+      approachStatuses: [],
       hasPhone: false,
       hasEmail: false,
       hasContactPerson: false,
@@ -164,6 +176,9 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     if (filters.revenueRanges && filters.revenueRanges.length > 0) {
       count += filters.revenueRanges.length;
     }
+    if (filters.approachStatuses && filters.approachStatuses.length > 0) {
+      count += filters.approachStatuses.length;
+    }
     if (filters.hasPhone) count += 1;
     if (filters.hasEmail) count += 1;
     if (filters.hasContactPerson) count += 1;
@@ -184,6 +199,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
     toggleCreditStatus,
     toggleSalesPerson,
     toggleRevenueRange,
+    toggleApproachStatus,
     toggleContactOption,
     handleSortChange,
     clearAllFilters,

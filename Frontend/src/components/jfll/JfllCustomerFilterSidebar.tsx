@@ -21,6 +21,8 @@ import {
   getSalesPersonFacetCounts,
   getRevenueRangeFacetCounts,
 } from '@/services/jfllCustomerService';
+import { ALL_SALES_STATUSES } from '@/types/approachLog';
+import { SalesStatusBadge } from '@/components/approach';
 
 export interface JfllCustomerFilterSidebarProps {
   filters: JfllCustomerFilterParams;
@@ -29,6 +31,7 @@ export interface JfllCustomerFilterSidebarProps {
   onToggleCreditStatus: (status: string) => void;
   onToggleSalesPerson: (salesPerson: string) => void;
   onToggleRevenueRange: (rangeId: string) => void;
+  onToggleApproachStatus?: (status: string) => void;
   onToggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   onClearAll: () => void;
   isMobileOpen?: boolean;
@@ -43,6 +46,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   onToggleCreditStatus,
   onToggleSalesPerson,
   onToggleRevenueRange,
+  onToggleApproachStatus,
   onToggleContactOption,
   onClearAll,
   isMobileOpen = false,
@@ -50,6 +54,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   className = '',
 }) => {
   const [openSections, setOpenSections] = useState({
+    approach: true,
     revenue: true,
     groups: true,
     types: true,
@@ -93,11 +98,12 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   );
 
   const toggleSection = (
-    section: 'revenue' | 'groups' | 'types' | 'creditStatus' | 'salesPerson' | 'contacts'
+    section: 'approach' | 'revenue' | 'groups' | 'types' | 'creditStatus' | 'salesPerson' | 'contacts'
   ) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
+  const selectedApproachStatuses = filters.approachStatuses || [];
   const selectedRevenueRanges = filters.revenueRanges || [];
   const selectedGroups = filters.customerGroups || [];
   const selectedTypes = filters.types || [];
@@ -117,6 +123,7 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   );
 
   const activeCount =
+    selectedApproachStatuses.length +
     selectedRevenueRanges.length +
     selectedGroups.length +
     selectedTypes.length +
@@ -156,6 +163,56 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
 
       {/* Accordion List */}
       <div className="flex-1 overflow-y-auto divide-y divide-slate-100">
+        {/* Accordion: Sales Approach Status (Always available, crucial for Inactive leads) */}
+        <div>
+          <button
+            onClick={() => toggleSection('approach')}
+            aria-expanded={openSections.approach}
+            className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <PhoneCall className="w-4 h-4 text-apollo" />
+              <span className="text-xs font-semibold text-slate-800">
+                Sales Approach Status
+              </span>
+              {selectedApproachStatuses.length > 0 && (
+                <span className="bg-apollo/10 text-apollo text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none">
+                  {selectedApproachStatuses.length}
+                </span>
+              )}
+            </div>
+            <ChevronDown
+              className={`w-4 h-4 text-slate-400 transition-transform ${
+                openSections.approach ? 'rotate-180' : ''
+              }`}
+            />
+          </button>
+
+          {openSections.approach && (
+            <div className="px-4 pb-3 space-y-1.5">
+              {ALL_SALES_STATUSES.map((st) => {
+                const isChecked = selectedApproachStatuses.includes(st);
+                return (
+                  <label
+                    key={st}
+                    className="flex items-center justify-between text-xs cursor-pointer group py-0.5"
+                  >
+                    <div className="flex items-center gap-2 min-w-0">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => onToggleApproachStatus?.(st)}
+                        className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer"
+                      />
+                      <SalesStatusBadge status={st} size="sm" />
+                    </div>
+                  </label>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
         {/* Accordion 1: Contact Readiness */}
         <div>
           <button

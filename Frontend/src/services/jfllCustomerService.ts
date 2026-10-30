@@ -12,6 +12,7 @@ import { createCsvBlob } from '@/utils/csv';
 import { API_BASE_URL } from '@/config/api';
 import { isValidPhoneNumber } from '@/utils/phoneUtils';
 import { isOfflineSession } from '@/services/authService';
+import { getCachedApproachStatus } from '@/services/approachLogService';
 
 export { isValidPhoneNumber };
 
@@ -170,6 +171,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     creditStatuses = [],
     salesPersons = [],
     revenueRanges = [],
+    approachStatuses = [],
     minRevenue,
     hasPhone,
     hasEmail,
@@ -265,6 +267,15 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     baseFiltered = baseFiltered.filter(
       (c) => !!c.contactPersonName && c.contactPersonName.trim().length > 0
     );
+  }
+
+  // 8. Sales Approach Status Multi-select Filter
+  if (approachStatuses && approachStatuses.length > 0) {
+    const statusSet = new Set(approachStatuses);
+    baseFiltered = baseFiltered.filter((c) => {
+      const st = getCachedApproachStatus('jfll_customer', c.id);
+      return statusSet.has(st);
+    });
   }
 
   // 5. Audience counts computed from filtered base data in a single loop

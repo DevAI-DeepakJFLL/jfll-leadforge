@@ -16,11 +16,15 @@ import { JfllCustomer } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
 import { useToast } from '@/components/ui';
 import { parseAndFormatContactNumbers } from '@/utils/phoneUtils';
+import { SalesApproachTimeline, SalesStatusBadge } from '@/components/approach';
+import { getCachedApproachStatus } from '@/services/approachLogService';
 
 export interface JfllCustomerDetailDrawerProps {
   isOpen: boolean;
   customer: JfllCustomer | null;
   onClose: () => void;
+  onLogApproach?: (customer: JfllCustomer) => void;
+  onConvertToActive?: (customer: JfllCustomer) => void;
   className?: string;
 }
 
@@ -28,6 +32,8 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
   isOpen,
   customer,
   onClose,
+  onLogApproach,
+  onConvertToActive,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -294,6 +300,29 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                 )}
               </div>
             </div>
+
+            {/* Sales Coordinator Approach & Outreach Timeline Card (Inactive only) */}
+            {customer.status !== 'Active' && (
+              <div className="bg-white border border-slate-200/90 rounded-xl p-4 shadow-2xs space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-apollo" />
+                    <span className="font-bold text-slate-900 text-xs uppercase tracking-wider">
+                      Sales Outreach & Funnel
+                    </span>
+                  </div>
+                  <SalesStatusBadge status={getCachedApproachStatus('jfll_customer', customer.id)} size="sm" />
+                </div>
+                <SalesApproachTimeline
+                  entityType="jfll_customer"
+                  entityId={customer.id}
+                  companyName={customer.fullName}
+                  onOpenLogModal={() => onLogApproach?.(customer)}
+                  onOpenConvertModal={() => onConvertToActive?.(customer)}
+                  showConvertButton={true}
+                />
+              </div>
+            )}
 
             {/* Direct Outreach CTAs */}
             <div className="pt-2 space-y-2">

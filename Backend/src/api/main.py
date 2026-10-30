@@ -7,6 +7,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 
 from src.api.admin_routes import admin_router
+from src.api.approach_routes import approach_router
 from src.api.auth import is_headless_user_agent
 from src.api.auth import router as auth_router
 from src.api.config import settings
@@ -93,6 +94,7 @@ app.include_router(auth_router)
 app.include_router(admin_router)
 app.include_router(leads_router)
 app.include_router(tier_router)
+app.include_router(approach_router)
 
 
 @app.get("/health", response_model=HealthResponse, tags=["Health"])

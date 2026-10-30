@@ -55,6 +55,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     cities: [],
     tradeLanes: [],
     contactStatus: [],
+    approachStatuses: [],
     minShipments: 0,
     minTradedValueUsd: 0,
     hasDirectors: false,
@@ -210,6 +211,16 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     });
   }, []);
 
+  const toggleApproachStatus = useCallback((status: string) => {
+    setFilters((prev) => {
+      const current = prev.approachStatuses || [];
+      const updated = current.includes(status)
+        ? current.filter((s) => s !== status)
+        : [...current, status];
+      return { ...prev, approachStatuses: updated, page: 1 };
+    });
+  }, []);
+
   const toggleHasDirectors = useCallback(() => {
     setFilters((prev) => ({
       ...prev,
@@ -240,6 +251,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
       cities: [],
       tradeLanes: [],
       contactStatus: [],
+      approachStatuses: [],
       minShipments: 0,
       minTradedValueUsd: 0,
       hasDirectors: false,
@@ -257,6 +269,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     if (filters.cities && filters.cities.length > 0) count += filters.cities.length;
     if (filters.tradeLanes && filters.tradeLanes.length > 0) count += filters.tradeLanes.length;
     if (filters.contactStatus && filters.contactStatus.length > 0) count += filters.contactStatus.length;
+    if (filters.approachStatuses && filters.approachStatuses.length > 0) count += filters.approachStatuses.length;
     if (filters.hasDirectors) count += 1;
     if (filters.minShipments && filters.minShipments > 0) count += 1;
     if (filters.minTradedValueUsd && filters.minTradedValueUsd > 0) count += 1;
@@ -281,6 +294,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     toggleCity,
     toggleTradeLane,
     toggleContactStatus,
+    toggleApproachStatus,
     toggleHasDirectors,
     setMinShipments,
     setMinTradedValueUsd,

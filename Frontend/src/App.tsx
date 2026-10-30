@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { RowSelectionState } from '@tanstack/react-table';
 import { AppLayout } from '@/components/layout/AppLayout';
@@ -69,6 +69,9 @@ import {
   subscribeToSavedChanges,
 } from '@/services/savedLeadsService';
 import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
+import { LogApproachModal, ConvertToActiveModal } from '@/components/approach';
+import { SalesStatus } from '@/types/approachLog';
+import { getCachedApproachStatus, fetchBulkStatuses } from '@/services/approachLogService';
 
 
 interface SavedSearchPreset {
@@ -595,6 +598,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     toggleCreditStatus: toggleJfllCreditStatus,
     toggleSalesPerson: toggleJfllSalesPerson,
     toggleRevenueRange: toggleJfllRevenueRange,
+    toggleApproachStatus: toggleJfllApproachStatus,
     toggleContactOption: toggleJfllContactOption,
     handleSortChange: handleJfllSortChange,
     clearAllFilters: clearAllJfllFilters,
@@ -695,6 +699,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     toggleCity: toggleDatamyneCity,
     toggleTradeLane: toggleDatamyneTradeLane,
     toggleContactStatus: toggleDatamyneContactStatus,
+    toggleApproachStatus: toggleDatamyneApproachStatus,
     toggleHasDirectors: toggleDatamyneHasDirectors,
     setMinShipments: setDatamyneMinShipments,
     setMinTradedValueUsd: setDatamyneMinTradedValueUsd,
@@ -718,6 +723,52 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const [datamyneRowSelection, setDatamyneRowSelection] = useState<RowSelectionState>({});
   const [selectedDatamyneLead, setSelectedDatamyneLead] = useState<DatamyneLead | null>(null);
   const [isExportingDatamyne, setIsExportingDatamyne] = useState(false);
+
+  // Sales Approach & Active Conversion Modal States
+  const [approachModalTarget, setApproachModalTarget] = useState<{
+    entityType: 'datamyne' | 'jfll_customer';
+    entityId: string;
+    companyName: string;
+    currentStatus: SalesStatus;
+  } | null>(null);
+
+  const [convertModalTarget, setConvertModalTarget] = useState<{
+    entityType: 'datamyne' | 'jfll_customer';
+    entityId: string;
+    companyName: string;
+  } | null>(null);
+
+  // Fetch initial bulk statuses for both entity types
+  useEffect(() => {
+    fetchBulkStatuses('datamyne').catch(() => {});
+    fetchBulkStatuses('jfll_customer').catch(() => {});
+  }, []);
+
+  const handleOpenDatamyneApproach = useCallback((lead: DatamyneLead) => {
+    setApproachModalTarget({
+      entityType: 'datamyne',
+      entityId: lead.id,
+      companyName: lead.company_name,
+      currentStatus: getCachedApproachStatus('datamyne', lead.id),
+    });
+  }, []);
+
+  const handleOpenJfllApproach = useCallback((customer: JfllCustomer) => {
+    setApproachModalTarget({
+      entityType: 'jfll_customer',
+      entityId: customer.id,
+      companyName: customer.fullName,
+      currentStatus: getCachedApproachStatus('jfll_customer', customer.id),
+    });
+  }, []);
+
+  const handleOpenJfllConvert = useCallback((customer: JfllCustomer) => {
+    setConvertModalTarget({
+      entityType: 'jfll_customer',
+      entityId: customer.id,
+      companyName: customer.fullName,
+    });
+  }, []);
 
   // DataMyne Selection calculations
   const datamyneItems = datamyneQuery.items;
@@ -1068,12 +1119,14 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           toggleCity={toggleDatamyneCity}
           toggleTradeLane={toggleDatamyneTradeLane}
           toggleContactStatus={toggleDatamyneContactStatus}
+          toggleApproachStatus={toggleDatamyneApproachStatus}
           toggleHasDirectors={toggleDatamyneHasDirectors}
           setMinShipments={setDatamyneMinShipments}
           setMinTradedValueUsd={setDatamyneMinTradedValueUsd}
           clearAllFilters={clearAllDatamyneFilters}
           activeFilterCount={datamyneActiveFilterCount}
           onLeadClick={(lead) => setSelectedDatamyneLead(lead)}
+          onLogApproach={handleOpenDatamyneApproach}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />
@@ -1104,9 +1157,12 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           toggleCreditStatus={toggleJfllCreditStatus}
           toggleSalesPerson={toggleJfllSalesPerson}
           toggleRevenueRange={toggleJfllRevenueRange}
+          toggleApproachStatus={toggleJfllApproachStatus}
           toggleContactOption={toggleJfllContactOption}
           clearAllFilters={clearAllJfllFilters}
           onCustomerClick={(c) => setSelectedJfllCustomer(c)}
+          onLogApproach={handleOpenJfllApproach}
+          onConvertToActive={handleOpenJfllConvert}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />
@@ -1241,6 +1297,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           isOpen={!!selectedJfllCustomer}
           customer={selectedJfllCustomer}
           onClose={() => setSelectedJfllCustomer(null)}
+          onLogApproach={handleOpenJfllApproach}
+          onConvertToActive={handleOpenJfllConvert}
         />
       </ErrorBoundary>
 
@@ -1253,6 +1311,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           isOpen={!!selectedDatamyneLead}
           lead={selectedDatamyneLead}
           onClose={() => setSelectedDatamyneLead(null)}
+          onLogApproach={handleOpenDatamyneApproach}
         />
       </ErrorBoundary>
 
@@ -1300,6 +1359,37 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         onClose={() => setIsAdminPortalOpen(false)}
         currentUserEmail={currentUser?.email}
       />
+
+      {/* Sales Coordinator Approach Logging Modal */}
+      {approachModalTarget && (
+        <LogApproachModal
+          isOpen={!!approachModalTarget}
+          onClose={() => setApproachModalTarget(null)}
+          entityType={approachModalTarget.entityType}
+          entityId={approachModalTarget.entityId}
+          companyName={approachModalTarget.companyName}
+          currentStatus={approachModalTarget.currentStatus}
+          onSuccess={() => {
+            if (approachModalTarget.entityType === 'jfll_customer') {
+              refetchJfll();
+            }
+          }}
+        />
+      )}
+
+      {/* Convert Inactive Client to Active Modal */}
+      {convertModalTarget && (
+        <ConvertToActiveModal
+          isOpen={!!convertModalTarget}
+          onClose={() => setConvertModalTarget(null)}
+          entityType={convertModalTarget.entityType}
+          entityId={convertModalTarget.entityId}
+          companyName={convertModalTarget.companyName}
+          onSuccess={() => {
+            refetchJfll();
+          }}
+        />
+      )}
     </AppLayout>
   );
 };

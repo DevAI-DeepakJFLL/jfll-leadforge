@@ -56,12 +56,14 @@ export interface DatamyneViewProps {
   toggleCity: (city: string) => void;
   toggleTradeLane: (lane: string) => void;
   toggleContactStatus: (status: string) => void;
+  toggleApproachStatus?: (status: string) => void;
   toggleHasDirectors: () => void;
   setMinShipments: (min: number) => void;
   setMinTradedValueUsd: (min: number) => void;
   clearAllFilters: () => void;
   activeFilterCount: number;
   onLeadClick: (lead: DatamyneLead) => void;
+  onLogApproach?: (lead: DatamyneLead) => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
 }
@@ -90,12 +92,14 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   toggleCity,
   toggleTradeLane,
   toggleContactStatus,
+  toggleApproachStatus,
   toggleHasDirectors,
   setMinShipments,
   setMinTradedValueUsd,
   clearAllFilters,
   activeFilterCount,
   onLeadClick,
+  onLogApproach,
   isMobileOpen,
   onCloseMobile,
 }) => {
@@ -289,6 +293,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
         toggleCity={toggleCity}
         toggleTradeLane={toggleTradeLane}
         toggleContactStatus={toggleContactStatus}
+        toggleApproachStatus={toggleApproachStatus}
         toggleHasDirectors={toggleHasDirectors}
         setMinShipments={setMinShipments}
         setMinTradedValueUsd={setMinTradedValueUsd}
@@ -423,6 +428,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           onRemoveCity={toggleCity}
           onRemoveTradeLane={toggleTradeLane}
           onRemoveContactStatus={toggleContactStatus}
+          onRemoveApproachStatus={toggleApproachStatus}
           onToggleHasDirectors={toggleHasDirectors}
           onClearSearch={() => onSearchChange('')}
           onClearAll={clearAllFilters}
@@ -434,6 +440,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             rowSelection={rowSelection}
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
+            onLogApproach={onLogApproach}
             currentPage={displayPage}
             totalPages={displayTotalPages}
             pageSize={query.limit || 25}

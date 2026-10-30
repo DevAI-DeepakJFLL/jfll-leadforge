@@ -129,6 +129,7 @@ audit-screenshots/
 Backend/data/.backups/
 Backend/data/raw/
 Backend/data/access_control.json
+Backend/data/approach_logs.json
 Backend/data/*.tmp
 *.bak
 *.tmp

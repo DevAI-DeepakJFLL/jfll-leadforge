@@ -40,9 +40,12 @@ export interface JfllCustomersViewProps {
   toggleCreditStatus: (status: string) => void;
   toggleSalesPerson: (salesPerson: string) => void;
   toggleRevenueRange: (rangeId: string) => void;
+  toggleApproachStatus?: (status: string) => void;
   toggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   clearAllFilters: () => void;
   onCustomerClick: (customer: JfllCustomer) => void;
+  onLogApproach?: (customer: JfllCustomer) => void;
+  onConvertToActive?: (customer: JfllCustomer) => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
 }
@@ -73,9 +76,12 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
   toggleCreditStatus,
   toggleSalesPerson,
   toggleRevenueRange,
+  toggleApproachStatus,
   toggleContactOption,
   clearAllFilters,
   onCustomerClick,
+  onLogApproach,
+  onConvertToActive,
   isMobileOpen,
   onCloseMobile,
 }) => {
@@ -90,6 +96,7 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
         onToggleCreditStatus={toggleCreditStatus}
         onToggleSalesPerson={toggleSalesPerson}
         onToggleRevenueRange={toggleRevenueRange}
+        onToggleApproachStatus={toggleApproachStatus}
         onToggleContactOption={toggleContactOption}
         onClearAll={clearAllFilters}
         isMobileOpen={isMobileOpen}
@@ -131,6 +138,8 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
             rowSelection={rowSelection}
             onRowSelectionChange={onRowSelectionChange}
             onCustomerClick={onCustomerClick}
+            onLogApproach={onLogApproach}
+            onConvertToActive={onConvertToActive}
             currentPage={query.page}
             totalPages={query.totalPages}
             pageSize={query.limit}
