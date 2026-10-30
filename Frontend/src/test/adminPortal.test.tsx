@@ -50,6 +50,7 @@ describe('Root Admin Portal & Access Request Suite', () => {
     // Tabs
     expect(html).toContain('Pending Requests');
     expect(html).toContain('Active Allowlist');
+    expect(html).toContain('Blocked Devices');
     expect(html).toContain('Audit History');
 
     // Security Notice

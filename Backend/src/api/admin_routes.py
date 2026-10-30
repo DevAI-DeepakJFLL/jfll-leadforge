@@ -1,16 +1,21 @@
 from typing import Any
 
 from fastapi import APIRouter, Header, HTTPException, Query
+from pydantic import BaseModel
 
 from src.api.access_control import (
     add_to_allowlist,
     approve_access_request,
+    block_device,
+    block_entity,
     get_access_requests,
     get_allowlist,
+    get_blocked_devices,
     get_blocked_entities,
     is_admin_user,
     reject_access_request,
     remove_from_allowlist,
+    unblock_device,
     unblock_entity,
 )
 from src.api.helpers import require_auth
@@ -227,31 +232,72 @@ def revoke_allowlist_entry(
     "/blocked-entities",
     summary="List permanently blocked bot machines and IP addresses",
 )
+@admin_router.get(
+    "/blocked-devices",
+    summary="List permanently blocked devices",
+)
 def list_blocked_entities(
     status: str = Query(default="active", description="active, unblocked, all"),
     authorization: str | None = Header(None),
 ) -> list[dict[str, Any]]:
-    """Returns directory of machines and IPs permanently blocked for automated bot activity."""
+    """Returns directory of machines permanently blocked for automated bot activity."""
     require_admin(authorization)
-    return get_blocked_entities(status=status)
+    return get_blocked_devices(status=status)
+
+
+class BlockDevicePayload(BaseModel):
+    fingerprint: str
+    reason: str = "Administrator manual device block"
+    device_name: str | None = None
+
+
+@admin_router.post(
+    "/blocked-devices",
+    summary="Block a device at the hardware fingerprint level",
+)
+def create_blocked_device(
+    payload: BlockDevicePayload,
+    authorization: str | None = Header(None),
+) -> dict[str, Any]:
+    """Permanently blocks a device by its hardware fingerprint. Preserves employee email accounts."""
+    admin = require_admin(authorization)
+    admin_email = admin.get("sub", "admin")
+    try:
+        entry = block_device(
+            fingerprint=payload.fingerprint,
+            reason=payload.reason,
+            actor=admin_email,
+            device_name=payload.device_name,
+        )
+        return {
+            "success": True,
+            "message": f"Device '{payload.fingerprint}' has been permanently blocked.",
+            "entry": entry,
+        }
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err))
 
 
 @admin_router.delete(
     "/blocked-entities/{ban_id}",
     summary="Unblock a machine or IP address",
 )
+@admin_router.delete(
+    "/blocked-devices/{ban_id}",
+    summary="Unblock a device",
+)
 def delete_blocked_entity(
     ban_id: str,
     authorization: str | None = Header(None),
 ) -> dict[str, Any]:
-    """Removes a permanent block from a previously banned machine or IP."""
+    """Removes a permanent block from a previously banned machine or device."""
     admin = require_admin(authorization)
     admin_email = admin.get("sub", "admin")
     try:
         entry = unblock_entity(ban_id=ban_id, unblocked_by=admin_email)
         return {
             "success": True,
-            "message": f"Unblocked {entry.get('ip') or entry.get('fingerprint')}.",
+            "message": f"Unblocked {entry.get('fingerprint') or entry.get('ip')}.",
             "entry": entry,
         }
     except KeyError:

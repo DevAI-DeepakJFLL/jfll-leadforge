@@ -535,7 +535,7 @@ export async function revokeAllowlistEntry(
 // ==========================================
 
 export async function fetchBlockedEntities(status: string = 'active'): Promise<BlockedEntity[]> {
-  const endpoint = `${API_BASE_URL}/api/v1/admin/blocked-entities?status=${encodeURIComponent(status)}`;
+  const endpoint = `${API_BASE_URL}/api/v1/admin/blocked-devices?status=${encodeURIComponent(status)}`;
   try {
     const res = await fetch(endpoint, {
       method: 'GET',
@@ -550,8 +550,29 @@ export async function fetchBlockedEntities(status: string = 'active'): Promise<B
   return [];
 }
 
+export async function blockDevice(
+  fingerprint: string,
+  reason: string = 'Administrator manual device block'
+): Promise<BlockedEntity | null> {
+  const endpoint = `${API_BASE_URL}/api/v1/admin/blocked-devices`;
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ fingerprint, reason }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return data.entry;
+    }
+  } catch (err) {
+    logger.warn('ADMIN_SERVICE', 'Failed to block device', { fingerprint, error: String(err) });
+  }
+  return null;
+}
+
 export async function unblockEntity(banId: string): Promise<boolean> {
-  const endpoint = `${API_BASE_URL}/api/v1/admin/blocked-entities/${encodeURIComponent(banId)}`;
+  const endpoint = `${API_BASE_URL}/api/v1/admin/blocked-devices/${encodeURIComponent(banId)}`;
   try {
     const res = await fetch(endpoint, {
       method: 'DELETE',

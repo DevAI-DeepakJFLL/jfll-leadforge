@@ -574,20 +574,63 @@ def reject_access_request(
     return target_request
 
 
-def is_ip_or_fingerprint_blocked(ip: str | None, fingerprint: str | None = None) -> bool:
-    """Checks whether an IP address or device fingerprint is in the permanent blocklist."""
-    clean_ip = ip.strip() if ip else ""
+def is_device_blocked(fingerprint: str | None) -> bool:
+    """Checks whether a device hardware fingerprint is in the permanent blocklist."""
     clean_fp = fingerprint.strip() if fingerprint else ""
-    if not clean_ip and not clean_fp:
+    if not clean_fp:
         return False
 
     with _ACCESS_LOCK:
         load_access_data()
-        if clean_ip and clean_ip in _CACHED_BLOCKED_IPS:
-            return True
-        if clean_fp and clean_fp in _CACHED_BLOCKED_FINGERPRINTS:
-            return True
+        return clean_fp in _CACHED_BLOCKED_FINGERPRINTS
+
+
+def is_ip_or_fingerprint_blocked(ip: str | None, fingerprint: str | None = None) -> bool:
+    """
+    Checks whether a request is blocked.
+    Prioritizes device-level fingerprint checking to ensure innocent machines
+    on the same shared network / IP (NAT, office Wi-Fi) are not blocked.
+    """
+    clean_fp = fingerprint.strip() if fingerprint else ""
+    if clean_fp:
+        return is_device_blocked(clean_fp)
+    clean_ip = ip.strip() if ip else ""
+    if clean_ip:
+        with _ACCESS_LOCK:
+            load_access_data()
+            return clean_ip in _CACHED_BLOCKED_IPS
     return False
+
+
+def block_device(
+    fingerprint: str,
+    reason: str = "Administrator manual device block",
+    user_agent: str | None = None,
+    actor: str = "admin",
+    device_name: str | None = None,
+) -> dict[str, Any]:
+    """Permanently adds a hardware device fingerprint to the blocked list."""
+    clean_fp = fingerprint.strip() if fingerprint else ""
+    if not clean_fp:
+        raise ValueError("Must provide a device fingerprint to block.")
+
+    return block_entity(
+        ip=None,
+        fingerprint=clean_fp,
+        reason=reason,
+        user_agent=user_agent,
+        actor=actor,
+    )
+
+
+def unblock_device(ban_id: str, unblocked_by: str = "admin") -> dict[str, Any]:
+    """Removes a permanent block from a device by ban ID."""
+    return unblock_entity(ban_id=ban_id, unblocked_by=unblocked_by)
+
+
+def get_blocked_devices(status: str = "active") -> list[dict[str, Any]]:
+    """Retrieves all blocked device records."""
+    return get_blocked_entities(status=status)
 
 
 def block_entity(

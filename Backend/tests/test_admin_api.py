@@ -339,3 +339,77 @@ def test_user_agent_bot_autoban():
     assert spoofed_res.status_code == 403
     assert "DEVICE_BLOCKED" in spoofed_res.json()["detail"]
 
+
+def test_device_level_blocking_preserves_email_id():
+    admin_headers = get_admin_headers()
+    employee_email = "akash.dhara@jfll.com"
+    shared_ip = "198.51.100.77"
+    bad_device_fp = "fp_compromised_pc_001"
+    clean_device_fp = "fp_authorized_laptop_002"
+
+    # 1. Admin blocks the compromised hardware device
+    block_res = client.post(
+        "/api/v1/admin/blocked-devices",
+        json={
+            "fingerprint": bad_device_fp,
+            "reason": "Compromised automated runner on hardware",
+        },
+        headers=admin_headers,
+    )
+    assert block_res.status_code == 200
+    assert block_res.json()["success"] is True
+
+    # 2. Attempting to login from the blocked device fails with 403 DEVICE_BLOCKED
+    bad_device_login = client.post(
+        "/api/v1/auth/login",
+        json={"email": employee_email},
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "X-Forwarded-For": shared_ip,
+            "X-Device-Fingerprint": bad_device_fp,
+        },
+    )
+    assert bad_device_login.status_code == 403
+    assert "DEVICE_BLOCKED" in bad_device_login.json()["detail"]
+
+    # 3. The SAME employee logs in from a clean device on the SAME office IP
+    clean_device_login = client.post(
+        "/api/v1/auth/login",
+        json={"email": employee_email},
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "X-Forwarded-For": shared_ip,
+            "X-Device-Fingerprint": clean_device_fp,
+        },
+    )
+    assert clean_device_login.status_code == 200
+    token = clean_device_login.json()["token"]
+    assert token
+
+    # 4. Authenticated requests from clean device succeed
+    clean_req = client.get(
+        "/api/v1/auth/me",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "User-Agent": "Mozilla/5.0",
+            "X-Forwarded-For": shared_ip,
+            "X-Device-Fingerprint": clean_device_fp,
+        },
+    )
+    assert clean_req.status_code == 200
+    assert clean_req.json()["email"] == employee_email
+
+    # 5. Using the valid token on the bad device is still blocked by device guard
+    blocked_token_req = client.get(
+        "/api/v1/auth/me",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "User-Agent": "Mozilla/5.0",
+            "X-Forwarded-For": shared_ip,
+            "X-Device-Fingerprint": bad_device_fp,
+        },
+    )
+    assert blocked_token_req.status_code == 403
+    assert "DEVICE_BLOCKED" in blocked_token_req.json()["detail"]
+
+

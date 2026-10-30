@@ -13,6 +13,8 @@ import {
   AlertCircle,
   Loader2,
   ShieldCheck,
+  ShieldAlert,
+  Laptop,
   Mail,
   User,
   Briefcase,
@@ -21,16 +23,20 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import {
   AccessRequest,
+  BlockedEntity,
   FunctionalRole,
 } from '@/types/admin';
 import {
   fetchAdminStats,
   fetchAccessRequests,
   fetchAllowlist,
+  fetchBlockedEntities,
   approveAccessRequest,
   rejectAccessRequest,
   addAllowlistEntry,
   revokeAllowlistEntry,
+  blockDevice,
+  unblockEntity,
 } from '@/services/adminService';
 import { useToast } from '@/components/ui';
 
@@ -57,9 +63,16 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
   const { showToast } = useToast();
   const queryClient = useQueryClient();
 
-  const [activeTab, setActiveTab] = useState<'requests' | 'allowlist' | 'history'>('requests');
+  const [activeTab, setActiveTab] = useState<'requests' | 'allowlist' | 'devices' | 'history'>('requests');
   const [allowlistFilter, setAllowlistFilter] = useState<'active' | 'revoked' | 'all'>('active');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Blocked devices state
+  const [deviceFilter, setDeviceFilter] = useState<'active' | 'unblocked' | 'all'>('active');
+  const [deviceSearchQuery, setDeviceSearchQuery] = useState('');
+  const [showBlockDeviceModal, setShowBlockDeviceModal] = useState(false);
+  const [newDeviceFp, setNewDeviceFp] = useState('');
+  const [newDeviceReason, setNewDeviceReason] = useState('Manual device security block');
 
   // Approve dialog state
   const [approvingReq, setApprovingReq] = useState<AccessRequest | null>(null);
@@ -97,7 +110,42 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
     enabled: isOpen,
   });
 
+  const { data: blockedDevices = [], isLoading: isLoadingDevices } = useQuery<BlockedEntity[]>({
+    queryKey: ['admin-blocked-devices'],
+    queryFn: () => fetchBlockedEntities('all'),
+    enabled: isOpen,
+  });
+
   // Mutations
+  const unblockDeviceMutation = useMutation({
+    mutationFn: (banId: string) => unblockEntity(banId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-blocked-devices'] });
+      showToast?.('Device restriction lifted successfully.');
+    },
+    onError: (err: Error) => {
+      showToast?.(err.message || 'Failed to unblock device', 'error');
+    },
+  });
+
+  const blockDeviceMutation = useMutation({
+    mutationFn: ({ fingerprint, reason }: { fingerprint: string; reason: string }) =>
+      blockDevice(fingerprint, reason),
+    onSuccess: (data) => {
+      if (data) {
+        queryClient.invalidateQueries({ queryKey: ['admin-blocked-devices'] });
+        showToast?.(`Device '${data.fingerprint}' successfully restricted.`);
+        setShowBlockDeviceModal(false);
+        setNewDeviceFp('');
+        setNewDeviceReason('Manual device security block');
+      } else {
+        showToast?.('Failed to block device', 'error');
+      }
+    },
+    onError: (err: Error) => {
+      showToast?.(err.message || 'Failed to block device', 'error');
+    },
+  });
   const approveMutation = useMutation({
     mutationFn: ({ id, role, notes }: { id: string; role: FunctionalRole; notes: string }) =>
       approveAccessRequest(id, { role, notes }),
@@ -172,6 +220,19 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
       entry.name.toLowerCase().includes(q) ||
       entry.role.toLowerCase().includes(q)
     );
+  });
+
+  const filteredDevices = blockedDevices.filter((dev) => {
+    if (deviceFilter === 'active' && dev.status !== 'active') return false;
+    if (deviceFilter === 'unblocked' && dev.status !== 'unblocked') return false;
+    if (deviceSearchQuery.trim()) {
+      const q = deviceSearchQuery.toLowerCase();
+      const matchFp = dev.fingerprint?.toLowerCase().includes(q);
+      const matchReason = dev.reason?.toLowerCase().includes(q);
+      const matchUa = dev.user_agent?.toLowerCase().includes(q);
+      return matchFp || matchReason || matchUa;
+    }
+    return true;
   });
 
   const getRoleBadgeColor = (role: string) => {
@@ -279,6 +340,26 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
             <button
               type="button"
               role="tab"
+              aria-selected={activeTab === 'devices'}
+              onClick={() => setActiveTab('devices')}
+              className={`pb-2.5 px-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all cursor-pointer ${
+                activeTab === 'devices'
+                  ? 'border-apollo text-apollo font-bold'
+                  : 'border-transparent text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <Laptop className="w-4 h-4" />
+              <span>Blocked Devices</span>
+              {blockedDevices.filter((d) => d.status === 'active').length > 0 && (
+                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white">
+                  {blockedDevices.filter((d) => d.status === 'active').length}
+                </span>
+              )}
+            </button>
+
+            <button
+              type="button"
+              role="tab"
               aria-selected={activeTab === 'history'}
               onClick={() => setActiveTab('history')}
               className={`pb-2.5 px-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all cursor-pointer ${
@@ -302,6 +383,16 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
             >
               <UserPlus className="w-3.5 h-3.5" />
               <span>Add Personnel</span>
+            </button>
+          )}
+
+          {activeTab === 'devices' && (
+            <button
+              onClick={() => setShowBlockDeviceModal(true)}
+              className="mb-2 py-1.5 px-3 bg-rose-600 hover:bg-rose-700 text-white font-semibold text-xs rounded-lg shadow-sm flex items-center gap-1.5 cursor-pointer"
+            >
+              <ShieldAlert className="w-3.5 h-3.5" />
+              <span>Block a Device</span>
             </button>
           )}
         </div>
@@ -383,6 +474,16 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
           {/* TAB 2: ACTIVE ALLOWLIST */}
           {activeTab === 'allowlist' && (
             <div className="space-y-3">
+              {/* Directory Policy Callout */}
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 flex items-center justify-between text-xs text-slate-600">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>
+                    Authorized Personnel Directory. To restrict an unauthorized or automated machine, use <strong>Blocked Devices</strong> to block at the device level without affecting employee email accounts.
+                  </span>
+                </div>
+              </div>
+
               {/* Search Bar & Status Segmented Filter */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
                 <div className="relative flex-1">
@@ -536,7 +637,147 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
             </div>
           )}
 
-          {/* TAB 3: AUDIT HISTORY */}
+          {/* TAB 3: BLOCKED DEVICES */}
+          {activeTab === 'devices' && (
+            <div className="space-y-3">
+              {/* Device Level Security Callout */}
+              <div className="bg-sky-50/70 border border-sky-200 rounded-xl p-3 flex items-start gap-2.5">
+                <Laptop className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+                <div className="text-xs text-sky-950">
+                  <span className="font-semibold block text-sky-900">Device-Level Access Control Active</span>
+                  Restrictions are enforced strictly at the hardware device fingerprint level. Employee email accounts remain authorized and can be accessed from approved company machines.
+                </div>
+              </div>
+
+              {/* Search & Status Filters */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                <div className="relative flex-1">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={deviceSearchQuery}
+                    onChange={(e) => setDeviceSearchQuery(e.target.value)}
+                    placeholder="Search by device fingerprint, reason, or user-agent..."
+                    className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-2 focus:ring-apollo/10"
+                  />
+                </div>
+
+                <div className="flex items-center gap-1 bg-slate-200/60 p-1 rounded-xl self-start sm:self-auto">
+                  <button
+                    type="button"
+                    onClick={() => setDeviceFilter('active')}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      deviceFilter === 'active'
+                        ? 'bg-white text-rose-700 shadow-xs'
+                        : 'text-slate-600 hover:text-rose-700'
+                    }`}
+                  >
+                    Active Blocks ({blockedDevices.filter((d) => d.status === 'active').length})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDeviceFilter('unblocked')}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      deviceFilter === 'unblocked'
+                        ? 'bg-white text-slate-900 shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    Unblocked ({blockedDevices.filter((d) => d.status === 'unblocked').length})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDeviceFilter('all')}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      deviceFilter === 'all'
+                        ? 'bg-white text-slate-900 shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    All ({blockedDevices.length})
+                  </button>
+                </div>
+              </div>
+
+              {isLoadingDevices ? (
+                <div className="py-12 flex flex-col items-center justify-center text-slate-400 gap-2">
+                  <Loader2 className="w-6 h-6 animate-spin text-apollo" />
+                  <span className="text-xs">Loading blocked device directory...</span>
+                </div>
+              ) : filteredDevices.length === 0 ? (
+                <div className="py-12 text-center bg-white rounded-xl border border-slate-200 p-6 text-slate-500 text-xs">
+                  {deviceFilter === 'active'
+                    ? 'No hardware devices are currently blocked. The platform is running smoothly.'
+                    : 'No matching blocked devices found.'}
+                </div>
+              ) : (
+                <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs border-collapse">
+                      <thead>
+                        <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-semibold">
+                          <th className="py-2.5 px-3">Device Fingerprint</th>
+                          <th className="py-2.5 px-3">Restriction Reason</th>
+                          <th className="py-2.5 px-3">Platform / User Agent</th>
+                          <th className="py-2.5 px-3">Status</th>
+                          <th className="py-2.5 px-3 text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {filteredDevices.map((dev) => (
+                          <tr key={dev.id} className="hover:bg-slate-50/70 transition-colors">
+                            <td className="py-2.5 px-3">
+                              <div className="font-mono font-semibold text-slate-900 flex items-center gap-1.5">
+                                <Laptop className="w-3.5 h-3.5 text-slate-500" />
+                                <span>{dev.fingerprint || 'Unknown Fingerprint'}</span>
+                              </div>
+                              <div className="text-[10px] text-slate-400">
+                                Blocked {new Date(dev.blocked_at).toLocaleString()}
+                              </div>
+                            </td>
+                            <td className="py-2.5 px-3 text-slate-700">
+                              <span className="bg-red-50 text-red-700 px-2 py-0.5 rounded text-[11px] font-medium border border-red-100">
+                                {dev.reason}
+                              </span>
+                            </td>
+                            <td className="py-2.5 px-3 text-slate-500 text-[11px] max-w-[200px] truncate" title={dev.user_agent}>
+                              {dev.user_agent ? dev.user_agent.slice(0, 45) + '...' : 'Browser profile'}
+                            </td>
+                            <td className="py-2.5 px-3">
+                              <span
+                                className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                                  dev.status === 'active'
+                                    ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                                    : 'bg-slate-100 text-slate-600 border border-slate-200'
+                                }`}
+                              >
+                                {dev.status === 'active' ? 'Permanently Blocked' : 'Unblocked'}
+                              </span>
+                            </td>
+                            <td className="py-2.5 px-3 text-right">
+                              {dev.status === 'active' ? (
+                                <button
+                                  onClick={() => unblockDeviceMutation.mutate(dev.id)}
+                                  disabled={unblockDeviceMutation.isPending}
+                                  className="py-1 px-2.5 text-emerald-700 hover:bg-emerald-50 rounded-md font-semibold text-[11px] border border-emerald-200 transition-colors cursor-pointer"
+                                >
+                                  Unblock Device
+                                </button>
+                              ) : (
+                                <span className="text-[10px] text-slate-400">Restored</span>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 4: AUDIT HISTORY */}
           {activeTab === 'history' && (
             <div className="space-y-3">
               {historyRequests.length === 0 ? (
@@ -854,6 +1095,82 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                   ) : (
                     <span>Add to Allowlist</span>
                   )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Block a Device Modal */}
+        {showBlockDeviceModal && (
+          <div className="fixed inset-0 z-60 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 p-5 space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold">
+                    <ShieldAlert className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-slate-900 text-sm">Block Hardware Device</h3>
+                    <p className="text-[11px] text-slate-500">Restricts this machine; preserves employee email IDs.</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowBlockDeviceModal(false)}
+                  className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <div>
+                  <label className="block text-slate-700 font-semibold mb-1">
+                    Device Fingerprint ID
+                  </label>
+                  <input
+                    type="text"
+                    value={newDeviceFp}
+                    onChange={(e) => setNewDeviceFp(e.target.value)}
+                    placeholder="e.g. fp_1s0d67 or copy from telemetry"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs focus:outline-none focus:border-apollo"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-700 font-semibold mb-1">
+                    Reason for Restriction
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={newDeviceReason}
+                    onChange={(e) => setNewDeviceReason(e.target.value)}
+                    placeholder="e.g. Unauthorized automated runner or suspicious hardware"
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-none focus:border-apollo"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+                <button
+                  onClick={() => setShowBlockDeviceModal(false)}
+                  className="px-3 py-1.5 text-slate-600 hover:bg-slate-100 rounded-lg text-xs font-semibold cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    if (newDeviceFp.trim()) {
+                      blockDeviceMutation.mutate({
+                        fingerprint: newDeviceFp.trim(),
+                        reason: newDeviceReason.trim() || 'Manual device security block',
+                      });
+                    }
+                  }}
+                  disabled={!newDeviceFp.trim() || blockDeviceMutation.isPending}
+                  className="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-semibold shadow-xs disabled:opacity-50 cursor-pointer"
+                >
+                  {blockDeviceMutation.isPending ? 'Blocking...' : 'Block Device'}
                 </button>
               </div>
             </div>
