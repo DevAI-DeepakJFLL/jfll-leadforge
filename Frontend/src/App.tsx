@@ -753,6 +753,14 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     });
   }, []);
 
+  const handleOpenDatamyneConvert = useCallback((lead: DatamyneLead) => {
+    setConvertModalTarget({
+      entityType: 'datamyne',
+      entityId: lead.id,
+      companyName: lead.company_name,
+    });
+  }, []);
+
   const handleOpenJfllApproach = useCallback((customer: JfllCustomer) => {
     setApproachModalTarget({
       entityType: 'jfll_customer',
@@ -1127,6 +1135,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           activeFilterCount={datamyneActiveFilterCount}
           onLeadClick={(lead) => setSelectedDatamyneLead(lead)}
           onLogApproach={handleOpenDatamyneApproach}
+          onConvertToActive={handleOpenDatamyneConvert}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />
@@ -1312,6 +1321,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           lead={selectedDatamyneLead}
           onClose={() => setSelectedDatamyneLead(null)}
           onLogApproach={handleOpenDatamyneApproach}
+          onConvertToActive={handleOpenDatamyneConvert}
         />
       </ErrorBoundary>
 

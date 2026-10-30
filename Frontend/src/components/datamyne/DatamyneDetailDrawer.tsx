@@ -30,6 +30,7 @@ export interface DatamyneDetailDrawerProps {
   lead: DatamyneLead | null;
   onClose: () => void;
   onLogApproach?: (lead: DatamyneLead) => void;
+  onConvertToActive?: (lead: DatamyneLead) => void;
   className?: string;
 }
 
@@ -38,6 +39,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   lead,
   onClose,
   onLogApproach,
+  onConvertToActive,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -419,6 +421,8 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 entityId={lead.id}
                 companyName={lead.company_name}
                 onOpenLogModal={() => onLogApproach?.(lead)}
+                onOpenConvertModal={() => onConvertToActive?.(lead)}
+                showConvertButton={true}
               />
             </div>
 

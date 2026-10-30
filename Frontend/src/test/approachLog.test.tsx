@@ -6,6 +6,8 @@ import {
   ConvertToActiveModal,
   SalesApproachTimeline,
 } from '@/components/approach';
+import { DatamyneTable } from '@/components/datamyne/DatamyneTable';
+import { DatamyneLead } from '@/types/datamyneLead';
 import {
   ALL_SALES_ACTIONS,
   FUNNEL_RANKS,
@@ -248,6 +250,66 @@ describe('Sales Approach & Active Conversion Suite', () => {
       expect(res.logs.length).toBe(1);
       expect(res.logs[0].note).toContain('Effective start date: 2026-11-01');
       expect(res.logs[0].note).toContain('Contract executed for air cargo');
+    });
+
+    it('converts DataMyne lead to Active via dedicated workflow', async () => {
+      const res = await convertClientToActive('datamyne', 'dm-lead-test-01', {
+        start_date: '2026-11-15',
+        note: 'Converted from cold trade lead to active air cargo shipper',
+      });
+
+      expect(res.current_status).toBe('Converted to Active');
+      expect(res.is_active_converted).toBe(true);
+      expect(res.conversion_start_date).toBe('2026-11-15');
+      expect(res.logs.length).toBe(1);
+      expect(res.logs[0].note).toContain('Effective start date: 2026-11-15');
+      expect(res.logs[0].note).toContain('Converted from cold trade lead');
+    });
+
+    it('renders Convert button in DatamyneTable when onConvertToActive is provided', () => {
+      const mockLead: DatamyneLead = {
+        id: 'dm-test-101',
+        company_name: 'TEST EXPORTER CORP',
+        country: 'India',
+        role: 'Exporter',
+        transport_mode: 'Air',
+        category: 'Perishables',
+        subcategory: 'Fruits & Vegetables',
+        contact_type: 'Both Phone & Email',
+        phone: '+91 9820012345',
+        email: 'sales@testexporter.com',
+        tax_id: 'AAACT1234F',
+        city: 'MUMBAI',
+        address: 'Andheri East',
+        pin_code: '400069',
+        directors: 'Director Name',
+        trade_lanes: 'India-UAE/Air',
+        top_hs_codes: '08045020',
+        total_shipments: 45,
+        total_value_usd: 850000,
+        latest_activity_date: '2026-03-01',
+        dataset_type: 'valid',
+      };
+
+      const html = renderToString(
+        <DatamyneTable
+          leads={[mockLead]}
+          rowSelection={{}}
+          onRowSelectionChange={vi.fn()}
+          onLeadClick={vi.fn()}
+          onLogApproach={vi.fn()}
+          onConvertToActive={vi.fn()}
+          currentPage={1}
+          totalPages={1}
+          pageSize={25}
+          totalItems={1}
+          onPageChange={vi.fn()}
+        />
+      );
+
+      expect(html).toContain('Approach');
+      expect(html).toContain('Convert');
+      expect(html).toContain('Convert TEST EXPORTER CORP to Active customer');
     });
   });
 });

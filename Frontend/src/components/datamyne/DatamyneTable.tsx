@@ -12,6 +12,7 @@ import {
   Ship,
   PhoneOff,
   PhoneCall,
+  Sparkles,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -28,6 +29,7 @@ export interface DatamyneTableProps {
   onRowSelectionChange: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   onLeadClick: (lead: DatamyneLead) => void;
   onLogApproach?: (lead: DatamyneLead) => void;
+  onConvertToActive?: (lead: DatamyneLead) => void;
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -49,6 +51,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   onRowSelectionChange,
   onLeadClick,
   onLogApproach,
+  onConvertToActive,
   currentPage,
   totalPages,
   pageSize,
@@ -429,7 +432,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                     />
                   </td>
 
-                  {/* Action CTA: View & Approach */}
+                  {/* Action CTA: View, Approach, Convert */}
                   <td className="py-3 px-4 text-center align-middle">
                     <div className="flex items-center justify-center gap-1.5">
                       <button
@@ -437,7 +440,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                           e.stopPropagation();
                           onLeadClick(l);
                         }}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn cursor-pointer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-xs group/btn cursor-pointer"
                         title={`View details for ${l.company_name}`}
                       >
                         <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
@@ -450,13 +453,28 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                             e.stopPropagation();
                             onLogApproach(l);
                           }}
-                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-apollo bg-apollo/10 hover:bg-apollo hover:text-white border border-apollo/30 rounded-md transition-all shadow-2xs cursor-pointer"
+                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-apollo bg-apollo/10 hover:bg-apollo hover:text-white border border-apollo/30 rounded-md transition-all shadow-xs cursor-pointer"
                           title={`Log sales approach for ${l.company_name}`}
                         >
                           <PhoneCall className="w-3.5 h-3.5" />
                           <span>Approach</span>
                         </button>
                       )}
+
+                      {onConvertToActive &&
+                        getCachedApproachStatus('datamyne', l.id) !== 'Converted to Active' && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onConvertToActive(l);
+                            }}
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-600 hover:text-white border border-emerald-300 rounded-md transition-all shadow-xs cursor-pointer"
+                            title={`Convert ${l.company_name} to Active customer`}
+                          >
+                            <Sparkles className="w-3.5 h-3.5 text-emerald-600 group-hover:text-white" />
+                            <span>Convert</span>
+                          </button>
+                        )}
                     </div>
                   </td>
                 </tr>

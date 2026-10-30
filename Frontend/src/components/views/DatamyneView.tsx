@@ -64,6 +64,7 @@ export interface DatamyneViewProps {
   activeFilterCount: number;
   onLeadClick: (lead: DatamyneLead) => void;
   onLogApproach?: (lead: DatamyneLead) => void;
+  onConvertToActive?: (lead: DatamyneLead) => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
 }
@@ -100,6 +101,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   activeFilterCount,
   onLeadClick,
   onLogApproach,
+  onConvertToActive,
   isMobileOpen,
   onCloseMobile,
 }) => {
@@ -441,6 +443,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
             onLogApproach={onLogApproach}
+            onConvertToActive={onConvertToActive}
             currentPage={displayPage}
             totalPages={displayTotalPages}
             pageSize={query.limit || 25}
