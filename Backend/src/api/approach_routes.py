@@ -37,6 +37,8 @@ def get_storage_path() -> Path:
     custom_path = os.getenv("APPROACH_LOGS_PATH")
     if custom_path:
         return Path(custom_path)
+    if os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        return Path("/tmp/data/approach_logs.json")
     base_dir = Path(__file__).resolve().parent.parent.parent
     return base_dir / "data" / "approach_logs.json"
 

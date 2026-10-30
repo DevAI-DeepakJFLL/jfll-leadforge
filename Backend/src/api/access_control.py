@@ -77,6 +77,8 @@ def get_storage_path() -> Path:
     custom_path = os.getenv("ACCESS_CONTROL_PATH")
     if custom_path:
         return Path(custom_path)
+    if os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        return Path("/tmp/data/access_control.json")
     base_dir = Path(__file__).resolve().parent.parent.parent
     return base_dir / "data" / "access_control.json"
 
