@@ -172,6 +172,22 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
     }
 
     console.warn('[AuthService] Backend API unreachable, checking offline enterprise credentials:', err);
+    try {
+      const rawAllowlist =
+        typeof window !== 'undefined' && window.localStorage
+          ? window.localStorage.getItem('jfll_admin_allowlist')
+          : null;
+      if (rawAllowlist) {
+        const allowlist = JSON.parse(rawAllowlist);
+        const entry = allowlist.find((a: { email: string; status: string }) => a.email.toLowerCase() === normalizedEmail);
+        if (entry && entry.status === 'revoked') {
+          throw new AuthError('Access restricted: Your user account access has been revoked by an administrator.', 401);
+        }
+      }
+    } catch (e) {
+      if (e instanceof AuthError) throw e;
+    }
+
     const matchingUser = AUTHORIZED_USERS.find(
       (u) => u.email.toLowerCase() === normalizedEmail
     );
@@ -192,6 +208,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
  * Custom event name fired when the active session is superseded by another device.
  */
 export const SESSION_SUPERSEDED_EVENT = 'leadforge:session-superseded';
+export const SESSION_REVOKED_EVENT = 'leadforge:session-revoked';
 
 export function notifySessionSuperseded(): void {
   if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
@@ -199,14 +216,21 @@ export function notifySessionSuperseded(): void {
   }
 }
 
+export function notifySessionRevoked(): void {
+  if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+    window.dispatchEvent(new CustomEvent(SESSION_REVOKED_EVENT));
+  }
+}
+
 export interface SessionHeartbeatResult {
   active: boolean;
   superseded?: boolean;
+  revoked?: boolean;
 }
 
 /**
- * Proactively verifies with the backend that this browser's session is still the single active session.
- * If another device has logged in with the same account, returns { active: false, superseded: true }.
+ * Proactively verifies with the backend that this browser's session is still the single active session
+ * and has not been revoked by an administrator.
  */
 export async function checkSessionHeartbeat(token: string): Promise<SessionHeartbeatResult> {
   if (!token || token.startsWith('offline_session_')) {
@@ -227,11 +251,19 @@ export async function checkSessionHeartbeat(token: string): Promise<SessionHeart
 
     if (res.status === 401) {
       const data = await res.json().catch(() => ({}));
-      if (typeof data.detail === 'string' && data.detail.startsWith('SESSION_SUPERSEDED')) {
-        clearStoredSession();
-        notifySessionSuperseded();
-        return { active: false, superseded: true };
+      if (typeof data.detail === 'string') {
+        if (data.detail.startsWith('SESSION_SUPERSEDED')) {
+          clearStoredSession();
+          notifySessionSuperseded();
+          return { active: false, superseded: true };
+        }
+        if (data.detail.startsWith('ACCESS_REVOKED')) {
+          clearStoredSession();
+          notifySessionRevoked();
+          return { active: false, revoked: true };
+        }
       }
+      clearStoredSession();
       return { active: false };
     }
 

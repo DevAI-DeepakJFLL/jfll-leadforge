@@ -58,6 +58,7 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
   const queryClient = useQueryClient();
 
   const [activeTab, setActiveTab] = useState<'requests' | 'allowlist' | 'history'>('requests');
+  const [allowlistFilter, setAllowlistFilter] = useState<'active' | 'revoked' | 'all'>('active');
   const [searchQuery, setSearchQuery] = useState('');
 
   // Approve dialog state
@@ -163,6 +164,7 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
   const historyRequests = requests.filter((r) => r.status !== 'pending');
 
   const filteredAllowlist = allowlist.filter((entry) => {
+    if (allowlistFilter !== 'all' && entry.status !== allowlistFilter) return false;
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase();
     return (
@@ -381,16 +383,54 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
           {/* TAB 2: ACTIVE ALLOWLIST */}
           {activeTab === 'allowlist' && (
             <div className="space-y-3">
-              {/* Search Bar */}
-              <div className="relative">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search allowlist by name, email, or role..."
-                  className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-2 focus:ring-apollo/10"
-                />
+              {/* Search Bar & Status Segmented Filter */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                <div className="relative flex-1">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search allowlist by name, email, or role..."
+                    className="w-full pl-9 pr-3 py-2 text-xs bg-white border border-slate-200 rounded-xl text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-2 focus:ring-apollo/10"
+                  />
+                </div>
+
+                <div className="flex items-center gap-1 bg-slate-200/60 p-1 rounded-xl self-start sm:self-auto">
+                  <button
+                    type="button"
+                    onClick={() => setAllowlistFilter('active')}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      allowlistFilter === 'active'
+                        ? 'bg-white text-slate-900 shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    Active ({allowlist.filter((a) => a.status === 'active').length})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAllowlistFilter('revoked')}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      allowlistFilter === 'revoked'
+                        ? 'bg-white text-rose-700 shadow-xs'
+                        : 'text-slate-600 hover:text-rose-700'
+                    }`}
+                  >
+                    Revoked ({allowlist.filter((a) => a.status === 'revoked').length})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAllowlistFilter('all')}
+                    className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      allowlistFilter === 'all'
+                        ? 'bg-white text-slate-900 shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    All ({allowlist.length})
+                  </button>
+                </div>
               </div>
 
               {isLoadingAllowlist ? (
@@ -400,7 +440,9 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                 </div>
               ) : filteredAllowlist.length === 0 ? (
                 <div className="py-12 text-center bg-white rounded-xl border border-slate-200 p-6 text-slate-500 text-xs">
-                  No matching employees found on the allowlist.
+                  {allowlistFilter === 'revoked'
+                    ? 'No revoked employees found.'
+                    : 'No matching employees found on the allowlist.'}
                 </div>
               ) : (
                 <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">

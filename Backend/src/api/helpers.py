@@ -23,8 +23,21 @@ def require_auth(
         user = verify_token(token)
         if not user:
             raise HTTPException(status_code=401, detail="Invalid or expired session token")
+
+        user_email = user.get("sub", "").strip().lower()
+        from src.api.access_control import is_email_active
+
+        if user_email and not is_email_active(user_email):
+            logger.warning(
+                f"Audit: Data request rejected (access revoked) for {user_email}",
+                extra={"event": "ACCESS_REVOKED", "user_email": user_email, "resource": resource_name},
+            )
+            raise HTTPException(
+                status_code=401,
+                detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
+            )
+
         if not check_session_active(user):
-            user_email = user.get("sub", "unknown")
             logger.warning(
                 f"Audit: Data request rejected (session displaced) for {user_email}",
                 extra={"event": "SESSION_SUPERSEDED", "user_email": user_email, "resource": resource_name},

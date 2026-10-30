@@ -25,6 +25,7 @@ import {
   clearStoredSession,
   checkSessionHeartbeat,
   SESSION_SUPERSEDED_EVENT,
+  SESSION_REVOKED_EVENT,
   isOfflineSession,
 } from '@/services/authService';
 import { useLeadsFilter } from '@/hooks/useLeadsFilter';
@@ -1412,7 +1413,7 @@ export const App: React.FC = () => {
   const [session, setSession] = useState<UserSession | null>(getStoredSession);
   const [isSessionSuperseded, setIsSessionSuperseded] = useState(false);
 
-  // Listen for session superseded events (e.g. from background heartbeats or API 401s)
+  // Listen for session superseded or revoked events (e.g. from background heartbeats or API 401s)
   useEffect(() => {
     const handleSuperseded = () => {
       clearStoredSession();
@@ -1420,9 +1421,16 @@ export const App: React.FC = () => {
       setIsSessionSuperseded(true);
     };
 
+    const handleRevoked = () => {
+      clearStoredSession();
+      setSession(null);
+    };
+
     window.addEventListener(SESSION_SUPERSEDED_EVENT, handleSuperseded);
+    window.addEventListener(SESSION_REVOKED_EVENT, handleRevoked);
     return () => {
       window.removeEventListener(SESSION_SUPERSEDED_EVENT, handleSuperseded);
+      window.removeEventListener(SESSION_REVOKED_EVENT, handleRevoked);
     };
   }, []);
 
@@ -1436,6 +1444,9 @@ export const App: React.FC = () => {
         clearStoredSession();
         setSession(null);
         setIsSessionSuperseded(true);
+      } else if (res.revoked || !res.active) {
+        clearStoredSession();
+        setSession(null);
       }
     }, 20000);
 

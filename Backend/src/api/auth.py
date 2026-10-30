@@ -49,6 +49,12 @@ def check_session_active(payload: dict[str, Any]) -> bool:
     token_session_id = payload.get("session_id")
     if not token_session_id or not email:
         return True  # Backward compatibility for legacy tests without session_id
+
+    from src.api.access_control import is_email_active
+
+    if not is_email_active(email):
+        return False
+
     active_session_id = ACTIVE_USER_SESSIONS.get(email)
     if active_session_id is None:
         ACTIVE_USER_SESSIONS[email] = token_session_id
@@ -377,6 +383,15 @@ def get_current_user(authorization: str | None = Header(None), user_agent: str |
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid or expired session token")
 
+    user_email = payload.get("sub", "").strip().lower()
+    from src.api.access_control import is_email_active
+
+    if user_email and not is_email_active(user_email):
+        raise HTTPException(
+            status_code=401,
+            detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
+        )
+
     if not check_session_active(payload):
         user_email = payload.get("sub", "unknown")
         logger.warning(
@@ -420,8 +435,16 @@ def session_heartbeat(authorization: str | None = Header(None), user_agent: str 
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid or expired session token")
 
+    user_email = payload.get("sub", "").strip().lower()
+    from src.api.access_control import is_email_active
+
+    if user_email and not is_email_active(user_email):
+        raise HTTPException(
+            status_code=401,
+            detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
+        )
+
     if not check_session_active(payload):
-        user_email = payload.get("sub", "unknown")
         logger.warning(
             f"Audit: Session displaced on heartbeat for {user_email}",
             extra={"event": "SESSION_SUPERSEDED", "user_email": user_email},

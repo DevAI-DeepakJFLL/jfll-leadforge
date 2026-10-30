@@ -200,6 +200,17 @@ def test_direct_allowlist_management_and_safety():
     )
     assert res_revoked_login.status_code == 401
 
+    # Verify existing active session tokens for revoked employee are immediately invalidated
+    rohit_token, _ = create_token({"sub": "rohit.verma@jfll.com", "name": "Rohit Verma", "role": "Operations"})
+    rohit_headers = {"Authorization": f"Bearer {rohit_token}", "User-Agent": "Mozilla/5.0"}
+    res_me = client.get("/api/v1/auth/me", headers=rohit_headers)
+    assert res_me.status_code == 401
+    assert "ACCESS_REVOKED" in res_me.json()["detail"]
+
+    res_heartbeat = client.get("/api/v1/auth/heartbeat", headers=rohit_headers)
+    assert res_heartbeat.status_code == 401
+    assert "ACCESS_REVOKED" in res_heartbeat.json()["detail"]
+
     # Revoke a seeded employee and verify login is blocked even with digest fallback
     res_del_seeded = client.delete("/api/v1/admin/allowlist/akash.dhara@jfll.com", headers=admin_headers)
     assert res_del_seeded.status_code == 200
