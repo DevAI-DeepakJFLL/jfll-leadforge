@@ -196,6 +196,7 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             placeholder="Search company, city, tax ID..."
+            aria-label="Search company, city, tax ID"
             className="w-full pl-8 pr-2.5 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-apollo/20 focus:border-apollo transition-all"
           />
         </form>

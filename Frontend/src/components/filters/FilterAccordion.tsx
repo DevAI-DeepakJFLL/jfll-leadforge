@@ -38,13 +38,14 @@ export const FilterAccordion: React.FC<FilterAccordionProps> = ({
 
   return (
     <div className={`border-b border-surface-border last:border-b-0 ${className}`}>
-      <button
-        type="button"
-        onClick={handleToggle}
-        className="w-full flex items-center justify-between px-3.5 py-2.5 text-left text-slate-700 hover:text-slate-900 hover:bg-slate-50/80 transition-colors group focus:outline-none focus-visible:bg-slate-100"
-        aria-expanded={isOpen}
-      >
-        <div className="flex items-center space-x-2.5 min-w-0 pr-2">
+      <div className="w-full flex items-center justify-between px-3.5 py-2.5 text-left text-slate-700 hover:bg-slate-50/80 transition-colors group">
+        <button
+          type="button"
+          onClick={handleToggle}
+          className="flex-1 flex items-center space-x-2.5 min-w-0 pr-2 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-apollo rounded cursor-pointer"
+          aria-expanded={isOpen}
+          aria-label={isOpen ? `Collapse ${label} section` : `Expand ${label} section`}
+        >
           {/* Category Icon */}
           <span className="text-slate-400 group-hover:text-slate-600 transition-colors shrink-0 flex items-center justify-center w-4 h-4">
             {icon}
@@ -61,38 +62,37 @@ export const FilterAccordion: React.FC<FilterAccordionProps> = ({
               {activeCount}
             </span>
           )}
-        </div>
+        </button>
 
         <div className="flex items-center space-x-1 shrink-0">
           {activeCount > 0 && onClear && isOpen && (
-            <span
-              role="button"
-              tabIndex={0}
+            <button
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 onClear();
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  onClear();
-                }
               }}
               className="text-[10px] text-slate-400 hover:text-red-500 font-medium px-1 hover:underline transition-colors cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-red-400 rounded"
               title={`Clear ${label} filters`}
               aria-label={`Clear ${label} filters`}
             >
               Reset
-            </span>
+            </button>
           )}
-          <ChevronDown
-            className={`w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-transform duration-200 ${
-              isOpen ? 'rotate-180' : ''
-            }`}
-          />
+          <button
+            type="button"
+            onClick={handleToggle}
+            className="p-1 text-slate-400 group-hover:text-slate-600 transition-colors cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-apollo rounded"
+            aria-label={isOpen ? `Collapse ${label}` : `Expand ${label}`}
+          >
+            <ChevronDown
+              className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                isOpen ? 'rotate-180' : ''
+              }`}
+            />
+          </button>
         </div>
-      </button>
+      </div>
 
       {isOpen && (
         <div className="px-3.5 pb-3 pt-1 text-xs text-slate-600 animate-in fade-in duration-150">

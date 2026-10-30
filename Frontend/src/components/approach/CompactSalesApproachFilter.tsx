@@ -149,16 +149,15 @@ export const CompactSalesApproachFilter: React.FC<CompactSalesApproachFilterProp
       {/* Smart Funnel Presets Micro-Bar */}
       {onSelectStatuses && (
         <div
-          role="tablist"
+          role="group"
           aria-label="Sales funnel presets"
           className="flex items-center gap-1 p-0.5 bg-slate-100/90 border border-slate-200/70 rounded-md"
         >
           <button
             type="button"
-            role="tab"
-            aria-selected={isAllActive}
+            aria-pressed={isAllActive}
             onClick={() => handlePreset('all')}
-            className={`flex-1 py-1 text-[10px] font-semibold rounded text-center transition-all cursor-pointer ${
+            className={`flex-1 py-1 text-xs font-semibold rounded text-center transition-all cursor-pointer ${
               isAllActive
                 ? 'bg-white text-slate-900 shadow-2xs font-bold'
                 : 'text-slate-500 hover:text-slate-800'
@@ -168,10 +167,9 @@ export const CompactSalesApproachFilter: React.FC<CompactSalesApproachFilterProp
           </button>
           <button
             type="button"
-            role="tab"
-            aria-selected={isPipelineActive}
+            aria-pressed={isPipelineActive}
             onClick={() => handlePreset('pipeline')}
-            className={`flex-1 py-1 text-[10px] font-semibold rounded text-center transition-all cursor-pointer ${
+            className={`flex-1 py-1 text-xs font-semibold rounded text-center transition-all cursor-pointer ${
               isPipelineActive
                 ? 'bg-white text-blue-700 shadow-2xs font-bold'
                 : 'text-slate-500 hover:text-slate-800'
@@ -182,10 +180,9 @@ export const CompactSalesApproachFilter: React.FC<CompactSalesApproachFilterProp
           </button>
           <button
             type="button"
-            role="tab"
-            aria-selected={isUncontactedActive}
+            aria-pressed={isUncontactedActive}
             onClick={() => handlePreset('uncontacted')}
-            className={`flex-1 py-1 text-[10px] font-semibold rounded text-center transition-all cursor-pointer ${
+            className={`flex-1 py-1 text-xs font-semibold rounded text-center transition-all cursor-pointer ${
               isUncontactedActive
                 ? 'bg-white text-slate-900 shadow-2xs font-bold'
                 : 'text-slate-500 hover:text-slate-800'
@@ -196,17 +193,16 @@ export const CompactSalesApproachFilter: React.FC<CompactSalesApproachFilterProp
           </button>
           <button
             type="button"
-            role="tab"
-            aria-selected={isWonActive}
+            aria-pressed={isWonActive}
             onClick={() => handlePreset('won')}
-            className={`flex-1 py-1 text-[10px] font-semibold rounded text-center transition-all cursor-pointer ${
+            className={`flex-1 py-1 text-xs font-semibold rounded text-center transition-all cursor-pointer ${
               isWonActive
                 ? 'bg-white text-emerald-700 shadow-2xs font-bold'
                 : 'text-slate-500 hover:text-slate-800'
             }`}
             title="Filter to Converted to Active customers"
           >
-            Won
+            Active
           </button>
         </div>
       )}
@@ -235,9 +231,7 @@ export const CompactSalesApproachFilter: React.FC<CompactSalesApproachFilterProp
               title={`Filter by: ${status}`}
             >
               <span
-                className={`w-1.5 h-1.5 rounded-full shrink-0 ${meta.dotColor} ${
-                  status === 'In Progress' && isSelected ? 'animate-pulse' : ''
-                }`}
+                className={`w-1.5 h-1.5 rounded-full shrink-0 ${meta.dotColor}`}
                 aria-hidden="true"
               />
               <span className="leading-tight">{status}</span>

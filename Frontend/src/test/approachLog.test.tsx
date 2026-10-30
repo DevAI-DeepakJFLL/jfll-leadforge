@@ -394,7 +394,7 @@ describe('Sales Approach & Active Conversion Suite', () => {
       // Verify preset micro-bar options
       expect(html).toContain('Pipeline');
       expect(html).toContain('New');
-      expect(html).toContain('Won');
+      expect(html).toContain('Active');
       expect(html).toContain('All');
     });
 
