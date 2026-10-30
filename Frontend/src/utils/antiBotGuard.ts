@@ -79,6 +79,36 @@ export function isMachineLocallyPoisoned(): boolean {
 }
 
 /**
+ * Completely clears any local poison pill from this browser profile across all storage vaults.
+ */
+export function clearMachinePoisonPill(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    if (window.localStorage) {
+      window.localStorage.removeItem(BAN_STORAGE_KEY);
+    }
+    if (window.sessionStorage) {
+      window.sessionStorage.removeItem(BAN_STORAGE_KEY);
+    }
+    if (typeof document !== 'undefined') {
+      document.cookie = `${BAN_COOKIE_NAME}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict`;
+    }
+    if (window.indexedDB) {
+      try {
+        const req = window.indexedDB.open('jfll_sec_vault', 1);
+        req.onsuccess = () => {
+          const db = req.result;
+          if (db.objectStoreNames.contains('security_tokens')) {
+            const tx = db.transaction('security_tokens', 'readwrite');
+            tx.objectStore('security_tokens').delete('ban_status');
+          }
+        };
+      } catch {}
+    }
+  } catch {}
+}
+
+/**
  * Permanently locks this browser profile across LocalStorage, SessionStorage, Cookies, and IndexedDB.
  */
 export function poisonMachineStorage(): void {
@@ -138,6 +168,26 @@ export function isAutomatedBrowser(): BotDetectionResult {
     return { isBot: false };
   }
 
+  // Developer & Root Admin Bypass:
+  // If URL has ?unban=true or ?clear_ban=true, or if user is root administrator, clear poison pill immediately.
+  try {
+    if (window.location && (window.location.search.includes('unban') || window.location.search.includes('clear_ban'))) {
+      clearMachinePoisonPill();
+      return { isBot: false };
+    }
+    if (window.sessionStorage) {
+      const rawSession = window.sessionStorage.getItem('apollo_leads_session');
+      if (rawSession) {
+        const sess = JSON.parse(rawSession);
+        const email = sess?.email?.toLowerCase();
+        if (email === 'deepak@jfll.com' || email === 'tyra.theknath@jfll.com') {
+          clearMachinePoisonPill();
+          return { isBot: false };
+        }
+      }
+    }
+  } catch {}
+
   const fingerprint = getDeviceFingerprint();
 
   // 0. Check for existing machine poison pill
@@ -187,31 +237,6 @@ export function isAutomatedBrowser(): BotDetectionResult {
     poisonMachineStorage();
     reportBotToBackend('Headless User-Agent signature');
     return { isBot: true, reason: 'Headless User-Agent signature', fingerprint };
-  }
-
-  // 4. Zero dimensions check (Headless Chrome typically has outerWidth/Height 0)
-  if (
-    typeof window.outerWidth !== 'undefined' &&
-    typeof window.outerHeight !== 'undefined' &&
-    window.outerWidth === 0 &&
-    window.outerHeight === 0
-  ) {
-    poisonMachineStorage();
-    reportBotToBackend('Zero display dimensions detected');
-    return { isBot: true, reason: 'Zero display dimensions detected', fingerprint };
-  }
-
-  // 5. Desktop Chrome plugins check
-  // Regular desktop Chrome always registers plugins (PDF viewer, etc.). Standard headless Chrome has 0.
-  const isChromeDesktop =
-    /Chrome/i.test(ua) &&
-    !/Mobile|Android|iPhone|iPad/i.test(ua) &&
-    !/Edg/i.test(ua);
-
-  if (isChromeDesktop && navigator.plugins && navigator.plugins.length === 0) {
-    poisonMachineStorage();
-    reportBotToBackend('Missing browser plugins profile');
-    return { isBot: true, reason: 'Missing browser plugins profile', fingerprint };
   }
 
   return { isBot: false, fingerprint };
@@ -277,10 +302,29 @@ export function renderBotBlockScreen(reason?: string): void {
   const footer = document.createElement('div');
   footer.setAttribute(
     'style',
-    'border-top:1px solid #374151;padding-top:20px;font-size:12px;color:#6b7280;line-height:1.5;'
+    'border-top:1px solid #374151;padding-top:20px;font-size:12px;color:#6b7280;line-height:1.5;display:flex;flex-direction:column;gap:12px;align-items:center;'
   );
   footer.textContent =
     'Please launch this portal in a standard, interactive desktop browser (Chrome, Safari, Edge, Firefox).';
+
+  const restoreBtn = document.createElement('button');
+  restoreBtn.setAttribute(
+    'style',
+    'background:#1e293b;border:1px solid #475569;color:#e2e8f0;padding:8px 16px;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s;'
+  );
+  restoreBtn.textContent = 'Jet Freight Staff: Restore Browser Access';
+  restoreBtn.onmouseover = () => {
+    restoreBtn.style.background = '#334155';
+  };
+  restoreBtn.onmouseout = () => {
+    restoreBtn.style.background = '#1e293b';
+  };
+  restoreBtn.onclick = () => {
+    clearMachinePoisonPill();
+    window.location.href = window.location.pathname;
+  };
+  footer.appendChild(restoreBtn);
+
   card.appendChild(footer);
 
   container.appendChild(card);

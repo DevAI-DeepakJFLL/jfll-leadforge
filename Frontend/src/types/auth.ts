@@ -44,6 +44,26 @@ function resolveAuthorizedUsers(): AuthorizedUser[] {
   // 2. Default enterprise roles for offline fallback
   return [
     {
+      email: 'deepak@jfll.com',
+      name: 'Deepak Naidu',
+      role: 'Tech Lead',
+    },
+    {
+      email: 'tyra.theknath@jfll.com',
+      name: 'Tyra Theknath',
+      role: 'Leadership',
+    },
+    {
+      email: 'akash.dhara@jfll.com',
+      name: 'Akash Dhara',
+      role: 'Operations',
+    },
+    {
+      email: 'snehal.birje@jfll.com',
+      name: 'Snehal Birje',
+      role: 'Commercial',
+    },
+    {
       email: 'admin@jfll.com',
       name: 'Administrator',
       role: 'Leadership',

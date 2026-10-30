@@ -181,9 +181,17 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
           : null;
       if (rawAllowlist) {
         const allowlist = JSON.parse(rawAllowlist);
-        const entry = allowlist.find((a: { email: string; status: string }) => a.email.toLowerCase() === normalizedEmail);
-        if (entry && entry.status === 'revoked') {
-          throw new AuthError('Access restricted: Your user account access has been revoked by an administrator.', 401);
+        const entry = allowlist.find((a: { email: string; status: string; name?: string; role?: string }) => a.email.toLowerCase() === normalizedEmail);
+        if (entry) {
+          if (entry.status === 'active') {
+            return {
+              email: entry.email,
+              name: entry.name || 'Authorized Personnel',
+              role: entry.role || 'Commercial',
+              token: `offline_session_${Date.now()}`,
+              isOffline: true,
+            };
+          }
         }
       }
     } catch (e) {

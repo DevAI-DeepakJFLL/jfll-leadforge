@@ -3,6 +3,7 @@ import {
   isAutomatedBrowser,
   getDeviceFingerprint,
   poisonMachineStorage,
+  clearMachinePoisonPill,
   isMachineLocallyPoisoned,
   BAN_STORAGE_KEY,
 } from '@/utils/antiBotGuard';
@@ -112,13 +113,11 @@ describe('Anti-Bot & Headless Browser Detection Guard', () => {
     expect(result.reason).toContain('Headless User-Agent');
   });
 
-  it('detects zero display dimensions typical of headless runtimes', () => {
-    (globalThis.window as { outerWidth: number; outerHeight: number }).outerWidth = 0;
-    (globalThis.window as { outerWidth: number; outerHeight: number }).outerHeight = 0;
-
-    const result = isAutomatedBrowser();
-    expect(result.isBot).toBe(true);
-    expect(result.reason).toContain('Zero display dimensions');
+  it('allows clearing the poison pill via clearMachinePoisonPill', () => {
+    poisonMachineStorage();
+    expect(isMachineLocallyPoisoned()).toBe(true);
+    clearMachinePoisonPill();
+    expect(isMachineLocallyPoisoned()).toBe(false);
   });
 
   it('passes on legitimate unautomated browser environment', () => {

@@ -37,39 +37,54 @@ class AntiBotMiddleware(BaseHTTPMiddleware):
             ip = get_client_ip(request)
             fingerprint = request.headers.get("x-device-fingerprint")
 
-            # 1. Immediate check: Is this IP or machine fingerprint permanently banned?
-            if is_ip_or_fingerprint_blocked(ip, fingerprint):
-                return JSONResponse(
-                    status_code=403,
-                    content={
-                        "detail": "DEVICE_BLOCKED: This machine and network have been permanently blocked due to unauthorized bot activity.",
-                        "code": "PERMANENT_DEVICE_BAN",
-                    },
-                )
+            # Root Administrator bypass: never lock out root administrators
+            auth_header = request.headers.get("authorization")
+            is_root = False
+            if auth_header and auth_header.startswith("Bearer "):
+                try:
+                    from src.api.access_control import ROOT_ADMIN_EMAILS
+                    from src.api.auth import verify_token
+                    token = auth_header.split("Bearer ", 1)[1].strip()
+                    payload = verify_token(token)
+                    if payload and payload.get("sub", "").strip().lower() in ROOT_ADMIN_EMAILS:
+                        is_root = True
+                except Exception:
+                    pass
 
-            # 2. Check for automated headless signature
-            ua = request.headers.get("user-agent")
-            if is_headless_user_agent(ua):
-                # Auto-ban this IP and device fingerprint permanently
-                if ip and ip != "unknown" and ip != "127.0.0.1" and ip != "testclient":
-                    try:
-                        block_entity(
-                            ip=ip,
-                            fingerprint=fingerprint,
-                            reason=f"Automated headless bot detected: {ua}",
-                            user_agent=ua,
-                            actor="AntiBotMiddleware",
-                        )
-                    except Exception as err:
-                        logger.warning("Could not auto-ban entity: %s", err)
+            if not is_root:
+                # 1. Immediate check: Is this device permanently banned?
+                if is_ip_or_fingerprint_blocked(ip, fingerprint):
+                    return JSONResponse(
+                        status_code=403,
+                        content={
+                            "detail": "DEVICE_BLOCKED: This device has been permanently restricted from accessing the platform.",
+                            "code": "PERMANENT_DEVICE_BAN",
+                        },
+                    )
 
-                return JSONResponse(
-                    status_code=403,
-                    content={
-                        "detail": "AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
-                        "code": "AUTOMATED_AGENT_BLOCKED",
-                    },
-                )
+                # 2. Check for automated headless signature
+                ua = request.headers.get("user-agent")
+                if is_headless_user_agent(ua):
+                    # Auto-ban this IP and device fingerprint permanently
+                    if ip and ip != "unknown" and ip != "127.0.0.1" and ip != "testclient":
+                        try:
+                            block_entity(
+                                ip=ip,
+                                fingerprint=fingerprint,
+                                reason=f"Automated headless bot detected: {ua}",
+                                user_agent=ua,
+                                actor="AntiBotMiddleware",
+                            )
+                        except Exception as err:
+                            logger.warning("Could not auto-ban entity: %s", err)
+
+                    return JSONResponse(
+                        status_code=403,
+                        content={
+                            "detail": "AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
+                            "code": "AUTOMATED_AGENT_BLOCKED",
+                        },
+                    )
         return await call_next(request)
 
 
