@@ -9,6 +9,8 @@ export interface LoginCredentials {
 
 export const AUTH_STORAGE_KEY = 'apollo_leads_session';
 
+let _inMemorySession: UserSession | null = null;
+
 export const DEFAULT_ANONYMOUS_SESSION: UserSession = {
   name: 'Authorized Personnel',
   email: 'user@jfll.com',
@@ -28,7 +30,7 @@ export function getStoredSession(): UserSession | null {
   } catch {
     // Graceful handling of storage access exceptions
   }
-  return null;
+  return _inMemorySession;
 }
 
 /**
@@ -42,6 +44,7 @@ export function isOfflineSession(session?: UserSession | null): boolean {
  * Persists active UserSession to browser storage safely.
  */
 export function setStoredSession(session: UserSession): void {
+  _inMemorySession = session;
   try {
     if (typeof window !== 'undefined' && window.sessionStorage) {
       window.sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
@@ -55,6 +58,7 @@ export function setStoredSession(session: UserSession): void {
  * Clears persisted UserSession from browser storage safely upon logout.
  */
 export function clearStoredSession(): void {
+  _inMemorySession = null;
   try {
     if (typeof window !== 'undefined' && window.sessionStorage) {
       window.sessionStorage.removeItem(AUTH_STORAGE_KEY);

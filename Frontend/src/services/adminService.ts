@@ -122,7 +122,15 @@ export async function submitAccessRequest(
     });
 
     if (res.ok) {
-      const data = await res.json();
+      const data: CreateAccessRequestResponse = await res.json();
+      if (data.request) {
+        const localReqs = getLocalRequests();
+        const filtered = localReqs.filter(
+          (r) => r.id !== data.request?.id && r.email.toLowerCase() !== data.request?.email.toLowerCase()
+        );
+        filtered.unshift(data.request);
+        saveLocalRequests(filtered);
+      }
       return data;
     }
 
@@ -174,6 +182,15 @@ export async function submitAccessRequest(
 // ==========================================
 
 export async function fetchAdminStats(): Promise<AdminStats> {
+  const session = getStoredSession();
+  if (!session?.token) {
+    return {
+      pending_requests_count: 0,
+      active_allowlist_count: 0,
+      total_requests_count: 0,
+    };
+  }
+
   const endpoint = `${API_BASE_URL}/api/v1/admin/stats`;
   try {
     const res = await fetch(endpoint, {
@@ -204,7 +221,18 @@ export async function fetchAccessRequests(status?: string): Promise<AccessReques
       headers: getAuthHeaders(),
     });
     if (res.ok) {
-      return await res.json();
+      const data: AccessRequest[] = await res.json();
+      if (!status || status === 'all') {
+        saveLocalRequests(data);
+      } else {
+        const local = getLocalRequests();
+        const map = new Map<string, AccessRequest>(local.map((r) => [r.id, r]));
+        for (const item of data) {
+          map.set(item.id, item);
+        }
+        saveLocalRequests(Array.from(map.values()));
+      }
+      return data;
     }
   } catch {}
 
@@ -228,7 +256,40 @@ export async function approveAccessRequest(
       body: JSON.stringify(payload),
     });
     if (res.ok) {
-      return await res.json();
+      const data = await res.json();
+      const requests = getLocalRequests();
+      const target = requests.find((r) => r.id === requestId);
+      if (target) {
+        target.status = 'approved';
+        target.reviewed_at = data.request?.reviewed_at || new Date().toISOString();
+        target.reviewed_by = data.request?.reviewed_by || 'admin';
+        target.review_notes = payload.notes || 'Approved';
+        saveLocalRequests(requests);
+      } else if (data.request) {
+        requests.unshift(data.request);
+        saveLocalRequests(requests);
+      }
+
+      const allowlist = getLocalAllowlist();
+      const email = (data.request?.email || target?.email || '').trim().toLowerCase();
+      if (email) {
+        const existing = allowlist.find((a) => a.email.toLowerCase() === email);
+        if (existing) {
+          existing.status = 'active';
+          existing.role = payload.role;
+        } else {
+          allowlist.push({
+            email,
+            name: data.request?.name || target?.name || email.split('@')[0],
+            role: payload.role,
+            status: 'active',
+            added_at: new Date().toISOString(),
+            added_by: 'admin',
+          });
+        }
+        saveLocalAllowlist(allowlist);
+      }
+      return data;
     }
     const err = await res.json().catch(() => ({}));
     throw new Error(err.detail || 'Approval failed.');
@@ -282,7 +343,20 @@ export async function rejectAccessRequest(
       body: JSON.stringify(payload),
     });
     if (res.ok) {
-      return await res.json();
+      const data = await res.json();
+      const requests = getLocalRequests();
+      const target = requests.find((r) => r.id === requestId);
+      if (target) {
+        target.status = 'rejected';
+        target.reviewed_at = data.request?.reviewed_at || new Date().toISOString();
+        target.reviewed_by = data.request?.reviewed_by || 'admin';
+        target.review_notes = payload.notes || 'Declined';
+        saveLocalRequests(requests);
+      } else if (data.request) {
+        requests.unshift(data.request);
+        saveLocalRequests(requests);
+      }
+      return data;
     }
     const err = await res.json().catch(() => ({}));
     throw new Error(err.detail || 'Rejection failed.');
@@ -317,7 +391,11 @@ export async function fetchAllowlist(status?: string, search?: string): Promise<
       headers: getAuthHeaders(),
     });
     if (res.ok) {
-      return await res.json();
+      const data: AllowlistEntry[] = await res.json();
+      if ((!status || status === 'all') && !search) {
+        saveLocalAllowlist(data);
+      }
+      return data;
     }
   } catch {}
 
@@ -349,7 +427,19 @@ export async function addAllowlistEntry(
       body: JSON.stringify(payload),
     });
     if (res.ok) {
-      return await res.json();
+      const data = await res.json();
+      if (data.entry) {
+        const allowlist = getLocalAllowlist();
+        const cleanEmail = data.entry.email.trim().toLowerCase();
+        const idx = allowlist.findIndex((a) => a.email.toLowerCase() === cleanEmail);
+        if (idx !== -1) {
+          allowlist[idx] = data.entry;
+        } else {
+          allowlist.unshift(data.entry);
+        }
+        saveLocalAllowlist(allowlist);
+      }
+      return data;
     }
     const err = await res.json().catch(() => ({}));
     throw new Error(err.detail || 'Failed to add allowlist entry.');
@@ -392,7 +482,19 @@ export async function revokeAllowlistEntry(
       headers: getAuthHeaders(),
     });
     if (res.ok) {
-      return await res.json();
+      const data = await res.json();
+      if (data.entry) {
+        const allowlist = getLocalAllowlist();
+        const cleanEmail = data.entry.email.trim().toLowerCase();
+        const target = allowlist.find((a) => a.email.toLowerCase() === cleanEmail);
+        if (target) {
+          target.status = 'revoked';
+          target.revoked_at = data.entry.revoked_at || new Date().toISOString();
+          target.revoked_by = data.entry.revoked_by || 'admin';
+          saveLocalAllowlist(allowlist);
+        }
+      }
+      return data;
     }
     const err = await res.json().catch(() => ({}));
     throw new Error(err.detail || 'Failed to revoke access.');

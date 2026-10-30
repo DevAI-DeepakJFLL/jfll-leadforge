@@ -83,6 +83,42 @@ def get_storage_path() -> Path:
     return base_dir / "data" / "access_control.json"
 
 
+S3_ACCESS_CONTROL_KEY = "config/access_control.json"
+
+
+def _restore_from_s3(storage_path: Path) -> bool:
+    """Restores access_control.json from S3 if available (e.g. AWS Lambda cold start)."""
+    try:
+        import boto3
+        s3 = boto3.client("s3", region_name=settings.aws_region)
+        storage_path.parent.mkdir(parents=True, exist_ok=True)
+        s3.download_file(settings.s3_bucket, S3_ACCESS_CONTROL_KEY, str(storage_path))
+        logger.info(
+            "Access Control: Restored access_control.json from s3://%s/%s",
+            settings.s3_bucket,
+            S3_ACCESS_CONTROL_KEY,
+        )
+        return True
+    except Exception as err:
+        logger.debug("Access Control: S3 restore skipped or unavailable: %s", err)
+        return False
+
+
+def _backup_to_s3(storage_path: Path) -> None:
+    """Uploads access_control.json to S3 so access modifications persist across Lambda cold starts."""
+    try:
+        import boto3
+        s3 = boto3.client("s3", region_name=settings.aws_region)
+        s3.upload_file(str(storage_path), settings.s3_bucket, S3_ACCESS_CONTROL_KEY)
+        logger.info(
+            "Access Control: Persisted access_control.json to s3://%s/%s",
+            settings.s3_bucket,
+            S3_ACCESS_CONTROL_KEY,
+        )
+    except Exception as err:
+        logger.debug("Access Control: S3 backup skipped or unavailable: %s", err)
+
+
 def _seed_initial_data() -> dict[str, Any]:
     """Generates the initial bootstrap access control dataset."""
     allowlist = [dict(u) for u in DEFAULT_SEEDED_USERS]
@@ -118,9 +154,10 @@ def load_access_data() -> dict[str, Any]:
     storage_path = get_storage_path()
     if not storage_path.exists():
         storage_path.parent.mkdir(parents=True, exist_ok=True)
-        initial_data = _seed_initial_data()
-        save_access_data(initial_data)
-        return initial_data
+        if not _restore_from_s3(storage_path):
+            initial_data = _seed_initial_data()
+            save_access_data(initial_data)
+            return initial_data
 
     try:
         current_mtime = storage_path.stat().st_mtime
@@ -169,6 +206,10 @@ def save_access_data(data: dict[str, Any]) -> None:
     except OSError:
         mtime = 0.0
     _rebuild_cache(data, storage_path, mtime)
+
+    # Persist to S3 if running in AWS Lambda or explicitly enabled
+    if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or os.getenv("ENABLE_S3_ACCESS_BACKUP"):
+        _backup_to_s3(storage_path)
 
 
 def get_email_status(email: str) -> str | None:
