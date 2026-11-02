@@ -21,6 +21,9 @@ import {
   convertClientToActive,
   getCachedApproachStatus,
   logApproachActivity,
+  getPendingOutbox,
+  enqueueOutboxItem,
+  syncPendingApproachOutbox,
 } from '@/services/approachLogService';
 
 vi.mock('@/services/authService', () => ({
@@ -487,6 +490,75 @@ describe('Sales Approach & Active Conversion Suite', () => {
       );
 
       expect(html).toContain('Sales Approach Status');
+    });
+  });
+
+  describe('Approach Outbox Offline Sync Suite', () => {
+    it('enqueues pending logs when offline and successfully syncs to server when back online', async () => {
+      // 1. Initial outbox should be empty
+      expect(getPendingOutbox()).toEqual([]);
+
+      // 2. Mock offline fetch failure during logApproachActivity
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network offline'));
+
+      try {
+        await logApproachActivity('jfll_customer', 'cust_outbox_1', {
+          action: 'Called customer',
+          status: 'Contacted',
+          note: 'Follow up call offline',
+        });
+
+        // Verify item was queued in outbox
+        const outbox = getPendingOutbox();
+        expect(outbox.length).toBe(1);
+        expect(outbox[0].entityId).toBe('cust_outbox_1');
+        expect(outbox[0].type).toBe('log');
+
+        // 3. Mock online server recovery
+        globalThis.fetch = vi.fn().mockResolvedValue({
+          ok: true,
+          status: 200,
+          json: async () => ({ success: true }),
+        } as unknown as Response);
+
+        // Run sync
+        const syncedCount = await syncPendingApproachOutbox();
+        expect(syncedCount).toBe(1);
+
+        // Outbox should now be empty
+        expect(getPendingOutbox()).toEqual([]);
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
+
+    it('enqueues active conversion and syncs to backend on recovery', async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network offline'));
+
+      try {
+        await convertClientToActive('jfll_customer', 'cust_outbox_2', {
+          start_date: '2026-11-01',
+          note: 'Contract signed offline',
+        });
+
+        const outbox = getPendingOutbox();
+        expect(outbox.some((item) => item.entityId === 'cust_outbox_2' && item.type === 'convert')).toBe(true);
+
+        // Mock server recovery
+        globalThis.fetch = vi.fn().mockResolvedValue({
+          ok: true,
+          status: 200,
+          json: async () => ({ success: true }),
+        } as unknown as Response);
+
+        const syncedCount = await syncPendingApproachOutbox();
+        expect(syncedCount).toBeGreaterThanOrEqual(1);
+        expect(getPendingOutbox()).toEqual([]);
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
     });
   });
 });

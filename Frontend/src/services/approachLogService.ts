@@ -15,7 +15,97 @@ import {
 } from '@/types/approachLog';
 
 const APPROACH_STORAGE_KEY = 'jfll_approach_logs_v1';
+const OUTBOX_STORAGE_KEY = 'jfll_approach_outbox_v1';
 export const APPROACH_STATUS_CHANGED_EVENT = 'jfll-approach-status-updated';
+
+export interface ApproachOutboxItem {
+  id: string;
+  type: 'log' | 'convert';
+  entityType: 'datamyne' | 'jfll_customer';
+  entityId: string;
+  payload: ApproachLogCreatePayload | ConvertToActivePayload;
+  queuedAt: string;
+}
+
+export function getPendingOutbox(): ApproachOutboxItem[] {
+  try {
+    const raw = localStorage.getItem(OUTBOX_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function savePendingOutbox(items: ApproachOutboxItem[]): void {
+  try {
+    localStorage.setItem(OUTBOX_STORAGE_KEY, JSON.stringify(items));
+  } catch (err) {
+    logger.warn('APPROACH_SERVICE', 'Failed to save pending outbox', { error: String(err) });
+  }
+}
+
+export function enqueueOutboxItem(item: Omit<ApproachOutboxItem, 'id' | 'queuedAt'>): void {
+  const items = getPendingOutbox();
+  const newItem: ApproachOutboxItem = {
+    ...item,
+    id: `outbox_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+    queuedAt: new Date().toISOString(),
+  };
+  items.push(newItem);
+  savePendingOutbox(items);
+}
+
+export async function syncPendingApproachOutbox(): Promise<number> {
+  const items = getPendingOutbox();
+  if (items.length === 0) return 0;
+
+  const remaining: ApproachOutboxItem[] = [];
+  let syncedCount = 0;
+
+  for (const item of items) {
+    try {
+      if (item.type === 'log') {
+        const res = await fetch(`${API_BASE_URL}/api/v1/approach-logs/${item.entityType}/${encodeURIComponent(item.entityId)}`, {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify(item.payload),
+        });
+        if (res.ok) {
+          syncedCount++;
+          continue;
+        }
+      } else if (item.type === 'convert') {
+        const res = await fetch(
+          `${API_BASE_URL}/api/v1/approach-logs/${item.entityType}/${encodeURIComponent(item.entityId)}/convert-to-active`,
+          {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify(item.payload),
+          }
+        );
+        if (res.ok) {
+          syncedCount++;
+          continue;
+        }
+      }
+    } catch {
+      // Still offline, retain item
+    }
+    remaining.push(item);
+  }
+
+  savePendingOutbox(remaining);
+  if (syncedCount > 0) {
+    logger.info('APPROACH_SERVICE', `Successfully synced ${syncedCount} offline approach logs to server.`);
+  }
+  return syncedCount;
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('online', () => {
+    syncPendingApproachOutbox().catch(() => {});
+  });
+}
 
 const cachedBulkStatuses: Record<'datamyne' | 'jfll_customer', Record<string, SalesStatus>> = {
   datamyne: {},
@@ -231,6 +321,13 @@ export async function logApproachActivity(
     store[key] = entity;
     saveLocalStore(store);
 
+    enqueueOutboxItem({
+      type: 'log',
+      entityType,
+      entityId,
+      payload,
+    });
+
     notifyApproachStatusUpdated(entityType, entityId, targetStatus, entity.is_active_converted);
     return entity;
   }
@@ -307,6 +404,13 @@ export async function convertClientToActive(
     entity.logs.unshift(newLog);
     store[key] = entity;
     saveLocalStore(store);
+
+    enqueueOutboxItem({
+      type: 'convert',
+      entityType,
+      entityId,
+      payload,
+    });
 
     notifyApproachStatusUpdated(entityType, entityId, 'Converted to Active', true);
     return entity;
