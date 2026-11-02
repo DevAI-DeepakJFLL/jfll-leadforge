@@ -21,6 +21,7 @@ from src.api.approach_models import (
     SalesAction,
     SalesStatus,
 )
+from src.api.config import settings
 from src.api.helpers import require_auth
 from src.api.logger import logger
 
@@ -30,6 +31,41 @@ _FILE_LOCK = threading.Lock()
 _CACHED_DATA: dict[str, Any] | None = None
 _CACHED_MTIME: float | None = None
 _CACHED_STORAGE_KEY: str | None = None
+
+S3_APPROACH_LOGS_KEY = "data/approach_logs.json"
+
+
+def _restore_from_s3(storage_path: Path) -> bool:
+    """Restores approach_logs.json from S3 if available (e.g. AWS Lambda cold start)."""
+    try:
+        import boto3
+        s3 = boto3.client("s3", region_name=settings.aws_region)
+        storage_path.parent.mkdir(parents=True, exist_ok=True)
+        s3.download_file(settings.s3_bucket, S3_APPROACH_LOGS_KEY, str(storage_path))
+        logger.info(
+            "Approach Logs: Restored approach_logs.json from s3://%s/%s",
+            settings.s3_bucket,
+            S3_APPROACH_LOGS_KEY,
+        )
+        return True
+    except Exception as err:
+        logger.debug("Approach Logs: S3 restore skipped or unavailable: %s", err)
+        return False
+
+
+def _backup_to_s3(storage_path: Path) -> None:
+    """Uploads approach_logs.json to S3 so approach records persist across Lambda cold starts."""
+    try:
+        import boto3
+        s3 = boto3.client("s3", region_name=settings.aws_region)
+        s3.upload_file(str(storage_path), settings.s3_bucket, S3_APPROACH_LOGS_KEY)
+        logger.info(
+            "Approach Logs: Persisted approach_logs.json to s3://%s/%s",
+            settings.s3_bucket,
+            S3_APPROACH_LOGS_KEY,
+        )
+    except Exception as err:
+        logger.debug("Approach Logs: S3 backup skipped or unavailable: %s", err)
 
 
 def get_storage_path() -> Path:
@@ -51,15 +87,17 @@ def _build_empty_store() -> dict[str, Any]:
 
 
 def load_approach_data() -> dict[str, Any]:
-    """Loads approach logs state from memory cache or disk, initializing if missing."""
+    """Loads approach logs state from memory cache or disk, restoring from S3 if missing."""
     global _CACHED_DATA, _CACHED_MTIME, _CACHED_STORAGE_KEY
     storage_path = get_storage_path()
 
     if not storage_path.exists():
         storage_path.parent.mkdir(parents=True, exist_ok=True)
-        initial_data = _build_empty_store()
-        save_approach_data(initial_data)
-        return initial_data
+        restored = _restore_from_s3(storage_path)
+        if not restored or not storage_path.exists():
+            initial_data = _build_empty_store()
+            save_approach_data(initial_data)
+            return initial_data
 
     try:
         current_mtime = storage_path.stat().st_mtime
@@ -112,6 +150,8 @@ def save_approach_data(data: dict[str, Any]) -> None:
         _CACHED_STORAGE_KEY = str(storage_path)
     except OSError:
         pass
+
+    _backup_to_s3(storage_path)
 
 
 def _entity_key(entity_type: str, entity_id: str) -> str:

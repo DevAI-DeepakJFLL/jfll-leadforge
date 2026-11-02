@@ -187,3 +187,33 @@ def test_bulk_statuses_endpoint():
     assert data["total_tracked"] >= 2
     assert data["statuses"]["cust_10"] == "Contacted"
     assert data["statuses"]["cust_20"] == "Working on It"
+
+
+def test_approach_s3_restore_and_backup(tmp_path, monkeypatch):
+    """Verifies that approach logs restore from S3 when missing and backup to S3 on save."""
+    import sys
+    from unittest.mock import MagicMock
+    from src.api.approach_routes import _restore_from_s3, _backup_to_s3, load_approach_data, save_approach_data
+
+    mock_boto3 = MagicMock()
+    mock_s3 = MagicMock()
+    mock_boto3.client.return_value = mock_s3
+    monkeypatch.setitem(sys.modules, "boto3", mock_boto3)
+
+    target_file = tmp_path / "s3_test_approach.json"
+    monkeypatch.setenv("APPROACH_LOGS_PATH", str(target_file))
+
+    # Test _restore_from_s3 call
+    assert _restore_from_s3(target_file) is True
+    mock_s3.download_file.assert_called_once()
+
+    # Test _backup_to_s3 call
+    target_file.write_text('{"version": 1, "entities": {}}')
+    _backup_to_s3(target_file)
+    mock_s3.upload_file.assert_called_once()
+
+    # Test load_approach_data triggers restore when file doesn't exist
+    missing_file = tmp_path / "non_existent_approach.json"
+    monkeypatch.setenv("APPROACH_LOGS_PATH", str(missing_file))
+    data = load_approach_data()
+    assert "entities" in data
