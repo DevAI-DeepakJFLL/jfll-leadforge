@@ -110,7 +110,7 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
         newOrder = prev.sortOrder === 'asc' ? 'desc' : 'asc';
       } else {
         // Salesperson optimization: revenue defaults to descending (highest business first)
-        newOrder = field === 'businessLast3m' ? 'desc' : 'asc';
+        newOrder = (field === 'businessLast3m' || field === 'totalBusinessTillDate') ? 'desc' : 'asc';
       }
       return {
         ...prev,

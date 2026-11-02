@@ -411,8 +411,13 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
   if (sortBy) {
     filtered.sort((a, b) => {
       if (sortBy === 'businessLast3m' || sortBy === 'totalBusinessTillDate') {
-        const fieldA = sortBy === 'totalBusinessTillDate' ? (a.totalBusinessTillDate ?? a.businessLast3m) : a.businessLast3m;
-        const fieldB = sortBy === 'totalBusinessTillDate' ? (b.totalBusinessTillDate ?? b.businessLast3m) : b.businessLast3m;
+        const useTotal = isInactive || sortBy === 'totalBusinessTillDate';
+        const fieldA = useTotal
+          ? (a.totalBusinessTillDate ?? a.businessLast3m)
+          : (a.businessLast3m ?? a.totalBusinessTillDate);
+        const fieldB = useTotal
+          ? (b.totalBusinessTillDate ?? b.businessLast3m)
+          : (b.businessLast3m ?? b.totalBusinessTillDate);
         const hasA = fieldA !== undefined && fieldA !== null;
         const hasB = fieldB !== undefined && fieldB !== null;
         if (!hasA && !hasB) return a.fullName.localeCompare(b.fullName);
@@ -640,23 +645,19 @@ export function getRevenueRangeFacetCounts(status: 'active' | 'inactive' | 'all'
   sublabel?: string;
   count: number;
 }[] {
-  if (status === 'inactive') {
-    return JFLL_REVENUE_RANGES.map((r) => ({
-      id: r.id,
-      label: r.label,
-      sublabel: r.sublabel,
-      count: 0,
-    }));
-  }
-
   const data = status === 'all'
     ? JFLL_ALL_CUSTOMERS_DATA
+    : status === 'inactive'
+    ? JFLL_INACTIVE_CUSTOMERS_DATA
     : JFLL_CUSTOMERS_DATA;
 
   return JFLL_REVENUE_RANGES.map((range) => {
     const count = data.filter((c) => {
       if (status === 'active' && c.status !== 'Active') return false;
-      const rev = status === 'all' ? (c.totalBusinessTillDate ?? c.businessLast3m ?? 0) : (c.businessLast3m ?? 0);
+      if (status === 'inactive' && c.status === 'Active') return false;
+      const rev = (status === 'all' || status === 'inactive')
+        ? (c.totalBusinessTillDate ?? c.businessLast3m ?? 0)
+        : (c.businessLast3m ?? 0);
       if (rev === 0 && (range.min !== undefined && range.min > 0)) return false;
       if (range.min !== undefined && range.max !== undefined) {
         return rev >= range.min && rev < range.max;

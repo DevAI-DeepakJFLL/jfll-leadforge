@@ -259,59 +259,63 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
           </div>
         </FilterAccordion>
 
-        {/* Accordion: Recent Revenue (Last 3 Months) */}
-        {filters.customerStatus !== 'inactive' && (
-          <FilterAccordion
-            icon={<TrendingUp className="w-4 h-4 text-emerald-600" />}
-            label="Recent Revenue (3M)"
-            isOpen={openSections.revenue}
-            onToggle={() => toggleSection('revenue')}
-            activeCount={selectedRevenueRanges.length}
-            onClear={() => {
-              selectedRevenueRanges.forEach((rangeId) => onToggleRevenueRange(rangeId));
-            }}
-          >
-            <div className="space-y-1.5">
-              {revenueRangesList.map((range) => {
-                const isChecked = selectedRevenueRanges.includes(range.id);
-                return (
-                  <label
-                    key={range.id}
-                    className="flex items-center justify-between text-xs cursor-pointer group py-1"
-                  >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => onToggleRevenueRange(range.id)}
-                        className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer shrink-0"
-                      />
-                      <div className="truncate">
-                        <span
-                          className={`block leading-tight ${
-                            isChecked
-                              ? 'text-slate-900 font-semibold'
-                              : 'text-slate-700 group-hover:text-slate-900'
-                          }`}
-                        >
-                          {range.label}
+        {/* Accordion: Revenue Filter */}
+        <FilterAccordion
+          icon={<TrendingUp className="w-4 h-4 text-emerald-600" />}
+          label={
+            filters.customerStatus === 'inactive'
+              ? 'Total Business (till Date)'
+              : filters.customerStatus === 'all'
+              ? 'Revenue (till Date)'
+              : 'Recent Revenue (3M)'
+          }
+          isOpen={openSections.revenue}
+          onToggle={() => toggleSection('revenue')}
+          activeCount={selectedRevenueRanges.length}
+          onClear={() => {
+            selectedRevenueRanges.forEach((rangeId) => onToggleRevenueRange(rangeId));
+          }}
+        >
+          <div className="space-y-1.5">
+            {revenueRangesList.map((range) => {
+              const isChecked = selectedRevenueRanges.includes(range.id);
+              return (
+                <label
+                  key={range.id}
+                  className="flex items-center justify-between text-xs cursor-pointer group py-1"
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      onChange={() => onToggleRevenueRange(range.id)}
+                      className="w-3.5 h-3.5 rounded border-slate-300 text-apollo focus:ring-apollo cursor-pointer shrink-0"
+                    />
+                    <div className="truncate">
+                      <span
+                        className={`block leading-tight ${
+                          isChecked
+                            ? 'text-slate-900 font-semibold'
+                            : 'text-slate-700 group-hover:text-slate-900'
+                        }`}
+                      >
+                        {range.label}
+                      </span>
+                      {range.sublabel && (
+                        <span className="text-[10px] text-slate-400 block leading-tight">
+                          {range.sublabel}
                         </span>
-                        {range.sublabel && (
-                          <span className="text-[10px] text-slate-400 block leading-tight">
-                            {range.sublabel}
-                          </span>
-                        )}
-                      </div>
+                      )}
                     </div>
-                    <span className="text-[11px] font-mono text-slate-400 shrink-0 ml-2">
-                      {range.count}
-                    </span>
-                  </label>
-                );
-              })}
-            </div>
-          </FilterAccordion>
-        )}
+                  </div>
+                  <span className="text-[11px] font-mono text-slate-400 shrink-0 ml-2">
+                    {range.count}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        </FilterAccordion>
 
         {/* Accordion: Customer Group */}
         <FilterAccordion

@@ -409,9 +409,11 @@ describe('JFLL Customers Dataset & Query Service', () => {
     const totalFromFacets = facets.reduce((acc, f) => acc + f.count, 0);
     expect(totalFromFacets).toBe(586);
 
-    // Inactive mode returns 0 for all recent business ranges
+    // Inactive mode computes actual distribution for historical business (1,637 accounts)
     const inactiveFacets = getRevenueRangeFacetCounts('inactive');
-    inactiveFacets.forEach((f) => expect(f.count).toBe(0));
+    expect(inactiveFacets.length).toBe(5);
+    const inactiveTotalInFacets = inactiveFacets.reduce((acc, f) => acc + f.count, 0);
+    expect(inactiveTotalInFacets).toBe(1637);
 
     // Single range filter: 1cr_plus
     const resEnterprise = queryJfllCustomers({
@@ -456,6 +458,16 @@ describe('JFLL Customers Dataset & Query Service', () => {
     expect(formatIndianCurrency(97769)).toBe('₹97,769');
     expect(formatIndianCurrency(null)).toBe('—');
     expect(formatIndianCurrency(undefined)).toBe('—');
+
+    // Inactive Revenue Filtering
+    const inactive1cr = queryJfllCustomers({
+      customerStatus: 'inactive',
+      revenueRanges: ['1cr_plus'],
+    });
+    expect(inactive1cr.totalEstimate).toBeGreaterThan(0);
+    inactive1cr.items.forEach((c) => {
+      expect(c.totalBusinessTillDate).toBeGreaterThanOrEqual(10000000);
+    });
   });
 
   it('supports column-header sorting across logical fields for salespeople', () => {
@@ -520,6 +532,34 @@ describe('JFLL Customers Dataset & Query Service', () => {
     });
     expect(groupAsc.items.length).toBeGreaterThan(0);
     expect(groupAsc.items[0].customerGroup).toBe('GSA');
+
+    // 6. Sort Inactive Customers by Total Business Till Date descending
+    const inactiveSort = queryJfllCustomers({
+      customerStatus: 'inactive',
+      sortBy: 'totalBusinessTillDate',
+      sortOrder: 'desc',
+      limit: 10,
+    });
+    expect(inactiveSort.items.length).toBe(10);
+    for (let i = 0; i < inactiveSort.items.length - 1; i++) {
+      expect(inactiveSort.items[i].totalBusinessTillDate!).toBeGreaterThanOrEqual(
+        inactiveSort.items[i + 1].totalBusinessTillDate!
+      );
+    }
+
+    // 7. Sort Inactive Customers fallback when sortBy is businessLast3m
+    const inactiveSortFallback = queryJfllCustomers({
+      customerStatus: 'inactive',
+      sortBy: 'businessLast3m',
+      sortOrder: 'desc',
+      limit: 10,
+    });
+    expect(inactiveSortFallback.items.length).toBe(10);
+    for (let i = 0; i < inactiveSortFallback.items.length - 1; i++) {
+      expect(inactiveSortFallback.items[i].totalBusinessTillDate!).toBeGreaterThanOrEqual(
+        inactiveSortFallback.items[i + 1].totalBusinessTillDate!
+      );
+    }
   });
 
   describe('Sales Approach Query Service Rules for Active Customers', () => {

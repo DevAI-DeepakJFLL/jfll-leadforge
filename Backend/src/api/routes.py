@@ -157,37 +157,34 @@ def list_leads(
 
     # Revenue Ranges / Thresholds
     if revenue_ranges or min_revenue is not None or max_revenue is not None:
-        if status == "Not Active":
-            base_conditions.append("1=0")
+        if status == "Not Active" or (status and status.lower() in ("all",)):
+            rev_col = '"Total Business from 1.04.2024 till date"'
         else:
-            rev_col = (
-                '"Total Business from 1.04.2024 till date"'
-                if (status and status.lower() in ("all",))
-                else '"Total Business Received From Cusomer In Last 3 Month"'
-            )
-            if revenue_ranges:
-                range_conditions = []
-                for r in revenue_ranges:
-                    if r == "1cr_plus":
-                        range_conditions.append(f'{rev_col} >= 10000000')
-                    elif r == "25l_1cr":
-                        range_conditions.append(f'({rev_col} >= 2500000 AND {rev_col} < 10000000)')
-                    elif r == "5l_25l":
-                        range_conditions.append(f'({rev_col} >= 500000 AND {rev_col} < 2500000)')
-                    elif r == "1l_5l":
-                        range_conditions.append(f'({rev_col} >= 100000 AND {rev_col} < 500000)')
-                    elif r == "under_1l":
-                        range_conditions.append(f'{rev_col} < 100000')
-                if range_conditions:
-                    base_conditions.append(f"({' OR '.join(range_conditions)})")
+            rev_col = '"Total Business Received From Cusomer In Last 3 Month"'
 
-            if min_revenue is not None:
-                base_conditions.append(f'{rev_col} >= ?')
-                base_params.append(min_revenue)
+        if revenue_ranges:
+            range_conditions = []
+            for r in revenue_ranges:
+                if r == "1cr_plus":
+                    range_conditions.append(f'{rev_col} >= 10000000')
+                elif r == "25l_1cr":
+                    range_conditions.append(f'({rev_col} >= 2500000 AND {rev_col} < 10000000)')
+                elif r == "5l_25l":
+                    range_conditions.append(f'({rev_col} >= 500000 AND {rev_col} < 2500000)')
+                elif r == "1l_5l":
+                    range_conditions.append(f'({rev_col} >= 100000 AND {rev_col} < 500000)')
+                elif r == "under_1l":
+                    range_conditions.append(f'{rev_col} < 100000')
+            if range_conditions:
+                base_conditions.append(f"({' OR '.join(range_conditions)})")
 
-            if max_revenue is not None:
-                base_conditions.append(f'{rev_col} <= ?')
-                base_params.append(max_revenue)
+        if min_revenue is not None:
+            base_conditions.append(f'{rev_col} >= ?')
+            base_params.append(min_revenue)
+
+        if max_revenue is not None:
+            base_conditions.append(f'{rev_col} <= ?')
+            base_params.append(max_revenue)
 
     # Contact readiness
     if has_phone:
@@ -272,7 +269,6 @@ def list_leads(
                 "total_business_till_date": '"Total Business from 1.04.2024 till date"',
                 "totalbusiness": '"Total Business from 1.04.2024 till date"',
                 "total_business": '"Total Business from 1.04.2024 till date"',
-                "revenue": '"Total Business from 1.04.2024 till date"',
                 "customergroup": '"Customer Group"',
                 "customer_group": '"Customer Group"',
                 "creditstatus": '"Credit Status"',
@@ -336,6 +332,8 @@ def list_leads(
                 "total_business_till_date": '"Total Business from 1.04.2024 till date"',
                 "totalbusiness": '"Total Business from 1.04.2024 till date"',
                 "total_business": '"Total Business from 1.04.2024 till date"',
+                "businesslast3m": '"Total Business from 1.04.2024 till date"',
+                "business_last_3m": '"Total Business from 1.04.2024 till date"',
                 "revenue": '"Total Business from 1.04.2024 till date"',
                 "contactpersonname": '"Contact Person Name"',
                 "contact_person_name": '"Contact Person Name"',

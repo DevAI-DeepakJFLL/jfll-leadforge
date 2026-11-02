@@ -148,6 +148,7 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
             pageSize={query.limit}
             totalItems={query.totalEstimate}
             totalFormatted={query.totalFormatted}
+            customerStatus={filters.customerStatus || 'all'}
             sortBy={filters.sortBy}
             sortOrder={filters.sortOrder}
             onSortChange={onSortChange}

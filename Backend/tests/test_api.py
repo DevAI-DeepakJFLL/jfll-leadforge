@@ -109,10 +109,10 @@ def test_list_leads_filtering_by_revenue():
     payload_multi = res_multi.json()
     assert payload_multi["total_records"] == 88
 
-    # 4. Inactive customers with revenue filter -> 0 records (safe execution)
+    # 4. Inactive customers with revenue filter -> 88 records matching Total Business
     res_inact = client.get("/api/v1/leads?status=Not+Active&revenue_ranges=1cr_plus")
     assert res_inact.status_code == 200
-    assert res_inact.json()["total_records"] == 0
+    assert res_inact.json()["total_records"] == 88
 
 
 def test_list_leads_column_sorting():
@@ -172,6 +172,33 @@ def test_list_leads_not_active_dataset():
     assert len(payload["data"]) == 25
     for item in payload["data"]:
         assert item["status"] == "Not Active"
+
+
+def test_list_leads_not_active_revenue_filtering_and_sorting():
+    """Verify revenue filtering and sorting work on Inactive customers."""
+    # 1. Revenue Range Filtering on Not Active
+    res_1cr = client.get("/api/v1/leads?status=Not+Active&revenue_ranges=1cr_plus")
+    assert res_1cr.status_code == 200
+    payload_1cr = res_1cr.json()
+    assert payload_1cr["total_records"] > 0
+    for item in payload_1cr["data"]:
+        assert item["total_business_till_date"] is not None
+        assert item["total_business_till_date"] >= 10000000
+
+    # 2. Revenue Sorting on Not Active (totalBusinessTillDate desc)
+    res_sort = client.get("/api/v1/leads?status=Not+Active&sort_by=totalBusinessTillDate&sort_order=desc&page_size=10")
+    assert res_sort.status_code == 200
+    data = res_sort.json()["data"]
+    assert len(data) == 10
+    for i in range(len(data) - 1):
+        assert data[i]["total_business_till_date"] >= data[i+1]["total_business_till_date"]
+
+    # 3. Revenue Sorting fallback (businessLast3m on Not Active should sort total business)
+    res_fallback = client.get("/api/v1/leads?status=Not+Active&sort_by=businessLast3m&sort_order=desc&page_size=10")
+    assert res_fallback.status_code == 200
+    data_fallback = res_fallback.json()["data"]
+    for i in range(len(data_fallback) - 1):
+        assert data_fallback[i]["total_business_till_date"] >= data_fallback[i+1]["total_business_till_date"]
 
 
 def test_invalid_status_returns_400():

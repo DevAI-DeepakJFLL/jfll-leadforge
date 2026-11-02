@@ -42,6 +42,7 @@ export interface JfllCustomerTableProps {
   pageSize: number;
   totalItems: number;
   totalFormatted?: string;
+  customerStatus?: 'active' | 'inactive' | 'all';
   sortBy?: JfllCustomerSortField;
   sortOrder?: 'asc' | 'desc';
   onSortChange?: (field: JfllCustomerSortField) => void;
@@ -121,6 +122,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
   pageSize,
   totalItems,
   totalFormatted,
+  customerStatus = 'all',
   sortBy = 'fullName',
   sortOrder = 'asc',
   onSortChange,
@@ -161,7 +163,8 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
     widthClass: string,
     customTooltip?: string
   ) => {
-    const isSorted = sortBy === field;
+    const isRevenueField = field === 'businessLast3m' || field === 'totalBusinessTillDate';
+    const isSorted = sortBy === field || (isRevenueField && (sortBy === 'businessLast3m' || sortBy === 'totalBusinessTillDate'));
     const isAsc = isSorted && sortOrder === 'asc';
     return (
       <th
@@ -320,7 +323,22 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               {renderSortHeader('status', 'Status', 'px-3.5 min-w-[95px]', 'Sort by active / inactive status')}
               <th scope="col" className="py-2.5 px-3.5 min-w-[130px]">Approach Status</th>
               {renderSortHeader('creditStatus', 'Credit Status', 'px-3.5 min-w-[120px]', 'Sort by credit approval')}
-              {renderSortHeader('businessLast3m', 'Recent Revenue', 'px-3.5 min-w-[125px]', 'Sort by 90-day business volume (highest first)')}
+              {renderSortHeader(
+                customerStatus === 'inactive' || customerStatus === 'all'
+                  ? 'totalBusinessTillDate'
+                  : 'businessLast3m',
+                customerStatus === 'inactive'
+                  ? 'Total Revenue'
+                  : customerStatus === 'all'
+                  ? 'Revenue'
+                  : 'Recent Revenue',
+                'px-3.5 min-w-[125px]',
+                customerStatus === 'inactive'
+                  ? 'Sort by total business volume till date (highest first)'
+                  : customerStatus === 'all'
+                  ? 'Sort by business volume (highest first)'
+                  : 'Sort by 90-day business volume (highest first)'
+              )}
               {renderSortHeader('contactPersonName', 'Contact Person', 'px-3.5 min-w-[150px]', 'Sort by named contact person')}
               <th scope="col" className="py-2.5 px-3.5 min-w-[155px]">Phone Number</th>
               <th scope="col" className="py-2.5 px-3.5 min-w-[190px]">Email</th>
