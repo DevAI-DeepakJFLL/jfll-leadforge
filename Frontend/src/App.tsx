@@ -713,11 +713,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const [datamyneDatasetVersion, setDatamyneDatasetVersion] = useState(0);
 
   useEffect(() => {
-    loadFullDatamyneDataset().catch(() => {});
+    if (topTab === 'datamyne') {
+      loadFullDatamyneDataset().catch(() => {});
+    }
     return subscribeToDatamyneDataset(() => {
       setDatamyneDatasetVersion((v) => v + 1);
     });
-  }, []);
+  }, [topTab]);
 
   const datamyneQuery = useMemo(() => {
     return queryDatamyneLeads(datamyneFilters);
