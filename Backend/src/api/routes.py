@@ -114,13 +114,36 @@ def list_leads(
     offset = (page - 1) * page_size
     con = get_db_connection()
 
+    try:
+        from src.api.approach_routes import get_converted_active_entity_ids
+        converted_active_ids = sorted(list(get_converted_active_entity_ids("jfll_customer")))
+    except Exception as err:
+        logger.debug("Non-critical converted active IDs resolution notice: %s", err)
+        converted_active_ids = []
+
     # Use parameterized / safely escaped queries to prevent SQL injection
     base_conditions = ["1=1"]
     base_params = []
 
     if status and status.lower() not in ("all",):
-        base_conditions.append('"Status" = ?')
-        base_params.append(status)
+        if status == "Not Active":
+            if converted_active_ids:
+                placeholders = ", ".join(["?"] * len(converted_active_ids))
+                base_conditions.append(f'("Status" = ? AND "id" NOT IN ({placeholders}))')
+                base_params.append("Not Active")
+                base_params.extend(converted_active_ids)
+            else:
+                base_conditions.append('"Status" = ?')
+                base_params.append("Not Active")
+        elif status == "Active":
+            if converted_active_ids:
+                placeholders = ", ".join(["?"] * len(converted_active_ids))
+                base_conditions.append(f'("Status" = ? OR "id" IN ({placeholders}))')
+                base_params.append("Active")
+                base_params.extend(converted_active_ids)
+            else:
+                base_conditions.append('"Status" = ?')
+                base_params.append("Active")
 
     # Customer Group multi-select or single
     combined_groups = list(customer_groups or [])
@@ -226,6 +249,8 @@ def list_leads(
             dataset_name = "all_customers"
         elif status == "Not Active":
             dataset_name = "inactive"
+        elif status == "Active" and converted_active_ids:
+            dataset_name = "all_customers"
         else:
             dataset_name = "active"
         data_source = get_data_source(con, dataset=dataset_name)
@@ -257,6 +282,12 @@ def list_leads(
         # 3. Paginated Data Query
         is_active_source = (status == "Active" or (status is None and "active" in data_source) or dataset_name == "all_customers")
         order_direction = "DESC" if sort_order == "desc" else "ASC"
+
+        if converted_active_ids:
+            cid_escaped = ", ".join([repr(cid) for cid in converted_active_ids])
+            status_sql = f'CASE WHEN "id" IN ({cid_escaped}) THEN \'Active\' ELSE "Status" END as status'
+        else:
+            status_sql = '"Status" as status'
 
         if is_active_source:
             active_sort_map = {
@@ -300,7 +331,7 @@ def list_leads(
                     "Contact Person Name" as contact_person_name,
                     "Mobile Number" as mobile_number,
                     "Email" as email,
-                    "Status" as status,
+                    {status_sql},
                     "Customer Group" as customer_group,
                     "Type" as type,
                     "Credit Status" as credit_status,
@@ -354,7 +385,7 @@ def list_leads(
                     "Contact Person Name" as contact_person_name,
                     "Mobile Number" as mobile_number,
                     "Email" as email,
-                    "Status" as status,
+                    {status_sql},
                     "Customer Group" as customer_group,
                     "Type" as type,
                     "Credit Status" as credit_status,

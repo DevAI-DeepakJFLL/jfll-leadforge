@@ -154,6 +154,18 @@ def save_approach_data(data: dict[str, Any]) -> None:
     _backup_to_s3(storage_path)
 
 
+def get_converted_active_entity_ids(entity_type: str = "jfll_customer") -> set[str]:
+    """Returns set of entity IDs that have been converted to Active."""
+    data = load_approach_data()
+    prefix = f"{entity_type.lower()}:"
+    converted = set()
+    for key, entity_record in data.get("entities", {}).items():
+        if key.startswith(prefix) and entity_record.get("is_active_converted"):
+            raw_id = entity_record.get("entity_id") or key.split(":", 1)[1]
+            converted.add(raw_id)
+    return converted
+
+
 def _entity_key(entity_type: str, entity_id: str) -> str:
     return f"{entity_type.strip().lower()}:{entity_id.strip()}"
 

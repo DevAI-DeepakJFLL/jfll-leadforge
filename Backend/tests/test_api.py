@@ -492,5 +492,56 @@ def test_token_verification_cryptographic_edge_cases():
     assert verify_token(tampered_token) is None
 
 
+def test_converted_active_customer_reflection_in_leads_api(tmp_path, monkeypatch):
+    """Verifies that an inactive customer converted to Active dynamically appears in active leads and not in inactive leads."""
+    from src.api.approach_routes import save_approach_data
+
+    # Set up isolated approach storage
+    test_store = tmp_path / "test_approach_store.json"
+    monkeypatch.setenv("APPROACH_LOGS_PATH", str(test_store))
+
+    # Initial query for inactive leads
+    res_inactive_init = client.get("/api/v1/leads?status=Not Active&page_size=10")
+    assert res_inactive_init.status_code == 200
+    init_inactive_items = res_inactive_init.json()["data"]
+    assert len(init_inactive_items) > 0
+    target_cust = init_inactive_items[0]
+    target_id = target_cust["id"]
+
+    # Initial query for active leads confirms target customer is not in active list
+    res_active_init = client.get("/api/v1/leads?status=Active&page_size=100")
+    assert res_active_init.status_code == 200
+    assert not any(c["id"] == target_id for c in res_active_init.json()["data"])
+
+    # Convert customer to Active in approach store
+    save_approach_data({
+        "version": 1,
+        "entities": {
+            f"jfll_customer:{target_id}": {
+                "entity_type": "jfll_customer",
+                "entity_id": target_id,
+                "current_status": "Converted to Active",
+                "is_active_converted": True,
+                "converted_at": "2026-11-02T10:00:00Z",
+                "conversion_start_date": "2026-11-01",
+                "logs": []
+            }
+        }
+    })
+
+    # Now verify inactive query excludes target customer
+    res_inactive_after = client.get("/api/v1/leads?status=Not Active&page_size=100")
+    assert res_inactive_after.status_code == 200
+    assert not any(c["id"] == target_id for c in res_inactive_after.json()["data"])
+
+    # Now verify active query includes target customer with status == 'Active'
+    res_active_after = client.get("/api/v1/leads?status=Active&page_size=100")
+    assert res_active_after.status_code == 200
+    matching = [c for c in res_active_after.json()["data"] if c["id"] == target_id]
+    assert len(matching) == 1
+    assert matching[0]["status"] == "Active"
+
+
+
 
 
