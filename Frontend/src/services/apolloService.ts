@@ -738,13 +738,21 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
   urlParams.set('page', String(page));
   urlParams.set('page_size', String(effectiveLimit));
 
-  // Determine logistics_only: default true for global browsing, or follow explicit user toggle
-  if (logisticsOnly !== undefined) {
-    if (logisticsOnly) {
+  // Determine logistics_only: default true for global browsing, or follow explicit user toggle.
+  // When searching a specific company/organization, do not choke results by defaulting to logistics_only=true,
+  // since 77.4% of companies only have non-freight title decision-makers (CEOs, Owners, Directors).
+  if (isEntityScoped) {
+    if (logisticsOnly === true) {
       urlParams.set('logistics_only', 'true');
     }
-  } else if (!organizationId && !company) {
-    urlParams.set('logistics_only', 'true');
+  } else {
+    if (logisticsOnly !== undefined) {
+      if (logisticsOnly) {
+        urlParams.set('logistics_only', 'true');
+      }
+    } else {
+      urlParams.set('logistics_only', 'true');
+    }
   }
 
   if (decisionMakersOnly || tab === 'new') {

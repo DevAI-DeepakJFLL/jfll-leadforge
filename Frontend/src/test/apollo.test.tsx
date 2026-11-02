@@ -452,6 +452,44 @@ describe('Apollo Sourcing Tool Suite', () => {
       }
     });
 
+    it('does not send logistics_only=true on entity-scoped searches unless explicitly requested', async () => {
+      const originalFetch = global.fetch;
+      let requestedUrl = '';
+      global.fetch = vi.fn().mockImplementation((url: string) => {
+        requestedUrl = url;
+        return Promise.resolve({
+          ok: true,
+          json: async () => ({
+            page: 1,
+            page_size: 250,
+            total_records: 0,
+            total_pages: 0,
+            has_next: false,
+            data: [],
+          }),
+        } as unknown as Response);
+      });
+
+      try {
+        // 1. Entity scoped without logisticsOnly (or logisticsOnly: false) does NOT set logistics_only=true
+        await fetchApolloPeopleLeads({ organizationId: 'org-test-123' });
+        expect(requestedUrl).not.toContain('logistics_only=true');
+
+        await fetchApolloPeopleLeads({ company: 'Diamond Medical', logisticsOnly: false });
+        expect(requestedUrl).not.toContain('logistics_only=true');
+
+        // 2. Global search without entity scope DOES set logistics_only=true by default
+        await fetchApolloPeopleLeads({ page: 1 });
+        expect(requestedUrl).toContain('logistics_only=true');
+
+        // 3. Entity scoped with explicit logisticsOnly: true DOES set logistics_only=true
+        await fetchApolloPeopleLeads({ organizationId: 'org-test-123', logisticsOnly: true });
+        expect(requestedUrl).toContain('logistics_only=true');
+      } finally {
+        global.fetch = originalFetch;
+      }
+    });
+
     it('gracefully handles 422 error on large page_size by retrying with page_size=100', async () => {
       const originalFetch = global.fetch;
       const requestedUrls: string[] = [];

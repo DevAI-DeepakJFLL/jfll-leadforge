@@ -843,7 +843,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   // Cross-Navigation: Search inside People directory for decision-makers at this company
   const handleFindDecisionMakersInPeople = (companyName: string, organizationId?: string) => {
     setSelectedApolloDbLead(null);
-    setTopTab('people');
+    setApolloSubTab('people');
+    setTopTab('apollo');
     setActiveNav('search');
     applyFilters({
       ...filters,
@@ -853,7 +854,15 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       page: 1,
       departments: [],
       locations: [],
+      logisticsOnly: false,
     });
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem(STORAGE_TAB_KEY, 'people');
+      }
+    } catch {
+      // Ignore
+    }
     showToast(`Showing verified decision-makers for "${companyName}"`);
   };
 
