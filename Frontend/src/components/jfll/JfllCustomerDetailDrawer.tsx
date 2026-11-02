@@ -260,7 +260,7 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                 </div>
                 <div className="p-3 flex justify-between items-center">
                   <span className="text-slate-500">Account Status</span>
-                  <span className="text-emerald-700 font-semibold">{customer.status}</span>
+                  <span className={customer.status === 'Active' ? 'text-emerald-700 font-semibold' : 'text-amber-700 font-semibold'}>{customer.status}</span>
                 </div>
                 {customer.salesPerson && (
                   <div className="p-3 flex justify-between items-center">
@@ -287,7 +287,7 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                     </span>
                   </div>
                 )}
-                {customer.businessLast3m !== undefined && (
+                {customer.businessLast3m !== undefined && customer.businessLast3m !== null && (
                   <div className="p-3 flex justify-between items-center">
                     <span className="text-slate-500 flex items-center gap-1.5">
                       <TrendingUp className="w-3.5 h-3.5 text-slate-400" />
@@ -295,6 +295,17 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                     </span>
                     <span className="font-mono font-bold text-slate-900">
                       ₹{customer.businessLast3m.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                    </span>
+                  </div>
+                )}
+                {customer.totalBusinessTillDate !== undefined && customer.totalBusinessTillDate !== null && (
+                  <div className="p-3 flex justify-between items-center">
+                    <span className="text-slate-500 flex items-center gap-1.5">
+                      <TrendingUp className="w-3.5 h-3.5 text-blue-500" />
+                      Total Business (1.04.2024 till Date)
+                    </span>
+                    <span className="font-mono font-bold text-blue-700">
+                      ₹{customer.totalBusinessTillDate.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                     </span>
                   </div>
                 )}

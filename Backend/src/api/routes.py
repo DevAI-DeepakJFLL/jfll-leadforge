@@ -26,7 +26,7 @@ from src.api.models import (
 router = APIRouter(prefix="/api/v1", tags=["Leads"])
 
 
-ALLOWED_STATUSES = {"Active", "Not Active"}
+ALLOWED_STATUSES = {"Active", "Not Active", "All", "all"}
 ALLOWED_TABS = {"all", "shippers", "subagents", "overseas", "with-contacts"}
 
 
@@ -118,7 +118,7 @@ def list_leads(
     base_conditions = ["1=1"]
     base_params = []
 
-    if status:
+    if status and status.lower() not in ("all",):
         base_conditions.append('"Status" = ?')
         base_params.append(status)
 
@@ -160,28 +160,33 @@ def list_leads(
         if status == "Not Active":
             base_conditions.append("1=0")
         else:
+            rev_col = (
+                '"Total Business from 1.04.2024 till date"'
+                if (status and status.lower() in ("all",))
+                else '"Total Business Received From Cusomer In Last 3 Month"'
+            )
             if revenue_ranges:
                 range_conditions = []
                 for r in revenue_ranges:
                     if r == "1cr_plus":
-                        range_conditions.append('"Total Business Received From Cusomer In Last 3 Month" >= 10000000')
+                        range_conditions.append(f'{rev_col} >= 10000000')
                     elif r == "25l_1cr":
-                        range_conditions.append('("Total Business Received From Cusomer In Last 3 Month" >= 2500000 AND "Total Business Received From Cusomer In Last 3 Month" < 10000000)')
+                        range_conditions.append(f'({rev_col} >= 2500000 AND {rev_col} < 10000000)')
                     elif r == "5l_25l":
-                        range_conditions.append('("Total Business Received From Cusomer In Last 3 Month" >= 500000 AND "Total Business Received From Cusomer In Last 3 Month" < 2500000)')
+                        range_conditions.append(f'({rev_col} >= 500000 AND {rev_col} < 2500000)')
                     elif r == "1l_5l":
-                        range_conditions.append('("Total Business Received From Cusomer In Last 3 Month" >= 100000 AND "Total Business Received From Cusomer In Last 3 Month" < 500000)')
+                        range_conditions.append(f'({rev_col} >= 100000 AND {rev_col} < 500000)')
                     elif r == "under_1l":
-                        range_conditions.append('"Total Business Received From Cusomer In Last 3 Month" < 100000')
+                        range_conditions.append(f'{rev_col} < 100000')
                 if range_conditions:
                     base_conditions.append(f"({' OR '.join(range_conditions)})")
 
             if min_revenue is not None:
-                base_conditions.append('"Total Business Received From Cusomer In Last 3 Month" >= ?')
+                base_conditions.append(f'{rev_col} >= ?')
                 base_params.append(min_revenue)
 
             if max_revenue is not None:
-                base_conditions.append('"Total Business Received From Cusomer In Last 3 Month" <= ?')
+                base_conditions.append(f'{rev_col} <= ?')
                 base_params.append(max_revenue)
 
     # Contact readiness
@@ -220,7 +225,12 @@ def list_leads(
 
     where_sql = " AND ".join(conditions)
     try:
-        dataset_name = "inactive" if status == "Not Active" else "active"
+        if status and status.lower() in ("all",):
+            dataset_name = "all_customers"
+        elif status == "Not Active":
+            dataset_name = "inactive"
+        else:
+            dataset_name = "active"
         data_source = get_data_source(con, dataset=dataset_name)
 
         # 1. Total Count Query (Prepared statement)
@@ -248,7 +258,7 @@ def list_leads(
         )
 
         # 3. Paginated Data Query
-        is_active_source = (status == "Active" or (status is None and "active" in data_source))
+        is_active_source = (status == "Active" or (status is None and "active" in data_source) or dataset_name == "all_customers")
         order_direction = "DESC" if sort_order == "desc" else "ASC"
 
         if is_active_source:
@@ -258,7 +268,11 @@ def list_leads(
                 "name": '"Full Name"',
                 "businesslast3m": '"Total Business Received From Cusomer In Last 3 Month"',
                 "business_last_3m": '"Total Business Received From Cusomer In Last 3 Month"',
-                "revenue": '"Total Business Received From Cusomer In Last 3 Month"',
+                "totalbusinesstilldate": '"Total Business from 1.04.2024 till date"',
+                "total_business_till_date": '"Total Business from 1.04.2024 till date"',
+                "totalbusiness": '"Total Business from 1.04.2024 till date"',
+                "total_business": '"Total Business from 1.04.2024 till date"',
+                "revenue": '"Total Business from 1.04.2024 till date"',
                 "customergroup": '"Customer Group"',
                 "customer_group": '"Customer Group"',
                 "creditstatus": '"Credit Status"',
@@ -270,7 +284,13 @@ def list_leads(
                 "sales_person": '"Sales Person"',
             }
             sort_key = sort_by.lower().replace("-", "_") if sort_by else "fullname"
-            sort_col = active_sort_map.get(sort_key, '"Full Name"')
+            if sort_key == "revenue":
+                if status and status.lower() in ("all",):
+                    sort_col = '"Total Business from 1.04.2024 till date"'
+                else:
+                    sort_col = '"Total Business Received From Cusomer In Last 3 Month"'
+            else:
+                sort_col = active_sort_map.get(sort_key, '"Full Name"')
             if "Total Business" in sort_col:
                 order_by_sql = f"{sort_col} {order_direction} NULLS LAST, \"Full Name\" ASC"
             else:
@@ -288,7 +308,8 @@ def list_leads(
                     "Type" as type,
                     "Credit Status" as credit_status,
                     "Sales Person" as sales_person,
-                    "Total Business Received From Cusomer In Last 3 Month" as business_last_3m
+                    "Total Business Received From Cusomer In Last 3 Month" as business_last_3m,
+                    "Total Business from 1.04.2024 till date" as total_business_till_date
                 FROM '{data_source}'
                 WHERE {where_sql}
                 ORDER BY {order_by_sql}
@@ -301,13 +322,25 @@ def list_leads(
                 "name": '"Full Name"',
                 "customergroup": '"Customer Group"',
                 "customer_group": '"Customer Group"',
+                "creditstatus": '"Credit Status"',
+                "credit_status": '"Credit Status"',
+                "salesperson": '"Sales Person"',
+                "sales_person": '"Sales Person"',
+                "totalbusinesstilldate": '"Total Business from 1.04.2024 till date"',
+                "total_business_till_date": '"Total Business from 1.04.2024 till date"',
+                "totalbusiness": '"Total Business from 1.04.2024 till date"',
+                "total_business": '"Total Business from 1.04.2024 till date"',
+                "revenue": '"Total Business from 1.04.2024 till date"',
                 "contactpersonname": '"Contact Person Name"',
                 "contact_person_name": '"Contact Person Name"',
                 "status": '"Status"',
             }
             sort_key = sort_by.lower().replace("-", "_") if sort_by else "fullname"
             sort_col = inactive_sort_map.get(sort_key, '"Full Name"')
-            order_by_sql = f"{sort_col} {order_direction} NULLS LAST"
+            if "Total Business" in sort_col:
+                order_by_sql = f"{sort_col} {order_direction} NULLS LAST, \"Full Name\" ASC"
+            else:
+                order_by_sql = f"{sort_col} {order_direction} NULLS LAST"
 
             data_query = f"""
                 SELECT 
@@ -319,9 +352,10 @@ def list_leads(
                     "Status" as status,
                     "Customer Group" as customer_group,
                     "Type" as type,
-                    NULL as credit_status,
-                    NULL as sales_person,
-                    NULL as business_last_3m
+                    "Credit Status" as credit_status,
+                    "Sales Person" as sales_person,
+                    NULL as business_last_3m,
+                    "Total Business from 1.04.2024 till date" as total_business_till_date
                 FROM '{data_source}'
                 WHERE {where_sql}
                 ORDER BY {order_by_sql}

@@ -21,10 +21,10 @@ def test_list_leads_pagination():
     payload = response.json()
     assert payload["page"] == 1
     assert payload["page_size"] == 10
-    assert payload["total_records"] == 578
+    assert payload["total_records"] == 586
     assert len(payload["data"]) == 10
     assert payload["has_next"] is True
-    assert payload["audience_counts"]["all"] == 578
+    assert payload["audience_counts"]["all"] == 586
     for item in payload["data"]:
         assert item["status"] == "Active"
 
@@ -34,7 +34,7 @@ def test_list_leads_filtering_by_tab_and_group():
     response = client.get("/api/v1/leads?tab=shippers&page=1&page_size=10")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["total_records"] == 229
+    assert payload["total_records"] == 232
     for item in payload["data"]:
         assert item["customer_group"] == "Shipper / Consignee"
 
@@ -51,7 +51,7 @@ def test_list_leads_filtering_by_credit_status():
     res_approved = client.get("/api/v1/leads?status=Active&credit_status=approved")
     assert res_approved.status_code == 200
     payload = res_approved.json()
-    assert payload["total_records"] == 400
+    assert payload["total_records"] == 403
     for item in payload["data"]:
         assert item["credit_status"] == "approved"
 
@@ -59,7 +59,7 @@ def test_list_leads_filtering_by_credit_status():
     res_multi = client.get("/api/v1/leads?status=Active&credit_statuses=blocked&credit_statuses=high_risk")
     assert res_multi.status_code == 200
     payload_multi = res_multi.json()
-    assert payload_multi["total_records"] == 58 + 25  # 83
+    assert payload_multi["total_records"] == 61 + 24  # 85
     for item in payload_multi["data"]:
         assert item["credit_status"] in ("blocked", "high_risk")
 
@@ -70,7 +70,7 @@ def test_list_leads_filtering_by_sales_person():
     res_sp = client.get("/api/v1/leads?status=Active&sales_person=Narendra+Gupta")
     assert res_sp.status_code == 200
     payload = res_sp.json()
-    assert payload["total_records"] == 56
+    assert payload["total_records"] == 55
     for item in payload["data"]:
         assert item["sales_person"] == "Narendra Gupta"
 
@@ -94,20 +94,20 @@ def test_list_leads_filtering_by_revenue():
         assert item["business_last_3m"] is not None
         assert item["business_last_3m"] >= 10000000
 
-    # 2. Starter range (Under ₹1 Lakh) -> 148 accounts
+    # 2. Starter range (Under ₹1 Lakh) -> 149 accounts
     res_starter = client.get("/api/v1/leads?status=Active&revenue_ranges=under_1l")
     assert res_starter.status_code == 200
     payload_starter = res_starter.json()
-    assert payload_starter["total_records"] == 148
+    assert payload_starter["total_records"] == 149
     for item in payload_starter["data"]:
         assert item["business_last_3m"] is not None
         assert item["business_last_3m"] < 100000
 
-    # 3. Multi-range combination (1cr_plus + 25l_1cr) -> 25 + 61 = 86 accounts
+    # 3. Multi-range combination (1cr_plus + 25l_1cr) -> 25 + 63 = 88 accounts
     res_multi = client.get("/api/v1/leads?status=Active&revenue_ranges=1cr_plus&revenue_ranges=25l_1cr")
     assert res_multi.status_code == 200
     payload_multi = res_multi.json()
-    assert payload_multi["total_records"] == 86
+    assert payload_multi["total_records"] == 88
 
     # 4. Inactive customers with revenue filter -> 0 records (safe execution)
     res_inact = client.get("/api/v1/leads?status=Not+Active&revenue_ranges=1cr_plus")
@@ -142,17 +142,17 @@ def test_list_leads_dynamic_audience_counts():
     res_base = client.get("/api/v1/leads?status=Active")
     assert res_base.status_code == 200
     base_counts = res_base.json()["audience_counts"]
-    assert base_counts["all"] == 578
-    assert base_counts["shippers"] == 229
+    assert base_counts["all"] == 586
+    assert base_counts["shippers"] == 232
 
     # Filtered by customer group
     res_filtered = client.get("/api/v1/leads?status=Active&customer_groups=Shipper+%2F+Consignee")
     assert res_filtered.status_code == 200
     filtered_payload = res_filtered.json()
     filtered_counts = filtered_payload["audience_counts"]
-    assert filtered_payload["total_records"] == 229
-    assert filtered_counts["all"] == 229
-    assert filtered_counts["shippers"] == 229
+    assert filtered_payload["total_records"] == 232
+    assert filtered_counts["all"] == 232
+    assert filtered_counts["shippers"] == 232
     assert filtered_counts["subagents"] == 0
     assert filtered_counts["overseas"] == 0
 
@@ -161,14 +161,14 @@ def test_list_leads_dynamic_audience_counts():
     assert res_search.status_code == 200
     search_payload = res_search.json()
     assert search_payload["audience_counts"]["all"] == search_payload["total_records"]
-    assert search_payload["audience_counts"]["all"] < 578
+    assert search_payload["audience_counts"]["all"] < 586
 
 
 def test_list_leads_not_active_dataset():
     response = client.get("/api/v1/leads?status=Not+Active&page=1&page_size=25")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["total_records"] == 2279
+    assert payload["total_records"] == 1637
     assert len(payload["data"]) == 25
     for item in payload["data"]:
         assert item["status"] == "Not Active"

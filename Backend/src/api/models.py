@@ -14,6 +14,7 @@ class LeadRecord(BaseModel):
     credit_status: str | None = Field(None, description="Credit status")
     sales_person: str | None = Field(None, description="Assigned sales person")
     business_last_3m: float | None = Field(None, description="Business received in last 3 months")
+    total_business_till_date: float | None = Field(None, description="Total Business from 1.04.2024 till date")
 
 
 class AudienceCounts(BaseModel):

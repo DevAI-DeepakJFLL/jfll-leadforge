@@ -12,9 +12,10 @@ export const JfllCustomerSchema = z.object({
   type: z.string(),
   saved: z.boolean().default(false),
   inDataMyne: z.boolean().optional(),
-  creditStatus: z.string().optional(),
+  creditStatus: z.string().nullable().optional(),
   salesPerson: z.string().nullable().optional(),
-  businessLast3m: z.number().optional(),
+  businessLast3m: z.number().nullable().optional(),
+  totalBusinessTillDate: z.number().nullable().optional(),
 });
 
 export type JfllCustomer = z.infer<typeof JfllCustomerSchema>;
@@ -34,6 +35,7 @@ export type JfllCustomerSortField =
   | 'status'
   | 'creditStatus'
   | 'businessLast3m'
+  | 'totalBusinessTillDate'
   | 'contactPersonName';
 
 export interface JfllCustomerFilterParams {

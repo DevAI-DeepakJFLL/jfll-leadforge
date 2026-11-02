@@ -1,5 +1,6 @@
 import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
 import { JFLL_INACTIVE_CUSTOMERS_DATA } from '@/data/jfllInactiveCustomersData';
+import { JFLL_ALL_CUSTOMERS_DATA } from '@/data/jfllAllCustomersData';
 import {
   JfllCustomer,
   JfllCustomerFilterParams,
@@ -29,6 +30,7 @@ interface ApiLeadRecord {
   credit_status?: string | null;
   sales_person?: string | null;
   business_last_3m?: number | null;
+  total_business_till_date?: number | null;
 }
 
 /**
@@ -129,6 +131,7 @@ export async function fetchJfllCustomersFromApi(
       creditStatus: row.credit_status || undefined,
       salesPerson: row.sales_person || null,
       businessLast3m: row.business_last_3m !== null && row.business_last_3m !== undefined ? row.business_last_3m : undefined,
+      totalBusinessTillDate: row.total_business_till_date !== null && row.total_business_till_date !== undefined ? row.total_business_till_date : undefined,
       saved: false,
       inDataMyne: false,
     }));
@@ -145,13 +148,13 @@ export async function fetchJfllCustomersFromApi(
       totalPages: payload.total_pages ?? Math.max(1, Math.ceil(totalEstimate / limit)),
       audienceCounts: {
         all: audience.all ?? JFLL_CUSTOMERS_DATA.length,
-        shippers: audience.shippers ?? 229,
-        subagents: audience.subagents ?? 315,
+        shippers: audience.shippers ?? 232,
+        subagents: audience.subagents ?? 329,
         overseas: audience.overseas ?? 25,
         withContacts: audience.with_contacts ?? JFLL_CUSTOMERS_DATA.length,
         activeTotal: JFLL_CUSTOMERS_DATA.length,
         inactiveTotal: JFLL_INACTIVE_CUSTOMERS_DATA.length,
-        allTotal: JFLL_CUSTOMERS_DATA.length + JFLL_INACTIVE_CUSTOMERS_DATA.length,
+        allTotal: JFLL_ALL_CUSTOMERS_DATA.length,
       },
     };
   } catch (err) {
@@ -189,7 +192,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
   const isAll = customerStatus === 'all';
   const isInactive = customerStatus === 'inactive';
   const baseData = isAll
-    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    ? JFLL_ALL_CUSTOMERS_DATA
     : isInactive
     ? JFLL_INACTIVE_CUSTOMERS_DATA
     : JFLL_CUSTOMERS_DATA;
@@ -239,7 +242,9 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
       .filter((def): def is (typeof JFLL_REVENUE_RANGES)[number] => Boolean(def));
 
     baseFiltered = baseFiltered.filter((c) => {
-      const rev = c.businessLast3m ?? 0;
+      const rev = (isAll || isInactive)
+        ? (c.totalBusinessTillDate ?? c.businessLast3m ?? 0)
+        : (c.businessLast3m ?? 0);
       return activeRangeDefs.some((def) => {
         if (def.min !== undefined && def.max !== undefined) {
           return rev >= def.min && rev < def.max;
@@ -256,7 +261,12 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
   }
 
   if (minRevenue !== undefined) {
-    baseFiltered = baseFiltered.filter((c) => (c.businessLast3m ?? 0) >= minRevenue);
+    baseFiltered = baseFiltered.filter((c) => {
+      const rev = (isAll || isInactive)
+        ? (c.totalBusinessTillDate ?? c.businessLast3m ?? 0)
+        : (c.businessLast3m ?? 0);
+      return rev >= minRevenue;
+    });
   }
 
   // 7. Contact Readiness Filters
@@ -304,7 +314,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     }
   }
 
-  const totalAllCount = JFLL_CUSTOMERS_DATA.length + JFLL_INACTIVE_CUSTOMERS_DATA.length;
+  const totalAllCount = JFLL_ALL_CUSTOMERS_DATA.length;
   const audienceCounts: JfllAudienceCounts = isAll
     ? {
         all: baseFiltered.length,
@@ -389,16 +399,16 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
   // 7. Column-header sorting
   if (sortBy) {
     filtered.sort((a, b) => {
-      if (sortBy === 'businessLast3m') {
-        const hasA = a.businessLast3m !== undefined && a.businessLast3m !== null;
-        const hasB = b.businessLast3m !== undefined && b.businessLast3m !== null;
+      if (sortBy === 'businessLast3m' || sortBy === 'totalBusinessTillDate') {
+        const fieldA = sortBy === 'totalBusinessTillDate' ? (a.totalBusinessTillDate ?? a.businessLast3m) : a.businessLast3m;
+        const fieldB = sortBy === 'totalBusinessTillDate' ? (b.totalBusinessTillDate ?? b.businessLast3m) : b.businessLast3m;
+        const hasA = fieldA !== undefined && fieldA !== null;
+        const hasB = fieldB !== undefined && fieldB !== null;
         if (!hasA && !hasB) return a.fullName.localeCompare(b.fullName);
         if (!hasA) return 1; // NULLS LAST
         if (!hasB) return -1; // NULLS LAST
-        const revA = a.businessLast3m!;
-        const revB = b.businessLast3m!;
-        if (revA !== revB) {
-          return sortOrder === 'desc' ? revB - revA : revA - revB;
+        if (fieldA !== fieldB) {
+          return sortOrder === 'desc' ? fieldB! - fieldA! : fieldA! - fieldB!;
         }
         return a.fullName.localeCompare(b.fullName);
       }
@@ -463,6 +473,7 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
     'Status',
     'Credit Status',
     'Recent Business (INR)',
+    'Total Business (1.04.2024 till Date)',
     'Sales Representative',
     'Contact Person Name',
     'Mobile Number',
@@ -477,6 +488,7 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
     c.status,
     c.creditStatus ? c.creditStatus.replace(/_/g, ' ').toUpperCase() : 'N/A',
     c.businessLast3m !== undefined && c.businessLast3m !== null ? c.businessLast3m : 'N/A',
+    c.totalBusinessTillDate !== undefined && c.totalBusinessTillDate !== null ? c.totalBusinessTillDate : 'N/A',
     c.salesPerson || 'N/A',
     c.contactPersonName,
     c.mobileNumber,
@@ -492,7 +504,7 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
  */
 export function getCustomerGroupFacetCounts(status: 'active' | 'inactive' | 'all' = 'active'): { label: string; count: number }[] {
   const data = status === 'all'
-    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    ? JFLL_ALL_CUSTOMERS_DATA
     : status === 'inactive'
     ? JFLL_INACTIVE_CUSTOMERS_DATA
     : JFLL_CUSTOMERS_DATA;
@@ -512,7 +524,7 @@ export function getCustomerGroupFacetCounts(status: 'active' | 'inactive' | 'all
  */
 export function getLegalTypeFacetCounts(status: 'active' | 'inactive' | 'all' = 'active'): { label: string; count: number }[] {
   const data = status === 'all'
-    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    ? JFLL_ALL_CUSTOMERS_DATA
     : status === 'inactive'
     ? JFLL_INACTIVE_CUSTOMERS_DATA
     : JFLL_CUSTOMERS_DATA;
@@ -536,7 +548,7 @@ export function getContactReadinessFacetCounts(status: 'active' | 'inactive' | '
   hasEmail: number;
 } {
   const data = status === 'all'
-    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    ? JFLL_ALL_CUSTOMERS_DATA
     : status === 'inactive'
     ? JFLL_INACTIVE_CUSTOMERS_DATA
     : JFLL_CUSTOMERS_DATA;
@@ -560,7 +572,7 @@ export function getCreditStatusFacetCounts(status: 'active' | 'inactive' | 'all'
   count: number;
 }[] {
   const data = status === 'all'
-    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    ? JFLL_ALL_CUSTOMERS_DATA
     : status === 'inactive'
     ? JFLL_INACTIVE_CUSTOMERS_DATA
     : JFLL_CUSTOMERS_DATA;
@@ -593,7 +605,7 @@ export function getCreditStatusFacetCounts(status: 'active' | 'inactive' | 'all'
  */
 export function getSalesPersonFacetCounts(status: 'active' | 'inactive' | 'all' = 'active'): { label: string; count: number }[] {
   const data = status === 'all'
-    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    ? JFLL_ALL_CUSTOMERS_DATA
     : status === 'inactive'
     ? JFLL_INACTIVE_CUSTOMERS_DATA
     : JFLL_CUSTOMERS_DATA;
@@ -627,13 +639,14 @@ export function getRevenueRangeFacetCounts(status: 'active' | 'inactive' | 'all'
   }
 
   const data = status === 'all'
-    ? [...JFLL_CUSTOMERS_DATA, ...JFLL_INACTIVE_CUSTOMERS_DATA]
+    ? JFLL_ALL_CUSTOMERS_DATA
     : JFLL_CUSTOMERS_DATA;
 
   return JFLL_REVENUE_RANGES.map((range) => {
     const count = data.filter((c) => {
-      if (c.status !== 'Active') return false;
-      const rev = c.businessLast3m ?? 0;
+      if (status === 'active' && c.status !== 'Active') return false;
+      const rev = status === 'all' ? (c.totalBusinessTillDate ?? c.businessLast3m ?? 0) : (c.businessLast3m ?? 0);
+      if (rev === 0 && (range.min !== undefined && range.min > 0)) return false;
       if (range.min !== undefined && range.max !== undefined) {
         return rev >= range.min && rev < range.max;
       }

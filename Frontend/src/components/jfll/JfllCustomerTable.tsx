@@ -448,14 +448,31 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                     )}
                   </td>
 
-                  {/* Recent Revenue (Last 3 Months) */}
+                  {/* Revenue (Recent 3M & Total Till Date) */}
                   <td className="py-3 px-3.5 align-middle whitespace-nowrap">
-                    {c.businessLast3m !== undefined && c.businessLast3m !== null ? (
+                    {c.businessLast3m !== undefined && c.businessLast3m !== null && c.businessLast3m > 0 ? (
+                      <div className="flex flex-col">
+                        <span
+                          className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200"
+                          title={`Last 3 Months: ₹${c.businessLast3m.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`}
+                        >
+                          {formatIndianCurrency(c.businessLast3m)}
+                        </span>
+                        {c.totalBusinessTillDate !== undefined && c.totalBusinessTillDate !== null && (
+                          <span
+                            className="text-[10px] text-slate-500 font-mono mt-0.5"
+                            title={`Total Till Date: ₹${c.totalBusinessTillDate.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`}
+                          >
+                            Tot: {formatIndianCurrency(c.totalBusinessTillDate)}
+                          </span>
+                        )}
+                      </div>
+                    ) : c.totalBusinessTillDate !== undefined && c.totalBusinessTillDate !== null ? (
                       <span
-                        className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200"
-                        title={`₹${c.businessLast3m.toLocaleString('en-IN', { minimumFractionDigits: 2 })} in last 3 months`}
+                        className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-blue-50 text-blue-800 border border-blue-200"
+                        title={`Total Business: ₹${c.totalBusinessTillDate.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`}
                       >
-                        {formatIndianCurrency(c.businessLast3m)}
+                        {formatIndianCurrency(c.totalBusinessTillDate)}
                       </span>
                     ) : (
                       <span className="text-slate-400 italic text-xs">—</span>

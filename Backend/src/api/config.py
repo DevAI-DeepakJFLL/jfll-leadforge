@@ -89,6 +89,7 @@ class Settings(BaseModel):
     DATASET_FILES: ClassVar[dict[str, str]] = {
         "active": "active_customers_leads_zstd.parquet",
         "inactive": "inactive_customers_leads_zstd.parquet",
+        "all_customers": "all_customers_leads_zstd.parquet",
         "datamyne": "datamyne_leads_zstd.parquet",
         "datamyne_valid": "datamyne_valid_leads_zstd.parquet",
         "datamyne_missing": "datamyne_missing_leads_zstd.parquet",
