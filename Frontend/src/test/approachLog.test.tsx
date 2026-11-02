@@ -22,7 +22,6 @@ import {
   getCachedApproachStatus,
   logApproachActivity,
   getPendingOutbox,
-  enqueueOutboxItem,
   syncPendingApproachOutbox,
 } from '@/services/approachLogService';
 
