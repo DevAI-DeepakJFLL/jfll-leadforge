@@ -94,6 +94,72 @@ def clean_corp_stem(s: str | None) -> str:
     return norm
 
 
+def clean_entity_stem(name: str | None) -> str:
+    """Computes canonical entity stem stripping prefixes, legal suffixes, branches, and acronym spacing."""
+    if not name or pd.isna(name):
+        return ""
+    s = str(name).upper().strip()
+    s = re.sub(r"&", " AND ", s)
+    s = re.sub(r"^(M/S\.?|MESSRS\.?|M/S\s+|MS\.|M\s*/\s*S|SHRI|SHREE|THE)\s+", "", s)
+    s = re.sub(r"\(.*?\)", " ", s)
+    s = re.sub(r"\s*-\s*(MUMBAI|DELHI|BANGALORE|CHENNAI|KOLKATA|AHMEDABAD|HYDERABAD|HO|BRANCH|HEAD OFFICE).*$", "", s)
+    s = re.sub(r"\b([A-Z])\s+([A-Z])\b", r"\1\2", s)
+    s = re.sub(r"\b(PVT\.?|P\.?)\s*(LTD\.?|LIMITED)\b", " ", s)
+    s = re.sub(r"\b(PRIVATE|PVT)\b", " ", s)
+    s = re.sub(r"\b(LIMITED|LTD)\b", " ", s)
+    s = re.sub(r"\b(LLP|L\.L\.P\.)\b", " ", s)
+    s = re.sub(r"\b(INC\.?|INCORPORATED|CORP\.?|CORPORATION|CO\.?|COMPANY)\b", " ", s)
+    s = re.sub(r"(?<!AIR\s)\bINDIA\b", " ", s)
+    s = re.sub(r"[^A-Z0-9]", " ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
+def is_annotated_branch(name: str) -> bool:
+    """Checks if the account name contains branch or division annotations."""
+    u = name.upper()
+    return any(
+        b in u
+        for b in [
+            "(DOMESTIC",
+            "(DELHI",
+            "(BOM",
+            "(MUM",
+            "(CANADA",
+            "(INDIAN AIRLINES",
+            "(OTHERS",
+            "(IND)",
+        ]
+    )
+
+
+def infer_branch_tag(name: str, parent_name: str) -> str:
+    """Infers descriptive branch or alias tag for secondary child accounts."""
+    upper = name.upper()
+    parent_upper = parent_name.upper()
+    if "DOMESTIC" in upper:
+        return "Domestic Division"
+    if "DELHI" in upper:
+        return "Delhi Branch"
+    if "BOM" in upper or "MUM" in upper:
+        return "Mumbai Branch"
+    if "CANADA" in upper:
+        return "Canada Division"
+    if "INDIAN AIRLINES" in upper:
+        return "Indian Airlines Division"
+    if "OTHERS" in upper:
+        return "Branch / Other Division"
+    if "(IND)" in upper or "(I)" in upper or ("INDIA" in upper and "INDIA" not in parent_upper):
+        return "Regional Entity"
+    if upper.startswith("M/S") or upper.startswith("MESSRS"):
+        return "Honorific (M/S) Alias"
+    if "PVT" in upper or "PRIVATE" in upper:
+        return "Pvt Ltd Alias"
+    if "LTD" in upper or "LIMITED" in upper:
+        return "Ltd Suffix Alias"
+    return "Branch / Entity Alias"
+
+
 def extract_phones(p: str | None) -> set[str]:
     """Extracts valid 10-digit Indian telephone/mobile numbers."""
     if not p or pd.isna(p):
@@ -450,6 +516,55 @@ def main():
             "datamyne_match_details": dm_match_details,
         })
 
+    # 3.5 Corporate Family & Duplicate Resolution (Option 1: Preserve Source Fidelity with Linked Unified View)
+    print("\n[Step 3.5/5] Resolving Corporate Family & Parent-Branch duplicate clusters...")
+    clusters = defaultdict(list)
+    for r in processed_records:
+        st = clean_entity_stem(r["Full Name"])
+        if st:
+            clusters[st].append(r)
+
+    linked_clusters_count = 0
+    linked_accounts_count = 0
+
+    for st, members in clusters.items():
+        if len(members) > 1:
+            linked_clusters_count += 1
+            linked_accounts_count += len(members)
+            active_m = [m for m in members if m["Status"] == "Active"]
+            cands = active_m if active_m else members
+
+            has_unannotated = any(not is_annotated_branch(m["Full Name"]) for m in cands)
+
+            def score_candidate(cand):
+                is_annot = is_annotated_branch(cand["Full Name"])
+                penalty = 1 if (has_unannotated and is_annot) else 0
+                return (0 if penalty else 1, cand["Total Business from 1.04.2024 till date"])
+
+            cands_sorted = sorted(cands, key=score_candidate, reverse=True)
+            parent = cands_sorted[0]
+            group_total = sum(m["Total Business from 1.04.2024 till date"] for m in members)
+
+            for m in members:
+                m["parent_id"] = parent["id"]
+                m["parent_name"] = parent["Full Name"]
+                m["group_total_business"] = round(group_total, 2)
+                if m["id"] == parent["id"]:
+                    m["is_branch_alias"] = False
+                    m["branch_alias_tag"] = None
+                else:
+                    m["is_branch_alias"] = True
+                    m["branch_alias_tag"] = infer_branch_tag(m["Full Name"], parent["Full Name"])
+        else:
+            r = members[0]
+            r["parent_id"] = None
+            r["parent_name"] = None
+            r["group_total_business"] = None
+            r["is_branch_alias"] = False
+            r["branch_alias_tag"] = None
+
+    print(f"  • Successfully linked {linked_clusters_count} corporate duplicate clusters ({linked_accounts_count} accounts)")
+
     df_all_processed = pd.DataFrame(processed_records)
     print(f"  • Successfully processed {len(df_all_processed)} total customer records:")
     print(f"    - Active Accounts (3-Month Activity): {active_count}")
@@ -479,6 +594,11 @@ def main():
         "Total Business Received From Cusomer In Last 3 Month",
         "in_datamyne",
         "datamyne_match_details",
+        "parent_id",
+        "parent_name",
+        "group_total_business",
+        "is_branch_alias",
+        "branch_alias_tag",
     ]
     df_all_processed[all_export_cols].to_parquet(
         OUTPUT_ALL_PARQUET, engine="pyarrow", compression="zstd", index=False
@@ -492,6 +612,7 @@ def main():
     # 4.2 Active Customers Datasets (Sub-slice of Active status records)
     df_active = df_all_processed[df_all_processed["Status"] == "Active"].copy()
     active_export_cols = [
+        "id",
         "Full Name",
         "Territory",
         "Contact Person Name",
@@ -504,6 +625,11 @@ def main():
         "Sales Person",
         "Total Business Received From Cusomer In Last 3 Month",
         "Total Business from 1.04.2024 till date",
+        "parent_id",
+        "parent_name",
+        "group_total_business",
+        "is_branch_alias",
+        "branch_alias_tag",
     ]
     df_active[active_export_cols].to_parquet(
         OUTPUT_ACTIVE_PARQUET, engine="pyarrow", compression="zstd", index=False
@@ -531,6 +657,11 @@ def main():
         "Total Business from 1.04.2024 till date",
         "in_datamyne",
         "datamyne_match_details",
+        "parent_id",
+        "parent_name",
+        "group_total_business",
+        "is_branch_alias",
+        "branch_alias_tag",
     ]
     df_inactive[inactive_export_cols].to_parquet(
         OUTPUT_INACTIVE_PARQUET, engine="pyarrow", compression="zstd", index=False
@@ -573,6 +704,9 @@ def main():
         "Mobile Number",
         "Email Address",
         "DataMyne Verified",
+        "Parent Entity Name",
+        "Group Combined Business",
+        "Branch / Alias Tag",
     ]
     ws.append(excel_headers)
 
@@ -598,19 +732,23 @@ def main():
         c11 = ws.cell(row=r_idx, column=11, value=rec["Mobile Number"] or "")
         c12 = ws.cell(row=r_idx, column=12, value=rec["Email"] or "")
         c13 = ws.cell(row=r_idx, column=13, value="Yes" if rec["in_datamyne"] else "No")
+        c14 = ws.cell(row=r_idx, column=14, value=rec["parent_name"] or "")
+        c15 = ws.cell(row=r_idx, column=15, value=rec["group_total_business"] if rec["group_total_business"] is not None else "")
+        c16 = ws.cell(row=r_idx, column=16, value=rec["branch_alias_tag"] or ("Primary Account" if rec["parent_id"] else ""))
 
         # Format cell alignment & borders
-        for cell in (c1, c2, c3, c4, c5, c6, c7, c10, c11, c12, c13):
+        for cell in (c1, c2, c3, c4, c5, c6, c7, c10, c11, c12, c13, c14, c16):
             cell.font = FONT_DATA
             cell.border = CELL_BORDER
-            cell.alignment = ALIGN_CENTER if cell in (c1, c3, c6, c13) else ALIGN_LEFT
+            cell.alignment = ALIGN_CENTER if cell in (c1, c3, c6, c13, c16) else ALIGN_LEFT
 
         # Currency formatting for revenue columns
-        for num_cell in (c8, c9):
+        for num_cell in (c8, c9, c15):
             num_cell.font = FONT_NUMERIC
             num_cell.border = CELL_BORDER
             num_cell.alignment = ALIGN_RIGHT
-            num_cell.number_format = '₹#,##0;[Red](₹#,##0);"-"'
+            if isinstance(num_cell.value, (int, float)):
+                num_cell.number_format = '₹#,##0;[Red](₹#,##0);"-"'
 
     # Auto-fit columns with safety margin
     for col in ws.columns:
@@ -644,6 +782,11 @@ def main():
                 "salesPerson": r["Sales Person"],
                 "businessLast3m": r["Total Business Received From Cusomer In Last 3 Month"],
                 "totalBusinessTillDate": r["Total Business from 1.04.2024 till date"],
+                "parentId": r["parent_id"],
+                "parentName": r["parent_name"],
+                "groupTotalBusiness": r["group_total_business"],
+                "isBranchAlias": r["is_branch_alias"],
+                "branchAliasTag": r["branch_alias_tag"],
             })
 
     active_ts_content = f"""// {len(active_ts_items)} Active Customer Records from Jet Freight Logistics Master Database (Last 3 Months Activity Window)
@@ -674,6 +817,11 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = {json.dumps(active_ts_items, 
                 "creditStatus": r["Credit Status"],
                 "salesPerson": r["Sales Person"],
                 "totalBusinessTillDate": r["Total Business from 1.04.2024 till date"],
+                "parentId": r["parent_id"],
+                "parentName": r["parent_name"],
+                "groupTotalBusiness": r["group_total_business"],
+                "isBranchAlias": r["is_branch_alias"],
+                "branchAliasTag": r["branch_alias_tag"],
             })
 
     inactive_ts_content = f"""// {len(inactive_ts_items):,} Inactive Customer Records from Customer List From 1.04.2026 till Date (>3 Months Inactivity Window)
@@ -704,6 +852,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = {json.dumps(inactive
             "salesPerson": r["Sales Person"],
             "businessLast3m": r["Total Business Received From Cusomer In Last 3 Month"] if r["Status"] == "Active" else None,
             "totalBusinessTillDate": r["Total Business from 1.04.2024 till date"],
+            "parentId": r["parent_id"],
+            "parentName": r["parent_name"],
+            "groupTotalBusiness": r["group_total_business"],
+            "isBranchAlias": r["is_branch_alias"],
+            "branchAliasTag": r["branch_alias_tag"],
         })
 
     all_ts_content = f"""// {len(all_ts_items):,} All JFLL Customer Records from Customer List From 1.04.2026 till Date (Unified Master Directory)

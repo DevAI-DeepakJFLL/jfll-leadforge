@@ -19,6 +19,7 @@ import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 export { isValidPhoneNumber };
 
 interface ApiLeadRecord {
+  id?: string;
   full_name?: string;
   territory?: string;
   contact_person_name?: string | null;
@@ -31,6 +32,11 @@ interface ApiLeadRecord {
   sales_person?: string | null;
   business_last_3m?: number | null;
   total_business_till_date?: number | null;
+  parent_id?: string | null;
+  parent_name?: string | null;
+  group_total_business?: number | null;
+  is_branch_alias?: boolean;
+  branch_alias_tag?: string | null;
 }
 
 /**
@@ -119,7 +125,7 @@ export async function fetchJfllCustomersFromApi(
 
     const payload = await res.json();
     const items: JfllCustomer[] = (payload.data || []).map((row: ApiLeadRecord, idx: number) => ({
-      id: `jfll-${(page - 1) * limit + idx + 1}`,
+      id: row.id || `jfll-${(page - 1) * limit + idx + 1}`,
       fullName: row.full_name || '',
       territory: row.territory || 'All Territories',
       contactPersonName: row.contact_person_name || null,
@@ -132,6 +138,11 @@ export async function fetchJfllCustomersFromApi(
       salesPerson: row.sales_person || null,
       businessLast3m: row.business_last_3m !== null && row.business_last_3m !== undefined ? row.business_last_3m : undefined,
       totalBusinessTillDate: row.total_business_till_date !== null && row.total_business_till_date !== undefined ? row.total_business_till_date : undefined,
+      parentId: row.parent_id ?? undefined,
+      parentName: row.parent_name ?? undefined,
+      groupTotalBusiness: row.group_total_business !== null && row.group_total_business !== undefined ? row.group_total_business : undefined,
+      isBranchAlias: !!row.is_branch_alias,
+      branchAliasTag: row.branch_alias_tag ?? undefined,
       saved: false,
       inDataMyne: false,
     }));

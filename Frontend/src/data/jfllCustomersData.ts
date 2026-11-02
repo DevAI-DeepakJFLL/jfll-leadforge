@@ -16,7 +16,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
     "businessLast3m": 3795.05,
-    "totalBusinessTillDate": 3795.0
+    "totalBusinessTillDate": 3795.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0021",
@@ -32,7 +37,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Ankit Ojha",
     "businessLast3m": 5310.0,
-    "totalBusinessTillDate": 5310.0
+    "totalBusinessTillDate": 5310.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0030",
@@ -48,7 +58,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
     "businessLast3m": 6904.18,
-    "totalBusinessTillDate": 6904.0
+    "totalBusinessTillDate": 6904.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0045",
@@ -64,7 +79,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
     "businessLast3m": 8871.24,
-    "totalBusinessTillDate": 8871.0
+    "totalBusinessTillDate": 8871.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0058",
@@ -80,7 +100,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Ankit Ojha",
     "businessLast3m": 10030.0,
-    "totalBusinessTillDate": 10030.0
+    "totalBusinessTillDate": 10030.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0060",
@@ -96,7 +121,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 10168.06,
-    "totalBusinessTillDate": 10168.0
+    "totalBusinessTillDate": 10168.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0069",
@@ -112,7 +142,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 11800.0,
-    "totalBusinessTillDate": 11800.0
+    "totalBusinessTillDate": 11800.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0070",
@@ -128,7 +163,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 11800.0,
-    "totalBusinessTillDate": 11800.0
+    "totalBusinessTillDate": 11800.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0144",
@@ -144,7 +184,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 23600.0,
-    "totalBusinessTillDate": 23600.0
+    "totalBusinessTillDate": 23600.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0158",
@@ -160,7 +205,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 26139.36,
-    "totalBusinessTillDate": 26139.0
+    "totalBusinessTillDate": 26139.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0202",
@@ -176,7 +226,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 33676.02,
-    "totalBusinessTillDate": 33676.0
+    "totalBusinessTillDate": 33676.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0205",
@@ -192,7 +247,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 34217.64,
-    "totalBusinessTillDate": 34218.0
+    "totalBusinessTillDate": 34218.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0217",
@@ -208,7 +268,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "ANCHITA MONI",
     "businessLast3m": 36199.46,
-    "totalBusinessTillDate": 36199.0
+    "totalBusinessTillDate": 36199.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0220",
@@ -224,7 +289,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "KULDEEP KUMAL BAHADUR",
     "businessLast3m": 36606.46,
-    "totalBusinessTillDate": 36606.0
+    "totalBusinessTillDate": 36606.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0222",
@@ -240,7 +310,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 37061.96,
-    "totalBusinessTillDate": 37062.0
+    "totalBusinessTillDate": 37062.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0229",
@@ -256,7 +331,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 38109.87,
-    "totalBusinessTillDate": 38110.0
+    "totalBusinessTillDate": 38110.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0235",
@@ -272,7 +352,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 38986.02,
-    "totalBusinessTillDate": 38986.0
+    "totalBusinessTillDate": 38986.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0239",
@@ -288,7 +373,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 20632.3,
-    "totalBusinessTillDate": 40019.0
+    "totalBusinessTillDate": 40019.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0243",
@@ -304,7 +394,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 5390.24,
-    "totalBusinessTillDate": 40955.0
+    "totalBusinessTillDate": 40955.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0245",
@@ -320,7 +415,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Akbarkhan S R",
     "businessLast3m": 41300.0,
-    "totalBusinessTillDate": 41300.0
+    "totalBusinessTillDate": 41300.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0265",
@@ -336,7 +436,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 767321.3,
-    "totalBusinessTillDate": 44380.0
+    "totalBusinessTillDate": 44380.0,
+    "parentId": "jfll-1829",
+    "parentName": "ALOK INDUSTRIES",
+    "groupTotalBusiness": 4636336.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Ltd Suffix Alias"
   },
   {
     "id": "jfll-0269",
@@ -352,7 +457,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 45540.92,
-    "totalBusinessTillDate": 45541.0
+    "totalBusinessTillDate": 45541.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0281",
@@ -368,7 +478,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 49412.5,
-    "totalBusinessTillDate": 49413.0
+    "totalBusinessTillDate": 49413.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0288",
@@ -384,7 +499,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 531.6,
-    "totalBusinessTillDate": 50074.0
+    "totalBusinessTillDate": 50074.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0302",
@@ -400,7 +520,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 53156.64,
-    "totalBusinessTillDate": 53157.0
+    "totalBusinessTillDate": 53157.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0307",
@@ -416,7 +541,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 54734.3,
-    "totalBusinessTillDate": 54734.0
+    "totalBusinessTillDate": 54734.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0327",
@@ -432,7 +562,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "TANMOY DAS",
     "businessLast3m": 600.19,
-    "totalBusinessTillDate": 57438.0
+    "totalBusinessTillDate": 57438.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0332",
@@ -448,7 +583,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 19324.86,
-    "totalBusinessTillDate": 58334.0
+    "totalBusinessTillDate": 58334.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0339",
@@ -464,7 +604,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Alexandre  Veneziani",
     "businessLast3m": 636.6,
-    "totalBusinessTillDate": 60948.0
+    "totalBusinessTillDate": 60948.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0346",
@@ -480,7 +625,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 27242.24,
-    "totalBusinessTillDate": 61641.0
+    "totalBusinessTillDate": 61641.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0372",
@@ -496,7 +646,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 70981.72,
-    "totalBusinessTillDate": 70982.0
+    "totalBusinessTillDate": 70982.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0374",
@@ -512,7 +667,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "KAPIL GUPTA",
     "businessLast3m": 71110.98,
-    "totalBusinessTillDate": 71111.0
+    "totalBusinessTillDate": 71111.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0378",
@@ -528,7 +688,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Vaibhav Shah",
     "businessLast3m": 71938.7,
-    "totalBusinessTillDate": 71939.0
+    "totalBusinessTillDate": 71939.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0384",
@@ -544,7 +709,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "RITIKA NIGAM",
     "businessLast3m": 785.0,
-    "totalBusinessTillDate": 75125.0
+    "totalBusinessTillDate": 75125.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0391",
@@ -560,7 +730,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 76383.76,
-    "totalBusinessTillDate": 76384.0
+    "totalBusinessTillDate": 76384.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0392",
@@ -576,7 +751,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 16953.06,
-    "totalBusinessTillDate": 76879.0
+    "totalBusinessTillDate": 76879.0,
+    "parentId": "jfll-1503",
+    "parentName": "EAST IN MARINE FREIGHT",
+    "groupTotalBusiness": 1706365.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Pvt Ltd Alias"
   },
   {
     "id": "jfll-0394",
@@ -592,7 +772,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Shiv Kumar",
     "businessLast3m": 77054.0,
-    "totalBusinessTillDate": 77054.0
+    "totalBusinessTillDate": 77054.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0402",
@@ -608,7 +793,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 78175.0,
-    "totalBusinessTillDate": 78175.0
+    "totalBusinessTillDate": 78175.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0411",
@@ -624,7 +814,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
     "businessLast3m": 91529.66,
-    "totalBusinessTillDate": 82411.0
+    "totalBusinessTillDate": 82411.0,
+    "parentId": "jfll-1716",
+    "parentName": "TRANSMODAL MARINE LOGISTICS",
+    "groupTotalBusiness": 3183747.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Pvt Ltd Alias"
   },
   {
     "id": "jfll-0428",
@@ -640,7 +835,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate- Tasneem Haji",
     "businessLast3m": 34225.9,
-    "totalBusinessTillDate": 87816.0
+    "totalBusinessTillDate": 87816.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0432",
@@ -656,7 +856,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 24482.56,
-    "totalBusinessTillDate": 89105.0
+    "totalBusinessTillDate": 89105.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0450",
@@ -672,7 +877,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 61928.24,
-    "totalBusinessTillDate": 95423.0
+    "totalBusinessTillDate": 95423.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0454",
@@ -688,7 +898,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 97663.88,
-    "totalBusinessTillDate": 97664.0
+    "totalBusinessTillDate": 97664.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0457",
@@ -704,7 +919,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 37598.34,
-    "totalBusinessTillDate": 98779.0
+    "totalBusinessTillDate": 98779.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0472",
@@ -720,7 +940,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 103837.64,
-    "totalBusinessTillDate": 103838.0
+    "totalBusinessTillDate": 103838.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0473",
@@ -736,7 +961,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": null,
     "businessLast3m": 105352.76,
-    "totalBusinessTillDate": 105353.0
+    "totalBusinessTillDate": 105353.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0476",
@@ -752,7 +982,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 30972.64,
-    "totalBusinessTillDate": 105460.0
+    "totalBusinessTillDate": 105460.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0477",
@@ -768,7 +1003,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 105924.9,
-    "totalBusinessTillDate": 105925.0
+    "totalBusinessTillDate": 105925.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0495",
@@ -784,7 +1024,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 112782.04,
-    "totalBusinessTillDate": 112782.0
+    "totalBusinessTillDate": 112782.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0512",
@@ -800,7 +1045,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 119749.23,
-    "totalBusinessTillDate": 119749.0
+    "totalBusinessTillDate": 119749.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0513",
@@ -816,7 +1066,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Karishma Bisht",
     "businessLast3m": 120112.2,
-    "totalBusinessTillDate": 120112.0
+    "totalBusinessTillDate": 120112.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0517",
@@ -832,7 +1087,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 122586.66,
-    "totalBusinessTillDate": 122587.0
+    "totalBusinessTillDate": 122587.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0536",
@@ -848,7 +1108,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 129732.74,
-    "totalBusinessTillDate": 129733.0
+    "totalBusinessTillDate": 129733.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0538",
@@ -864,7 +1129,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 130569.36,
-    "totalBusinessTillDate": 130569.0
+    "totalBusinessTillDate": 130569.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0542",
@@ -880,7 +1150,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 44840.0,
-    "totalBusinessTillDate": 132132.0
+    "totalBusinessTillDate": 132132.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0549",
@@ -896,7 +1171,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 373868.35,
-    "totalBusinessTillDate": 135401.0
+    "totalBusinessTillDate": 135401.0,
+    "parentId": "jfll-1761",
+    "parentName": "S M EXPORTS AND IMPORTS",
+    "groupTotalBusiness": 3759072.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Branch / Entity Alias"
   },
   {
     "id": "jfll-0551",
@@ -912,7 +1192,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "AKASH MISHRA",
     "businessLast3m": 136348.23,
-    "totalBusinessTillDate": 136348.0
+    "totalBusinessTillDate": 136348.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0556",
@@ -928,7 +1213,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 13570.0,
-    "totalBusinessTillDate": 136833.0
+    "totalBusinessTillDate": 136833.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0565",
@@ -944,7 +1234,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
     "businessLast3m": 140620.6,
-    "totalBusinessTillDate": 140621.0
+    "totalBusinessTillDate": 140621.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0574",
@@ -960,7 +1255,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 98571.3,
-    "totalBusinessTillDate": 144032.0
+    "totalBusinessTillDate": 144032.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0588",
@@ -976,7 +1276,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 31072.94,
-    "totalBusinessTillDate": 149933.0
+    "totalBusinessTillDate": 149933.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0592",
@@ -992,7 +1297,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 150553.25,
-    "totalBusinessTillDate": 150553.0
+    "totalBusinessTillDate": 150553.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0593",
@@ -1008,7 +1318,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "AKASH MISHRA",
     "businessLast3m": 150958.58,
-    "totalBusinessTillDate": 150959.0
+    "totalBusinessTillDate": 150959.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0608",
@@ -1024,7 +1339,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 70164.22,
-    "totalBusinessTillDate": 159390.0
+    "totalBusinessTillDate": 159390.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0626",
@@ -1040,7 +1360,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "CORPORATE - SHARMI DEY",
     "businessLast3m": 104256.54,
-    "totalBusinessTillDate": 169387.0
+    "totalBusinessTillDate": 169387.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0642",
@@ -1056,7 +1381,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 175919.12,
-    "totalBusinessTillDate": 175919.0
+    "totalBusinessTillDate": 175919.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0649",
@@ -1072,7 +1402,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 34092.56,
-    "totalBusinessTillDate": 177523.0
+    "totalBusinessTillDate": 177523.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0671",
@@ -1088,7 +1423,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 194925.38,
-    "totalBusinessTillDate": 194925.0
+    "totalBusinessTillDate": 194925.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0679",
@@ -1104,7 +1444,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 126239.94,
-    "totalBusinessTillDate": 201366.0
+    "totalBusinessTillDate": 201366.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0683",
@@ -1120,7 +1465,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Jayesh Joshi",
     "businessLast3m": 24761.12,
-    "totalBusinessTillDate": 205850.0
+    "totalBusinessTillDate": 205850.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0689",
@@ -1136,7 +1486,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 37365.72,
-    "totalBusinessTillDate": 208575.0
+    "totalBusinessTillDate": 208575.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0690",
@@ -1152,7 +1507,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 56168.0,
-    "totalBusinessTillDate": 208652.0
+    "totalBusinessTillDate": 208652.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0694",
@@ -1168,7 +1528,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 209975.86,
-    "totalBusinessTillDate": 209976.0
+    "totalBusinessTillDate": 209976.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0730",
@@ -1184,7 +1549,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Shweta Baranwal",
     "businessLast3m": 226016.1,
-    "totalBusinessTillDate": 226016.0
+    "totalBusinessTillDate": 226016.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0731",
@@ -1200,7 +1570,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Ashrith Kumar Kovver",
     "businessLast3m": 76393.2,
-    "totalBusinessTillDate": 226036.0
+    "totalBusinessTillDate": 226036.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0733",
@@ -1216,7 +1591,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 226311.02,
-    "totalBusinessTillDate": 226311.0
+    "totalBusinessTillDate": 226311.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0734",
@@ -1232,7 +1612,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 8730.39,
-    "totalBusinessTillDate": 226728.0
+    "totalBusinessTillDate": 226728.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0735",
@@ -1248,7 +1633,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 153184.06,
-    "totalBusinessTillDate": 226756.0
+    "totalBusinessTillDate": 226756.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0747",
@@ -1264,7 +1654,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 30995.06,
-    "totalBusinessTillDate": 233682.0
+    "totalBusinessTillDate": 233682.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0748",
@@ -1280,7 +1675,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 38819.42,
-    "totalBusinessTillDate": 236389.0
+    "totalBusinessTillDate": 236389.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0765",
@@ -1296,7 +1696,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 30182.04,
-    "totalBusinessTillDate": 244325.0
+    "totalBusinessTillDate": 244325.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0777",
@@ -1312,7 +1717,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 24502.7,
-    "totalBusinessTillDate": 254887.0
+    "totalBusinessTillDate": 254887.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0783",
@@ -1328,7 +1738,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 260426.0,
-    "totalBusinessTillDate": 260426.0
+    "totalBusinessTillDate": 260426.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0787",
@@ -1344,7 +1759,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 2750.25,
-    "totalBusinessTillDate": 262456.0
+    "totalBusinessTillDate": 262456.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0797",
@@ -1360,7 +1780,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 271981.15,
-    "totalBusinessTillDate": 271981.0
+    "totalBusinessTillDate": 271981.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0808",
@@ -1376,7 +1801,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mr. P  Gowthamaraju",
     "businessLast3m": 281972.8,
-    "totalBusinessTillDate": 281973.0
+    "totalBusinessTillDate": 281973.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0810",
@@ -1392,7 +1822,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 164237.12,
-    "totalBusinessTillDate": 282389.0
+    "totalBusinessTillDate": 282389.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0815",
@@ -1408,7 +1843,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 3074996.22,
-    "totalBusinessTillDate": 286738.0
+    "totalBusinessTillDate": 286738.0,
+    "parentId": "jfll-2090",
+    "parentName": "MS LOGISTICS PRIVATE LIMITED",
+    "groupTotalBusiness": 18585352.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Honorific (M/S) Alias"
   },
   {
     "id": "jfll-0820",
@@ -1424,7 +1864,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
     "businessLast3m": 288864.0,
-    "totalBusinessTillDate": 288864.0
+    "totalBusinessTillDate": 288864.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0833",
@@ -1440,7 +1885,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 121755.94,
-    "totalBusinessTillDate": 294464.0
+    "totalBusinessTillDate": 294464.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0836",
@@ -1456,7 +1906,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 31838.87,
-    "totalBusinessTillDate": 295234.0
+    "totalBusinessTillDate": 295234.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0840",
@@ -1472,7 +1927,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 90287.7,
-    "totalBusinessTillDate": 296788.0
+    "totalBusinessTillDate": 296788.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0849",
@@ -1488,7 +1948,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "John Pal",
     "businessLast3m": 81962.8,
-    "totalBusinessTillDate": 301747.0
+    "totalBusinessTillDate": 301747.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0851",
@@ -1504,7 +1969,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
     "businessLast3m": 277409.74,
-    "totalBusinessTillDate": 303446.0
+    "totalBusinessTillDate": 303446.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0855",
@@ -1520,7 +1990,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Richard Theknath",
     "businessLast3m": 16520.0,
-    "totalBusinessTillDate": 305620.0
+    "totalBusinessTillDate": 305620.0,
+    "parentId": "jfll-0855",
+    "parentName": "JET FREIGHT EXPRESS PVT. LTD. (OTHERS)",
+    "groupTotalBusiness": 361466.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0856",
@@ -1536,7 +2011,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 3168.0,
-    "totalBusinessTillDate": 306092.0
+    "totalBusinessTillDate": 306092.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0857",
@@ -1552,7 +2032,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Venkata Ganesh",
     "businessLast3m": 4720.0,
-    "totalBusinessTillDate": 306411.0
+    "totalBusinessTillDate": 306411.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0868",
@@ -1568,7 +2053,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Anudeep Jain",
     "businessLast3m": 256660.62,
-    "totalBusinessTillDate": 314416.0
+    "totalBusinessTillDate": 314416.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0874",
@@ -1584,7 +2074,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Madhukar H. S",
     "businessLast3m": 35170.94,
-    "totalBusinessTillDate": 321134.0
+    "totalBusinessTillDate": 321134.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0875",
@@ -1600,7 +2095,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Richard Theknath",
     "businessLast3m": 16520.0,
-    "totalBusinessTillDate": 322140.0
+    "totalBusinessTillDate": 322140.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0880",
@@ -1616,7 +2116,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
     "businessLast3m": 250124.6,
-    "totalBusinessTillDate": 326545.0
+    "totalBusinessTillDate": 326545.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0896",
@@ -1632,7 +2137,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sunil Sharma",
     "businessLast3m": 339302.7,
-    "totalBusinessTillDate": 339303.0
+    "totalBusinessTillDate": 339303.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0899",
@@ -1648,7 +2158,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "KAPIL GUPTA",
     "businessLast3m": 94518.0,
-    "totalBusinessTillDate": 342082.0
+    "totalBusinessTillDate": 342082.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0904",
@@ -1664,7 +2179,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
     "businessLast3m": 142650.2,
-    "totalBusinessTillDate": 345283.0
+    "totalBusinessTillDate": 345283.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0908",
@@ -1680,7 +2200,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 70168.7,
-    "totalBusinessTillDate": 349384.0
+    "totalBusinessTillDate": 349384.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0921",
@@ -1696,7 +2221,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 322436.18,
-    "totalBusinessTillDate": 357527.0
+    "totalBusinessTillDate": 357527.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0923",
@@ -1712,7 +2242,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "John Pal",
     "businessLast3m": 133183.06,
-    "totalBusinessTillDate": 360145.0
+    "totalBusinessTillDate": 360145.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0931",
@@ -1728,7 +2263,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Harvind Kumar",
     "businessLast3m": 11751.96,
-    "totalBusinessTillDate": 369199.0
+    "totalBusinessTillDate": 369199.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0933",
@@ -1744,7 +2284,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ashrith Kumar Kovver",
     "businessLast3m": 371496.37,
-    "totalBusinessTillDate": 371496.0
+    "totalBusinessTillDate": 371496.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0937",
@@ -1760,7 +2305,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 155734.04,
-    "totalBusinessTillDate": 375714.0
+    "totalBusinessTillDate": 375714.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0943",
@@ -1776,7 +2326,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 387460.08,
-    "totalBusinessTillDate": 387460.0
+    "totalBusinessTillDate": 387460.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0945",
@@ -1792,7 +2347,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 23406.59,
-    "totalBusinessTillDate": 392316.0
+    "totalBusinessTillDate": 392316.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0949",
@@ -1808,7 +2368,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 291200.4,
-    "totalBusinessTillDate": 396928.0
+    "totalBusinessTillDate": 396928.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0953",
@@ -1824,7 +2389,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 35575.82,
-    "totalBusinessTillDate": 402380.0
+    "totalBusinessTillDate": 402380.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0954",
@@ -1840,7 +2410,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 10885.5,
-    "totalBusinessTillDate": 402496.0
+    "totalBusinessTillDate": 402496.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0957",
@@ -1856,7 +2431,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 163333.52,
-    "totalBusinessTillDate": 405074.0
+    "totalBusinessTillDate": 405074.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0958",
@@ -1872,7 +2452,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 33264.2,
-    "totalBusinessTillDate": 406906.0
+    "totalBusinessTillDate": 406906.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0963",
@@ -1888,7 +2473,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 410053.42,
-    "totalBusinessTillDate": 410053.0
+    "totalBusinessTillDate": 410053.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0968",
@@ -1904,7 +2494,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 75634.46,
-    "totalBusinessTillDate": 414757.0
+    "totalBusinessTillDate": 414757.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0969",
@@ -1920,7 +2515,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 131822.61,
-    "totalBusinessTillDate": 415790.0
+    "totalBusinessTillDate": 415790.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0971",
@@ -1936,7 +2536,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
     "businessLast3m": 6759.04,
-    "totalBusinessTillDate": 419195.0
+    "totalBusinessTillDate": 419195.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0983",
@@ -1952,7 +2557,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 341104.96,
-    "totalBusinessTillDate": 430382.0
+    "totalBusinessTillDate": 430382.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0984",
@@ -1968,7 +2578,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "AKASH MISHRA",
     "businessLast3m": 424260.32,
-    "totalBusinessTillDate": 430396.0
+    "totalBusinessTillDate": 430396.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0987",
@@ -1984,7 +2599,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 7101.24,
-    "totalBusinessTillDate": 432052.0
+    "totalBusinessTillDate": 432052.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0989",
@@ -2000,7 +2620,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 434722.33,
-    "totalBusinessTillDate": 434722.0
+    "totalBusinessTillDate": 434722.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-0992",
@@ -2016,7 +2641,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
     "businessLast3m": 276627.4,
-    "totalBusinessTillDate": 438311.0
+    "totalBusinessTillDate": 438311.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1004",
@@ -2032,7 +2662,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 3580.5,
-    "totalBusinessTillDate": 455296.0
+    "totalBusinessTillDate": 455296.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1005",
@@ -2048,7 +2683,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
     "businessLast3m": 41616.24,
-    "totalBusinessTillDate": 455439.0
+    "totalBusinessTillDate": 455439.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1013",
@@ -2064,7 +2704,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Anudeep Jain",
     "businessLast3m": 462283.56,
-    "totalBusinessTillDate": 462284.0
+    "totalBusinessTillDate": 462284.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1015",
@@ -2080,7 +2725,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 160995.92,
-    "totalBusinessTillDate": 464742.0
+    "totalBusinessTillDate": 464742.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1019",
@@ -2096,7 +2746,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 457596.92,
-    "totalBusinessTillDate": 472597.0
+    "totalBusinessTillDate": 472597.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1023",
@@ -2112,7 +2767,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 156238.5,
-    "totalBusinessTillDate": 478221.0
+    "totalBusinessTillDate": 478221.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1032",
@@ -2128,7 +2788,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 35193.5,
-    "totalBusinessTillDate": 485099.0
+    "totalBusinessTillDate": 485099.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1035",
@@ -2144,7 +2809,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 272836.91,
-    "totalBusinessTillDate": 488362.0
+    "totalBusinessTillDate": 488362.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1037",
@@ -2160,7 +2830,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 489758.54,
-    "totalBusinessTillDate": 489759.0
+    "totalBusinessTillDate": 489759.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1038",
@@ -2176,7 +2851,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 46399.96,
-    "totalBusinessTillDate": 489920.0
+    "totalBusinessTillDate": 489920.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1040",
@@ -2192,7 +2872,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 168703.42,
-    "totalBusinessTillDate": 491957.0
+    "totalBusinessTillDate": 491957.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1044",
@@ -2208,7 +2893,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate",
     "businessLast3m": 223975.0,
-    "totalBusinessTillDate": 497368.0
+    "totalBusinessTillDate": 497368.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1045",
@@ -2224,7 +2914,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 246351.43,
-    "totalBusinessTillDate": 498003.0
+    "totalBusinessTillDate": 498003.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1051",
@@ -2240,7 +2935,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 43672.98,
-    "totalBusinessTillDate": 510132.0
+    "totalBusinessTillDate": 510132.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1057",
@@ -2256,7 +2956,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "CHETNA MORYE",
     "businessLast3m": 420666.46,
-    "totalBusinessTillDate": 517528.0
+    "totalBusinessTillDate": 517528.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1058",
@@ -2272,7 +2977,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 2030.04,
-    "totalBusinessTillDate": 518147.0
+    "totalBusinessTillDate": 518147.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1063",
@@ -2288,7 +2998,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 175014.06,
-    "totalBusinessTillDate": 523419.0
+    "totalBusinessTillDate": 523419.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1067",
@@ -2304,7 +3019,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
     "businessLast3m": 49912.58,
-    "totalBusinessTillDate": 527660.0
+    "totalBusinessTillDate": 527660.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1072",
@@ -2320,7 +3040,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 27372.46,
-    "totalBusinessTillDate": 532020.0
+    "totalBusinessTillDate": 532020.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1073",
@@ -2336,7 +3061,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 98085.14,
-    "totalBusinessTillDate": 532101.0
+    "totalBusinessTillDate": 532101.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1076",
@@ -2352,7 +3082,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mr. P  Gowthamaraju",
     "businessLast3m": 362691.74,
-    "totalBusinessTillDate": 534967.0
+    "totalBusinessTillDate": 534967.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1077",
@@ -2368,7 +3103,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rafiq Shaikh",
     "businessLast3m": 16635.64,
-    "totalBusinessTillDate": 536114.0
+    "totalBusinessTillDate": 536114.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1080",
@@ -2384,7 +3124,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 78717.8,
-    "totalBusinessTillDate": 539819.0
+    "totalBusinessTillDate": 539819.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1083",
@@ -2400,7 +3145,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 35651.81,
-    "totalBusinessTillDate": 542537.0
+    "totalBusinessTillDate": 542537.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1086",
@@ -2416,7 +3166,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 545208.46,
-    "totalBusinessTillDate": 545208.0
+    "totalBusinessTillDate": 545208.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1087",
@@ -2432,7 +3187,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 650.0,
-    "totalBusinessTillDate": 546172.0
+    "totalBusinessTillDate": 546172.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1088",
@@ -2448,7 +3208,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 314613.96,
-    "totalBusinessTillDate": 547072.0
+    "totalBusinessTillDate": 547072.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1094",
@@ -2464,7 +3229,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 287648.6,
-    "totalBusinessTillDate": 554038.0
+    "totalBusinessTillDate": 554038.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1099",
@@ -2480,7 +3250,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 306676.1,
-    "totalBusinessTillDate": 561182.0
+    "totalBusinessTillDate": 561182.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1102",
@@ -2496,7 +3271,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 95353.44,
-    "totalBusinessTillDate": 562671.0
+    "totalBusinessTillDate": 562671.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1105",
@@ -2512,7 +3292,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 564695.96,
-    "totalBusinessTillDate": 564696.0
+    "totalBusinessTillDate": 564696.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1110",
@@ -2528,7 +3313,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Richard Theknath",
     "businessLast3m": 16735.73,
-    "totalBusinessTillDate": 570318.0
+    "totalBusinessTillDate": 570318.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1113",
@@ -2544,7 +3334,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 155369.56,
-    "totalBusinessTillDate": 575845.0
+    "totalBusinessTillDate": 575845.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1115",
@@ -2560,7 +3355,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 535047.4,
-    "totalBusinessTillDate": 580265.0
+    "totalBusinessTillDate": 580265.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1116",
@@ -2576,7 +3376,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Dheeraj Chanigalla",
     "businessLast3m": 230078.93,
-    "totalBusinessTillDate": 581171.0
+    "totalBusinessTillDate": 581171.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1131",
@@ -2592,7 +3397,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 105775.2,
-    "totalBusinessTillDate": 606762.0
+    "totalBusinessTillDate": 606762.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1136",
@@ -2608,7 +3418,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "PARVESH GUPTA",
     "businessLast3m": 616614.9,
-    "totalBusinessTillDate": 616615.0
+    "totalBusinessTillDate": 616615.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1138",
@@ -2624,7 +3439,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Priyank Acharya",
     "businessLast3m": 6450.0,
-    "totalBusinessTillDate": 619200.0
+    "totalBusinessTillDate": 619200.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1144",
@@ -2640,7 +3460,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "AKASH MISHRA",
     "businessLast3m": 461527.23,
-    "totalBusinessTillDate": 643596.0
+    "totalBusinessTillDate": 643596.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1171",
@@ -2656,7 +3481,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 512450.4,
-    "totalBusinessTillDate": 681177.0
+    "totalBusinessTillDate": 681177.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1182",
@@ -2672,7 +3502,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "CORPORATE - SHARMI DEY",
     "businessLast3m": 21460.66,
-    "totalBusinessTillDate": 702530.0
+    "totalBusinessTillDate": 702530.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1187",
@@ -2688,7 +3523,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 380023.14,
-    "totalBusinessTillDate": 708204.0
+    "totalBusinessTillDate": 708204.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1192",
@@ -2704,7 +3544,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 327850.02,
-    "totalBusinessTillDate": 710962.0
+    "totalBusinessTillDate": 710962.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1195",
@@ -2720,7 +3565,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "AKASH MISHRA",
     "businessLast3m": 717191.11,
-    "totalBusinessTillDate": 717191.0
+    "totalBusinessTillDate": 717191.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1198",
@@ -2736,7 +3586,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 723553.58,
-    "totalBusinessTillDate": 723554.0
+    "totalBusinessTillDate": 723554.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1201",
@@ -2752,7 +3607,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
     "businessLast3m": 726632.34,
-    "totalBusinessTillDate": 735718.0
+    "totalBusinessTillDate": 735718.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1202",
@@ -2768,7 +3628,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 440566.52,
-    "totalBusinessTillDate": 737799.0
+    "totalBusinessTillDate": 737799.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1203",
@@ -2784,7 +3649,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith K",
     "businessLast3m": 544378.86,
-    "totalBusinessTillDate": 739213.0
+    "totalBusinessTillDate": 739213.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1207",
@@ -2800,7 +3670,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "PARVESH GUPTA",
     "businessLast3m": 598979.8,
-    "totalBusinessTillDate": 749840.0
+    "totalBusinessTillDate": 749840.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1208",
@@ -2816,7 +3691,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 356869.76,
-    "totalBusinessTillDate": 753962.0
+    "totalBusinessTillDate": 753962.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1209",
@@ -2832,7 +3712,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 137006.72,
-    "totalBusinessTillDate": 756097.0
+    "totalBusinessTillDate": 756097.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1211",
@@ -2848,7 +3733,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Rohit Sethi",
     "businessLast3m": 359230.36,
-    "totalBusinessTillDate": 759720.0
+    "totalBusinessTillDate": 759720.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1215",
@@ -2864,7 +3754,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 350681.84,
-    "totalBusinessTillDate": 765397.0
+    "totalBusinessTillDate": 765397.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1219",
@@ -2880,7 +3775,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Anudeep Jain",
     "businessLast3m": 469135.2,
-    "totalBusinessTillDate": 768029.0
+    "totalBusinessTillDate": 768029.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1224",
@@ -2896,7 +3796,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 129867.22,
-    "totalBusinessTillDate": 772124.0
+    "totalBusinessTillDate": 772124.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1225",
@@ -2912,7 +3817,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 532675.48,
-    "totalBusinessTillDate": 772463.0
+    "totalBusinessTillDate": 772463.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1226",
@@ -2928,7 +3838,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
     "businessLast3m": 312287.0,
-    "totalBusinessTillDate": 774111.0
+    "totalBusinessTillDate": 774111.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1229",
@@ -2944,7 +3859,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Arunendra Srivastava",
     "businessLast3m": 361845.69,
-    "totalBusinessTillDate": 778121.0
+    "totalBusinessTillDate": 778121.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1242",
@@ -2960,7 +3880,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 326574.44,
-    "totalBusinessTillDate": 806158.0
+    "totalBusinessTillDate": 806158.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1250",
@@ -2976,7 +3901,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Richard Theknath",
     "businessLast3m": 66080.0,
-    "totalBusinessTillDate": 826000.0
+    "totalBusinessTillDate": 826000.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1255",
@@ -2992,7 +3922,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 462843.59,
-    "totalBusinessTillDate": 837479.0
+    "totalBusinessTillDate": 837479.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1256",
@@ -3008,7 +3943,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Gokul T",
     "businessLast3m": 532526.23,
-    "totalBusinessTillDate": 838348.0
+    "totalBusinessTillDate": 838348.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1265",
@@ -3024,7 +3964,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 138063.54,
-    "totalBusinessTillDate": 867701.0
+    "totalBusinessTillDate": 867701.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1269",
@@ -3040,7 +3985,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 480383.9,
-    "totalBusinessTillDate": 880990.0
+    "totalBusinessTillDate": 880990.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1276",
@@ -3056,7 +4006,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 209289.52,
-    "totalBusinessTillDate": 899747.0
+    "totalBusinessTillDate": 899747.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1279",
@@ -3072,7 +4027,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Madhukar H. S",
     "businessLast3m": 238100.48,
-    "totalBusinessTillDate": 904010.0
+    "totalBusinessTillDate": 904010.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1285",
@@ -3088,7 +4048,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 149374.6,
-    "totalBusinessTillDate": 918626.0
+    "totalBusinessTillDate": 918626.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1286",
@@ -3104,7 +4069,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 29989.7,
-    "totalBusinessTillDate": 920471.0
+    "totalBusinessTillDate": 920471.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1289",
@@ -3120,7 +4090,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 63738.89,
-    "totalBusinessTillDate": 924904.0
+    "totalBusinessTillDate": 924904.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1294",
@@ -3136,7 +4111,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 170917.1,
-    "totalBusinessTillDate": 936242.0
+    "totalBusinessTillDate": 936242.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1301",
@@ -3152,7 +4132,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "B Thiagu",
     "businessLast3m": 230428.63,
-    "totalBusinessTillDate": 954098.0
+    "totalBusinessTillDate": 954098.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1304",
@@ -3168,7 +4153,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 415165.3,
-    "totalBusinessTillDate": 960089.0
+    "totalBusinessTillDate": 960089.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1313",
@@ -3184,7 +4174,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 125769.12,
-    "totalBusinessTillDate": 978146.0
+    "totalBusinessTillDate": 978146.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1319",
@@ -3200,7 +4195,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 10237.49,
-    "totalBusinessTillDate": 996313.0
+    "totalBusinessTillDate": 996313.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1321",
@@ -3216,7 +4216,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Swapnil Mukherjee",
     "businessLast3m": 173502.02,
-    "totalBusinessTillDate": 1010762.0
+    "totalBusinessTillDate": 1010762.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1331",
@@ -3232,7 +4237,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 1009360.82,
-    "totalBusinessTillDate": 1036415.0
+    "totalBusinessTillDate": 1036415.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1333",
@@ -3248,7 +4258,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 222217.51,
-    "totalBusinessTillDate": 1042730.0
+    "totalBusinessTillDate": 1042730.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1334",
@@ -3264,7 +4279,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 743355.01,
-    "totalBusinessTillDate": 1047918.0
+    "totalBusinessTillDate": 1047918.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1343",
@@ -3280,7 +4300,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 237928.12,
-    "totalBusinessTillDate": 1067813.0
+    "totalBusinessTillDate": 1067813.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1347",
@@ -3296,7 +4321,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 26947.66,
-    "totalBusinessTillDate": 1081114.0
+    "totalBusinessTillDate": 1081114.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1348",
@@ -3312,7 +4342,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 180364.18,
-    "totalBusinessTillDate": 1085056.0
+    "totalBusinessTillDate": 1085056.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1359",
@@ -3328,7 +4363,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 346817.34,
-    "totalBusinessTillDate": 1114312.0
+    "totalBusinessTillDate": 1114312.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1362",
@@ -3344,7 +4384,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 75304.06,
-    "totalBusinessTillDate": 1122160.0
+    "totalBusinessTillDate": 1122160.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1363",
@@ -3360,7 +4405,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 157749.13,
-    "totalBusinessTillDate": 1124685.0
+    "totalBusinessTillDate": 1124685.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1364",
@@ -3376,7 +4426,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 81353.3,
-    "totalBusinessTillDate": 1127047.0
+    "totalBusinessTillDate": 1127047.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1365",
@@ -3392,7 +4447,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 1043022.69,
-    "totalBusinessTillDate": 1128835.0
+    "totalBusinessTillDate": 1128835.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1367",
@@ -3408,7 +4468,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 247094.36,
-    "totalBusinessTillDate": 1132748.0
+    "totalBusinessTillDate": 1132748.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1372",
@@ -3424,7 +4489,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 496372.9,
-    "totalBusinessTillDate": 1149568.0
+    "totalBusinessTillDate": 1149568.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1376",
@@ -3440,7 +4510,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "CORPORATE - SHARMI DEY",
     "businessLast3m": 501390.26,
-    "totalBusinessTillDate": 1163446.0
+    "totalBusinessTillDate": 1163446.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1380",
@@ -3456,7 +4531,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "CORPORATE - SHARMI DEY",
     "businessLast3m": 398114.3,
-    "totalBusinessTillDate": 1172979.0
+    "totalBusinessTillDate": 1172979.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1389",
@@ -3472,7 +4552,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 6400.33,
-    "totalBusinessTillDate": 1196688.0
+    "totalBusinessTillDate": 1196688.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1392",
@@ -3488,7 +4573,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Richard Theknath",
     "businessLast3m": 343720.44,
-    "totalBusinessTillDate": 1207339.0
+    "totalBusinessTillDate": 1207339.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1397",
@@ -3504,7 +4594,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 16986.1,
-    "totalBusinessTillDate": 1217812.0
+    "totalBusinessTillDate": 1217812.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1399",
@@ -3520,7 +4615,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
     "businessLast3m": 316527.24,
-    "totalBusinessTillDate": 1228347.0
+    "totalBusinessTillDate": 1228347.0,
+    "parentId": "jfll-2001",
+    "parentName": "AVAADA ELECTRO PRIVATE LIMITED",
+    "groupTotalBusiness": 11205827.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Ltd Suffix Alias"
   },
   {
     "id": "jfll-1402",
@@ -3536,7 +4636,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 1233543.68,
-    "totalBusinessTillDate": 1233544.0
+    "totalBusinessTillDate": 1233544.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1403",
@@ -3552,7 +4657,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 675422.58,
-    "totalBusinessTillDate": 1237511.0
+    "totalBusinessTillDate": 1237511.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1406",
@@ -3568,7 +4678,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 19523.1,
-    "totalBusinessTillDate": 1252194.0
+    "totalBusinessTillDate": 1252194.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1408",
@@ -3584,7 +4699,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 41805.04,
-    "totalBusinessTillDate": 1254564.0
+    "totalBusinessTillDate": 1254564.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1411",
@@ -3600,7 +4720,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 655137.18,
-    "totalBusinessTillDate": 1258835.0
+    "totalBusinessTillDate": 1258835.0,
+    "parentId": "jfll-2078",
+    "parentName": "M/S. DEVDAS SEA FOODS",
+    "groupTotalBusiness": 18626195.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Branch / Entity Alias"
   },
   {
     "id": "jfll-1412",
@@ -3616,7 +4741,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
     "businessLast3m": 732921.6,
-    "totalBusinessTillDate": 1262978.0
+    "totalBusinessTillDate": 1262978.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1413",
@@ -3632,7 +4762,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "John Pal",
     "businessLast3m": 361993.56,
-    "totalBusinessTillDate": 1263475.0
+    "totalBusinessTillDate": 1263475.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1418",
@@ -3648,7 +4783,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "KAPIL GUPTA",
     "businessLast3m": 167690.52,
-    "totalBusinessTillDate": 1271985.0
+    "totalBusinessTillDate": 1271985.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1426",
@@ -3664,7 +4804,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 1138001.68,
-    "totalBusinessTillDate": 1287865.0
+    "totalBusinessTillDate": 1287865.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1431",
@@ -3680,7 +4825,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 42728.5,
-    "totalBusinessTillDate": 1302223.0
+    "totalBusinessTillDate": 1302223.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1432",
@@ -3696,7 +4846,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 33594.6,
-    "totalBusinessTillDate": 1302445.0
+    "totalBusinessTillDate": 1302445.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1435",
@@ -3712,7 +4867,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 699134.59,
-    "totalBusinessTillDate": 1318724.0
+    "totalBusinessTillDate": 1318724.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1446",
@@ -3728,7 +4888,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 18903.6,
-    "totalBusinessTillDate": 1347636.0
+    "totalBusinessTillDate": 1347636.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1450",
@@ -3744,7 +4909,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Rahul Vasawa",
     "businessLast3m": 310723.5,
-    "totalBusinessTillDate": 1365199.0
+    "totalBusinessTillDate": 1365199.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1453",
@@ -3760,7 +4930,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 587969.66,
-    "totalBusinessTillDate": 1392133.0
+    "totalBusinessTillDate": 1392133.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1459",
@@ -3776,7 +4951,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 1020885.26,
-    "totalBusinessTillDate": 1439329.0
+    "totalBusinessTillDate": 1439329.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1462",
@@ -3792,7 +4972,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 25942.3,
-    "totalBusinessTillDate": 1444106.0
+    "totalBusinessTillDate": 1444106.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1464",
@@ -3808,7 +4993,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 36674.4,
-    "totalBusinessTillDate": 1453609.0
+    "totalBusinessTillDate": 1453609.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1466",
@@ -3824,7 +5014,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 217582.58,
-    "totalBusinessTillDate": 1460397.0
+    "totalBusinessTillDate": 1460397.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1467",
@@ -3840,7 +5035,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Rahul Vasawa",
     "businessLast3m": 56148.42,
-    "totalBusinessTillDate": 1460815.0
+    "totalBusinessTillDate": 1460815.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1476",
@@ -3856,7 +5056,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 1488177.06,
-    "totalBusinessTillDate": 1488177.0
+    "totalBusinessTillDate": 1488177.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1483",
@@ -3872,7 +5077,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
     "businessLast3m": 600841.84,
-    "totalBusinessTillDate": 1541311.0
+    "totalBusinessTillDate": 1541311.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1493",
@@ -3888,7 +5098,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 519030.08,
-    "totalBusinessTillDate": 1600700.0
+    "totalBusinessTillDate": 1600700.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1497",
@@ -3904,7 +5119,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 203387.82,
-    "totalBusinessTillDate": 1618165.0
+    "totalBusinessTillDate": 1618165.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1499",
@@ -3920,7 +5140,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 1332062.59,
-    "totalBusinessTillDate": 1621459.0
+    "totalBusinessTillDate": 1621459.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1503",
@@ -3936,7 +5161,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 828367.51,
-    "totalBusinessTillDate": 1629486.0
+    "totalBusinessTillDate": 1629486.0,
+    "parentId": "jfll-1503",
+    "parentName": "EAST IN MARINE FREIGHT",
+    "groupTotalBusiness": 1706365.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1505",
@@ -3952,7 +5182,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Richard Theknath",
     "businessLast3m": 151888.42,
-    "totalBusinessTillDate": 1634336.0
+    "totalBusinessTillDate": 1634336.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1509",
@@ -3968,7 +5203,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 1652366.4,
-    "totalBusinessTillDate": 1652366.0
+    "totalBusinessTillDate": 1652366.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1516",
@@ -3984,7 +5224,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 76652.0,
-    "totalBusinessTillDate": 1669698.0
+    "totalBusinessTillDate": 1669698.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1522",
@@ -4000,7 +5245,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 1695938.48,
-    "totalBusinessTillDate": 1695938.0
+    "totalBusinessTillDate": 1695938.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1523",
@@ -4016,7 +5266,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 1702154.72,
-    "totalBusinessTillDate": 1702155.0
+    "totalBusinessTillDate": 1702155.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1526",
@@ -4032,7 +5287,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sunil Sharma",
     "businessLast3m": 516724.21,
-    "totalBusinessTillDate": 1715539.0
+    "totalBusinessTillDate": 1715539.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1527",
@@ -4048,7 +5308,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 12732.2,
-    "totalBusinessTillDate": 1721262.0
+    "totalBusinessTillDate": 1721262.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1528",
@@ -4064,7 +5329,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 461192.38,
-    "totalBusinessTillDate": 1724248.0
+    "totalBusinessTillDate": 1724248.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1529",
@@ -4080,7 +5350,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 1008921.24,
-    "totalBusinessTillDate": 1741214.0
+    "totalBusinessTillDate": 1741214.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1530",
@@ -4096,7 +5371,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 379813.99,
-    "totalBusinessTillDate": 1744130.0
+    "totalBusinessTillDate": 1744130.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1533",
@@ -4112,7 +5392,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 1289083.68,
-    "totalBusinessTillDate": 1751417.0
+    "totalBusinessTillDate": 1751417.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1534",
@@ -4128,7 +5413,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 13213.64,
-    "totalBusinessTillDate": 1756365.0
+    "totalBusinessTillDate": 1756365.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1537",
@@ -4144,7 +5434,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 490622.96,
-    "totalBusinessTillDate": 1759540.0
+    "totalBusinessTillDate": 1759540.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1538",
@@ -4160,7 +5455,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 525280.54,
-    "totalBusinessTillDate": 1760926.0
+    "totalBusinessTillDate": 1760926.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1540",
@@ -4176,7 +5476,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 721957.04,
-    "totalBusinessTillDate": 1774138.0
+    "totalBusinessTillDate": 1774138.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1545",
@@ -4192,7 +5497,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 651704.56,
-    "totalBusinessTillDate": 1789279.0
+    "totalBusinessTillDate": 1789279.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1546",
@@ -4208,7 +5518,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 1794544.0,
-    "totalBusinessTillDate": 1794544.0
+    "totalBusinessTillDate": 1794544.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1549",
@@ -4224,7 +5539,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Mary Hanse",
     "businessLast3m": 1286585.83,
-    "totalBusinessTillDate": 1795133.0
+    "totalBusinessTillDate": 1795133.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1555",
@@ -4240,7 +5560,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 51335.9,
-    "totalBusinessTillDate": 1817007.0
+    "totalBusinessTillDate": 1817007.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1562",
@@ -4256,7 +5581,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 1874378.09,
-    "totalBusinessTillDate": 1874378.0
+    "totalBusinessTillDate": 1874378.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1564",
@@ -4272,7 +5602,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 126034.62,
-    "totalBusinessTillDate": 1891107.0
+    "totalBusinessTillDate": 1891107.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1565",
@@ -4288,7 +5623,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 277974.96,
-    "totalBusinessTillDate": 1891665.0
+    "totalBusinessTillDate": 1891665.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1567",
@@ -4304,7 +5644,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 138532.0,
-    "totalBusinessTillDate": 1893500.0
+    "totalBusinessTillDate": 1893500.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1569",
@@ -4320,7 +5665,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 1905079.32,
-    "totalBusinessTillDate": 1905079.0
+    "totalBusinessTillDate": 1905079.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1571",
@@ -4336,7 +5686,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 350639.07,
-    "totalBusinessTillDate": 1912407.0
+    "totalBusinessTillDate": 1912407.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1573",
@@ -4352,7 +5707,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 1588610.4,
-    "totalBusinessTillDate": 1923730.0
+    "totalBusinessTillDate": 1923730.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1582",
@@ -4368,7 +5728,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 358685.92,
-    "totalBusinessTillDate": 2001794.0
+    "totalBusinessTillDate": 2001794.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1583",
@@ -4384,7 +5749,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 233729.79,
-    "totalBusinessTillDate": 2006469.0
+    "totalBusinessTillDate": 2006469.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1588",
@@ -4400,7 +5770,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 929994.58,
-    "totalBusinessTillDate": 2033471.0
+    "totalBusinessTillDate": 2033471.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1589",
@@ -4416,7 +5791,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "ANCHITA MONI",
     "businessLast3m": 991413.0,
-    "totalBusinessTillDate": 2043776.0
+    "totalBusinessTillDate": 2043776.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1590",
@@ -4432,7 +5812,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 709269.68,
-    "totalBusinessTillDate": 2043952.0
+    "totalBusinessTillDate": 2043952.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1592",
@@ -4448,7 +5833,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 73384.2,
-    "totalBusinessTillDate": 2047259.0
+    "totalBusinessTillDate": 2047259.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1595",
@@ -4464,7 +5854,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Hyderabad",
     "businessLast3m": 27800.36,
-    "totalBusinessTillDate": 2081285.0
+    "totalBusinessTillDate": 2081285.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1606",
@@ -4480,7 +5875,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 107827.22,
-    "totalBusinessTillDate": 2155640.0
+    "totalBusinessTillDate": 2155640.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1608",
@@ -4496,7 +5896,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 106727.46,
-    "totalBusinessTillDate": 2182300.0
+    "totalBusinessTillDate": 2182300.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1611",
@@ -4512,7 +5917,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 418603.82,
-    "totalBusinessTillDate": 2191907.0
+    "totalBusinessTillDate": 2191907.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1614",
@@ -4528,7 +5938,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 84839.46,
-    "totalBusinessTillDate": 2216366.0
+    "totalBusinessTillDate": 2216366.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1620",
@@ -4544,7 +5959,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 2802.5,
-    "totalBusinessTillDate": 2241644.0
+    "totalBusinessTillDate": 2241644.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1629",
@@ -4560,7 +5980,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 1161240.38,
-    "totalBusinessTillDate": 2300890.0
+    "totalBusinessTillDate": 2300890.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1632",
@@ -4576,7 +6001,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 1995260.82,
-    "totalBusinessTillDate": 2362803.0
+    "totalBusinessTillDate": 2362803.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1637",
@@ -4592,7 +6022,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 107970.0,
-    "totalBusinessTillDate": 2442202.0
+    "totalBusinessTillDate": 2442202.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1645",
@@ -4608,7 +6043,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 2500168.66,
-    "totalBusinessTillDate": 2500169.0
+    "totalBusinessTillDate": 2500169.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1648",
@@ -4624,7 +6064,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 1908759.33,
-    "totalBusinessTillDate": 2507261.0
+    "totalBusinessTillDate": 2507261.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1650",
@@ -4640,7 +6085,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 862889.86,
-    "totalBusinessTillDate": 2517762.0
+    "totalBusinessTillDate": 2517762.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1653",
@@ -4656,7 +6106,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 533200.41,
-    "totalBusinessTillDate": 2533346.0
+    "totalBusinessTillDate": 2533346.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1662",
@@ -4672,7 +6127,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 473516.3,
-    "totalBusinessTillDate": 2589222.0
+    "totalBusinessTillDate": 2589222.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1664",
@@ -4688,7 +6148,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
     "businessLast3m": 445325.34,
-    "totalBusinessTillDate": 2622484.0
+    "totalBusinessTillDate": 2622484.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1666",
@@ -4704,7 +6169,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 208332.54,
-    "totalBusinessTillDate": 2644051.0
+    "totalBusinessTillDate": 2644051.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1667",
@@ -4720,7 +6190,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 1847789.53,
-    "totalBusinessTillDate": 2646490.0
+    "totalBusinessTillDate": 2646490.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1673",
@@ -4736,7 +6211,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
     "businessLast3m": 314293.0,
-    "totalBusinessTillDate": 2719174.0
+    "totalBusinessTillDate": 2719174.0,
+    "parentId": "jfll-1873",
+    "parentName": "Fantasy Cargo",
+    "groupTotalBusiness": 8335917.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Honorific (M/S) Alias"
   },
   {
     "id": "jfll-1674",
@@ -4752,7 +6232,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 1008138.9,
-    "totalBusinessTillDate": 2719413.0
+    "totalBusinessTillDate": 2719413.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1675",
@@ -4768,7 +6253,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 276340.66,
-    "totalBusinessTillDate": 2732859.0
+    "totalBusinessTillDate": 2732859.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1679",
@@ -4784,7 +6274,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate",
     "businessLast3m": 96938.18,
-    "totalBusinessTillDate": 2759259.0
+    "totalBusinessTillDate": 2759259.0,
+    "parentId": "jfll-2212",
+    "parentName": "CARGOSOL LOGISTICS LIMITED",
+    "groupTotalBusiness": 192962444.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Ltd Suffix Alias"
   },
   {
     "id": "jfll-1682",
@@ -4800,7 +6295,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 1186860.52,
-    "totalBusinessTillDate": 2799856.0
+    "totalBusinessTillDate": 2799856.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1691",
@@ -4816,7 +6316,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 920046.0,
-    "totalBusinessTillDate": 2843410.0
+    "totalBusinessTillDate": 2843410.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1694",
@@ -4832,7 +6337,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 77515.38,
-    "totalBusinessTillDate": 2885358.0
+    "totalBusinessTillDate": 2885358.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1695",
@@ -4848,7 +6358,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 302947.3,
-    "totalBusinessTillDate": 2889015.0
+    "totalBusinessTillDate": 2889015.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1701",
@@ -4864,7 +6379,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 28224.42,
-    "totalBusinessTillDate": 2931036.0
+    "totalBusinessTillDate": 2931036.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1702",
@@ -4880,7 +6400,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
     "businessLast3m": 2192987.52,
-    "totalBusinessTillDate": 2943149.0
+    "totalBusinessTillDate": 2943149.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1703",
@@ -4896,7 +6421,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 451506.94,
-    "totalBusinessTillDate": 2952764.0
+    "totalBusinessTillDate": 2952764.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1704",
@@ -4912,7 +6442,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 26520.0,
-    "totalBusinessTillDate": 2962083.0
+    "totalBusinessTillDate": 2962083.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1705",
@@ -4928,7 +6463,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 400861.34,
-    "totalBusinessTillDate": 3007278.0
+    "totalBusinessTillDate": 3007278.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1706",
@@ -4944,7 +6484,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 2351108.09,
-    "totalBusinessTillDate": 3027729.0
+    "totalBusinessTillDate": 3027729.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1707",
@@ -4960,7 +6505,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "AKASH MISHRA",
     "businessLast3m": 25800.7,
-    "totalBusinessTillDate": 3048189.0
+    "totalBusinessTillDate": 3048189.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1709",
@@ -4976,7 +6526,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 45382.8,
-    "totalBusinessTillDate": 3057004.0
+    "totalBusinessTillDate": 3057004.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1710",
@@ -4992,7 +6547,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 1417504.5,
-    "totalBusinessTillDate": 3078353.0
+    "totalBusinessTillDate": 3078353.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1711",
@@ -5008,7 +6568,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 55398.64,
-    "totalBusinessTillDate": 3079847.0
+    "totalBusinessTillDate": 3079847.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1712",
@@ -5024,7 +6589,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 1125578.4,
-    "totalBusinessTillDate": 3081653.0
+    "totalBusinessTillDate": 3081653.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1715",
@@ -5040,7 +6610,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 310862.15,
-    "totalBusinessTillDate": 3096517.0
+    "totalBusinessTillDate": 3096517.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1716",
@@ -5056,7 +6631,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 91529.66,
-    "totalBusinessTillDate": 3101336.0
+    "totalBusinessTillDate": 3101336.0,
+    "parentId": "jfll-1716",
+    "parentName": "TRANSMODAL MARINE LOGISTICS",
+    "groupTotalBusiness": 3183747.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1718",
@@ -5072,7 +6652,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 688424.98,
-    "totalBusinessTillDate": 3115283.0
+    "totalBusinessTillDate": 3115283.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1720",
@@ -5088,7 +6673,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 207579.7,
-    "totalBusinessTillDate": 3126760.0
+    "totalBusinessTillDate": 3126760.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1721",
@@ -5104,7 +6694,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 219311.26,
-    "totalBusinessTillDate": 3132945.0
+    "totalBusinessTillDate": 3132945.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1723",
@@ -5120,7 +6715,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 524939.52,
-    "totalBusinessTillDate": 3180021.0
+    "totalBusinessTillDate": 3180021.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1725",
@@ -5136,7 +6736,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 1469391.6,
-    "totalBusinessTillDate": 3184977.0
+    "totalBusinessTillDate": 3184977.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1726",
@@ -5152,7 +6757,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 823905.5,
-    "totalBusinessTillDate": 3213412.0
+    "totalBusinessTillDate": 3213412.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1727",
@@ -5168,7 +6778,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 238908.7,
-    "totalBusinessTillDate": 3231750.0
+    "totalBusinessTillDate": 3231750.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1728",
@@ -5184,7 +6799,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 378816.82,
-    "totalBusinessTillDate": 3234397.0
+    "totalBusinessTillDate": 3234397.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1729",
@@ -5200,7 +6820,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 11800.0,
-    "totalBusinessTillDate": 3243269.0
+    "totalBusinessTillDate": 3243269.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1731",
@@ -5216,7 +6841,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 474023.7,
-    "totalBusinessTillDate": 3260300.0
+    "totalBusinessTillDate": 3260300.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1732",
@@ -5232,7 +6862,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Arunendra Srivastava",
     "businessLast3m": 628693.01,
-    "totalBusinessTillDate": 3291726.0
+    "totalBusinessTillDate": 3291726.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1733",
@@ -5248,7 +6883,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 408369.95,
-    "totalBusinessTillDate": 3310535.0
+    "totalBusinessTillDate": 3310535.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1735",
@@ -5264,7 +6904,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 97100.0,
-    "totalBusinessTillDate": 3325930.0
+    "totalBusinessTillDate": 3325930.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1736",
@@ -5280,7 +6925,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 601219.08,
-    "totalBusinessTillDate": 3327730.0
+    "totalBusinessTillDate": 3327730.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1741",
@@ -5296,7 +6946,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Mr. P  Gowthamaraju",
     "businessLast3m": 2202154.39,
-    "totalBusinessTillDate": 3390836.0
+    "totalBusinessTillDate": 3390836.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1744",
@@ -5312,7 +6967,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 504757.98,
-    "totalBusinessTillDate": 3421768.0
+    "totalBusinessTillDate": 3421768.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1750",
@@ -5328,7 +6988,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 2246535.92,
-    "totalBusinessTillDate": 3506667.0
+    "totalBusinessTillDate": 3506667.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1751",
@@ -5344,7 +7009,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "ANCHITA MONI",
     "businessLast3m": 921580.0,
-    "totalBusinessTillDate": 3507578.0
+    "totalBusinessTillDate": 3507578.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1752",
@@ -5360,7 +7030,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 231895.96,
-    "totalBusinessTillDate": 3508636.0
+    "totalBusinessTillDate": 3508636.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1754",
@@ -5376,7 +7051,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 989876.23,
-    "totalBusinessTillDate": 3534040.0
+    "totalBusinessTillDate": 3534040.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1757",
@@ -5392,7 +7072,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
     "businessLast3m": 785346.31,
-    "totalBusinessTillDate": 3561227.0
+    "totalBusinessTillDate": 3561227.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1759",
@@ -5408,7 +7093,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 92500.2,
-    "totalBusinessTillDate": 3591811.0
+    "totalBusinessTillDate": 3591811.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1761",
@@ -5424,7 +7114,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 373868.35,
-    "totalBusinessTillDate": 3623671.0
+    "totalBusinessTillDate": 3623671.0,
+    "parentId": "jfll-1761",
+    "parentName": "S M EXPORTS AND IMPORTS",
+    "groupTotalBusiness": 3759072.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1763",
@@ -5440,7 +7135,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 1364746.7,
-    "totalBusinessTillDate": 3650302.0
+    "totalBusinessTillDate": 3650302.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1767",
@@ -5456,7 +7156,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 340811.14,
-    "totalBusinessTillDate": 3715107.0
+    "totalBusinessTillDate": 3715107.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1771",
@@ -5472,7 +7177,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 31206.28,
-    "totalBusinessTillDate": 3778017.0
+    "totalBusinessTillDate": 3778017.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1772",
@@ -5488,7 +7198,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 626013.6,
-    "totalBusinessTillDate": 3788234.0
+    "totalBusinessTillDate": 3788234.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1773",
@@ -5504,7 +7219,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 2495138.08,
-    "totalBusinessTillDate": 3790624.0
+    "totalBusinessTillDate": 3790624.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1778",
@@ -5520,7 +7240,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 404234.96,
-    "totalBusinessTillDate": 3851787.0
+    "totalBusinessTillDate": 3851787.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1781",
@@ -5536,7 +7261,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 1383075.64,
-    "totalBusinessTillDate": 3897758.0
+    "totalBusinessTillDate": 3897758.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1786",
@@ -5552,7 +7282,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 2181034.12,
-    "totalBusinessTillDate": 3961573.0
+    "totalBusinessTillDate": 3961573.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1787",
@@ -5568,7 +7303,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 475835.0,
-    "totalBusinessTillDate": 3977723.0
+    "totalBusinessTillDate": 3977723.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1792",
@@ -5584,7 +7324,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 125788.0,
-    "totalBusinessTillDate": 4067324.0
+    "totalBusinessTillDate": 4067324.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1794",
@@ -5600,7 +7345,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 135239.8,
-    "totalBusinessTillDate": 4081785.0
+    "totalBusinessTillDate": 4081785.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1799",
@@ -5616,7 +7366,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 867630.8,
-    "totalBusinessTillDate": 4188676.0
+    "totalBusinessTillDate": 4188676.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1800",
@@ -5632,7 +7387,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith K",
     "businessLast3m": 400732.5,
-    "totalBusinessTillDate": 4189400.0
+    "totalBusinessTillDate": 4189400.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1807",
@@ -5648,7 +7408,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 698676.82,
-    "totalBusinessTillDate": 4273582.0
+    "totalBusinessTillDate": 4273582.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1808",
@@ -5664,7 +7429,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
     "businessLast3m": 271002.34,
-    "totalBusinessTillDate": 4283455.0
+    "totalBusinessTillDate": 4283455.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1811",
@@ -5680,7 +7450,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 984204.96,
-    "totalBusinessTillDate": 4370201.0
+    "totalBusinessTillDate": 4370201.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1813",
@@ -5696,7 +7471,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 104981.06,
-    "totalBusinessTillDate": 4422326.0
+    "totalBusinessTillDate": 4422326.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1814",
@@ -5712,7 +7492,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 3282743.48,
-    "totalBusinessTillDate": 4424557.0
+    "totalBusinessTillDate": 4424557.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1815",
@@ -5728,7 +7513,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 1384505.8,
-    "totalBusinessTillDate": 4440682.0
+    "totalBusinessTillDate": 4440682.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1818",
@@ -5744,7 +7534,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "ANCHITA MONI",
     "businessLast3m": 1033573.8,
-    "totalBusinessTillDate": 4456633.0
+    "totalBusinessTillDate": 4456633.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1819",
@@ -5760,7 +7555,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 459863.7,
-    "totalBusinessTillDate": 4461102.0
+    "totalBusinessTillDate": 4461102.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1823",
@@ -5776,7 +7576,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 114955.6,
-    "totalBusinessTillDate": 4541371.0
+    "totalBusinessTillDate": 4541371.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1827",
@@ -5792,7 +7597,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 1524904.8,
-    "totalBusinessTillDate": 4581987.0
+    "totalBusinessTillDate": 4581987.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1828",
@@ -5808,7 +7618,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 155787.14,
-    "totalBusinessTillDate": 4582917.0
+    "totalBusinessTillDate": 4582917.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1829",
@@ -5824,7 +7639,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 767321.3,
-    "totalBusinessTillDate": 4591956.0
+    "totalBusinessTillDate": 4591956.0,
+    "parentId": "jfll-1829",
+    "parentName": "ALOK INDUSTRIES",
+    "groupTotalBusiness": 4636336.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1830",
@@ -5840,7 +7660,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Shivam Chauhan",
     "businessLast3m": 589593.84,
-    "totalBusinessTillDate": 4661095.0
+    "totalBusinessTillDate": 4661095.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1831",
@@ -5856,7 +7681,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ashrith Kumar Kovver",
     "businessLast3m": 1561931.78,
-    "totalBusinessTillDate": 4666238.0
+    "totalBusinessTillDate": 4666238.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1832",
@@ -5872,7 +7702,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 2173175.42,
-    "totalBusinessTillDate": 4670708.0
+    "totalBusinessTillDate": 4670708.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1834",
@@ -5888,7 +7723,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 2012401.5,
-    "totalBusinessTillDate": 4688137.0
+    "totalBusinessTillDate": 4688137.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1835",
@@ -5904,7 +7744,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 1179098.12,
-    "totalBusinessTillDate": 4712702.0
+    "totalBusinessTillDate": 4712702.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1840",
@@ -5920,7 +7765,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 543222.44,
-    "totalBusinessTillDate": 4804871.0
+    "totalBusinessTillDate": 4804871.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1841",
@@ -5936,7 +7786,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 627931.94,
-    "totalBusinessTillDate": 4817153.0
+    "totalBusinessTillDate": 4817153.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1844",
@@ -5952,7 +7807,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 194774.34,
-    "totalBusinessTillDate": 4865021.0
+    "totalBusinessTillDate": 4865021.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1846",
@@ -5968,7 +7828,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 3351774.66,
-    "totalBusinessTillDate": 4884696.0
+    "totalBusinessTillDate": 4884696.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1848",
@@ -5984,7 +7849,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 7105.0,
-    "totalBusinessTillDate": 4925522.0
+    "totalBusinessTillDate": 4925522.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1849",
@@ -6000,7 +7870,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 673620.37,
-    "totalBusinessTillDate": 4945617.0
+    "totalBusinessTillDate": 4945617.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1850",
@@ -6016,7 +7891,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 470713.8,
-    "totalBusinessTillDate": 5004906.0
+    "totalBusinessTillDate": 5004906.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1851",
@@ -6032,7 +7912,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 1990674.16,
-    "totalBusinessTillDate": 5039716.0
+    "totalBusinessTillDate": 5039716.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1852",
@@ -6048,7 +7933,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Arunendra Srivastava",
     "businessLast3m": 711729.05,
-    "totalBusinessTillDate": 5061979.0
+    "totalBusinessTillDate": 5061979.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1854",
@@ -6064,7 +7954,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Rahul Vasawa",
     "businessLast3m": 36812.63,
-    "totalBusinessTillDate": 5084023.0
+    "totalBusinessTillDate": 5084023.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1855",
@@ -6080,7 +7975,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 1797708.76,
-    "totalBusinessTillDate": 5088215.0
+    "totalBusinessTillDate": 5088215.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1858",
@@ -6096,7 +7996,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 741958.04,
-    "totalBusinessTillDate": 5112852.0
+    "totalBusinessTillDate": 5112852.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1862",
@@ -6112,7 +8017,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 1278862.76,
-    "totalBusinessTillDate": 5180726.0
+    "totalBusinessTillDate": 5180726.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1866",
@@ -6128,7 +8038,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 161478.28,
-    "totalBusinessTillDate": 5305538.0
+    "totalBusinessTillDate": 5305538.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1867",
@@ -6144,7 +8059,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 3523.49,
-    "totalBusinessTillDate": 5356337.0
+    "totalBusinessTillDate": 5356337.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1869",
@@ -6160,7 +8080,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 1415453.66,
-    "totalBusinessTillDate": 5454864.0
+    "totalBusinessTillDate": 5454864.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1870",
@@ -6176,7 +8101,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 86944.56,
-    "totalBusinessTillDate": 5490642.0
+    "totalBusinessTillDate": 5490642.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1873",
@@ -6192,7 +8122,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
     "businessLast3m": 314293.0,
-    "totalBusinessTillDate": 5616743.0
+    "totalBusinessTillDate": 5616743.0,
+    "parentId": "jfll-1873",
+    "parentName": "Fantasy Cargo",
+    "groupTotalBusiness": 8335917.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1875",
@@ -6208,7 +8143,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 2186212.56,
-    "totalBusinessTillDate": 5651303.0
+    "totalBusinessTillDate": 5651303.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1876",
@@ -6224,7 +8164,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 873808.88,
-    "totalBusinessTillDate": 5710109.0
+    "totalBusinessTillDate": 5710109.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1878",
@@ -6240,7 +8185,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 3090547.43,
-    "totalBusinessTillDate": 5786483.0
+    "totalBusinessTillDate": 5786483.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1879",
@@ -6256,7 +8206,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 362491.28,
-    "totalBusinessTillDate": 5790902.0
+    "totalBusinessTillDate": 5790902.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1880",
@@ -6272,7 +8227,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 338649.38,
-    "totalBusinessTillDate": 5817552.0
+    "totalBusinessTillDate": 5817552.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1882",
@@ -6288,7 +8248,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 972967.21,
-    "totalBusinessTillDate": 5842858.0
+    "totalBusinessTillDate": 5842858.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1884",
@@ -6304,7 +8269,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 5566501.32,
-    "totalBusinessTillDate": 5884494.0
+    "totalBusinessTillDate": 5884494.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1887",
@@ -6320,7 +8290,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 2223129.44,
-    "totalBusinessTillDate": 5915308.0
+    "totalBusinessTillDate": 5915308.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1888",
@@ -6336,7 +8311,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 514772.64,
-    "totalBusinessTillDate": 5923549.0
+    "totalBusinessTillDate": 5923549.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1891",
@@ -6352,7 +8332,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 445450.0,
-    "totalBusinessTillDate": 6008033.0
+    "totalBusinessTillDate": 6008033.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1893",
@@ -6368,7 +8353,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 1643588.96,
-    "totalBusinessTillDate": 6052620.0
+    "totalBusinessTillDate": 6052620.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1895",
@@ -6384,7 +8374,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Arunendra Srivastava",
     "businessLast3m": 3486219.05,
-    "totalBusinessTillDate": 6083415.0
+    "totalBusinessTillDate": 6083415.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1898",
@@ -6400,7 +8395,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 124115.94,
-    "totalBusinessTillDate": 6143855.0
+    "totalBusinessTillDate": 6143855.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1901",
@@ -6416,7 +8416,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 3724005.08,
-    "totalBusinessTillDate": 6174607.0
+    "totalBusinessTillDate": 6174607.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1904",
@@ -6432,7 +8437,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 90034.0,
-    "totalBusinessTillDate": 6257873.0
+    "totalBusinessTillDate": 6257873.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1905",
@@ -6448,7 +8458,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 1684638.8,
-    "totalBusinessTillDate": 6273204.0
+    "totalBusinessTillDate": 6273204.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1907",
@@ -6464,7 +8479,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 305467.78,
-    "totalBusinessTillDate": 6365113.0
+    "totalBusinessTillDate": 6365113.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1911",
@@ -6480,7 +8500,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 343341.06,
-    "totalBusinessTillDate": 6585347.0
+    "totalBusinessTillDate": 6585347.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1914",
@@ -6496,7 +8521,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 8421.86,
-    "totalBusinessTillDate": 6652697.0
+    "totalBusinessTillDate": 6652697.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1915",
@@ -6512,7 +8542,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 1598947.2,
-    "totalBusinessTillDate": 6682392.0
+    "totalBusinessTillDate": 6682392.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1917",
@@ -6528,7 +8563,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 5993569.91,
-    "totalBusinessTillDate": 6735572.0
+    "totalBusinessTillDate": 6735572.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1919",
@@ -6544,7 +8584,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 1610757.82,
-    "totalBusinessTillDate": 6750156.0
+    "totalBusinessTillDate": 6750156.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1920",
@@ -6560,7 +8605,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 43506.59,
-    "totalBusinessTillDate": 6759923.0
+    "totalBusinessTillDate": 6759923.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1922",
@@ -6576,7 +8626,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 1897816.42,
-    "totalBusinessTillDate": 6803240.0
+    "totalBusinessTillDate": 6803240.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1923",
@@ -6592,7 +8647,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 14160.0,
-    "totalBusinessTillDate": 6858478.0
+    "totalBusinessTillDate": 6858478.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1927",
@@ -6608,7 +8668,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
     "businessLast3m": 492466.52,
-    "totalBusinessTillDate": 6928670.0
+    "totalBusinessTillDate": 6928670.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1928",
@@ -6624,7 +8689,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 1110855.8,
-    "totalBusinessTillDate": 6948022.0
+    "totalBusinessTillDate": 6948022.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1929",
@@ -6640,7 +8710,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 175090.76,
-    "totalBusinessTillDate": 7009655.0
+    "totalBusinessTillDate": 7009655.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1935",
@@ -6656,7 +8731,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 793823.76,
-    "totalBusinessTillDate": 7331083.0
+    "totalBusinessTillDate": 7331083.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1936",
@@ -6672,7 +8752,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 760455.04,
-    "totalBusinessTillDate": 7348980.0
+    "totalBusinessTillDate": 7348980.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1937",
@@ -6688,7 +8773,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 311567.06,
-    "totalBusinessTillDate": 7413313.0
+    "totalBusinessTillDate": 7413313.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1938",
@@ -6704,7 +8794,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 108502.73,
-    "totalBusinessTillDate": 7421766.0
+    "totalBusinessTillDate": 7421766.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1939",
@@ -6720,7 +8815,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 419709.48,
-    "totalBusinessTillDate": 7437445.0
+    "totalBusinessTillDate": 7437445.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1941",
@@ -6736,7 +8836,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 1345006.52,
-    "totalBusinessTillDate": 7601998.0
+    "totalBusinessTillDate": 7601998.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1943",
@@ -6752,7 +8857,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 4178.44,
-    "totalBusinessTillDate": 7648115.0
+    "totalBusinessTillDate": 7648115.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1946",
@@ -6768,7 +8878,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 1902373.84,
-    "totalBusinessTillDate": 7753610.0
+    "totalBusinessTillDate": 7753610.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1948",
@@ -6784,7 +8899,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 1361580.78,
-    "totalBusinessTillDate": 7787796.0
+    "totalBusinessTillDate": 7787796.0,
+    "parentId": "jfll-2178",
+    "parentName": "SHIPROCKET LIMITED",
+    "groupTotalBusiness": 57978058.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Pvt Ltd Alias"
   },
   {
     "id": "jfll-1949",
@@ -6800,7 +8920,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 316541.27,
-    "totalBusinessTillDate": 7798687.0
+    "totalBusinessTillDate": 7798687.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1950",
@@ -6816,7 +8941,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 3141867.53,
-    "totalBusinessTillDate": 7880749.0
+    "totalBusinessTillDate": 7880749.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1951",
@@ -6832,7 +8962,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 2437.88,
-    "totalBusinessTillDate": 7937731.0
+    "totalBusinessTillDate": 7937731.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1960",
@@ -6848,7 +8983,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 3689662.94,
-    "totalBusinessTillDate": 8127294.0
+    "totalBusinessTillDate": 8127294.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1961",
@@ -6864,7 +9004,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 296446.68,
-    "totalBusinessTillDate": 8223912.0
+    "totalBusinessTillDate": 8223912.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1962",
@@ -6880,7 +9025,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 3796864.0,
-    "totalBusinessTillDate": 8225248.0
+    "totalBusinessTillDate": 8225248.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1964",
@@ -6896,7 +9046,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 170344.8,
-    "totalBusinessTillDate": 8331987.0
+    "totalBusinessTillDate": 8331987.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1965",
@@ -6912,7 +9067,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 8345184.2,
-    "totalBusinessTillDate": 8345184.0
+    "totalBusinessTillDate": 8345184.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1966",
@@ -6928,7 +9088,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 90993.1,
-    "totalBusinessTillDate": 8370486.0
+    "totalBusinessTillDate": 8370486.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1968",
@@ -6944,7 +9109,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 647849.5,
-    "totalBusinessTillDate": 8448717.0
+    "totalBusinessTillDate": 8448717.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1969",
@@ -6960,7 +9130,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 544918.1,
-    "totalBusinessTillDate": 8500071.0
+    "totalBusinessTillDate": 8500071.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1970",
@@ -6976,7 +9151,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 1551383.76,
-    "totalBusinessTillDate": 8521782.0
+    "totalBusinessTillDate": 8521782.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1972",
@@ -6992,7 +9172,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 854440.36,
-    "totalBusinessTillDate": 8612203.0
+    "totalBusinessTillDate": 8612203.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1973",
@@ -7008,7 +9193,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 368652.24,
-    "totalBusinessTillDate": 8632948.0
+    "totalBusinessTillDate": 8632948.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1975",
@@ -7024,7 +9214,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 2233653.86,
-    "totalBusinessTillDate": 8684404.0
+    "totalBusinessTillDate": 8684404.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1976",
@@ -7040,7 +9235,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Hyderabad",
     "businessLast3m": 947325.24,
-    "totalBusinessTillDate": 8747182.0
+    "totalBusinessTillDate": 8747182.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1978",
@@ -7056,7 +9256,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
     "businessLast3m": 1384570.56,
-    "totalBusinessTillDate": 8892478.0
+    "totalBusinessTillDate": 8892478.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1980",
@@ -7072,7 +9277,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 3565470.3,
-    "totalBusinessTillDate": 8976291.0
+    "totalBusinessTillDate": 8976291.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1981",
@@ -7088,7 +9298,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 965280.12,
-    "totalBusinessTillDate": 9046533.0
+    "totalBusinessTillDate": 9046533.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1983",
@@ -7104,7 +9319,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 1864767.92,
-    "totalBusinessTillDate": 9077831.0
+    "totalBusinessTillDate": 9077831.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1984",
@@ -7120,7 +9340,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 1757125.02,
-    "totalBusinessTillDate": 9166012.0
+    "totalBusinessTillDate": 9166012.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1987",
@@ -7136,7 +9361,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 3348909.59,
-    "totalBusinessTillDate": 9308599.0
+    "totalBusinessTillDate": 9308599.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1990",
@@ -7152,7 +9382,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 396305.36,
-    "totalBusinessTillDate": 9356201.0
+    "totalBusinessTillDate": 9356201.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1991",
@@ -7168,7 +9403,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate- Tasneem Haji",
     "businessLast3m": 1935277.88,
-    "totalBusinessTillDate": 9410299.0
+    "totalBusinessTillDate": 9410299.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1992",
@@ -7184,7 +9424,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 195287.64,
-    "totalBusinessTillDate": 9476174.0
+    "totalBusinessTillDate": 9476174.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1996",
@@ -7200,7 +9445,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 7534.3,
-    "totalBusinessTillDate": 9929695.0
+    "totalBusinessTillDate": 9929695.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-1998",
@@ -7216,7 +9466,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 5274476.1,
-    "totalBusinessTillDate": 9953456.0
+    "totalBusinessTillDate": 9953456.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2001",
@@ -7232,7 +9487,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "TANMOY DAS",
     "businessLast3m": 316527.24,
-    "totalBusinessTillDate": 9977480.0
+    "totalBusinessTillDate": 9977480.0,
+    "parentId": "jfll-2001",
+    "parentName": "AVAADA ELECTRO PRIVATE LIMITED",
+    "groupTotalBusiness": 11205827.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2003",
@@ -7248,7 +9508,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 6912120.51,
-    "totalBusinessTillDate": 10127858.0
+    "totalBusinessTillDate": 10127858.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2006",
@@ -7264,7 +9529,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
     "businessLast3m": 1359228.63,
-    "totalBusinessTillDate": 10178841.0
+    "totalBusinessTillDate": 10178841.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2008",
@@ -7280,7 +9550,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 1823722.0,
-    "totalBusinessTillDate": 10265795.0
+    "totalBusinessTillDate": 10265795.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2009",
@@ -7296,7 +9571,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rahul Vasawa",
     "businessLast3m": 7559467.04,
-    "totalBusinessTillDate": 10276157.0
+    "totalBusinessTillDate": 10276157.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2010",
@@ -7312,7 +9592,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 67610.46,
-    "totalBusinessTillDate": 10334325.0
+    "totalBusinessTillDate": 10334325.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2011",
@@ -7328,7 +9613,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 1315919.98,
-    "totalBusinessTillDate": 10354090.0
+    "totalBusinessTillDate": 10354090.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2012",
@@ -7344,7 +9634,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 1581236.4,
-    "totalBusinessTillDate": 10378461.0
+    "totalBusinessTillDate": 10378461.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2014",
@@ -7360,7 +9655,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
     "businessLast3m": 931114.76,
-    "totalBusinessTillDate": 10412306.0
+    "totalBusinessTillDate": 10412306.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2018",
@@ -7376,7 +9676,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 268503.1,
-    "totalBusinessTillDate": 10799030.0
+    "totalBusinessTillDate": 10799030.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2019",
@@ -7392,7 +9697,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 650856.14,
-    "totalBusinessTillDate": 10808330.0
+    "totalBusinessTillDate": 10808330.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2020",
@@ -7408,7 +9718,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 1047597.99,
-    "totalBusinessTillDate": 10955214.0
+    "totalBusinessTillDate": 10955214.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2022",
@@ -7424,7 +9739,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 1650583.13,
-    "totalBusinessTillDate": 11081303.0
+    "totalBusinessTillDate": 11081303.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2023",
@@ -7440,7 +9760,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 1964994.42,
-    "totalBusinessTillDate": 11166517.0
+    "totalBusinessTillDate": 11166517.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2024",
@@ -7456,7 +9781,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 2544565.57,
-    "totalBusinessTillDate": 11181807.0
+    "totalBusinessTillDate": 11181807.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2025",
@@ -7472,7 +9802,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 1712130.46,
-    "totalBusinessTillDate": 11320839.0
+    "totalBusinessTillDate": 11320839.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2026",
@@ -7488,7 +9823,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Rushabh Mehta",
     "businessLast3m": 6972766.52,
-    "totalBusinessTillDate": 11342394.0
+    "totalBusinessTillDate": 11342394.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2030",
@@ -7504,7 +9844,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 7552120.36,
-    "totalBusinessTillDate": 11813131.0
+    "totalBusinessTillDate": 11813131.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2032",
@@ -7520,7 +9865,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 2185329.92,
-    "totalBusinessTillDate": 11998297.0
+    "totalBusinessTillDate": 11998297.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2034",
@@ -7536,7 +9886,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 133887.52,
-    "totalBusinessTillDate": 12332786.0
+    "totalBusinessTillDate": 12332786.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2037",
@@ -7552,7 +9907,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 316440.6,
-    "totalBusinessTillDate": 12640397.0
+    "totalBusinessTillDate": 12640397.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2040",
@@ -7568,7 +9928,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
     "businessLast3m": 751345.98,
-    "totalBusinessTillDate": 12908077.0
+    "totalBusinessTillDate": 12908077.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2043",
@@ -7584,7 +9949,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 3672940.45,
-    "totalBusinessTillDate": 13176139.0
+    "totalBusinessTillDate": 13176139.0,
+    "parentId": "jfll-2153",
+    "parentName": "SADHI LOGISTICS PRIVATE LIMITED",
+    "groupTotalBusiness": 46481597.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Branch / Entity Alias"
   },
   {
     "id": "jfll-2044",
@@ -7600,7 +9970,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 834322.84,
-    "totalBusinessTillDate": 13301121.0
+    "totalBusinessTillDate": 13301121.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2047",
@@ -7616,7 +9991,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 810038.14,
-    "totalBusinessTillDate": 13571015.0
+    "totalBusinessTillDate": 13571015.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2048",
@@ -7632,7 +10012,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 2802557.6,
-    "totalBusinessTillDate": 13603620.0
+    "totalBusinessTillDate": 13603620.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2050",
@@ -7648,7 +10033,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Rahul Vasawa",
     "businessLast3m": 6525941.62,
-    "totalBusinessTillDate": 13774636.0
+    "totalBusinessTillDate": 13774636.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2052",
@@ -7664,7 +10054,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 344683.9,
-    "totalBusinessTillDate": 13871341.0
+    "totalBusinessTillDate": 13871341.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2053",
@@ -7680,7 +10075,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 1712898.62,
-    "totalBusinessTillDate": 13879859.0
+    "totalBusinessTillDate": 13879859.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2056",
@@ -7696,7 +10096,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 1656315.61,
-    "totalBusinessTillDate": 13994832.0
+    "totalBusinessTillDate": 13994832.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2059",
@@ -7712,7 +10117,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 2520929.94,
-    "totalBusinessTillDate": 14404098.0
+    "totalBusinessTillDate": 14404098.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2060",
@@ -7728,7 +10138,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 4701145.38,
-    "totalBusinessTillDate": 14566965.0
+    "totalBusinessTillDate": 14566965.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2061",
@@ -7744,7 +10159,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 1100812.56,
-    "totalBusinessTillDate": 14607577.0
+    "totalBusinessTillDate": 14607577.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2062",
@@ -7760,7 +10180,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 4575287.16,
-    "totalBusinessTillDate": 14678731.0
+    "totalBusinessTillDate": 14678731.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2063",
@@ -7776,7 +10201,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 7177684.65,
-    "totalBusinessTillDate": 14871963.0
+    "totalBusinessTillDate": 14871963.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2064",
@@ -7792,7 +10222,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
     "businessLast3m": 1105675.8,
-    "totalBusinessTillDate": 14974022.0
+    "totalBusinessTillDate": 14974022.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2066",
@@ -7808,7 +10243,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 260332.78,
-    "totalBusinessTillDate": 15223523.0
+    "totalBusinessTillDate": 15223523.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2067",
@@ -7824,7 +10264,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "ANCHITA MONI",
     "businessLast3m": 2400686.4,
-    "totalBusinessTillDate": 15562853.0
+    "totalBusinessTillDate": 15562853.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2068",
@@ -7840,7 +10285,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 226395.98,
-    "totalBusinessTillDate": 15786436.0
+    "totalBusinessTillDate": 15786436.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2069",
@@ -7856,7 +10306,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "VISHAL LACHHIRAMANI",
     "businessLast3m": 1867215.82,
-    "totalBusinessTillDate": 15793192.0
+    "totalBusinessTillDate": 15793192.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2071",
@@ -7872,7 +10327,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 12625122.08,
-    "totalBusinessTillDate": 16162174.0
+    "totalBusinessTillDate": 16162174.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2072",
@@ -7888,7 +10348,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 1181614.24,
-    "totalBusinessTillDate": 16234129.0
+    "totalBusinessTillDate": 16234129.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2073",
@@ -7904,7 +10369,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 6055154.08,
-    "totalBusinessTillDate": 16360608.0
+    "totalBusinessTillDate": 16360608.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2077",
@@ -7920,7 +10390,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 2929846.78,
-    "totalBusinessTillDate": 17207111.0
+    "totalBusinessTillDate": 17207111.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2078",
@@ -7936,7 +10411,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 655137.18,
-    "totalBusinessTillDate": 17367360.0
+    "totalBusinessTillDate": 17367360.0,
+    "parentId": "jfll-2078",
+    "parentName": "M/S. DEVDAS SEA FOODS",
+    "groupTotalBusiness": 18626195.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2080",
@@ -7952,7 +10432,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 3851541.77,
-    "totalBusinessTillDate": 17556187.0
+    "totalBusinessTillDate": 17556187.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2081",
@@ -7968,7 +10453,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 4132536.23,
-    "totalBusinessTillDate": 17656655.0
+    "totalBusinessTillDate": 17656655.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2082",
@@ -7984,7 +10474,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 10821506.24,
-    "totalBusinessTillDate": 17736100.0
+    "totalBusinessTillDate": 17736100.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2084",
@@ -8000,7 +10495,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 143433.72,
-    "totalBusinessTillDate": 17939748.0
+    "totalBusinessTillDate": 17939748.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2085",
@@ -8016,7 +10516,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Ranjith K",
     "businessLast3m": 17837813.38,
-    "totalBusinessTillDate": 17952987.0
+    "totalBusinessTillDate": 17952987.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2086",
@@ -8032,7 +10537,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 2002629.92,
-    "totalBusinessTillDate": 18055760.0
+    "totalBusinessTillDate": 18055760.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2087",
@@ -8048,7 +10558,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 674773.86,
-    "totalBusinessTillDate": 18083534.0
+    "totalBusinessTillDate": 18083534.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2088",
@@ -8064,7 +10579,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 326087.1,
-    "totalBusinessTillDate": 18174753.0
+    "totalBusinessTillDate": 18174753.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2089",
@@ -8080,7 +10600,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 4665991.32,
-    "totalBusinessTillDate": 18275430.0
+    "totalBusinessTillDate": 18275430.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2090",
@@ -8096,7 +10621,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 3074996.22,
-    "totalBusinessTillDate": 18298614.0
+    "totalBusinessTillDate": 18298614.0,
+    "parentId": "jfll-2090",
+    "parentName": "MS LOGISTICS PRIVATE LIMITED",
+    "groupTotalBusiness": 18585352.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2093",
@@ -8112,7 +10642,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 352534.44,
-    "totalBusinessTillDate": 18536999.0
+    "totalBusinessTillDate": 18536999.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2095",
@@ -8128,7 +10663,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 370095.2,
-    "totalBusinessTillDate": 18745650.0
+    "totalBusinessTillDate": 18745650.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2097",
@@ -8144,7 +10684,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 562888.32,
-    "totalBusinessTillDate": 19188382.0
+    "totalBusinessTillDate": 19188382.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2099",
@@ -8160,7 +10705,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 3726345.6,
-    "totalBusinessTillDate": 19794732.0
+    "totalBusinessTillDate": 19794732.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2100",
@@ -8176,7 +10726,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate- Tasneem Haji",
     "businessLast3m": 2028732.7,
-    "totalBusinessTillDate": 19803045.0
+    "totalBusinessTillDate": 19803045.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2102",
@@ -8192,7 +10747,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Samuel Prabhu",
     "businessLast3m": 5619099.73,
-    "totalBusinessTillDate": 19902505.0
+    "totalBusinessTillDate": 19902505.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2104",
@@ -8208,7 +10768,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
     "businessLast3m": 99145.35,
-    "totalBusinessTillDate": 20963108.0
+    "totalBusinessTillDate": 20963108.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2105",
@@ -8224,7 +10789,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 347276.36,
-    "totalBusinessTillDate": 21021281.0
+    "totalBusinessTillDate": 21021281.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2106",
@@ -8240,7 +10810,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 7068001.76,
-    "totalBusinessTillDate": 21387527.0
+    "totalBusinessTillDate": 21387527.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2108",
@@ -8256,7 +10831,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 2038343.8,
-    "totalBusinessTillDate": 22129802.0
+    "totalBusinessTillDate": 22129802.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2111",
@@ -8272,7 +10852,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 1058723.14,
-    "totalBusinessTillDate": 22851651.0
+    "totalBusinessTillDate": 22851651.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2112",
@@ -8288,7 +10873,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 5284547.4,
-    "totalBusinessTillDate": 22905763.0
+    "totalBusinessTillDate": 22905763.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2116",
@@ -8304,7 +10894,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 6499900.32,
-    "totalBusinessTillDate": 23981484.0
+    "totalBusinessTillDate": 23981484.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2120",
@@ -8320,7 +10915,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 2621554.08,
-    "totalBusinessTillDate": 25060667.0
+    "totalBusinessTillDate": 25060667.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2121",
@@ -8336,7 +10936,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 2753446.22,
-    "totalBusinessTillDate": 25174009.0
+    "totalBusinessTillDate": 25174009.0,
+    "parentId": "jfll-2121",
+    "parentName": "INEXT LOGISTICS & SUPPLY CHAIN PRIVATE LIMITED",
+    "groupTotalBusiness": 115356156.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2122",
@@ -8352,7 +10957,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 793577.14,
-    "totalBusinessTillDate": 25318349.0
+    "totalBusinessTillDate": 25318349.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2125",
@@ -8368,7 +10978,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 2735117.9,
-    "totalBusinessTillDate": 26015158.0
+    "totalBusinessTillDate": 26015158.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2126",
@@ -8384,7 +10999,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Vaibhav Shah",
     "businessLast3m": 22987676.76,
-    "totalBusinessTillDate": 26337019.0
+    "totalBusinessTillDate": 26337019.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2135",
@@ -8400,7 +11020,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 4081759.24,
-    "totalBusinessTillDate": 27994789.0
+    "totalBusinessTillDate": 27994789.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2136",
@@ -8416,7 +11041,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "high_risk",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 2291043.59,
-    "totalBusinessTillDate": 28634150.0
+    "totalBusinessTillDate": 28634150.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2137",
@@ -8432,7 +11062,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 658638.24,
-    "totalBusinessTillDate": 28757052.0
+    "totalBusinessTillDate": 28757052.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2138",
@@ -8448,7 +11083,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Richard Theknath",
     "businessLast3m": 7582344.52,
-    "totalBusinessTillDate": 29693566.0
+    "totalBusinessTillDate": 29693566.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2140",
@@ -8464,7 +11104,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 3213614.0,
-    "totalBusinessTillDate": 30290708.0
+    "totalBusinessTillDate": 30290708.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2141",
@@ -8480,7 +11125,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 4139393.98,
-    "totalBusinessTillDate": 30343769.0
+    "totalBusinessTillDate": 30343769.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2143",
@@ -8496,7 +11146,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 31100.08,
-    "totalBusinessTillDate": 30451858.0
+    "totalBusinessTillDate": 30451858.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2145",
@@ -8512,7 +11167,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 209868.9,
-    "totalBusinessTillDate": 31322547.0
+    "totalBusinessTillDate": 31322547.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2146",
@@ -8528,7 +11188,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 693370.36,
-    "totalBusinessTillDate": 31384195.0
+    "totalBusinessTillDate": 31384195.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2147",
@@ -8544,7 +11209,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 6762724.97,
-    "totalBusinessTillDate": 31745427.0
+    "totalBusinessTillDate": 31745427.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2151",
@@ -8560,7 +11230,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 15542852.61,
-    "totalBusinessTillDate": 33080761.0
+    "totalBusinessTillDate": 33080761.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2152",
@@ -8576,7 +11251,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 880348.44,
-    "totalBusinessTillDate": 33218767.0
+    "totalBusinessTillDate": 33218767.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2153",
@@ -8592,7 +11272,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 3672940.45,
-    "totalBusinessTillDate": 33305458.0
+    "totalBusinessTillDate": 33305458.0,
+    "parentId": "jfll-2153",
+    "parentName": "SADHI LOGISTICS PRIVATE LIMITED",
+    "groupTotalBusiness": 46481597.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2154",
@@ -8608,7 +11293,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
     "businessLast3m": 16724620.09,
-    "totalBusinessTillDate": 33508229.0
+    "totalBusinessTillDate": 33508229.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2156",
@@ -8624,7 +11314,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
     "businessLast3m": 6445446.62,
-    "totalBusinessTillDate": 36182565.0
+    "totalBusinessTillDate": 36182565.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2157",
@@ -8640,7 +11335,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 420708.32,
-    "totalBusinessTillDate": 37243273.0
+    "totalBusinessTillDate": 37243273.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2160",
@@ -8656,7 +11356,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 5052632.65,
-    "totalBusinessTillDate": 39471280.0
+    "totalBusinessTillDate": 39471280.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2161",
@@ -8672,7 +11377,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
     "businessLast3m": 1507628.16,
-    "totalBusinessTillDate": 39556528.0
+    "totalBusinessTillDate": 39556528.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2162",
@@ -8688,7 +11398,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 138942.64,
-    "totalBusinessTillDate": 39707680.0
+    "totalBusinessTillDate": 39707680.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2165",
@@ -8704,7 +11419,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 345253.74,
-    "totalBusinessTillDate": 41313259.0
+    "totalBusinessTillDate": 41313259.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2166",
@@ -8720,7 +11440,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 66560.26,
-    "totalBusinessTillDate": 41659952.0
+    "totalBusinessTillDate": 41659952.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2167",
@@ -8736,7 +11461,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 3258095.05,
-    "totalBusinessTillDate": 41722552.0
+    "totalBusinessTillDate": 41722552.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2169",
@@ -8752,7 +11482,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
     "businessLast3m": 2697796.24,
-    "totalBusinessTillDate": 43999771.0
+    "totalBusinessTillDate": 43999771.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2170",
@@ -8768,7 +11503,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 12813370.65,
-    "totalBusinessTillDate": 45653263.0
+    "totalBusinessTillDate": 45653263.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2172",
@@ -8784,7 +11524,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Shabeer A",
     "businessLast3m": 2190192.34,
-    "totalBusinessTillDate": 46100216.0
+    "totalBusinessTillDate": 46100216.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2174",
@@ -8800,7 +11545,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 7230963.94,
-    "totalBusinessTillDate": 47807445.0
+    "totalBusinessTillDate": 47807445.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2175",
@@ -8816,7 +11566,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 2225560.57,
-    "totalBusinessTillDate": 49161529.0
+    "totalBusinessTillDate": 49161529.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2177",
@@ -8832,7 +11587,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
     "businessLast3m": 7155656.29,
-    "totalBusinessTillDate": 50146467.0
+    "totalBusinessTillDate": 50146467.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2178",
@@ -8848,7 +11608,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 1361580.78,
-    "totalBusinessTillDate": 50190262.0
+    "totalBusinessTillDate": 50190262.0,
+    "parentId": "jfll-2178",
+    "parentName": "SHIPROCKET LIMITED",
+    "groupTotalBusiness": 57978058.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2179",
@@ -8864,7 +11629,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Rahul Vasawa",
     "businessLast3m": 28616482.08,
-    "totalBusinessTillDate": 50657610.0
+    "totalBusinessTillDate": 50657610.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2180",
@@ -8880,7 +11650,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate Hyderabad",
     "businessLast3m": 15600686.78,
-    "totalBusinessTillDate": 51146903.0
+    "totalBusinessTillDate": 51146903.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2181",
@@ -8896,7 +11671,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 18924272.42,
-    "totalBusinessTillDate": 53240716.0
+    "totalBusinessTillDate": 53240716.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2183",
@@ -8912,7 +11692,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 22432721.66,
-    "totalBusinessTillDate": 55134895.0
+    "totalBusinessTillDate": 55134895.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2186",
@@ -8928,7 +11713,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 7067400.55,
-    "totalBusinessTillDate": 57923933.0
+    "totalBusinessTillDate": 57923933.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2190",
@@ -8944,7 +11734,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 7407804.0,
-    "totalBusinessTillDate": 60906239.0
+    "totalBusinessTillDate": 60906239.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2191",
@@ -8960,7 +11755,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 818905.84,
-    "totalBusinessTillDate": 61252049.0
+    "totalBusinessTillDate": 61252049.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2193",
@@ -8976,7 +11776,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
     "businessLast3m": 21698235.82,
-    "totalBusinessTillDate": 66670617.0
+    "totalBusinessTillDate": 66670617.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2194",
@@ -8992,7 +11797,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Tasneem Haji",
     "businessLast3m": 12127075.02,
-    "totalBusinessTillDate": 67065912.0
+    "totalBusinessTillDate": 67065912.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2195",
@@ -9008,7 +11818,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 29287522.84,
-    "totalBusinessTillDate": 68667703.0
+    "totalBusinessTillDate": 68667703.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2196",
@@ -9024,7 +11839,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Rushabh Mehta",
     "businessLast3m": 4170122.98,
-    "totalBusinessTillDate": 74543668.0
+    "totalBusinessTillDate": 74543668.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2197",
@@ -9040,7 +11860,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 1172279.26,
-    "totalBusinessTillDate": 75139601.0
+    "totalBusinessTillDate": 75139601.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2198",
@@ -9056,7 +11881,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 8092841.2,
-    "totalBusinessTillDate": 78019583.0
+    "totalBusinessTillDate": 78019583.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2199",
@@ -9072,7 +11902,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 7247407.94,
-    "totalBusinessTillDate": 79274124.0
+    "totalBusinessTillDate": 79274124.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2200",
@@ -9088,7 +11923,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 14399437.03,
-    "totalBusinessTillDate": 81527127.0
+    "totalBusinessTillDate": 81527127.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2202",
@@ -9104,7 +11944,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 4817215.48,
-    "totalBusinessTillDate": 90113970.0
+    "totalBusinessTillDate": 90113970.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2203",
@@ -9120,7 +11965,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 349326.94,
-    "totalBusinessTillDate": 90182147.0
+    "totalBusinessTillDate": 90182147.0,
+    "parentId": "jfll-2121",
+    "parentName": "INEXT LOGISTICS & SUPPLY CHAIN PRIVATE LIMITED",
+    "groupTotalBusiness": 115356156.0,
+    "isBranchAlias": true,
+    "branchAliasTag": "Canada Division"
   },
   {
     "id": "jfll-2204",
@@ -9136,7 +11986,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Richard Theknath",
     "businessLast3m": 39768985.4,
-    "totalBusinessTillDate": 97377797.0
+    "totalBusinessTillDate": 97377797.0,
+    "parentId": "jfll-2204",
+    "parentName": "AIR INDIA LTD",
+    "groupTotalBusiness": 97510859.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2206",
@@ -9152,7 +12007,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 940320.19,
-    "totalBusinessTillDate": 104662238.0
+    "totalBusinessTillDate": 104662238.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2207",
@@ -9168,7 +12028,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 2031282.68,
-    "totalBusinessTillDate": 108136370.0
+    "totalBusinessTillDate": 108136370.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2208",
@@ -9184,7 +12049,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "moderate_risk",
     "salesPerson": "Priyanka Gawali",
     "businessLast3m": 26555415.16,
-    "totalBusinessTillDate": 133900236.0
+    "totalBusinessTillDate": 133900236.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2209",
@@ -9200,7 +12070,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 5644761.92,
-    "totalBusinessTillDate": 141824692.0
+    "totalBusinessTillDate": 141824692.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2211",
@@ -9216,7 +12091,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
     "businessLast3m": 23263130.95,
-    "totalBusinessTillDate": 171082751.0
+    "totalBusinessTillDate": 171082751.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2212",
@@ -9232,7 +12112,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Corporate",
     "businessLast3m": 96938.18,
-    "totalBusinessTillDate": 190203185.0
+    "totalBusinessTillDate": 190203185.0,
+    "parentId": "jfll-2212",
+    "parentName": "CARGOSOL LOGISTICS LIMITED",
+    "groupTotalBusiness": 192962444.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2213",
@@ -9248,7 +12133,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
     "businessLast3m": 31741503.08,
-    "totalBusinessTillDate": 193464989.0
+    "totalBusinessTillDate": 193464989.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2214",
@@ -9264,7 +12154,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
     "businessLast3m": 186325931.19,
-    "totalBusinessTillDate": 206059813.0
+    "totalBusinessTillDate": 206059813.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2216",
@@ -9280,7 +12175,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 19485207.3,
-    "totalBusinessTillDate": 235764578.0
+    "totalBusinessTillDate": 235764578.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2217",
@@ -9296,7 +12196,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
     "businessLast3m": 6022728.26,
-    "totalBusinessTillDate": 264252107.0
+    "totalBusinessTillDate": 264252107.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2218",
@@ -9312,7 +12217,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 48378503.56,
-    "totalBusinessTillDate": 306612065.0
+    "totalBusinessTillDate": 306612065.0,
+    "parentId": "jfll-2218",
+    "parentName": "FAIR EXPORTS (I) PVT LTD.",
+    "groupTotalBusiness": 306624395.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2220",
@@ -9328,7 +12238,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 30221599.5,
-    "totalBusinessTillDate": 324616241.0
+    "totalBusinessTillDate": 324616241.0,
+    "parentId": "jfll-2220",
+    "parentName": "ALLANASONS PRIVATE LIMITED",
+    "groupTotalBusiness": 359430358.0,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2221",
@@ -9344,7 +12259,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 18619415.77,
-    "totalBusinessTillDate": 345239513.0
+    "totalBusinessTillDate": 345239513.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2222",
@@ -9360,7 +12280,12 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 3802822.58,
-    "totalBusinessTillDate": 634722696.0
+    "totalBusinessTillDate": 634722696.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   },
   {
     "id": "jfll-2223",
@@ -9376,6 +12301,11 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = [
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
     "businessLast3m": 53439290.14,
-    "totalBusinessTillDate": 746644933.0
+    "totalBusinessTillDate": 746644933.0,
+    "parentId": null,
+    "parentName": null,
+    "groupTotalBusiness": null,
+    "isBranchAlias": false,
+    "branchAliasTag": null
   }
 ];

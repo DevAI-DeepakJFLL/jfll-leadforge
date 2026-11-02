@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field
 
 
 class LeadRecord(BaseModel):
+    id: str | None = Field(None, description="Customer lead identifier")
     full_name: str = Field(..., description="Cleaned company name")
     territory: str = Field(..., description="Geographical territory")
     contact_person_name: str | None = Field(None, description="Contact person name (title case, no salutations)")
@@ -15,6 +16,11 @@ class LeadRecord(BaseModel):
     sales_person: str | None = Field(None, description="Assigned sales person")
     business_last_3m: float | None = Field(None, description="Business received in last 3 months")
     total_business_till_date: float | None = Field(None, description="Total Business from 1.04.2024 till date")
+    parent_id: str | None = Field(None, description="Linked corporate parent identifier")
+    parent_name: str | None = Field(None, description="Linked corporate parent legal name")
+    group_total_business: float | None = Field(None, description="Consolidated group business across parent and branches")
+    is_branch_alias: bool = Field(default=False, description="Whether this account is a branch division or alias")
+    branch_alias_tag: str | None = Field(None, description="Descriptive tag for the branch or alias type")
 
 
 class AudienceCounts(BaseModel):

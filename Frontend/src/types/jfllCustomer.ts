@@ -16,6 +16,11 @@ export const JfllCustomerSchema = z.object({
   salesPerson: z.string().nullable().optional(),
   businessLast3m: z.number().nullable().optional(),
   totalBusinessTillDate: z.number().nullable().optional(),
+  parentId: z.string().nullable().optional(),
+  parentName: z.string().nullable().optional(),
+  groupTotalBusiness: z.number().nullable().optional(),
+  isBranchAlias: z.boolean().optional(),
+  branchAliasTag: z.string().nullable().optional(),
 });
 
 export type JfllCustomer = z.infer<typeof JfllCustomerSchema>;

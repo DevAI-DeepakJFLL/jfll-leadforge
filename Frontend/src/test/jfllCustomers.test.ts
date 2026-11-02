@@ -533,4 +533,37 @@ describe('JFLL Customers Dataset & Query Service', () => {
       expect(res.totalEstimate).toBe(586);
     });
   });
+
+  describe('Option 1: Corporate Family & Linked Duplicate Clusters', () => {
+    it('identifies and links corporate clusters with parent and branch relationships', () => {
+      const linked = JFLL_ALL_CUSTOMERS_DATA.filter((c) => !!c.parentId);
+      expect(linked.length).toBe(62); // 31 duplicate clusters * 2 accounts
+
+      const parents = linked.filter((c) => !c.isBranchAlias);
+      const branches = linked.filter((c) => c.isBranchAlias);
+      expect(parents.length).toBe(31);
+      expect(branches.length).toBe(31);
+
+      // Verify each branch has a parent reference and branch tag
+      branches.forEach((b) => {
+        expect(b.parentId).toBeDefined();
+        expect(b.parentName).toBeDefined();
+        expect(b.groupTotalBusiness).toBeGreaterThan(0);
+        expect(b.branchAliasTag).toBeDefined();
+      });
+
+      // Check specific canonical clusters (e.g. Cargosol)
+      const cargosolAccounts = JFLL_ALL_CUSTOMERS_DATA.filter((c) =>
+        c.fullName.toUpperCase().includes('CARGOSOL')
+      );
+      expect(cargosolAccounts.length).toBe(2);
+      const cargosolParent = cargosolAccounts.find((c) => !c.isBranchAlias);
+      const cargosolBranch = cargosolAccounts.find((c) => c.isBranchAlias);
+      expect(cargosolParent).toBeDefined();
+      expect(cargosolBranch).toBeDefined();
+      expect(cargosolBranch?.parentId).toBe(cargosolParent?.id);
+      expect(cargosolParent?.groupTotalBusiness).toBe(cargosolBranch?.groupTotalBusiness);
+      expect(cargosolParent?.groupTotalBusiness).toBeGreaterThan(190000000); // ₹19.3 Cr
+    });
+  });
 });

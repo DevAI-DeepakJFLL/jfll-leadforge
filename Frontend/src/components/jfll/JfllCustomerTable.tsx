@@ -16,6 +16,8 @@ import {
   ChevronsUpDown,
   PhoneCall,
   Sparkles,
+  GitFork,
+  Network,
 } from 'lucide-react';
 import { JfllCustomer, JfllCustomerSortField } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
@@ -373,6 +375,23 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                           <span className="font-semibold text-xs text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight">
                             {c.fullName}
                           </span>
+                          {c.isBranchAlias ? (
+                            <span
+                              className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 shrink-0 leading-tight"
+                              title={`Branch / Alias of ${c.parentName || 'Parent Account'}`}
+                            >
+                              <GitFork className="w-2.5 h-2.5 text-amber-600" />
+                              ↳ {c.branchAliasTag || 'Branch Entity'}
+                            </span>
+                          ) : c.parentId && c.groupTotalBusiness ? (
+                            <span
+                              className="inline-flex items-center gap-1 text-[10px] font-semibold text-purple-800 bg-purple-50 px-1.5 py-0.5 rounded border border-purple-200 shrink-0 leading-tight"
+                              title={`Corporate Parent — Combined Group: ₹${c.groupTotalBusiness.toLocaleString('en-IN')}`}
+                            >
+                              <Network className="w-2.5 h-2.5 text-purple-600" />
+                              Group: {formatIndianCurrency(c.groupTotalBusiness)}
+                            </span>
+                          ) : null}
                           {c.inDataMyne && (
                             <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 shrink-0 leading-tight">
                               <Layers className="w-2.5 h-2.5 text-sky-600" />

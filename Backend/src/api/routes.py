@@ -298,6 +298,7 @@ def list_leads(
 
             data_query = f"""
                 SELECT 
+                    "id" as id,
                     "Full Name" as full_name,
                     "Territory" as territory,
                     "Contact Person Name" as contact_person_name,
@@ -309,7 +310,12 @@ def list_leads(
                     "Credit Status" as credit_status,
                     "Sales Person" as sales_person,
                     "Total Business Received From Cusomer In Last 3 Month" as business_last_3m,
-                    "Total Business from 1.04.2024 till date" as total_business_till_date
+                    "Total Business from 1.04.2024 till date" as total_business_till_date,
+                    "parent_id" as parent_id,
+                    "parent_name" as parent_name,
+                    "group_total_business" as group_total_business,
+                    "is_branch_alias" as is_branch_alias,
+                    "branch_alias_tag" as branch_alias_tag
                 FROM '{data_source}'
                 WHERE {where_sql}
                 ORDER BY {order_by_sql}
@@ -344,6 +350,7 @@ def list_leads(
 
             data_query = f"""
                 SELECT 
+                    "id" as id,
                     "Full Name" as full_name,
                     "Territory" as territory,
                     "Contact Person Name" as contact_person_name,
@@ -355,7 +362,12 @@ def list_leads(
                     "Credit Status" as credit_status,
                     "Sales Person" as sales_person,
                     NULL as business_last_3m,
-                    "Total Business from 1.04.2024 till date" as total_business_till_date
+                    "Total Business from 1.04.2024 till date" as total_business_till_date,
+                    "parent_id" as parent_id,
+                    "parent_name" as parent_name,
+                    "group_total_business" as group_total_business,
+                    "is_branch_alias" as is_branch_alias,
+                    "branch_alias_tag" as branch_alias_tag
                 FROM '{data_source}'
                 WHERE {where_sql}
                 ORDER BY {order_by_sql}

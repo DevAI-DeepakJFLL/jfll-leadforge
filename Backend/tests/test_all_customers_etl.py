@@ -68,3 +68,22 @@ def test_list_leads_all_customers_case_insensitive_status():
     assert response.status_code == 200
     payload = response.json()
     assert payload["total_records"] == 2223
+
+
+def test_list_leads_all_customers_linked_duplicate_clusters():
+    """Verify Option 1 linked corporate parent-branch duplicate clusters."""
+    res = client.get("/api/v1/leads?status=All&search=Cargosol")
+    assert res.status_code == 200
+    payload = res.json()
+    assert payload["total_records"] >= 2
+    cargosol_records = [r for r in payload["data"] if "CARGOSOL" in r["full_name"].upper()]
+    assert len(cargosol_records) >= 2
+    
+    parent = next((r for r in cargosol_records if not r["is_branch_alias"]), None)
+    branch = next((r for r in cargosol_records if r["is_branch_alias"]), None)
+    assert parent is not None
+    assert branch is not None
+    assert parent["id"] == branch["parent_id"]
+    assert parent["group_total_business"] == branch["group_total_business"]
+    assert branch["group_total_business"] >= 190000000.0  # ₹19.3 Cr combined
+    assert branch["branch_alias_tag"] is not None
