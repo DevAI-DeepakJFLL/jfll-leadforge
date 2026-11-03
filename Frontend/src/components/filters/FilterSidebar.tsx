@@ -271,11 +271,15 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 />
                 <div>
                   <div className="text-xs font-semibold text-slate-800">Logistics Roles Only</div>
-                  <div className="text-[10px] text-slate-500">Supply Chain, Freight, Shipping & Customs</div>
+                  <div className="text-[10px] text-slate-500">
+                    {filters.logisticsOnly !== false
+                      ? 'Supply chain, freight & customs (uncheck for all 15.5M executives)'
+                      : 'Unchecked: Searching all 15.5M global executives & decision-makers'}
+                  </div>
                 </div>
               </div>
               <span className="text-[10px] font-mono font-semibold text-apollo bg-blue-100/80 px-1.5 py-0.5 rounded shrink-0">
-                684k
+                {filters.logisticsOnly !== false ? '684k' : '15.5M'}
               </span>
             </label>
 

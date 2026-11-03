@@ -849,14 +849,24 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     setTopTab('apollo');
     setActiveNav('search');
     applyFilters({
-      ...filters,
+      tab: 'all',
       q: undefined,
       company: companyName,
       organizationId: organizationId || undefined,
       page: 1,
+      limit: filters.limit || 25,
+      sortOrder: 'asc',
       departments: [],
+      jobTitles: [],
+      seniority: [],
       locations: [],
+      industries: [],
+      status: [],
+      companySize: [],
       logisticsOnly: false,
+      decisionMakersOnly: false,
+      hasEmailOnly: false,
+      hasLinkedinOnly: false,
     });
     try {
       if (typeof window !== 'undefined' && window.localStorage) {

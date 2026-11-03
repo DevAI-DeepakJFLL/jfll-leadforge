@@ -860,16 +860,44 @@ def search_apollo_contacts(
         params = []
 
         if organization_id and organization_id.strip():
-            matched_org_ids = [organization_id.strip()]
-            conditions.append("c.organization_id = ?")
-            params.append(matched_org_ids[0])
+            clean_org_id = organization_id.strip()
+            matched_org_ids = [clean_org_id]
+
+            # Check if direct organization_id has contacts in profile table
+            has_direct = con.execute(
+                f"SELECT 1 FROM '{data_source}' WHERE organization_id = ? LIMIT 1",
+                [clean_org_id]
+            ).fetchone()
+
+            if not has_direct:
+                # Fall back to resolving company sister IDs if company name is provided or lookupable
+                comp_to_resolve = company
+                if not comp_to_resolve:
+                    org_info = con.execute(
+                        f"SELECT organization_name FROM '{apollo_source}' WHERE organization_id = ?",
+                        [clean_org_id]
+                    ).fetchone()
+                    if org_info and org_info[0]:
+                        comp_to_resolve = org_info[0]
+                if comp_to_resolve:
+                    resolved_ids = resolve_company_ids_cached(comp_to_resolve, apollo_source)
+                    if resolved_ids:
+                        matched_org_ids = list(dict.fromkeys([clean_org_id] + resolved_ids[:50]))
+
+            if len(matched_org_ids) == 1:
+                conditions.append("c.organization_id = ?")
+                params.append(matched_org_ids[0])
+            else:
+                placeholders = ", ".join(["?"] * len(matched_org_ids))
+                conditions.append(f"c.organization_id IN ({placeholders})")
+                params.extend(matched_org_ids)
 
             # If search query was passed alongside organization_id, only apply person/role filter
             # if it isn't simply the company name or domain passed during cross-navigation
             if search and search.strip():
                 org_info = con.execute(
                     f"SELECT organization_name, domain FROM '{apollo_source}' WHERE organization_id = ?",
-                    [organization_id.strip()]
+                    [clean_org_id]
                 ).fetchone()
                 is_company_self = False
                 if org_info:

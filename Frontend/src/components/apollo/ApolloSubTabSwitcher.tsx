@@ -89,7 +89,7 @@ export const ApolloSubTabSwitcher: React.FC<ApolloSubTabSwitcherProps> = ({
 
       <div className="text-xs text-slate-500 hidden sm:flex items-center gap-1.5">
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-        <span className="font-medium text-slate-700">Apollo Global Freight Data (1.37M)</span>
+        <span className="font-medium text-slate-700">Apollo Global Database (15.5M Contacts • 686.7k Shippers)</span>
       </div>
     </div>
   );

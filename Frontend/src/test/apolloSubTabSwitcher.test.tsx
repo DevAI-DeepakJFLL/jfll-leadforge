@@ -17,7 +17,7 @@ describe('ApolloSubTabSwitcher Component (Option A - Segmented Pill Control)', (
     expect(html).toContain('686.7k');
     expect(html).toContain('People');
     expect(html).toContain('684.1k');
-    expect(html).toContain('Apollo Global Freight Data (1.37M)');
+    expect(html).toContain('Apollo Global Database (15.5M Contacts • 686.7k Shippers)');
   });
 
   it('renders default fallback counts of 686.7k companies and 684.1k people when counts omitted', () => {
@@ -30,7 +30,7 @@ describe('ApolloSubTabSwitcher Component (Option A - Segmented Pill Control)', (
 
     expect(html).toContain('686.7k');
     expect(html).toContain('684.1k');
-    expect(html).toContain('Apollo Global Freight Data (1.37M)');
+    expect(html).toContain('Apollo Global Database (15.5M Contacts • 686.7k Shippers)');
   });
 
   it('marks Companies as active when activeSubTab is companies', () => {

@@ -184,4 +184,22 @@ def test_apollo_contacts_nonexistent_company():
     assert len(data["data"]) == 0
 
 
+def test_search_apollo_contacts_with_two_stage_org_id_fallback():
+    """
+    Verifies two-stage ID fallback: when an organization_id with 0 direct contacts
+    is passed alongside a valid company name, the endpoint resolves sister IDs
+    and returns verified contacts instead of an empty result set.
+    """
+    response = client.get(
+        "/api/v1/apollo/contacts?organization_id=nonexistent_dummy_org_99999&company=Boeing&page_size=5"
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["total_records"] > 0
+    assert len(data["data"]) > 0
+    for contact in data["data"]:
+        assert contact["person_id"] is not None
+
+
+
 
