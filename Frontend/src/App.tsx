@@ -855,6 +855,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       organizationId: organizationId || undefined,
       page: 1,
       limit: filters.limit || 25,
+      sortBy: undefined,
       sortOrder: 'asc',
       departments: [],
       jobTitles: [],

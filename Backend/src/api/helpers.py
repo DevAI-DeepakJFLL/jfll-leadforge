@@ -172,3 +172,50 @@ SQL_EXTRACT_EMPLOYER_NAME = """
         ELSE 'COMMERCIAL SHIPPER' 
     END as employer_name
 """.strip()
+
+
+def resolve_target_org_ids(
+    con: Any,
+    organization_id: str | None,
+    company: str | None,
+    contacts_source: str,
+    apollo_source: str,
+    max_sister_ids: int = 50,
+) -> list[str]:
+    """
+    Resolves matching organization IDs for an entity with two-stage fallback:
+    1. If organization_id is provided and has contacts directly in contacts_source, return [organization_id].
+    2. If direct ID has 0 contacts (e.g. branch or commercial subsidiary), fall back to resolving sister IDs
+       by company name (or lookup company name from apollo_source by ID) and return deduplicated IDs.
+    """
+    if not organization_id or not organization_id.strip():
+        return []
+
+    clean_org_id = organization_id.strip()
+    matched_ids = [clean_org_id]
+
+    # Check if direct organization_id has contacts
+    has_direct = con.execute(
+        f"SELECT 1 FROM '{contacts_source}' WHERE organization_id = ? LIMIT 1",
+        [clean_org_id],
+    ).fetchone()
+
+    if not has_direct:
+        comp_to_resolve = company
+        if not comp_to_resolve or not comp_to_resolve.strip():
+            org_info = con.execute(
+                f"SELECT organization_name FROM '{apollo_source}' WHERE organization_id = ?",
+                [clean_org_id],
+            ).fetchone()
+            if org_info and org_info[0]:
+                comp_to_resolve = org_info[0]
+
+        if comp_to_resolve and comp_to_resolve.strip():
+            from src.api.cache import resolve_company_ids_cached
+
+            resolved_ids = resolve_company_ids_cached(comp_to_resolve.strip(), apollo_source)
+            if resolved_ids:
+                matched_ids = list(dict.fromkeys([clean_org_id] + resolved_ids[:max_sister_ids]))
+
+    return matched_ids
+

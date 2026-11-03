@@ -13,6 +13,7 @@ from src.api.helpers import (
     normalize_query,
     parse_csv_query_param,
     require_auth,
+    resolve_target_org_ids,
 )
 from src.api.logger import logger
 from src.api.models import (
@@ -711,33 +712,17 @@ def list_company_contacts(
 
     try:
         clean_org_id = organization_id.strip()
-        matched_org_ids = [clean_org_id]
+        matched_org_ids = resolve_target_org_ids(
+            con=con,
+            organization_id=clean_org_id,
+            company=company,
+            contacts_source=data_source,
+            apollo_source=apollo_source,
+        )
 
-        # Check if direct organization_id has contacts
-        direct_check = con.execute(
-            f"SELECT 1 FROM '{data_source}' WHERE organization_id = ? LIMIT 1",
-            [clean_org_id]
-        ).fetchone()
-
-        if not direct_check:
-            # Fall back to resolving company sister IDs if company name is provided or lookupable
-            comp_to_resolve = company
-            if not comp_to_resolve:
-                org_info = con.execute(
-                    f"SELECT organization_name FROM '{apollo_source}' WHERE organization_id = ?",
-                    [clean_org_id]
-                ).fetchone()
-                if org_info and org_info[0]:
-                    comp_to_resolve = org_info[0]
-            if comp_to_resolve:
-                resolved_ids = resolve_company_ids_cached(comp_to_resolve, apollo_source)
-                if resolved_ids:
-                    # Keep direct id first, append resolved IDs up to 50
-                    matched_org_ids = list(dict.fromkeys([clean_org_id] + resolved_ids[:50]))
-
-        if len(matched_org_ids) == 1:
+        if len(matched_org_ids) <= 1:
             conditions = ["organization_id = ?"]
-            params = [matched_org_ids[0]]
+            params = [matched_org_ids[0] if matched_org_ids else clean_org_id]
         else:
             placeholders = ", ".join(["?"] * len(matched_org_ids))
             conditions = [f"organization_id IN ({placeholders})"]
@@ -861,32 +846,17 @@ def search_apollo_contacts(
 
         if organization_id and organization_id.strip():
             clean_org_id = organization_id.strip()
-            matched_org_ids = [clean_org_id]
+            matched_org_ids = resolve_target_org_ids(
+                con=con,
+                organization_id=clean_org_id,
+                company=company,
+                contacts_source=data_source,
+                apollo_source=apollo_source,
+            )
 
-            # Check if direct organization_id has contacts in profile table
-            has_direct = con.execute(
-                f"SELECT 1 FROM '{data_source}' WHERE organization_id = ? LIMIT 1",
-                [clean_org_id]
-            ).fetchone()
-
-            if not has_direct:
-                # Fall back to resolving company sister IDs if company name is provided or lookupable
-                comp_to_resolve = company
-                if not comp_to_resolve:
-                    org_info = con.execute(
-                        f"SELECT organization_name FROM '{apollo_source}' WHERE organization_id = ?",
-                        [clean_org_id]
-                    ).fetchone()
-                    if org_info and org_info[0]:
-                        comp_to_resolve = org_info[0]
-                if comp_to_resolve:
-                    resolved_ids = resolve_company_ids_cached(comp_to_resolve, apollo_source)
-                    if resolved_ids:
-                        matched_org_ids = list(dict.fromkeys([clean_org_id] + resolved_ids[:50]))
-
-            if len(matched_org_ids) == 1:
+            if len(matched_org_ids) <= 1:
                 conditions.append("c.organization_id = ?")
-                params.append(matched_org_ids[0])
+                params.append(matched_org_ids[0] if matched_org_ids else clean_org_id)
             else:
                 placeholders = ", ".join(["?"] * len(matched_org_ids))
                 conditions.append(f"c.organization_id IN ({placeholders})")
@@ -1004,6 +974,8 @@ def search_apollo_contacts(
             total_records = 684087
         elif conditions == ["1=1", "c.is_logistics_role = true", "c.is_decision_maker = true"]:
             total_records = 370673
+        elif conditions == ["1=1", "c.is_decision_maker = true"]:
+            total_records = 4905303
         elif conditions == ["1=1"]:
             total_records = 15526269
 
