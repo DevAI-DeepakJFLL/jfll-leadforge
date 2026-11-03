@@ -8,16 +8,29 @@ describe('ApolloSubTabSwitcher Component (Option A - Segmented Pill Control)', (
       <ApolloSubTabSwitcher
         activeSubTab="companies"
         onSubTabChange={() => {}}
-        companiesCount="690k"
-        peopleCount="766k"
+        companiesCount="686.7k"
+        peopleCount="684.1k"
       />
     );
 
     expect(html).toContain('Companies');
-    expect(html).toContain('690k');
+    expect(html).toContain('686.7k');
     expect(html).toContain('People');
-    expect(html).toContain('766k');
-    expect(html).toContain('Apollo Global Freight Data (1.45M)');
+    expect(html).toContain('684.1k');
+    expect(html).toContain('Apollo Global Freight Data (1.37M)');
+  });
+
+  it('renders default fallback counts of 686.7k companies and 684.1k people when counts omitted', () => {
+    const html = renderToString(
+      <ApolloSubTabSwitcher
+        activeSubTab="companies"
+        onSubTabChange={() => {}}
+      />
+    );
+
+    expect(html).toContain('686.7k');
+    expect(html).toContain('684.1k');
+    expect(html).toContain('Apollo Global Freight Data (1.37M)');
   });
 
   it('marks Companies as active when activeSubTab is companies', () => {

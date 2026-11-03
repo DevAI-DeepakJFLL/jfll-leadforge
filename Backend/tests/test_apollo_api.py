@@ -118,6 +118,15 @@ def test_company_contacts_endpoint():
     assert first_contact["organization_id"] == "54a1229169702d9a8b695403"
 
 
+def test_company_contacts_sister_resolution_fallback():
+    # Organization with sister branch resolution (e.g. General Motors)
+    response = client.get("/api/v1/apollo/companies/nonexistent_org_id_123/contacts?company=General+Motors&page=1&page_size=5")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["total_records"] > 0
+    assert len(data["data"]) > 0
+
+
 def test_apollo_contacts_global_search():
     response = client.get("/api/v1/apollo/contacts?search=logistics&logistics_only=true&page_size=5")
     assert response.status_code == 200

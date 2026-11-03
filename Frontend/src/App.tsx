@@ -1232,8 +1232,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
                 setApolloSubTab(tab);
                 setActiveNav(tab === 'people' ? 'search' : 'companies');
               }}
-              companiesCount={apolloDbData?.totalFormatted || '690k'}
-              peopleCount={effectiveData?.totalFormatted || '766k'}
+              companiesCount={apolloDbData?.totalFormatted || '686.7k'}
+              peopleCount={effectiveData?.totalFormatted || '684.1k'}
             />
           }
           isMobileOpen={isMobileFilterOpen}
@@ -1290,8 +1290,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
                   setApolloSubTab(tab);
                   setActiveNav(tab === 'people' ? 'search' : 'companies');
                 }}
-                companiesCount={apolloDbData?.totalFormatted || '690k'}
-                peopleCount={effectiveData?.totalFormatted || '766k'}
+                companiesCount={apolloDbData?.totalFormatted || '686.7k'}
+                peopleCount={effectiveData?.totalFormatted || '684.1k'}
               />
             ) : null
           }

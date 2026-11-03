@@ -12,8 +12,8 @@ export interface ApolloSubTabSwitcherProps {
 export const ApolloSubTabSwitcher: React.FC<ApolloSubTabSwitcherProps> = ({
   activeSubTab,
   onSubTabChange,
-  companiesCount = '690k',
-  peopleCount = '766k',
+  companiesCount = '686.7k',
+  peopleCount = '684.1k',
   className = '',
 }) => {
   return (
@@ -89,7 +89,7 @@ export const ApolloSubTabSwitcher: React.FC<ApolloSubTabSwitcherProps> = ({
 
       <div className="text-xs text-slate-500 hidden sm:flex items-center gap-1.5">
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-        <span className="font-medium text-slate-700">Apollo Global Freight Data (1.45M)</span>
+        <span className="font-medium text-slate-700">Apollo Global Freight Data (1.37M)</span>
       </div>
     </div>
   );

@@ -59,7 +59,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
   totalPages,
   pageSize,
   totalItems,
-  totalFormatted = '690.9k',
+  totalFormatted = '686.7k',
   onPageChange,
   onClearFilters,
   className = '',

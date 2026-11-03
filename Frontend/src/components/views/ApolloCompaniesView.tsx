@@ -118,7 +118,7 @@ export const ApolloCompaniesView: React.FC<ApolloCompaniesViewProps> = ({
           isExporting={isExporting}
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
-          searchPlaceholder="Search 690k corporate shipper accounts by company, domain, keywords..."
+          searchPlaceholder="Search 686.7k corporate shipper accounts by company, domain, keywords..."
         />
 
         <ApolloActiveFilterChips

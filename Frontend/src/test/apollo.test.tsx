@@ -5,6 +5,7 @@ import {
   queryApolloLeads,
   exportApolloLeadsCsv,
   queryCompanyContactsLocal,
+  fetchCompanyContacts,
   queryApolloPeopleLeadsLocal,
   fetchApolloPeopleLeads,
   filterLeadsInMemory,
@@ -339,18 +340,44 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('Clear all');
     });
 
-    it('returns empty list for queryCompanyContactsLocal since hardcoded contacts were removed', () => {
+    it('returns rich verified contacts for queryCompanyContactsLocal by organization_id or company name', () => {
       const boeingOrgId = '54a1229169702d9a8b695403';
-      const allContacts = queryCompanyContactsLocal(boeingOrgId);
-      expect(allContacts.totalRecords).toBe(0);
-      expect(allContacts.items).toEqual([]);
+      const boeingContacts = queryCompanyContactsLocal(boeingOrgId);
+      expect(boeingContacts.totalRecords).toBeGreaterThan(0);
+      expect(boeingContacts.items.length).toBeGreaterThan(0);
+      expect(boeingContacts.items.some((c) => c.employer_name?.toLowerCase().includes('boeing'))).toBe(true);
+
+      // By company name fallback
+      const gmContacts = queryCompanyContactsLocal('', 'General Motors');
+      expect(gmContacts.totalRecords).toBeGreaterThan(0);
+      expect(gmContacts.items.some((c) => c.employer_name?.toLowerCase().includes('general motors'))).toBe(true);
+
+      // Non-existent company returns 0 records safely
+      const emptyContacts = queryCompanyContactsLocal('nonexistent_id_9999', 'Nonexistent Company XYZ');
+      expect(emptyContacts.totalRecords).toBe(0);
+      expect(emptyContacts.items).toEqual([]);
+    });
+
+    it('falls back seamlessly to local starter contacts in fetchCompanyContacts when backend is offline or returns error', async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = vi.fn().mockRejectedValue(new Error('Backend offline'));
+
+      try {
+        const boeingOrgId = '54a1229169702d9a8b695403';
+        const result = await fetchCompanyContacts(boeingOrgId, 'Boeing');
+        expect(result.totalRecords).toBeGreaterThan(0);
+        expect(result.items.length).toBeGreaterThan(0);
+        expect(result.items.some((c) => c.employer_name?.toLowerCase().includes('boeing'))).toBe(true);
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
     });
 
     it('returns rich preloaded starter leads in queryApolloPeopleLeadsLocal with instant 0ms response', () => {
       const globalResult = queryApolloPeopleLeadsLocal({});
       expect(globalResult.items.length).toBeGreaterThan(0);
-      expect(globalResult.totalEstimate).toBe(766803);
-      expect(globalResult.totalFormatted).toBe('766.8k');
+      expect(globalResult.totalEstimate).toBe(684087);
+      expect(globalResult.totalFormatted).toBe('684.1k');
 
       // Test searching for Walmart decision-makers
       const walmartResult = queryApolloPeopleLeadsLocal({ q: 'Walmart' });

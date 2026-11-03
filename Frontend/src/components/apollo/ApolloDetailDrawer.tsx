@@ -69,7 +69,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
     let isMounted = true;
     setIsLoadingContacts(true);
 
-    fetchCompanyContacts(lead.organization_id, {
+    fetchCompanyContacts(lead.organization_id, lead.organization_name, {
       logisticsOnly: contactsFilter === 'logistics' ? true : undefined,
       hasEmailOnly: contactsFilter === 'email' ? true : undefined,
       search: contactsSearch.trim() || undefined,
@@ -91,7 +91,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [lead?.organization_id, contactsFilter, contactsSearch]);
+  }, [lead?.organization_id, lead?.organization_name, contactsFilter, contactsSearch]);
 
   // Close on Escape key
   useEffect(() => {

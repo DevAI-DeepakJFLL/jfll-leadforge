@@ -466,7 +466,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
         </div>
         <h3 className="text-sm font-semibold text-slate-900">No leads match your selected filters</h3>
         <p className="text-xs text-slate-500 mt-1 mb-5 leading-relaxed">
-          Try broadening your criteria, removing location or department filters, or resetting filters to explore the 766k verified contacts.
+          Try broadening your criteria, removing location or department filters, or resetting filters to explore the 684k verified contacts.
         </p>
         {onClearFilters && (
           <button

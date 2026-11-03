@@ -685,6 +685,7 @@ def get_apollo_stats(
 )
 def list_company_contacts(
     organization_id: str,
+    company: str | None = Query(default=None, description="Optional company / employer name for fallback resolution"),
     page: int = Query(default=1, ge=1, description="Page number (1-indexed)"),
     page_size: int = Query(default=20, ge=1, le=250, description="Records per page (max 250)"),
     logistics_only: bool | None = Query(default=None, description="Filter for freight/logistics/procurement specialists"),
@@ -697,6 +698,7 @@ def list_company_contacts(
 
     page = normalize_query(page, 1)
     page_size = normalize_query(page_size, 20)
+    company = normalize_query(company)
     logistics_only = normalize_query(logistics_only)
     decision_makers_only = normalize_query(decision_makers_only)
     has_email_only = normalize_query(has_email_only)
@@ -705,10 +707,41 @@ def list_company_contacts(
     offset = (page - 1) * page_size
     con = get_db_connection()
     data_source = get_data_source(con, dataset="apollo_contacts_profile")
+    apollo_source = get_data_source(con, dataset="apollo")
 
     try:
-        conditions = ["organization_id = ?"]
-        params = [organization_id.strip()]
+        clean_org_id = organization_id.strip()
+        matched_org_ids = [clean_org_id]
+
+        # Check if direct organization_id has contacts
+        direct_check = con.execute(
+            f"SELECT 1 FROM '{data_source}' WHERE organization_id = ? LIMIT 1",
+            [clean_org_id]
+        ).fetchone()
+
+        if not direct_check:
+            # Fall back to resolving company sister IDs if company name is provided or lookupable
+            comp_to_resolve = company
+            if not comp_to_resolve:
+                org_info = con.execute(
+                    f"SELECT organization_name FROM '{apollo_source}' WHERE organization_id = ?",
+                    [clean_org_id]
+                ).fetchone()
+                if org_info and org_info[0]:
+                    comp_to_resolve = org_info[0]
+            if comp_to_resolve:
+                resolved_ids = resolve_company_ids_cached(comp_to_resolve, apollo_source)
+                if resolved_ids:
+                    # Keep direct id first, append resolved IDs up to 50
+                    matched_org_ids = list(dict.fromkeys([clean_org_id] + resolved_ids[:50]))
+
+        if len(matched_org_ids) == 1:
+            conditions = ["organization_id = ?"]
+            params = [matched_org_ids[0]]
+        else:
+            placeholders = ", ".join(["?"] * len(matched_org_ids))
+            conditions = [f"organization_id IN ({placeholders})"]
+            params = list(matched_org_ids)
 
         if logistics_only is True:
             conditions.append("is_logistics_role = true")
@@ -940,9 +973,9 @@ def search_apollo_contacts(
         # Fast-path count resolution: never perform full-table scan count(*) over 15.5M rows on S3
         total_records = None
         if conditions == ["1=1", "c.is_logistics_role = true"]:
-            total_records = 766803
+            total_records = 684087
         elif conditions == ["1=1", "c.is_logistics_role = true", "c.is_decision_maker = true"]:
-            total_records = 345061
+            total_records = 370673
         elif conditions == ["1=1"]:
             total_records = 15526269
 
