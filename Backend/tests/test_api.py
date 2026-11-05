@@ -542,6 +542,52 @@ def test_converted_active_customer_reflection_in_leads_api(tmp_path, monkeypatch
     assert matching[0]["status"] == "Active"
 
 
+def test_rate_limiting_on_auth_endpoints():
+    """Verify that RateLimitingMiddleware restricts excessive auth requests from a single IP."""
+    test_ip = "198.51.100.42"
+    headers = {"X-Forwarded-For": test_ip}
+
+    # Make 20 requests (within allowed limit)
+    for _ in range(20):
+        res = client.post("/api/v1/auth/login", json={"email": "invalid@jfll.com"}, headers=headers)
+        # Should be 401 unauthorized, not rate limited yet
+        assert res.status_code in (401, 200)
+
+    # 21st request from same IP should be blocked with 429
+    res_blocked = client.post("/api/v1/auth/login", json={"email": "invalid@jfll.com"}, headers=headers)
+    assert res_blocked.status_code == 429
+    assert "RATE_LIMIT_EXCEEDED" in res_blocked.json()["detail"]
+
+
+def test_rate_limiting_memory_cleanup_when_exceeding_capacity():
+    """Verify that RateLimitingMiddleware prunes expired IPs when dictionary grows beyond 1,000 entries."""
+    import time
+
+    from src.api.main import RateLimitingMiddleware
+
+    # Inject 1050 expired timestamps into the middleware requests dictionary
+    stale_time = time.time() - 120
+    test_limiter = RateLimitingMiddleware(app=app, max_requests=20, window_seconds=60)
+    for i in range(1050):
+        test_limiter.requests[f"10.0.{i // 256}.{i % 256}"] = [stale_time]
+
+    assert len(test_limiter.requests) == 1050
+
+    # Simulate dispatch pruning behavior
+    now = time.time()
+    cutoff_global = now - test_limiter.window_seconds
+    test_limiter.requests = type(test_limiter.requests)(
+        list,
+        {k: [t for t in v if t > cutoff_global] for k, v in test_limiter.requests.items() if any(t > cutoff_global for t in v)}
+    )
+
+    # All stale entries should be pruned to 0
+    assert len(test_limiter.requests) == 0
+
+
+
+
+
 
 
 

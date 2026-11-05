@@ -1,12 +1,12 @@
 """FastAPI router and persistence controller for sales coordinator approach logs and active conversions."""
 
-from datetime import UTC, datetime
 import json
 import os
-from pathlib import Path
 import threading
-from typing import Any, Literal
 import uuid
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any, Literal
 
 from fastapi import APIRouter, Header, HTTPException, Query
 
@@ -387,6 +387,14 @@ def convert_client_to_active(
     records the effective start date, and appends a permanent milestone log.
     """
     user = require_auth(authorization, "convert client to active")
+    user_role = user.get("role", "")
+    from src.api.access_control import ADMIN_ROLES
+    ALLOWED_CONVERT_ROLES = ADMIN_ROLES | {"Commercial Lead", "Commercial", "Operations"}
+    if user_role and user_role not in ALLOWED_CONVERT_ROLES:
+        raise HTTPException(
+            status_code=403,
+            detail="FORBIDDEN_CONVERSION: Role not authorized to convert client to active.",
+        )
     user_email = user.get("sub", "sales.coordinator@jfll.com").strip().lower()
     user_name = user.get("name") or user_email.split("@")[0].replace(".", " ").title()
 

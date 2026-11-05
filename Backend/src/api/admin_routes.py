@@ -7,15 +7,12 @@ from src.api.access_control import (
     add_to_allowlist,
     approve_access_request,
     block_device,
-    block_entity,
     get_access_requests,
     get_allowlist,
     get_blocked_devices,
-    get_blocked_entities,
     is_admin_user,
     reject_access_request,
     remove_from_allowlist,
-    unblock_device,
     unblock_entity,
 )
 from src.api.helpers import require_auth

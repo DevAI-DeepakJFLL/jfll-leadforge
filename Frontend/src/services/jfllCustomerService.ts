@@ -694,3 +694,15 @@ export function formatIndianCurrency(num: number | null | undefined): string {
   return `₹${num.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
 }
 
+/**
+ * Look up a customer record across active, inactive, and all JFLL datasets.
+ */
+export function findJfllCustomerById(id: string): JfllCustomer | undefined {
+  return (
+    JFLL_CUSTOMERS_DATA.find((c) => c.id === id) ||
+    JFLL_INACTIVE_CUSTOMERS_DATA.find((c) => c.id === id) ||
+    JFLL_ALL_CUSTOMERS_DATA.find((c) => c.id === id)
+  );
+}
+
+

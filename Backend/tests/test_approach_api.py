@@ -1,9 +1,9 @@
 """Unit and integration tests for Sales Approach Logs and Active Conversion API."""
 
-from fastapi.testclient import TestClient
 import pytest
+from fastapi.testclient import TestClient
 
-from src.api.approach_routes import get_storage_path, save_approach_data
+from src.api.approach_routes import save_approach_data
 from src.api.auth import create_token
 from src.api.main import app
 
@@ -193,7 +193,8 @@ def test_approach_s3_restore_and_backup(tmp_path, monkeypatch):
     """Verifies that approach logs restore from S3 when missing and backup to S3 on save."""
     import sys
     from unittest.mock import MagicMock
-    from src.api.approach_routes import _restore_from_s3, _backup_to_s3, load_approach_data, save_approach_data
+
+    from src.api.approach_routes import _backup_to_s3, _restore_from_s3, load_approach_data
 
     mock_boto3 = MagicMock()
     mock_s3 = MagicMock()
@@ -217,3 +218,20 @@ def test_approach_s3_restore_and_backup(tmp_path, monkeypatch):
     monkeypatch.setenv("APPROACH_LOGS_PATH", str(missing_file))
     data = load_approach_data()
     assert "entities" in data
+
+
+def test_convert_to_active_unauthorized_role_rejected():
+    """Users without commercial or leadership clearance cannot convert leads to active."""
+    headers = _auth_header(email="deepak@jfll.com", name="Deepak Naidu", role="Viewer")
+    payload = {
+        "start_date": "2026-11-01",
+        "note": "Attempted conversion by viewer role.",
+    }
+    res = client.post(
+        "/api/v1/approach-logs/jfll_customer/cust_999/convert-to-active",
+        json=payload,
+        headers=headers,
+    )
+    assert res.status_code == 403
+    assert "FORBIDDEN_CONVERSION" in res.json()["detail"]
+

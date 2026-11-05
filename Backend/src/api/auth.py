@@ -505,7 +505,7 @@ def check_device_status(fingerprint: str = Query(default="", description="Device
     has been restricted or if an administrator has lifted the restriction.
     Only an administrator can lift restrictions on the server.
     """
-    from src.api.access_control import is_device_blocked, get_blocked_devices
+    from src.api.access_control import get_blocked_devices, is_device_blocked
 
     clean_fp = fingerprint.strip() if fingerprint else ""
     if not clean_fp:

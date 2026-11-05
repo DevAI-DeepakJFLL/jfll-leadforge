@@ -123,6 +123,7 @@ coverage.xml
 # Agent & Scratch Artifacts
 .superpowers/
 .gemini/
+.playwright-mcp/
 audit-screenshots/
 
 # Local Migration Backups & Raw Datasets
@@ -138,6 +139,8 @@ Backend/data/*.tmp
 *.parquet
 *.xlsx
 *.xls
+*.docx
+*.doc
 Backend/data/**/*.parquet
 Backend/data/**/*.xlsx
 Backend/data/**/*.xls

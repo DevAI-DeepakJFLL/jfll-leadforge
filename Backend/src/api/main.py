@@ -1,4 +1,7 @@
 import os
+import threading
+import time
+from collections import defaultdict
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -53,8 +56,8 @@ class AntiBotMiddleware(BaseHTTPMiddleware):
                     payload = verify_token(token)
                     if payload and payload.get("sub", "").strip().lower() in ROOT_ADMIN_EMAILS:
                         is_root = True
-                except Exception:
-                    pass
+                except Exception as err:
+                    logger.debug("Non-critical token inspection notice: %s", err)
 
             if not is_root:
                 # 1. Immediate check: Is this device permanently banned?
@@ -75,7 +78,7 @@ class AntiBotMiddleware(BaseHTTPMiddleware):
                         try:
                             block_entity(
                                 ip=ip,
-                                fingerprint=fingerprint,
+                                fingerprint=fingerprint if fingerprint and fingerprint not in ("unknown", "fp_fallback") else None,
                                 reason=f"Automated headless bot detected: {ua}",
                                 user_agent=ua,
                                 actor="AntiBotMiddleware",
@@ -90,6 +93,49 @@ class AntiBotMiddleware(BaseHTTPMiddleware):
                             "code": "AUTOMATED_AGENT_BLOCKED",
                         },
                     )
+        return await call_next(request)
+
+
+class RateLimitingMiddleware(BaseHTTPMiddleware):
+    """Protects authentication endpoints from brute-force password/email spray attacks."""
+    def __init__(self, app, max_requests: int = 20, window_seconds: int = 60):
+        super().__init__(app)
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self.requests: dict[str, list[float]] = defaultdict(list)
+        self._lock = threading.Lock()
+
+    async def dispatch(self, request: Request, call_next):
+        path = request.url.path
+        if request.method != "OPTIONS" and path.startswith(
+            ("/api/v1/auth/login", "/api/v1/auth/request-access")
+        ):
+            ip = get_client_ip(request)
+            # Skip throttling for unit test client in test runs
+            if ip != "testclient":
+                now = time.time()
+                with self._lock:
+                    # Clean up expired entries if dictionary exceeds 1,000 tracked IPs
+                    if len(self.requests) > 1000:
+                        cutoff_global = now - self.window_seconds
+                        self.requests = defaultdict(
+                            list,
+                            {k: [t for t in v if t > cutoff_global] for k, v in self.requests.items() if any(t > cutoff_global for t in v)}
+                        )
+
+                    timestamps = self.requests[ip]
+                    cutoff = now - self.window_seconds
+                    self.requests[ip] = [t for t in timestamps if t > cutoff]
+                    if len(self.requests[ip]) >= self.max_requests:
+                        return JSONResponse(
+                            status_code=429,
+                            content={
+                                "detail": "RATE_LIMIT_EXCEEDED: Too many authentication attempts. Please wait a minute before retrying.",
+                                "code": "RATE_LIMIT_EXCEEDED",
+                            },
+                        )
+                    self.requests[ip].append(now)
+
         return await call_next(request)
 
 
@@ -108,6 +154,7 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
 
 
 app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(RateLimitingMiddleware)
 app.add_middleware(AntiBotMiddleware)
 
 # CloudWatch & CloudFront Structured Request Telemetry Middleware
@@ -139,6 +186,7 @@ app.add_middleware(
         "User-Agent",
         "X-Request-ID",
         "X-Amzn-Trace-Id",
+        "X-Device-Fingerprint",
     ],
 )
 

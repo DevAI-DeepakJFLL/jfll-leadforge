@@ -28,6 +28,7 @@ export default defineConfig({
     },
   },
   build: {
+    chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -41,6 +42,10 @@ export default defineConfig({
             return 'vendor-icons';
           }
           if (id.includes('/src/data/')) {
+            const match = id.match(/\/src\/data\/([^/]+)\.ts/);
+            if (match) {
+              return `dataset-${match[1]}`;
+            }
             return 'starter-datasets';
           }
         },

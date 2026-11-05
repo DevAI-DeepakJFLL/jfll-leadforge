@@ -36,10 +36,9 @@ import {
   queryJfllCustomers,
   fetchJfllCustomersFromApi,
   exportJfllCustomersCsv,
+  findJfllCustomerById,
 } from '@/services/jfllCustomerService';
 import { JfllCustomer } from '@/types/jfllCustomer';
-import { JFLL_CUSTOMERS_DATA } from '@/data/jfllCustomersData';
-import { JFLL_INACTIVE_CUSTOMERS_DATA } from '@/data/jfllInactiveCustomersData';
 import { DatamyneDetailDrawer } from '@/components/datamyne';
 import { useDatamyneFilter } from '@/hooks/useDatamyneFilter';
 import {
@@ -655,12 +654,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     try {
       setIsExportingJfll(true);
       const selected = selectedJfllIds
-        .map(
-          (id) =>
-            jfllItems.find((c) => c.id === id) ||
-            JFLL_CUSTOMERS_DATA.find((c) => c.id === id) ||
-            JFLL_INACTIVE_CUSTOMERS_DATA.find((c) => c.id === id)
-        )
+        .map((id) => jfllItems.find((c) => c.id === id) || findJfllCustomerById(id))
         .filter(Boolean) as JfllCustomer[];
       const exportList = selected.length > 0 ? selected : jfllItems;
       const blob = exportJfllCustomersCsv(exportList);

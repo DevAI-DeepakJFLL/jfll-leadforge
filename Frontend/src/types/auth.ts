@@ -41,7 +41,12 @@ function resolveAuthorizedUsers(): AuthorizedUser[] {
     });
   }
 
-  // 2. Default enterprise roles for offline fallback
+  // 2. Default enterprise roles for offline fallback (development and test environments only)
+  // shortcut: do not bundle hardcoded executive directory into production client bundles
+  if (typeof import.meta !== 'undefined' && import.meta.env?.PROD && !envEmailsRaw && !envUsersRaw) {
+    return [];
+  }
+
   return [
     {
       email: 'deepak@jfll.com',

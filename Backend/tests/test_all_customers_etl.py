@@ -1,9 +1,8 @@
-import pytest
 from fastapi.testclient import TestClient
 
-from src.api.main import app
 from src.api.config import settings
 from src.api.database import get_cached_parquet_path
+from src.api.main import app
 
 client = TestClient(app)
 

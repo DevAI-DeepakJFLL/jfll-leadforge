@@ -279,7 +279,7 @@ def extract_and_transform_brazil_data() -> pd.DataFrame:
                     ent["total_shipments"] += 1
                     try:
                         ent["total_value_usd"] += float(r.get("Total Value (USD)", 0) or 0)
-                    except Exception:
+                    except (ValueError, TypeError):
                         pass
                     dt = str(r.get("Date", ""))[:10]
                     if dt and dt > ent["latest_activity_date"]:
@@ -314,7 +314,7 @@ def extract_and_transform_brazil_data() -> pd.DataFrame:
                     sup_ent["total_shipments"] += 1
                     try:
                         sup_ent["total_value_usd"] += float(r.get("Total Value (USD)", 0) or 0)
-                    except Exception:
+                    except (ValueError, TypeError):
                         pass
                     dt = str(r.get("Date", ""))[:10]
                     if dt and dt > sup_ent["latest_activity_date"]:
@@ -350,7 +350,7 @@ def extract_and_transform_brazil_data() -> pd.DataFrame:
                     ent["total_shipments"] += 1
                     try:
                         ent["total_value_usd"] += float(r.get("FOB Value (USD)", 0) or 0)
-                    except Exception:
+                    except (ValueError, TypeError):
                         pass
                     dt = str(r.get("Date", ""))[:10]
                     if dt and dt > ent["latest_activity_date"]:
@@ -383,7 +383,7 @@ def extract_and_transform_brazil_data() -> pd.DataFrame:
                     buy_ent["total_shipments"] += 1
                     try:
                         buy_ent["total_value_usd"] += float(r.get("FOB Value (USD)", 0) or 0)
-                    except Exception:
+                    except (ValueError, TypeError):
                         pass
                     dt = str(r.get("Date", ""))[:10]
                     if dt and dt > buy_ent["latest_activity_date"]:

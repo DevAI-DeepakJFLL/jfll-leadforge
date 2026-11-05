@@ -117,7 +117,7 @@ def list_leads(
 
     try:
         from src.api.approach_routes import get_converted_active_entity_ids
-        converted_active_ids = sorted(list(get_converted_active_entity_ids("jfll_customer")))
+        converted_active_ids = sorted(get_converted_active_entity_ids("jfll_customer"))
     except Exception as err:
         logger.debug("Non-critical converted active IDs resolution notice: %s", err)
         converted_active_ids = []
