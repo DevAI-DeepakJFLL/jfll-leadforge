@@ -27,6 +27,7 @@ export const DatamyneLeadSchema = z.object({
 
 export type DatamyneLead = Omit<z.infer<typeof DatamyneLeadSchema>, 'country'> & {
   country?: string;
+  _normCity?: string;
 };
 
 export type TransportMode = 'Air' | 'Ocean' | 'Air & Ocean';

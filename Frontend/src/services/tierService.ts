@@ -126,6 +126,7 @@ export function queryTierLeadsLocal(params: TierFilterParams = {}): PaginatedTie
   const filterRoles = roles.length > 0;
 
   const normalizedFilterCities = cities.length > 0 ? cities.map(normalizeCityString) : null;
+  const cityExactSet = normalizedFilterCities ? new Set(normalizedFilterCities) : null;
   const searchTerm = search?.trim().toLowerCase() || null;
   const statusNorm = status && status !== 'all' ? status.toLowerCase().replace(/[-_]/g, ' ').trim() : null;
 
@@ -181,14 +182,16 @@ export function queryTierLeadsLocal(params: TierFilterParams = {}): PaginatedTie
       if (!roleMatches) continue;
     }
 
-    // 9. Cities Filter
-    if (normalizedFilterCities) {
+    // 9. Cities Filter (O(1) exact match check with fallback substring scan for composite addresses)
+    if (normalizedFilterCities && cityExactSet) {
       if (!lead.city || !lead.city.trim()) continue;
-      const dCityNorm = normalizeCityString(lead.city);
-      const cityMatches = normalizedFilterCities.some(
-        (cNorm) => dCityNorm.includes(cNorm) || cNorm.includes(dCityNorm)
-      );
-      if (!cityMatches) continue;
+      const dCityNorm = lead._normCity || (lead._normCity = normalizeCityString(lead.city));
+      if (!cityExactSet.has(dCityNorm)) {
+        const cityMatches = normalizedFilterCities.some(
+          (cNorm) => dCityNorm.includes(cNorm) || cNorm.includes(dCityNorm)
+        );
+        if (!cityMatches) continue;
+      }
     }
 
     // 10. Trade Lanes Filter

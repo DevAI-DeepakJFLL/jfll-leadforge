@@ -41,12 +41,20 @@ export function setLoadedDatamyneDataset(data: DatamyneLead[]): void {
   notifyDatasetListeners();
 }
 
+const cityNormCache = new Map<string, string>();
+
 /**
  * Normalizes city names by stripping diacritics/accents and converting to uppercase
  * for robust cross-geographic matching (e.g. SÃO PAULO <-> SAO PAULO).
+ * Results are cached in a Map to avoid repeated Unicode decomposition.
  */
 export function normalizeCityString(str: string): string {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase();
+  if (!str) return '';
+  const cached = cityNormCache.get(str);
+  if (cached !== undefined) return cached;
+  const normalized = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toUpperCase();
+  cityNormCache.set(str, normalized);
+  return normalized;
 }
 
 /**
@@ -64,6 +72,7 @@ export async function loadFullDatamyneDataset(): Promise<DatamyneLead[]> {
       const data: DatamyneLead[] = rawData.map((d) => ({
         ...d,
         country: d.country || 'India',
+        _normCity: d.city ? normalizeCityString(d.city) : '',
       }));
       cachedFullDataset = data;
       setLoadedTierDataset(data as unknown as TieredLead[]);
@@ -121,6 +130,7 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
   const hasBoth = filterRoles && (roles.includes('Both') || roles.includes('Both (Exporter & Importer)'));
 
   const normalizedFilterCities = cities && cities.length > 0 ? cities.map(normalizeCityString) : null;
+  const cityExactSet = normalizedFilterCities ? new Set(normalizedFilterCities) : null;
   const query = q && q.trim() ? q.trim().toLowerCase() : null;
 
   const contactStatusSet = contactStatus && contactStatus.length > 0 ? new Set(contactStatus) : null;
@@ -198,14 +208,16 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
       if (!roleMatches) continue;
     }
 
-    // 1g. City Filter
-    if (normalizedFilterCities) {
+    // 1g. City Filter (O(1) exact match check with fallback substring scan for composite addresses)
+    if (normalizedFilterCities && cityExactSet) {
       if (!d.city || !d.city.trim()) continue;
-      const dCityNorm = normalizeCityString(d.city);
-      const cityMatches = normalizedFilterCities.some(
-        (cNorm) => dCityNorm.includes(cNorm) || cNorm.includes(dCityNorm)
-      );
-      if (!cityMatches) continue;
+      const dCityNorm = d._normCity || (d._normCity = normalizeCityString(d.city));
+      if (!cityExactSet.has(dCityNorm)) {
+        const cityMatches = normalizedFilterCities.some(
+          (cNorm) => dCityNorm.includes(cNorm) || cNorm.includes(dCityNorm)
+        );
+        if (!cityMatches) continue;
+      }
     }
 
     // 1h. Trade Corridor Filter
