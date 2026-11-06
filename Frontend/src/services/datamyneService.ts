@@ -108,143 +108,38 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
     limit = 25,
   } = params;
 
-  // 1. Filter by all sidebar filters (excluding datasetType and audience tab)
-  let baseFiltered = [...dataset];
+  // Pre-compile filter lookup structures for O(1) membership and single-pass iteration
+  const countrySet = countries && countries.length > 0 ? new Set(countries) : null;
+  const transportModeSet = transportModes && transportModes.length > 0 ? new Set(transportModes) : null;
+  const categorySet = categories && categories.length > 0 ? new Set(categories) : null;
+  const subcategorySet = subcategories && subcategories.length > 0 ? new Set(subcategories) : null;
+  const approachStatusSet = approachStatuses && approachStatuses.length > 0 ? new Set(approachStatuses) : null;
 
-  // 1a. Country Multi-select Filter
-  if (countries && countries.length > 0) {
-    baseFiltered = baseFiltered.filter((d) => countries.includes(d.country || 'India'));
-  }
+  const filterRoles = Boolean(roles && roles.length > 0);
+  const hasExp = filterRoles && roles.includes('Exporter');
+  const hasImp = filterRoles && roles.includes('Importer');
+  const hasBoth = filterRoles && (roles.includes('Both') || roles.includes('Both (Exporter & Importer)'));
 
-  // 1b. Transport Mode Multi-select Filter
-  if (transportModes.length > 0) {
-    baseFiltered = baseFiltered.filter((d) => transportModes.includes(d.transport_mode as any));
-  }
+  const normalizedFilterCities = cities && cities.length > 0 ? cities.map(normalizeCityString) : null;
+  const query = q && q.trim() ? q.trim().toLowerCase() : null;
 
-  // 1c. Search Query
-  if (q && q.trim()) {
-    const query = q.trim().toLowerCase();
-    baseFiltered = baseFiltered.filter(
-      (d) =>
-        d.company_name.toLowerCase().includes(query) ||
-        (d.country && d.country.toLowerCase().includes(query)) ||
-        d.city.toLowerCase().includes(query) ||
-        d.address.toLowerCase().includes(query) ||
-        d.subcategory.toLowerCase().includes(query) ||
-        d.category.toLowerCase().includes(query) ||
-        d.tax_id.toLowerCase().includes(query) ||
-        d.directors.toLowerCase().includes(query) ||
-        d.top_hs_codes.toLowerCase().includes(query)
-    );
-  }
+  const contactStatusSet = contactStatus && contactStatus.length > 0 ? new Set(contactStatus) : null;
+  const hasContactBoth = contactStatusSet?.has('both') ?? false;
+  const hasContactPhoneOnly = contactStatusSet?.has('phone_only') ?? false;
+  const hasContactEmailOnly = contactStatusSet?.has('email_only') ?? false;
+  const hasContactMissing = contactStatusSet?.has('missing') ?? false;
 
-  // 1d. Categories Multi-select (from sidebar)
-  if (categories.length > 0) {
-    baseFiltered = baseFiltered.filter((d) => categories.includes(d.category));
-  }
+  const tabCategory = TAB_TO_CATEGORY_MAP[tab];
+  // If explicit categories multi-select is active and doesn't include tabCategory,
+  // honor the explicit categories filter to prevent empty impossible intersections.
+  const filterByTab = Boolean(tabCategory && (!categorySet || categorySet.has(tabCategory)));
 
-  // 1e. Subcategories Multi-select
-  if (subcategories.length > 0) {
-    baseFiltered = baseFiltered.filter((d) => subcategories.includes(d.subcategory));
-  }
-
-  // 1f. Trading Role Multi-select
-  if (roles.length > 0) {
-    const hasExp = roles.includes('Exporter');
-    const hasImp = roles.includes('Importer');
-    const hasBoth = roles.includes('Both') || roles.includes('Both (Exporter & Importer)');
-
-    baseFiltered = baseFiltered.filter((d) => {
-      const isDualLead = d.role === 'Both' || d.role === 'Both (Exporter & Importer)';
-      const isExpLead = d.role === 'Exporter';
-      const isImpLead = d.role === 'Importer';
-
-      if (hasBoth && isDualLead) return true;
-      if (hasExp && isExpLead) return true;
-      if (hasImp && isImpLead) return true;
-      // If user checks both Exporter and Importer, companies performing dual trade match
-      if (hasExp && hasImp && isDualLead) return true;
-
-      return false;
-    });
-  }
-
-  // 1g. City Multi-select (Pre-normalized to eliminate redundant inner-loop normalizations)
-  if (cities.length > 0) {
-    const normalizedFilterCities = cities.map(normalizeCityString);
-    baseFiltered = baseFiltered.filter((d) => {
-      if (!d.city || !d.city.trim()) return false;
-      const dCityNorm = normalizeCityString(d.city);
-      return normalizedFilterCities.some(
-        (cNorm) => dCityNorm.includes(cNorm) || cNorm.includes(dCityNorm)
-      );
-    });
-  }
-
-  // 1h. Trade Corridor Multi-select
-  if (tradeLanes.length > 0) {
-    baseFiltered = baseFiltered.filter((d) => tradeLanes.some((tl) => d.trade_lanes.includes(tl)));
-  }
-
-  // 1i. Contact Status Multi-select
-  if (contactStatus.length > 0) {
-    baseFiltered = baseFiltered.filter((d) => {
-      if (contactStatus.includes('both') && d.phone && d.email) return true;
-      if (contactStatus.includes('phone_only') && d.phone && !d.email) return true;
-      if (contactStatus.includes('email_only') && !d.phone && d.email) return true;
-      if (contactStatus.includes('missing') && !d.phone && !d.email) return true;
-      return false;
-    });
-  }
-
-  // 1j. Volume & Value Thresholds
-  if (minShipments && minShipments > 0) {
-    baseFiltered = baseFiltered.filter((d) => d.total_shipments >= minShipments);
-  }
-  if (minTradedValueUsd && minTradedValueUsd > 0) {
-    baseFiltered = baseFiltered.filter((d) => d.total_value_usd >= minTradedValueUsd);
-  }
-
-  // 1k. Has Directors Filter
-  if (hasDirectors) {
-    baseFiltered = baseFiltered.filter((d) => d.directors && d.directors.trim().length > 0);
-  }
-
-  // 1l. Sales Approach Status Multi-select
-  if (approachStatuses && approachStatuses.length > 0) {
-    const statusSet = new Set(approachStatuses);
-    baseFiltered = baseFiltered.filter((d) => {
-      const st = getCachedApproachStatus('datamyne', d.id);
-      return statusSet.has(st);
-    });
-  }
-
-  // 2. Data pool counts matching the current active filters in a single O(N) pass
   let validTotal = 0;
   let missingTotal = 0;
-  for (let i = 0; i < baseFiltered.length; i++) {
-    const itemType = baseFiltered[i].dataset_type;
-    if (itemType === 'valid') validTotal++;
-    else if (itemType === 'missing') missingTotal++;
-  }
+  let baseTotal = 0;
 
-  const datasetCounts = {
-    valid: validTotal,
-    missing: missingTotal,
-    all: baseFiltered.length,
-  };
-
-  // 3. Primary Dataset Scope Filter: 'valid' | 'missing' | 'all'
-  const scopeDataset =
-    datasetType === 'valid'
-      ? baseFiltered.filter((d) => d.dataset_type === 'valid')
-      : datasetType === 'missing'
-      ? baseFiltered.filter((d) => d.dataset_type === 'missing')
-      : baseFiltered;
-
-  // 4. Calculate Audience counts based on filtered scope dataset in a single O(N) pass
   const audienceCounts: DatamyneAudienceCounts = {
-    all: scopeDataset.length,
+    all: 0,
     perishables: 0,
     pharma: 0,
     textiles: 0,
@@ -253,12 +148,109 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
     electronics: 0,
     automotive: 0,
     general: 0,
-    validTotal,
-    missingTotal,
+    validTotal: 0,
+    missingTotal: 0,
   };
 
-  for (let i = 0; i < scopeDataset.length; i++) {
-    const cat = scopeDataset[i].category;
+  const filtered: DatamyneLead[] = [];
+
+  for (let i = 0; i < dataset.length; i++) {
+    const d = dataset[i];
+
+    // 1a. Country Filter
+    if (countrySet && !countrySet.has(d.country || 'India')) continue;
+
+    // 1b. Transport Mode Filter
+    if (transportModeSet && !transportModeSet.has(d.transport_mode as any)) continue;
+
+    // 1c. Search Query
+    if (query) {
+      const match =
+        d.company_name.toLowerCase().includes(query) ||
+        (d.country && d.country.toLowerCase().includes(query)) ||
+        d.city.toLowerCase().includes(query) ||
+        d.address.toLowerCase().includes(query) ||
+        d.subcategory.toLowerCase().includes(query) ||
+        d.category.toLowerCase().includes(query) ||
+        d.tax_id.toLowerCase().includes(query) ||
+        d.directors.toLowerCase().includes(query) ||
+        d.top_hs_codes.toLowerCase().includes(query);
+      if (!match) continue;
+    }
+
+    // 1d. Category Filter
+    if (categorySet && !categorySet.has(d.category)) continue;
+
+    // 1e. Subcategory Filter
+    if (subcategorySet && !subcategorySet.has(d.subcategory)) continue;
+
+    // 1f. Trading Role Filter
+    if (filterRoles) {
+      const isDualLead = d.role === 'Both' || d.role === 'Both (Exporter & Importer)';
+      const isExpLead = d.role === 'Exporter';
+      const isImpLead = d.role === 'Importer';
+
+      const roleMatches =
+        (hasBoth && isDualLead) ||
+        (hasExp && isExpLead) ||
+        (hasImp && isImpLead) ||
+        (hasExp && hasImp && isDualLead);
+      if (!roleMatches) continue;
+    }
+
+    // 1g. City Filter
+    if (normalizedFilterCities) {
+      if (!d.city || !d.city.trim()) continue;
+      const dCityNorm = normalizeCityString(d.city);
+      const cityMatches = normalizedFilterCities.some(
+        (cNorm) => dCityNorm.includes(cNorm) || cNorm.includes(dCityNorm)
+      );
+      if (!cityMatches) continue;
+    }
+
+    // 1h. Trade Corridor Filter
+    if (tradeLanes && tradeLanes.length > 0) {
+      if (!tradeLanes.some((tl) => d.trade_lanes.includes(tl))) continue;
+    }
+
+    // 1i. Contact Status Filter
+    if (contactStatusSet) {
+      const hasPhone = Boolean(d.phone);
+      const hasEmail = Boolean(d.email);
+      const csMatches =
+        (hasContactBoth && hasPhone && hasEmail) ||
+        (hasContactPhoneOnly && hasPhone && !hasEmail) ||
+        (hasContactEmailOnly && !hasPhone && hasEmail) ||
+        (hasContactMissing && !hasPhone && !hasEmail);
+      if (!csMatches) continue;
+    }
+
+    // 1j. Volume & Value Thresholds
+    if (minShipments && minShipments > 0 && d.total_shipments < minShipments) continue;
+    if (minTradedValueUsd && minTradedValueUsd > 0 && d.total_value_usd < minTradedValueUsd) continue;
+
+    // 1k. Has Directors Filter
+    if (hasDirectors && (!d.directors || d.directors.trim().length === 0)) continue;
+
+    // 1l. Sales Approach Status Multi-select
+    if (approachStatusSet) {
+      const st = getCachedApproachStatus('datamyne', d.id);
+      if (!approachStatusSet.has(st)) continue;
+    }
+
+    // --- Base Filter Passed ---
+    baseTotal++;
+    const itemType = d.dataset_type;
+    if (itemType === 'valid') validTotal++;
+    else if (itemType === 'missing') missingTotal++;
+
+    // 2. Scope dataset check: 'valid' | 'missing' | 'all'
+    if (datasetType === 'valid' && itemType !== 'valid') continue;
+    if (datasetType === 'missing' && itemType !== 'missing') continue;
+
+    // --- Scope Dataset Passed ---
+    audienceCounts.all++;
+    const cat = d.category;
     if (cat === 'Perishables') audienceCounts.perishables++;
     else if (cat === 'Pharma & Healthcare') audienceCounts.pharma++;
     else if (cat === 'Textiles & Apparel') audienceCounts.textiles++;
@@ -267,18 +259,21 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
     else if (cat === 'Electronics & Electrical') audienceCounts.electronics++;
     else if (cat === 'Automotive & EV') audienceCounts.automotive++;
     else if (cat === 'General Cargo') audienceCounts.general++;
-  }
 
-  // 5. Apply Audience Tab Filter
-  let filtered = scopeDataset;
-  const tabCategory = TAB_TO_CATEGORY_MAP[tab];
-  if (tabCategory) {
-    // If explicit categories multi-select is active and doesn't include tabCategory,
-    // honor the explicit categories filter to prevent empty impossible intersections.
-    if (categories.length === 0 || categories.includes(tabCategory)) {
-      filtered = filtered.filter((d) => d.category === tabCategory);
+    // 3. Tab Filter
+    if (!filterByTab || cat === tabCategory) {
+      filtered.push(d);
     }
   }
+
+  audienceCounts.validTotal = validTotal;
+  audienceCounts.missingTotal = missingTotal;
+
+  const datasetCounts = {
+    valid: validTotal,
+    missing: missingTotal,
+    all: baseTotal,
+  };
 
   const totalEstimate = filtered.length;
   const totalPages = Math.max(1, Math.ceil(totalEstimate / limit));
@@ -354,15 +349,10 @@ export function exportDatamyneLeadsCsv(leads: DatamyneLead[]): Blob {
  */
 export function getDatamyneCategoryFacets(currentDatasetType: 'valid' | 'missing' | 'all' = 'valid'): { label: string; count: number }[] {
   const dataset = getLoadedDatamyneDataset();
-  const scoped =
-    currentDatasetType === 'valid'
-      ? dataset.filter((d) => d.dataset_type === 'valid')
-      : currentDatasetType === 'missing'
-      ? dataset.filter((d) => d.dataset_type === 'missing')
-      : dataset;
-
   const counts: Record<string, number> = {};
-  for (const d of scoped) {
+  for (let i = 0; i < dataset.length; i++) {
+    const d = dataset[i];
+    if (currentDatasetType !== 'all' && d.dataset_type !== currentDatasetType) continue;
     if (d.category) {
       counts[d.category] = (counts[d.category] || 0) + 1;
     }
@@ -377,19 +367,11 @@ export function getDatamyneCategoryFacets(currentDatasetType: 'valid' | 'missing
  */
 export function getDatamyneSubcategoryFacets(category?: string, currentDatasetType: 'valid' | 'missing' | 'all' = 'valid'): { label: string; count: number }[] {
   const dataset = getLoadedDatamyneDataset();
-  let scoped =
-    currentDatasetType === 'valid'
-      ? dataset.filter((d) => d.dataset_type === 'valid')
-      : currentDatasetType === 'missing'
-      ? dataset.filter((d) => d.dataset_type === 'missing')
-      : dataset;
-
-  if (category) {
-    scoped = scoped.filter((d) => d.category === category);
-  }
-
   const counts: Record<string, number> = {};
-  for (const d of scoped) {
+  for (let i = 0; i < dataset.length; i++) {
+    const d = dataset[i];
+    if (currentDatasetType !== 'all' && d.dataset_type !== currentDatasetType) continue;
+    if (category && d.category !== category) continue;
     if (d.subcategory) {
       counts[d.subcategory] = (counts[d.subcategory] || 0) + 1;
     }
