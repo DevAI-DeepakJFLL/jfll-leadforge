@@ -130,6 +130,15 @@ audit-screenshots/
 # Customer Lists, Extracted Domains, and Local Specifications
 docs/jfll_*
 docs/phase_2_*
+docs/architecture/
+docs/reference/
+
+# Local Runbooks, Deployment Guides, and Internal Docs
+Backend/README.md
+Backend/docs/AWS_FREE_TIER_DEPLOYMENT_RUNBOOK.md
+Backend/docs/SECURITY_AND_CODE_REVIEW.md
+Backend/requirements.txt
+Backend/requirements-lambda.txt
 
 # Apollo Internal Workflow & Selection Guides
 Backend/data/Apollo/*.md
