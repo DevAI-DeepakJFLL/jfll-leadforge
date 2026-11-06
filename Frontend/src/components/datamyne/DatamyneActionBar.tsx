@@ -149,23 +149,23 @@ export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
         {onDownloadSummaryReport && (
           <button
             onClick={onDownloadSummaryReport}
-            disabled={selectedCount === 0 || isExportingSummary}
+            disabled={isExportingSummary}
             className={`h-8 px-2.5 sm:px-3 rounded-md border font-medium flex items-center space-x-1.5 transition-all text-xs shadow-2xs ${
               selectedCount > 0
-                ? 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100/80 active:bg-indigo-100 cursor-pointer'
-                : 'border-slate-200 text-slate-400 bg-slate-50/60 opacity-60 cursor-not-allowed'
-            }`}
+                ? 'border-apollo/30 text-apollo bg-apollo/10 hover:bg-apollo/20 active:bg-apollo/25 cursor-pointer'
+                : 'border-slate-300 text-slate-700 bg-white hover:bg-slate-50 cursor-pointer'
+            } disabled:opacity-50 disabled:cursor-not-allowed`}
             title={
               selectedCount > 0
                 ? `Download senior management executive summary report for ${selectedCount} selected lead${selectedCount > 1 ? 's' : ''}`
-                : 'Select one or more leads to download executive summary report'
+                : 'Download senior management executive summary report for current page'
             }
             aria-label="Download Executive Summary Report"
           >
             {isExportingSummary ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-600" />
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-apollo" />
             ) : (
-              <FileSpreadsheet className={`w-3.5 h-3.5 ${selectedCount > 0 ? 'text-indigo-600' : 'text-slate-400'}`} />
+              <FileSpreadsheet className={`w-3.5 h-3.5 ${selectedCount > 0 ? 'text-apollo' : 'text-slate-600'}`} />
             )}
             <span className="hidden sm:inline">
               {`Summary Report${selectedCount > 0 ? ` (${selectedCount})` : ''}`}

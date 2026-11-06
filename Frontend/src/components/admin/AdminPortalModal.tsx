@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Shield,
   X,
@@ -205,6 +205,30 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
       showToast?.(err.message || 'Revocation failed', 'error');
     },
   });
+
+  // Keyboard dismiss (Escape) & sub-dialog dismissal
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (approvingReq) {
+          setApprovingReq(null);
+        } else if (rejectingReq) {
+          setRejectingReq(null);
+        } else if (showAddModal) {
+          setShowAddModal(false);
+        } else if (showBlockDeviceModal) {
+          setShowBlockDeviceModal(false);
+        } else {
+          onClose();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, approvingReq, rejectingReq, showAddModal, showBlockDeviceModal, onClose]);
 
   if (!isOpen) return null;
 
@@ -852,7 +876,9 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                 </div>
                 <button
                   onClick={() => setApprovingReq(null)}
-                  className="p-1 text-slate-400 hover:text-slate-600 rounded"
+                  className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                  title="Close dialog"
+                  aria-label="Close approval dialog"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -938,7 +964,9 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                 </div>
                 <button
                   onClick={() => setRejectingReq(null)}
-                  className="p-1 text-slate-400 hover:text-slate-600 rounded"
+                  className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                  title="Close dialog"
+                  aria-label="Close decline dialog"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1001,7 +1029,9 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                 </div>
                 <button
                   onClick={() => setShowAddModal(false)}
-                  className="p-1 text-slate-400 hover:text-slate-600 rounded"
+                  className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                  title="Close dialog"
+                  aria-label="Close add personnel dialog"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1117,7 +1147,9 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                 </div>
                 <button
                   onClick={() => setShowBlockDeviceModal(false)}
-                  className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 cursor-pointer"
+                  className="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                  title="Close dialog"
+                  aria-label="Close block hardware dialog"
                 >
                   <X className="w-4 h-4" />
                 </button>

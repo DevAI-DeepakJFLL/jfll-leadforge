@@ -138,11 +138,11 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 {searchQuery ? (
                   <button
                     onClick={handleClearSearch}
-                    className="absolute right-2.5 p-0.5 text-slate-400 hover:text-slate-600 rounded cursor-pointer"
+                    className="absolute right-1 w-7 h-7 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-md cursor-pointer transition-colors"
                     title="Clear search"
                     aria-label="Clear search input"
                   >
-                    <X className="w-3 h-3" />
+                    <X className="w-3.5 h-3.5" />
                   </button>
                 ) : (
                   <span className="absolute right-2.5 text-[10px] font-mono text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-300 font-semibold pointer-events-none">
@@ -204,7 +204,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             {searchQuery && (
               <button
                 onClick={handleClearSearch}
-                className="absolute right-2.5 p-1 text-slate-400 hover:text-slate-600 rounded"
+                className="absolute right-1 w-9 h-9 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-md transition-colors"
                 title="Clear search"
                 aria-label="Clear search input"
               >

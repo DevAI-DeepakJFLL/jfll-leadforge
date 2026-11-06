@@ -310,40 +310,29 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
             className="inline-flex p-1 bg-slate-200/70 rounded-xl shadow-2xs border border-slate-200/80"
           >
             {/* 1. All Customers (Default) */}
-            <button
-              role="tab"
-              aria-selected={isAll}
-              onClick={() => onChangeCustomerStatus?.('all')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
-                isAll
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
-              }`}
-            >
-              <CategoryInfoTooltip
-                title="All JFLL Customers"
-                description="Complete internal master customer directory containing both active accounts (last 3 months) and dormant accounts."
-                badge={{ text: 'Unified Master', variant: 'blue' }}
-                criteria={[
-                  'Unified repository of 578 active and 2,279 inactive customer accounts',
-                  'Includes direct shippers, consignees, subagents, and overseas partners',
-                  '100% synchronized with internal Jet Freight ERP records',
-                ]}
-                actionTip="Use for company-wide customer lookups, deduplication, and verifying historical business relationships."
-                align="left"
+            <div className="flex items-center">
+              <button
+                role="tab"
+                aria-selected={isAll}
+                onClick={() => onChangeCustomerStatus?.('all')}
+                className={`px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
+                  isAll
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
+                }`}
               >
                 <Layers className={`w-3.5 h-3.5 shrink-0 ${isAll ? 'text-white' : 'text-blue-600'}`} />
-              </CategoryInfoTooltip>
-              <span>All Customers</span>
-              <span
-                className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
-                  isAll
-                    ? 'bg-blue-700 text-blue-50'
-                    : 'bg-slate-100 text-slate-600 border border-slate-200'
-                }`}
-              >
-                {(counts.allTotal || 2857).toLocaleString()}
-              </span>
+                <span>All Customers</span>
+                <span
+                  className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
+                    isAll
+                      ? 'bg-blue-700 text-blue-50'
+                      : 'bg-slate-100 text-slate-600 border border-slate-200'
+                  }`}
+                >
+                  {(counts.allTotal || 2857).toLocaleString()}
+                </span>
+              </button>
               <CategoryInfoTooltip
                 title="All JFLL Customers"
                 description="Complete internal master customer directory containing both active accounts (last 3 months) and dormant accounts."
@@ -355,45 +344,35 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                 ]}
                 actionTip="Use for company-wide customer lookups, deduplication, and verifying historical business relationships."
                 align="left"
-                iconClassName={isAll ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
+                className="ml-0.5 mr-1"
+                iconClassName={isAll ? 'text-blue-700 hover:text-blue-900' : 'text-slate-400 hover:text-slate-600'}
               />
-            </button>
+            </div>
 
             {/* 2. Active Customers */}
-            <button
-              role="tab"
-              aria-selected={isActive}
-              onClick={() => onChangeCustomerStatus?.('active')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
-                isActive
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
-              }`}
-            >
-              <CategoryInfoTooltip
-                title="Active JFLL Customers"
-                description="Verified accounts that have booked freight services or completed shipments with Jet Freight within the last 3 months."
-                badge={{ text: 'Recent Business (90 Days)', variant: 'emerald' }}
-                criteria={[
-                  'Generated active freight bookings or shipments within the last 90 days',
-                  'Valid commercial IEC and verified corporate billing account on file',
-                  'Actively managed by Jet Freight key accounts team',
-                ]}
-                actionTip="Strictly excluded from cold outreach. Direct inquiries through the assigned Key Account Manager."
-                align="left"
+            <div className="flex items-center">
+              <button
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => onChangeCustomerStatus?.('active')}
+                className={`px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
+                  isActive
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
+                }`}
               >
                 <Users className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-emerald-600'}`} />
-              </CategoryInfoTooltip>
-              <span>Active Customers</span>
-              <span
-                className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
-                  isActive
-                    ? 'bg-emerald-700 text-emerald-50'
-                    : 'bg-slate-100 text-slate-600 border border-slate-200'
-                }`}
-              >
-                {(counts.activeTotal || 578).toLocaleString()}
-              </span>
+                <span>Active Customers</span>
+                <span
+                  className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
+                    isActive
+                      ? 'bg-emerald-700 text-emerald-50'
+                      : 'bg-slate-100 text-slate-600 border border-slate-200'
+                  }`}
+                >
+                  {(counts.activeTotal || 578).toLocaleString()}
+                </span>
+              </button>
               <CategoryInfoTooltip
                 title="Active JFLL Customers"
                 description="Verified accounts that have booked freight services or completed shipments with Jet Freight within the last 3 months."
@@ -405,45 +384,35 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                 ]}
                 actionTip="Strictly excluded from cold outreach. Direct inquiries through the assigned Key Account Manager."
                 align="left"
-                iconClassName={isActive ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
+                className="ml-0.5 mr-1"
+                iconClassName={isActive ? 'text-emerald-700 hover:text-emerald-900' : 'text-slate-400 hover:text-slate-600'}
               />
-            </button>
+            </div>
 
             {/* 3. Inactive Customers */}
-            <button
-              role="tab"
-              aria-selected={isInactive}
-              onClick={() => onChangeCustomerStatus?.('inactive')}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
-                isInactive
-                  ? 'bg-amber-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
-              }`}
-            >
-              <CategoryInfoTooltip
-                title="Inactive JFLL Customers"
-                description="Historical accounts with no recorded freight bookings or shipping transactions with Jet Freight in the last 3 months."
-                badge={{ text: 'Dormant (>90 Days)', variant: 'amber' }}
-                criteria={[
-                  'No active shipments or freight bills generated in the last 90 days',
-                  'Prior commercial customer with established credit and trading history',
-                  'Identified for sales reactivation, lane audits, and win-back outreach',
-                ]}
-                actionTip="Prime prospects for reactivation campaigns. Pitch updated airline rates, sea freight spot tariffs, and new trade lane schedules."
-                align="left"
-              >
-                <Archive className={`w-3.5 h-3.5 shrink-0 ${isInactive ? 'text-white' : 'text-amber-600'}`} />
-              </CategoryInfoTooltip>
-              <span>Inactive Customers</span>
-              <span
-                className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
+            <div className="flex items-center">
+              <button
+                role="tab"
+                aria-selected={isInactive}
+                onClick={() => onChangeCustomerStatus?.('inactive')}
+                className={`px-2.5 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center space-x-1.5 cursor-pointer ${
                   isInactive
-                    ? 'bg-amber-700 text-amber-50'
-                    : 'bg-slate-100 text-slate-600 border border-slate-200'
+                    ? 'bg-amber-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/40'
                 }`}
               >
-                {(counts.inactiveTotal || 2279).toLocaleString()}
-              </span>
+                <Archive className={`w-3.5 h-3.5 shrink-0 ${isInactive ? 'text-white' : 'text-amber-600'}`} />
+                <span>Inactive Customers</span>
+                <span
+                  className={`text-[10px] font-mono font-medium px-1.5 py-0.2 rounded-full ${
+                    isInactive
+                      ? 'bg-amber-700 text-amber-50'
+                      : 'bg-slate-100 text-slate-600 border border-slate-200'
+                  }`}
+                >
+                  {(counts.inactiveTotal || 2279).toLocaleString()}
+                </span>
+              </button>
               <CategoryInfoTooltip
                 title="Inactive JFLL Customers"
                 description="Historical accounts with no recorded freight bookings or shipping transactions with Jet Freight in the last 3 months."
@@ -455,13 +424,19 @@ export const JfllCustomerAudienceTabs: React.FC<JfllCustomerAudienceTabsProps> =
                 ]}
                 actionTip="Prime prospects for reactivation campaigns. Pitch updated airline rates, sea freight spot tariffs, and new trade lane schedules."
                 align="left"
-                iconClassName={isInactive ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
+                className="ml-0.5 mr-1"
+                iconClassName={isInactive ? 'text-amber-700 hover:text-amber-900' : 'text-slate-400 hover:text-slate-600'}
               />
-            </button>
+            </div>
           </div>
 
           {/* Context Badge */}
-          {isAll ? null : isInactive ? (
+          {isAll ? (
+            <span className="hidden md:inline-flex items-center gap-1 text-[11px] font-medium text-blue-800 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200/80 shrink-0">
+              <Layers className="w-3 h-3 text-blue-600" />
+              Unified Customer Master
+            </span>
+          ) : isInactive ? (
             <span className="hidden md:inline-flex items-center gap-1 text-[11px] font-medium text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200/80 shrink-0">
               <FileCheck className="w-3 h-3 text-amber-600" />
               Reactivation Prospects (Active Customers Purged)

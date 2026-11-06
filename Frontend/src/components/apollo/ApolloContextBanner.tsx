@@ -59,7 +59,7 @@ export const ApolloContextBanner: React.FC<ApolloContextBannerProps> = ({
 
       <button
         onClick={handleDismiss}
-        className="p-1 rounded text-slate-400 hover:text-slate-700 hover:bg-blue-100/60 transition-colors shrink-0"
+        className="w-8 h-8 rounded-md flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-blue-100/60 transition-colors shrink-0"
         title="Dismiss notice"
         aria-label="Dismiss notice"
       >

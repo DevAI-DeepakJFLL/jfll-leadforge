@@ -150,7 +150,7 @@ export const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
       className={`flex flex-wrap items-center gap-1.5 py-2 px-4 bg-white border-b border-surface-border select-none animate-in fade-in duration-150 ${className}`}
       aria-label="Active Filters"
     >
-      <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mr-1">
+      <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mr-1">
         Filtered by:
       </span>
 

@@ -96,7 +96,7 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
 
       {/* Slide-over panel container */}
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10 pointer-events-none">
-        <div className="w-screen max-w-full sm:max-w-[480px] pointer-events-auto bg-white shadow-2xl flex flex-col h-full border-l border-slate-200 animate-in slide-in-from-right duration-250 ease-out">
+        <div className="w-screen max-w-full sm:max-w-lg lg:max-w-xl pointer-events-auto bg-white shadow-2xl flex flex-col h-full border-l border-slate-200 animate-in slide-in-from-right duration-250 ease-out">
           
           {/* Header */}
           <div className="p-4 sm:p-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 via-white to-blue-50/20 shrink-0">

@@ -207,8 +207,8 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
     >
       <div className="overflow-x-auto min-w-0">
         <table className="w-full min-w-[1020px] text-left text-xs border-collapse">
-          <thead>
-            <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+          <thead className="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-xs shadow-2xs">
+            <tr className="border-b border-slate-200 bg-slate-50/95 backdrop-blur-xs text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
               <th className="py-3 px-3 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>

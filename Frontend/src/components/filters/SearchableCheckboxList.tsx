@@ -100,7 +100,7 @@ export const SearchableCheckboxList: React.FC<SearchableCheckboxListProps> = ({
                 </div>
 
                 {opt.count !== undefined && (
-                  <span className="text-[10px] text-slate-400 font-mono shrink-0 ml-1">
+                  <span className="text-[10px] text-slate-500 font-mono font-medium shrink-0 ml-1">
                     {opt.count}
                   </span>
                 )}

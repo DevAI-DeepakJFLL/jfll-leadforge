@@ -88,7 +88,7 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <aside
-          className={`w-screen max-w-full sm:max-w-md lg:max-w-[480px] bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-slate-200 ${className}`}
+          className={`w-screen max-w-full sm:max-w-lg lg:max-w-xl bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-slate-200 ${className}`}
         >
           {/* Header */}
           <div className="p-4 sm:p-5 border-b border-surface-border bg-slate-50/70 flex items-start justify-between gap-3">
@@ -204,11 +204,11 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                       </a>
                       <button
                         onClick={() => handleCopyText(num.dialValue, num.label)}
-                        className="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded cursor-pointer transition-colors"
+                        className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-md cursor-pointer transition-colors"
                         title={`Copy ${num.label}`}
                         aria-label={`Copy ${num.label} ${num.display}`}
                       >
-                        <Copy className="w-3 h-3" />
+                        <Copy className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
@@ -240,10 +240,11 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                     </a>
                     <button
                       onClick={() => handleCopyText(customer.email!, 'Email')}
-                      className="p-1 text-slate-400 hover:text-slate-700 rounded"
+                      className="w-7 h-7 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-md cursor-pointer transition-colors"
                       title="Copy email"
+                      aria-label="Copy email address"
                     >
-                      <Copy className="w-3 h-3" />
+                      <Copy className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 ) : (
@@ -254,10 +255,10 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
 
             {/* Corporate Family & Linked Branches Card */}
             {customer.parentId && (
-              <div className="bg-gradient-to-br from-indigo-50/60 to-purple-50/60 border border-indigo-200/80 rounded-xl p-4 shadow-2xs space-y-3">
-                <div className="flex items-center justify-between border-b border-indigo-100 pb-2">
+              <div className="bg-slate-50/80 border border-slate-200/90 rounded-xl p-4 shadow-2xs space-y-3">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-2">
                   <div className="flex items-center gap-2">
-                    <Network className="w-4 h-4 text-indigo-600" />
+                    <Network className="w-4 h-4 text-apollo" />
                     <span className="font-bold text-slate-900 text-xs uppercase tracking-wider">
                       Corporate Family & Linked Accounts
                     </span>
@@ -268,24 +269,24 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                       {customer.branchAliasTag || 'Branch Entity'}
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-purple-800 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                       Primary Corporate Parent
                     </span>
                   )}
                 </div>
 
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between items-center bg-white/80 p-2.5 rounded-lg border border-indigo-100">
+                  <div className="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200/80 shadow-2xs">
                     <span className="text-slate-600 font-medium">Combined Group Volume</span>
-                    <span className="font-mono font-bold text-indigo-900 text-sm">
+                    <span className="font-mono font-bold text-slate-900 text-sm">
                       ₹{customer.groupTotalBusiness?.toLocaleString('en-IN', { minimumFractionDigits: 2 }) ?? '—'}
                     </span>
                   </div>
 
                   {customer.isBranchAlias && customer.parentName && (
-                    <div className="flex justify-between items-center bg-white/80 p-2.5 rounded-lg border border-indigo-100">
+                    <div className="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200/80 shadow-2xs">
                       <span className="text-slate-600 font-medium">Corporate Parent</span>
-                      <span className="font-semibold text-slate-900 text-right truncate max-w-[220px]">
+                      <span className="font-semibold text-slate-900 text-right truncate max-w-[220px]" title={customer.parentName}>
                         {customer.parentName}
                       </span>
                     </div>

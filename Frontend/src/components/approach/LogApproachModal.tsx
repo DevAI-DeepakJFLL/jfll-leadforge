@@ -14,7 +14,6 @@ import {
   ALL_SALES_ACTIONS,
   FUNNEL_RANKS,
   MANDATORY_NOTE_STATUSES,
-  STANDARD_SELECTABLE_STATUSES,
   SalesAction,
   SalesStatus,
 } from '@/types/approachLog';
@@ -228,11 +227,20 @@ export const LogApproachModal: React.FC<LogApproachModalProps> = ({
                 }`}
                 required
               >
-                {STANDARD_SELECTABLE_STATUSES.map((st) => (
-                  <option key={st} value={st}>
-                    {st}
-                  </option>
-                ))}
+                <optgroup label="Active Pipeline">
+                  {['Not Contacted', 'Contacted', 'Report Sent', 'Working on It', 'In Progress'].map((st) => (
+                    <option key={st} value={st}>
+                      {st}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="Paused / Disqualified">
+                  {['On Hold', 'No Response', 'Not Interested'].map((st) => (
+                    <option key={st} value={st}>
+                      {st}
+                    </option>
+                  ))}
+                </optgroup>
               </select>
               <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>

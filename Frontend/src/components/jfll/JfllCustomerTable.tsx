@@ -313,8 +313,8 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
       {/* Table Container */}
       <div className="overflow-x-auto min-w-0">
         <table className="w-full min-w-[1080px] text-left text-xs border-collapse">
-          <thead>
-            <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+          <thead className="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-xs shadow-2xs">
+            <tr className="border-b border-slate-200 bg-slate-50/95 backdrop-blur-xs text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
               <th scope="col" className="py-2.5 px-3 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>
@@ -390,7 +390,10 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="font-semibold text-xs text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight">
+                          <span
+                            className="font-semibold text-xs text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight"
+                            title={c.fullName}
+                          >
                             {c.fullName}
                           </span>
                           {c.isBranchAlias ? (
@@ -403,10 +406,10 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                             </span>
                           ) : c.parentId && c.groupTotalBusiness ? (
                             <span
-                              className="inline-flex items-center gap-1 text-[10px] font-semibold text-purple-800 bg-purple-50 px-1.5 py-0.5 rounded border border-purple-200 shrink-0 leading-tight"
+                              className="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-800 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200 shrink-0 leading-tight"
                               title={`Corporate Parent — Combined Group: ₹${c.groupTotalBusiness.toLocaleString('en-IN')}`}
                             >
-                              <Network className="w-2.5 h-2.5 text-purple-600" />
+                              <Network className="w-2.5 h-2.5 text-blue-600" />
                               Group: {formatIndianCurrency(c.groupTotalBusiness)}
                             </span>
                           ) : null}
@@ -541,7 +544,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         </a>
                         <button
                           onClick={(e) => handleCopy(phoneData.raw, 'Phone', e)}
-                          className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
+                          className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
                           title="Copy phone"
                           aria-label={`Copy phone number ${phoneData.number}`}
                         >
@@ -568,7 +571,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         </a>
                         <button
                           onClick={(e) => handleCopy(c.email!, 'Email', e)}
-                          className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
+                          className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
                           title="Copy email"
                           aria-label={`Copy email ${c.email}`}
                         >

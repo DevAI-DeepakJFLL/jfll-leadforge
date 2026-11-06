@@ -295,26 +295,33 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
 
   const handleDownloadSummaryReport = React.useCallback(async () => {
     const selectedIds = Object.keys(rowSelection).filter((id) => rowSelection[id]);
-    if (selectedIds.length === 0) {
-      showToast('Please select at least one lead to download the summary report.', 'info');
-      return;
-    }
 
     try {
       setIsExportingSummary(true);
       const allLeads = getLoadedDatamyneDataset();
       const allTierLeads = getLoadedTierDataset();
 
-      const selectedLeads = selectedIds
-        .map(
-          (id) =>
-            displayItems.find((d) => d.id === id) ||
-            allLeads.find((d) => d.id === id) ||
-            (allTierLeads as unknown as DatamyneLead[]).find((d) => d.id === id)
-        )
-        .filter(Boolean) as DatamyneLead[];
+      let targetLeads: DatamyneLead[] = [];
+      if (selectedIds.length > 0) {
+        targetLeads = selectedIds
+          .map(
+            (id) =>
+              displayItems.find((d) => d.id === id) ||
+              allLeads.find((d) => d.id === id) ||
+              (allTierLeads as unknown as DatamyneLead[]).find((d) => d.id === id)
+          )
+          .filter(Boolean) as DatamyneLead[];
+      } else {
+        // Smart fallback: default to exporting the visible leads on the current page
+        targetLeads = displayItems.slice(0, 25);
+        if (targetLeads.length === 0) {
+          showToast('No leads available in current view to export.', 'info');
+          return;
+        }
+        showToast(`Exporting executive summary report for current page (${targetLeads.length} leads)...`, 'info');
+      }
 
-      if (selectedLeads.length === 0) {
+      if (targetLeads.length === 0) {
         showToast('Selected lead records could not be found.', 'error');
         return;
       }
@@ -322,15 +329,15 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
       // Fetch approach notes in parallel for selected leads
       const notesMap = await getLatestApproachNotesForEntities(
         'datamyne',
-        selectedLeads.map((l) => l.id)
+        targetLeads.map((l) => l.id)
       );
 
-      const blob = exportDatamyneSummaryReportCsv(selectedLeads, { notesMap });
+      const blob = exportDatamyneSummaryReportCsv(targetLeads, { notesMap });
       const today = new Date().toISOString().split('T')[0];
       const filename = `JFLL_DataMyne_Executive_Summary_${today}.csv`;
 
       triggerCsvDownload(blob, filename);
-      showToast(`Downloaded executive summary report for ${selectedLeads.length} selected lead${selectedLeads.length > 1 ? 's' : ''}`);
+      showToast(`Downloaded executive summary report for ${targetLeads.length} lead${targetLeads.length > 1 ? 's' : ''}`);
     } catch (err) {
       logger.error('DATAMYNE_SUMMARY', 'Failed to generate executive summary report', { error: String(err) });
       showToast('Failed to generate summary report. Please try again.', 'error');

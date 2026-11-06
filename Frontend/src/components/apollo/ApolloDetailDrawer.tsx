@@ -130,8 +130,8 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
         aria-hidden="true"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-6 sm:pl-10">
-        <div className="w-screen max-w-xl bg-white shadow-2xl flex flex-col h-full border-l border-slate-200">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+        <div className="w-screen max-w-full sm:max-w-lg lg:max-w-xl bg-white shadow-2xl flex flex-col h-full border-l border-slate-200">
           {/* Header */}
           <div className="p-4 sm:p-5 border-b border-surface-border bg-slate-50/70 shrink-0">
             <div className="flex items-start justify-between gap-3">
@@ -325,9 +325,11 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                   {contactsSearch && (
                     <button
                       onClick={() => setContactsSearch('')}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      className="absolute right-1 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors"
+                      title="Clear contact search"
+                      aria-label="Clear contact search"
                     >
-                      <X className="w-3 h-3" />
+                      <X className="w-3.5 h-3.5" />
                     </button>
                   )}
                 </div>
@@ -463,9 +465,9 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                               </a>
                               <button
                                 onClick={() => handleCopy(cleanEmail, `email-${contact.person_id}`)}
-                                className="p-1 rounded text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
+                                className="w-7 h-7 flex items-center justify-center rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
                                 title="Copy email address"
-                                aria-label="Copy email"
+                                aria-label="Copy email address"
                               >
                                 {copiedField === `email-${contact.person_id}` ? (
                                   <Check className="w-3 h-3 text-emerald-600" />

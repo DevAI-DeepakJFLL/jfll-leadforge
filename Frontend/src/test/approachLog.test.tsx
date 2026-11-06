@@ -126,6 +126,10 @@ describe('Sales Approach & Active Conversion Suite', () => {
         expect(html).toContain(`value="${st}"`);
       }
 
+      // Verify semantic optgroups for pipeline clarity
+      expect(html).toContain('<optgroup label="Active Pipeline">');
+      expect(html).toContain('<optgroup label="Paused / Disqualified">');
+
       // Verify Converted to Active is EXCLUDED from standard status options
       expect(html).not.toContain('<option value="Converted to Active">');
     });

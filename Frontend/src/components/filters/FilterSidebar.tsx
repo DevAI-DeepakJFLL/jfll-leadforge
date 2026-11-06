@@ -330,7 +330,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                     />
                     <span>{tier.label}</span>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-400">{tier.badge}</span>
+                  <span className="text-[10px] font-mono text-slate-500 font-medium">{tier.badge}</span>
                 </label>
               );
             })}
@@ -406,7 +406,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                     />
                     <span>{dept.label}</span>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-400">{dept.badge}</span>
+                  <span className="text-[10px] font-mono text-slate-500 font-medium">{dept.badge}</span>
                 </label>
               );
             })}
@@ -452,7 +452,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                       <span className="text-sm">{c.flag}</span>
                       <span>{c.name}</span>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-400">{c.count}</span>
+                    <span className="text-[10px] font-mono text-slate-500 font-medium">{c.count}</span>
                   </label>
                 );
               })}

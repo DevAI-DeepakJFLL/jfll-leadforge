@@ -534,9 +534,9 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
             <div className="space-y-2.5">
               {/* Brazil Corridors Sub-group */}
               <div>
-                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
                   <span>Brazil Corridors</span>
-                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-semibold leading-none">
+                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded text-[9px] font-semibold leading-none">
                     {BRAZIL_CORRIDORS.length}
                   </span>
                 </div>
@@ -560,9 +560,9 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
 
               {/* India Corridors Sub-group */}
               <div className="border-t border-slate-100 pt-2">
-                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
                   <span>India Corridors</span>
-                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-semibold leading-none">
+                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded text-[9px] font-semibold leading-none">
                     {INDIA_CORRIDORS.length}
                   </span>
                 </div>
@@ -644,9 +644,9 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
             <div className="space-y-2.5">
               {/* Brazil Hubs Sub-group */}
               <div>
-                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
                   <span>Brazil Hubs</span>
-                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-semibold leading-none">
+                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded text-[9px] font-semibold leading-none">
                     {BRAZIL_CITIES.length}
                   </span>
                 </div>
@@ -670,9 +670,9 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
 
               {/* India Hubs Sub-group */}
               <div className="border-t border-slate-100 pt-2">
-                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between pb-1.5 pt-0.5">
                   <span>India Hubs</span>
-                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-semibold leading-none">
+                  <span className="px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded text-[9px] font-semibold leading-none">
                     {INDIA_CITIES.length}
                   </span>
                 </div>

@@ -55,6 +55,7 @@ describe('Root Admin Portal & Access Request Suite', () => {
 
     // Security Notice
     expect(html).toContain('Strict enterprise allowlist active');
+    expect(html).toContain('aria-label="Close Admin Portal"');
   });
 
   it('does not render modal content when isOpen is false', () => {

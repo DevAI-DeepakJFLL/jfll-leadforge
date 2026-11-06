@@ -63,10 +63,10 @@ describe('Table Action Bars with Inline Search Bar', () => {
 
     // Verify Summary Report button is enabled with selected count badge
     expect(html).toContain('Summary Report (3)');
-    expect(html).toContain('border-indigo-200');
+    expect(html).toContain('border-apollo/30');
   });
 
-  it('renders DatamyneActionBar with disabled Summary Report button when selectedCount is 0', () => {
+  it('renders DatamyneActionBar with smart enabled Summary Report button when selectedCount is 0 for current page export', () => {
     const html = renderToString(
       <DatamyneActionBar
         selectedCount={0}
@@ -83,10 +83,32 @@ describe('Table Action Bars with Inline Search Bar', () => {
       />
     );
 
-    // Verify Summary Report button is disabled when selectedCount is 0
+    // Verify Summary Report button is enabled with smart current-page export affordance
     expect(html).toContain('Summary Report');
+    expect(html).toContain('border-slate-300');
+    expect(html).toContain('Download senior management executive summary report for current page');
+  });
+
+  it('renders DatamyneActionBar with active spinner when isExportingSummary is true', () => {
+    const html = renderToString(
+      <DatamyneActionBar
+        selectedCount={2}
+        totalOnPage={25}
+        totalCount={37269}
+        isAllOnPageSelected={false}
+        isIndeterminate={true}
+        onToggleSelectAllPage={() => {}}
+        onDeselectAll={() => {}}
+        onExport={() => {}}
+        onDownloadSummaryReport={() => {}}
+        isExportingSummary={true}
+        searchQuery=""
+        onSearchChange={() => {}}
+      />
+    );
+
+    expect(html).toContain('animate-spin');
     expect(html).toContain('disabled=""');
-    expect(html).toContain('cursor-not-allowed');
   });
 
   it('renders TableActionBar with search bar placed next to Select option', () => {

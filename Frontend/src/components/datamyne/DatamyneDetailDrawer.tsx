@@ -100,7 +100,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <aside
-          className={`w-screen max-w-full sm:max-w-md lg:max-w-[500px] bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-slate-200 ${className}`}
+          className={`w-screen max-w-full sm:max-w-lg lg:max-w-xl bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-slate-200 ${className}`}
         >
           {/* Header */}
           <div className="p-4 sm:p-5 border-b border-surface-border bg-slate-50/70 flex items-start justify-between gap-3">
@@ -286,7 +286,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                     <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                     <span className="text-slate-600">Contact Number:</span>
                   </div>
-                  <span className="text-slate-400 italic">Not available on manifest</span>
+                  <span className="text-slate-500 font-normal">Not available on manifest</span>
                 </div>
               )}
 
@@ -322,7 +322,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
               ) : (
                 <div className="flex items-center justify-between py-2 border-t border-slate-200/60">
                   <span className="text-slate-600">Email Address:</span>
-                  <span className="text-slate-400 italic">Not available on manifest</span>
+                  <span className="text-slate-500 font-normal">Not available on manifest</span>
                 </div>
               )}
 

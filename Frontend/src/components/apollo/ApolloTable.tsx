@@ -200,7 +200,10 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                         {initials}
                       </div>
                       <div className="min-w-0">
-                        <div className="font-semibold text-xs text-slate-900 truncate max-w-[200px] sm:max-w-[280px] group-hover:text-apollo hover:underline transition-colors leading-tight">
+                        <div
+                          className="font-semibold text-xs text-slate-900 truncate max-w-[200px] sm:max-w-[280px] group-hover:text-apollo hover:underline transition-colors leading-tight"
+                          title={lead.organization_name}
+                        >
                           {lead.organization_name}
                         </div>
                         <div className="flex items-center space-x-1.5 text-[11px] text-slate-500 font-normal truncate mt-0.5 leading-tight">
