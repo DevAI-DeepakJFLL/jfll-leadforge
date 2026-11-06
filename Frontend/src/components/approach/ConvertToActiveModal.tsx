@@ -126,12 +126,19 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
 
     setIsSubmitting(true);
     try {
-      await convertClientToActive(entityType, entityId, {
+      const result = await convertClientToActive(entityType, entityId, {
         start_date: startDate.trim(),
         note: note.trim() || null,
       });
 
-      showToast(`Successfully converted "${companyName}" to Active!`, 'success');
+      if (result.is_offline_pending) {
+        showToast(
+          `Converted "${companyName}" to Active — [Saved offline, queued to sync with server]`,
+          'warning'
+        );
+      } else {
+        showToast(`Successfully converted "${companyName}" to Active!`, 'success');
+      }
       onSuccess?.();
       onClose();
     } catch (err: unknown) {

@@ -23,6 +23,8 @@ import {
   logApproachActivity,
   getPendingOutbox,
   syncPendingApproachOutbox,
+  fetchBulkStatuses,
+  APPROACH_STATUS_CHANGED_EVENT,
 } from '@/services/approachLogService';
 
 vi.mock('@/services/authService', () => ({
@@ -502,11 +504,12 @@ describe('Sales Approach & Active Conversion Suite', () => {
       globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network offline'));
 
       try {
-        await logApproachActivity('jfll_customer', 'cust_outbox_1', {
+        const result = await logApproachActivity('jfll_customer', 'cust_outbox_1', {
           action: 'Called customer',
           status: 'Contacted',
           note: 'Follow up call offline',
         });
+        expect(result.is_offline_pending).toBe(true);
 
         // Verify item was queued in outbox
         const outbox = getPendingOutbox();
@@ -556,6 +559,49 @@ describe('Sales Approach & Active Conversion Suite', () => {
         expect(syncedCount).toBeGreaterThanOrEqual(1);
         expect(getPendingOutbox()).toEqual([]);
       } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
+
+    it('dispatches APPROACH_STATUS_CHANGED_EVENT when fetchBulkStatuses successfully retrieves server statuses', async () => {
+      const originalFetch = globalThis.fetch;
+      const originalWindow = (globalThis as any).window;
+      const eventSpy = vi.fn();
+
+      const listeners: Record<string, Function[]> = {};
+      (globalThis as any).window = {
+        addEventListener: (event: string, fn: Function) => {
+          listeners[event] = listeners[event] || [];
+          listeners[event].push(fn);
+        },
+        removeEventListener: (event: string, fn: Function) => {
+          listeners[event] = (listeners[event] || []).filter((f) => f !== fn);
+        },
+        dispatchEvent: (event: any) => {
+          (listeners[event?.type || event] || []).forEach((fn) => fn(event));
+          eventSpy(event);
+          return true;
+        },
+      };
+
+      (globalThis as any).window.addEventListener(APPROACH_STATUS_CHANGED_EVENT, eventSpy);
+
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          entity_type: 'datamyne',
+          total_tracked: 1,
+          statuses: { 'dm-test-123': 'In Progress' },
+        }),
+      } as unknown as Response);
+
+      try {
+        const statuses = await fetchBulkStatuses('datamyne');
+        expect(statuses['dm-test-123']).toBe('In Progress');
+        expect(eventSpy).toHaveBeenCalled();
+      } finally {
+        (globalThis as any).window = originalWindow;
         globalThis.fetch = originalFetch;
       }
     });

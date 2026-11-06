@@ -105,6 +105,8 @@ if (typeof window !== 'undefined') {
   window.addEventListener('online', () => {
     syncPendingApproachOutbox().catch(() => {});
   });
+  // Auto-sync any pending outbox items on module load
+  syncPendingApproachOutbox().catch(() => {});
 }
 
 const cachedBulkStatuses: Record<'datamyne' | 'jfll_customer', Record<string, SalesStatus>> = {
@@ -329,7 +331,7 @@ export async function logApproachActivity(
     });
 
     notifyApproachStatusUpdated(entityType, entityId, targetStatus, entity.is_active_converted);
-    return entity;
+    return { ...entity, is_offline_pending: true };
   }
 }
 
@@ -413,7 +415,7 @@ export async function convertClientToActive(
     });
 
     notifyApproachStatusUpdated(entityType, entityId, 'Converted to Active', true);
-    return entity;
+    return { ...entity, is_offline_pending: true };
   }
 }
 
@@ -430,6 +432,11 @@ export async function fetchBulkStatuses(
       const data: BulkStatusesResponse = await res.json();
       const statusMap = data.statuses || {};
       cachedBulkStatuses[entityType] = { ...statusMap };
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new CustomEvent(APPROACH_STATUS_CHANGED_EVENT, { detail: { entityType, bulk: true } })
+        );
+      }
       return statusMap;
     }
   } catch (err) {

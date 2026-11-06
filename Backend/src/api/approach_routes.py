@@ -3,6 +3,7 @@
 import json
 import os
 import threading
+import time
 import uuid
 from datetime import UTC, datetime
 from pathlib import Path
@@ -31,6 +32,7 @@ _FILE_LOCK = threading.Lock()
 _CACHED_DATA: dict[str, Any] | None = None
 _CACHED_MTIME: float | None = None
 _CACHED_STORAGE_KEY: str | None = None
+_LAST_S3_SYNC: float = 0.0
 
 S3_APPROACH_LOGS_KEY = "data/approach_logs.json"
 
@@ -87,17 +89,24 @@ def _build_empty_store() -> dict[str, Any]:
 
 
 def load_approach_data() -> dict[str, Any]:
-    """Loads approach logs state from memory cache or disk, restoring from S3 if missing."""
-    global _CACHED_DATA, _CACHED_MTIME, _CACHED_STORAGE_KEY
+    """Loads approach logs state from memory cache or disk, restoring from S3 if missing or periodically on Lambda."""
+    global _CACHED_DATA, _CACHED_MTIME, _CACHED_STORAGE_KEY, _LAST_S3_SYNC
     storage_path = get_storage_path()
+    is_lambda = bool(os.getenv("AWS_LAMBDA_FUNCTION_NAME"))
+    now = time.time()
 
-    if not storage_path.exists():
+    should_sync_s3 = not storage_path.exists() or (is_lambda and (now - _LAST_S3_SYNC > 10.0))
+
+    if should_sync_s3:
         storage_path.parent.mkdir(parents=True, exist_ok=True)
         restored = _restore_from_s3(storage_path)
-        if not restored or not storage_path.exists():
+        _LAST_S3_SYNC = now
+        if not storage_path.exists():
             initial_data = _build_empty_store()
             save_approach_data(initial_data)
             return initial_data
+        if restored:
+            _CACHED_MTIME = None
 
     try:
         current_mtime = storage_path.stat().st_mtime
@@ -152,6 +161,7 @@ def save_approach_data(data: dict[str, Any]) -> None:
         pass
 
     _backup_to_s3(storage_path)
+    _LAST_S3_SYNC = time.time()
 
 
 def get_converted_active_entity_ids(entity_type: str = "jfll_customer") -> set[str]:

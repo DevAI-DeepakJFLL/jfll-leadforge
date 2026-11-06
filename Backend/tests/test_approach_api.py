@@ -235,3 +235,29 @@ def test_convert_to_active_unauthorized_role_rejected():
     assert res.status_code == 403
     assert "FORBIDDEN_CONVERSION" in res.json()["detail"]
 
+
+def test_lambda_warm_container_s3_periodic_refresh(tmp_path, monkeypatch):
+    """Warm Lambda container periodically checks S3 when TTL expires."""
+    import sys
+    import time
+    from unittest.mock import MagicMock
+    import src.api.approach_routes as ar
+
+    mock_boto3 = MagicMock()
+    mock_s3 = MagicMock()
+    mock_boto3.client.return_value = mock_s3
+    monkeypatch.setitem(sys.modules, "boto3", mock_boto3)
+
+    target_file = tmp_path / "warm_lambda_approach.json"
+    target_file.write_text('{"version": 1, "entities": {}}')
+    monkeypatch.setenv("APPROACH_LOGS_PATH", str(target_file))
+    monkeypatch.setenv("AWS_LAMBDA_FUNCTION_NAME", "leadforge-api-prod")
+
+    # Set last sync to 20 seconds ago to expire TTL
+    ar._LAST_S3_SYNC = time.time() - 20.0
+    mock_s3.download_file.reset_mock()
+
+    ar.load_approach_data()
+    mock_s3.download_file.assert_called_once()
+
+

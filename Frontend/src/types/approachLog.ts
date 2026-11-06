@@ -98,6 +98,7 @@ export interface EntityApproachHistory {
   converted_at?: string | null;
   conversion_start_date?: string | null;
   logs: ApproachLogEntry[];
+  is_offline_pending?: boolean;
 }
 
 export interface ApproachLogCreatePayload {

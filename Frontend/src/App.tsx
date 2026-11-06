@@ -71,7 +71,12 @@ import {
 import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
 import { LogApproachModal, ConvertToActiveModal } from '@/components/approach';
 import { SalesStatus } from '@/types/approachLog';
-import { getCachedApproachStatus, fetchBulkStatuses } from '@/services/approachLogService';
+import {
+  getCachedApproachStatus,
+  fetchBulkStatuses,
+  syncPendingApproachOutbox,
+  APPROACH_STATUS_CHANGED_EVENT,
+} from '@/services/approachLogService';
 
 
 interface SavedSearchPreset {
@@ -737,11 +742,22 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     companyName: string;
   } | null>(null);
 
-  // Fetch initial bulk statuses for both entity types
+  // Fetch initial bulk statuses for both entity types and flush any pending offline outbox
   useEffect(() => {
+    syncPendingApproachOutbox().catch(() => {});
     fetchBulkStatuses('datamyne').catch(() => {});
     fetchBulkStatuses('jfll_customer').catch(() => {});
   }, []);
+
+  // Listen for approach status updates to ensure tables re-query with latest data
+  useEffect(() => {
+    const handleApproachUpdate = () => {
+      setDatamyneDatasetVersion((v) => v + 1);
+      refetchJfll();
+    };
+    window.addEventListener(APPROACH_STATUS_CHANGED_EVENT, handleApproachUpdate);
+    return () => window.removeEventListener(APPROACH_STATUS_CHANGED_EVENT, handleApproachUpdate);
+  }, [refetchJfll]);
 
   const handleOpenDatamyneApproach = useCallback((lead: DatamyneLead) => {
     setApproachModalTarget({

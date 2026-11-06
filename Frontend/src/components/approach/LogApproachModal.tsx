@@ -102,7 +102,14 @@ export const LogApproachModal: React.FC<LogApproachModalProps> = ({
         note: trimmedNote || null,
       });
 
-      showToast(`Logged approach: ${action} (${selectedStatus})`, 'success');
+      if (result.is_offline_pending) {
+        showToast(
+          `Logged approach: ${action} (${selectedStatus}) — [Saved offline, queued to sync with server]`,
+          'warning'
+        );
+      } else {
+        showToast(`Logged approach: ${action} (${selectedStatus})`, 'success');
+      }
       onSuccess?.(result.current_status);
       onClose();
     } catch (err: unknown) {
