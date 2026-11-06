@@ -55,58 +55,65 @@ export function enqueueOutboxItem(item: Omit<ApproachOutboxItem, 'id' | 'queuedA
   savePendingOutbox(items);
 }
 
+let _isSyncingOutbox = false;
+
 export async function syncPendingApproachOutbox(): Promise<number> {
-  const items = getPendingOutbox();
-  if (items.length === 0) return 0;
+  if (_isSyncingOutbox) return 0;
+  _isSyncingOutbox = true;
 
-  const remaining: ApproachOutboxItem[] = [];
-  let syncedCount = 0;
+  try {
+    const items = getPendingOutbox();
+    if (items.length === 0) return 0;
 
-  for (const item of items) {
-    try {
-      if (item.type === 'log') {
-        const res = await fetch(`${API_BASE_URL}/api/v1/approach-logs/${item.entityType}/${encodeURIComponent(item.entityId)}`, {
-          method: 'POST',
-          headers: getAuthHeaders(),
-          body: JSON.stringify(item.payload),
-        });
-        if (res.ok) {
-          syncedCount++;
-          continue;
-        }
-      } else if (item.type === 'convert') {
-        const res = await fetch(
-          `${API_BASE_URL}/api/v1/approach-logs/${item.entityType}/${encodeURIComponent(item.entityId)}/convert-to-active`,
-          {
+    const remaining: ApproachOutboxItem[] = [];
+    let syncedCount = 0;
+
+    for (const item of items) {
+      try {
+        if (item.type === 'log') {
+          const res = await fetch(`${API_BASE_URL}/api/v1/approach-logs/${item.entityType}/${encodeURIComponent(item.entityId)}`, {
             method: 'POST',
             headers: getAuthHeaders(),
             body: JSON.stringify(item.payload),
+          });
+          if (res.ok) {
+            syncedCount++;
+            continue;
           }
-        );
-        if (res.ok) {
-          syncedCount++;
-          continue;
+        } else if (item.type === 'convert') {
+          const res = await fetch(
+            `${API_BASE_URL}/api/v1/approach-logs/${item.entityType}/${encodeURIComponent(item.entityId)}/convert-to-active`,
+            {
+              method: 'POST',
+              headers: getAuthHeaders(),
+              body: JSON.stringify(item.payload),
+            }
+          );
+          if (res.ok) {
+            syncedCount++;
+            continue;
+          }
         }
+      } catch {
+        // Still offline, retain item
       }
-    } catch {
-      // Still offline, retain item
+      remaining.push(item);
     }
-    remaining.push(item);
-  }
 
-  savePendingOutbox(remaining);
-  if (syncedCount > 0) {
-    logger.info('APPROACH_SERVICE', `Successfully synced ${syncedCount} offline approach logs to server.`);
+    savePendingOutbox(remaining);
+    if (syncedCount > 0) {
+      logger.info('APPROACH_SERVICE', `Successfully synced ${syncedCount} offline approach logs to server.`);
+    }
+    return syncedCount;
+  } finally {
+    _isSyncingOutbox = false;
   }
-  return syncedCount;
 }
 
 if (typeof window !== 'undefined') {
   window.addEventListener('online', () => {
     syncPendingApproachOutbox().catch(() => {});
   });
-  // Auto-sync any pending outbox items on module load
-  syncPendingApproachOutbox().catch(() => {});
 }
 
 const cachedBulkStatuses: Record<'datamyne' | 'jfll_customer', Record<string, SalesStatus>> = {
