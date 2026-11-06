@@ -4,6 +4,7 @@ from typing import Any
 from fastapi import HTTPException, Request
 from fastapi.params import Query as QueryType
 
+from src.api.access_control import is_email_active
 from src.api.auth import check_session_active, verify_token
 from src.api.config import settings
 from src.api.logger import logger
@@ -45,7 +46,6 @@ def require_auth(
             raise HTTPException(status_code=401, detail="Invalid or expired session token")
 
         user_email = user.get("sub", "").strip().lower()
-        from src.api.access_control import is_email_active
 
         if user_email and not is_email_active(user_email):
             logger.warning(

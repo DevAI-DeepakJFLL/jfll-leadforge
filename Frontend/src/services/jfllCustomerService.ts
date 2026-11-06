@@ -207,56 +207,64 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
     : isInactive
     ? JFLL_INACTIVE_CUSTOMERS_DATA
     : JFLL_CUSTOMERS_DATA;
-  let baseFiltered = [...baseData];
 
-  // 1. Text Search Query (Full Name, Contact Person, Email, Mobile, Sales Person)
-  if (q && q.trim()) {
-    const query = q.trim().toLowerCase();
-    baseFiltered = baseFiltered.filter(
-      (c) =>
-        c.fullName.toLowerCase().includes(query) ||
-        (c.contactPersonName && c.contactPersonName.toLowerCase().includes(query)) ||
-        (c.email && c.email.toLowerCase().includes(query)) ||
-        (c.salesPerson && c.salesPerson.toLowerCase().includes(query)) ||
-        (isValidPhoneNumber(c.mobileNumber) && c.mobileNumber!.toLowerCase().includes(query))
-    );
-  }
+  // Pre-compile filter lookup sets for single-pass O(N) evaluation without intermediate array allocations
+  const searchTerm = q?.trim().toLowerCase() || null;
+  const groupSet = customerGroups.length > 0 ? new Set(customerGroups) : null;
+  const typeSet = types.length > 0 ? new Set(types) : null;
+  const creditSet = creditStatuses.length > 0 ? new Set(creditStatuses) : null;
+  const salesSet = salesPersons.length > 0 ? new Set(salesPersons) : null;
+  const statusSet = (customerStatus !== 'active' && approachStatuses?.length > 0) ? new Set(approachStatuses) : null;
 
-  // 2. Customer Groups Multi-select Filter
-  if (customerGroups.length > 0) {
-    const groupSet = new Set(customerGroups);
-    baseFiltered = baseFiltered.filter((c) => groupSet.has(c.customerGroup));
-  }
+  const activeRangeDefs = revenueRanges.length > 0
+    ? revenueRanges
+        .map((rangeId) => JFLL_REVENUE_RANGES.find((r) => r.id === rangeId))
+        .filter((def): def is (typeof JFLL_REVENUE_RANGES)[number] => Boolean(def))
+    : null;
 
-  // 3. Entity Type Multi-select Filter
-  if (types.length > 0) {
-    const typeSet = new Set(types);
-    baseFiltered = baseFiltered.filter((c) => typeSet.has(c.type));
-  }
+  const baseFiltered: JfllCustomer[] = [];
+  const tabFiltered: JfllCustomer[] = [];
 
-  // 4. Credit Status Multi-select Filter
-  if (creditStatuses.length > 0) {
-    const creditSet = new Set(creditStatuses);
-    baseFiltered = baseFiltered.filter((c) => !!c.creditStatus && creditSet.has(c.creditStatus));
-  }
+  let shippersCount = 0;
+  let subagentsCount = 0;
+  let overseasCount = 0;
+  let withContactsCount = 0;
+  let datamyneLeadsCount = 0;
+  let archiveCount = 0;
 
-  // 5. Sales Person Multi-select Filter
-  if (salesPersons.length > 0) {
-    const salesSet = new Set(salesPersons);
-    baseFiltered = baseFiltered.filter((c) => !!c.salesPerson && salesSet.has(c.salesPerson));
-  }
+  for (let i = 0; i < baseData.length; i++) {
+    const c = baseData[i];
 
-  // 6. Revenue Range Multi-select Filter
-  if (revenueRanges.length > 0) {
-    const activeRangeDefs = revenueRanges
-      .map((rangeId) => JFLL_REVENUE_RANGES.find((r) => r.id === rangeId))
-      .filter((def): def is (typeof JFLL_REVENUE_RANGES)[number] => Boolean(def));
+    // 1. Text Search Query (Full Name, Contact Person, Email, Mobile, Sales Person)
+    if (searchTerm) {
+      const match =
+        c.fullName.toLowerCase().includes(searchTerm) ||
+        (c.contactPersonName && c.contactPersonName.toLowerCase().includes(searchTerm)) ||
+        (c.email && c.email.toLowerCase().includes(searchTerm)) ||
+        (c.salesPerson && c.salesPerson.toLowerCase().includes(searchTerm)) ||
+        (isValidPhoneNumber(c.mobileNumber) && c.mobileNumber!.toLowerCase().includes(searchTerm));
+      if (!match) continue;
+    }
 
-    baseFiltered = baseFiltered.filter((c) => {
-      const rev = (isAll || isInactive)
-        ? (c.totalBusinessTillDate ?? c.businessLast3m ?? 0)
-        : (c.businessLast3m ?? 0);
-      return activeRangeDefs.some((def) => {
+    // 2. Customer Groups Multi-select Filter
+    if (groupSet && !groupSet.has(c.customerGroup)) continue;
+
+    // 3. Entity Type Multi-select Filter
+    if (typeSet && !typeSet.has(c.type)) continue;
+
+    // 4. Credit Status Multi-select Filter
+    if (creditSet && (!c.creditStatus || !creditSet.has(c.creditStatus))) continue;
+
+    // 5. Sales Person Multi-select Filter
+    if (salesSet && (!c.salesPerson || !salesSet.has(c.salesPerson))) continue;
+
+    // 6. Revenue Range Multi-select Filter
+    const rev = (isAll || isInactive)
+      ? (c.totalBusinessTillDate ?? c.businessLast3m ?? 0)
+      : (c.businessLast3m ?? 0);
+
+    if (activeRangeDefs && activeRangeDefs.length > 0) {
+      const inRange = activeRangeDefs.some((def) => {
         if (def.min !== undefined && def.max !== undefined) {
           return rev >= def.min && rev < def.max;
         }
@@ -268,60 +276,64 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         }
         return true;
       });
-    });
-  }
+      if (!inRange) continue;
+    }
 
-  if (minRevenue !== undefined) {
-    baseFiltered = baseFiltered.filter((c) => {
-      const rev = (isAll || isInactive)
-        ? (c.totalBusinessTillDate ?? c.businessLast3m ?? 0)
-        : (c.businessLast3m ?? 0);
-      return rev >= minRevenue;
-    });
-  }
+    // 7. Explicit min revenue
+    if (minRevenue !== undefined && rev < minRevenue) continue;
 
-  // 7. Contact Readiness Filters
-  if (hasPhone) {
-    baseFiltered = baseFiltered.filter((c) => isValidPhoneNumber(c.mobileNumber));
-  }
-  if (hasEmail) {
-    baseFiltered = baseFiltered.filter((c) => !!c.email && c.email.trim().length > 0);
-  }
-  if (hasContactPerson) {
-    baseFiltered = baseFiltered.filter(
-      (c) => !!c.contactPersonName && c.contactPersonName.trim().length > 0
-    );
-  }
+    // 8. Contact Readiness Filters
+    if (hasPhone && !isValidPhoneNumber(c.mobileNumber)) continue;
+    if (hasEmail && (!c.email || c.email.trim().length === 0)) continue;
+    if (hasContactPerson && (!c.contactPersonName || c.contactPersonName.trim().length === 0)) continue;
 
-  // 8. Sales Approach Status Multi-select Filter (Only applies to Inactive / All, not Active)
-  if (customerStatus !== 'active' && approachStatuses && approachStatuses.length > 0) {
-    const statusSet = new Set(approachStatuses);
-    baseFiltered = baseFiltered.filter((c) => {
+    // 9. Sales Approach Status Multi-select Filter (Only applies to Inactive / All, not Active)
+    if (statusSet) {
       const st = getCachedApproachStatus('jfll_customer', c.id);
-      return statusSet.has(st);
-    });
-  }
+      if (!statusSet.has(st)) continue;
+    }
 
-  // 5. Audience counts computed from filtered base data in a single loop
-  let shippersCount = 0;
-  let subagentsCount = 0;
-  let overseasCount = 0;
-  let withContactsCount = 0;
-  let datamyneLeadsCount = 0;
-  let archiveCount = 0;
+    // Item passed all base filters
+    baseFiltered.push(c);
 
-  for (const c of baseFiltered) {
+    // Dynamic audience counter updates
     if (c.customerGroup === 'Shipper / Consignee') shippersCount++;
     else if (c.customerGroup === 'Subagent') subagentsCount++;
     else if (c.customerGroup === 'Overseas Agent') overseasCount++;
 
-    if (c.contactPersonName || c.email || isValidPhoneNumber(c.mobileNumber)) {
-      withContactsCount++;
-    }
+    const hasAnyContact = !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber);
+    if (hasAnyContact) withContactsCount++;
+
     if (c.inDataMyne) {
       datamyneLeadsCount++;
     } else if (c.status === 'Not Active') {
       archiveCount++;
+    }
+
+    // 10. Tab Quick Filters
+    let matchesTab = false;
+    if (tab === 'all') {
+      matchesTab = true;
+    } else if (isAll) {
+      if (tab === 'shippers') matchesTab = c.customerGroup === 'Shipper / Consignee';
+      else if (tab === 'subagents') matchesTab = c.customerGroup === 'Subagent';
+      else if (tab === 'overseas') matchesTab = c.customerGroup === 'Overseas Agent';
+      else if (tab === 'datamyne-leads') matchesTab = !!c.inDataMyne;
+      else if (tab === 'archive') matchesTab = c.status === 'Not Active' && !c.inDataMyne;
+      else if (tab === 'with-contacts') matchesTab = hasAnyContact;
+    } else if (isInactive) {
+      if (tab === 'datamyne-leads') matchesTab = !!c.inDataMyne;
+      else if (tab === 'archive') matchesTab = !c.inDataMyne;
+      else if (tab === 'with-contacts') matchesTab = hasAnyContact;
+    } else {
+      if (tab === 'shippers') matchesTab = c.customerGroup === 'Shipper / Consignee';
+      else if (tab === 'subagents') matchesTab = c.customerGroup === 'Subagent';
+      else if (tab === 'overseas') matchesTab = c.customerGroup === 'Overseas Agent';
+      else if (tab === 'with-contacts') matchesTab = hasAnyContact;
+    }
+
+    if (matchesTab) {
+      tabFiltered.push(c);
     }
   }
 
@@ -365,47 +377,7 @@ export function queryJfllCustomers(params: JfllCustomerFilterParams = {}): JfllC
         allTotal: totalAllCount,
       };
 
-  // 6. Tab Quick Filters (Applied to baseFiltered for table items and pagination)
-  let filtered = baseFiltered;
-  if (isAll) {
-    if (tab === 'shippers') {
-      filtered = filtered.filter((c) => c.customerGroup === 'Shipper / Consignee');
-    } else if (tab === 'subagents') {
-      filtered = filtered.filter((c) => c.customerGroup === 'Subagent');
-    } else if (tab === 'overseas') {
-      filtered = filtered.filter((c) => c.customerGroup === 'Overseas Agent');
-    } else if (tab === 'datamyne-leads') {
-      filtered = filtered.filter((c) => !!c.inDataMyne);
-    } else if (tab === 'archive') {
-      filtered = filtered.filter((c) => c.status === 'Not Active' && !c.inDataMyne);
-    } else if (tab === 'with-contacts') {
-      filtered = filtered.filter(
-        (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
-      );
-    }
-  } else if (isInactive) {
-    if (tab === 'datamyne-leads') {
-      filtered = filtered.filter((c) => !!c.inDataMyne);
-    } else if (tab === 'archive') {
-      filtered = filtered.filter((c) => !c.inDataMyne);
-    } else if (tab === 'with-contacts') {
-      filtered = filtered.filter(
-        (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
-      );
-    }
-  } else {
-    if (tab === 'shippers') {
-      filtered = filtered.filter((c) => c.customerGroup === 'Shipper / Consignee');
-    } else if (tab === 'subagents') {
-      filtered = filtered.filter((c) => c.customerGroup === 'Subagent');
-    } else if (tab === 'overseas') {
-      filtered = filtered.filter((c) => c.customerGroup === 'Overseas Agent');
-    } else if (tab === 'with-contacts') {
-      filtered = filtered.filter(
-        (c) => !!c.contactPersonName || !!c.email || isValidPhoneNumber(c.mobileNumber)
-      );
-    }
-  }
+  let filtered = tabFiltered;
 
   // 7. Column-header sorting
   if (sortBy) {

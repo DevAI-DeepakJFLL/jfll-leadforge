@@ -14,6 +14,7 @@ import {
   serializeFiltersToUrl,
 } from '@/hooks/useLeadsFilter';
 import { FilterParams, Lead } from '@/types/lead';
+import { buildCsvString, escapeCsvHeader } from '@/utils/csv';
 
 describe('Leads Data & Service Test Suite', () => {
   beforeEach(() => {
@@ -341,6 +342,18 @@ describe('Leads Data & Service Test Suite', () => {
       const csv = generateExportCsv(allLeads);
       const lines = csv.split('\r\n');
       expect(lines.length).toBe(allLeads.length + 1);
+    });
+
+    it('safely escapes CSV headers containing commas to prevent column shifting', () => {
+      const headers = ['Company Name', 'Revenue (INR, Lakhs)', 'Sales Status'];
+      const rows = [['Jet Freight', 500000, 'Active']];
+      const csv = buildCsvString(headers, rows);
+      const headerLine = csv.split('\r\n')[0];
+
+      // "Revenue (INR, Lakhs)" must be wrapped in quotes
+      expect(headerLine).toBe('Company Name,"Revenue (INR, Lakhs)",Sales Status');
+      expect(escapeCsvHeader('Plain Header')).toBe('Plain Header');
+      expect(escapeCsvHeader('Header, with comma')).toBe('"Header, with comma"');
     });
   });
 

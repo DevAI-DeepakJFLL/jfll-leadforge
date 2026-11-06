@@ -70,18 +70,15 @@ export async function syncPendingApproachOutbox(): Promise<number> {
 
     for (const item of items) {
       try {
+        let res: Response;
         if (item.type === 'log') {
-          const res = await fetch(`${API_BASE_URL}/api/v1/approach-logs/${item.entityType}/${encodeURIComponent(item.entityId)}`, {
+          res = await fetch(`${API_BASE_URL}/api/v1/approach-logs/${item.entityType}/${encodeURIComponent(item.entityId)}`, {
             method: 'POST',
             headers: getAuthHeaders(),
             body: JSON.stringify(item.payload),
           });
-          if (res.ok) {
-            syncedCount++;
-            continue;
-          }
-        } else if (item.type === 'convert') {
-          const res = await fetch(
+        } else {
+          res = await fetch(
             `${API_BASE_URL}/api/v1/approach-logs/${item.entityType}/${encodeURIComponent(item.entityId)}/convert-to-active`,
             {
               method: 'POST',
@@ -89,13 +86,26 @@ export async function syncPendingApproachOutbox(): Promise<number> {
               body: JSON.stringify(item.payload),
             }
           );
-          if (res.ok) {
-            syncedCount++;
-            continue;
-          }
+        }
+
+        if (res.ok) {
+          syncedCount++;
+          continue;
+        }
+
+        // If the server permanently rejected the request with a client error (4xx except 429 rate limit or 408 timeout),
+        // discard the item so it doesn't loop infinitely in the outbox queue.
+        if (res.status >= 400 && res.status < 500 && res.status !== 429 && res.status !== 408) {
+          const errData = await res.json().catch(() => ({}));
+          logger.warn('APPROACH_SERVICE', `Discarding permanently rejected offline outbox item ${item.id}`, {
+            status: res.status,
+            detail: errData.detail || res.statusText,
+            item,
+          });
+          continue;
         }
       } catch {
-        // Still offline, retain item
+        // Network offline or connectivity error: retain item for next sync
       }
       remaining.push(item);
     }
@@ -181,7 +191,8 @@ export async function getLatestApproachNotesForEntities(
   const results: Record<string, string> = {};
   const toFetch: string[] = [];
 
-  for (const id of entityIds) {
+  const uniqueIds = Array.from(new Set(entityIds));
+  for (const id of uniqueIds) {
     const cached = getCachedApproachLatestNote(entityType, id);
     if (cached !== '—') {
       results[id] = cached;
@@ -191,24 +202,29 @@ export async function getLatestApproachNotesForEntities(
   }
 
   if (toFetch.length > 0) {
-    await Promise.allSettled(
-      toFetch.map(async (id) => {
-        try {
-          const history = await fetchEntityApproachHistory(entityType, id);
-          if (history.logs && history.logs.length > 0) {
-            for (const log of history.logs) {
-              if (log.note && log.note.trim()) {
-                results[id] = log.note.trim();
-                return;
+    // Process uncached lead history queries in bounded batches to respect browser connection pool limits
+    const BATCH_SIZE = 8;
+    for (let i = 0; i < toFetch.length; i += BATCH_SIZE) {
+      const batch = toFetch.slice(i, i + BATCH_SIZE);
+      await Promise.allSettled(
+        batch.map(async (id) => {
+          try {
+            const history = await fetchEntityApproachHistory(entityType, id);
+            if (history.logs && history.logs.length > 0) {
+              for (const log of history.logs) {
+                if (log.note && log.note.trim()) {
+                  results[id] = log.note.trim();
+                  return;
+                }
               }
             }
+            results[id] = '—';
+          } catch {
+            results[id] = '—';
           }
-          results[id] = '—';
-        } catch {
-          results[id] = '—';
-        }
-      })
-    );
+        })
+      );
+    }
   }
 
   return results;

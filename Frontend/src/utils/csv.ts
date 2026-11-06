@@ -29,14 +29,26 @@ export function sanitizeCsvValue(val: unknown): string {
 export const escapeCsvField = sanitizeCsvValue;
 
 /**
+ * Safely escapes CSV header fields. If a header contains commas, quotes, or newlines,
+ * it is wrapped in double quotes conforming to RFC-4180 to prevent column misalignment.
+ */
+export function escapeCsvHeader(header: string): string {
+  if (header.includes(',') || header.includes('"') || header.includes('\n') || header.includes('\r')) {
+    return `"${header.replace(/"/g, '""')}"`;
+  }
+  return header;
+}
+
+/**
  * Builds an RFC-4180 compliant CSV string from an array of headers and rows.
  */
 export function buildCsvString(
   headers: string[],
   rows: (string | number | boolean | null | undefined)[][]
 ): string {
+  const sanitizedHeaders = headers.map((h) => escapeCsvHeader(h)).join(',');
   const sanitizedRows = rows.map((row) => row.map((cell) => sanitizeCsvValue(cell)).join(','));
-  return [headers.join(','), ...sanitizedRows].join('\r\n');
+  return [sanitizedHeaders, ...sanitizedRows].join('\r\n');
 }
 
 /**

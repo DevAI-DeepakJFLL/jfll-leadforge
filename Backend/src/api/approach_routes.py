@@ -160,7 +160,8 @@ def save_approach_data(data: dict[str, Any]) -> None:
     except OSError:
         pass
 
-    _backup_to_s3(storage_path)
+    if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or settings.env != "local" or os.getenv("ENABLE_S3_APPROACH_BACKUP"):
+        _backup_to_s3(storage_path)
     _LAST_S3_SYNC = time.time()
 
 

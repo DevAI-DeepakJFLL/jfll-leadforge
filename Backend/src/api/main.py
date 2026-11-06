@@ -9,10 +9,10 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
-from src.api.access_control import block_entity, is_ip_or_fingerprint_blocked
+from src.api.access_control import ROOT_ADMIN_EMAILS, block_entity, is_ip_or_fingerprint_blocked
 from src.api.admin_routes import admin_router
 from src.api.approach_routes import approach_router
-from src.api.auth import is_headless_user_agent
+from src.api.auth import is_headless_user_agent, verify_token
 from src.api.auth import router as auth_router
 from src.api.config import settings
 from src.api.helpers import get_client_ip
@@ -50,8 +50,6 @@ class AntiBotMiddleware(BaseHTTPMiddleware):
             is_root = False
             if auth_header and auth_header.startswith("Bearer "):
                 try:
-                    from src.api.access_control import ROOT_ADMIN_EMAILS
-                    from src.api.auth import verify_token
                     token = auth_header.split("Bearer ", 1)[1].strip()
                     payload = verify_token(token)
                     if payload and payload.get("sub", "").strip().lower() in ROOT_ADMIN_EMAILS:

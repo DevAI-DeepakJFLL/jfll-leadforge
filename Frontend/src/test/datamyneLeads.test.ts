@@ -374,6 +374,7 @@ describe('DataMyne Leads Service & Schemas', () => {
         company_name: 'EUROFARMA LABORATORIOS SA',
         role: 'Exporter',
         transport_mode: undefined,
+        contact_type: 'Both Phone & Email',
         tax_id: '',
         category: 'Pharma',
         subcategory: 'Generics',

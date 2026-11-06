@@ -11,6 +11,7 @@ from typing import Any
 from fastapi import APIRouter, Header, HTTPException, Query, Request
 from pydantic import BaseModel, Field
 
+from src.api.access_control import is_email_active
 from src.api.config import settings
 from src.api.logger import logger
 from src.api.models import (
@@ -18,13 +19,9 @@ from src.api.models import (
     LoginRequest,
     UserSessionResponse,
 )
+from src.api.session_store import ACTIVE_USER_SESSIONS
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
-
-# shortcut: In-memory registry assumes single-process deployment (or sticky sessions).
-# Horizontal multi-worker scaling (e.g. uvicorn --workers N or multi-instance ECS)
-# requires external shared state (e.g. Redis key `session:{email}` or a database column).
-ACTIVE_USER_SESSIONS: dict[str, str] = {}
 
 HEADLESS_USER_AGENTS = (
     "headlesschrome",
@@ -50,8 +47,6 @@ def check_session_active(payload: dict[str, Any]) -> bool:
     token_session_id = payload.get("session_id")
     if not token_session_id or not email:
         return True  # Backward compatibility for legacy tests without session_id
-
-    from src.api.access_control import is_email_active
 
     if not is_email_active(email):
         return False

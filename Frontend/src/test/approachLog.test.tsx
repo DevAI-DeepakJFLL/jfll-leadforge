@@ -563,6 +563,37 @@ describe('Sales Approach & Active Conversion Suite', () => {
       }
     });
 
+    it('discards permanently rejected 4xx items from outbox to prevent infinite error loops', async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network offline'));
+
+      try {
+        await logApproachActivity('jfll_customer', 'cust_outbox_invalid', {
+          action: 'Called customer',
+          status: 'Contacted',
+          note: 'Invalid offline transition',
+        });
+
+        const outbox = getPendingOutbox();
+        expect(outbox.some((item) => item.entityId === 'cust_outbox_invalid')).toBe(true);
+
+        // Mock server rejection with 422 Unprocessable Entity (permanent rejection)
+        globalThis.fetch = vi.fn().mockResolvedValue({
+          ok: false,
+          status: 422,
+          statusText: 'Unprocessable Entity',
+          json: async () => ({ detail: 'Transition requires manager approval' }),
+        } as unknown as Response);
+
+        const syncedCount = await syncPendingApproachOutbox();
+        expect(syncedCount).toBe(0);
+        // Outbox must have discarded the 422 item rather than looping forever
+        expect(getPendingOutbox()).toEqual([]);
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
+
     it('dispatches APPROACH_STATUS_CHANGED_EVENT when fetchBulkStatuses successfully retrieves server statuses', async () => {
       const originalFetch = globalThis.fetch;
       const originalWindow = (globalThis as any).window;

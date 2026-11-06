@@ -9,6 +9,7 @@ from typing import Any
 
 from src.api.config import settings
 from src.api.logger import logger
+from src.api.session_store import ACTIVE_USER_SESSIONS
 
 # Thread lock for thread-safe concurrent in-memory reads and atomic disk operations
 _ACCESS_LOCK = threading.Lock()
@@ -404,7 +405,6 @@ def remove_from_allowlist(email: str, removed_by: str = "admin") -> dict[str, An
 
     # Invalidate active session immediately
     try:
-        from src.api.auth import ACTIVE_USER_SESSIONS
         if clean_email in ACTIVE_USER_SESSIONS:
             del ACTIVE_USER_SESSIONS[clean_email]
     except Exception as err:
