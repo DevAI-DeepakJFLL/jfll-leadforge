@@ -20,7 +20,14 @@ import {
   queryTierCountsLocal,
   getLoadedTierDataset,
 } from '@/services/tierService';
-import { exportDatamyneLeadsCsv } from '@/services/datamyneService';
+import {
+  exportDatamyneLeadsCsv,
+  exportDatamyneSummaryReportCsv,
+  getLoadedDatamyneDataset,
+} from '@/services/datamyneService';
+import { triggerCsvDownload } from '@/utils/csv';
+import { getLatestApproachNotesForEntities } from '@/services/approachLogService';
+import { logger } from '@/utils/logger';
 import { TierFilterParams } from '@/types/tierSegmentation';
 import {
   DatamyneFilterParams,
@@ -44,6 +51,7 @@ export interface DatamyneViewProps {
   onDeselectAll: () => void;
   onExport: () => void;
   isExporting: boolean;
+  onDownloadSummaryReport?: () => void;
   onSearchChange: (query: string) => void;
   onDatasetChange: (dataset: DatamyneDatasetType) => void;
   onTabChange: (tab: DatamyneAudienceTab) => void;
@@ -82,6 +90,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   onDeselectAll,
   onExport,
   isExporting,
+  onDownloadSummaryReport,
   onSearchChange,
   onDatasetChange,
   onTabChange,
@@ -232,6 +241,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
 
   const { showToast } = useToast();
   const [isExportingTiers, setIsExportingTiers] = React.useState(false);
+  const [isExportingSummary, setIsExportingSummary] = React.useState(false);
 
   const isAllTierOnPageSelected =
     displayItems.length > 0 && displayItems.every((d) => !!rowSelection[d.id]);
@@ -282,6 +292,52 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
       setIsExportingTiers(false);
     }
   }, [displayItems, rowSelection, showToast, tierTab]);
+
+  const handleDownloadSummaryReport = React.useCallback(async () => {
+    const selectedIds = Object.keys(rowSelection).filter((id) => rowSelection[id]);
+    if (selectedIds.length === 0) {
+      showToast('Please select at least one lead to download the summary report.', 'info');
+      return;
+    }
+
+    try {
+      setIsExportingSummary(true);
+      const allLeads = getLoadedDatamyneDataset();
+      const allTierLeads = getLoadedTierDataset();
+
+      const selectedLeads = selectedIds
+        .map(
+          (id) =>
+            displayItems.find((d) => d.id === id) ||
+            allLeads.find((d) => d.id === id) ||
+            (allTierLeads as unknown as DatamyneLead[]).find((d) => d.id === id)
+        )
+        .filter(Boolean) as DatamyneLead[];
+
+      if (selectedLeads.length === 0) {
+        showToast('Selected lead records could not be found.', 'error');
+        return;
+      }
+
+      // Fetch approach notes in parallel for selected leads
+      const notesMap = await getLatestApproachNotesForEntities(
+        'datamyne',
+        selectedLeads.map((l) => l.id)
+      );
+
+      const blob = exportDatamyneSummaryReportCsv(selectedLeads, { notesMap });
+      const today = new Date().toISOString().split('T')[0];
+      const filename = `JFLL_DataMyne_Executive_Summary_${today}.csv`;
+
+      triggerCsvDownload(blob, filename);
+      showToast(`Downloaded executive summary report for ${selectedLeads.length} selected lead${selectedLeads.length > 1 ? 's' : ''}`);
+    } catch (err) {
+      logger.error('DATAMYNE_SUMMARY', 'Failed to generate executive summary report', { error: String(err) });
+      showToast('Failed to generate summary report. Please try again.', 'error');
+    } finally {
+      setIsExportingSummary(false);
+    }
+  }, [displayItems, rowSelection, showToast]);
 
   return (
     <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
@@ -413,6 +469,8 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           onDeselectAll={onDeselectAll}
           onExport={perspective === 'tiers' ? handleExportTiersCsv : onExport}
           isExporting={perspective === 'tiers' ? isExportingTiers : isExporting}
+          onDownloadSummaryReport={onDownloadSummaryReport || handleDownloadSummaryReport}
+          isExportingSummary={isExportingSummary}
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
           searchPlaceholder={

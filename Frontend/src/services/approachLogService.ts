@@ -148,6 +148,72 @@ export function getAllCachedApproachStatuses(
   return result;
 }
 
+/**
+ * Retrieves the latest logged sales approach note for an entity from local cache.
+ * Returns '—' if no notes exist.
+ */
+export function getCachedApproachLatestNote(
+  entityType: 'datamyne' | 'jfll_customer',
+  entityId: string
+): string {
+  const store = getLocalStore();
+  const key = `${entityType}:${entityId}`;
+  const record = store[key];
+  if (!record || !record.logs || record.logs.length === 0) {
+    return '—';
+  }
+  for (const log of record.logs) {
+    if (log.note && log.note.trim()) {
+      return log.note.trim();
+    }
+  }
+  return '—';
+}
+
+/**
+ * Fetches the latest approach notes for multiple entities in parallel.
+ * Utilizes the local store where available and fetches missing records from the API.
+ */
+export async function getLatestApproachNotesForEntities(
+  entityType: 'datamyne' | 'jfll_customer',
+  entityIds: string[]
+): Promise<Record<string, string>> {
+  const results: Record<string, string> = {};
+  const toFetch: string[] = [];
+
+  for (const id of entityIds) {
+    const cached = getCachedApproachLatestNote(entityType, id);
+    if (cached !== '—') {
+      results[id] = cached;
+    } else {
+      toFetch.push(id);
+    }
+  }
+
+  if (toFetch.length > 0) {
+    await Promise.allSettled(
+      toFetch.map(async (id) => {
+        try {
+          const history = await fetchEntityApproachHistory(entityType, id);
+          if (history.logs && history.logs.length > 0) {
+            for (const log of history.logs) {
+              if (log.note && log.note.trim()) {
+                results[id] = log.note.trim();
+                return;
+              }
+            }
+          }
+          results[id] = '—';
+        } catch {
+          results[id] = '—';
+        }
+      })
+    );
+  }
+
+  return results;
+}
+
 interface LocalStorageRecord {
   entity_type: 'datamyne' | 'jfll_customer';
   entity_id: string;

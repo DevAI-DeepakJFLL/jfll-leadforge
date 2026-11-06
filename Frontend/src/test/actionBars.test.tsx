@@ -44,6 +44,7 @@ describe('Table Action Bars with Inline Search Bar', () => {
         onToggleSelectAllPage={() => {}}
         onDeselectAll={() => {}}
         onExport={() => {}}
+        onDownloadSummaryReport={() => {}}
         searchQuery="Pharma"
         onSearchChange={() => {}}
         searchPlaceholder="Search DataMyne by company, description, country..."
@@ -59,6 +60,33 @@ describe('Table Action Bars with Inline Search Bar', () => {
     expect(html).toContain('Search DataMyne by company, description, country...');
     expect(html).toContain('value="Pharma"');
     expect(html).toContain('Export CSV');
+
+    // Verify Summary Report button is enabled with selected count badge
+    expect(html).toContain('Summary Report (3)');
+    expect(html).toContain('border-indigo-200');
+  });
+
+  it('renders DatamyneActionBar with disabled Summary Report button when selectedCount is 0', () => {
+    const html = renderToString(
+      <DatamyneActionBar
+        selectedCount={0}
+        totalOnPage={25}
+        totalCount={37269}
+        isAllOnPageSelected={false}
+        isIndeterminate={false}
+        onToggleSelectAllPage={() => {}}
+        onDeselectAll={() => {}}
+        onExport={() => {}}
+        onDownloadSummaryReport={() => {}}
+        searchQuery=""
+        onSearchChange={() => {}}
+      />
+    );
+
+    // Verify Summary Report button is disabled when selectedCount is 0
+    expect(html).toContain('Summary Report');
+    expect(html).toContain('disabled=""');
+    expect(html).toContain('cursor-not-allowed');
   });
 
   it('renders TableActionBar with search bar placed next to Select option', () => {

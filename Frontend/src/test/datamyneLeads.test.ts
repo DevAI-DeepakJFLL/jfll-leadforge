@@ -5,6 +5,10 @@ import {
   setLoadedDatamyneDataset,
   subscribeToDatamyneDataset,
   exportDatamyneLeadsCsv,
+  exportDatamyneSummaryReportCsv,
+  formatDatamyneCompanyRole,
+  formatDatamyneCategorySubcategory,
+  formatDatamyneCityCorridor,
   getDatamyneCategoryFacets,
   getDatamyneSubcategoryFacets,
 } from '@/services/datamyneService';
@@ -321,6 +325,121 @@ describe('DataMyne Leads Service & Schemas', () => {
       setLoadedDatamyneDataset(getLoadedDatamyneDataset());
       expect(notified).toBe(true);
       unsubscribe();
+    });
+  });
+
+  describe('DataMyne Senior Management Executive Summary Report', () => {
+    const mockLead1: DatamyneLead = DatamyneLeadSchema.parse({
+      id: 'dm-val-00001',
+      company_name: 'EUROFARMA LABORATORIOS SA',
+      role: 'Both (Exporter & Importer)',
+      transport_mode: 'Air',
+      category: 'Pharma & Healthcare',
+      subcategory: 'Finished Formulations & Generics',
+      contact_type: 'Both Phone & Email',
+      phone: '+55 11 98765-4321',
+      email: 'logistica@eurofarma.com.br',
+      tax_id: '039281720001',
+      city: 'São Paulo',
+      country: 'Brazil',
+      trade_lanes: 'Brazil-India/Air',
+      total_shipments: 84,
+      total_value_usd: 1250000,
+      dataset_type: 'valid',
+    });
+
+    const mockLead2: DatamyneLead = DatamyneLeadSchema.parse({
+      id: 'dm-val-00002',
+      company_name: '=CMD() INJECTION TEST LTD',
+      role: 'Exporter',
+      transport_mode: 'Ocean',
+      category: 'Chemicals & Materials',
+      subcategory: 'Organic Chemicals & APIs',
+      contact_type: 'Phone Only',
+      phone: '9820011223',
+      city: 'Mumbai',
+      country: 'India',
+      trade_lanes: 'India-US/Ocean',
+      total_shipments: 12,
+      total_value_usd: 450000,
+      dataset_type: 'valid',
+    });
+
+    it('formats company & role cleanly with role, transport mode and tax ID', () => {
+      const formatted = formatDatamyneCompanyRole(mockLead1);
+      expect(formatted).toBe('EUROFARMA LABORATORIOS SA (Both • Air • IEC: 039281720001)');
+
+      const simpleLead: DatamyneLead = DatamyneLeadSchema.parse({
+        id: 'dm-val-00003',
+        company_name: 'EUROFARMA LABORATORIOS SA',
+        role: 'Exporter',
+        transport_mode: undefined,
+        tax_id: '',
+        category: 'Pharma',
+        subcategory: 'Generics',
+      });
+      // Transport mode defaults to 'Air' in DatamyneLeadSchema, so role is Exporter • Air
+      expect(formatDatamyneCompanyRole(simpleLead)).toBe('EUROFARMA LABORATORIOS SA (Exporter • Air)');
+    });
+
+    it('formats category & subcategory into a single hierarchy string', () => {
+      const formatted = formatDatamyneCategorySubcategory(mockLead1);
+      expect(formatted).toBe('Pharma & Healthcare — Finished Formulations & Generics');
+    });
+
+    it('formats city & corridor cleanly', () => {
+      const formatted = formatDatamyneCityCorridor(mockLead1);
+      expect(formatted).toBe('São Paulo (Brazil-India/Air)');
+
+      const noCorridorLead: DatamyneLead = DatamyneLeadSchema.parse({
+        ...mockLead1,
+        trade_lanes: '',
+      });
+      expect(formatDatamyneCityCorridor(noCorridorLead)).toBe('São Paulo');
+    });
+
+    it('generates a 5-column CSV Blob with UTF-8 BOM and sanitized RFC-4180 cells', async () => {
+      const notesMap = {
+        'dm-val-00001': 'Discovery meeting held with procurement director; requested GRU-BOM charter quote.',
+        'dm-val-00002': '=HYPERLINK("http://attacker.com","click")',
+      };
+      const statusMap = {
+        'dm-val-00001': 'Meeting Scheduled',
+        'dm-val-00002': 'Contacted',
+      };
+
+      const blob = exportDatamyneSummaryReportCsv([mockLead1, mockLead2], { notesMap, statusMap });
+      expect(blob).toBeInstanceOf(Blob);
+      expect(blob.type).toBe('text/csv;charset=utf-8;');
+
+      // Verify Excel UTF-8 BOM byte sequence (0xEF, 0xBB, 0xBF)
+      const buffer = await blob.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+      expect(bytes[0]).toBe(0xef);
+      expect(bytes[1]).toBe(0xbb);
+      expect(bytes[2]).toBe(0xbf);
+
+      const text = await blob.text();
+      const lines = text.split('\r\n');
+      expect(lines.length).toBeGreaterThanOrEqual(3); // header + 2 rows
+
+      // Verify exact 5-column header
+      expect(lines[0]).toBe(
+        'Company & Role,Category & Subcategory,City & Corridor,Sales Status,Additional Note'
+      );
+
+      // Verify mockLead1 row values
+      expect(lines[1]).toContain('"EUROFARMA LABORATORIOS SA (Both • Air • IEC: 039281720001)"');
+      expect(lines[1]).toContain('"Pharma & Healthcare — Finished Formulations & Generics"');
+      expect(lines[1]).toContain('"São Paulo (Brazil-India/Air)"');
+      expect(lines[1]).toContain('"Meeting Scheduled"');
+      expect(lines[1]).toContain('"Discovery meeting held with procurement director; requested GRU-BOM charter quote."');
+
+      // Verify spreadsheet formula injection prevention on mockLead2
+      // Company starting with = must be escaped to '=
+      expect(lines[2]).toContain('\'=CMD() INJECTION TEST LTD');
+      // Note starting with = must be escaped to '=
+      expect(lines[2]).toContain('\'=HYPERLINK');
     });
   });
 });

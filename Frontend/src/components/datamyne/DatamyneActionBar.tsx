@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X } from 'lucide-react';
+import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet } from 'lucide-react';
 
 export interface DatamyneActionBarProps {
   selectedCount: number;
@@ -12,6 +12,8 @@ export interface DatamyneActionBarProps {
   onExport: () => void;
   onSaveSelected?: () => void;
   isExporting?: boolean;
+  onDownloadSummaryReport?: () => void;
+  isExportingSummary?: boolean;
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   searchPlaceholder?: string;
@@ -29,6 +31,8 @@ export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
   onExport,
   onSaveSelected,
   isExporting = false,
+  onDownloadSummaryReport,
+  isExportingSummary = false,
   searchQuery = '',
   onSearchChange,
   searchPlaceholder = 'Search DataMyne by company, description, country...',
@@ -139,6 +143,36 @@ export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
           >
             <Bookmark className="w-3.5 h-3.5 text-slate-500" />
             <span>Save ({selectedCount})</span>
+          </button>
+        )}
+
+        {onDownloadSummaryReport && (
+          <button
+            onClick={onDownloadSummaryReport}
+            disabled={selectedCount === 0 || isExportingSummary}
+            className={`h-8 px-2.5 sm:px-3 rounded-md border font-medium flex items-center space-x-1.5 transition-all text-xs shadow-2xs ${
+              selectedCount > 0
+                ? 'border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100/80 active:bg-indigo-100 cursor-pointer'
+                : 'border-slate-200 text-slate-400 bg-slate-50/60 opacity-60 cursor-not-allowed'
+            }`}
+            title={
+              selectedCount > 0
+                ? `Download senior management executive summary report for ${selectedCount} selected lead${selectedCount > 1 ? 's' : ''}`
+                : 'Select one or more leads to download executive summary report'
+            }
+            aria-label="Download Executive Summary Report"
+          >
+            {isExportingSummary ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-600" />
+            ) : (
+              <FileSpreadsheet className={`w-3.5 h-3.5 ${selectedCount > 0 ? 'text-indigo-600' : 'text-slate-400'}`} />
+            )}
+            <span className="hidden sm:inline">
+              {`Summary Report${selectedCount > 0 ? ` (${selectedCount})` : ''}`}
+            </span>
+            <span className="sm:hidden">
+              {`Summary${selectedCount > 0 ? ` (${selectedCount})` : ''}`}
+            </span>
           </button>
         )}
 

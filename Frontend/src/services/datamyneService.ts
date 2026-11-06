@@ -10,7 +10,7 @@ import { logger } from '@/utils/logger';
 import { createCsvBlob } from '@/utils/csv';
 import { setLoadedTierDataset } from '@/services/tierService';
 import { TieredLead } from '@/types/tierSegmentation';
-import { getCachedApproachStatus } from '@/services/approachLogService';
+import { getCachedApproachStatus, getCachedApproachLatestNote } from '@/services/approachLogService';
 
 // In-memory leads storage, starts with the bundled starter set and upgrades if full JSON is loaded
 let cachedFullDataset: DatamyneLead[] | null = null;
@@ -352,6 +352,93 @@ export function exportDatamyneLeadsCsv(leads: DatamyneLead[]): Blob {
     l.latest_activity_date,
     l.dataset_type,
   ]);
+
+  return createCsvBlob(headers, rows);
+}
+
+/**
+ * Formats company name and trading role / transport mode / tax ID for senior management summary.
+ * e.g. "EUROFARMA LABORATORIOS (Both • Air • IEC: 03928172)"
+ */
+export function formatDatamyneCompanyRole(lead: DatamyneLead): string {
+  const parts: string[] = [];
+  if (lead.role) {
+    parts.push(
+      lead.role === 'Both (Exporter & Importer)' || lead.role === 'Both'
+        ? 'Both'
+        : lead.role
+    );
+  }
+  if (lead.transport_mode) {
+    parts.push(lead.transport_mode);
+  }
+  if (lead.tax_id) {
+    parts.push(`IEC: ${lead.tax_id}`);
+  }
+  return parts.length > 0 ? `${lead.company_name} (${parts.join(' • ')})` : lead.company_name;
+}
+
+/**
+ * Formats category and subcategory into a single clean hierarchy string.
+ * e.g. "Chemicals & Materials — Organic Chemicals & APIs"
+ */
+export function formatDatamyneCategorySubcategory(lead: DatamyneLead): string {
+  if (lead.category && lead.subcategory) {
+    return `${lead.category} — ${lead.subcategory}`;
+  }
+  return lead.category || lead.subcategory || '—';
+}
+
+/**
+ * Formats city and trade corridor for executive summary.
+ * e.g. "São Paulo, Brazil (Brazil-India/Air)"
+ */
+export function formatDatamyneCityCorridor(lead: DatamyneLead): string {
+  const city = lead.city?.trim() || '—';
+  const corridor = lead.trade_lanes?.trim();
+  if (corridor && city !== '—') {
+    return `${city} (${corridor})`;
+  } else if (corridor) {
+    return corridor;
+  }
+  return city;
+}
+
+export interface DatamyneSummaryExportOptions {
+  notesMap?: Record<string, string>;
+  statusMap?: Record<string, string>;
+}
+
+/**
+ * Export selected DataMyne leads into a 5-column Senior Management Executive Summary CSV.
+ * Columns:
+ * 1. Company & Role
+ * 2. Category & Subcategory
+ * 3. City & Corridor
+ * 4. Sales Status
+ * 5. Additional Note
+ */
+export function exportDatamyneSummaryReportCsv(
+  leads: DatamyneLead[],
+  options?: DatamyneSummaryExportOptions
+): Blob {
+  const headers = [
+    'Company & Role',
+    'Category & Subcategory',
+    'City & Corridor',
+    'Sales Status',
+    'Additional Note',
+  ];
+
+  const rows = leads.map((l) => {
+    const companyRole = formatDatamyneCompanyRole(l);
+    const catSubcat = formatDatamyneCategorySubcategory(l);
+    const cityCorridor = formatDatamyneCityCorridor(l);
+    const status = options?.statusMap?.[l.id] || getCachedApproachStatus('datamyne', l.id) || 'Not Contacted';
+    const note = options?.notesMap?.[l.id] || getCachedApproachLatestNote('datamyne', l.id) || '—';
+
+    return [companyRole, catSubcat, cityCorridor, status, note];
+  });
 
   return createCsvBlob(headers, rows);
 }
