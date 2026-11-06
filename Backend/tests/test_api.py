@@ -544,7 +544,7 @@ def test_converted_active_customer_reflection_in_leads_api(tmp_path, monkeypatch
 
 def test_rate_limiting_on_auth_endpoints():
     """Verify that RateLimitingMiddleware restricts excessive auth requests from a single IP."""
-    test_ip = "198.51.100.42"
+    test_ip = "198.51.100.123"
     headers = {"X-Forwarded-For": test_ip}
 
     # Make 20 requests (within allowed limit)

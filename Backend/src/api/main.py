@@ -108,7 +108,7 @@ class RateLimitingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         path = request.url.path
         if request.method != "OPTIONS" and path.startswith(
-            ("/api/v1/auth/login", "/api/v1/auth/request-access")
+            ("/api/v1/auth/login", "/api/v1/auth/access-request", "/api/v1/auth/report-bot")
         ):
             ip = get_client_ip(request)
             # Skip throttling for unit test client in test runs
@@ -165,6 +165,8 @@ def get_allowed_origins() -> list[str]:
     configured = os.getenv("CORS_ALLOWED_ORIGINS", "")
     if configured:
         return [origin.strip() for origin in configured.split(",") if origin.strip()]
+    if is_production:
+        return ["https://d3c4bsffw7tf7s.cloudfront.net"]
     return [
         "https://d3c4bsffw7tf7s.cloudfront.net",
         "http://localhost:5173",

@@ -400,7 +400,7 @@ def convert_client_to_active(
     user_role = user.get("role", "")
     from src.api.access_control import ADMIN_ROLES
     ALLOWED_CONVERT_ROLES = ADMIN_ROLES | {"Commercial Lead", "Commercial", "Operations"}
-    if user_role and user_role not in ALLOWED_CONVERT_ROLES:
+    if not user_role or user_role not in ALLOWED_CONVERT_ROLES:
         raise HTTPException(
             status_code=403,
             detail="FORBIDDEN_CONVERSION: Role not authorized to convert client to active.",
