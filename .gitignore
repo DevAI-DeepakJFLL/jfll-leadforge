@@ -122,9 +122,18 @@ coverage.xml
 
 # Agent & Scratch Artifacts
 .superpowers/
+docs/superpowers/
 .gemini/
 .playwright-mcp/
 audit-screenshots/
+
+# Customer Lists, Extracted Domains, and Local Specifications
+docs/jfll_*
+docs/phase_2_*
+
+# Apollo Internal Workflow & Selection Guides
+Backend/data/Apollo/*.md
+Backend/data/Apollo/**/*.md
 
 # Local Migration Backups & Raw Datasets
 Backend/data/.backups/
@@ -145,6 +154,5 @@ Backend/data/**/*.parquet
 Backend/data/**/*.xlsx
 Backend/data/**/*.xls
 Backend/data/**/*.csv
-!Backend/data/processed/*AUDIT*.csv
 Backend/data/**/*.tsv
 
