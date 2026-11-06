@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { RowSelectionState } from '@tanstack/react-table';
 import {
   JfllCustomerAudienceTabs,
@@ -13,6 +13,12 @@ import {
   JfllCustomerTabType,
   JfllCustomerSortField,
 } from '@/types/jfllCustomer';
+import { useToast } from '@/components/ui';
+import { exportJfllCustomerSummaryReportCsv } from '@/services/jfllCustomerService';
+import { getLatestApproachNotesForEntities } from '@/services/approachLogService';
+import { triggerCsvDownload } from '@/utils/csv';
+import { JFLL_ALL_CUSTOMERS_DATA } from '@/data/jfllAllCustomersData';
+import { logger } from '@/utils/logger';
 
 export interface JfllCustomersViewProps {
   filters: JfllCustomerFilterParams;
@@ -88,6 +94,53 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
   onCloseMobile,
 }) => {
   const items = query.items;
+  const { showToast } = useToast();
+  const [isExportingSummary, setIsExportingSummary] = useState(false);
+
+  const handleDownloadSummaryReport = useCallback(async () => {
+    const selectedIds = Object.keys(rowSelection).filter((id) => rowSelection[id]);
+
+    try {
+      setIsExportingSummary(true);
+      const allCustomers = JFLL_ALL_CUSTOMERS_DATA;
+
+      let targetCustomers: JfllCustomer[] = [];
+      if (selectedIds.length > 0) {
+        targetCustomers = selectedIds
+          .map((id) => items.find((c) => c.id === id) || allCustomers.find((c) => c.id === id))
+          .filter(Boolean) as JfllCustomer[];
+      } else {
+        targetCustomers = items.slice(0, 25);
+        if (targetCustomers.length === 0) {
+          showToast('No customers available in current view to export.', 'info');
+          return;
+        }
+        showToast(`Exporting executive summary report for current page (${targetCustomers.length} accounts)...`, 'info');
+      }
+
+      if (targetCustomers.length === 0) {
+        showToast('Selected customer records could not be found.', 'error');
+        return;
+      }
+
+      const notesMap = await getLatestApproachNotesForEntities(
+        'jfll_customer',
+        targetCustomers.map((c) => c.id)
+      );
+
+      const blob = exportJfllCustomerSummaryReportCsv(targetCustomers, { notesMap });
+      const today = new Date().toISOString().split('T')[0];
+      const filename = `JFLL_Customer_Executive_Summary_${today}.csv`;
+
+      triggerCsvDownload(blob, filename);
+      showToast(`Downloaded executive summary report for ${targetCustomers.length} account${targetCustomers.length > 1 ? 's' : ''}`);
+    } catch (err) {
+      logger.error('JFLL_SUMMARY', 'Failed to generate executive summary report', { error: String(err) });
+      showToast('Failed to generate summary report. Please try again.', 'error');
+    } finally {
+      setIsExportingSummary(false);
+    }
+  }, [items, rowSelection, showToast]);
 
   return (
     <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
@@ -126,6 +179,8 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
           onDeselectAll={onDeselectAll}
           onExport={onExport}
           isExporting={isExporting}
+          onDownloadSummaryReport={handleDownloadSummaryReport}
+          isExportingSummary={isExportingSummary}
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
           searchPlaceholder="Search customers by company, contact, phone, email..."

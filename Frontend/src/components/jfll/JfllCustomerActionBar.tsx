@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X } from 'lucide-react';
+import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet } from 'lucide-react';
 
 export interface JfllCustomerActionBarProps {
   selectedCount: number;
@@ -12,6 +12,8 @@ export interface JfllCustomerActionBarProps {
   onExport: () => void;
   onSaveSelected?: () => void;
   isExporting?: boolean;
+  onDownloadSummaryReport?: () => void;
+  isExportingSummary?: boolean;
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   searchPlaceholder?: string;
@@ -29,6 +31,8 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
   onExport,
   onSaveSelected,
   isExporting = false,
+  onDownloadSummaryReport,
+  isExportingSummary = false,
   searchQuery = '',
   onSearchChange,
   searchPlaceholder = 'Search customers by company, contact, phone, email...',
@@ -139,6 +143,36 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
           >
             <Bookmark className="w-3.5 h-3.5 text-slate-500" />
             <span>Save ({selectedCount})</span>
+          </button>
+        )}
+
+        {onDownloadSummaryReport && (
+          <button
+            onClick={onDownloadSummaryReport}
+            disabled={isExportingSummary}
+            className={`h-8 px-2.5 sm:px-3 rounded-md border font-medium flex items-center space-x-1.5 transition-all text-xs shadow-2xs ${
+              selectedCount > 0
+                ? 'border-apollo/30 text-apollo bg-apollo/10 hover:bg-apollo/20 active:bg-apollo/25 cursor-pointer'
+                : 'border-slate-300 text-slate-700 bg-white hover:bg-slate-50 cursor-pointer'
+            } disabled:opacity-50 disabled:cursor-not-allowed`}
+            title={
+              selectedCount > 0
+                ? `Download senior management executive summary report for ${selectedCount} selected customer${selectedCount > 1 ? 's' : ''}`
+                : 'Download senior management executive summary report for current page'
+            }
+            aria-label="Download Executive Summary Report"
+          >
+            {isExportingSummary ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-apollo" />
+            ) : (
+              <FileSpreadsheet className={`w-3.5 h-3.5 ${selectedCount > 0 ? 'text-apollo' : 'text-slate-600'}`} />
+            )}
+            <span className="hidden sm:inline">
+              {`Summary Report${selectedCount > 0 ? ` (${selectedCount})` : ''}`}
+            </span>
+            <span className="sm:hidden">
+              {`Summary${selectedCount > 0 ? ` (${selectedCount})` : ''}`}
+            </span>
           </button>
         )}
 

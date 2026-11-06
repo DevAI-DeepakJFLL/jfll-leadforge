@@ -13,7 +13,7 @@ import { createCsvBlob } from '@/utils/csv';
 import { API_BASE_URL } from '@/config/api';
 import { isValidPhoneNumber } from '@/utils/phoneUtils';
 import { isOfflineSession } from '@/services/authService';
-import { getCachedApproachStatus } from '@/services/approachLogService';
+import { getCachedApproachStatus, getCachedApproachLatestNote } from '@/services/approachLogService';
 import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 
 export { isValidPhoneNumber };
@@ -483,6 +483,51 @@ export function exportJfllCustomersCsv(customers: JfllCustomer[]): Blob {
     c.email,
     c.territory,
   ]);
+
+  return createCsvBlob(headers, rows);
+}
+
+export interface JfllCustomerSummaryExportOptions {
+  statusMap?: Record<string, string>;
+  notesMap?: Record<string, string>;
+}
+
+/**
+ * Export clean senior management summary report CSV for JFLL customers
+ */
+export function exportJfllCustomerSummaryReportCsv(
+  customers: JfllCustomer[],
+  options?: JfllCustomerSummaryExportOptions
+): Blob {
+  const headers = [
+    'Company Name & Group',
+    'Customer Type & Territory',
+    'Revenue & Credit Status',
+    'Sales Status',
+    'Additional Note',
+  ];
+
+  const rows = customers.map((c) => {
+    const companyGroup = c.isBranchAlias
+      ? `${c.fullName} [Branch: ${c.branchAliasTag || 'Entity'}]`
+      : c.parentId && c.groupTotalBusiness
+      ? `${c.fullName} [Group: ${formatIndianCurrency(c.groupTotalBusiness)}]`
+      : c.fullName;
+
+    const typeTerritory = `${c.customerGroup || 'Commercial'} · ${c.territory || 'National'}`;
+    const revenueVal = c.businessLast3m !== undefined && c.businessLast3m !== null
+      ? formatIndianCurrency(c.businessLast3m)
+      : c.totalBusinessTillDate !== undefined && c.totalBusinessTillDate !== null
+      ? formatIndianCurrency(c.totalBusinessTillDate)
+      : '₹0';
+    const creditVal = c.creditStatus ? c.creditStatus.replace(/_/g, ' ').toUpperCase() : 'STANDARD';
+    const revenueCredit = `${revenueVal} (${creditVal})`;
+
+    const status = options?.statusMap?.[c.id] || getCachedApproachStatus('jfll_customer', c.id) || 'Not Contacted';
+    const note = options?.notesMap?.[c.id] || getCachedApproachLatestNote('jfll_customer', c.id) || '—';
+
+    return [companyGroup, typeTerritory, revenueCredit, status, note];
+  });
 
   return createCsvBlob(headers, rows);
 }

@@ -33,6 +33,25 @@ describe('Table Action Bars with Inline Search Bar', () => {
     expect(html).toContain('Export CSV');
   });
 
+  it('renders JfllCustomerActionBar with Summary Report button enabled when onDownloadSummaryReport is provided', () => {
+    const html = renderToString(
+      <JfllCustomerActionBar
+        selectedCount={4}
+        totalOnPage={25}
+        totalCount={2857}
+        isAllOnPageSelected={false}
+        isIndeterminate={true}
+        onToggleSelectAllPage={() => {}}
+        onDeselectAll={() => {}}
+        onExport={() => {}}
+        onDownloadSummaryReport={() => {}}
+      />
+    );
+
+    expect(html).toContain('Summary Report (4)');
+    expect(html).toContain('border-apollo/30');
+  });
+
   it('renders DatamyneActionBar with search bar placed next to Select option', () => {
     const html = renderToString(
       <DatamyneActionBar

@@ -104,7 +104,11 @@ jobs:
         run: |
           cd Backend
           mkdir -p package
-          pip install --target ./package -r requirements-lambda.txt
+          if [ -f requirements-lambda.txt ]; then
+            pip install --target ./package -r requirements-lambda.txt
+          else
+            pip install --target ./package "fastapi>=0.110.0" "mangum>=0.17.0" "duckdb>=1.0.0" "pydantic>=2.6.0"
+          fi
           cp -r src ./package/
           cp lambda_function.py ./package/ 2>/dev/null || true
           cd package
