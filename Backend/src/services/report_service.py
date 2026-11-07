@@ -20,11 +20,30 @@ from src.services.gemini_report_enricher import (
     get_gemini_config,
 )
 
+BACKEND_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATAMYNE_PARQUET_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+    BACKEND_DIR,
     "data",
     "processed",
     "datamyne_leads_zstd.parquet",
+)
+APOLLO_CONTACTS_PATH = os.path.join(
+    BACKEND_DIR,
+    "data",
+    "Apollo",
+    "apollo_freight_contacts_with_company_profile.parquet",
+)
+APOLLO_LEADS_PATH = os.path.join(
+    BACKEND_DIR,
+    "data",
+    "processed",
+    "apollo_freight_leads_zstd.parquet",
+)
+APOLLO_UNPROFILED_PATH = os.path.join(
+    BACKEND_DIR,
+    "data",
+    "Apollo",
+    "apollo_freight_contacts_without_company_profile.parquet",
 )
 
 def _get_duckdb_cursor():
@@ -185,7 +204,7 @@ def _build_unlisted_sme_report(
             cargo_strength="Multimodal air + ocean network covers their global trade lanes; licensed CHA for fast Mumbai customs clearance; 150+ country partner network.",
             pitch_angle="Multimodal sea + express air · Licensed CHA customs broker · ISO 9001:2015 · Listed since 1986 (NSE/BSE: JETFREIGHT) · Mumbai-local dedicated account team",
         ),
-        section_4_contacts=[
+        section_4_contacts=_find_apollo_contacts(company_name, limit=3) or [
             ContactItem(
                 name="General / Switchboard",
                 designation="Corporate Inquiries",
@@ -308,11 +327,89 @@ def _synthesize_jfll_fit(lead: dict[str, Any]) -> JfllFit:
     )
 
 
+def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem]:
+    """Search Apollo 15.5M contact directory for verified logistics & supply chain decision makers."""
+    contacts: list[ContactItem] = []
+    clean_name = (company_name or "").strip()
+    if not clean_name:
+        return contacts
+
+    conn = _get_duckdb_cursor()
+
+    # 1. Profiled contacts via Apollo organization lookup
+    try:
+        from src.api.cache import resolve_company_ids_cached
+
+        if os.path.exists(APOLLO_LEADS_PATH) and os.path.exists(APOLLO_CONTACTS_PATH):
+            org_ids = resolve_company_ids_cached(clean_name, APOLLO_LEADS_PATH)
+            if org_ids:
+                placeholders = ", ".join(["?"] * len(org_ids[:15]))
+                sql = f"""
+                    SELECT person_name, job_title, email, linkedin_url, seniority, is_logistics_role
+                    FROM '{APOLLO_CONTACTS_PATH}'
+                    WHERE organization_id IN ({placeholders})
+                    ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
+                    LIMIT ?
+                """
+                rows = conn.execute(sql, list(org_ids[:15]) + [limit]).fetchall()
+                for r in rows:
+                    p_name, title, email, linkedin, sen, is_log = r
+                    c_info = email or (linkedin if linkedin else "Apollo Verified")
+                    sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
+                    notes = f"Apollo Verified ({sen_tag})"
+                    if linkedin and linkedin != c_info:
+                        notes += f" · {linkedin}"
+                    contacts.append(
+                        ContactItem(
+                            name=p_name,
+                            designation=title or "Logistics Decision-Maker",
+                            contact_info=c_info,
+                            notes=notes,
+                        )
+                    )
+    except Exception as exc:
+        logger.debug("Apollo profiled contact lookup encountered: %s", exc)
+
+    # 2. Unprofiled contacts by employer name if limit not reached
+    if len(contacts) < limit and os.path.exists(APOLLO_UNPROFILED_PATH):
+        try:
+            tokens = clean_name.split()
+            first_token = tokens[0] if tokens else clean_name
+            if len(first_token) >= 3:
+                sql2 = f"""
+                    SELECT person_name, job_title, email, linkedin_url, seniority
+                    FROM '{APOLLO_UNPROFILED_PATH}'
+                    WHERE employer_name ILIKE ?
+                    ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
+                    LIMIT ?
+                """
+                rows2 = conn.execute(sql2, [f"%{first_token}%", limit - len(contacts)]).fetchall()
+                for r in rows2:
+                    p_name, title, email, linkedin, sen = r
+                    c_info = email or (linkedin if linkedin else "Apollo Verified")
+                    sen_tag = sen.title() if sen else "Logistics Lead"
+                    notes = f"Apollo Verified ({sen_tag})"
+                    if linkedin and linkedin != c_info:
+                        notes += f" · {linkedin}"
+                    contacts.append(
+                        ContactItem(
+                            name=p_name,
+                            designation=title or "Logistics Decision-Maker",
+                            contact_info=c_info,
+                            notes=notes,
+                        )
+                    )
+        except Exception as exc:
+            logger.debug("Apollo unprofiled contact lookup encountered: %s", exc)
+
+    return contacts
+
+
 def _synthesize_contacts(lead: dict[str, Any]) -> list[ContactItem]:
     contacts: list[ContactItem] = []
     clean_addr = lead["address"].replace("*", " ").strip(", ")
 
-    # Row 1: Customs registered corporate office
+    # Row 1: Customs registered corporate office (DataMyne)
     contacts.append(
         ContactItem(
             name="General / Customs Filing",
@@ -322,7 +419,7 @@ def _synthesize_contacts(lead: dict[str, Any]) -> list[ContactItem]:
         )
     )
 
-    # Row 2: Directors if available
+    # Row 2: Statutory Directors if available (DataMyne MCA Registry)
     if lead["directors"]:
         d_chunks = re.split(r"\d+\.\s*:\s*", lead["directors"])
         for chunk in d_chunks:
@@ -342,6 +439,10 @@ def _synthesize_contacts(lead: dict[str, Any]) -> list[ContactItem]:
                     )
                 )
                 break
+
+    # Row 3 & 4: Apollo Decision Makers (Logistics / Supply Chain Managers)
+    apollo_contacts = _find_apollo_contacts(lead["company_name"], limit=2)
+    contacts.extend(apollo_contacts)
 
     # If only 1 contact, append an editable row for the sales rep to fill
     if len(contacts) < 2:

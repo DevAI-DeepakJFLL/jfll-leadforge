@@ -70,3 +70,12 @@ def test_generate_client_report_unlisted_fallback():
     assert report.header.company_name == "NonExistentUnknownCo999"
     assert report.section_2_trade_lane.total_shipments == 0
     assert len(report.section_4_contacts) >= 1
+
+def test_generate_client_report_extracts_apollo_decision_makers():
+    """Verify that Apollo 15.5M contact directory is queried for verified logistics decision makers."""
+    report = generate_client_report_data("Amphenol")
+    assert isinstance(report, ClientReportData)
+    assert any("Apollo Verified" in c.notes for c in report.section_4_contacts)
+    apollo_contact = next(c for c in report.section_4_contacts if "Apollo Verified" in c.notes)
+    assert len(apollo_contact.name) > 2
+    assert len(apollo_contact.designation) > 2
