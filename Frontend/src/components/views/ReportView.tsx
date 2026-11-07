@@ -28,6 +28,55 @@ export interface ReportViewProps {
   currentUser?: UserSession | null;
 }
 
+interface ReportFieldRowProps {
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  multiline?: boolean;
+  rows?: number;
+  highlightLabel?: boolean;
+  valueFontMedium?: boolean;
+}
+
+const ReportFieldRow: React.FC<ReportFieldRowProps> = ({
+  label,
+  value,
+  onChange,
+  multiline = true,
+  rows = 2,
+  highlightLabel = false,
+  valueFontMedium = false,
+}) => (
+  <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
+    <div
+      className={`sm:col-span-4 p-2.5 font-bold border-r border-slate-200 ${
+        highlightLabel ? 'bg-blue-50/60 text-blue-900' : 'bg-slate-50/80 text-slate-700'
+      }`}
+    >
+      {label}
+    </div>
+    <div className="sm:col-span-8 p-1.5">
+      {multiline ? (
+        <textarea
+          rows={rows}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className={`w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded resize-none text-slate-800 ${
+            valueFontMedium ? 'font-medium' : ''
+          }`}
+        />
+      ) : (
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded text-slate-800"
+        />
+      )}
+    </div>
+  </div>
+);
+
 export const ReportView: React.FC<ReportViewProps> = ({
   initialCompany = '',
   initialReport = null,
@@ -423,61 +472,30 @@ export const ReportView: React.FC<ReportViewProps> = ({
               <span>1 · Company Background</span>
             </h2>
             <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-slate-50/80 font-bold text-slate-700 border-r border-slate-200">
-                  What they do / product lines
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <textarea
-                    rows={2}
-                    value={report.section_1_background.what_they_do}
-                    onChange={(e) => updateSection1('what_they_do', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded resize-none text-slate-800"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-slate-50/80 font-bold text-slate-700 border-r border-slate-200">
-                  HQ & key facilities
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <textarea
-                    rows={2}
-                    value={report.section_1_background.hq_facilities}
-                    onChange={(e) => updateSection1('hq_facilities', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded resize-none text-slate-800"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-slate-50/80 font-bold text-slate-700 border-r border-slate-200">
-                  Export markets
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <textarea
-                    rows={1}
-                    value={report.section_1_background.export_markets}
-                    onChange={(e) => updateSection1('export_markets', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded resize-none text-slate-800"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-slate-50/80 font-bold text-slate-700 border-r border-slate-200">
-                  Scale / credibility
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <textarea
-                    rows={2}
-                    value={report.section_1_background.scale_credibility}
-                    onChange={(e) => updateSection1('scale_credibility', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded resize-none text-slate-800"
-                  />
-                </div>
-              </div>
+              <ReportFieldRow
+                label="What they do / product lines"
+                value={report.section_1_background.what_they_do}
+                onChange={(val) => updateSection1('what_they_do', val)}
+                rows={2}
+              />
+              <ReportFieldRow
+                label="HQ & key facilities"
+                value={report.section_1_background.hq_facilities}
+                onChange={(val) => updateSection1('hq_facilities', val)}
+                rows={2}
+              />
+              <ReportFieldRow
+                label="Export markets"
+                value={report.section_1_background.export_markets}
+                onChange={(val) => updateSection1('export_markets', val)}
+                rows={1}
+              />
+              <ReportFieldRow
+                label="Scale / credibility"
+                value={report.section_1_background.scale_credibility}
+                onChange={(val) => updateSection1('scale_credibility', val)}
+                rows={2}
+              />
             </div>
           </section>
 
@@ -490,61 +508,30 @@ export const ReportView: React.FC<ReportViewProps> = ({
               </div>
             </h2>
             <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-slate-50/80 font-bold text-slate-700 border-r border-slate-200">
-                  Origin → Destination
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <input
-                    type="text"
-                    value={report.section_2_trade_lane.origin_destination}
-                    onChange={(e) => updateSection2('origin_destination', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded text-slate-800"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-slate-50/80 font-bold text-slate-700 border-r border-slate-200">
-                  Commodity / cargo type
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <input
-                    type="text"
-                    value={report.section_2_trade_lane.commodity}
-                    onChange={(e) => updateSection2('commodity', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded text-slate-800"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-slate-50/80 font-bold text-slate-700 border-r border-slate-200">
-                  Primary mode: Ocean / Air
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <input
-                    type="text"
-                    value={report.section_2_trade_lane.primary_mode}
-                    onChange={(e) => updateSection2('primary_mode', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded text-slate-800"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-slate-50/80 font-bold text-slate-700 border-r border-slate-200">
-                  Special handling
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <textarea
-                    rows={2}
-                    value={report.section_2_trade_lane.special_handling}
-                    onChange={(e) => updateSection2('special_handling', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded resize-none text-slate-800"
-                  />
-                </div>
-              </div>
+              <ReportFieldRow
+                label="Origin → Destination"
+                value={report.section_2_trade_lane.origin_destination}
+                onChange={(val) => updateSection2('origin_destination', val)}
+                multiline={false}
+              />
+              <ReportFieldRow
+                label="Commodity / cargo type"
+                value={report.section_2_trade_lane.commodity}
+                onChange={(val) => updateSection2('commodity', val)}
+                multiline={false}
+              />
+              <ReportFieldRow
+                label="Primary mode: Ocean / Air"
+                value={report.section_2_trade_lane.primary_mode}
+                onChange={(val) => updateSection2('primary_mode', val)}
+                multiline={false}
+              />
+              <ReportFieldRow
+                label="Special handling"
+                value={report.section_2_trade_lane.special_handling}
+                onChange={(val) => updateSection2('special_handling', val)}
+                rows={2}
+              />
             </div>
           </section>
 
@@ -554,33 +541,21 @@ export const ReportView: React.FC<ReportViewProps> = ({
               3 · JFLL Fit — Why Us
             </h2>
             <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-blue-50/60 font-bold text-blue-900 border-r border-slate-200">
-                  Cargo → JFLL strength
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <textarea
-                    rows={3}
-                    value={report.section_3_jfll_fit.cargo_strength}
-                    onChange={(e) => updateSection3('cargo_strength', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded resize-none text-slate-800 font-medium"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-                <div className="sm:col-span-4 p-2.5 bg-blue-50/60 font-bold text-blue-900 border-r border-slate-200">
-                  Lead the pitch with
-                </div>
-                <div className="sm:col-span-8 p-1.5">
-                  <textarea
-                    rows={3}
-                    value={report.section_3_jfll_fit.pitch_angle}
-                    onChange={(e) => updateSection3('pitch_angle', e.target.value)}
-                    className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded resize-none text-slate-800"
-                  />
-                </div>
-              </div>
+              <ReportFieldRow
+                label="Cargo → JFLL strength"
+                value={report.section_3_jfll_fit.cargo_strength}
+                onChange={(val) => updateSection3('cargo_strength', val)}
+                rows={3}
+                highlightLabel
+                valueFontMedium
+              />
+              <ReportFieldRow
+                label="Lead the pitch with"
+                value={report.section_3_jfll_fit.pitch_angle}
+                onChange={(val) => updateSection3('pitch_angle', val)}
+                rows={3}
+                highlightLabel
+              />
             </div>
           </section>
 

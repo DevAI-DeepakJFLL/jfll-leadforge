@@ -146,77 +146,79 @@ def _row_to_lead_dict(r) -> dict[str, Any]:
         "directors": r[15] or "",
     }
 
-def generate_client_report_data(
-    company_query: str,
-    prepared_for: str = "Mumbai Sales Branch",
-    prepared_by: str = "Tyra Theknath",
+def _build_unlisted_sme_report(
+    company_name: str,
+    prepared_for: str,
+    prepared_by: str,
+    date_str: str,
 ) -> ClientReportData:
-    """Generate complete 4-section client report data for a company."""
-    lead = _find_datamyne_lead(company_query)
-    today_str = datetime.now().strftime("%d-%m-%Y")
+    """Fallback draft briefing for SMEs without primary DataMyne customs records."""
+    return ClientReportData(
+        lead_id=None,
+        header=ReportHeader(
+            company_name=company_name,
+            subtitle="Commercial Merchant Exporter (Unpublished SME)",
+            prepared_for=prepared_for,
+            prepared_by=prepared_by,
+            date=date_str,
+        ),
+        section_1_background=CompanyBackground(
+            what_they_do="Commercial exporter / merchant trader of general commodities and industrial goods",
+            hq_facilities="Mumbai Metropolitan Region → Gateways: BOM Air / JNPT Sea",
+            export_markets="Global emerging and regulated markets",
+            scale_credibility="SME Exporter (Customs records unlisted in local primary sample)",
+        ),
+        section_2_trade_lane=TradeLaneCommodity(
+            origin_destination="Mumbai (BOM/JNPT) → Global Destination Hubs",
+            commodity="Commercial Goods & Industrial Supplies",
+            primary_mode="AIR / OCEAN (LCL/FCL)",
+            special_handling="Standard Cargo Handling & Export Customs Clearance",
+            total_shipments=0,
+            total_value_usd=0.0,
+            lading_port="INBOM4 (Mumbai Air) / INNSA1 (Nhava Sheva Sea)",
+        ),
+        section_3_jfll_fit=JfllFit(
+            cargo_strength="Multimodal air + ocean network covers their global trade lanes; licensed CHA for fast Mumbai customs clearance; 150+ country partner network.",
+            pitch_angle="Multimodal sea + express air · Licensed CHA customs broker · ISO 9001:2015 · Listed since 1986 (NSE/BSE: JETFREIGHT) · Mumbai-local dedicated account team",
+        ),
+        section_4_contacts=[
+            ContactItem(
+                name="General / Switchboard",
+                designation="Corporate Inquiries",
+                contact_info="info@company.com",
+                notes="Primary Corporate Contact",
+            ),
+            ContactItem(
+                name="Logistics Head",
+                designation="Supply Chain / Logistics Manager",
+                contact_info="logistics@company.com",
+                notes="Key Freight Decision-Maker",
+            ),
+        ],
+    )
 
-    if not lead:
-        # Graceful unlisted SME fallback
-        return ClientReportData(
-            lead_id=None,
-            header=ReportHeader(
-                company_name=company_query,
-                subtitle="Commercial Merchant Exporter (Unpublished SME)",
-                prepared_for=prepared_for,
-                prepared_by=prepared_by,
-                date=today_str,
-            ),
-            section_1_background=CompanyBackground(
-                what_they_do="Commercial exporter / merchant trader of general commodities and industrial goods",
-                hq_facilities="Mumbai Metropolitan Region → Gateways: BOM Air / JNPT Sea",
-                export_markets="Global emerging and regulated markets",
-                scale_credibility="SME Exporter (Customs records unlisted in local primary sample)",
-            ),
-            section_2_trade_lane=TradeLaneCommodity(
-                origin_destination="Mumbai (BOM/JNPT) → Global Destination Hubs",
-                commodity="Commercial Goods & Industrial Supplies",
-                primary_mode="AIR / OCEAN (LCL/FCL)",
-                special_handling="Standard Cargo Handling & Export Customs Clearance",
-                total_shipments=0,
-                total_value_usd=0.0,
-                lading_port="INBOM4 (Mumbai Air) / INNSA1 (Nhava Sheva Sea)",
-            ),
-            section_3_jfll_fit=JfllFit(
-                cargo_strength="Multimodal air + ocean network covers their global trade lanes; licensed CHA for fast Mumbai customs clearance; 150+ country partner network.",
-                pitch_angle="Multimodal sea + express air · Licensed CHA customs broker · ISO 9001:2015 · Listed since 1986 (NSE/BSE: JETFREIGHT) · Mumbai-local dedicated account team",
-            ),
-            section_4_contacts=[
-                ContactItem(
-                    name="General / Switchboard",
-                    designation="Corporate Inquiries",
-                    contact_info="info@company.com",
-                    notes="Primary Corporate Contact",
-                ),
-                ContactItem(
-                    name="Logistics Head",
-                    designation="Supply Chain / Logistics Manager",
-                    contact_info="logistics@company.com",
-                    notes="Key Freight Decision-Maker",
-                ),
-            ],
-        )
 
-    # 1. Header Subtitle Synthesis
+def _synthesize_subtitle(lead: dict[str, Any]) -> str:
     subcat = lead["subcategory"]
     cat = lead["category"]
     if "Chemical" in cat or "API" in subcat or "Organic" in subcat:
-        subtitle = "API, intermediate & fine-chemical export house" if "Exports" in lead["company_name"] else "API & advanced-intermediate manufacturer–exporter"
-    elif "Pharma" in cat or "Formulation" in subcat:
-        subtitle = "Pharmaceutical & healthcare formulations manufacturer–exporter"
-    elif "Perishable" in cat:
-        subtitle = "Fresh produce & perishables exporter (cold-chain specialized)"
-    else:
-        subtitle = f"{subcat} Manufacturer–Exporter"
+        return (
+            "API, intermediate & fine-chemical export house"
+            if "Exports" in lead["company_name"]
+            else "API & advanced-intermediate manufacturer–exporter"
+        )
+    if "Pharma" in cat or "Formulation" in subcat:
+        return "Pharmaceutical & healthcare formulations manufacturer–exporter"
+    if "Perishable" in cat:
+        return "Fresh produce & perishables exporter (cold-chain specialized)"
+    return f"{subcat} Manufacturer–Exporter"
 
-    # 2. Section 1: Background
+
+def _synthesize_company_background(lead: dict[str, Any]) -> CompanyBackground:
+    subcat = lead["subcategory"]
     hs_snippet = f" (Top HS: {lead['top_hs_codes']})" if lead["top_hs_codes"] else ""
     what_they_do = f"Manufacturer-exporter of {subcat} & fine materials{hs_snippet}"
-    
+
     clean_addr = lead["address"].replace("*", " ").strip(", ")
     hq_facilities = f"HQ: {lead['city']} · Address: {clean_addr}"
     if lead["pin_code"]:
@@ -224,29 +226,59 @@ def generate_client_report_data(
     hq_facilities += " → Gateways: Mumbai (BOM) air; Nhava Sheva (JNPT) sea"
 
     export_markets = f"Active customs corridors: {lead['trade_lanes']} (Global distribution)"
-    
-    scale_cred = f"Verified Exporter (IEC: {lead['tax_id']}); Declared Export Turnover: ${lead['total_value_usd']:,.2f} USD ({lead['total_shipments']} shipments)"
+
+    scale_cred = (
+        f"Verified Exporter (IEC: {lead['tax_id']}); "
+        f"Declared Export Turnover: ${lead['total_value_usd']:,.2f} USD ({lead['total_shipments']} shipments)"
+    )
     if lead["directors"]:
         d_preview = lead["directors"].split("PHONE")[0].replace("1.  :  ", "").strip()[:60]
         scale_cred += f"; Management: {d_preview}"
 
-    # 3. Section 2: Trade Lane & Commodity
+    return CompanyBackground(
+        what_they_do=what_they_do,
+        hq_facilities=hq_facilities,
+        export_markets=export_markets,
+        scale_credibility=scale_cred,
+    )
+
+
+def _synthesize_trade_lane(lead: dict[str, Any]) -> TradeLaneCommodity:
+    cat = lead["category"]
+    subcat = lead["subcategory"]
     origin_dest = f"Mumbai (BOM / JNPT) → {lead['trade_lanes']}"
     commodity = f"{cat} — {subcat}"
     primary_mode = f"{lead['transport_mode'].upper()} ({lead['total_shipments']} recorded customs shipments)"
 
     is_pharma_chem = "Chemical" in cat or "Pharma" in cat
     if is_pharma_chem:
-        special_handling = "IATA DG / IMO Hazardous Chemical Handling · Temperature-Controlled Storage & Cold Chain (2-8°C / 15-25°C) · Regulated Market Customs Documentation"
+        special_handling = (
+            "IATA DG / IMO Hazardous Chemical Handling · Temperature-Controlled Storage & Cold Chain (2-8°C / 15-25°C) · "
+            "Regulated Market Customs Documentation"
+        )
     elif "Perishable" in cat:
         special_handling = "Cold-chain reefer handling · Fast-track perishables tarmac clearance · Pre-cooling coordination"
     else:
         special_handling = "Standard export cargo handling · Licensed CHA export documentation"
 
-    # 4. Section 3: JFLL Fit — Why Us
+    return TradeLaneCommodity(
+        origin_destination=origin_dest,
+        commodity=commodity,
+        primary_mode=primary_mode,
+        special_handling=special_handling,
+        total_shipments=lead["total_shipments"],
+        total_value_usd=lead["total_value_usd"],
+        lading_port="INBOM4 (Mumbai Air) / INNSA1 (Nhava Sheva Sea)",
+    )
+
+
+def _synthesize_jfll_fit(lead: dict[str, Any]) -> JfllFit:
+    cat = lead["category"]
+    subcat = lead["subcategory"]
+    is_pharma_chem = "Chemical" in cat or "Pharma" in cat
     shipments_str = f"{lead['total_shipments']} shipments"
     val_str = f"${lead['total_value_usd']:,.2f} USD"
-    
+
     if is_pharma_chem:
         cargo_strength = (
             f"High-value {subcat} export flows ({shipments_str}, {val_str}) suit JFLL multimodal + IATA DG capability; "
@@ -266,9 +298,16 @@ def generate_client_report_data(
             "Listed since 1986 (NSE/BSE: JETFREIGHT) · Dedicated Mumbai operations desk"
         )
 
-    # 5. Section 4: Decision-Makers / Logistics Contacts
+    return JfllFit(
+        cargo_strength=cargo_strength,
+        pitch_angle=pitch_angle,
+    )
+
+
+def _synthesize_contacts(lead: dict[str, Any]) -> list[ContactItem]:
     contacts: list[ContactItem] = []
-    
+    clean_addr = lead["address"].replace("*", " ").strip(", ")
+
     # Row 1: Customs registered corporate office
     contacts.append(
         ContactItem(
@@ -286,9 +325,7 @@ def generate_client_report_data(
             if not chunk.strip():
                 continue
             name_part = chunk.split("PHONE")[0].strip()
-            # Clean name from parent name if joined
             clean_name = re.sub(r"\s+", " ", name_part).strip()
-            # Take first 3-4 words as director name
             name_tokens = clean_name.split()[:3]
             director_name = " ".join(name_tokens).title()
             if director_name and len(director_name) > 3:
@@ -300,7 +337,7 @@ def generate_client_report_data(
                         notes="Corporate Director (Ministry of Corporate Affairs)",
                     )
                 )
-                break  # add top director
+                break
 
     # If only 1 contact, append an editable row for the sales rep to fill
     if len(contacts) < 2:
@@ -313,33 +350,32 @@ def generate_client_report_data(
             )
         )
 
+    return contacts
+
+
+def generate_client_report_data(
+    company_query: str,
+    prepared_for: str = "Mumbai Sales Branch",
+    prepared_by: str = "Tyra Theknath",
+) -> ClientReportData:
+    """Generate complete 4-section client report data for a company."""
+    lead = _find_datamyne_lead(company_query)
+    today_str = datetime.now().strftime("%d-%m-%Y")
+
+    if not lead:
+        return _build_unlisted_sme_report(company_query, prepared_for, prepared_by, today_str)
+
     return ClientReportData(
         lead_id=lead["id"],
         header=ReportHeader(
             company_name=lead["company_name"],
-            subtitle=subtitle,
+            subtitle=_synthesize_subtitle(lead),
             prepared_for=prepared_for,
             prepared_by=prepared_by,
             date=today_str,
         ),
-        section_1_background=CompanyBackground(
-            what_they_do=what_they_do,
-            hq_facilities=hq_facilities,
-            export_markets=export_markets,
-            scale_credibility=scale_cred,
-        ),
-        section_2_trade_lane=TradeLaneCommodity(
-            origin_destination=origin_dest,
-            commodity=commodity,
-            primary_mode=primary_mode,
-            special_handling=special_handling,
-            total_shipments=lead["total_shipments"],
-            total_value_usd=lead["total_value_usd"],
-            lading_port="INBOM4 (Mumbai Air) / INNSA1 (Nhava Sheva Sea)",
-        ),
-        section_3_jfll_fit=JfllFit(
-            cargo_strength=cargo_strength,
-            pitch_angle=pitch_angle,
-        ),
-        section_4_contacts=contacts,
+        section_1_background=_synthesize_company_background(lead),
+        section_2_trade_lane=_synthesize_trade_lane(lead),
+        section_3_jfll_fit=_synthesize_jfll_fit(lead),
+        section_4_contacts=_synthesize_contacts(lead),
     )
