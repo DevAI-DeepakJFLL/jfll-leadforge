@@ -741,7 +741,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           </section>
 
           {/* Section 4: Decision-Makers / Logistics Contacts */}
-          <section>
+          <section className="mb-8">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider">
                 4 · Decision-Makers / Logistics Contacts

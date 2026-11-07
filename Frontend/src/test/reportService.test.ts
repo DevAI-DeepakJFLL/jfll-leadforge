@@ -10,6 +10,7 @@ import {
   loadDraftFromSession,
 } from '../services/reportService';
 import { ClientReportData } from '../types/report';
+import { API_BASE_URL } from '@/config/api';
 
 describe('Report Service Suite', () => {
   beforeEach(() => {
@@ -39,7 +40,7 @@ describe('Report Service Suite', () => {
 
     const results = await fetchReportCompanySuggestions('Titan');
     expect(results).toEqual(mockSuggestions);
-    expect(globalThis.fetch).toHaveBeenCalledWith('/api/v1/reports/companies?q=Titan&limit=10', expect.any(Object));
+    expect(globalThis.fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/v1/reports/companies?q=Titan&limit=10`, expect.any(Object));
   });
 
   it('generateClientReport calls backend API and returns structured report data', async () => {
@@ -96,6 +97,7 @@ describe('Report Service Suite', () => {
 
     expect(report.header.company_name).toBe('MEGA FINE PHARMA PVT LTD');
     expect(report.section_2_trade_lane.total_shipments).toBe(237);
+    expect(globalThis.fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/v1/reports/generate`, expect.any(Object));
   });
 
   it('generateClientReport throws when backend is offline so caller can handle fallback and alert user', async () => {
@@ -119,7 +121,7 @@ describe('Report Service Suite', () => {
     const mockReport = createEmptyReportDraft('Titan Laboratories');
     await downloadClientReportDocx(mockReport);
 
-    expect(globalThis.fetch).toHaveBeenCalledWith('/api/v1/reports/export-docx', expect.any(Object));
+    expect(globalThis.fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/v1/reports/export-docx`, expect.any(Object));
   });
 
   it('enrichClientReportWithWeb calls /enrich-web endpoint with auth and returns enriched report', async () => {
@@ -137,7 +139,7 @@ describe('Report Service Suite', () => {
     const res = await enrichClientReportWithWeb(mockDraft);
     expect(res.header.web_grounded).toBe(true);
     expect(res.header.subtitle).toBe('API & Specialty Exporter');
-    expect(globalThis.fetch).toHaveBeenCalledWith('/api/v1/reports/enrich-web', expect.any(Object));
+    expect(globalThis.fetch).toHaveBeenCalledWith(`${API_BASE_URL}/api/v1/reports/enrich-web`, expect.any(Object));
   });
 
   it('normalizeReportResponse safely provides default section_5_feedback if omitted', () => {

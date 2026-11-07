@@ -58,6 +58,13 @@ describe('ReportView Component Suite', () => {
     expect(html).toContain('Actions</span>');
   });
 
+  it('renders Section 4 with mb-8 bottom margin for vertical spacing above section 5', () => {
+    const draft = createEmptyReportDraft('Titan Laboratories');
+    const html = renderToString(<ReportView initialReport={draft} />);
+    expect(html).toContain('4 · Decision-Makers / Logistics Contacts');
+    expect(html).toMatch(/<section class="[^"]*mb-8[^"]*">\s*<div[^>]*>\s*<h2[^>]*>4 · Decision-Makers/);
+  });
+
   it('renders official Jet Freight branding, accessible form linkages, and excludes internal sprint labels', () => {
     const draft = createEmptyReportDraft('Titan Laboratories Pvt Ltd');
     const html = renderToString(<ReportView initialReport={draft} />);

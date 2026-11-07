@@ -8,6 +8,7 @@ import {
 } from '../types/report';
 import { getStoredSession, isOfflineSession } from '@/services/authService';
 import { getDeviceFingerprint } from '@/utils/antiBotGuard';
+import { API_BASE_URL } from '@/config/api';
 
 /**
  * Assemble security headers (Bearer token & device fingerprint) for report API calls
@@ -155,7 +156,7 @@ export async function fetchReportCompanySuggestions(
 ): Promise<ReportCompanySuggestion[]> {
   if (!query || !query.trim()) return [];
   try {
-    const res = await fetch(`/api/v1/reports/companies?q=${encodeURIComponent(query.trim())}&limit=${limit}`, {
+    const res = await fetch(`${API_BASE_URL}/api/v1/reports/companies?q=${encodeURIComponent(query.trim())}&limit=${limit}`, {
       headers: {
         'Accept': 'application/json',
         ...getReportAuthHeaders(),
@@ -179,7 +180,7 @@ export async function generateClientReport(
 ): Promise<ClientReportData> {
   const company = request.company_name_or_id?.trim() || 'New Prospect';
   try {
-    const res = await fetch('/api/v1/reports/generate', {
+    const res = await fetch(`${API_BASE_URL}/api/v1/reports/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -211,7 +212,7 @@ export async function enrichClientReportWithWeb(
   report: ClientReportData
 ): Promise<ClientReportData> {
   try {
-    const res = await fetch('/api/v1/reports/enrich-web', {
+    const res = await fetch(`${API_BASE_URL}/api/v1/reports/enrich-web`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -237,7 +238,7 @@ export async function enrichClientReportWithWeb(
  */
 export async function downloadClientReportDocx(report: ClientReportData): Promise<void> {
   try {
-    const res = await fetch('/api/v1/reports/export-docx', {
+    const res = await fetch(`${API_BASE_URL}/api/v1/reports/export-docx`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
