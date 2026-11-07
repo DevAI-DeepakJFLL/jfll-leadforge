@@ -130,6 +130,15 @@ export const AppDock: React.FC<AppDockProps> = ({
     },
   ];
 
+  const MOBILE_NAV_LABELS: Record<string, string> = {
+    home: 'Home',
+    search: 'Leads',
+    'jfll-customers': 'Customers',
+    datamyne: 'DataMyne',
+    report: 'Reports',
+    'saved-searches': 'Saved',
+  };
+
   return (
     <>
       {/* 1. Desktop Leftmost 64px Dark Dock (Hidden on mobile < md) */}
@@ -344,7 +353,7 @@ export const AppDock: React.FC<AppDockProps> = ({
             >
               <Icon className="w-5 h-5" />
               <span className="text-[10px] font-medium tracking-tight mt-0.5 truncate max-w-[64px]">
-                {item.id === 'jfll-customers' ? 'Customers' : item.id === 'datamyne' ? 'DataMyne' : item.id === 'saved-searches' ? 'Saved' : item.id === 'search' ? 'Leads' : 'Home'}
+                {MOBILE_NAV_LABELS[item.id] || item.label}
               </span>
               {item.badge && item.badge > 0 && (
                 <span className="absolute top-1 right-2 px-1 min-w-[12px] h-[12px] rounded-full bg-apollo text-[8px] font-bold text-white flex items-center justify-center">

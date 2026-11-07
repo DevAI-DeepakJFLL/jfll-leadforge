@@ -88,16 +88,14 @@ describe('Report Service Suite', () => {
     expect(report.section_2_trade_lane.total_shipments).toBe(237);
   });
 
-  it('generateClientReport falls back gracefully to local draft when backend offline', async () => {
+  it('generateClientReport throws when backend is offline so caller can handle fallback and alert user', async () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValueOnce(new Error('Network offline'));
 
-    const report = await generateClientReport({
-      company_name_or_id: 'Titan Laboratories',
-    });
-
-    expect(report).toBeDefined();
-    expect(report.header.company_name).toBe('Titan Laboratories');
-    expect(report.section_4_contacts.length).toBeGreaterThanOrEqual(1);
+    await expect(
+      generateClientReport({
+        company_name_or_id: 'Titan Laboratories',
+      })
+    ).rejects.toThrow('Network offline');
   });
 
   it('downloadClientReportDocx triggers file download from API safely', async () => {

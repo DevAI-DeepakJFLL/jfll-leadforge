@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   FileText,
   Download,
@@ -29,6 +29,7 @@ export interface ReportViewProps {
 }
 
 interface ReportFieldRowProps {
+  id: string;
   label: string;
   value: string;
   onChange: (val: string) => void;
@@ -39,6 +40,7 @@ interface ReportFieldRowProps {
 }
 
 const ReportFieldRow: React.FC<ReportFieldRowProps> = ({
+  id,
   label,
   value,
   onChange,
@@ -48,29 +50,32 @@ const ReportFieldRow: React.FC<ReportFieldRowProps> = ({
   valueFontMedium = false,
 }) => (
   <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
-    <div
-      className={`sm:col-span-4 p-2.5 font-bold border-r border-slate-200 ${
+    <label
+      htmlFor={id}
+      className={`sm:col-span-4 p-2.5 font-bold border-r border-slate-200 select-none cursor-pointer ${
         highlightLabel ? 'bg-blue-50/60 text-blue-900' : 'bg-slate-50/80 text-slate-700'
       }`}
     >
       {label}
-    </div>
+    </label>
     <div className="sm:col-span-8 p-1.5">
       {multiline ? (
         <textarea
+          id={id}
           rows={rows}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded resize-none text-slate-800 ${
+          className={`w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded resize-none text-slate-800 transition-colors ${
             valueFontMedium ? 'font-medium' : ''
           }`}
         />
       ) : (
         <input
+          id={id}
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 rounded text-slate-800"
+          className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors"
         />
       )}
     </div>
@@ -92,6 +97,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<ReportCompanySuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
 
   const [report, setReport] = useState<ClientReportData>(() => {
     if (initialReport) return initialReport;
@@ -123,6 +129,22 @@ export const ReportView: React.FC<ReportViewProps> = ({
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
+  // Close suggestions dropdown on outside click
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+
   const handleGenerate = async (companyNameOverride?: string) => {
     const target = companyNameOverride || searchQuery;
     if (!target || !target.trim()) return;
@@ -140,7 +162,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
       setSearchQuery(data.header.company_name);
     } catch (err) {
       console.error('[REPORT VIEW] Generation error:', err);
-      setErrorMessage('Failed to generate report from server. A local draft has been loaded.');
+      setReport(createEmptyReportDraft(target.trim(), preparedFor, preparedBy));
+      setErrorMessage('Unable to connect to live customs server. Loaded local editable draft template.');
     } finally {
       setIsLoading(false);
     }
@@ -240,13 +263,10 @@ export const ReportView: React.FC<ReportViewProps> = ({
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <h1 className="text-base font-bold text-slate-900 tracking-tight">
                 Client Report Generator
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200/60 uppercase">
-                  Phase 2 Feature
-                </span>
               </h1>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-600">
                 1-Click executive prospect briefings combining customs shipment history, regulatory research & JFLL fit.
               </p>
             </div>
@@ -256,7 +276,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
           <div className="flex items-center gap-2.5 shrink-0">
             <button
               onClick={handleCopyPitch}
-              className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               title="Copy pitch angles to clipboard"
             >
               {copiedPitch ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-slate-500" />}
@@ -265,7 +285,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
             <button
               onClick={handlePrintPdf}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               title="Print document or save as PDF"
             >
               <Printer className="w-4 h-4 text-slate-600" />
@@ -275,7 +295,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <button
               onClick={handleExportDocx}
               disabled={isExporting}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg text-xs font-bold shadow-xs hover:shadow transition-all cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg text-xs font-bold shadow-xs hover:shadow transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               <Download className={`w-4 h-4 ${isExporting ? 'animate-bounce' : ''}`} />
               <span>{isExporting ? 'Exporting...' : 'Export Word (.docx)'}</span>
@@ -285,13 +305,20 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
         {/* Company Search and Metadata Selectors */}
         <div className="max-w-6xl mx-auto mt-4 pt-3 border-t border-slate-100 grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-          <div className="md:col-span-6 relative">
-            <label className="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
+          <div
+            ref={searchContainerRef}
+            className="md:col-span-6 relative"
+            role="combobox"
+            aria-expanded={showSuggestions && suggestions.length > 0}
+            aria-haspopup="listbox"
+          >
+            <label htmlFor="company-search-input" className="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
               Select or Search Prospect Company
             </label>
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-500" />
               <input
+                id="company-search-input"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => {
@@ -299,9 +326,16 @@ export const ReportView: React.FC<ReportViewProps> = ({
                   setShowSuggestions(true);
                 }}
                 onFocus={() => setShowSuggestions(true)}
-                onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleGenerate();
+                  } else if (e.key === 'Escape') {
+                    setShowSuggestions(false);
+                  }
+                }}
                 placeholder="Search company in DataMyne or enter name (e.g. Titan Laboratories)..."
-                className="w-full pl-9 pr-3 py-2 bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg text-xs font-medium text-slate-900 transition-colors"
+                className="w-full pl-9 pr-3 py-2 bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded-lg text-xs font-medium text-slate-900 transition-colors"
+                autoComplete="off"
               />
               {isLoading && (
                 <RefreshCw className="w-4 h-4 absolute right-3 top-2.5 text-blue-600 animate-spin" />
@@ -310,15 +344,22 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
             {/* Autocomplete Dropdown */}
             {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-50 max-h-64 overflow-y-auto divide-y divide-slate-100">
+              <div
+                role="listbox"
+                id="company-suggestions-list"
+                aria-label="Company Suggestions"
+                className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-50 max-h-64 overflow-y-auto divide-y divide-slate-100"
+              >
                 {suggestions.map((item) => (
                   <button
                     key={item.id}
+                    role="option"
+                    aria-selected={searchQuery === item.company_name}
                     onClick={() => {
                       setSearchQuery(item.company_name);
                       handleGenerate(item.company_name);
                     }}
-                    className="w-full px-3.5 py-2.5 text-left hover:bg-blue-50/70 transition-colors flex items-center justify-between group cursor-pointer"
+                    className="w-full px-3.5 py-2.5 text-left hover:bg-blue-50/70 transition-colors flex items-center justify-between group cursor-pointer focus:bg-blue-50/80 focus:outline-none"
                   >
                     <div className="min-w-0 pr-3">
                       <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700 truncate">
@@ -333,7 +374,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                       <div className="text-xs font-semibold text-slate-900">
                         {item.total_shipments} shipments
                       </div>
-                      <div className="text-[10px] text-emerald-600 font-medium">
+                      <div className="text-[10px] text-emerald-700 font-medium">
                         ${item.total_value_usd.toLocaleString('en-US', { maximumFractionDigits: 0 })} USD
                       </div>
                     </div>
@@ -344,10 +385,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
           </div>
 
           <div className="md:col-span-3">
-            <label className="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
+            <label htmlFor="prepared-for-input" className="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
               Prepared For (Sales Rep / Branch)
             </label>
             <input
+              id="prepared-for-input"
               type="text"
               value={preparedFor}
               onChange={(e) => {
@@ -359,16 +401,17 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 }));
               }}
               placeholder="e.g. Sweety / Mumbai Branch"
-              className="w-full px-3 py-2 bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 rounded-lg text-xs text-slate-800"
+              className="w-full px-3 py-2 bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded-lg text-xs text-slate-800 transition-colors"
             />
           </div>
 
           <div className="md:col-span-3 flex items-center gap-2">
             <div className="flex-1">
-              <label className="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
+              <label htmlFor="prepared-by-input" className="block text-[11px] font-semibold text-slate-700 uppercase tracking-wider mb-1">
                 Prepared By
               </label>
               <input
+                id="prepared-by-input"
                 type="text"
                 value={preparedBy}
                 onChange={(e) => {
@@ -379,13 +422,13 @@ export const ReportView: React.FC<ReportViewProps> = ({
                     header: { ...prev.header, prepared_by: val },
                   }));
                 }}
-                className="w-full px-3 py-2 bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 rounded-lg text-xs text-slate-800"
+                className="w-full px-3 py-2 bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded-lg text-xs text-slate-800 transition-colors"
               />
             </div>
             <button
               onClick={() => handleGenerate()}
               disabled={isLoading || !searchQuery.trim()}
-              className="mt-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-lg text-xs font-bold shadow-xs flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
+              className="mt-auto px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg text-xs font-bold shadow-xs flex items-center gap-1.5 transition-colors cursor-pointer shrink-0 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>{isLoading ? 'Generating...' : 'Generate Report'}</span>
@@ -403,7 +446,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
           </div>
           <button
             onClick={() => setErrorMessage(null)}
-            className="p-1 hover:bg-red-100 rounded text-red-600 hover:text-red-800 cursor-pointer"
+            className="p-1 hover:bg-red-100 rounded text-red-600 hover:text-red-800 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-400"
+            aria-label="Dismiss notice"
             title="Dismiss notice"
           >
             <X className="w-3.5 h-3.5" />
@@ -413,19 +457,38 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
       {/* 2. Main Document Canvas (Print Friendly) */}
       <main className="flex-1 py-8 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto bg-white border border-slate-300 rounded-xl shadow-lg p-8 sm:p-12 print:border-none print:shadow-none print:p-0 print:max-w-full">
+        <div className="max-w-4xl mx-auto bg-white border border-slate-300 rounded-xl shadow-lg p-8 sm:p-12 print:border-none print:shadow-none print:p-0 print:max-w-full print:m-0">
           {/* Header Banner */}
           <div className="border-b-2 border-slate-200 pb-4 mb-6">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-blue-700">
-                CLIENT REPORT  ·  PROSPECT BRIEF
-              </span>
-              <span className="text-[11px] font-medium text-slate-400">
-                Jet Freight Logistics Master Brief
-              </span>
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <img
+                  src="/assets/jfll-logo.jpeg"
+                  alt="Jet Freight Logistics Ltd"
+                  className="w-10 h-10 object-contain rounded-md border border-slate-200 bg-white p-0.5 shadow-2xs shrink-0"
+                />
+                <div>
+                  <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-blue-700 block">
+                    CLIENT REPORT · PROSPECT BRIEF
+                  </span>
+                  <span className="text-[10px] font-medium text-slate-500 block">
+                    Jet Freight Logistics Ltd · BSE/NSE: JETFREIGHT · ISO 9001:2015
+                  </span>
+                </div>
+              </div>
+              <div className="text-right shrink-0">
+                <span className="text-[11px] font-semibold text-slate-600 block">
+                  Executive Briefing Canvas
+                </span>
+                <span className="text-[10px] text-slate-400 block print:hidden">
+                  Click any cell to edit inline
+                </span>
+              </div>
             </div>
 
+            <label htmlFor="report-company-title" className="sr-only">Company Name</label>
             <input
+              id="report-company-title"
               type="text"
               value={report.header.company_name}
               onChange={(e) =>
@@ -434,10 +497,12 @@ export const ReportView: React.FC<ReportViewProps> = ({
                   header: { ...prev.header, company_name: e.target.value },
                 }))
               }
-              className="mt-2 w-full text-2xl sm:text-3xl font-extrabold text-blue-950 uppercase tracking-tight bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-300 focus:border-blue-400 rounded px-1 -mx-1 transition-colors"
+              className="mt-3 w-full text-2xl sm:text-3xl font-extrabold text-blue-950 uppercase tracking-tight bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded px-1 -mx-1 transition-colors"
             />
 
+            <label htmlFor="report-subtitle" className="sr-only">Report Subtitle</label>
             <input
+              id="report-subtitle"
               type="text"
               value={report.header.subtitle}
               onChange={(e) =>
@@ -446,21 +511,21 @@ export const ReportView: React.FC<ReportViewProps> = ({
                   header: { ...prev.header, subtitle: e.target.value },
                 }))
               }
-              className="mt-1 w-full text-sm italic text-slate-600 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-300 focus:border-blue-400 rounded px-1 -mx-1"
+              className="mt-1 w-full text-sm italic text-slate-600 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded px-1 -mx-1 transition-colors"
             />
 
             {/* Metadata Strip */}
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700">
               <div>
-                <strong className="text-slate-500 font-semibold">Prepared for: </strong>
+                <strong className="text-slate-600 font-semibold">Prepared for: </strong>
                 <span className="italic">{report.header.prepared_for}</span>
               </div>
               <div>
-                <strong className="text-slate-500 font-semibold">Prepared by: </strong>
+                <strong className="text-slate-600 font-semibold">Prepared by: </strong>
                 <span className="italic">{report.header.prepared_by}</span>
               </div>
               <div>
-                <strong className="text-slate-500 font-semibold">Date: </strong>
+                <strong className="text-slate-600 font-semibold">Date: </strong>
                 <span className="italic">{report.header.date}</span>
               </div>
             </div>
@@ -473,24 +538,28 @@ export const ReportView: React.FC<ReportViewProps> = ({
             </h2>
             <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
               <ReportFieldRow
+                id="sec1-what-they-do"
                 label="What they do / product lines"
                 value={report.section_1_background.what_they_do}
                 onChange={(val) => updateSection1('what_they_do', val)}
                 rows={2}
               />
               <ReportFieldRow
+                id="sec1-hq-facilities"
                 label="HQ & key facilities"
                 value={report.section_1_background.hq_facilities}
                 onChange={(val) => updateSection1('hq_facilities', val)}
                 rows={2}
               />
               <ReportFieldRow
+                id="sec1-export-markets"
                 label="Export markets"
                 value={report.section_1_background.export_markets}
                 onChange={(val) => updateSection1('export_markets', val)}
                 rows={1}
               />
               <ReportFieldRow
+                id="sec1-scale-credibility"
                 label="Scale / credibility"
                 value={report.section_1_background.scale_credibility}
                 onChange={(val) => updateSection1('scale_credibility', val)}
@@ -509,24 +578,28 @@ export const ReportView: React.FC<ReportViewProps> = ({
             </h2>
             <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
               <ReportFieldRow
+                id="sec2-origin-dest"
                 label="Origin → Destination"
                 value={report.section_2_trade_lane.origin_destination}
                 onChange={(val) => updateSection2('origin_destination', val)}
                 multiline={false}
               />
               <ReportFieldRow
+                id="sec2-commodity"
                 label="Commodity / cargo type"
                 value={report.section_2_trade_lane.commodity}
                 onChange={(val) => updateSection2('commodity', val)}
                 multiline={false}
               />
               <ReportFieldRow
+                id="sec2-primary-mode"
                 label="Primary mode: Ocean / Air"
                 value={report.section_2_trade_lane.primary_mode}
                 onChange={(val) => updateSection2('primary_mode', val)}
                 multiline={false}
               />
               <ReportFieldRow
+                id="sec2-special-handling"
                 label="Special handling"
                 value={report.section_2_trade_lane.special_handling}
                 onChange={(val) => updateSection2('special_handling', val)}
@@ -542,6 +615,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
             </h2>
             <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
               <ReportFieldRow
+                id="sec3-cargo-strength"
                 label="Cargo → JFLL strength"
                 value={report.section_3_jfll_fit.cargo_strength}
                 onChange={(val) => updateSection3('cargo_strength', val)}
@@ -550,6 +624,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 valueFontMedium
               />
               <ReportFieldRow
+                id="sec3-pitch-angle"
                 label="Lead the pitch with"
                 value={report.section_3_jfll_fit.pitch_angle}
                 onChange={(val) => updateSection3('pitch_angle', val)}
@@ -567,7 +642,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
               </h2>
               <button
                 onClick={addContactRow}
-                className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md px-2.5 py-1 cursor-pointer transition-colors"
+                className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md px-2.5 py-1 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>+ Add Contact</span>
@@ -582,7 +657,9 @@ export const ReportView: React.FC<ReportViewProps> = ({
                     <th className="p-2.5 text-left font-bold w-1/4">Designation / Role</th>
                     <th className="p-2.5 text-left font-bold w-1/4">Contact Information</th>
                     <th className="p-2.5 text-left font-bold w-1/4">Notes / Context</th>
-                    <th className="p-2.5 text-center font-bold w-10 print:hidden"></th>
+                    <th className="p-2.5 text-center font-bold w-10 print:hidden">
+                      <span className="sr-only">Actions</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 bg-white">
@@ -594,7 +671,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           value={contact.name}
                           onChange={(e) => updateContact(idx, 'name', e.target.value)}
                           placeholder="Contact Name..."
-                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 rounded text-slate-900 font-semibold"
+                          aria-label={`Contact ${idx + 1} Name`}
+                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-900 font-semibold transition-colors"
                         />
                       </td>
                       <td className="p-1.5">
@@ -603,7 +681,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           value={contact.designation}
                           onChange={(e) => updateContact(idx, 'designation', e.target.value)}
                           placeholder="Role (e.g. Logistics Head)"
-                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 rounded text-slate-800"
+                          aria-label={`Contact ${idx + 1} Designation`}
+                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors"
                         />
                       </td>
                       <td className="p-1.5">
@@ -612,7 +691,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           value={contact.contact_info}
                           onChange={(e) => updateContact(idx, 'contact_info', e.target.value)}
                           placeholder="email@company.com / +91..."
-                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 rounded text-slate-800"
+                          aria-label={`Contact ${idx + 1} Contact Information`}
+                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors"
                         />
                       </td>
                       <td className="p-1.5">
@@ -621,14 +701,16 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           value={contact.notes}
                           onChange={(e) => updateContact(idx, 'notes', e.target.value)}
                           placeholder="Context or phone..."
-                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 rounded text-slate-600"
+                          aria-label={`Contact ${idx + 1} Notes`}
+                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-600 transition-colors"
                         />
                       </td>
                       <td className="p-1.5 text-center print:hidden">
                         {report.section_4_contacts.length > 1 && (
                           <button
                             onClick={() => removeContactRow(idx)}
-                            className="p-1 text-slate-400 hover:text-red-600 rounded cursor-pointer transition-colors"
+                            className="p-1 text-slate-500 hover:text-red-600 rounded cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-red-400"
+                            aria-label={`Remove contact ${contact.name || idx + 1}`}
                             title="Remove contact"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

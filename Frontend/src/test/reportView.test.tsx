@@ -52,5 +52,29 @@ describe('ReportView Component Suite', () => {
     expect(html).toContain('Contact Information');
     expect(html).toContain('Notes / Context');
     expect(html).toContain('+ Add Contact');
+    // Accessible table actions header
+    expect(html).toContain('Actions</span>');
+  });
+
+  it('renders official Jet Freight branding, accessible form linkages, and excludes internal sprint labels', () => {
+    const draft = createEmptyReportDraft('Titan Laboratories Pvt Ltd');
+    const html = renderToString(<ReportView initialReport={draft} />);
+
+    // Official JFLL branding
+    expect(html).toContain('src="/assets/jfll-logo.jpeg"');
+    expect(html).toContain('Jet Freight Logistics Ltd · BSE/NSE: JETFREIGHT · ISO 9001:2015');
+
+    // No internal sprint tags
+    expect(html).not.toContain('Phase 2 Feature');
+
+    // Accessible htmlFor and id linkages
+    expect(html).toContain('for="sec1-what-they-do"');
+    expect(html).toContain('id="sec1-what-they-do"');
+    expect(html).toContain('for="sec2-origin-dest"');
+    expect(html).toContain('id="sec2-origin-dest"');
+    expect(html).toContain('for="sec3-cargo-strength"');
+    expect(html).toContain('id="sec3-cargo-strength"');
+    expect(html).toContain('for="company-search-input"');
+    expect(html).toContain('id="company-search-input"');
   });
 });

@@ -140,13 +140,13 @@ export async function generateClientReport(
     });
 
     if (!res.ok) {
-      throw new Error(`Server returned ${res.status}`);
+      throw new Error(`Server returned status ${res.status}`);
     }
 
     return await res.json();
   } catch (err) {
-    console.warn('[REPORT SERVICE] Backend unavailable, generating local client report draft:', err);
-    return createEmptyReportDraft(company, request.prepared_for, request.prepared_by);
+    console.error('[REPORT SERVICE] Failed to generate report from backend:', err);
+    throw err;
   }
 }
 

@@ -15,6 +15,7 @@ import {
   Plane,
   Ship,
   PhoneOff,
+  ExternalLink,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -431,10 +432,14 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 <div className="pt-2 border-t border-slate-100">
                   <button
                     onClick={() => onGenerateReport(lead)}
-                    className="w-full py-2 px-3 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-2xs"
+                    className="w-full py-2 px-3 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 rounded-lg text-xs font-bold flex items-center justify-between gap-2 transition-colors cursor-pointer shadow-2xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    title={`Open Client Report Generator for ${lead.company_name}`}
                   >
-                    <FileText className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Generate Client Report (.docx)</span>
+                    <div className="flex items-center gap-2">
+                      <FileText className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                      <span>Open Client Report Generator</span>
+                    </div>
+                    <ExternalLink className="w-3.5 h-3.5 text-blue-500 shrink-0" />
                   </button>
                 </div>
               )}

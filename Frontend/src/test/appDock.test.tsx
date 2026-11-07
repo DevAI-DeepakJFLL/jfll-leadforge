@@ -58,4 +58,15 @@ describe('AppDock Navigation & User Logout Details Suite', () => {
     expect(html).toContain('Client Reports');
     expect(html).toContain('Saved Searches');
   });
+
+  it('renders distinct mobile navigation labels including Reports without duplicate Home', () => {
+    const html = renderToString(<AppDock activeNav="report" currentUser={mockUser} />);
+
+    // Mobile dock navigation buttons have aria-label matching item.label
+    // Verify that the button with aria-label="Client Reports" has child text "Reports", NOT "Home"
+    const mobileNavSection = html.slice(html.indexOf('aria-label="Mobile Navigation Dock"'));
+    expect(mobileNavSection).toContain('aria-label="Client Reports"');
+    // Mobile label span should render "Reports"
+    expect(mobileNavSection).toContain('>Reports</span>');
+  });
 });
