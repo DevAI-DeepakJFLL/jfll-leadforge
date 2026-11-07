@@ -6,6 +6,26 @@ import {
   GenerateReportRequest,
   ReportCompanySuggestion,
 } from '../types/report';
+import { getStoredSession, isOfflineSession } from '@/services/authService';
+import { getDeviceFingerprint } from '@/utils/antiBotGuard';
+
+/**
+ * Assemble security headers (Bearer token & device fingerprint) for report API calls
+ */
+function getReportAuthHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {
+    'X-Device-Fingerprint': getDeviceFingerprint(),
+  };
+  try {
+    const session = getStoredSession();
+    if (session?.token && !isOfflineSession(session)) {
+      headers['Authorization'] = `Bearer ${session.token}`;
+    }
+  } catch {
+    // Graceful handling of storage access exceptions
+  }
+  return headers;
+}
 
 /**
  * Format current date in DD-MM-YYYY format
@@ -82,7 +102,10 @@ export async function fetchReportCompanySuggestions(
   if (!query || !query.trim()) return [];
   try {
     const res = await fetch(`/api/v1/reports/companies?q=${encodeURIComponent(query.trim())}&limit=${limit}`, {
-      headers: { 'Accept': 'application/json' },
+      headers: {
+        'Accept': 'application/json',
+        ...getReportAuthHeaders(),
+      },
     });
     if (!res.ok) {
       return [];
@@ -107,6 +130,7 @@ export async function generateClientReport(
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        ...getReportAuthHeaders(),
       },
       body: JSON.stringify({
         company_name_or_id: company,
@@ -135,6 +159,7 @@ export async function downloadClientReportDocx(report: ClientReportData): Promis
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...getReportAuthHeaders(),
       },
       body: JSON.stringify(report),
     });
