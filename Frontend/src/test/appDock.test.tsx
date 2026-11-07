@@ -55,6 +55,7 @@ describe('AppDock Navigation & User Logout Details Suite', () => {
     expect(html).toContain('Leads Explorer');
     expect(html).toContain('JFLL Customers');
     expect(html).toContain('DataMyne Leads');
+    expect(html).toContain('Client Reports');
     expect(html).toContain('Saved Searches');
   });
 });

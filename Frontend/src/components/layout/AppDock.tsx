@@ -10,6 +10,7 @@ import {
   Trash2,
   Building2,
   Database,
+  FileText,
   LogOut,
   ShieldCheck,
 } from 'lucide-react';
@@ -120,6 +121,7 @@ export const AppDock: React.FC<AppDockProps> = ({
     { id: 'search', label: 'Leads Explorer', icon: Search },
     { id: 'jfll-customers', label: 'JFLL Customers', icon: Building2 },
     { id: 'datamyne', label: 'DataMyne Leads', icon: Database },
+    { id: 'report', label: 'Client Reports', icon: FileText },
     {
       id: 'saved-searches',
       label: 'Saved Searches',

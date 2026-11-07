@@ -10,6 +10,7 @@ import {
   ApolloCompaniesView,
   DatamyneView,
   JfllCustomersView,
+  ReportView,
 } from '@/components/views';
 import {
   LeadDetailDrawer,
@@ -151,6 +152,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     return 'companies';
   });
   const [activeNav, setActiveNav] = useState<string>(() => getInitialActiveNav(getInitialTopTab()));
+  const [selectedReportCompany, setSelectedReportCompany] = useState<string | null>(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAdminPortalOpen, setIsAdminPortalOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
@@ -984,6 +986,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
 
   const isJfllCategory = topTab === 'jfll-customers';
   const isDatamyneCategory = topTab === 'datamyne';
+  const isReportCategory = topTab === 'report' || activeNav === 'report';
   const isApolloCategory = topTab === 'apollo' || topTab === 'companies' || topTab === 'people';
 
   const apolloActiveFilterCount = useMemo(() => {
@@ -1042,6 +1045,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       setActiveNav('datamyne');
     } else if (normalizedTab === 'jfll-customers') {
       setActiveNav('jfll-customers');
+    } else if (normalizedTab === 'report') {
+      setActiveNav('report');
     } else if (normalizedTab === 'apollo') {
       setActiveNav(apolloSubTab === 'people' ? 'search' : 'companies');
     } else if (normalizedTab === 'saved-searches' || normalizedTab === 'saved-lists') {
@@ -1081,6 +1086,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           handleAudienceTabChange('datamyne');
         } else if (navId === 'jfll-customers') {
           handleAudienceTabChange('jfll-customers');
+        } else if (navId === 'report') {
+          handleAudienceTabChange('report');
         } else if (navId === 'home' || navId === 'companies') {
           setTopTab('apollo');
           setApolloSubTab('companies');
@@ -1211,6 +1218,11 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onConvertToActive={handleOpenJfllConvert}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
+        />
+      ) : isReportCategory ? (
+        <ReportView
+          initialCompany={selectedReportCompany}
+          currentUser={currentUser}
         />
       ) : isApolloCategory && apolloSubTab === 'companies' ? (
         <ApolloCompaniesView
@@ -1359,6 +1371,11 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onClose={() => setSelectedDatamyneLead(null)}
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
+          onGenerateReport={(lead) => {
+            setSelectedReportCompany(lead.company_name);
+            setSelectedDatamyneLead(null);
+            handleAudienceTabChange('report');
+          }}
         />
       </ErrorBoundary>
 

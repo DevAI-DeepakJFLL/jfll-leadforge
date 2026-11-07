@@ -31,6 +31,7 @@ export interface DatamyneDetailDrawerProps {
   onClose: () => void;
   onLogApproach?: (lead: DatamyneLead) => void;
   onConvertToActive?: (lead: DatamyneLead) => void;
+  onGenerateReport?: (lead: DatamyneLead) => void;
   className?: string;
 }
 
@@ -40,6 +41,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   onClose,
   onLogApproach,
   onConvertToActive,
+  onGenerateReport,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -424,6 +426,18 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 onOpenConvertModal={() => onConvertToActive?.(lead)}
                 showConvertButton={true}
               />
+
+              {onGenerateReport && (
+                <div className="pt-2 border-t border-slate-100">
+                  <button
+                    onClick={() => onGenerateReport(lead)}
+                    className="w-full py-2 px-3 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-2xs"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Generate Client Report (.docx)</span>
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Trade Volume & Commodity HS Codes Card */}
