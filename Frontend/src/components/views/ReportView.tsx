@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FileText,
   Download,
@@ -9,10 +9,7 @@ import {
   Trash2,
   Copy,
   Check,
-  Building,
   RefreshCw,
-  AlertCircle,
-  ExternalLink,
 } from 'lucide-react';
 import { ClientReportData, ContactItem, ReportCompanySuggestion } from '@/types/report';
 import {

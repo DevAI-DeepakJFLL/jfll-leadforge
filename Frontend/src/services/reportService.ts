@@ -79,7 +79,7 @@ export async function fetchReportCompanySuggestions(
   query: string,
   limit: number = 10
 ): Promise<ReportCompanySuggestion[]> {
-  if (!query || !query.strip?.() && !query.trim()) return [];
+  if (!query || !query.trim()) return [];
   try {
     const res = await fetch(`/api/reports/companies?q=${encodeURIComponent(query.trim())}&limit=${limit}`, {
       headers: { 'Accept': 'application/json' },

@@ -99,14 +99,16 @@ def _find_datamyne_lead(query: str) -> Optional[Dict[str, Any]]:
             if row:
                 return _row_to_lead_dict(row)
 
-        # 4. Compound word split fallback (e.g. "Megafine" -> "%mega%fine%")
-        alphanumeric = re.sub(r"[^a-zA-Z0-9]", "", clean_q)
-        if len(alphanumeric) >= 6:
-            for i in range(4, len(alphanumeric) - 2):
-                p1, p2 = alphanumeric[:i], alphanumeric[i:]
-                row = conn.execute(sql_name, [DATAMYNE_PARQUET_PATH, f"%{p1}%{p2}%"]).fetchone()
-                if row:
-                    return _row_to_lead_dict(row)
+        # 4. Compound word split fallback on entire query and individual tokens (e.g. "Megafine" -> "%mega%fine%")
+        candidates_to_split = [clean_q] + tokens
+        for candidate in candidates_to_split:
+            alphanumeric = re.sub(r"[^a-zA-Z0-9]", "", candidate)
+            if len(alphanumeric) >= 6:
+                for i in range(3, len(alphanumeric) - 2):
+                    p1, p2 = alphanumeric[:i], alphanumeric[i:]
+                    row = conn.execute(sql_name, [DATAMYNE_PARQUET_PATH, f"%{p1}%{p2}%"]).fetchone()
+                    if row:
+                        return _row_to_lead_dict(row)
 
         return None
     finally:
