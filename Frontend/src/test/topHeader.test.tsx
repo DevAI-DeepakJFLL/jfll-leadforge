@@ -23,6 +23,18 @@ describe('TopHeader Navigation & Landing Tab', () => {
     // Verify subsequent tabs
     expect(html).toContain('DataMyne');
     expect(html).toContain('37.3k');
+    expect(html).toContain('Client Reports');
+  });
+
+  it('renders correctly when activeTab is switched to report', () => {
+    const htmlReport = renderToString(
+      <TopHeader
+        activeTab="report"
+        onTabChange={() => {}}
+      />
+    );
+    expect(htmlReport).toContain('Client Reports');
+    expect(htmlReport).toContain('aria-current="page"');
   });
 
   it('renders correctly when activeTab is switched to apollo, companies, or people', () => {

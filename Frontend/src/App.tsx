@@ -113,7 +113,7 @@ function getInitialTopTab(): string {
       const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
       if (
         saved &&
-        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'saved-searches', 'saved-lists'].includes(saved)
+        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'report', 'saved-searches', 'saved-lists'].includes(saved)
       ) {
         if (saved === 'companies' || saved === 'people') return 'apollo';
         return saved;
@@ -128,6 +128,7 @@ function getInitialTopTab(): string {
 function getInitialActiveNav(tab: string): string {
   if (tab === 'datamyne') return 'datamyne';
   if (tab === 'jfll-customers') return 'jfll-customers';
+  if (tab === 'report') return 'report';
   if (tab === 'apollo' || tab === 'companies') return 'companies';
   if (tab === 'saved-searches' || tab === 'saved-lists') return 'saved-searches';
   return 'search'; // for 'people'
@@ -1102,7 +1103,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           setActiveNav(navId);
         }
       }}
-      activeTab={isApolloCategory ? 'apollo' : topTab}
+      activeTab={isReportCategory ? 'report' : isApolloCategory ? 'apollo' : topTab}
       onTabChange={handleAudienceTabChange}
       searchQuery={
         isDatamyneCategory
