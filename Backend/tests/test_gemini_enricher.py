@@ -185,3 +185,35 @@ def test_enrich_report_handles_timeout_and_exceptions_gracefully(monkeypatch):
     assert enriched.header.company_name == "Sunrise Global"
     assert enriched.header.web_grounded is False
     assert enriched.section_2_trade_lane.total_shipments == 45
+
+
+def test_enrich_report_preserves_caller_section_5_feedback_on_cache_hit():
+    """Fix #1: Verify that a cache hit preserves user's typed section_5_feedback and does not wipe it."""
+    clear_enrichment_cache()
+    company = "Sunrise Global"
+    
+    # 1. Populate cache with an earlier search result where feedback is empty
+    earlier_report = _create_sample_draft(company)
+    earlier_report.header.web_grounded = True
+    earlier_report.section_1_background.what_they_do = "Cached web research result"
+    earlier_report.section_5_feedback.meeting_takeaways = ""
+    set_cached_enrichment(company, earlier_report)
+
+    # 2. Caller has a draft with their own typed feedback
+    current_draft = _create_sample_draft(company)
+    current_draft.section_5_feedback.meeting_takeaways = "Critical customer pain point: needs temperature sensors"
+    current_draft.section_5_feedback.preferred_carriers = "Qatar Airways"
+    current_draft.section_5_feedback.target_pricing = "$2.90/kg"
+    current_draft.section_5_feedback.next_action_followup = "Quote by Monday 10 AM"
+
+    # 3. Call enrich (which hits cache)
+    result = enrich_report_with_gemini_search(current_draft, company)
+
+    # 4. Web research should come from cache, but sales feedback MUST BE PRESERVED from current_draft!
+    assert result.header.web_grounded is True
+    assert result.section_1_background.what_they_do == "Cached web research result"
+    assert result.section_5_feedback.meeting_takeaways == "Critical customer pain point: needs temperature sensors"
+    assert result.section_5_feedback.preferred_carriers == "Qatar Airways"
+    assert result.section_5_feedback.target_pricing == "$2.90/kg"
+    assert result.section_5_feedback.next_action_followup == "Quote by Monday 10 AM"
+

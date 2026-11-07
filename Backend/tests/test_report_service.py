@@ -79,3 +79,35 @@ def test_generate_client_report_extracts_apollo_decision_makers():
     apollo_contact = next(c for c in report.section_4_contacts if "Apollo Verified" in c.notes)
     assert len(apollo_contact.name) > 2
     assert len(apollo_contact.designation) > 2
+
+
+def test_generate_client_report_prepopulates_historical_approach_notes():
+    """Fix #5: Verify that historical approach log notes pre-populate section_5_feedback."""
+    from unittest.mock import patch
+    
+    mock_logs = {
+        "version": 1,
+        "entities": {
+            "datamyne:dm-val-00001": {
+                "logs": [
+                    {
+                        "timestamp": "2026-11-05T10:00:00Z",
+                        "user_name": "Deepak Naidu",
+                        "user_email": "deepak@jfll.com",
+                        "action": "Held meeting",
+                        "status": "In Progress",
+                        "note": "Client requests dedicated reefer container for cold chain APIs to Frankfurt.",
+                        "next_follow_up": "2026-11-12",
+                    }
+                ]
+            }
+        }
+    }
+    
+    with patch("src.api.approach_routes.load_approach_data", return_value=mock_logs):
+        report = generate_client_report_data("dm-val-00001")
+        assert report.section_5_feedback.meeting_takeaways != ""
+        assert "Client requests dedicated reefer container" in report.section_5_feedback.meeting_takeaways
+        assert "Deepak Naidu" in report.section_5_feedback.meeting_takeaways
+        assert report.section_5_feedback.next_action_followup == "2026-11-12"
+

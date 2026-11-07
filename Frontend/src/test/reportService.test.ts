@@ -5,6 +5,9 @@ import {
   downloadClientReportDocx,
   createEmptyReportDraft,
   enrichClientReportWithWeb,
+  normalizeReportResponse,
+  saveDraftToSession,
+  loadDraftFromSession,
 } from '../services/reportService';
 import { ClientReportData } from '../types/report';
 
@@ -72,6 +75,12 @@ describe('Report Service Suite', () => {
       section_4_contacts: [
         { name: 'General', designation: 'HQ', contact_info: 'info@megafine.in', notes: 'Primary' }
       ],
+      section_5_feedback: {
+        meeting_takeaways: 'Met with logistics head',
+        preferred_carriers: 'Air India',
+        target_pricing: '$3.00/kg',
+        next_action_followup: 'Submit quote',
+      },
     };
 
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce({
@@ -129,5 +138,46 @@ describe('Report Service Suite', () => {
     expect(res.header.web_grounded).toBe(true);
     expect(res.header.subtitle).toBe('API & Specialty Exporter');
     expect(globalThis.fetch).toHaveBeenCalledWith('/api/v1/reports/enrich-web', expect.any(Object));
+  });
+
+  it('normalizeReportResponse safely provides default section_5_feedback if omitted', () => {
+    const rawLegacyReport: any = {
+      header: { company_name: 'Legacy Co' },
+      section_1_background: {},
+      section_2_trade_lane: {},
+      section_3_jfll_fit: {},
+      section_4_contacts: [],
+    };
+    const normalized = normalizeReportResponse(rawLegacyReport);
+    expect(normalized.section_5_feedback).toBeDefined();
+    expect(normalized.section_5_feedback.meeting_takeaways).toBe('');
+    expect(normalized.section_5_feedback.preferred_carriers).toBe('');
+    expect(normalized.section_5_feedback.target_pricing).toBe('');
+    expect(normalized.section_5_feedback.next_action_followup).toBe('');
+  });
+
+  it('saveDraftToSession and loadDraftFromSession roundtrip successfully', () => {
+    const store: Record<string, string> = {};
+    const mockStorage = {
+      getItem: (k: string) => store[k] ?? null,
+      setItem: (k: string, v: string) => { store[k] = v; },
+      removeItem: (k: string) => { delete store[k]; },
+      clear: () => { Object.keys(store).forEach(k => delete store[k]); },
+    };
+    vi.stubGlobal('sessionStorage', mockStorage);
+    vi.stubGlobal('window', { sessionStorage: mockStorage });
+
+    const draft = createEmptyReportDraft('Test Enterprise');
+    draft.section_5_feedback.meeting_takeaways = 'Client prefers air express';
+    draft.section_5_feedback.preferred_carriers = 'Emirates';
+
+    saveDraftToSession(draft);
+    const loaded = loadDraftFromSession('Test Enterprise');
+
+    expect(loaded).not.toBeNull();
+    expect(loaded?.header.company_name).toBe('Test Enterprise');
+    expect(loaded?.section_5_feedback.meeting_takeaways).toBe('Client prefers air express');
+    expect(loaded?.section_5_feedback.preferred_carriers).toBe('Emirates');
+    vi.unstubAllGlobals();
   });
 });

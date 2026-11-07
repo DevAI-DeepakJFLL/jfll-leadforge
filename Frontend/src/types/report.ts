@@ -42,6 +42,13 @@ export interface ContactItem {
   notes: string;
 }
 
+export interface SalesFeedback {
+  meeting_takeaways: string;
+  preferred_carriers: string;
+  target_pricing: string;
+  next_action_followup: string;
+}
+
 export interface ClientReportData {
   lead_id?: string | null;
   header: ReportHeader;
@@ -49,6 +56,7 @@ export interface ClientReportData {
   section_2_trade_lane: TradeLaneCommodity;
   section_3_jfll_fit: JfllFit;
   section_4_contacts: ContactItem[];
+  section_5_feedback: SalesFeedback;
 }
 
 export interface ReportCompanySuggestion {

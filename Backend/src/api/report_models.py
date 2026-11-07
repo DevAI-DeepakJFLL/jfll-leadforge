@@ -39,6 +39,12 @@ class ContactItem(BaseModel):
     contact_info: str = Field(..., max_length=300)
     notes: str = Field(..., max_length=500)
 
+class SalesFeedback(BaseModel):
+    meeting_takeaways: str = Field(default="", max_length=4000)
+    preferred_carriers: str = Field(default="", max_length=500)
+    target_pricing: str = Field(default="", max_length=500)
+    next_action_followup: str = Field(default="", max_length=500)
+
 class ClientReportData(BaseModel):
     lead_id: str | None = Field(default=None, max_length=100)
     header: ReportHeader
@@ -46,6 +52,7 @@ class ClientReportData(BaseModel):
     section_2_trade_lane: TradeLaneCommodity
     section_3_jfll_fit: JfllFit
     section_4_contacts: list[ContactItem] = Field(default_factory=list, max_length=100)
+    section_5_feedback: SalesFeedback = Field(default_factory=SalesFeedback)
 
 class ReportCompanySuggestion(BaseModel):
     id: str = Field(..., max_length=100)

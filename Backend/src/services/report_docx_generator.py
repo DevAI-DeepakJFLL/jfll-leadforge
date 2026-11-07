@@ -164,14 +164,19 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
             r_lbl.font.bold = True
             r_lbl.font.color.rgb = RGBColor(51, 65, 85)
 
-            # Value paragraph
-            p_v = cell_val.paragraphs[0]
-            p_v.paragraph_format.space_before = Pt(0)
-            p_v.paragraph_format.space_after = Pt(0)
-            r_v = p_v.add_run(val)
-            r_v.font.name = "Calibri"
-            r_v.font.size = Pt(9.5)
-            r_v.font.color.rgb = RGBColor(30, 41, 59)
+            # Value paragraph(s) - handle multi-line strings cleanly
+            lines = str(val or "").split("\n")
+            for l_idx, line_text in enumerate(lines):
+                if l_idx == 0:
+                    p_v = cell_val.paragraphs[0]
+                else:
+                    p_v = cell_val.add_paragraph()
+                p_v.paragraph_format.space_before = Pt(0)
+                p_v.paragraph_format.space_after = Pt(1 if l_idx < len(lines) - 1 else 0)
+                r_v = p_v.add_run(line_text)
+                r_v.font.name = "Calibri"
+                r_v.font.size = Pt(9.5)
+                r_v.font.color.rgb = RGBColor(30, 41, 59)
 
         doc.add_paragraph().paragraph_format.space_after = Pt(2)
 
@@ -261,6 +266,18 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
             r.font.name = "Calibri"
             r.font.size = Pt(8.5)
             r.font.color.rgb = RGBColor(30, 41, 59)
+
+    # 6. Section 5: Sales Executive Feedback & Action Plan
+    f = report.section_5_feedback
+    _add_section_table(
+        "5 · Sales Executive Feedback & Action Plan",
+        [
+            ("Meeting Takeaways & Client Needs", f.meeting_takeaways or "Pending customer meeting / discovery notes"),
+            ("Preferred Carriers / Lines", f.preferred_carriers or "None specified"),
+            ("Target Rates / Pricing Notes", f.target_pricing or "Pending quotation"),
+            ("Next Action & Follow-up Date", f.next_action_followup or "Follow-up pending"),
+        ],
+    )
 
     # Save to in-memory BytesIO
     buffer = io.BytesIO()

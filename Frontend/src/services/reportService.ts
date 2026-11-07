@@ -89,7 +89,61 @@ export function createEmptyReportDraft(
         notes: 'Key Freight Decision-Maker',
       },
     ],
+    section_5_feedback: {
+      meeting_takeaways: '',
+      preferred_carriers: '',
+      target_pricing: '',
+      next_action_followup: '',
+    },
   };
+}
+
+/**
+ * Normalizes incoming report payloads ensuring backward compatibility for Section 5
+ */
+export function normalizeReportResponse(report: any): ClientReportData {
+  return {
+    ...report,
+    section_5_feedback: report.section_5_feedback || {
+      meeting_takeaways: '',
+      preferred_carriers: '',
+      target_pricing: '',
+      next_action_followup: '',
+    },
+  };
+}
+
+const DRAFT_STORAGE_PREFIX = 'jfll_report_draft_';
+
+/**
+ * Persists the current report draft to browser sessionStorage
+ */
+export function saveDraftToSession(report: ClientReportData): void {
+  try {
+    const storage = typeof window !== 'undefined' ? window.sessionStorage : (typeof sessionStorage !== 'undefined' ? sessionStorage : null);
+    if (!storage || !report?.header?.company_name) return;
+    const key = `${DRAFT_STORAGE_PREFIX}${report.header.company_name.toLowerCase().trim()}`;
+    storage.setItem(key, JSON.stringify(report));
+  } catch {
+    // Ignore quota or private browsing exceptions
+  }
+}
+
+/**
+ * Loads a cached report draft from browser sessionStorage if available
+ */
+export function loadDraftFromSession(companyName: string): ClientReportData | null {
+  try {
+    const storage = typeof window !== 'undefined' ? window.sessionStorage : (typeof sessionStorage !== 'undefined' ? sessionStorage : null);
+    if (!storage || !companyName) return null;
+    const key = `${DRAFT_STORAGE_PREFIX}${companyName.toLowerCase().trim()}`;
+    const raw = storage.getItem(key);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return normalizeReportResponse(parsed);
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -143,7 +197,7 @@ export async function generateClientReport(
       throw new Error(`Server returned status ${res.status}`);
     }
 
-    return await res.json();
+    return normalizeReportResponse(await res.json());
   } catch (err) {
     console.error('[REPORT SERVICE] Failed to generate report from backend:', err);
     throw err;
@@ -171,7 +225,7 @@ export async function enrichClientReportWithWeb(
       throw new Error(`Web enrichment returned status ${res.status}`);
     }
 
-    return await res.json();
+    return normalizeReportResponse(await res.json());
   } catch (err) {
     console.error('[REPORT SERVICE] Failed to enrich report with web search:', err);
     throw err;

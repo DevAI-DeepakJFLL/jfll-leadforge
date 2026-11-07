@@ -178,7 +178,12 @@ def enrich_report_with_gemini_search(
     # 1. Check TTL cache
     cached = get_cached_enrichment(company_query)
     if cached is not None:
-        return cached
+        merged = cached.model_copy(deep=True)
+        # Always preserve caller's in-progress sales feedback & custom header parameters
+        merged.section_5_feedback = draft.section_5_feedback.model_copy(deep=True)
+        merged.header.prepared_for = draft.header.prepared_for
+        merged.header.prepared_by = draft.header.prepared_by
+        return merged
 
     # 2. Check configuration
     config = get_gemini_config()

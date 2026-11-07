@@ -21,6 +21,8 @@ import {
   downloadClientReportDocx,
   createEmptyReportDraft,
   enrichClientReportWithWeb,
+  saveDraftToSession,
+  loadDraftFromSession,
 } from '@/services/reportService';
 import { UserSession } from '@/types/auth';
 
@@ -97,6 +99,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const [isExporting, setIsExporting] = useState(false);
   const [isEnrichingWeb, setIsEnrichingWeb] = useState(false);
   const [copiedPitch, setCopiedPitch] = useState(false);
+  const [copiedFeedback, setCopiedFeedback] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successNotice, setSuccessNotice] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<ReportCompanySuggestion[]>([]);
@@ -106,10 +109,19 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const [report, setReport] = useState<ClientReportData>(() => {
     if (initialReport) return initialReport;
     if (initialCompany) {
+      const cached = loadDraftFromSession(initialCompany);
+      if (cached) return cached;
       return createEmptyReportDraft(initialCompany, preparedFor, defaultPreparedBy);
     }
     return createEmptyReportDraft('Sample Enterprise (Click Generate)', preparedFor, defaultPreparedBy);
   });
+
+  // Auto-persist draft changes to sessionStorage
+  useEffect(() => {
+    if (report && report.header.company_name) {
+      saveDraftToSession(report);
+    }
+  }, [report]);
 
   // Fetch initial report if company was pre-selected from drawer
   useEffect(() => {
@@ -277,6 +289,34 @@ export const ReportView: React.FC<ReportViewProps> = ({
       const nextContacts = prev.section_4_contacts.filter((_, i) => i !== idx);
       return { ...prev, section_4_contacts: nextContacts };
     });
+  };
+
+  const updateFeedback = (field: keyof typeof report.section_5_feedback, val: string) => {
+    setReport((prev) => ({
+      ...prev,
+      section_5_feedback: {
+        ...prev.section_5_feedback,
+        [field]: val,
+      },
+    }));
+  };
+
+  const handleCopyFeedback = async () => {
+    const f = report.section_5_feedback;
+    const text = [
+      `Sales Feedback for ${report.header.company_name}:`,
+      `• Meeting Takeaways: ${f.meeting_takeaways || 'N/A'}`,
+      `• Preferred Carriers: ${f.preferred_carriers || 'N/A'}`,
+      `• Target Rates / Pricing: ${f.target_pricing || 'N/A'}`,
+      `• Next Action & Follow-up: ${f.next_action_followup || 'N/A'}`,
+    ].join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedFeedback(true);
+      setTimeout(() => setCopiedFeedback(false), 2500);
+    } catch {
+      // Ignore clipboard write exceptions
+    }
   };
 
   return (
@@ -787,6 +827,60 @@ export const ReportView: React.FC<ReportViewProps> = ({
                   ))}
                 </tbody>
               </table>
+            </div>
+          </section>
+
+          {/* Section 5: Sales Executive Feedback & Action Plan */}
+          <section>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider">
+                5 · Sales Executive Feedback & Action Plan
+              </h2>
+              <button
+                onClick={handleCopyFeedback}
+                className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-md px-2.5 py-1 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                title="Copy feedback summary to clipboard"
+              >
+                {copiedFeedback ? (
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                ) : (
+                  <Copy className="w-3.5 h-3.5 text-slate-500" />
+                )}
+                <span>{copiedFeedback ? 'Copied Feedback!' : 'Copy Feedback'}</span>
+              </button>
+            </div>
+
+            <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
+              <ReportFieldRow
+                id="sec5-takeaways"
+                label="Meeting Takeaways & Client Needs"
+                value={report.section_5_feedback.meeting_takeaways}
+                onChange={(val) => updateFeedback('meeting_takeaways', val)}
+                rows={3}
+                multiline={true}
+                highlightLabel={true}
+              />
+              <ReportFieldRow
+                id="sec5-carriers"
+                label="Preferred Carriers / Lines"
+                value={report.section_5_feedback.preferred_carriers}
+                onChange={(val) => updateFeedback('preferred_carriers', val)}
+                multiline={false}
+              />
+              <ReportFieldRow
+                id="sec5-pricing"
+                label="Target Rates / Pricing Notes"
+                value={report.section_5_feedback.target_pricing}
+                onChange={(val) => updateFeedback('target_pricing', val)}
+                multiline={false}
+              />
+              <ReportFieldRow
+                id="sec5-followup"
+                label="Next Action & Follow-up Date"
+                value={report.section_5_feedback.next_action_followup}
+                onChange={(val) => updateFeedback('next_action_followup', val)}
+                multiline={false}
+              />
             </div>
           </section>
         </div>

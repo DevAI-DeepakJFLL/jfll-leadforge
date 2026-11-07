@@ -87,4 +87,30 @@ describe('ReportView Component Suite', () => {
     const html = renderToString(<ReportView initialReport={draft} />);
     expect(html).toContain('Web Grounded · Gemini 3.8 Flash');
   });
+
+  it('renders Section 5 sales executive feedback with structured fields and copy feedback button', () => {
+    const draft = createEmptyReportDraft('Titan Laboratories Pvt Ltd');
+    draft.section_5_feedback.meeting_takeaways = 'Needs refrigerated 2-8C air container';
+    draft.section_5_feedback.preferred_carriers = 'Emirates SkyCargo';
+    draft.section_5_feedback.target_pricing = '$3.20/kg';
+    draft.section_5_feedback.next_action_followup = 'Proposal by Tuesday';
+
+    const html = renderToString(<ReportView initialReport={draft} />);
+
+    // Section 5 title and action
+    expect(html).toContain('5 · Sales Executive Feedback &amp; Action Plan');
+    expect(html).toContain('Copy Feedback');
+
+    // Structured row labels
+    expect(html).toContain('Meeting Takeaways &amp; Client Needs');
+    expect(html).toContain('Preferred Carriers / Lines');
+    expect(html).toContain('Target Rates / Pricing Notes');
+    expect(html).toContain('Next Action &amp; Follow-up Date');
+
+    // Values rendered in HTML inputs/textareas
+    expect(html).toContain('Needs refrigerated 2-8C air container');
+    expect(html).toContain('Emirates SkyCargo');
+    expect(html).toContain('$3.20/kg');
+    expect(html).toContain('Proposal by Tuesday');
+  });
 });

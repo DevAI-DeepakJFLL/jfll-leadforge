@@ -13,6 +13,7 @@ from src.api.report_models import (
     ContactItem,
     JfllFit,
     ReportHeader,
+    SalesFeedback,
     TradeLaneCommodity,
 )
 from src.services.gemini_report_enricher import (
@@ -169,6 +170,55 @@ def _row_to_lead_dict(r) -> dict[str, Any]:
         "directors": r[15] or "",
     }
 
+def _find_historical_approach_feedback(
+    lead_id: str | None = None,
+    company_name: str | None = None,
+) -> SalesFeedback:
+    """Pre-populates Section 5 with the latest recorded approach notes if available."""
+    try:
+        from src.api.approach_routes import load_approach_data
+        data = load_approach_data()
+        entities = data.get("entities", {})
+        
+        target_keys = []
+        if lead_id:
+            target_keys.append(f"datamyne:{lead_id}")
+            target_keys.append(lead_id)
+        if company_name:
+            target_keys.append(f"datamyne:{company_name.lower()}")
+            target_keys.append(f"apollo:{company_name.lower()}")
+
+        found_logs: list[dict[str, Any]] = []
+        for k in target_keys:
+            if k in entities and entities[k].get("logs"):
+                found_logs = entities[k]["logs"]
+                break
+
+        if not found_logs and company_name:
+            c_lower = company_name.lower()
+            for ek, ev in entities.items():
+                if c_lower in ek.lower() and ev.get("logs"):
+                    found_logs = ev["logs"]
+                    break
+
+        if found_logs:
+            latest = found_logs[-1]
+            note = str(latest.get("note", "") or "").strip()
+            user = str(latest.get("user_name", "Sales Coordinator") or "Sales Coordinator")
+            action = str(latest.get("action", "Log Update") or "Log Update")
+            follow_up = str(latest.get("next_follow_up", "") or "")
+            
+            takeaways = f"{note}\n[Prior log: {action} by {user}]" if note else ""
+            return SalesFeedback(
+                meeting_takeaways=takeaways,
+                next_action_followup=follow_up,
+            )
+    except Exception:
+        pass
+
+    return SalesFeedback()
+
+
 def _build_unlisted_sme_report(
     company_name: str,
     prepared_for: str,
@@ -218,6 +268,7 @@ def _build_unlisted_sme_report(
                 notes="Key Freight Decision-Maker",
             ),
         ],
+        section_5_feedback=_find_historical_approach_feedback(None, company_name),
     )
 
 
@@ -486,4 +537,5 @@ def generate_client_report_data(
         section_2_trade_lane=_synthesize_trade_lane(lead),
         section_3_jfll_fit=_synthesize_jfll_fit(lead),
         section_4_contacts=_synthesize_contacts(lead),
+        section_5_feedback=_find_historical_approach_feedback(lead["id"], lead["company_name"]),
     )
