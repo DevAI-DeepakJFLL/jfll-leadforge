@@ -10,6 +10,8 @@ import {
   Copy,
   Check,
   RefreshCw,
+  AlertCircle,
+  X,
 } from 'lucide-react';
 import { ClientReportData, ContactItem, ReportCompanySuggestion } from '@/types/report';
 import {
@@ -38,6 +40,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [copiedPitch, setCopiedPitch] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<ReportCompanySuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -77,6 +80,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
     setIsLoading(true);
     setShowSuggestions(false);
+    setErrorMessage(null);
     try {
       const data = await generateClientReport({
         company_name_or_id: target.trim(),
@@ -87,6 +91,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
       setSearchQuery(data.header.company_name);
     } catch (err) {
       console.error('[REPORT VIEW] Generation error:', err);
+      setErrorMessage('Failed to generate report from server. A local draft has been loaded.');
     } finally {
       setIsLoading(false);
     }
@@ -95,10 +100,12 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const handleExportDocx = async () => {
     if (!report) return;
     setIsExporting(true);
+    setErrorMessage(null);
     try {
       await downloadClientReportDocx(report);
     } catch (err) {
-      alert('Failed to export Word document. Please ensure backend is reachable.');
+      console.error('[REPORT VIEW] Export error:', err);
+      setErrorMessage('Failed to export Word document. Please ensure the backend server is reachable.');
     } finally {
       setIsExporting(false);
     }
@@ -294,7 +301,14 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <input
               type="text"
               value={preparedFor}
-              onChange={(e) => setPreparedFor(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                setPreparedFor(val);
+                setReport((prev) => ({
+                  ...prev,
+                  header: { ...prev.header, prepared_for: val },
+                }));
+              }}
               placeholder="e.g. Sweety / Mumbai Branch"
               className="w-full px-3 py-2 bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 rounded-lg text-xs text-slate-800"
             />
@@ -308,7 +322,14 @@ export const ReportView: React.FC<ReportViewProps> = ({
               <input
                 type="text"
                 value={preparedBy}
-                onChange={(e) => setPreparedBy(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setPreparedBy(val);
+                  setReport((prev) => ({
+                    ...prev,
+                    header: { ...prev.header, prepared_by: val },
+                  }));
+                }}
                 className="w-full px-3 py-2 bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 rounded-lg text-xs text-slate-800"
               />
             </div>
@@ -323,6 +344,23 @@ export const ReportView: React.FC<ReportViewProps> = ({
           </div>
         </div>
       </header>
+
+      {/* Dismissible Error Notice Banner */}
+      {errorMessage && (
+        <div className="bg-red-50 border-b border-red-200 px-6 py-2.5 flex items-center justify-between text-xs text-red-800 print:hidden animate-fade-in shrink-0">
+          <div className="flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+            <span>{errorMessage}</span>
+          </div>
+          <button
+            onClick={() => setErrorMessage(null)}
+            className="p-1 hover:bg-red-100 rounded text-red-600 hover:text-red-800 cursor-pointer"
+            title="Dismiss notice"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
 
       {/* 2. Main Document Canvas (Print Friendly) */}
       <main className="flex-1 py-8 px-4 sm:px-6">

@@ -3,23 +3,16 @@ Strictly replicates the 4-section executive prospect briefing template of Jet Fr
 Generates purely in-memory using io.BytesIO() to eliminate disk I/O and temporary file management.
 """
 import io
-import re
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
-from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
-from docx.oxml import OxmlElement, parse_xml
-from docx.oxml.ns import nsdecls, qn
+from docx.enum.table import WD_TABLE_ALIGNMENT
+from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls
 
 from src.api.report_models import ClientReportData
 
-# Jet Freight Brand Palette & Typography
-COLOR_PRIMARY_HEX = "1E3A8A"      # Deep Navy
-COLOR_SECONDARY_HEX = "0284C7"    # Freight Cyan / Sky
-COLOR_DARK_HEX = "1E293B"         # Slate Dark Body
-COLOR_MUTED_HEX = "64748B"        # Slate Muted
-COLOR_LIGHT_BG_HEX = "F1F5F9"     # Light Table Header Shading
-COLOR_BORDER_HEX = "CBD5E1"       # Subtle Table Border
+# Jet Freight Brand Palette Shading Constants
+COLOR_LIGHT_BG_HEX = "F1F5F9"  # Light Table Header Shading
 
 def _set_cell_background(cell, hex_color: str):
     """Set background color of a table cell."""

@@ -16,7 +16,7 @@ from src.services.report_service import (
 )
 from src.services.report_docx_generator import generate_docx_stream
 
-router = APIRouter(prefix="/api/reports", tags=["reports"])
+router = APIRouter(prefix="/api/v1/reports", tags=["reports"])
 
 @router.get(
     "/companies",
@@ -55,7 +55,8 @@ def post_export_docx(report: ClientReportData):
     try:
         docx_buffer = generate_docx_stream(report)
         clean_company = re.sub(r"[^\w\s-]", "", report.header.company_name).strip().replace(" ", "_")
-        filename = f"{clean_company}_Client_Report_{report.header.date}.docx"
+        clean_date = re.sub(r"[^\w-]", "_", report.header.date)
+        filename = f"{clean_company}_Client_Report_{clean_date}.docx"
 
         return StreamingResponse(
             docx_buffer,

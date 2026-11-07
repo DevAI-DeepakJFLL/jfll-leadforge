@@ -81,7 +81,7 @@ export async function fetchReportCompanySuggestions(
 ): Promise<ReportCompanySuggestion[]> {
   if (!query || !query.trim()) return [];
   try {
-    const res = await fetch(`/api/reports/companies?q=${encodeURIComponent(query.trim())}&limit=${limit}`, {
+    const res = await fetch(`/api/v1/reports/companies?q=${encodeURIComponent(query.trim())}&limit=${limit}`, {
       headers: { 'Accept': 'application/json' },
     });
     if (!res.ok) {
@@ -102,7 +102,7 @@ export async function generateClientReport(
 ): Promise<ClientReportData> {
   const company = request.company_name_or_id?.trim() || 'New Prospect';
   try {
-    const res = await fetch('/api/reports/generate', {
+    const res = await fetch('/api/v1/reports/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ export async function generateClientReport(
  */
 export async function downloadClientReportDocx(report: ClientReportData): Promise<void> {
   try {
-    const res = await fetch('/api/reports/export-docx', {
+    const res = await fetch('/api/v1/reports/export-docx', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

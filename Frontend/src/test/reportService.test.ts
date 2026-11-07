@@ -35,7 +35,7 @@ describe('Report Service Suite', () => {
 
     const results = await fetchReportCompanySuggestions('Titan');
     expect(results).toEqual(mockSuggestions);
-    expect(globalThis.fetch).toHaveBeenCalledWith('/api/reports/companies?q=Titan&limit=10', expect.any(Object));
+    expect(globalThis.fetch).toHaveBeenCalledWith('/api/v1/reports/companies?q=Titan&limit=10', expect.any(Object));
   });
 
   it('generateClientReport calls backend API and returns structured report data', async () => {
@@ -111,6 +111,6 @@ describe('Report Service Suite', () => {
     const mockReport = createEmptyReportDraft('Titan Laboratories');
     await downloadClientReportDocx(mockReport);
 
-    expect(globalThis.fetch).toHaveBeenCalledWith('/api/reports/export-docx', expect.any(Object));
+    expect(globalThis.fetch).toHaveBeenCalledWith('/api/v1/reports/export-docx', expect.any(Object));
   });
 });

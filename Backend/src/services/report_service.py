@@ -5,8 +5,8 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional
 import os
 import re
-import duckdb
 
+from src.api.database import get_db_connection
 from src.api.report_models import (
     ClientReportData,
     CompanyBackground,
@@ -24,8 +24,8 @@ DATAMYNE_PARQUET_PATH = os.path.join(
     "datamyne_leads_zstd.parquet",
 )
 
-def _get_duckdb_connection():
-    return duckdb.connect(":memory:")
+def _get_duckdb_cursor():
+    return get_db_connection().cursor()
 
 def search_report_companies(query: str, limit: int = 10) -> List[Dict[str, Any]]:
     """Search for companies in DataMyne by name or ID for quick autocomplete."""
@@ -33,7 +33,7 @@ def search_report_companies(query: str, limit: int = 10) -> List[Dict[str, Any]]
         return []
 
     clean_q = query.strip()
-    conn = _get_duckdb_connection()
+    conn = _get_duckdb_cursor()
     try:
         sql = """
             SELECT id, company_name, city, country, total_shipments, total_value_usd, category
@@ -61,7 +61,7 @@ def search_report_companies(query: str, limit: int = 10) -> List[Dict[str, Any]]
 def _find_datamyne_lead(query: str) -> Optional[Dict[str, Any]]:
     """Look up a lead by ID or flexible company name matching."""
     clean_q = query.strip()
-    conn = _get_duckdb_connection()
+    conn = _get_duckdb_cursor()
     try:
         # 1. Exact ID check
         sql_id = """
@@ -99,16 +99,29 @@ def _find_datamyne_lead(query: str) -> Optional[Dict[str, Any]]:
             if row:
                 return _row_to_lead_dict(row)
 
-        # 4. Compound word split fallback on entire query and individual tokens (e.g. "Megafine" -> "%mega%fine%")
+        # 4. Vectorized compound word split fallback (single pass with OR conditions)
         candidates_to_split = [clean_q] + tokens
+        compound_patterns = []
         for candidate in candidates_to_split:
             alphanumeric = re.sub(r"[^a-zA-Z0-9]", "", candidate)
             if len(alphanumeric) >= 6:
                 for i in range(3, len(alphanumeric) - 2):
-                    p1, p2 = alphanumeric[:i], alphanumeric[i:]
-                    row = conn.execute(sql_name, [DATAMYNE_PARQUET_PATH, f"%{p1}%{p2}%"]).fetchone()
-                    if row:
-                        return _row_to_lead_dict(row)
+                    compound_patterns.append(f"%{alphanumeric[:i]}%{alphanumeric[i:]}%")
+
+        if compound_patterns:
+            or_clause = " OR ".join(["company_name ILIKE ?" for _ in compound_patterns])
+            sql_compound = f"""
+                SELECT id, company_name, tax_id, transport_mode, category, subcategory, 
+                       city, address, pin_code, email, phone, total_shipments, total_value_usd, 
+                       trade_lanes, top_hs_codes, directors
+                FROM read_parquet(?)
+                WHERE {or_clause}
+                ORDER BY total_shipments DESC, total_value_usd DESC
+                LIMIT 1
+            """
+            row = conn.execute(sql_compound, [DATAMYNE_PARQUET_PATH] + compound_patterns).fetchone()
+            if row:
+                return _row_to_lead_dict(row)
 
         return None
     finally:
