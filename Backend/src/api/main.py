@@ -20,6 +20,7 @@ from src.api.logger import CloudWatchLoggingMiddleware, logger
 from src.api.models import HealthResponse
 from src.api.routes import router as leads_router
 from src.api.tier_routes import tier_router
+from src.api.report_routes import router as report_router
 
 is_production = settings.env == "production"
 
@@ -195,6 +196,7 @@ app.include_router(admin_router)
 app.include_router(leads_router)
 app.include_router(tier_router)
 app.include_router(approach_router)
+app.include_router(report_router)
 
 
 @app.get("/health", response_model=HealthResponse, tags=["Health"])
