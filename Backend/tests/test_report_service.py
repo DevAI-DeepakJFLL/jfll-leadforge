@@ -1,9 +1,11 @@
 import pytest
-from src.services.report_service import (
-    search_report_companies,
-    generate_client_report_data,
-)
+
 from src.api.report_models import ClientReportData
+from src.services.report_service import (
+    generate_client_report_data,
+    search_report_companies,
+)
+
 
 def test_search_report_companies_matches():
     results = search_report_companies("Titan", limit=5)

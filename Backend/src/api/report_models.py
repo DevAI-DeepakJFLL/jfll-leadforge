@@ -1,8 +1,9 @@
 """Pydantic data models for Client Report / Prospect Brief generation.
 Matches the 4-section executive briefing architecture used by Jet Freight Logistics.
 """
-from typing import List, Optional
+
 from pydantic import BaseModel, Field
+
 
 class ReportHeader(BaseModel):
     title: str = Field(default="CLIENT REPORT · PROSPECT BRIEF", max_length=100)
@@ -38,23 +39,23 @@ class ContactItem(BaseModel):
     notes: str = Field(..., max_length=500)
 
 class ClientReportData(BaseModel):
-    lead_id: Optional[str] = Field(default=None, max_length=100)
+    lead_id: str | None = Field(default=None, max_length=100)
     header: ReportHeader
     section_1_background: CompanyBackground
     section_2_trade_lane: TradeLaneCommodity
     section_3_jfll_fit: JfllFit
-    section_4_contacts: List[ContactItem] = Field(default_factory=list, max_length=100)
+    section_4_contacts: list[ContactItem] = Field(default_factory=list, max_length=100)
 
 class ReportCompanySuggestion(BaseModel):
     id: str = Field(..., max_length=100)
     company_name: str = Field(..., max_length=250)
-    city: Optional[str] = Field(default=None, max_length=150)
-    country: Optional[str] = Field(default="India", max_length=100)
+    city: str | None = Field(default=None, max_length=150)
+    country: str | None = Field(default="India", max_length=100)
     total_shipments: int = Field(default=0, ge=0)
     total_value_usd: float = Field(default=0.0, ge=0.0)
-    category: Optional[str] = Field(default=None, max_length=200)
+    category: str | None = Field(default=None, max_length=200)
 
 class GenerateReportRequest(BaseModel):
     company_name_or_id: str = Field(..., min_length=1, max_length=250)
-    prepared_for: Optional[str] = Field(default="Mumbai Sales Branch", max_length=150)
-    prepared_by: Optional[str] = Field(default="Tyra Theknath", max_length=150)
+    prepared_for: str | None = Field(default="Mumbai Sales Branch", max_length=150)
+    prepared_by: str | None = Field(default="Tyra Theknath", max_length=150)

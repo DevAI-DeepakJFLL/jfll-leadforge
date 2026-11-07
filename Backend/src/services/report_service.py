@@ -1,10 +1,10 @@
 """Core service for Client Report / Prospect Brief data synthesis.
 Queries DataMyne leads and synthesizes executive 4-section briefings.
 """
-from datetime import datetime
-from typing import Any, Dict, List, Optional
 import os
 import re
+from datetime import datetime
+from typing import Any
 
 from src.api.database import get_db_connection
 from src.api.report_models import (
@@ -12,7 +12,6 @@ from src.api.report_models import (
     CompanyBackground,
     ContactItem,
     JfllFit,
-    ReportCompanySuggestion,
     ReportHeader,
     TradeLaneCommodity,
 )
@@ -27,7 +26,7 @@ DATAMYNE_PARQUET_PATH = os.path.join(
 def _get_duckdb_cursor():
     return get_db_connection().cursor()
 
-def search_report_companies(query: str, limit: int = 10) -> List[Dict[str, Any]]:
+def search_report_companies(query: str, limit: int = 10) -> list[dict[str, Any]]:
     """Search for companies in DataMyne by name or ID for quick autocomplete."""
     if not query or not query.strip():
         return []
@@ -58,7 +57,7 @@ def search_report_companies(query: str, limit: int = 10) -> List[Dict[str, Any]]
     finally:
         conn.close()
 
-def _find_datamyne_lead(query: str) -> Optional[Dict[str, Any]]:
+def _find_datamyne_lead(query: str) -> dict[str, Any] | None:
     """Look up a lead by ID or flexible company name matching."""
     clean_q = query.strip()
     conn = _get_duckdb_cursor()
@@ -127,7 +126,7 @@ def _find_datamyne_lead(query: str) -> Optional[Dict[str, Any]]:
     finally:
         conn.close()
 
-def _row_to_lead_dict(r) -> Dict[str, Any]:
+def _row_to_lead_dict(r) -> dict[str, Any]:
     return {
         "id": r[0],
         "company_name": r[1],
@@ -268,7 +267,7 @@ def generate_client_report_data(
         )
 
     # 5. Section 4: Decision-Makers / Logistics Contacts
-    contacts: List[ContactItem] = []
+    contacts: list[ContactItem] = []
     
     # Row 1: Customs registered corporate office
     contacts.append(

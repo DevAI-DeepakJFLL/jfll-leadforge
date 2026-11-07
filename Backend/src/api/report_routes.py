@@ -1,9 +1,9 @@
 """API routes for automated Client Report generation and Word (.docx) streaming.
 """
-from typing import List
-from fastapi import APIRouter, Header, HTTPException, Query, Response
-from fastapi.responses import StreamingResponse
 import re
+
+from fastapi import APIRouter, Header, HTTPException, Query
+from fastapi.responses import StreamingResponse
 
 from src.api.helpers import require_auth
 from src.api.report_models import (
@@ -11,17 +11,17 @@ from src.api.report_models import (
     GenerateReportRequest,
     ReportCompanySuggestion,
 )
+from src.services.report_docx_generator import generate_docx_stream
 from src.services.report_service import (
     generate_client_report_data,
     search_report_companies,
 )
-from src.services.report_docx_generator import generate_docx_stream
 
 router = APIRouter(prefix="/api/v1/reports", tags=["reports"])
 
 @router.get(
     "/companies",
-    response_model=List[ReportCompanySuggestion],
+    response_model=list[ReportCompanySuggestion],
     summary="Search companies in DataMyne for client report autocomplete",
 )
 def get_report_companies(
@@ -79,4 +79,4 @@ def post_export_docx(
             },
         )
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Failed to generate Word document: {str(exc)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate Word document: {exc!s}")

@@ -3,11 +3,12 @@ Strictly replicates the 4-section executive prospect briefing template of Jet Fr
 Generates purely in-memory using io.BytesIO() to eliminate disk I/O and temporary file management.
 """
 import io
+
 from docx import Document
-from docx.shared import Inches, Pt, RGBColor
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml import parse_xml
 from docx.oxml.ns import nsdecls
+from docx.shared import Inches, Pt, RGBColor
 
 from src.api.report_models import ClientReportData
 
