@@ -11,13 +11,16 @@ from src.api.helpers import build_company_search_sql
 @lru_cache(maxsize=1024)
 def _cached_lookup(company_term: str, apollo_source: str) -> tuple[str, ...]:
     """Execute parameterized query to resolve corporate search term to organization IDs."""
-    con = get_db_connection()
-    comp_sql, comp_params = build_company_search_sql(company_term, col_prefix="a")
-    org_rows = con.execute(
-        f"SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql} LIMIT 100",
-        comp_params
-    ).fetchall()
-    return tuple(r[0] for r in org_rows if r[0])
+    try:
+        con = get_db_connection()
+        comp_sql, comp_params = build_company_search_sql(company_term, col_prefix="a")
+        org_rows = con.execute(
+            f"SELECT organization_id FROM '{apollo_source}' a WHERE {comp_sql} LIMIT 100",
+            comp_params
+        ).fetchall()
+        return tuple(r[0] for r in org_rows if r[0])
+    except Exception:
+        return ()
 
 
 def resolve_company_ids_cached(

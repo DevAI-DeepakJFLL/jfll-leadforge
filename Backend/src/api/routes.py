@@ -5,7 +5,7 @@ from fastapi import APIRouter, Header, HTTPException, Query
 
 from src.api.cache import resolve_company_ids_cached
 from src.api.config import settings
-from src.api.database import get_cached_parquet_path, get_db_connection
+from src.api.database import get_cached_parquet_path, get_data_source, get_db_connection
 from src.api.helpers import (
     SQL_EXTRACT_EMPLOYER_NAME,
     build_company_search_sql,
@@ -40,17 +40,6 @@ def _handle_db_exception(context_msg: str, err: Exception, source: str = "unknow
             detail=f"{context_msg}. Please contact support with incident reference: {incident_id}",
         )
     return HTTPException(status_code=500, detail=f"{context_msg}: {err!s}")
-
-
-def get_data_source(con: Any = None, dataset: str = "active") -> str:
-    """Returns local cached Parquet file path (via /tmp in Lambda or local disk), falling back to S3 URI if needed."""
-    try:
-        cached_path = get_cached_parquet_path(dataset)
-        if cached_path.exists():
-            return str(cached_path)
-    except Exception as err:
-        logger.debug("Local cached parquet check notice for %s: %s", dataset, err)
-    return settings.s3_uri_for(dataset)
 
 
 @router.get("/leads", response_model=PaginatedResponse, summary="Retrieve paginated customer leads")

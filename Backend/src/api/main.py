@@ -199,6 +199,32 @@ app.include_router(approach_router)
 app.include_router(report_router)
 
 
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    import uuid
+    incident_id = str(uuid.uuid4())[:8]
+    logger.error(f"[Incident {incident_id}] Unhandled error on {request.method} {request.url.path}: {exc}", exc_info=True)
+    origin = request.headers.get("origin", "")
+    allowed_origins = get_allowed_origins()
+
+    headers = {}
+    if origin and (origin in allowed_origins or "*" in allowed_origins):
+        headers["Access-Control-Allow-Origin"] = origin
+        headers["Access-Control-Allow-Credentials"] = "true"
+        headers["Access-Control-Allow-Methods"] = "GET, POST, DELETE, OPTIONS"
+        headers["Access-Control-Allow-Headers"] = (
+            "Authorization, Content-Type, Accept, Origin, User-Agent, "
+            "X-Request-ID, X-Amzn-Trace-Id, X-Device-Fingerprint"
+        )
+
+    detail = "Internal server error" if is_production else str(exc)
+    return JSONResponse(
+        status_code=500,
+        content={"detail": detail, "incident_id": incident_id},
+        headers=headers,
+    )
+
+
 @app.get("/health", response_model=HealthResponse, tags=["Health"])
 @app.get("/api/v1/health", response_model=HealthResponse, tags=["Health"])
 def health_check():

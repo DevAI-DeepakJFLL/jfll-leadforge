@@ -6,7 +6,8 @@ import re
 from datetime import datetime
 from typing import Any
 
-from src.api.database import get_db_connection
+from src.api.database import get_data_source, get_db_connection
+from src.api.logger import logger
 from src.api.report_models import (
     ClientReportData,
     CompanyBackground,
@@ -50,6 +51,34 @@ APOLLO_UNPROFILED_PATH = os.path.join(
 def _get_duckdb_cursor():
     return get_db_connection().cursor()
 
+def _get_datamyne_source() -> str:
+    try:
+        return get_data_source(dataset="datamyne")
+    except Exception as exc:
+        logger.debug("Falling back to local datamyne path: %s", exc)
+        return DATAMYNE_PARQUET_PATH
+
+def _get_apollo_leads_source() -> str:
+    try:
+        return get_data_source(dataset="apollo")
+    except Exception as exc:
+        logger.debug("Falling back to local apollo leads path: %s", exc)
+        return APOLLO_LEADS_PATH
+
+def _get_apollo_contacts_source() -> str:
+    try:
+        return get_data_source(dataset="apollo_contacts_profile")
+    except Exception as exc:
+        logger.debug("Falling back to local apollo contacts path: %s", exc)
+        return APOLLO_CONTACTS_PATH
+
+def _get_apollo_unprofiled_source() -> str:
+    try:
+        return get_data_source(dataset="apollo_contacts_unprofiled")
+    except Exception as exc:
+        logger.debug("Falling back to local apollo unprofiled path: %s", exc)
+        return APOLLO_UNPROFILED_PATH
+
 def search_report_companies(query: str, limit: int = 10) -> list[dict[str, Any]]:
     """Search for companies in DataMyne by name or ID for quick autocomplete."""
     if not query or not query.strip():
@@ -58,14 +87,15 @@ def search_report_companies(query: str, limit: int = 10) -> list[dict[str, Any]]
     clean_q = query.strip()
     conn = _get_duckdb_cursor()
     try:
-        sql = """
+        src = _get_datamyne_source()
+        sql = f"""
             SELECT id, company_name, city, country, total_shipments, total_value_usd, category
-            FROM read_parquet(?)
+            FROM '{src}'
             WHERE id = ? OR company_name ILIKE '%' || ? || '%'
             ORDER BY total_shipments DESC, total_value_usd DESC
             LIMIT ?
         """
-        rows = conn.execute(sql, [DATAMYNE_PARQUET_PATH, clean_q, clean_q, limit]).fetchall()
+        rows = conn.execute(sql, [clean_q, clean_q, limit]).fetchall()
         results = []
         for r in rows:
             results.append({
@@ -78,6 +108,9 @@ def search_report_companies(query: str, limit: int = 10) -> list[dict[str, Any]]
                 "category": r[6],
             })
         return results
+    except Exception as exc:
+        logger.warning("Error searching report companies for '%s': %s", query, exc)
+        return []
     finally:
         conn.close()
 
@@ -86,16 +119,17 @@ def _find_datamyne_lead(query: str) -> dict[str, Any] | None:
     clean_q = query.strip()
     conn = _get_duckdb_cursor()
     try:
+        src = _get_datamyne_source()
         # 1. Exact ID check
-        sql_id = """
+        sql_id = f"""
             SELECT id, company_name, tax_id, transport_mode, category, subcategory, 
                    city, address, pin_code, email, phone, total_shipments, total_value_usd, 
                    trade_lanes, top_hs_codes, directors
-            FROM read_parquet(?)
+            FROM '{src}'
             WHERE id = ?
             LIMIT 1
         """
-        row = conn.execute(sql_id, [DATAMYNE_PARQUET_PATH, clean_q]).fetchone()
+        row = conn.execute(sql_id, [clean_q]).fetchone()
         if row:
             return _row_to_lead_dict(row)
 
@@ -103,22 +137,22 @@ def _find_datamyne_lead(query: str) -> dict[str, Any] | None:
         tokens = [t for t in re.split(r"[\s,\-\(\)\.]+", clean_q) if len(t) >= 3 and t.lower() not in {"pvt", "ltd", "private", "limited", "the", "and"}]
         pattern = "%" + "%".join(tokens) + "%" if tokens else f"%{clean_q}%"
 
-        sql_name = """
+        sql_name = f"""
             SELECT id, company_name, tax_id, transport_mode, category, subcategory, 
                    city, address, pin_code, email, phone, total_shipments, total_value_usd, 
                    trade_lanes, top_hs_codes, directors
-            FROM read_parquet(?)
+            FROM '{src}'
             WHERE company_name ILIKE ?
             ORDER BY total_shipments DESC, total_value_usd DESC
             LIMIT 1
         """
-        row = conn.execute(sql_name, [DATAMYNE_PARQUET_PATH, pattern]).fetchone()
+        row = conn.execute(sql_name, [pattern]).fetchone()
         if row:
             return _row_to_lead_dict(row)
 
         # 3. First token fallback if multiple words
         if tokens:
-            row = conn.execute(sql_name, [DATAMYNE_PARQUET_PATH, f"%{tokens[0]}%"]).fetchone()
+            row = conn.execute(sql_name, [f"%{tokens[0]}%"]).fetchone()
             if row:
                 return _row_to_lead_dict(row)
 
@@ -137,15 +171,18 @@ def _find_datamyne_lead(query: str) -> dict[str, Any] | None:
                 SELECT id, company_name, tax_id, transport_mode, category, subcategory, 
                        city, address, pin_code, email, phone, total_shipments, total_value_usd, 
                        trade_lanes, top_hs_codes, directors
-                FROM read_parquet(?)
+                FROM '{src}'
                 WHERE {or_clause}
                 ORDER BY total_shipments DESC, total_value_usd DESC
                 LIMIT 1
             """
-            row = conn.execute(sql_compound, [DATAMYNE_PARQUET_PATH] + compound_patterns).fetchone()
+            row = conn.execute(sql_compound, compound_patterns).fetchone()
             if row:
                 return _row_to_lead_dict(row)
 
+        return None
+    except Exception as exc:
+        logger.warning("Error searching datamyne lead for '%s': %s", query, exc)
         return None
     finally:
         conn.close()
@@ -391,45 +428,48 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
     try:
         from src.api.cache import resolve_company_ids_cached
 
-        if os.path.exists(APOLLO_LEADS_PATH) and os.path.exists(APOLLO_CONTACTS_PATH):
-            org_ids = resolve_company_ids_cached(clean_name, APOLLO_LEADS_PATH)
-            if org_ids:
-                placeholders = ", ".join(["?"] * len(org_ids[:15]))
-                sql = f"""
-                    SELECT person_name, job_title, email, linkedin_url, seniority, is_logistics_role
-                    FROM '{APOLLO_CONTACTS_PATH}'
-                    WHERE organization_id IN ({placeholders})
-                    ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
-                    LIMIT ?
-                """
-                rows = conn.execute(sql, list(org_ids[:15]) + [limit]).fetchall()
-                for r in rows:
-                    p_name, title, email, linkedin, sen, is_log = r
-                    c_info = email or (linkedin if linkedin else "Apollo Verified")
-                    sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
-                    notes = f"Apollo Verified ({sen_tag})"
-                    if linkedin and linkedin != c_info:
-                        notes += f" · {linkedin}"
-                    contacts.append(
-                        ContactItem(
-                            name=p_name,
-                            designation=title or "Logistics Decision-Maker",
-                            contact_info=c_info,
-                            notes=notes,
-                        )
+        apollo_leads_src = _get_apollo_leads_source()
+        apollo_contacts_src = _get_apollo_contacts_source()
+
+        org_ids = resolve_company_ids_cached(clean_name, apollo_leads_src)
+        if org_ids:
+            placeholders = ", ".join(["?"] * len(org_ids[:15]))
+            sql = f"""
+                SELECT person_name, job_title, email, linkedin_url, seniority, is_logistics_role
+                FROM '{apollo_contacts_src}'
+                WHERE organization_id IN ({placeholders})
+                ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
+                LIMIT ?
+            """
+            rows = conn.execute(sql, list(org_ids[:15]) + [limit]).fetchall()
+            for r in rows:
+                p_name, title, email, linkedin, sen, is_log = r
+                c_info = email or (linkedin if linkedin else "Apollo Verified")
+                sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
+                notes = f"Apollo Verified ({sen_tag})"
+                if linkedin and linkedin != c_info:
+                    notes += f" · {linkedin}"
+                contacts.append(
+                    ContactItem(
+                        name=p_name,
+                        designation=title or "Logistics Decision-Maker",
+                        contact_info=c_info,
+                        notes=notes,
                     )
+                )
     except Exception as exc:
         logger.debug("Apollo profiled contact lookup encountered: %s", exc)
 
     # 2. Unprofiled contacts by employer name if limit not reached
-    if len(contacts) < limit and os.path.exists(APOLLO_UNPROFILED_PATH):
+    if len(contacts) < limit:
         try:
+            apollo_unprofiled_src = _get_apollo_unprofiled_source()
             tokens = clean_name.split()
             first_token = tokens[0] if tokens else clean_name
             if len(first_token) >= 3:
                 sql2 = f"""
                     SELECT person_name, job_title, email, linkedin_url, seniority
-                    FROM '{APOLLO_UNPROFILED_PATH}'
+                    FROM '{apollo_unprofiled_src}'
                     WHERE employer_name ILIKE ?
                     ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
                     LIMIT ?

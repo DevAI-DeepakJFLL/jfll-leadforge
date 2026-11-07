@@ -1,11 +1,13 @@
 """API routes for automated Client Report generation and Word (.docx) streaming.
 """
+from datetime import datetime
 import re
 
 from fastapi import APIRouter, Header, HTTPException, Query
 from fastapi.responses import StreamingResponse
 
 from src.api.helpers import require_auth
+from src.api.logger import logger
 from src.api.report_models import (
     ClientReportData,
     GenerateReportRequest,
@@ -13,6 +15,7 @@ from src.api.report_models import (
 )
 from src.services.report_docx_generator import generate_docx_stream
 from src.services.report_service import (
+    _build_unlisted_sme_report,
     generate_client_report_data,
     search_report_companies,
 )
@@ -32,7 +35,11 @@ def get_report_companies(
 ):
     """Search DataMyne for company suggestions to auto-complete report generation."""
     require_auth(authorization, "report company suggestions")
-    return search_report_companies(query=q, limit=limit)
+    try:
+        return search_report_companies(query=q, limit=limit)
+    except Exception as exc:
+        logger.warning("Error in get_report_companies autocomplete for '%s': %s", q, exc)
+        return []
 
 @router.post(
     "/generate",
@@ -48,11 +55,24 @@ def post_generate_report(
     if not payload.company_name_or_id or not payload.company_name_or_id.strip():
         raise HTTPException(status_code=400, detail="Company name or ID is required")
     
-    return generate_client_report_data(
-        company_query=payload.company_name_or_id,
-        prepared_for=payload.prepared_for or "Mumbai Sales Branch",
-        prepared_by=payload.prepared_by or "Tyra Theknath",
-    )
+    prep_for = payload.prepared_for or "Mumbai Sales Branch"
+    prep_by = payload.prepared_by or "Deepak Naidu"
+
+    try:
+        return generate_client_report_data(
+            company_query=payload.company_name_or_id,
+            prepared_for=prep_for,
+            prepared_by=prep_by,
+        )
+    except Exception as exc:
+        logger.error("Error generating report for '%s': %s", payload.company_name_or_id, exc, exc_info=True)
+        today_str = datetime.now().strftime("%d-%m-%Y")
+        return _build_unlisted_sme_report(
+            company_name=payload.company_name_or_id,
+            prepared_for=prep_for,
+            prepared_by=prep_by,
+            today_str=today_str,
+        )
 
 @router.post(
     "/enrich-web",
@@ -65,10 +85,14 @@ def post_enrich_web_report(
 ):
     """Enrich client report with live web research via Gemini 3.8 Flash Google Search grounding."""
     require_auth(authorization, "gemini web search enrichment")
-    return enrich_report_with_gemini_search(
-        draft=report,
-        company_query=report.header.company_name,
-    )
+    try:
+        return enrich_report_with_gemini_search(
+            draft=report,
+            company_query=report.header.company_name,
+        )
+    except Exception as exc:
+        logger.warning("Gemini web search enrichment failed: %s", exc)
+        return report
 
 @router.post(
     "/export-docx",

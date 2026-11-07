@@ -2,6 +2,7 @@ import logging
 import os
 import threading
 from pathlib import Path
+from typing import Any
 
 import duckdb
 
@@ -158,4 +159,16 @@ def get_cached_parquet_path(dataset: str = "active") -> Path:
         if local_p.exists():
             return local_p
         raise
+
+
+def get_data_source(con: Any = None, dataset: str = "active") -> str:
+    """Returns local cached Parquet file path (via /tmp in Lambda or local disk), falling back to S3 URI if needed."""
+    try:
+        cached_path = get_cached_parquet_path(dataset)
+        if cached_path.exists():
+            return str(cached_path)
+    except Exception as err:
+        logger.debug("Local cached parquet check notice for %s: %s", dataset, err)
+    return settings.s3_uri_for(dataset)
+
 
