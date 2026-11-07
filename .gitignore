@@ -138,7 +138,6 @@ Backend/README.md
 Backend/docs/AWS_FREE_TIER_DEPLOYMENT_RUNBOOK.md
 Backend/docs/SECURITY_AND_CODE_REVIEW.md
 Backend/requirements.txt
-Backend/requirements-lambda.txt
 
 # Apollo Internal Workflow & Selection Guides
 Backend/data/Apollo/*.md
