@@ -373,7 +373,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                     setShowSuggestions(false);
                   }
                 }}
-                placeholder="Search company in DataMyne or enter name (e.g. Titan Laboratories)..."
+                placeholder="Search company name (e.g. Titan Laboratories)..."
                 className="w-full pl-9 pr-3 py-2 bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded-lg text-xs font-medium text-slate-900 transition-colors"
                 autoComplete="off"
               />

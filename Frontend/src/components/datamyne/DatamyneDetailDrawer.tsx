@@ -15,7 +15,6 @@ import {
   Plane,
   Ship,
   PhoneOff,
-  ExternalLink,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -32,7 +31,6 @@ export interface DatamyneDetailDrawerProps {
   onClose: () => void;
   onLogApproach?: (lead: DatamyneLead) => void;
   onConvertToActive?: (lead: DatamyneLead) => void;
-  onGenerateReport?: (lead: DatamyneLead) => void;
   className?: string;
 }
 
@@ -42,7 +40,6 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   onClose,
   onLogApproach,
   onConvertToActive,
-  onGenerateReport,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -427,22 +424,6 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 onOpenConvertModal={() => onConvertToActive?.(lead)}
                 showConvertButton={true}
               />
-
-              {onGenerateReport && (
-                <div className="pt-2 border-t border-slate-100">
-                  <button
-                    onClick={() => onGenerateReport(lead)}
-                    className="w-full py-2 px-3 bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 rounded-lg text-xs font-bold flex items-center justify-between gap-2 transition-colors cursor-pointer shadow-2xs focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    title={`Open Client Report Generator for ${lead.company_name}`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <FileText className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                      <span>Open Client Report Generator</span>
-                    </div>
-                    <ExternalLink className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                  </button>
-                </div>
-              )}
             </div>
 
             {/* Trade Volume & Commodity HS Codes Card */}

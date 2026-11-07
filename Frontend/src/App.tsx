@@ -153,7 +153,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     return 'companies';
   });
   const [activeNav, setActiveNav] = useState<string>(() => getInitialActiveNav(getInitialTopTab()));
-  const [selectedReportCompany, setSelectedReportCompany] = useState<string | null>(null);
+  const [selectedReportCompany, _setSelectedReportCompany] = useState<string | null>(null);
+  void _setSelectedReportCompany;
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAdminPortalOpen, setIsAdminPortalOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
@@ -1372,11 +1373,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onClose={() => setSelectedDatamyneLead(null)}
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
-          onGenerateReport={(lead) => {
-            setSelectedReportCompany(lead.company_name);
-            setSelectedDatamyneLead(null);
-            handleAudienceTabChange('report');
-          }}
         />
       </ErrorBoundary>
 

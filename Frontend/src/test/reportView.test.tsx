@@ -10,7 +10,7 @@ describe('ReportView Component Suite', () => {
     );
 
     expect(html).toContain('Client Report Generator');
-    expect(html).toContain('Search company in DataMyne or enter name');
+    expect(html).toContain('Search company name');
     expect(html).toContain('Generate Report');
   });
 
