@@ -88,14 +88,15 @@ def search_report_companies(query: str, limit: int = 10) -> list[dict[str, Any]]
     conn = _get_duckdb_cursor()
     try:
         src = _get_datamyne_source()
+        pattern = f"%{clean_q}%"
         sql = f"""
             SELECT id, company_name, city, country, total_shipments, total_value_usd, category
             FROM '{src}'
-            WHERE id = ? OR company_name ILIKE '%' || ? || '%'
+            WHERE id = ? OR company_name ILIKE ?
             ORDER BY total_shipments DESC, total_value_usd DESC
             LIMIT ?
         """
-        rows = conn.execute(sql, [clean_q, clean_q, limit]).fetchall()
+        rows = conn.execute(sql, [clean_q, pattern, limit]).fetchall()
         results = []
         for r in rows:
             results.append({
@@ -258,11 +259,13 @@ def _find_historical_approach_feedback(
 
 def _build_unlisted_sme_report(
     company_name: str,
-    prepared_for: str,
-    prepared_by: str,
-    date_str: str,
+    prepared_for: str = "Mumbai Sales Branch",
+    prepared_by: str = "Tyra Theknath",
+    date_str: str | None = None,
+    today_str: str | None = None,
 ) -> ClientReportData:
     """Fallback draft briefing for SMEs without primary DataMyne customs records."""
+    effective_date = date_str or today_str or datetime.now().strftime("%d-%m-%Y")
     return ClientReportData(
         lead_id=None,
         header=ReportHeader(
@@ -270,7 +273,7 @@ def _build_unlisted_sme_report(
             subtitle="Commercial Merchant Exporter (Unpublished SME)",
             prepared_for=prepared_for,
             prepared_by=prepared_by,
-            date=date_str,
+            date=effective_date,
         ),
         section_1_background=CompanyBackground(
             what_they_do="Commercial exporter / merchant trader of general commodities and industrial goods",

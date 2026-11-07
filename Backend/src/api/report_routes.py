@@ -71,6 +71,7 @@ def post_generate_report(
             company_name=payload.company_name_or_id,
             prepared_for=prep_for,
             prepared_by=prep_by,
+            date_str=today_str,
             today_str=today_str,
         )
 

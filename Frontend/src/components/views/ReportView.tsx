@@ -179,7 +179,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
     } catch (err) {
       console.error('[REPORT VIEW] Generation error:', err);
       setReport(createEmptyReportDraft(target.trim(), preparedFor, preparedBy));
-      setErrorMessage('Unable to connect to live customs server. Loaded local editable draft template.');
+      const message = err instanceof Error ? err.message : 'Unable to connect to live customs server.';
+      setErrorMessage(message);
     } finally {
       setIsLoading(false);
     }
@@ -193,7 +194,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
       await downloadClientReportDocx(report);
     } catch (err) {
       console.error('[REPORT VIEW] Export error:', err);
-      setErrorMessage('Failed to export Word document. Please ensure the backend server is reachable.');
+      const message = err instanceof Error ? err.message : 'Failed to export Word document.';
+      setErrorMessage(message);
     } finally {
       setIsExporting(false);
     }
@@ -215,7 +217,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
       }
     } catch (err) {
       console.error('[REPORT VIEW] Web enrichment error:', err);
-      setErrorMessage('Web enrichment service is currently unreachable. Retaining local draft.');
+      const message = err instanceof Error ? err.message : 'Web enrichment service is currently unreachable.';
+      setErrorMessage(message);
     } finally {
       setIsEnrichingWeb(false);
     }
@@ -524,14 +527,26 @@ export const ReportView: React.FC<ReportViewProps> = ({
             <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
             <span>{errorMessage}</span>
           </div>
-          <button
-            onClick={() => setErrorMessage(null)}
-            className="p-1 hover:bg-red-100 rounded text-red-600 hover:text-red-800 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-400"
-            aria-label="Dismiss notice"
-            title="Dismiss notice"
-          >
-            <X className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-3">
+            {(errorMessage.toLowerCase().includes('sign in') || errorMessage.toLowerCase().includes('session')) && (
+              <button
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('leadforge:session-superseded'));
+                }}
+                className="px-2 py-0.5 bg-red-100 hover:bg-red-200 text-red-800 rounded font-medium underline text-xs cursor-pointer focus:outline-none focus:ring-1 focus:ring-red-400"
+              >
+                Sign In Again
+              </button>
+            )}
+            <button
+              onClick={() => setErrorMessage(null)}
+              className="p-1 hover:bg-red-100 rounded text-red-600 hover:text-red-800 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-400"
+              aria-label="Dismiss notice"
+              title="Dismiss notice"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       )}
 

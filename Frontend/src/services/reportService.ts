@@ -6,7 +6,7 @@ import {
   GenerateReportRequest,
   ReportCompanySuggestion,
 } from '../types/report';
-import { getStoredSession, isOfflineSession } from '@/services/authService';
+import { getStoredSession, isOfflineSession, notifySessionSuperseded } from '@/services/authService';
 import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 import { API_BASE_URL } from '@/config/api';
 
@@ -179,6 +179,12 @@ export async function generateClientReport(
   request: GenerateReportRequest
 ): Promise<ClientReportData> {
   const company = request.company_name_or_id?.trim() || 'New Prospect';
+
+  const session = getStoredSession();
+  if (isOfflineSession(session)) {
+    throw new Error('You are currently running in an offline session. Please log out and sign in with an authorized work email to generate live reports.');
+  }
+
   try {
     const res = await fetch(`${API_BASE_URL}/api/v1/reports/generate`, {
       method: 'POST',
@@ -195,7 +201,27 @@ export async function generateClientReport(
     });
 
     if (!res.ok) {
-      throw new Error(`Server returned status ${res.status}`);
+      let errorDetail = `Server returned status ${res.status}`;
+      try {
+        const errJson = await res.json();
+        if (errJson?.detail) {
+          errorDetail = errJson.detail;
+        }
+      } catch {
+        // Non-JSON error body
+      }
+
+      if (res.status === 401) {
+        if (errorDetail.includes('SESSION_SUPERSEDED')) {
+          notifySessionSuperseded();
+          throw new Error('Your session was opened in another window or device. Please sign in again.');
+        }
+        if (errorDetail.includes('Authentication required') || errorDetail.includes('Invalid or expired')) {
+          throw new Error('Your session has expired. Please sign in again to connect to the live customs server.');
+        }
+      }
+
+      throw new Error(errorDetail);
     }
 
     return normalizeReportResponse(await res.json());
@@ -211,6 +237,11 @@ export async function generateClientReport(
 export async function enrichClientReportWithWeb(
   report: ClientReportData
 ): Promise<ClientReportData> {
+  const session = getStoredSession();
+  if (isOfflineSession(session)) {
+    throw new Error('You are currently running in an offline session. Please log out and sign in with an authorized work email to run web research.');
+  }
+
   try {
     const res = await fetch(`${API_BASE_URL}/api/v1/reports/enrich-web`, {
       method: 'POST',
@@ -223,7 +254,25 @@ export async function enrichClientReportWithWeb(
     });
 
     if (!res.ok) {
-      throw new Error(`Web enrichment returned status ${res.status}`);
+      let errorDetail = `Web enrichment returned status ${res.status}`;
+      try {
+        const errJson = await res.json();
+        if (errJson?.detail) {
+          errorDetail = errJson.detail;
+        }
+      } catch {
+        // Non-JSON error body
+      }
+
+      if (res.status === 401) {
+        if (errorDetail.includes('SESSION_SUPERSEDED')) {
+          notifySessionSuperseded();
+          throw new Error('Your session was opened in another window or device. Please sign in again.');
+        }
+        throw new Error('Your session has expired. Please sign in again.');
+      }
+
+      throw new Error(errorDetail);
     }
 
     return normalizeReportResponse(await res.json());
@@ -237,6 +286,11 @@ export async function enrichClientReportWithWeb(
  * Download client report as formatted Word (.docx) file
  */
 export async function downloadClientReportDocx(report: ClientReportData): Promise<void> {
+  const session = getStoredSession();
+  if (isOfflineSession(session)) {
+    throw new Error('You are currently running in an offline session. Please log out and sign in with an authorized work email to export Word documents.');
+  }
+
   try {
     const res = await fetch(`${API_BASE_URL}/api/v1/reports/export-docx`, {
       method: 'POST',
@@ -248,7 +302,25 @@ export async function downloadClientReportDocx(report: ClientReportData): Promis
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to generate Word document (Status ${res.status})`);
+      let errorDetail = `Failed to generate Word document (Status ${res.status})`;
+      try {
+        const errJson = await res.json();
+        if (errJson?.detail) {
+          errorDetail = errJson.detail;
+        }
+      } catch {
+        // Non-JSON error body
+      }
+
+      if (res.status === 401) {
+        if (errorDetail.includes('SESSION_SUPERSEDED')) {
+          notifySessionSuperseded();
+          throw new Error('Your session was opened in another window or device. Please sign in again.');
+        }
+        throw new Error('Your session has expired. Please sign in again.');
+      }
+
+      throw new Error(errorDetail);
     }
 
     const blob = await res.blob();
