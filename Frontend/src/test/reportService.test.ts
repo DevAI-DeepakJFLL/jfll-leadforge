@@ -4,6 +4,7 @@ import {
   generateClientReport,
   downloadClientReportDocx,
   createEmptyReportDraft,
+  enrichClientReportWithWeb,
 } from '../services/reportService';
 import { ClientReportData } from '../types/report';
 
@@ -110,5 +111,23 @@ describe('Report Service Suite', () => {
     await downloadClientReportDocx(mockReport);
 
     expect(globalThis.fetch).toHaveBeenCalledWith('/api/v1/reports/export-docx', expect.any(Object));
+  });
+
+  it('enrichClientReportWithWeb calls /enrich-web endpoint with auth and returns enriched report', async () => {
+    const mockDraft = createEmptyReportDraft('Titan Laboratories');
+    const mockEnriched = {
+      ...mockDraft,
+      header: { ...mockDraft.header, web_grounded: true, subtitle: 'API & Specialty Exporter' },
+    };
+
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockEnriched,
+    } as Response);
+
+    const res = await enrichClientReportWithWeb(mockDraft);
+    expect(res.header.web_grounded).toBe(true);
+    expect(res.header.subtitle).toBe('API & Specialty Exporter');
+    expect(globalThis.fetch).toHaveBeenCalledWith('/api/v1/reports/enrich-web', expect.any(Object));
   });
 });

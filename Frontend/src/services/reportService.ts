@@ -151,6 +151,34 @@ export async function generateClientReport(
 }
 
 /**
+ * Enrich client report with live web research via Gemini 3.8 Flash Google Search grounding
+ */
+export async function enrichClientReportWithWeb(
+  report: ClientReportData
+): Promise<ClientReportData> {
+  try {
+    const res = await fetch('/api/v1/reports/enrich-web', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        ...getReportAuthHeaders(),
+      },
+      body: JSON.stringify(report),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Web enrichment returned status ${res.status}`);
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error('[REPORT SERVICE] Failed to enrich report with web search:', err);
+    throw err;
+  }
+}
+
+/**
  * Download client report as formatted Word (.docx) file
  */
 export async function downloadClientReportDocx(report: ClientReportData): Promise<void> {

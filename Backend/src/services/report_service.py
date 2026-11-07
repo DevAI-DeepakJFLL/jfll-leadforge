@@ -15,6 +15,10 @@ from src.api.report_models import (
     ReportHeader,
     TradeLaneCommodity,
 )
+from src.services.gemini_report_enricher import (
+    enrich_report_with_gemini_search,
+    get_gemini_config,
+)
 
 DATAMYNE_PARQUET_PATH = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
@@ -363,7 +367,10 @@ def generate_client_report_data(
     today_str = datetime.now().strftime("%d-%m-%Y")
 
     if not lead:
-        return _build_unlisted_sme_report(company_query, prepared_for, prepared_by, today_str)
+        draft = _build_unlisted_sme_report(company_query, prepared_for, prepared_by, today_str)
+        if get_gemini_config()["is_available"]:
+            return enrich_report_with_gemini_search(draft, company_query, None)
+        return draft
 
     return ClientReportData(
         lead_id=lead["id"],

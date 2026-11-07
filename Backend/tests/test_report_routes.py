@@ -88,6 +88,21 @@ def test_report_production_auth_enforcement(monkeypatch):
     resp_exp = client.post("/api/v1/reports/export-docx", json=valid_report_data)
     assert resp_exp.status_code == 401
 
+    resp_enrich = client.post("/api/v1/reports/enrich-web", json=valid_report_data)
+    assert resp_enrich.status_code == 401
+
+def test_post_enrich_web_endpoint():
+    gen_resp = client.post("/api/v1/reports/generate", json={"company_name_or_id": "Titan Laboratories"})
+    assert gen_resp.status_code == 200
+    report_data = gen_resp.json()
+
+    enrich_resp = client.post("/api/v1/reports/enrich-web", json=report_data)
+    assert enrich_resp.status_code == 200
+    enriched = enrich_resp.json()
+    assert enriched["header"]["company_name"] == report_data["header"]["company_name"]
+    # Check that trade lane numbers are strictly preserved
+    assert enriched["section_2_trade_lane"]["total_shipments"] == report_data["section_2_trade_lane"]["total_shipments"]
+
 def test_report_contacts_max_length_validation():
     """Verify CWE-770 defense: Pydantic rejects oversized contacts collections (>100 items)."""
     gen_resp = client.post(

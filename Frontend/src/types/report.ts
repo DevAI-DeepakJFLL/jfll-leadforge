@@ -10,6 +10,7 @@ export interface ReportHeader {
   prepared_for: string;
   prepared_by: string;
   date: string;
+  web_grounded?: boolean;
 }
 
 export interface CompanyBackground {

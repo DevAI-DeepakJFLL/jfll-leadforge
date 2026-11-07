@@ -39,6 +39,8 @@ describe('ReportView Component Suite', () => {
     // Export actions
     expect(html).toContain('Export Word (.docx)');
     expect(html).toContain('Print / Save PDF');
+    // Gemini web search enrichment affordance
+    expect(html).toContain('Enrich with Gemini (Web)');
   });
 
   it('renders contacts table with interactive add button affordance', () => {
@@ -76,5 +78,13 @@ describe('ReportView Component Suite', () => {
     expect(html).toContain('id="sec3-cargo-strength"');
     expect(html).toContain('for="company-search-input"');
     expect(html).toContain('id="company-search-input"');
+  });
+
+  it('renders Web Grounded Gemini 3.8 Flash badge when report data is web grounded', () => {
+    const draft = createEmptyReportDraft('Sunrise Global Exports');
+    draft.header.web_grounded = true;
+
+    const html = renderToString(<ReportView initialReport={draft} />);
+    expect(html).toContain('Web Grounded · Gemini 3.8 Flash');
   });
 });

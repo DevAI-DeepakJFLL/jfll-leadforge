@@ -12,6 +12,7 @@ class ReportHeader(BaseModel):
     prepared_for: str = Field(default="Mumbai Sales Branch", max_length=150)
     prepared_by: str = Field(default="Tyra Theknath", max_length=150)
     date: str = Field(..., max_length=50)
+    web_grounded: bool = Field(default=False)
 
 class CompanyBackground(BaseModel):
     what_they_do: str = Field(..., max_length=2000)

@@ -16,6 +16,7 @@ from src.services.report_service import (
     generate_client_report_data,
     search_report_companies,
 )
+from src.services.gemini_report_enricher import enrich_report_with_gemini_search
 
 router = APIRouter(prefix="/api/v1/reports", tags=["reports"])
 
@@ -51,6 +52,22 @@ def post_generate_report(
         company_query=payload.company_name_or_id,
         prepared_for=payload.prepared_for or "Mumbai Sales Branch",
         prepared_by=payload.prepared_by or "Tyra Theknath",
+    )
+
+@router.post(
+    "/enrich-web",
+    response_model=ClientReportData,
+    summary="Enrich report background, facilities, export markets, and contacts using Gemini 3.8 Flash web search grounding",
+)
+def post_enrich_web_report(
+    report: ClientReportData,
+    authorization: str | None = Header(None),
+):
+    """Enrich client report with live web research via Gemini 3.8 Flash Google Search grounding."""
+    require_auth(authorization, "gemini web search enrichment")
+    return enrich_report_with_gemini_search(
+        draft=report,
+        company_query=report.header.company_name,
     )
 
 @router.post(
