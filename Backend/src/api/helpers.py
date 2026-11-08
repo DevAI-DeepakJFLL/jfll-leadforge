@@ -91,15 +91,17 @@ def parse_csv_query_param(val: str | None) -> list[str]:
 
 
 CORPORATE_SUFFIX_REGEX = re.compile(
-    r"\b(inc|corp|corporation|llc|ltd|co|company|group|holdings)\b", re.IGNORECASE
+    r"\b(inc|corp|corporation|llc|llp|ltd|limited|pvt|private|co|company|group|holdings)\b",
+    re.IGNORECASE,
 )
 LEADING_THE_REGEX = re.compile(r"^(the\s+)", re.IGNORECASE)
 
 
 def clean_corporate_term(raw: str) -> str:
     """
-    Normalizes commercial entity names by stripping legal entities (Inc, Corp, LLC)
-    and leading articles to maximize matching across corporate email domains.
+    Normalizes commercial entity names by stripping legal entity suffixes
+    (Inc, Corp, LLC, LLP, Ltd, Limited, Pvt, Private) and leading articles
+    to maximize matching across corporate email domains.
     """
     cleaned = LEADING_THE_REGEX.sub("", raw.strip().lower())
     return CORPORATE_SUFFIX_REGEX.sub("", cleaned).strip(" .,-")
@@ -124,8 +126,9 @@ def extract_company_search_keywords(raw: str) -> list[str]:
 
 def build_company_search_sql(raw_search: str, col_prefix: str = "") -> tuple[str, list[Any]]:
     """
-    Builds SQL fragment and parameters to match companies across organization_name and domain,
-    supporting corporate aliases (e.g., 'Larsen & Toubro' <-> 'L&T') and stripping suffixes (e.g. 'LIMITED').
+    Builds SQL fragment and parameters to match companies across organization_name and domain
+    using strict word boundaries, preventing partial-string false positives, while supporting
+    corporate aliases (e.g., 'Larsen & Toubro' <-> 'L&T') and concatenated domain matches.
     """
     if not raw_search or not raw_search.strip():
         return "1=1", []
@@ -144,14 +147,16 @@ def build_company_search_sql(raw_search: str, col_prefix: str = "") -> tuple[str
 
     # 2. Significant keywords matching (e.g. 'sanofi' from 'SANOFI INDIA LIMITED')
     if kws:
-        kw_sql = " AND ".join([f"lower({pfx}organization_name) LIKE ?" for _ in kws])
+        kw_sql = " AND ".join([f"regexp_matches(lower({pfx}organization_name), ?)" for _ in kws])
         conds.append(f"({kw_sql})")
-        params.extend([f"%{w}%" for w in kws])
+        params.extend([rf"\b{re.escape(w)}\b" for w in kws])
 
-        # If multiple keywords, also match on primary brand keyword (e.g. 'sanofi' in 'sanofi healthcare')
-        if len(kws) > 1 and len(kws[0]) >= 3:
-            conds.append(f"(lower({pfx}organization_name) LIKE ? OR lower({pfx}domain) LIKE ?)")
-            params.extend([f"%{kws[0]}%", f"%{kws[0]}%"])
+        # If multiple keywords, also match domain with concatenated keywords (e.g. 'titanlab' or 'sanofipasteur')
+        if len(kws) >= 2:
+            concat_kws = "".join(kws)
+            if len(concat_kws) >= 4:
+                conds.append(f"lower({pfx}domain) LIKE ?")
+                params.append(f"%{concat_kws}%")
 
         # Cross-alias for Larsen & Toubro <-> L&T
         words = re.findall(r"[a-zA-Z0-9]+", raw)

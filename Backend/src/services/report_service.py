@@ -6,7 +6,9 @@ import re
 from datetime import datetime
 from typing import Any
 
+from src.api.cache import resolve_company_ids_cached
 from src.api.database import get_data_source, get_db_connection
+from src.api.helpers import extract_company_search_keywords
 from src.api.logger import logger
 from src.api.report_models import (
     ClientReportData,
@@ -151,33 +153,18 @@ def _find_datamyne_lead(query: str) -> dict[str, Any] | None:
         if row:
             return _row_to_lead_dict(row)
 
-        # 3. First token fallback if multiple words
-        if tokens:
-            row = conn.execute(sql_name, [f"%{tokens[0]}%"]).fetchone()
-            if row:
-                return _row_to_lead_dict(row)
-
-        # 4. Vectorized compound word split fallback (single pass with OR conditions)
-        candidates_to_split = [clean_q] + tokens
-        compound_patterns = []
-        for candidate in candidates_to_split:
-            alphanumeric = re.sub(r"[^a-zA-Z0-9]", "", candidate)
-            if len(alphanumeric) >= 6:
-                for i in range(3, len(alphanumeric) - 2):
-                    compound_patterns.append(f"%{alphanumeric[:i]}%{alphanumeric[i:]}%")
-
-        if compound_patterns:
-            or_clause = " OR ".join(["company_name ILIKE ?" for _ in compound_patterns])
-            sql_compound = f"""
+        # 3. Clean fallback for single-word queries without spaces (e.g. 'Sunpharma')
+        if len(tokens) <= 1 and len(clean_q) >= 4:
+            sql_clean = f"""
                 SELECT id, company_name, tax_id, transport_mode, category, subcategory, 
                        city, address, pin_code, email, phone, total_shipments, total_value_usd, 
                        trade_lanes, top_hs_codes, directors
                 FROM '{src}'
-                WHERE {or_clause}
+                WHERE replace(lower(company_name), ' ', '') LIKE ?
                 ORDER BY total_shipments DESC, total_value_usd DESC
                 LIMIT 1
             """
-            row = conn.execute(sql_compound, compound_patterns).fetchone()
+            row = conn.execute(sql_clean, [f"%{clean_q.lower()}%"]).fetchone()
             if row:
                 return _row_to_lead_dict(row)
 
@@ -429,8 +416,6 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
 
     # 1. Profiled contacts via Apollo organization lookup
     try:
-        from src.api.cache import resolve_company_ids_cached
-
         apollo_leads_src = _get_apollo_leads_source()
         apollo_contacts_src = _get_apollo_contacts_source()
 
@@ -438,10 +423,12 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
         if org_ids:
             placeholders = ", ".join(["?"] * len(org_ids[:15]))
             sql = f"""
-                SELECT person_name, job_title, email, linkedin_url, seniority, is_logistics_role
-                FROM '{apollo_contacts_src}'
-                WHERE organization_id IN ({placeholders})
-                ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
+                SELECT c.person_name, c.job_title, c.email, c.linkedin_url, c.seniority, c.is_logistics_role
+                FROM '{apollo_contacts_src}' c
+                JOIN '{apollo_leads_src}' l ON c.organization_id = l.organization_id
+                WHERE c.organization_id IN ({placeholders})
+                  AND (c.is_logistics_role = TRUE OR c.is_decision_maker = TRUE)
+                ORDER BY c.is_logistics_role DESC, c.is_decision_maker DESC, c.has_email DESC
                 LIMIT ?
             """
             rows = conn.execute(sql, list(org_ids[:15]) + [limit]).fetchall()
@@ -467,17 +454,17 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
     if len(contacts) < limit:
         try:
             apollo_unprofiled_src = _get_apollo_unprofiled_source()
-            tokens = clean_name.split()
-            first_token = tokens[0] if tokens else clean_name
-            if len(first_token) >= 3:
+            kws = extract_company_search_keywords(clean_name)
+            if kws:
+                where_clause = " AND ".join(["employer_name ILIKE ?" for _ in kws])
                 sql2 = f"""
                     SELECT person_name, job_title, email, linkedin_url, seniority
                     FROM '{apollo_unprofiled_src}'
-                    WHERE employer_name ILIKE ?
+                    WHERE {where_clause}
                     ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
                     LIMIT ?
                 """
-                rows2 = conn.execute(sql2, [f"%{first_token}%", limit - len(contacts)]).fetchall()
+                rows2 = conn.execute(sql2, [f"%{w}%" for w in kws] + [limit - len(contacts)]).fetchall()
                 for r in rows2:
                     p_name, title, email, linkedin, sen = r
                     c_info = email or (linkedin if linkedin else "Apollo Verified")

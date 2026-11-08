@@ -47,6 +47,41 @@ def test_generate_client_report_titan():
     assert "TITAN LABORATORIES" in report.header.company_name
     assert report.section_2_trade_lane.total_shipments == 130
     assert report.section_2_trade_lane.total_value_usd > 8000000
+    
+    # Verify entity matching correctness: must resolve genuine decision maker Jagdish Bareja
+    contact_names = [c.name for c in report.section_4_contacts]
+    contact_infos = [c.contact_info for c in report.section_4_contacts]
+    
+    assert "Jagdish Bareja" in contact_names
+    # Must NEVER cross-contaminate with Titan Global or Titan Cranes
+    assert "Stan Eisen" not in contact_names
+    assert "Simon Gould" not in contact_names
+    assert not any("titan-global.com" in info for info in contact_infos)
+    assert not any("titancranes.com.au" in info for info in contact_infos)
+
+
+def test_datamyne_unlisted_company_does_not_falsely_match_prefix():
+    """Verify that an unlisted company with a common prefix ('Titan Aerospace') does not match 'Titan Laboratories'."""
+    from src.services.report_service import _find_datamyne_lead
+    
+    lead = _find_datamyne_lead("Titan Aerospace")
+    assert lead is None
+    
+    report = generate_client_report_data("Titan Aerospace")
+    assert report.header.company_name == "Titan Aerospace"
+    assert "Unpublished SME" in report.header.subtitle
+
+
+def test_build_company_search_sql_multi_keyword_isolation():
+    """Verify that multi-keyword queries require all keywords and do not fall back to loose first-word OR."""
+    from src.api.helpers import build_company_search_sql
+    
+    sql, params = build_company_search_sql("Titan Laboratories")
+    # Must use word boundaries for titan and laboratories
+    assert r"\btitan\b" in params
+    assert r"\blaboratories\b" in params
+    # Must NOT have a bare '%titan%' parameter
+    assert "%titan%" not in params
 
 @pytest.mark.parametrize("target_query,expected_part", [
     ("Gemini Exports", "GEMINI EXPORTS"),

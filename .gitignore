@@ -126,6 +126,10 @@ docs/superpowers/
 .gemini/
 .playwright-mcp/
 audit-screenshots/
+.ruff_cache/
+Backend/.ruff_cache/
+Frontend/public/data/datamyne_leads.json
+Phase2/
 
 # Customer Lists, Extracted Domains, and Local Specifications
 docs/jfll_*
