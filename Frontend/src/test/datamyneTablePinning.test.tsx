@@ -218,15 +218,16 @@ describe('Table Column & Header Pinning (Sticky Headers & Frozen Columns)', () =
       const thMatches = Array.from(fullTheadMatch![0].matchAll(/<th\b[^>]*class="([^"]*)"[^>]*>/g));
       expect(thMatches.length).toBe(11);
 
-      // Checkbox (col 0)
-      expect(thMatches[0][1]).toContain('sticky left-0');
-      // Company Name (col 1)
-      expect(thMatches[1][1]).toContain('sticky left-10');
-      // Action (col 10)
-      expect(thMatches[10][1]).toContain('sticky right-0');
+      // Verify no column pinning or vertical border dividers
+      thMatches.forEach((th) => {
+        expect(th[1]).not.toContain('border-r');
+        expect(th[1]).not.toContain('border-l');
+        expect(th[1]).not.toContain('sticky left');
+        expect(th[1]).not.toContain('sticky right');
+      });
     });
 
-    it('renders tbody td cells with sticky pinning for column 0, 1, and 10', () => {
+    it('renders tbody td cells cleanly without column pinning or vertical divider lines', () => {
       const html = renderToString(
         <ToastProvider>
           <JfllCustomerTable
@@ -251,15 +252,16 @@ describe('Table Column & Header Pinning (Sticky Headers & Frozen Columns)', () =
       const tdMatches = Array.from(firstRowMatch![0].matchAll(/<td[^>]*class="([^"]*)"[^>]*>/g));
       expect(tdMatches.length).toBe(11);
 
-      // Col 0
-      expect(tdMatches[0][1]).toContain('sticky left-0');
-      // Col 1
-      expect(tdMatches[1][1]).toContain('sticky left-10');
-      // Col 10 (Action)
-      expect(tdMatches[10][1]).toContain('sticky right-0');
+      // Verify no td pinning
+      tdMatches.forEach((td) => {
+        expect(td[1]).not.toContain('sticky left');
+        expect(td[1]).not.toContain('sticky right');
+        expect(td[1]).not.toContain('border-r');
+        expect(td[1]).not.toContain('border-l');
+      });
     });
 
-    it('renders JfllCustomerTable skeleton with sticky columns', () => {
+    it('renders JfllCustomerTable skeleton with clean unpinned rows', () => {
       const html = renderToString(
         <ToastProvider>
           <JfllCustomerTable
@@ -281,16 +283,18 @@ describe('Table Column & Header Pinning (Sticky Headers & Frozen Columns)', () =
       expect(theadMatch![0]).toContain('sticky top-0');
 
       const thMatches = Array.from(theadMatch![0].matchAll(/<th\b[^>]*class="([^"]*)"[^>]*>/g));
-      expect(thMatches[0][1]).toContain('sticky left-0');
-      expect(thMatches[1][1]).toContain('sticky left-10');
-      expect(thMatches[10][1]).toContain('sticky right-0');
+      thMatches.forEach((th) => {
+        expect(th[1]).not.toContain('sticky left');
+        expect(th[1]).not.toContain('sticky right');
+      });
 
       const tbodyMatch = html.match(/<tbody[\s\S]*?<\/tbody>/);
       const trMatches = tbodyMatch![0].match(/<tr[\s\S]*?<\/tr>/g) || [];
       const tdMatches = Array.from(trMatches[0]!.matchAll(/<td[^>]*class="([^"]*)"[^>]*>/g));
-      expect(tdMatches[0][1]).toContain('sticky left-0');
-      expect(tdMatches[1][1]).toContain('sticky left-10');
-      expect(tdMatches[10][1]).toContain('sticky right-0');
+      tdMatches.forEach((td) => {
+        expect(td[1]).not.toContain('sticky left');
+        expect(td[1]).not.toContain('sticky right');
+      });
     });
   });
 });
