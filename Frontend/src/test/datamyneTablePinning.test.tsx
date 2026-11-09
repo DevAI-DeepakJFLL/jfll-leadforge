@@ -192,7 +192,7 @@ describe('Table Column & Header Pinning (Sticky Headers & Frozen Columns)', () =
   });
 
   describe('JfllCustomerTable Header and Column Pinning', () => {
-    it('renders thead with sticky top-0 and pinned th cells', () => {
+    it('renders thead with sticky top-0 and unpinned th cells', () => {
       const html = renderToString(
         <ToastProvider>
           <JfllCustomerTable

@@ -148,15 +148,15 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
         <table className="w-full text-left text-xs border-collapse" aria-label="Apollo Shippers Table">
           <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs shadow-2xs">
             <tr className="bg-slate-50/95 border-b border-slate-200/90 text-slate-600 font-semibold select-none text-[11px] uppercase tracking-wider">
-              <th className="py-3 px-3.5 w-10 text-center sticky top-0 z-20">
+              <th className="py-3 px-3.5 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>
-              <th className="py-3 px-3.5 min-w-[230px] sticky top-0 z-20">Company & Domain</th>
-              <th className="py-3 px-3.5 min-w-[180px] sticky top-0 z-20">Cargo Vertical</th>
-              <th className="py-3 px-3.5 min-w-[140px] sticky top-0 z-20">Scale & Revenue</th>
-              <th className="py-3 px-3.5 min-w-[150px] sticky top-0 z-20">Headquarters</th>
-              <th className="py-3 px-3.5 min-w-[175px] sticky top-0 z-20">Direct Phone</th>
-              <th className="py-3 px-3.5 w-28 text-right sticky top-0 z-20">Details</th>
+              <th className="py-3 px-3.5 min-w-[230px]">Company & Domain</th>
+              <th className="py-3 px-3.5 min-w-[180px]">Cargo Vertical</th>
+              <th className="py-3 px-3.5 min-w-[140px]">Scale & Revenue</th>
+              <th className="py-3 px-3.5 min-w-[150px]">Headquarters</th>
+              <th className="py-3 px-3.5 min-w-[175px]">Direct Phone</th>
+              <th className="py-3 px-3.5 w-28 text-right">Details</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 text-slate-700">

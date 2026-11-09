@@ -224,7 +224,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
     return (
       <div className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex-1 flex flex-col min-h-0 ${className}`}>
         <div className="flex-1 overflow-auto min-h-0 relative">
-          <table className="w-full min-w-[1080px] text-left text-xs border-collapse">
+          <table className="w-full text-left text-xs border-collapse">
             <thead className="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-xs">
               <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
                 <th scope="col" className="py-2.5 px-3 w-10 text-center"><span className="sr-only">Select</span></th>
@@ -318,7 +318,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
     >
       {/* Table Container */}
       <div className="flex-1 overflow-auto min-h-0 relative">
-        <table className="w-full min-w-[1080px] text-left text-xs border-collapse">
+        <table className="w-full text-left text-xs border-collapse">
           <thead className="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-xs">
             <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
               <th scope="col" className="py-2.5 px-3 w-10 text-center">
