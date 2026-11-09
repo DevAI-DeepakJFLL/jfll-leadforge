@@ -413,62 +413,29 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
         return contacts
 
     conn = _get_duckdb_cursor()
-
-    # 1. Profiled contacts via Apollo organization lookup
     try:
-        apollo_leads_src = _get_apollo_leads_source()
-        apollo_contacts_src = _get_apollo_contacts_source()
-
-        org_ids = resolve_company_ids_cached(clean_name, apollo_leads_src)
-        if org_ids:
-            placeholders = ", ".join(["?"] * len(org_ids[:15]))
-            sql = f"""
-                SELECT c.person_name, c.job_title, c.email, c.linkedin_url, c.seniority, c.is_logistics_role
-                FROM '{apollo_contacts_src}' c
-                JOIN '{apollo_leads_src}' l ON c.organization_id = l.organization_id
-                WHERE c.organization_id IN ({placeholders})
-                  AND (c.is_logistics_role = TRUE OR c.is_decision_maker = TRUE)
-                ORDER BY c.is_logistics_role DESC, c.is_decision_maker DESC, c.has_email DESC
-                LIMIT ?
-            """
-            rows = conn.execute(sql, list(org_ids[:15]) + [limit]).fetchall()
-            for r in rows:
-                p_name, title, email, linkedin, sen, is_log = r
-                c_info = email or (linkedin if linkedin else "Apollo Verified")
-                sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
-                notes = f"Apollo Verified ({sen_tag})"
-                if linkedin and linkedin != c_info:
-                    notes += f" · {linkedin}"
-                contacts.append(
-                    ContactItem(
-                        name=p_name,
-                        designation=title or "Logistics Decision-Maker",
-                        contact_info=c_info,
-                        notes=notes,
-                    )
-                )
-    except Exception as exc:
-        logger.debug("Apollo profiled contact lookup encountered: %s", exc)
-
-    # 2. Unprofiled contacts by employer name if limit not reached
-    if len(contacts) < limit:
+        # 1. Profiled contacts via Apollo organization lookup
         try:
-            apollo_unprofiled_src = _get_apollo_unprofiled_source()
-            kws = extract_company_search_keywords(clean_name)
-            if kws:
-                where_clause = " AND ".join(["employer_name ILIKE ?" for _ in kws])
-                sql2 = f"""
-                    SELECT person_name, job_title, email, linkedin_url, seniority
-                    FROM '{apollo_unprofiled_src}'
-                    WHERE {where_clause}
-                    ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
+            apollo_leads_src = _get_apollo_leads_source()
+            apollo_contacts_src = _get_apollo_contacts_source()
+
+            org_ids = resolve_company_ids_cached(clean_name, apollo_leads_src)
+            if org_ids:
+                placeholders = ", ".join(["?"] * len(org_ids[:15]))
+                sql = f"""
+                    SELECT c.person_name, c.job_title, c.email, c.linkedin_url, c.seniority, c.is_logistics_role
+                    FROM '{apollo_contacts_src}' c
+                    JOIN '{apollo_leads_src}' l ON c.organization_id = l.organization_id
+                    WHERE c.organization_id IN ({placeholders})
+                      AND (c.is_logistics_role = TRUE OR c.is_decision_maker = TRUE)
+                    ORDER BY c.is_logistics_role DESC, c.is_decision_maker DESC, c.has_email DESC
                     LIMIT ?
                 """
-                rows2 = conn.execute(sql2, [f"%{w}%" for w in kws] + [limit - len(contacts)]).fetchall()
-                for r in rows2:
-                    p_name, title, email, linkedin, sen = r
+                rows = conn.execute(sql, list(org_ids[:15]) + [limit]).fetchall()
+                for r in rows:
+                    p_name, title, email, linkedin, sen, is_log = r
                     c_info = email or (linkedin if linkedin else "Apollo Verified")
-                    sen_tag = sen.title() if sen else "Logistics Lead"
+                    sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
                     notes = f"Apollo Verified ({sen_tag})"
                     if linkedin and linkedin != c_info:
                         notes += f" · {linkedin}"
@@ -481,7 +448,42 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
                         )
                     )
         except Exception as exc:
-            logger.debug("Apollo unprofiled contact lookup encountered: %s", exc)
+            logger.debug("Apollo profiled contact lookup encountered: %s", exc)
+
+        # 2. Unprofiled contacts by employer name if limit not reached
+        if len(contacts) < limit:
+            try:
+                apollo_unprofiled_src = _get_apollo_unprofiled_source()
+                kws = extract_company_search_keywords(clean_name)
+                if kws:
+                    where_clause = " AND ".join(["employer_name ILIKE ?" for _ in kws])
+                    sql2 = f"""
+                        SELECT person_name, job_title, email, linkedin_url, seniority
+                        FROM '{apollo_unprofiled_src}'
+                        WHERE {where_clause}
+                        ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
+                        LIMIT ?
+                    """
+                    rows2 = conn.execute(sql2, [f"%{w}%" for w in kws] + [limit - len(contacts)]).fetchall()
+                    for r in rows2:
+                        p_name, title, email, linkedin, sen = r
+                        c_info = email or (linkedin if linkedin else "Apollo Verified")
+                        sen_tag = sen.title() if sen else "Logistics Lead"
+                        notes = f"Apollo Verified ({sen_tag})"
+                        if linkedin and linkedin != c_info:
+                            notes += f" · {linkedin}"
+                        contacts.append(
+                            ContactItem(
+                                name=p_name,
+                                designation=title or "Logistics Decision-Maker",
+                                contact_info=c_info,
+                                notes=notes,
+                            )
+                        )
+            except Exception as exc:
+                logger.debug("Apollo unprofiled contact lookup encountered: %s", exc)
+    finally:
+        conn.close()
 
     return contacts
 
