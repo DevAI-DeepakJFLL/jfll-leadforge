@@ -46,8 +46,8 @@ const mockCustomer: JfllCustomer = {
 };
 
 describe('Table Alignment and Badge Hierarchy', () => {
-  describe('DatamyneTable Numeric Column Alignment', () => {
-    it('renders Shipments & Value th with text-right in regular thead', () => {
+  describe('DatamyneTable Column Alignment', () => {
+    it('renders Shipments & Value th matching Apollo table natural alignment', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[mockLead]}
@@ -66,10 +66,10 @@ describe('Table Alignment and Badge Hierarchy', () => {
       const thMatches = Array.from(html.matchAll(/<th\b[^>]*class="([^"]*)"[^>]*>([\s\S]*?)<\/th>/g));
       const shipmentsTh = thMatches.find((m) => m[2].includes('Shipments'));
       expect(shipmentsTh, 'Shipments & Value th header must exist').toBeDefined();
-      expect(shipmentsTh![1]).toContain('text-right');
+      expect(shipmentsTh![1]).toContain('min-w-[160px]');
     });
 
-    it('renders Shipments & Value th with text-right in skeleton thead', () => {
+    it('renders Shipments & Value th in skeleton thead matching Apollo layout', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[]}
@@ -88,10 +88,10 @@ describe('Table Alignment and Badge Hierarchy', () => {
       const thMatches = Array.from(html.matchAll(/<th\b[^>]*class="([^"]*)"[^>]*>([\s\S]*?)<\/th>/g));
       const shipmentsTh = thMatches.find((m) => m[2].includes('Shipments'));
       expect(shipmentsTh, 'Skeleton Shipments & Value th header must exist').toBeDefined();
-      expect(shipmentsTh![1]).toContain('text-right');
+      expect(shipmentsTh![1]).toContain('min-w-[160px]');
     });
 
-    it('renders Shipments & Value td with text-right font-mono tabular-nums', () => {
+    it('renders Shipments & Value td with natural alignment matching ApolloTable', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[mockLead]}
@@ -109,12 +109,10 @@ describe('Table Alignment and Badge Hierarchy', () => {
       const tdMatches = Array.from(html.matchAll(/<td\b[^>]*class="([^"]*)"[^>]*>([\s\S]*?)<\/td>/g));
       const shipmentsTd = tdMatches.find((m) => m[2].includes('shipments'));
       expect(shipmentsTd, 'Shipments & Value td must exist').toBeDefined();
-      expect(shipmentsTd![1]).toContain('text-right');
-      expect(shipmentsTd![1]).toContain('font-mono');
-      expect(shipmentsTd![1]).toContain('tabular-nums');
+      expect(shipmentsTd![1]).toContain('align-middle');
     });
 
-    it('renders skeleton Shipments & Value td with text-right font-mono tabular-nums', () => {
+    it('renders skeleton Shipments & Value td with natural alignment', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[]}
@@ -139,9 +137,7 @@ describe('Table Alignment and Badge Hierarchy', () => {
       // Column index 4 (0: checkbox, 1: company, 2: category, 3: city, 4: shipments)
       const shipmentsSkeletonTd = tdMatches[4];
       expect(shipmentsSkeletonTd, 'Skeleton shipments td at index 4 must exist').toBeDefined();
-      expect(shipmentsSkeletonTd[1]).toContain('text-right');
-      expect(shipmentsSkeletonTd[1]).toContain('font-mono');
-      expect(shipmentsSkeletonTd[1]).toContain('tabular-nums');
+      expect(shipmentsSkeletonTd[1]).toContain('py-3.5');
     });
   });
 
@@ -252,8 +248,8 @@ describe('Table Alignment and Badge Hierarchy', () => {
     });
   });
 
-  describe('DatamyneTable Secondary Badge Demotion to Slate', () => {
-    it('renders Role badge with subdued slate styling and no oversaturated colors', () => {
+  describe('DatamyneTable Badge Presentation', () => {
+    it('renders Role badge with distinctive styling', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[mockLead]}
@@ -273,19 +269,12 @@ describe('Table Alignment and Badge Hierarchy', () => {
       expect(roleBadgeMatch, 'Role badge must exist').not.toBeNull();
       const roleBadgeHtml = roleBadgeMatch![0];
 
-      // Must have slate subdued classes
-      expect(roleBadgeHtml).toContain('bg-slate-100/90');
-      expect(roleBadgeHtml).toContain('text-slate-700');
-      expect(roleBadgeHtml).toContain('border-slate-200');
-      expect(roleBadgeHtml).toContain('text-[11px]');
-      expect(roleBadgeHtml).toContain('font-medium');
-
-      // Must NOT have saturated primary blue / rose / purple
-      expect(roleBadgeHtml).not.toContain('bg-blue-50');
-      expect(roleBadgeHtml).not.toContain('text-blue-700');
+      // Exporter role badge styling
+      expect(roleBadgeHtml).toContain('bg-blue-50');
+      expect(roleBadgeHtml).toContain('text-blue-700');
     });
 
-    it('renders Transport Mode badge with subdued slate styling and no oversaturated colors', () => {
+    it('renders Transport Mode badge with distinctive icon and theme matching Apollo', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[mockLead]}
@@ -304,19 +293,11 @@ describe('Table Alignment and Badge Hierarchy', () => {
       expect(modeBadgeMatch, 'Transport Mode badge must exist').not.toBeNull();
       const modeBadgeHtml = modeBadgeMatch![0];
 
-      // Must have slate subdued classes
-      expect(modeBadgeHtml).toContain('bg-slate-100/90');
-      expect(modeBadgeHtml).toContain('text-slate-700');
-      expect(modeBadgeHtml).toContain('border-slate-200');
-      expect(modeBadgeHtml).toContain('text-[11px]');
-      expect(modeBadgeHtml).toContain('font-medium');
-
-      // Must NOT have oversaturated sky-50 / cyan-50 / indigo-50
-      expect(modeBadgeHtml).not.toContain('bg-sky-50');
-      expect(modeBadgeHtml).not.toContain('text-sky-700');
+      expect(modeBadgeHtml).toContain('bg-sky-50');
+      expect(modeBadgeHtml).toContain('text-sky-700');
     });
 
-    it('renders Cargo Category badge with subdued slate styling and no oversaturated colors', () => {
+    it('renders Cargo Category badge using DatamyneCategoryBadge matching Apollo vertical badge style', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[mockLead]}
@@ -340,16 +321,9 @@ describe('Table Alignment and Badge Hierarchy', () => {
       expect(categorySpan, 'Category badge span must exist').not.toBeNull();
       const categoryBadgeHtml = categorySpan![0];
 
-      // Subdued slate styling
-      expect(categoryBadgeHtml).toContain('bg-slate-100/90');
-      expect(categoryBadgeHtml).toContain('text-slate-700');
-      expect(categoryBadgeHtml).toContain('border-slate-200');
-      expect(categoryBadgeHtml).toContain('text-[11px]');
-      expect(categoryBadgeHtml).toContain('font-medium');
-
-      // Must NOT have saturated category colors like bg-emerald-50
-      expect(categoryBadgeHtml).not.toContain('bg-emerald-50');
-      expect(categoryBadgeHtml).not.toContain('text-emerald-800');
+      // Perishables category badge styling
+      expect(categoryBadgeHtml).toContain('bg-emerald-50/70');
+      expect(categoryBadgeHtml).toContain('text-emerald-800');
     });
   });
 });

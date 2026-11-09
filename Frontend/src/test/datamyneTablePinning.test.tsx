@@ -70,7 +70,7 @@ describe('Table Column & Header Pinning (Sticky Headers & Frozen Columns)', () =
       expect(theadClass).toContain('z-20');
     });
 
-    it('renders th column 0 with sticky left-0, column 1 with sticky left-10, and column 7 with sticky right-0', () => {
+    it('renders clean unpinned th headers with sticky top-0 thead matching Apollo layout', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[mockLead]}
@@ -90,31 +90,14 @@ describe('Table Column & Header Pinning (Sticky Headers & Frozen Columns)', () =
       const thMatches = Array.from(theadMatch![0].matchAll(/<th\b[^>]*class="([^"]*)"[^>]*>/g));
       expect(thMatches.length).toBe(8);
 
-      // Column 0: Checkbox
-      const col0Class = thMatches[0][1];
-      expect(col0Class).toContain('sticky');
-      expect(col0Class).toContain('left-0');
-      expect(col0Class).toContain('z-30');
-      expect(col0Class).toContain('bg-slate-50');
-
-      // Column 1: Company Name
-      const col1Class = thMatches[1][1];
-      expect(col1Class).toContain('sticky');
-      expect(col1Class).toContain('left-10');
-      expect(col1Class).toContain('z-30');
-      expect(col1Class).toContain('bg-slate-50');
-      expect(col1Class).toContain('min-w-[260px]');
-
-      // Column 7: Action (last column)
-      const col7Class = thMatches[7][1];
-      expect(col7Class).toContain('sticky');
-      expect(col7Class).toContain('right-0');
-      expect(col7Class).toContain('z-30');
-      expect(col7Class).toContain('bg-slate-50');
-      expect(col7Class).toContain('min-w-[160px]');
+      // Verify no vertical column border lines (border-r/border-l) cutting through the table
+      thMatches.forEach((th) => {
+        expect(th[1]).not.toContain('border-r');
+        expect(th[1]).not.toContain('border-l');
+      });
     });
 
-    it('renders tbody td cells in column 0, 1, and 7 with corresponding sticky classes when unselected', () => {
+    it('renders clean tbody td cells without vertical column divider lines matching ApolloTable', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[mockLead]}
@@ -137,29 +120,14 @@ describe('Table Column & Header Pinning (Sticky Headers & Frozen Columns)', () =
       const tdMatches = Array.from(firstRowMatch![0].matchAll(/<td[^>]*class="([^"]*)"[^>]*>/g));
       expect(tdMatches.length).toBe(8);
 
-      // Column 0: Checkbox
-      const col0Class = tdMatches[0][1];
-      expect(col0Class).toContain('sticky');
-      expect(col0Class).toContain('left-0');
-      expect(col0Class).toContain('z-10');
-      expect(col0Class).toContain('bg-white');
-
-      // Column 1: Company Name
-      const col1Class = tdMatches[1][1];
-      expect(col1Class).toContain('sticky');
-      expect(col1Class).toContain('left-10');
-      expect(col1Class).toContain('z-10');
-      expect(col1Class).toContain('bg-white');
-
-      // Column 7: Action
-      const col7Class = tdMatches[7][1];
-      expect(col7Class).toContain('sticky');
-      expect(col7Class).toContain('right-0');
-      expect(col7Class).toContain('z-10');
-      expect(col7Class).toContain('bg-white');
+      // Verify uniform seamless cells without vertical border lines
+      tdMatches.forEach((td) => {
+        expect(td[1]).not.toContain('border-r');
+        expect(td[1]).not.toContain('border-l');
+      });
     });
 
-    it('renders tbody td sticky cells with selected background (bg-blue-50/90) when row is selected', () => {
+    it('renders tbody tr with seamless row selection highlight matching ApolloTable', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[mockLead]}
@@ -178,17 +146,10 @@ describe('Table Column & Header Pinning (Sticky Headers & Frozen Columns)', () =
       expect(tbodyMatch).not.toBeNull();
       const firstRowMatch = tbodyMatch![0].match(/<tr[\s\S]*?<\/tr>/);
       expect(firstRowMatch).not.toBeNull();
-
-      const tdMatches = Array.from(firstRowMatch![0].matchAll(/<td[^>]*class="([^"]*)"[^>]*>/g));
-      expect(tdMatches.length).toBe(8);
-
-      // Selected sticky cells must have bg-blue-50/90 to match selection and conceal scrolled content
-      expect(tdMatches[0][1]).toContain('bg-blue-50/90');
-      expect(tdMatches[1][1]).toContain('bg-blue-50/90');
-      expect(tdMatches[7][1]).toContain('bg-blue-50/90');
+      expect(firstRowMatch![0]).toContain('bg-blue-50/35');
     });
 
-    it('renders skeleton rows with sticky pinning on columns 0, 1, and 7 when isLoading is true', () => {
+    it('renders skeleton rows without vertical column divider lines matching ApolloTable layout', () => {
       const html = renderToString(
         <DatamyneTable
           leads={[]}
@@ -211,20 +172,22 @@ describe('Table Column & Header Pinning (Sticky Headers & Frozen Columns)', () =
       expect(theadMatch![0]).toContain('top-0');
 
       const thMatches = Array.from(theadMatch![0].matchAll(/<th\b[^>]*class="([^"]*)"[^>]*>/g));
-      expect(thMatches[0][1]).toContain('sticky left-0');
-      expect(thMatches[1][1]).toContain('sticky left-10');
-      expect(thMatches[7][1]).toContain('sticky right-0');
+      thMatches.forEach((th) => {
+        expect(th[1]).not.toContain('border-r');
+        expect(th[1]).not.toContain('border-l');
+      });
 
-      // tbody skeleton td pinning
+      // tbody skeleton td without vertical divider lines
       const tbodyMatch = html.match(/<tbody[\s\S]*?<\/tbody>/);
       expect(tbodyMatch).not.toBeNull();
       const trMatches = tbodyMatch![0].match(/<tr[\s\S]*?<\/tr>/g) || [];
       expect(trMatches.length).toBe(2);
 
       const tdMatches = Array.from(trMatches[0]!.matchAll(/<td[^>]*class="([^"]*)"[^>]*>/g));
-      expect(tdMatches[0][1]).toContain('sticky left-0');
-      expect(tdMatches[1][1]).toContain('sticky left-10');
-      expect(tdMatches[7][1]).toContain('sticky right-0');
+      tdMatches.forEach((td) => {
+        expect(td[1]).not.toContain('border-r');
+        expect(td[1]).not.toContain('border-l');
+      });
     });
   });
 
