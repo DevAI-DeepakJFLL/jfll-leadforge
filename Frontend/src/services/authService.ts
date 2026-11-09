@@ -378,7 +378,7 @@ export function notifySessionSuperseded(): void {
   }
 }
 
-export function notifySessionRevoked(): void {
+function notifySessionRevoked(): void {
   if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
     window.dispatchEvent(new CustomEvent(SESSION_REVOKED_EVENT));
   }

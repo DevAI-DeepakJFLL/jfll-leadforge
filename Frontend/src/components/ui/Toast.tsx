@@ -53,13 +53,13 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   );
 };
 
-export interface ToastContainerProps {
+interface ToastContainerProps {
   toasts: ToastItem[];
   onDismiss: (id: string) => void;
   className?: string;
 }
 
-export const ToastContainer: React.FC<ToastContainerProps> = ({
+const ToastContainer: React.FC<ToastContainerProps> = ({
   toasts,
   onDismiss,
   className = '',

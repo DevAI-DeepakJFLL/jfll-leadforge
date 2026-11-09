@@ -18,8 +18,7 @@ const STORAGE_KEYS = {
   SAVED_LISTS: 'leadforge_saved_lists',
 };
 
-export const MAX_SAVED_LEADS = 1000;
-export const MAX_SAVED_LISTS = 50;
+const MAX_SAVED_LEADS = 1000;
 export const MAX_LIST_NAME_LENGTH = 50;
 const FORBIDDEN_LIST_NAMES = new Set(['__proto__', 'constructor', 'prototype']);
 
@@ -161,7 +160,7 @@ function enforceSavedLeadsCapacity(map: Record<string, SavedLeadItem>, maxLimit 
 /**
  * Loads saved leads map from storage with defensive prototype pollution protection
  */
-export function getSavedLeadsMap(): Record<string, SavedLeadItem> {
+function getSavedLeadsMap(): Record<string, SavedLeadItem> {
   const storage = getStorage();
   if (!isLocalStorageAvailable() || !storage) {
     return { ...memSavedLeads };

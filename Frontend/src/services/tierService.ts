@@ -293,7 +293,7 @@ export function queryTierCountsLocal(params: Partial<TierFilterParams> = {}): Ti
 /**
  * Helper to serialize all tier and sidebar faceted filter params into URLSearchParams.
  */
-export function appendTierFilterParams(query: URLSearchParams, params: TierFilterParams): void {
+function appendTierFilterParams(query: URLSearchParams, params: TierFilterParams): void {
   if (params.status && params.status !== 'all') {
     query.set('status', params.status);
   }

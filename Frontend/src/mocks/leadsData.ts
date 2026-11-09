@@ -3,7 +3,7 @@ import { Lead } from '@/types/lead';
 /**
  * Exact leads from reference image (Ref.jpg)
  */
-export const referenceLeads: Lead[] = [
+const referenceLeads: Lead[] = [
   {
     id: 'lead-1',
     name: 'Roberto Orci',
@@ -546,7 +546,7 @@ function createDeterministicRandom(seed: number) {
 /**
  * Generates 350+ rich synthetic leads including the exact Ref.jpg leads
  */
-export function generateSyntheticLeads(): Lead[] {
+function generateSyntheticLeads(): Lead[] {
   const leads: Lead[] = [...referenceLeads];
   const rand = createDeterministicRandom(42);
 

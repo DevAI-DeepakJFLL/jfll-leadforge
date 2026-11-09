@@ -12,7 +12,7 @@ export interface BotDetectionResult {
 }
 
 export const BAN_STORAGE_KEY = 'jfll_sec_machine_permanently_blocked';
-export const BAN_COOKIE_NAME = 'jfll_machine_ban';
+const BAN_COOKIE_NAME = 'jfll_machine_ban';
 
 /**
  * Deterministically computes a hardware & runtime fingerprint of the client machine.

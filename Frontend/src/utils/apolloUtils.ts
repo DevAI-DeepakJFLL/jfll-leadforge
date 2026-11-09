@@ -3,7 +3,7 @@ import { toSafeExternalUrl } from '@/types/apolloLead';
 /**
  * Palette configurations for company avatars matching enterprise design tokens
  */
-export const AVATAR_PALETTES = [
+const AVATAR_PALETTES = [
   { bg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200/80' },
   { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200/80' },
   { bg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200/80' },

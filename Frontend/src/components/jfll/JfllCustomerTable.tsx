@@ -58,7 +58,7 @@ export interface JfllCustomerTableProps {
 /**
  * High-definition Indian Flag SVG icon (Ashoka Chakra on white band)
  */
-export const IndiaFlagIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-3' }) => (
+const IndiaFlagIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-3' }) => (
   <span
     className={`inline-flex shrink-0 items-center justify-center rounded-[2px] overflow-hidden border border-slate-300 shadow-2xs leading-none ${className}`}
     title="India (+91)"

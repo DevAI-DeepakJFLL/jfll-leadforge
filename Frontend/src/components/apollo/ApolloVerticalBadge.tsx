@@ -31,7 +31,7 @@ export interface VerticalTheme {
   modeColor: string;
 }
 
-export function getApolloVerticalTheme(industry: string): VerticalTheme {
+function getApolloVerticalTheme(industry: string): VerticalTheme {
   const ind = industry.toLowerCase();
 
   if (ind.includes('aviation') || ind.includes('aerospace')) {

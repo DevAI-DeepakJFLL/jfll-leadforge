@@ -24,11 +24,6 @@ export function sanitizeCsvValue(val: unknown): string {
 }
 
 /**
- * Backward-compatible alias for existing imports
- */
-export const escapeCsvField = sanitizeCsvValue;
-
-/**
  * Safely escapes CSV header fields. If a header contains commas, quotes, or newlines,
  * it is wrapped in double quotes conforming to RFC-4180 to prevent column misalignment.
  */

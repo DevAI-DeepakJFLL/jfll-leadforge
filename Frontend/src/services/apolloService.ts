@@ -530,7 +530,7 @@ export async function fetchCompanyContacts(
 
 const BRAND_COLORS = ['#0066F5', '#FF7A00', '#00C2CB', '#7C3AED', '#059669', '#DC2626'];
 
-export function mapApolloContactToLead(contact: ApolloContact): Lead {
+function mapApolloContactToLead(contact: ApolloContact): Lead {
   const emailDomain = contact.email?.includes('@') ? contact.email.split('@')[1] : null;
   const companyClean = emailDomain
     ? emailDomain.replace(/\.(com|org|net|co|io|in|edu|gov).*$/i, '').toUpperCase()

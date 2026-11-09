@@ -46,7 +46,7 @@ export interface FilterSidebarProps {
 }
 
 // Tailored logistics job titles with high search intent
-export const LOGISTICS_JOB_TITLES = [
+const LOGISTICS_JOB_TITLES = [
   'Head of Supply Chain',
   'Director of Logistics',
   'Supply Chain Manager',
@@ -62,7 +62,7 @@ export const LOGISTICS_JOB_TITLES = [
 ];
 
 // Mapped directly to DuckDB c.seniority
-export const LOGISTICS_SENIORITY_LEVELS = [
+const LOGISTICS_SENIORITY_LEVELS = [
   { id: 'c_suite', label: 'C-Suite / Executives', badge: '136k' },
   { id: 'vp', label: 'Vice President (VP)', badge: '260k' },
   { id: 'director', label: 'Director / Head', badge: '638k' },
@@ -72,7 +72,7 @@ export const LOGISTICS_SENIORITY_LEVELS = [
 ];
 
 // Mapped directly to DuckDB c.department
-export const LOGISTICS_DEPARTMENTS = [
+const LOGISTICS_DEPARTMENTS = [
   { id: 'operations', label: 'Operations & Logistics', badge: '279k' },
   { id: 'supply_chain', label: 'Supply Chain & Procurement', badge: '350k' },
   { id: 'sales', label: 'Sales & Commercial', badge: '1.2m' },
@@ -81,7 +81,7 @@ export const LOGISTICS_DEPARTMENTS = [
 ];
 
 // High-value cargo shipper verticals
-export const FREIGHT_CARGO_VERTICALS = [
+const FREIGHT_CARGO_VERTICALS = [
   'Automotive & Transportation',
   'Pharmaceuticals & Healthcare',
   'Perishables, Food & Beverage',
@@ -94,7 +94,7 @@ export const FREIGHT_CARGO_VERTICALS = [
 ];
 
 // Key international freight trade corridor countries
-export const FREIGHT_TRADE_COUNTRIES = [
+const FREIGHT_TRADE_COUNTRIES = [
   { code: 'IN', name: 'India', flag: '🇮🇳', count: '606k' },
   { code: 'US', name: 'United States', flag: '🇺🇸', count: '6.6m' },
   { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', count: '940k' },
@@ -108,7 +108,7 @@ export const FREIGHT_TRADE_COUNTRIES = [
 ];
 
 // Company headcount size tiers
-export const COMPANY_SIZE_TIERS = [
+const COMPANY_SIZE_TIERS = [
   '1-10',
   '11-50',
   '51-200',

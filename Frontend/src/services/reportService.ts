@@ -31,7 +31,7 @@ function getReportAuthHeaders(): Record<string, string> {
 /**
  * Format current date in DD-MM-YYYY format
  */
-export function getFormattedToday(): string {
+function getFormattedToday(): string {
   const now = new Date();
   const dd = String(now.getDate()).padStart(2, '0');
   const mm = String(now.getMonth() + 1).padStart(2, '0');

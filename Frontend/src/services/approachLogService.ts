@@ -36,7 +36,7 @@ export function getPendingOutbox(): ApproachOutboxItem[] {
   }
 }
 
-export function savePendingOutbox(items: ApproachOutboxItem[]): void {
+function savePendingOutbox(items: ApproachOutboxItem[]): void {
   try {
     localStorage.setItem(OUTBOX_STORAGE_KEY, JSON.stringify(items));
   } catch (err) {
@@ -44,7 +44,7 @@ export function savePendingOutbox(items: ApproachOutboxItem[]): void {
   }
 }
 
-export function enqueueOutboxItem(item: Omit<ApproachOutboxItem, 'id' | 'queuedAt'>): void {
+function enqueueOutboxItem(item: Omit<ApproachOutboxItem, 'id' | 'queuedAt'>): void {
   const items = getPendingOutbox();
   const newItem: ApproachOutboxItem = {
     ...item,
@@ -141,21 +141,6 @@ export function getCachedApproachStatus(
   const store = getLocalStore();
   const key = `${entityType}:${entityId}`;
   return store[key]?.current_status || 'Not Contacted';
-}
-
-export function getAllCachedApproachStatuses(
-  entityType: 'datamyne' | 'jfll_customer'
-): Record<string, SalesStatus> {
-  const store = getLocalStore();
-  const prefix = `${entityType}:`;
-  const result: Record<string, SalesStatus> = { ...(cachedBulkStatuses[entityType] || {}) };
-  for (const [key, value] of Object.entries(store)) {
-    if (key.startsWith(prefix)) {
-      const rawId = value.entity_id || key.substring(prefix.length);
-      result[rawId] = value.current_status;
-    }
-  }
-  return result;
 }
 
 /**
@@ -281,7 +266,7 @@ function getAuthHeaders(): Record<string, string> {
   return headers;
 }
 
-export function notifyApproachStatusUpdated(
+function notifyApproachStatusUpdated(
   entityType: 'datamyne' | 'jfll_customer',
   entityId: string,
   newStatus: SalesStatus,

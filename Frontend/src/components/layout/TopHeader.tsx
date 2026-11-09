@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, X, SlidersHorizontal } from 'lucide-react';
 
-export interface TopNavTab {
+interface TopNavTab {
   id: string;
   label: string;
   count?: number;
@@ -21,7 +21,7 @@ export interface TopHeaderProps {
   className?: string;
 }
 
-export const TOP_NAV_TABS: TopNavTab[] = [
+const TOP_NAV_TABS: TopNavTab[] = [
   { id: 'jfll-customers', label: 'JFLL Customers', badge: '2.7k' },
   { id: 'apollo', label: 'Apollo', badge: '1.45M' },
   { id: 'datamyne', label: 'DataMyne', badge: '37.3k' },
