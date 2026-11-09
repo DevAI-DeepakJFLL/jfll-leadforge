@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet, ShieldAlert } from 'lucide-react';
+import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet, ShieldAlert, SlidersHorizontal } from 'lucide-react';
 import { useDebounce } from '@/hooks/useDebounce';
 import { UserSession } from '@/types/auth';
 
@@ -22,6 +22,9 @@ export interface JfllCustomerActionBarProps {
   className?: string;
   currentUser?: UserSession | null;
   isViewer?: boolean;
+  isFilterExpanded?: boolean;
+  onToggleFilterExpand?: () => void;
+  activeFilterCount?: number;
 }
 
 export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
@@ -43,6 +46,9 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
   className = '',
   currentUser,
   isViewer,
+  isFilterExpanded = false,
+  onToggleFilterExpand,
+  activeFilterCount = 0,
 }) => {
   const isViewerUser = Boolean(isViewer || currentUser?.role === 'Viewer');
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -78,8 +84,35 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
       className={`min-h-11 py-1.5 px-3 sm:px-4 border-b border-surface-border bg-white flex items-center justify-between gap-2 sm:gap-3 text-xs select-none overflow-x-auto no-scrollbar ${className}`}
       aria-label="Customer Table Action Bar"
     >
-      {/* Left: Checkbox & Multi-Selection Counter + Search Bar placed next to Select */}
+      {/* Left: Filter Toggle + Checkbox & Multi-Selection Counter + Search Bar */}
       <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0 pr-1 sm:pr-2">
+        {/* Desktop Filter Toggle Button (Touch Target >= 44x44px) */}
+        <button
+          type="button"
+          onClick={onToggleFilterExpand}
+          className={`min-h-[44px] min-w-[44px] px-2.5 py-1.5 rounded-md border font-medium flex items-center gap-1.5 transition-all text-xs cursor-pointer shrink-0 shadow-2xs ${
+            isFilterExpanded
+              ? 'bg-apollo/10 text-apollo border-apollo/30 font-semibold hover:bg-apollo/20'
+              : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:text-slate-900'
+          }`}
+          aria-label={isFilterExpanded ? 'Collapse filters' : 'Expand filters'}
+          aria-expanded={Boolean(isFilterExpanded)}
+          title={isFilterExpanded ? 'Hide filter sidebar' : 'Show filter sidebar'}
+        >
+          <SlidersHorizontal className={`w-3.5 h-3.5 ${isFilterExpanded ? 'text-apollo' : 'text-slate-500'}`} />
+          <span>Filters</span>
+          {activeFilterCount > 0 && (
+            <span
+              className="ml-0.5 px-1.5 py-0.5 bg-apollo text-white text-[10px] font-bold rounded-full leading-none"
+              aria-label={`${activeFilterCount} active filters`}
+            >
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
+
+        <div className="h-4 w-[1px] bg-slate-200 shrink-0" />
+
         <button
           onClick={onToggleSelectAllPage}
           className="flex items-center space-x-1.5 text-slate-700 hover:text-slate-900 focus:outline-none shrink-0 cursor-pointer"

@@ -57,6 +57,9 @@ export interface JfllCustomersViewProps {
   isMobileOpen: boolean;
   onCloseMobile: () => void;
   currentUser?: UserSession | null;
+  isFilterExpanded?: boolean;
+  onToggleFilterExpand?: () => void;
+  activeFilterCount?: number;
 }
 
 export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
@@ -95,8 +98,60 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
   isMobileOpen,
   onCloseMobile,
   currentUser,
+  isFilterExpanded: propIsFilterExpanded,
+  onToggleFilterExpand: propOnToggleFilterExpand,
+  activeFilterCount,
 }) => {
   const isViewer = currentUser?.role === 'Viewer';
+  const [internalFilterExpanded, setInternalFilterExpanded] = useState<boolean>(() => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        const saved = window.localStorage.getItem('jfll_desktop_filter_expanded');
+        if (saved !== null) {
+          return saved === 'true';
+        }
+      } catch {
+        // ignore
+      }
+    }
+    return false;
+  });
+
+  const isFilterExpanded = propIsFilterExpanded !== undefined ? propIsFilterExpanded : internalFilterExpanded;
+
+  const handleToggleFilterExpand = useCallback(() => {
+    if (propOnToggleFilterExpand) {
+      propOnToggleFilterExpand();
+      return;
+    }
+    setInternalFilterExpanded((prev) => {
+      const next = !prev;
+      if (typeof window !== 'undefined' && window.localStorage) {
+        try {
+          window.localStorage.setItem('jfll_desktop_filter_expanded', String(next));
+        } catch {
+          // ignore
+        }
+      }
+      return next;
+    });
+  }, [propOnToggleFilterExpand]);
+
+  const activeCount = React.useMemo(() => {
+    if (activeFilterCount !== undefined) return activeFilterCount;
+    let count = 0;
+    if (filters.customerGroups?.length) count += filters.customerGroups.length;
+    if (filters.types?.length) count += filters.types.length;
+    if (filters.creditStatuses?.length) count += filters.creditStatuses.length;
+    if (filters.salesPersons?.length) count += filters.salesPersons.length;
+    if (filters.revenueRanges?.length) count += filters.revenueRanges.length;
+    if (filters.approachStatuses?.length) count += filters.approachStatuses.length;
+    if (filters.hasPhone) count += 1;
+    if (filters.hasEmail) count += 1;
+    if (filters.hasContactPerson) count += 1;
+    return count;
+  }, [activeFilterCount, filters]);
+
   const items = query.items;
   const { showToast } = useToast();
   const [isExportingSummary, setIsExportingSummary] = useState(false);
@@ -161,6 +216,7 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
         onClearAll={clearAllFilters}
         isMobileOpen={isMobileOpen}
         onCloseMobile={onCloseMobile}
+        isExpanded={isFilterExpanded}
       />
 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
@@ -189,6 +245,9 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
           searchPlaceholder="Search customers by company, contact, phone, email..."
+          isFilterExpanded={isFilterExpanded}
+          onToggleFilterExpand={handleToggleFilterExpand}
+          activeFilterCount={activeCount}
         />
 
         <div className="flex-1 flex flex-col p-3 sm:p-4 min-h-0 overflow-hidden">

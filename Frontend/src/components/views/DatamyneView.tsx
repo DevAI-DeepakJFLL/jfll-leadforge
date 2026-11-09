@@ -78,6 +78,8 @@ export interface DatamyneViewProps {
   isMobileOpen: boolean;
   onCloseMobile: () => void;
   currentUser?: UserSession | null;
+  isFilterExpanded?: boolean;
+  onToggleFilterExpand?: () => void;
 }
 
 export const DatamyneView: React.FC<DatamyneViewProps> = ({
@@ -118,8 +120,44 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   isMobileOpen,
   onCloseMobile,
   currentUser,
+  isFilterExpanded: propIsFilterExpanded,
+  onToggleFilterExpand: propOnToggleFilterExpand,
 }) => {
   const isViewer = currentUser?.role === 'Viewer';
+  const [internalFilterExpanded, setInternalFilterExpanded] = React.useState<boolean>(() => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      try {
+        const saved = window.localStorage.getItem('datamyne_desktop_filter_expanded');
+        if (saved !== null) {
+          return saved === 'true';
+        }
+      } catch {
+        // ignore
+      }
+    }
+    return false;
+  });
+
+  const isFilterExpanded = propIsFilterExpanded !== undefined ? propIsFilterExpanded : internalFilterExpanded;
+
+  const handleToggleFilterExpand = React.useCallback(() => {
+    if (propOnToggleFilterExpand) {
+      propOnToggleFilterExpand();
+      return;
+    }
+    setInternalFilterExpanded((prev) => {
+      const next = !prev;
+      if (typeof window !== 'undefined' && window.localStorage) {
+        try {
+          window.localStorage.setItem('datamyne_desktop_filter_expanded', String(next));
+        } catch {
+          // ignore
+        }
+      }
+      return next;
+    });
+  }, [propOnToggleFilterExpand]);
+
   const [perspective, setPerspective] = React.useState<'verticals' | 'tiers'>('verticals');
   const {
     tab: tierTab,
@@ -373,6 +411,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
         activeFilterCount={activeFilterCount}
         isMobileOpen={isMobileOpen}
         onCloseMobile={onCloseMobile}
+        isExpanded={isFilterExpanded}
       />
 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
@@ -490,6 +529,9 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
               ? 'Search tiered leads by company, city, category...'
               : 'Search DataMyne by company, description, country...'
           }
+          isFilterExpanded={isFilterExpanded}
+          onToggleFilterExpand={handleToggleFilterExpand}
+          activeFilterCount={activeFilterCount}
         />
 
         {/* Active Filter Chips Bar */}
