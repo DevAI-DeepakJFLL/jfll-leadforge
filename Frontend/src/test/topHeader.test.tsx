@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server';
 import { TopHeader } from '@/components/layout/TopHeader';
 
 describe('TopHeader Navigation & Landing Tab', () => {
-  it('renders JFLL Customers as the first primary tab and Apollo as the consolidated second tab with badge 1.45M', () => {
+  it('renders JFLL Customers as the first primary tab and Apollo as the consolidated second tab with badge 15.5M', () => {
     const html = renderToString(
       <TopHeader
         activeTab="jfll-customers"
@@ -16,9 +16,9 @@ describe('TopHeader Navigation & Landing Tab', () => {
     expect(html).toContain('2.7k');
     expect(html).toContain('aria-current="page"');
 
-    // Verify consolidated Apollo tab with 1.45M badge
+    // Verify consolidated Apollo tab with 15.5M badge matching actual Parquet dataset scale
     expect(html).toContain('Apollo');
-    expect(html).toContain('1.45M');
+    expect(html).toContain('15.5M');
 
     // Verify subsequent tabs
     expect(html).toContain('DataMyne');

@@ -23,7 +23,7 @@ export interface TopHeaderProps {
 
 const TOP_NAV_TABS: TopNavTab[] = [
   { id: 'jfll-customers', label: 'JFLL Customers', badge: '2.7k' },
-  { id: 'apollo', label: 'Apollo', badge: '1.45M' },
+  { id: 'apollo', label: 'Apollo', badge: '15.5M' },
   { id: 'datamyne', label: 'DataMyne', badge: '37.3k' },
   { id: 'report', label: 'Client Reports' },
   { id: 'saved-searches', label: 'Saved Searches' },
