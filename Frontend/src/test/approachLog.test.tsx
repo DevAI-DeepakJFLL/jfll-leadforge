@@ -607,7 +607,7 @@ describe('Sales Approach & Active Conversion Suite', () => {
         // Enqueue 220 items
         for (let i = 1; i <= 220; i++) {
           await logApproachActivity('datamyne', `lead_bounded_${i}`, {
-            action: 'Email Sent',
+            action: 'Sent email',
             status: 'In Progress',
             note: `Offline note ${i}`,
           });
