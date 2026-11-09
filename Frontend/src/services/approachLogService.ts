@@ -16,6 +16,7 @@ import {
 
 const APPROACH_STORAGE_KEY = 'jfll_approach_logs_v1';
 const OUTBOX_STORAGE_KEY = 'jfll_approach_outbox_v1';
+export const MAX_OUTBOX_QUEUE = 200;
 export const APPROACH_STATUS_CHANGED_EVENT = 'jfll-approach-status-updated';
 
 export interface ApproachOutboxItem {
@@ -45,13 +46,16 @@ function savePendingOutbox(items: ApproachOutboxItem[]): void {
 }
 
 function enqueueOutboxItem(item: Omit<ApproachOutboxItem, 'id' | 'queuedAt'>): void {
-  const items = getPendingOutbox();
+  let items = getPendingOutbox();
   const newItem: ApproachOutboxItem = {
     ...item,
     id: `outbox_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
     queuedAt: new Date().toISOString(),
   };
   items.push(newItem);
+  if (items.length > MAX_OUTBOX_QUEUE) {
+    items = items.slice(-MAX_OUTBOX_QUEUE);
+  }
   savePendingOutbox(items);
 }
 

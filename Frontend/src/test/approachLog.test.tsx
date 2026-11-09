@@ -598,6 +598,31 @@ describe('Sales Approach & Active Conversion Suite', () => {
       }
     });
 
+    it('enforces MAX_OUTBOX_QUEUE FIFO bound of 200 items to protect localStorage quota', async () => {
+      const originalFetch = globalThis.fetch;
+      // Offline mode
+      globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
+
+      try {
+        // Enqueue 220 items
+        for (let i = 1; i <= 220; i++) {
+          await logApproachActivity('datamyne', `lead_bounded_${i}`, {
+            action: 'Email Sent',
+            status: 'In Progress',
+            note: `Offline note ${i}`,
+          });
+        }
+
+        const outbox = getPendingOutbox();
+        expect(outbox.length).toBe(200);
+        // The first 20 items (lead_bounded_1 .. lead_bounded_20) should have been FIFO evicted
+        expect(outbox[0].entityId).toBe('lead_bounded_21');
+        expect(outbox[outbox.length - 1].entityId).toBe('lead_bounded_220');
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
+
     it('dispatches APPROACH_STATUS_CHANGED_EVENT when fetchBulkStatuses successfully retrieves server statuses', async () => {
       const originalFetch = globalThis.fetch;
       const originalWindow = (globalThis as any).window;
