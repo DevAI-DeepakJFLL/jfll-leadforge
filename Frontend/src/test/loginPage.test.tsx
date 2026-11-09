@@ -1,42 +1,57 @@
 import { describe, it, expect } from 'vitest';
 import { renderToString } from 'react-dom/server';
 import { LoginPage } from '@/components/auth/LoginPage';
-import { AUTHORIZED_USERS } from '@/types/auth';
+import { AUTHORIZED_USERS, DEFAULT_DEMO_PASSWORD } from '@/types/auth';
 
 describe('LoginPage UI Component', () => {
-  it('renders clean passwordless authentication form without pre-filled details', () => {
+  it('renders modern authentication form with work email and password inputs', () => {
     const html = renderToString(<LoginPage onLoginSuccess={() => {}} />);
 
-    // Check header & title
+    // Check header & greeting
     expect(html).toContain('Welcome back');
     expect(html).toContain('Authorized Personnel Sign-In');
-    expect(html).toContain('Enter your registered work email to access the leads dashboard.');
+    expect(html).toContain('Enter your registered work email and account password to enter.');
 
-    // Check that pre-filled member chips and personal names are NOT exposed on login screen
-    for (const member of AUTHORIZED_USERS) {
-      expect(html).not.toContain(member.name);
-    }
-    expect(html).not.toContain('Quick Select Team Member');
-
-    // Check neutral work email input exists without pre-filled email
+    // Check work email field
     expect(html).toContain('Work Email Address');
+    expect(html).toContain('id="work-email-input"');
     expect(html).toContain('placeholder="name@jfll.com"');
-    expect(html).not.toContain('placeholder="deepak.naidu@jfll.com"');
+
+    // Check account password field and show/hide toggle
+    expect(html).toContain('Account Password');
+    expect(html).toContain('id="password-input"');
+    expect(html).toContain('type="password"');
+    expect(html).toContain('placeholder="••••••••••••"');
+    expect(html).toContain('aria-label="Show password"');
+
+    // Check default password hint
+    expect(html).toContain(DEFAULT_DEMO_PASSWORD);
 
     // Check primary CTA
-    expect(html).toContain('Verify Work Email &amp; Enter');
-
-    // Verify password field is completely absent
-    expect(html).not.toContain('type="password"');
-    expect(html).not.toContain('Case-sensitive');
-    expect(html).not.toContain('••••••••••••');
+    expect(html).toContain('Sign In to Dashboard');
   });
 
-  it('renders brand elements and security notices', () => {
+  it('renders demo quick-fill pill buttons for seeded team members', () => {
+    const html = renderToString(<LoginPage onLoginSuccess={() => {}} />);
+
+    expect(html).toContain('Demo Quick-Fill:');
+    expect(html).toContain('Click to fill credentials');
+
+    // Check seeded team members from AUTHORIZED_USERS are present
+    const demoMembers = AUTHORIZED_USERS.slice(0, 4);
+    for (const member of demoMembers) {
+      expect(html).toContain(member.name);
+      expect(html).toContain(member.role);
+    }
+  });
+
+  it('renders official brand elements and enterprise security notices', () => {
     const html = renderToString(<LoginPage onLoginSuccess={() => {}} />);
 
     expect(html).toContain('Jet Freight Logistics');
-    expect(html).toContain('Passwordless whitelist authentication');
+    expect(html).toContain('Proprietary Sourcing Suite');
+    expect(html).toContain('Lead Sourcing Dashboard');
+    expect(html).toContain('Enterprise authentication · 256-bit signed session');
     expect(html).toContain('Authorized Personnel Only');
 
     // Verify dual-mode switcher and request access trigger

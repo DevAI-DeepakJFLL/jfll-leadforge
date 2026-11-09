@@ -16,12 +16,14 @@ export const TierScoreBreakdownModal: React.FC<TierScoreBreakdownModalProps> = (
 }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape' && isOpen) {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        onClose();
+      }
     };
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown, true); // true = capture phase!
+    return () => window.removeEventListener('keydown', handleKeyDown, true);
   }, [isOpen, onClose]);
 
   if (!isOpen || !lead) return null;

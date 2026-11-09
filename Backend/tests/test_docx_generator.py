@@ -1,5 +1,4 @@
 import docx
-import pytest
 
 from src.api.report_models import (
     ClientReportData,
@@ -104,3 +103,49 @@ def test_docx_stream_includes_section_5_table_and_multiline_breaks():
             assert len(non_empty_paras) >= 3 or "\n" in takeaway_cell.text
             assert "Key requirement: 2-8°C" in takeaway_cell.text
             assert "Urgent shipment" in takeaway_cell.text
+
+
+def test_docx_executive_layout_alignment():
+    """Verify that docx generation matches the Jet Freight executive briefing standard."""
+    report = _create_sample_report_for_docx()
+    stream = generate_docx_stream(report)
+    doc = docx.Document(stream)
+
+    # 1. Header Banner Table
+    header_tbl = doc.tables[0]
+    assert len(header_tbl.columns) == 3
+    hdr_text = " ".join(c.text for row in header_tbl.rows for c in row.cells)
+    assert "CLIENT REPORT" in hdr_text
+    assert "PROSPECT BRIEF" in hdr_text
+    assert "Jet Freight Logistics Ltd" in hdr_text
+    assert "ISO 9001:2015" in hdr_text
+
+    # 2. Metadata strip table does NOT have artificial square brackets
+    meta_tbl = doc.tables[1]
+    assert len(meta_tbl.columns) == 3
+    meta_text = " ".join(c.text for row in meta_tbl.rows for c in row.cells)
+    assert "[ Mumbai Sales Branch ]" not in meta_text
+    assert "Mumbai Sales Branch" in meta_text
+    assert "Tyra Theknath" in meta_text
+
+    # 3. Section 2 Trade lane includes metrics badge
+    sec2_tables = [t for t in doc.tables if any("Commodity / cargo type" in c.text for r in t.rows for c in r.cells)]
+    assert len(sec2_tables) == 1
+    sec2_tbl = sec2_tables[0]
+    # Check row 3 (Primary mode) includes mode & port
+    row3_val = sec2_tbl.rows[2].cells[1].text
+    assert "Air" in row3_val
+    assert "INBOM4" in row3_val
+    # Does not repeat "Shipments: 50" twice in the same cell
+    assert row3_val.count("Shipments: 50") <= 1
+
+    # 4. Contacts Table has 4 columns and bold name
+    contact_tables = [t for t in doc.tables if any("Notes / Context" in c.text for r in t.rows for c in r.cells)]
+    assert len(contact_tables) == 1
+    c_tbl = contact_tables[0]
+    assert len(c_tbl.columns) == 4
+    # First data row, first cell (Kunal Shah) must have bold run
+    kunal_cell = c_tbl.rows[1].cells[0]
+    assert "Kunal Shah" in kunal_cell.text
+    assert any(run.bold for run in kunal_cell.paragraphs[0].runs)
+

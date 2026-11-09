@@ -1183,6 +1183,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onConvertToActive={handleOpenDatamyneConvert}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
+          currentUser={currentUser}
         />
       ) : isJfllCategory ? (
         <JfllCustomersView
@@ -1220,6 +1221,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onConvertToActive={handleOpenJfllConvert}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
+          currentUser={currentUser}
         />
       ) : isReportCategory ? (
         <ReportView

@@ -5,6 +5,8 @@ export interface UserSession {
   avatar?: string;
   token: string;
   isOffline?: boolean;
+  requires_password_setup?: boolean;
+  permissions?: string[];
 }
 
 export interface AuthorizedUser {
@@ -12,7 +14,10 @@ export interface AuthorizedUser {
   name: string;
   role: string;
   avatar?: string;
+  defaultPassword?: string;
 }
+
+export const DEFAULT_DEMO_PASSWORD = 'JetFreight@2026!';
 
 function resolveAuthorizedUsers(): AuthorizedUser[] {
   // 1. Resolve from secure build-time/local .env variables
@@ -21,7 +26,10 @@ function resolveAuthorizedUsers(): AuthorizedUser[] {
     try {
       const parsed = JSON.parse(envUsersRaw);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+        return parsed.map((u: AuthorizedUser) => ({
+          ...u,
+          defaultPassword: u.defaultPassword || DEFAULT_DEMO_PASSWORD,
+        }));
       }
     } catch {
       // fallback
@@ -37,6 +45,7 @@ function resolveAuthorizedUsers(): AuthorizedUser[] {
         email,
         name: derivedName || 'Internal Team Member',
         role: 'Internal Team',
+        defaultPassword: DEFAULT_DEMO_PASSWORD,
       };
     });
   }
@@ -52,31 +61,37 @@ function resolveAuthorizedUsers(): AuthorizedUser[] {
       email: 'deepak@jfll.com',
       name: 'Deepak Naidu',
       role: 'Tech Lead',
+      defaultPassword: DEFAULT_DEMO_PASSWORD,
     },
     {
       email: 'tyra.theknath@jfll.com',
       name: 'Tyra Theknath',
       role: 'Leadership',
+      defaultPassword: DEFAULT_DEMO_PASSWORD,
     },
     {
       email: 'akash.dhara@jfll.com',
       name: 'Akash Dhara',
       role: 'Operations',
+      defaultPassword: DEFAULT_DEMO_PASSWORD,
     },
     {
       email: 'snehal.birje@jfll.com',
       name: 'Snehal Birje',
       role: 'Commercial',
+      defaultPassword: DEFAULT_DEMO_PASSWORD,
     },
     {
       email: 'admin@jfll.com',
       name: 'Administrator',
       role: 'Leadership',
+      defaultPassword: DEFAULT_DEMO_PASSWORD,
     },
     {
       email: 'team@jfll.com',
       name: 'Operations Team',
       role: 'Operations',
+      defaultPassword: DEFAULT_DEMO_PASSWORD,
     },
   ];
 }

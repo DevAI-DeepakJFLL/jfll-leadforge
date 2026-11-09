@@ -11,12 +11,16 @@ from typing import Any
 from fastapi import APIRouter, Header, HTTPException, Query, Request
 from pydantic import BaseModel, Field
 
-from src.api.access_control import is_email_active
+from src.api.access_control import (
+    DEFAULT_AUTHORIZED_DIGESTS,
+    is_email_active,
+)
 from src.api.config import settings
 from src.api.logger import logger
 from src.api.models import (
     AccessRequestCreate,
     LoginRequest,
+    SetPasswordRequest,
     UserSessionResponse,
 )
 from src.api.session_store import ACTIVE_USER_SESSIONS
@@ -150,28 +154,7 @@ def verify_token(token: str) -> dict[str, Any] | None:
     return payload
 
 
-DEFAULT_AUTHORIZED_DIGESTS: dict[str, dict[str, str]] = {
-    # Tyra Theknath
-    "0f1b6d2600c03c27cdca25ea523982fe047b6e332ce1479cfa8fedd0f04fe478": {
-        "role": "Leadership",
-        "name": "Tyra Theknath",
-    },
-    # Deepak Naidu (deepak@jfll.com)
-    "fb11d6dc98153163787779a2fd66ccf896b369089def0c31cc103e5722db6cf2": {
-        "role": "Tech Lead",
-        "name": "Deepak Naidu",
-    },
-    # Akash Dhara
-    "c784d6a18385d82a93e4017eee6d64a3c03b196e3d080a46e73bfb5b717c80be": {
-        "role": "Operations",
-        "name": "Akash Dhara",
-    },
-    # Snehal Birje
-    "6c94ee02a8480810b2daff09013956d2def3ff2b90baf3c18f4f7a3ae53a9f59": {
-        "role": "Commercial",
-        "name": "Snehal Birje",
-    },
-}
+# DEFAULT_AUTHORIZED_DIGESTS and DEFAULT_INITIAL_PASSWORD imported from access_control
 
 
 def is_email_authorized(email: str) -> bool:
@@ -301,7 +284,9 @@ def request_access(
 def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
     """
     Validates work email against enterprise allowed whitelist.
-    Issues a cryptographically signed HMAC-SHA256 bearer session token without requiring passwords.
+    Enforces scrypt password verification when a password has been set.
+    Allows smooth onboarding with requires_password_setup=True for pre-authorized accounts.
+    Issues a cryptographically signed HMAC-SHA256 bearer session token.
     Blocks automated headless browsers and enforces single-device session displacement.
     """
     if is_headless_user_agent(user_agent):
@@ -324,6 +309,39 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
             status_code=401,
             detail="Access restricted. Only authorized Jet Freight Logistics personnel can sign in.",
         )
+
+    from src.api.access_control import is_user_password_set, verify_user_credentials
+
+    password_set = is_user_password_set(input_email)
+
+    if password_set:
+        if not credentials.password:
+            logger.warning(
+                f"Audit: Password required but missing for {input_email}",
+                extra={"event": "LOGIN_REJECTED_MISSING_PASSWORD", "attempted_email": input_email},
+            )
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid email or password.",
+            )
+
+        valid, reason = verify_user_credentials(input_email, credentials.password)
+        if not valid:
+            logger.warning(
+                f"Audit: Password verification failed for {input_email}: {reason}",
+                extra={"event": "LOGIN_REJECTED_INVALID_PASSWORD", "attempted_email": input_email, "reason": reason},
+            )
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid email or password.",
+            )
+        requires_password_setup = False
+    else:
+        logger.info(
+            f"Audit: User logged in requiring password setup: {input_email}",
+            extra={"event": "LOGIN_REQUIRES_PASSWORD_SETUP", "attempted_email": input_email},
+        )
+        requires_password_setup = True
 
     name, role = get_user_profile(input_email)
 
@@ -349,6 +367,7 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
             "user_name": name,
             "role": role,
             "session_id": session_id,
+            "requires_password_setup": requires_password_setup,
         },
     )
 
@@ -359,6 +378,112 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
         token=token,
         token_type="Bearer",
         expires_at=expires_at,
+        requires_password_setup=requires_password_setup,
+    )
+
+
+@router.post(
+    "/set-password",
+    response_model=UserSessionResponse,
+    summary="Set or update enterprise account password",
+)
+def set_password(
+    payload: SetPasswordRequest,
+    authorization: str | None = Header(None),
+    user_agent: str | None = Header(None),
+):
+    """
+    Sets or updates an account password using scrypt hashing.
+    Enforces authorization: initial setup allowed for unset accounts;
+    updates require valid current_password or authenticated session.
+    """
+    if is_headless_user_agent(user_agent):
+        raise HTTPException(
+            status_code=403,
+            detail="AUTOMATED_AGENT_BLOCKED: Automated headless browser access is prohibited.",
+        )
+
+    clean_email = payload.email.strip().lower()
+    if not is_email_authorized(clean_email):
+        raise HTTPException(
+            status_code=401,
+            detail="Access restricted. Only authorized Jet Freight Logistics personnel can set a password.",
+        )
+
+    from src.api.access_control import (
+        is_user_password_set,
+        set_user_password,
+        verify_user_credentials,
+    )
+
+    # Protect against unauthenticated account takeover if password already exists
+    if is_user_password_set(clean_email):
+        authenticated = False
+        if payload.current_password:
+            valid, _ = verify_user_credentials(clean_email, payload.current_password)
+            if valid:
+                authenticated = True
+
+        if not authenticated and authorization and authorization.startswith("Bearer "):
+            token = authorization.split("Bearer ", 1)[1].strip()
+            user_payload = verify_token(token)
+            if user_payload and user_payload.get("sub", "").strip().lower() == clean_email:
+                authenticated = True
+
+        if not authenticated:
+            raise HTTPException(
+                status_code=401,
+                detail="Account password is already configured. Valid current password or active session required to update it.",
+            )
+
+    new_pwd = payload.new_password
+    if len(new_pwd) < 8:
+        raise HTTPException(
+            status_code=400,
+            detail="Password must be at least 8 characters long.",
+        )
+
+    try:
+        success = set_user_password(clean_email, new_pwd)
+        if not success:
+            raise HTTPException(
+                status_code=400,
+                detail="Unable to set password for the specified user.",
+            )
+    except ValueError as err:
+        raise HTTPException(status_code=400, detail=str(err))
+
+    name, role = get_user_profile(clean_email)
+    session_id = f"sess_{secrets.token_hex(16)}"
+    ACTIVE_USER_SESSIONS[clean_email] = session_id
+
+    token, expires_at = create_token(
+        {
+            "sub": clean_email,
+            "name": name,
+            "role": role,
+            "session_id": session_id,
+        },
+        expires_in_hours=settings.auth_token_expire_hours,
+    )
+
+    logger.info(
+        f"Audit: User password set successfully: {clean_email} ({role})",
+        extra={
+            "event": "PASSWORD_SET_SUCCESS",
+            "user_email": clean_email,
+            "session_id": session_id,
+        },
+    )
+
+    return UserSessionResponse(
+        email=clean_email,
+        name=name,
+        role=role,
+        token=token,
+        token_type="Bearer",
+        expires_at=expires_at,
+        requires_password_setup=False,
     )
 
 
@@ -380,7 +505,7 @@ def get_current_user(authorization: str | None = Header(None), user_agent: str |
         raise HTTPException(status_code=401, detail="Invalid or expired session token")
 
     user_email = payload.get("sub", "").strip().lower()
-    from src.api.access_control import is_email_active
+    from src.api.access_control import is_email_active, is_user_password_set
 
     if user_email and not is_email_active(user_email):
         raise HTTPException(
@@ -411,6 +536,7 @@ def get_current_user(authorization: str | None = Header(None), user_agent: str |
         token=token,
         token_type="Bearer",
         expires_at=datetime.fromtimestamp(payload.get("exp", 0), UTC).isoformat() if payload.get("exp") else None,
+        requires_password_setup=not is_user_password_set(user_email),
     )
 
 

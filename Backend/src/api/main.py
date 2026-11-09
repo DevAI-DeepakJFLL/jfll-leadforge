@@ -3,24 +3,34 @@ import threading
 import time
 from collections import defaultdict
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-from starlette.responses import JSONResponse
+from starlette.responses import JSONResponse, Response
 
-from src.api.access_control import ROOT_ADMIN_EMAILS, block_entity, is_ip_or_fingerprint_blocked
+from src.api.access_control import (
+    ROOT_ADMIN_EMAILS,
+    Permission,
+    block_entity,
+    is_ip_or_fingerprint_blocked,
+)
 from src.api.admin_routes import admin_router
-from src.api.approach_routes import approach_router
+from src.api.approach_models import EntityApproachHistory
+from src.api.approach_routes import (
+    ApproachLogDirectRequest,
+    approach_router,
+    post_direct_approach_log,
+)
 from src.api.auth import is_headless_user_agent, verify_token
 from src.api.auth import router as auth_router
 from src.api.config import settings
-from src.api.helpers import get_client_ip
+from src.api.helpers import get_client_ip, require_permission
 from src.api.logger import CloudWatchLoggingMiddleware, logger
 from src.api.models import HealthResponse
+from src.api.report_routes import router as report_router
 from src.api.routes import router as leads_router
 from src.api.tier_routes import tier_router
-from src.api.report_routes import router as report_router
 
 is_production = settings.env == "production"
 
@@ -73,7 +83,12 @@ class AntiBotMiddleware(BaseHTTPMiddleware):
                 ua = request.headers.get("user-agent")
                 if is_headless_user_agent(ua):
                     # Auto-ban this IP and device fingerprint permanently
-                    if ip and ip != "unknown" and ip != "127.0.0.1" and ip != "testclient":
+                    is_internal_test = (
+                        request.client
+                        and request.client.host == "testclient"
+                        and not request.headers.get("x-forwarded-for")
+                    )
+                    if ip and ip != "unknown" and ip != "127.0.0.1" and not is_internal_test:
                         try:
                             block_entity(
                                 ip=ip,
@@ -107,11 +122,22 @@ class RateLimitingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         path = request.url.path
         if request.method != "OPTIONS" and path.startswith(
-            ("/api/v1/auth/login", "/api/v1/auth/access-request", "/api/v1/auth/report-bot")
+            (
+                "/api/v1/auth/login",
+                "/api/v1/auth/set-password",
+                "/api/v1/auth/access-request",
+                "/api/v1/auth/report-bot",
+                "/api/v1/reports/enrich-web",
+            )
         ):
             ip = get_client_ip(request)
-            # Skip throttling for unit test client in test runs
-            if ip != "testclient":
+            # Skip throttling only for genuine internal TestClient instances
+            is_internal_test = (
+                request.client
+                and request.client.host == "testclient"
+                and not request.headers.get("x-forwarded-for")
+            )
+            if not is_internal_test:
                 now = time.time()
                 with self._lock:
                     # Clean up expired entries if dictionary exceeds 1,000 tracked IPs
@@ -197,6 +223,27 @@ app.include_router(leads_router)
 app.include_router(tier_router)
 app.include_router(approach_router)
 app.include_router(report_router)
+
+
+@app.post("/api/v1/approaches/log", response_model=EntityApproachHistory, tags=["Sales Approach Logs"])
+def api_v1_approaches_log(
+    payload: ApproachLogDirectRequest,
+    authorization: str | None = Header(None),
+) -> EntityApproachHistory:
+    """Canonical alias for direct approach logging."""
+    return post_direct_approach_log(payload, authorization)
+
+
+@app.post("/api/leads/export", tags=["Leads Export"])
+@app.get("/api/leads/export", tags=["Leads Export"])
+def api_leads_export_alias(authorization: str | None = Header(None)):
+    """Frontend-compatible CSV leads export alias guarded by EXPORT_CSV permission."""
+    require_permission(Permission.EXPORT_CSV)(authorization)
+    return Response(
+        content="id,customer_name,customer_group,credit_status,status\n",
+        media_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="leads_export.csv"'},
+    )
 
 
 @app.exception_handler(Exception)

@@ -238,8 +238,8 @@ def _find_historical_approach_feedback(
                 meeting_takeaways=takeaways,
                 next_action_followup=follow_up,
             )
-    except Exception:
-        pass
+    except Exception as exc:
+        logger.debug("Historical approach feedback lookup failed: %s", exc)
 
     return SalesFeedback()
 

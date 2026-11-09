@@ -12,10 +12,14 @@ import {
   User,
   Send,
   ChevronLeft,
+  Lock,
+  Eye,
+  EyeOff,
+  KeyRound,
 } from 'lucide-react';
 
-import { UserSession } from '@/types/auth';
-import { loginUser, setStoredSession } from '@/services/authService';
+import { UserSession, AUTHORIZED_USERS, DEFAULT_DEMO_PASSWORD } from '@/types/auth';
+import { loginUser, setUserPassword, setStoredSession } from '@/services/authService';
 import { submitAccessRequest } from '@/services/adminService';
 
 export interface LoginPageProps {
@@ -23,10 +27,20 @@ export interface LoginPageProps {
 }
 
 export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
-  const [authMode, setAuthMode] = useState<'signin' | 'request'>('signin');
+  const [authMode, setAuthMode] = useState<'signin' | 'request' | 'set-password'>('signin');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  // Set Password Form State
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [setPasswordLoading, setSetPasswordLoading] = useState(false);
+  const [setPasswordError, setSetPasswordError] = useState('');
 
   // Access Request Form State
   const [reqEmail, setReqEmail] = useState('');
@@ -36,9 +50,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   const [reqError, setReqError] = useState('');
   const [reqSuccessMsg, setReqSuccessMsg] = useState('');
 
-  const performLogin = async (targetEmail: string) => {
-    const trimmed = targetEmail.trim();
-    if (!trimmed) {
+  // Demo users for quick selection
+  const demoUsers = AUTHORIZED_USERS.slice(0, 4);
+
+  const performLogin = async (targetEmail: string, targetPassword?: string) => {
+    const trimmedEmail = targetEmail.trim();
+    if (!trimmedEmail) {
       setErrorMessage('Please enter your work email.');
       return;
     }
@@ -47,12 +64,26 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
     setIsLoading(true);
 
     try {
-      const session = await loginUser({ email: trimmed });
+      const activePassword = targetPassword !== undefined ? targetPassword : password;
+      const session = await loginUser({
+        email: trimmedEmail,
+        password: activePassword || undefined,
+      });
+
+      if (session.requires_password_setup) {
+        setEmail(trimmedEmail);
+        setAuthMode('set-password');
+        setSetPasswordError('');
+        setNewPassword('');
+        setConfirmPassword('');
+        return;
+      }
+
       setStoredSession(session);
       onLoginSuccess(session);
     } catch (err: unknown) {
       setErrorMessage(
-        (err as Error)?.message || 'Authentication failed. Please verify your work email.'
+        (err as Error)?.message || 'Authentication failed. Please verify your work email and password.'
       );
     } finally {
       setIsLoading(false);
@@ -61,7 +92,41 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await performLogin(email);
+    await performLogin(email, password);
+  };
+
+  const handleSetPasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPassword) {
+      setSetPasswordError('Please enter a new password.');
+      return;
+    }
+    if (newPassword.length < 8) {
+      setSetPasswordError('Password must be at least 8 characters long.');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setSetPasswordError('Passwords do not match. Please re-enter.');
+      return;
+    }
+
+    setSetPasswordError('');
+    setSetPasswordLoading(true);
+
+    try {
+      const session = await setUserPassword(email, newPassword);
+      onLoginSuccess(session);
+    } catch (err: unknown) {
+      setSetPasswordError((err as Error)?.message || 'Failed to set password. Please try again.');
+    } finally {
+      setSetPasswordLoading(false);
+    }
+  };
+
+  const handleDemoUserClick = (demoEmail: string, demoPassword?: string) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword || DEFAULT_DEMO_PASSWORD);
+    setErrorMessage('');
   };
 
   const handleRequestAccessSubmit = async (e: React.FormEvent) => {
@@ -190,13 +255,13 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
           <div className="hidden md:flex pt-4 border-t border-slate-700/60 relative z-10 items-center justify-between text-[11px] text-slate-300">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Passwordless Whitelist</span>
+              <span>Password & Whitelist Gate</span>
             </div>
             <span className="text-slate-400 text-[10px]">Authorized Personnel Only</span>
           </div>
         </div>
 
-        {/* Right Panel: Dual-Mode Clean High-Contrast Auth Panel */}
+        {/* Right Panel: Clean High-Contrast Auth Panel */}
         <div className="md:w-7/12 bg-white p-5 sm:p-7 md:p-9 flex flex-col justify-between">
           <div>
             {/* Top Mode Segmented Switcher */}
@@ -209,14 +274,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                 <button
                   type="button"
                   role="tab"
-                  aria-selected={authMode === 'signin'}
+                  aria-selected={authMode === 'signin' || authMode === 'set-password'}
                   onClick={() => {
                     setAuthMode('signin');
                     setReqSuccessMsg('');
                     setReqError('');
                   }}
                   className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
-                    authMode === 'signin'
+                    authMode === 'signin' || authMode === 'set-password'
                       ? 'bg-white text-slate-900 shadow-2xs font-bold'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
@@ -249,7 +314,128 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </div>
             </div>
 
-            {authMode === 'signin' ? (
+            {authMode === 'set-password' ? (
+              /* Set Account Password Mode */
+              <div className="py-1 space-y-4 animate-in fade-in duration-200">
+                <div className="mb-4">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-amber-50 text-amber-800 text-[11px] font-semibold border border-amber-200 mb-2">
+                    <KeyRound className="w-3.5 h-3.5 text-amber-600" />
+                    <span>First-Time Security Setup</span>
+                  </div>
+                  <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+                    Set Account Password
+                  </h1>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Welcome! Please create a secure password for <strong className="text-slate-700">{email}</strong> before proceeding.
+                  </p>
+                </div>
+
+                {setPasswordError && (
+                  <div
+                    role="alert"
+                    className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2 animate-in fade-in duration-150"
+                  >
+                    <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+                    <span className="leading-tight font-medium">{setPasswordError}</span>
+                  </div>
+                )}
+
+                <form onSubmit={handleSetPasswordSubmit} className="space-y-3.5">
+                  <div className="space-y-1">
+                    <label htmlFor="new-password-input" className="text-xs font-semibold text-slate-700 block">
+                      New Password <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <input
+                        id="new-password-input"
+                        type={showNewPassword ? 'text' : 'password'}
+                        value={newPassword}
+                        onChange={(e) => {
+                          setNewPassword(e.target.value);
+                          if (setPasswordError) setSetPasswordError('');
+                        }}
+                        placeholder="At least 8 characters..."
+                        required
+                        autoComplete="new-password"
+                        className="w-full pl-9 pr-10 py-2.5 text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowNewPassword((prev) => !prev)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 focus:outline-none cursor-pointer"
+                        title={showNewPassword ? 'Hide password' : 'Show password'}
+                        aria-label={showNewPassword ? 'Hide password' : 'Show password'}
+                      >
+                        {showNewPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                    <p className="text-[10px] text-slate-400">Minimum 8 characters required</p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label htmlFor="confirm-password-input" className="text-xs font-semibold text-slate-700 block">
+                      Confirm New Password <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <input
+                        id="confirm-password-input"
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        value={confirmPassword}
+                        onChange={(e) => {
+                          setConfirmPassword(e.target.value);
+                          if (setPasswordError) setSetPasswordError('');
+                        }}
+                        placeholder="Re-enter password"
+                        required
+                        autoComplete="new-password"
+                        className="w-full pl-9 pr-10 py-2.5 text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword((prev) => !prev)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 focus:outline-none cursor-pointer"
+                        title={showConfirmPassword ? 'Hide password' : 'Show password'}
+                        aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
+                      >
+                        {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAuthMode('signin');
+                        setSetPasswordError('');
+                      }}
+                      className="py-2.5 px-3 border border-slate-200 text-slate-700 hover:bg-slate-100 font-semibold text-xs rounded-xl transition-all cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={setPasswordLoading || !newPassword || !confirmPassword}
+                      className="flex-1 py-2.5 px-4 bg-apollo hover:bg-apollo-600 active:bg-apollo-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-apollo/25 hover:shadow-lg hover:shadow-apollo/30 transition-all flex items-center justify-center gap-2 focus:outline-none focus:ring-4 focus:ring-apollo/20 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                    >
+                      {setPasswordLoading ? (
+                        <div className="flex items-center gap-2">
+                          <Loader2 className="animate-spin w-4 h-4 text-white" />
+                          <span>Saving Password...</span>
+                        </div>
+                      ) : (
+                        <>
+                          <span>Save Password & Enter</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            ) : authMode === 'signin' ? (
               <>
                 {/* Header Greeting */}
                 <div className="mb-5">
@@ -261,7 +447,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                     Welcome back
                   </h1>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    Enter your registered work email to access the leads dashboard.
+                    Enter your registered work email and account password to enter.
                   </p>
                 </div>
 
@@ -292,7 +478,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                 )}
 
                 {/* Authentication Form */}
-                <form onSubmit={handleLoginSubmit} className="space-y-4">
+                <form onSubmit={handleLoginSubmit} className="space-y-3.5">
                   <div className="space-y-1.5">
                     <label htmlFor="work-email-input" className="text-xs font-semibold text-slate-700 block">
                       Work Email Address
@@ -315,6 +501,45 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                     </div>
                   </div>
 
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <label htmlFor="password-input" className="text-xs font-semibold text-slate-700 block">
+                        Account Password
+                      </label>
+                      <span className="text-[10px] text-slate-400">
+                        Default: <code className="font-mono text-slate-600 bg-slate-100 px-1 py-0.5 rounded">{DEFAULT_DEMO_PASSWORD}</code>
+                      </span>
+                    </div>
+                    <div className="relative">
+                      <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <input
+                        id="password-input"
+                        type={showPassword ? 'text' : 'password'}
+                        value={password}
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                          if (errorMessage) setErrorMessage('');
+                        }}
+                        placeholder="••••••••••••"
+                        autoComplete="current-password"
+                        className="w-full pl-9 pr-10 py-2.5 text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 focus:outline-none cursor-pointer"
+                        title={showPassword ? 'Hide password' : 'Show password'}
+                        aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      >
+                        {showPassword ? (
+                          <EyeOff className="w-4 h-4" />
+                        ) : (
+                          <Eye className="w-4 h-4" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
                   {/* Submit CTA */}
                   <button
                     type="submit"
@@ -324,16 +549,42 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                     {isLoading ? (
                       <div className="flex items-center gap-2">
                         <Loader2 className="animate-spin w-4 h-4 text-white" />
-                        <span>Verifying Work Email...</span>
+                        <span>Verifying Credentials...</span>
                       </div>
                     ) : (
                       <>
-                        <span>Verify Work Email & Enter</span>
+                        <span>Sign In to Dashboard</span>
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}
                   </button>
                 </form>
+
+                {/* Demo Quick-Fill Pill Buttons - strictly isolated to local development environments */}
+                {Boolean(import.meta.env.DEV && demoUsers.length > 0) && (
+                  <div className="mt-4 pt-3 border-t border-slate-100">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                        Demo Quick-Fill:
+                      </span>
+                      <span className="text-[10px] text-slate-400">Click to fill credentials</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {demoUsers.map((user) => (
+                        <button
+                          key={user.email}
+                          type="button"
+                          onClick={() => handleDemoUserClick(user.email, user.defaultPassword)}
+                          className="px-2.5 py-1 text-xs bg-slate-100/90 hover:bg-apollo-50 hover:text-apollo hover:border-apollo/30 text-slate-700 rounded-lg border border-slate-200 transition-all font-medium flex items-center gap-1 cursor-pointer focus:outline-none focus:ring-2 focus:ring-apollo/20"
+                          title={`Click to fill ${user.name} (${user.role})`}
+                        >
+                          <span>{user.name}</span>
+                          <span className="text-[10px] text-slate-400 font-normal">({user.role})</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Secondary Request Access Prompt */}
                 <div className="mt-4 text-center">
@@ -367,7 +618,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                     </p>
                   </div>
                   <div className="pt-2 border-t border-emerald-200/80 text-[11px] text-emerald-700">
-                    Once approved by leadership, you can immediately sign in using your work email address without a password.
+                    Once approved by leadership, you can immediately sign in using your work email address.
                   </div>
                 </div>
 
@@ -504,7 +755,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
           <div className="mt-6 pt-4 border-t border-slate-100 space-y-2">
             <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-medium text-center">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-              <span>Passwordless whitelist authentication · 256-bit signed session</span>
+              <span>Enterprise authentication · 256-bit signed session</span>
             </div>
             <p className="text-[10px] text-slate-400 text-center leading-relaxed">
               Jet Freight Logistics Limited · Access restricted strictly to approved personnel.

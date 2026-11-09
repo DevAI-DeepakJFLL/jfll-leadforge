@@ -51,6 +51,16 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    if (isOpen && typeof document !== 'undefined') {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
+
   if (!isOpen || !customer) return null;
 
   const handleCopyText = (text: string, label: string) => {

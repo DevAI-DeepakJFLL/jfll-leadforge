@@ -5,19 +5,18 @@ then fills background, facility, export market, and contact gaps using
 live Google Search grounding via Google's Gemini API.
 """
 
-from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 import json
 import logging
 import os
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FuturesTimeoutError
 from typing import Any
 
 from src.api.report_models import (
     ClientReportData,
-    CompanyBackground,
     ContactItem,
-    JfllFit,
 )
 
 logger = logging.getLogger("gemini_enricher")
@@ -151,16 +150,16 @@ def _extract_json_block(text: str) -> dict[str, Any] | None:
     if fence_match:
         try:
             return json.loads(fence_match.group(1))
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("Failed parsing fenced JSON: %s", exc)
 
     # 2. Match outermost { ... }
     brace_match = re.search(r"(\{.*\})", text, re.DOTALL)
     if brace_match:
         try:
             return json.loads(brace_match.group(1))
-        except Exception:
-            pass
+        except Exception as exc:
+            logger.debug("Failed parsing braced JSON: %s", exc)
 
     return None
 

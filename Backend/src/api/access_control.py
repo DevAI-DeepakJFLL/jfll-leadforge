@@ -1,9 +1,11 @@
+import hashlib
 import json
 import os
 import re
 import secrets
 import threading
 from datetime import UTC, datetime
+from enum import Enum
 from pathlib import Path
 from typing import Any
 
@@ -47,7 +49,155 @@ ROOT_ADMIN_EMAILS = {
     "tyra.theknath@jfll.com",
 }
 
-ADMIN_ROLES = {"Leadership", "Tech Lead", "Admin"}
+class Permission(str, Enum):
+    VIEW_LEADS = "view_leads"
+    LOG_APPROACH = "log_approach"
+    GENERATE_REPORT = "generate_report"
+    EXPORT_DOCX = "export_docx"
+    EXPORT_CSV = "export_csv"
+    ENRICH_WEB = "enrich_web"
+    ADMIN_PORTAL = "admin_portal"
+    MANAGE_USERS = "manage_users"
+
+
+ALL_PERMISSIONS = frozenset(Permission)
+
+ROLE_PERMISSIONS: dict[str, set[Permission]] = {
+    "Root Admin": set(ALL_PERMISSIONS),
+    "Tech Lead": set(ALL_PERMISSIONS),
+    "Admin": set(ALL_PERMISSIONS),
+    "Leadership": {
+        Permission.VIEW_LEADS,
+        Permission.LOG_APPROACH,
+        Permission.GENERATE_REPORT,
+        Permission.EXPORT_DOCX,
+        Permission.EXPORT_CSV,
+        Permission.ENRICH_WEB,
+        Permission.ADMIN_PORTAL,
+    },
+    "Commercial": {
+        Permission.VIEW_LEADS,
+        Permission.LOG_APPROACH,
+        Permission.GENERATE_REPORT,
+        Permission.EXPORT_DOCX,
+        Permission.EXPORT_CSV,
+        Permission.ENRICH_WEB,
+    },
+    "Sales Executive": {
+        Permission.VIEW_LEADS,
+        Permission.LOG_APPROACH,
+        Permission.GENERATE_REPORT,
+        Permission.EXPORT_DOCX,
+        Permission.EXPORT_CSV,
+        Permission.ENRICH_WEB,
+    },
+    "Operations": {
+        Permission.VIEW_LEADS,
+        Permission.LOG_APPROACH,
+        Permission.GENERATE_REPORT,
+        Permission.EXPORT_DOCX,
+    },
+    "Viewer": {
+        Permission.VIEW_LEADS,
+    },
+}
+
+
+def has_permission(role: str | None, perm: Permission | str) -> bool:
+    """Safe lookup returning boolean if given role possesses the specified permission."""
+    if not role or not isinstance(role, str):
+        return False
+
+    clean_role = role.strip()
+    target_perm = perm if isinstance(perm, Permission) else None
+    if target_perm is None and isinstance(perm, str):
+        try:
+            target_perm = Permission(perm)
+        except ValueError:
+            return False
+
+    perms = ROLE_PERMISSIONS.get(clean_role)
+    if perms is None:
+        for r_name, r_perms in ROLE_PERMISSIONS.items():
+            if r_name.lower() == clean_role.lower():
+                perms = r_perms
+                break
+
+    if perms is None:
+        if clean_role in ADMIN_ROLES:
+            perms = set(ALL_PERMISSIONS)
+        else:
+            return False
+
+    return target_perm in perms
+
+
+ADMIN_ROLES = {"Leadership", "Tech Lead", "Admin", "Root Admin"}
+
+DEFAULT_AUTHORIZED_DIGESTS: dict[str, dict[str, str]] = {
+    # Tyra Theknath
+    "0f1b6d2600c03c27cdca25ea523982fe047b6e332ce1479cfa8fedd0f04fe478": {
+        "role": "Leadership",
+        "name": "Tyra Theknath",
+    },
+    # Deepak Naidu (deepak@jfll.com)
+    "fb11d6dc98153163787779a2fd66ccf896b369089def0c31cc103e5722db6cf2": {
+        "role": "Tech Lead",
+        "name": "Deepak Naidu",
+    },
+    # Akash Dhara
+    "c784d6a18385d82a93e4017eee6d64a3c03b196e3d080a46e73bfb5b717c80be": {
+        "role": "Operations",
+        "name": "Akash Dhara",
+    },
+    # Snehal Birje
+    "6c94ee02a8480810b2daff09013956d2def3ff2b90baf3c18f4f7a3ae53a9f59": {
+        "role": "Commercial",
+        "name": "Snehal Birje",
+    },
+}
+
+DEFAULT_INITIAL_PASSWORD = "JetFreight@2026!"
+
+
+def hash_password(password: str) -> tuple[str, str]:
+    """
+    Hashes a password using hashlib.scrypt with salt = secrets.token_bytes(16), n=16384, r=8, p=1.
+    Returns (hex_hash, hex_salt).
+    """
+    if not password:
+        raise ValueError("Password cannot be empty")
+    salt = secrets.token_bytes(16)
+    dk = hashlib.scrypt(
+        password.encode("utf-8"),
+        salt=salt,
+        n=16384,
+        r=8,
+        p=1,
+    )
+    return dk.hex(), salt.hex()
+
+
+def verify_password(password: str, stored_hash: str, stored_salt: str) -> bool:
+    """
+    Computes scrypt hash and verifies in constant time using secrets.compare_digest.
+    """
+    if not password or not stored_hash or not stored_salt:
+        return False
+    try:
+        salt_bytes = bytes.fromhex(stored_salt)
+        dk = hashlib.scrypt(
+            password.encode("utf-8"),
+            salt=salt_bytes,
+            n=16384,
+            r=8,
+            p=1,
+        )
+        return secrets.compare_digest(stored_hash, dk.hex())
+    except Exception as err:
+        logger.debug("Password verification error: %s", err)
+        return False
+
 
 DEFAULT_SEEDED_USERS = [
     {
@@ -134,7 +284,15 @@ def _backup_to_s3(storage_path: Path) -> None:
 
 def _seed_initial_data() -> dict[str, Any]:
     """Generates the initial bootstrap access control dataset."""
-    allowlist = [dict(u) for u in DEFAULT_SEEDED_USERS]
+    default_hash, default_salt = hash_password(DEFAULT_INITIAL_PASSWORD)
+    allowlist = []
+    for u in DEFAULT_SEEDED_USERS:
+        entry = dict(u)
+        entry["password_hash"] = default_hash
+        entry["salt"] = default_salt
+        entry["is_password_set"] = True
+        allowlist.append(entry)
+
     existing_emails = {u["email"].lower() for u in allowlist}
 
     # Include any custom allowed_emails configured in environment
@@ -151,6 +309,9 @@ def _seed_initial_data() -> dict[str, Any]:
                     "status": "active",
                     "added_at": datetime.now(UTC).isoformat(),
                     "added_by": "env_config",
+                    "password_hash": None,
+                    "salt": None,
+                    "is_password_set": False,
                 }
             )
             existing_emails.add(clean)
@@ -192,7 +353,36 @@ def load_access_data() -> dict[str, Any]:
                 data["access_requests"] = []
             if "blocked_entities" not in data:
                 data["blocked_entities"] = []
+
+            # Normalize entries to support password_hash, salt, is_password_set
+            needs_save = False
+            default_pwd_hash: str | None = None
+            default_pwd_salt: str | None = None
+            seeded_emails = {u["email"].lower() for u in DEFAULT_SEEDED_USERS} | ROOT_ADMIN_EMAILS
+
+            for entry in data.get("allowlist", []):
+                email = entry.get("email", "").strip().lower()
+                if "is_password_set" not in entry or (email in seeded_emails and entry.get("password_hash") is None):
+                    if email in seeded_emails:
+                        if default_pwd_hash is None:
+                            default_pwd_hash, default_pwd_salt = hash_password(DEFAULT_INITIAL_PASSWORD)
+                        entry["password_hash"] = default_pwd_hash
+                        entry["salt"] = default_pwd_salt
+                        entry["is_password_set"] = True
+                    else:
+                        entry.setdefault("password_hash", None)
+                        entry.setdefault("salt", None)
+                        entry.setdefault("is_password_set", False)
+                    needs_save = True
+
             _rebuild_cache(data, storage_path, current_mtime)
+
+            if needs_save:
+                try:
+                    save_access_data(data)
+                except Exception as save_err:
+                    logger.debug("Non-critical notice saving normalized access data: %s", save_err)
+
             return data
     except Exception as err:
         logger.warning(
@@ -216,7 +406,16 @@ def save_access_data(data: dict[str, Any]) -> None:
         f.flush()
         os.fsync(f.fileno())
 
+    try:
+        os.chmod(temp_path, 0o600)
+    except OSError:
+        pass
+
     os.replace(temp_path, storage_path)
+    try:
+        os.chmod(storage_path, 0o600)
+    except OSError:
+        pass
     try:
         mtime = storage_path.stat().st_mtime
     except OSError:
@@ -356,6 +555,9 @@ def add_to_allowlist(
                 "status": "active",
                 "added_at": now_str,
                 "added_by": added_by,
+                "password_hash": None,
+                "salt": None,
+                "is_password_set": False,
             }
             allowlist.append(new_entry)
             target_entry = new_entry
@@ -371,6 +573,134 @@ def add_to_allowlist(
         extra={"event": "ALLOWLIST_UPDATED", "email": clean_email, "role": clean_role, "actor": added_by},
     )
     return target_entry
+
+
+def set_user_password(email: str, password: str) -> bool:
+    """Sets or updates the scrypt password hash and salt for a user."""
+    clean_email = email.strip().lower()
+    if not clean_email or not password:
+        return False
+    if len(password) < 8:
+        raise ValueError("Password must be at least 8 characters long.")
+
+    hex_hash, hex_salt = hash_password(password)
+    now_str = datetime.now(UTC).isoformat()
+
+    with _ACCESS_LOCK:
+        data = load_access_data()
+        allowlist = data.get("allowlist", [])
+        target_entry = None
+
+        for entry in allowlist:
+            if entry.get("email", "").strip().lower() == clean_email:
+                target_entry = entry
+                break
+
+        if target_entry:
+            target_entry["password_hash"] = hex_hash
+            target_entry["salt"] = hex_salt
+            target_entry["is_password_set"] = True
+            target_entry["password_updated_at"] = now_str
+        else:
+            clean_digest = hashlib.sha256(clean_email.encode("utf-8")).hexdigest()
+            is_auth = (
+                clean_email in ROOT_ADMIN_EMAILS
+                or clean_email in {e.strip().lower() for e in settings.allowed_emails if e.strip()}
+                or clean_digest in DEFAULT_AUTHORIZED_DIGESTS
+            )
+            if not is_auth:
+                return False
+
+            name, role = get_user_profile_by_email(clean_email)
+            target_entry = {
+                "email": clean_email,
+                "name": name,
+                "role": role,
+                "status": "active",
+                "added_at": now_str,
+                "added_by": "set_password",
+                "password_hash": hex_hash,
+                "salt": hex_salt,
+                "is_password_set": True,
+                "password_updated_at": now_str,
+            }
+            allowlist.append(target_entry)
+
+        data["allowlist"] = allowlist
+        save_access_data(data)
+
+    logger.info(
+        "Access Control: Password set for %s",
+        clean_email,
+        extra={"event": "USER_PASSWORD_SET", "email": clean_email},
+    )
+    return True
+
+
+def is_user_password_set(email: str) -> bool:
+    """Checks whether an authorized email address has an active password set."""
+    clean_email = email.strip().lower()
+    if not clean_email:
+        return False
+
+    with _ACCESS_LOCK:
+        load_access_data()
+        entry = _CACHED_ALLOWLIST_MAP.get(clean_email)
+        if entry:
+            return bool(entry.get("is_password_set") and entry.get("password_hash"))
+
+    clean_digest = hashlib.sha256(clean_email.encode("utf-8")).hexdigest()
+    return bool(clean_email in ROOT_ADMIN_EMAILS or clean_digest in DEFAULT_AUTHORIZED_DIGESTS)
+
+
+def verify_user_credentials(email: str, password: str | None) -> tuple[bool, str | None]:
+    """
+    Verifies user credentials using scrypt and constant-time comparison.
+    Returns:
+      (True, None) if password is valid.
+      (False, "PASSWORD_NOT_SET") if user exists / authorized but has no password configured.
+      (False, "PASSWORD_REQUIRED") if user has password set but password was omitted.
+      (False, "INVALID_CREDENTIALS") if password does not match.
+      (False, "USER_NOT_FOUND") if user is not authorized or not in allowlist.
+      (False, "ACCOUNT_REVOKED") if user's account is revoked.
+    """
+    clean_email = email.strip().lower()
+    if not clean_email:
+        return False, "INVALID_EMAIL"
+
+    with _ACCESS_LOCK:
+        load_access_data()
+        entry = _CACHED_ALLOWLIST_MAP.get(clean_email)
+
+    if not entry:
+        clean_digest = hashlib.sha256(clean_email.encode("utf-8")).hexdigest()
+        if clean_email in ROOT_ADMIN_EMAILS or clean_digest in DEFAULT_AUTHORIZED_DIGESTS:
+            if not password:
+                return False, "PASSWORD_REQUIRED"
+            d_hash, d_salt = hash_password(DEFAULT_INITIAL_PASSWORD)
+            if verify_password(password, d_hash, d_salt):
+                return True, None
+            return False, "INVALID_CREDENTIALS"
+        return False, "USER_NOT_FOUND"
+
+    if entry.get("status") != "active":
+        return False, "ACCOUNT_REVOKED"
+
+    if not entry.get("is_password_set"):
+        return False, "PASSWORD_NOT_SET"
+
+    stored_hash = entry.get("password_hash")
+    stored_salt = entry.get("salt")
+    if not stored_hash or not stored_salt:
+        return False, "PASSWORD_NOT_SET"
+
+    if not password:
+        return False, "PASSWORD_REQUIRED"
+
+    if verify_password(password, stored_hash, stored_salt):
+        return True, None
+
+    return False, "INVALID_CREDENTIALS"
 
 
 def remove_from_allowlist(email: str, removed_by: str = "admin") -> dict[str, Any]:

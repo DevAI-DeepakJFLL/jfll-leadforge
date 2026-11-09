@@ -29,6 +29,7 @@ import { triggerCsvDownload } from '@/utils/csv';
 import { getLatestApproachNotesForEntities } from '@/services/approachLogService';
 import { logger } from '@/utils/logger';
 import { TierFilterParams } from '@/types/tierSegmentation';
+import { UserSession } from '@/types/auth';
 import {
   DatamyneFilterParams,
   DatamyneResponse,
@@ -76,6 +77,7 @@ export interface DatamyneViewProps {
   onConvertToActive?: (lead: DatamyneLead) => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
+  currentUser?: UserSession | null;
 }
 
 export const DatamyneView: React.FC<DatamyneViewProps> = ({
@@ -115,7 +117,9 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   onConvertToActive,
   isMobileOpen,
   onCloseMobile,
+  currentUser,
 }) => {
+  const isViewer = currentUser?.role === 'Viewer';
   const [perspective, setPerspective] = React.useState<'verticals' | 'tiers'>('verticals');
   const {
     tab: tierTab,
@@ -478,6 +482,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           isExporting={perspective === 'tiers' ? isExportingTiers : isExporting}
           onDownloadSummaryReport={onDownloadSummaryReport || handleDownloadSummaryReport}
           isExportingSummary={isExportingSummary}
+          currentUser={currentUser}
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
           searchPlaceholder={
@@ -504,14 +509,14 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           onClearAll={clearAllFilters}
         />
 
-        <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
+        <div className="flex-1 flex flex-col p-3 sm:p-4 min-h-0 overflow-hidden">
           <DatamyneTable
             leads={displayItems}
             rowSelection={rowSelection}
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
-            onLogApproach={onLogApproach}
-            onConvertToActive={onConvertToActive}
+            onLogApproach={isViewer ? undefined : onLogApproach}
+            onConvertToActive={isViewer ? undefined : onConvertToActive}
             currentPage={displayPage}
             totalPages={displayTotalPages}
             pageSize={query.limit || 25}

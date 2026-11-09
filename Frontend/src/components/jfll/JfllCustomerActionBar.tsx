@@ -1,5 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet, ShieldAlert } from 'lucide-react';
+import { useDebounce } from '@/hooks/useDebounce';
+import { UserSession } from '@/types/auth';
 
 export interface JfllCustomerActionBarProps {
   selectedCount: number;
@@ -18,6 +20,8 @@ export interface JfllCustomerActionBarProps {
   onSearchChange?: (query: string) => void;
   searchPlaceholder?: string;
   className?: string;
+  currentUser?: UserSession | null;
+  isViewer?: boolean;
 }
 
 export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
@@ -37,8 +41,24 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
   onSearchChange,
   searchPlaceholder = 'Search customers by company, contact, phone, email...',
   className = '',
+  currentUser,
+  isViewer,
 }) => {
+  const isViewerUser = Boolean(isViewer || currentUser?.role === 'Viewer');
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const [localQuery, setLocalQuery] = useState(searchQuery);
+  const debouncedQuery = useDebounce(localQuery, 300);
+
+  useEffect(() => {
+    setLocalQuery(searchQuery);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (debouncedQuery !== searchQuery && onSearchChange) {
+      onSearchChange(debouncedQuery);
+    }
+  }, [debouncedQuery, searchQuery, onSearchChange]);
 
   // Global ⌘K / Ctrl+K keyboard shortcut to focus search input
   useEffect(() => {
@@ -106,16 +126,19 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
               <input
                 ref={searchInputRef}
                 type="text"
-                value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
+                value={localQuery}
+                onChange={(e) => setLocalQuery(e.target.value)}
                 placeholder={searchPlaceholder}
                 className="w-full pl-8 pr-12 py-1 text-xs bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-slate-900 placeholder:text-slate-400 border border-slate-200 hover:border-slate-300 focus:border-apollo rounded-md focus:outline-none focus:ring-2 focus:ring-apollo/15 transition-all shadow-2xs"
               />
-              {searchQuery ? (
+              {localQuery ? (
                 <button
                   type="button"
                   onClick={() => {
-                    onSearchChange('');
+                    setLocalQuery('');
+                    if (onSearchChange) {
+                      onSearchChange('');
+                    }
                     searchInputRef.current?.focus();
                   }}
                   className="absolute right-2 p-0.5 text-slate-400 hover:text-slate-600 rounded cursor-pointer"
@@ -136,7 +159,18 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
 
       {/* Right: Actions (Export CSV, Save, List) */}
       <div className="flex items-center space-x-2 shrink-0">
-        {selectedCount > 0 && onSaveSelected && (
+        {isViewerUser && (
+          <span
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-medium"
+            title="Viewing Mode · Contact Admin for Export Privileges"
+          >
+            <ShieldAlert className="w-3.5 h-3.5 text-amber-600" />
+            <span className="hidden sm:inline">Viewing Mode · Contact Admin for Export Privileges</span>
+            <span className="sm:hidden">Viewing Mode</span>
+          </span>
+        )}
+
+        {selectedCount > 0 && onSaveSelected && !isViewerUser && (
           <button
             onClick={onSaveSelected}
             className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded transition-colors cursor-pointer"
@@ -149,14 +183,18 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
         {onDownloadSummaryReport && (
           <button
             onClick={onDownloadSummaryReport}
-            disabled={isExportingSummary}
+            disabled={isExportingSummary || isViewerUser}
             className={`h-8 px-2.5 sm:px-3 rounded-md border font-medium flex items-center space-x-1.5 transition-all text-xs shadow-2xs ${
-              selectedCount > 0
+              isViewerUser
+                ? 'border-slate-200 text-slate-400 bg-slate-100 cursor-not-allowed opacity-60'
+                : selectedCount > 0
                 ? 'border-apollo/30 text-apollo bg-apollo/10 hover:bg-apollo/20 active:bg-apollo/25 cursor-pointer'
                 : 'border-slate-300 text-slate-700 bg-white hover:bg-slate-50 cursor-pointer'
             } disabled:opacity-50 disabled:cursor-not-allowed`}
             title={
-              selectedCount > 0
+              isViewerUser
+                ? 'Viewing Mode · Contact Admin for Export Privileges'
+                : selectedCount > 0
                 ? `Download senior management executive summary report for ${selectedCount} selected customer${selectedCount > 1 ? 's' : ''}`
                 : 'Download senior management executive summary report for current page'
             }
@@ -165,7 +203,7 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
             {isExportingSummary ? (
               <Loader2 className="w-3.5 h-3.5 animate-spin text-apollo" />
             ) : (
-              <FileSpreadsheet className={`w-3.5 h-3.5 ${selectedCount > 0 ? 'text-apollo' : 'text-slate-600'}`} />
+              <FileSpreadsheet className={`w-3.5 h-3.5 ${isViewerUser ? 'text-slate-400' : selectedCount > 0 ? 'text-apollo' : 'text-slate-600'}`} />
             )}
             <span className="hidden sm:inline">
               {`Summary Report${selectedCount > 0 ? ` (${selectedCount})` : ''}`}
@@ -178,9 +216,17 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
 
         <button
           onClick={onExport}
-          disabled={isExporting}
-          className="h-8 px-2.5 sm:px-3 rounded-md border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 font-medium flex items-center space-x-1.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs shadow-2xs cursor-pointer"
-          title="Export filtered records to clean CSV"
+          disabled={isExporting || isViewerUser}
+          className={`h-8 px-2.5 sm:px-3 rounded-md border font-medium flex items-center space-x-1.5 transition-colors text-xs shadow-2xs ${
+            isViewerUser
+              ? 'border-slate-200 text-slate-400 bg-slate-100 cursor-not-allowed opacity-60'
+              : 'border-slate-200 text-slate-700 bg-white hover:bg-slate-50 cursor-pointer'
+          } disabled:opacity-50 disabled:cursor-not-allowed`}
+          title={
+            isViewerUser
+              ? 'Viewing Mode · Contact Admin for Export Privileges'
+              : 'Export filtered records to clean CSV'
+          }
         >
           {isExporting ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin text-apollo" />

@@ -3,12 +3,7 @@ from pydantic import ValidationError
 
 from src.api.report_models import (
     ClientReportData,
-    CompanyBackground,
-    ContactItem,
-    JfllFit,
-    ReportHeader,
     SalesFeedback,
-    TradeLaneCommodity,
 )
 
 

@@ -51,7 +51,13 @@ class HealthResponse(BaseModel):
 
 class LoginRequest(BaseModel):
     email: str = Field(..., min_length=3, max_length=150, description="Enterprise work email")
-    password: str | None = Field(default=None, description="Optional account password")
+    password: str | None = Field(default=None, description="Optional account password or passphrase")
+
+
+class SetPasswordRequest(BaseModel):
+    email: str = Field(..., min_length=3, max_length=150, description="Enterprise work email")
+    new_password: str = Field(..., min_length=8, max_length=128, description="New account password (min 8 chars)")
+    current_password: str | None = Field(default=None, max_length=128, description="Current password when updating an existing password")
 
 
 class UserSessionResponse(BaseModel):
@@ -61,6 +67,7 @@ class UserSessionResponse(BaseModel):
     token: str = Field(..., description="Signed authentication bearer token")
     token_type: str = Field(default="Bearer", description="Token type")
     expires_at: str | None = Field(None, description="ISO timestamp of token expiration")
+    requires_password_setup: bool = Field(default=False, description="Whether password setup is required")
 
 
 class ApolloLeadRecord(BaseModel):
@@ -178,5 +185,6 @@ class AllowlistEntryResponse(BaseModel):
     updated_by: str | None = None
     revoked_at: str | None = None
     revoked_by: str | None = None
+    is_password_set: bool = False
 
 

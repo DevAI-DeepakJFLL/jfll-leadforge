@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 from typing import Any, ClassVar
 
@@ -47,6 +48,13 @@ class Settings(BaseModel):
     api_port: int = Field(default_factory=lambda: int(os.getenv("API_PORT", "8000")))
     auth_secret_key: str = Field(default_factory=lambda: os.getenv("AUTH_SECRET_KEY", "jfll-lead-sourcing-secret-key-2026-enterprise"))
     auth_token_expire_hours: int = Field(default_factory=lambda: int(os.getenv("AUTH_TOKEN_EXPIRE_HOURS", "24")))
+    allow_dev_auth_bypass: bool = Field(
+        default_factory=lambda: os.getenv(
+            "ALLOW_DEV_AUTH_BYPASS",
+            "true" if ("pytest" in sys.modules or os.getenv("PYTEST_CURRENT_TEST")) else "false",
+        ).lower()
+        == "true"
+    )
     default_user_email: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_EMAIL", "team@jfll.com"))
     default_user_name: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_NAME", "JFLL Team Member"))
     default_user_role: str = Field(default_factory=lambda: os.getenv("DEFAULT_USER_ROLE", "Internal Team"))
@@ -73,13 +81,13 @@ class Settings(BaseModel):
 
     @model_validator(mode="after")
     def validate_production_security(self):
-        if self.env == "production" and (
-            not self.auth_secret_key or self.auth_secret_key == self.DEFAULT_INSECURE_SECRET
-        ):
-            raise ValueError(
-                "CRITICAL SECURITY CONFIGURATION ERROR: AUTH_SECRET_KEY must be set to a secure, "
-                "high-entropy secret in production environments. Using the default placeholder is disallowed."
-            )
+        if self.env == "production":
+            self.allow_dev_auth_bypass = False
+            if not self.auth_secret_key or self.auth_secret_key == self.DEFAULT_INSECURE_SECRET:
+                raise ValueError(
+                    "CRITICAL SECURITY CONFIGURATION ERROR: AUTH_SECRET_KEY must be set to a secure, "
+                    "high-entropy secret in production environments. Using the default placeholder is disallowed."
+                )
         return self
 
     cache_dir: Path = Field(

@@ -15,7 +15,6 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
-import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
 import { TierScoreBadge } from '@/components/tiers';
 import { SalesStatusBadge } from '@/components/approach';
 import {
@@ -84,31 +83,35 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   if (isLoading) {
     return (
       <div
-        className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex flex-col ${className}`}
+        className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex-1 flex flex-col min-h-0 ${className}`}
       >
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-                <th className="py-3 px-3 w-10 text-center">
+        <div className="flex-1 overflow-auto min-h-0 relative">
+          <table className="w-full min-w-[1020px] text-left text-xs border-collapse">
+            <thead className="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-xs">
+              <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+                <th className="sticky left-0 z-30 bg-slate-50 py-3 px-3 w-10 text-center border-r border-slate-200/60">
                   <span className="sr-only">Select</span>
                 </th>
-                <th className="py-3 px-4 min-w-[260px]">Company & Role</th>
+                <th className="sticky left-10 z-30 bg-slate-50 py-3 px-4 min-w-[260px] border-r border-slate-200/60 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)]">
+                  Company & Role
+                </th>
                 <th className="py-3 px-3.5 min-w-[210px]">Category & Subcategory</th>
                 <th className="py-3 px-3.5 min-w-[150px]">City & Corridor</th>
-                <th className="py-3 px-3.5 min-w-[160px]">Shipments & Value</th>
+                <th className="py-3 px-3.5 min-w-[160px] text-right">Shipments & Value</th>
                 <th className="py-3 px-3.5 min-w-[150px]">Contact Readiness</th>
                 <th className="py-3 px-3.5 min-w-[130px]">Sales Status</th>
-                <th className="py-3 px-4 min-w-[150px] text-center">Action</th>
+                <th className="sticky right-0 z-30 bg-slate-50 py-3 px-4 min-w-[160px] text-center border-l border-slate-200/60 shadow-[-2px_0_4px_-2px_rgba(0,0,0,0.06)]">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {Array.from({ length: pageSize || 10 }).map((_, i) => (
                 <tr key={i} className="animate-pulse">
-                  <td className="py-3.5 px-3 text-center">
+                  <td className="sticky left-0 z-10 bg-white w-10 border-r border-slate-200/60 py-3.5 px-3 text-center">
                     <div className="w-4 h-4 bg-slate-200 rounded mx-auto" />
                   </td>
-                  <td className="py-3.5 px-4">
+                  <td className="sticky left-10 z-10 bg-white min-w-[260px] border-r border-slate-200/60 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3.5 px-4">
                     <div className="w-48 h-3.5 bg-slate-200 rounded mb-1.5" />
                     <div className="w-20 h-2.5 bg-slate-100 rounded" />
                   </td>
@@ -120,14 +123,18 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                     <div className="w-24 h-3 bg-slate-200 rounded mb-1" />
                     <div className="w-16 h-2 bg-slate-100 rounded" />
                   </td>
-                  <td className="py-3.5 px-3.5">
-                    <div className="w-20 h-3.5 bg-slate-200 rounded mb-1" />
-                    <div className="w-24 h-3 bg-emerald-100 rounded" />
+                  <td className="py-3.5 px-3.5 text-right font-mono tabular-nums">
+                    <div className="w-20 h-3.5 bg-slate-200 rounded mb-1 ml-auto" />
+                    <div className="w-24 h-3 bg-emerald-100 rounded ml-auto" />
                   </td>
                   <td className="py-3.5 px-3.5">
                     <div className="w-24 h-4 bg-slate-200 rounded-full" />
                   </td>
-                  <td className="py-3.5 px-4 text-center">
+                  {/* Sales Status (Column 7) */}
+                  <td className="py-3.5 px-3.5">
+                    <div className="w-20 h-4 bg-slate-100 rounded-full" />
+                  </td>
+                  <td className="sticky right-0 z-10 bg-white min-w-[160px] border-l border-slate-200/60 shadow-[-2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3.5 px-4 text-center">
                     <div className="w-16 h-6 bg-slate-100 rounded mx-auto" />
                   </td>
                 </tr>
@@ -203,22 +210,26 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex flex-col ${className}`}
+      className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex-1 flex flex-col min-h-0 ${className}`}
     >
-      <div className="overflow-x-auto min-w-0">
+      <div className="flex-1 overflow-auto min-h-0 relative">
         <table className="w-full min-w-[1020px] text-left text-xs border-collapse">
-          <thead className="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-xs shadow-2xs">
-            <tr className="border-b border-slate-200 bg-slate-50/95 backdrop-blur-xs text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-              <th className="py-3 px-3 w-10 text-center">
+          <thead className="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-xs">
+            <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+              <th className="sticky left-0 z-30 bg-slate-50 py-3 px-3 w-10 text-center border-r border-slate-200/60">
                 <span className="sr-only">Select</span>
               </th>
-              <th className="py-3 px-4 min-w-[260px]">Company & Role</th>
+              <th className="sticky left-10 z-30 bg-slate-50 py-3 px-4 min-w-[260px] border-r border-slate-200/60 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)]">
+                Company & Role
+              </th>
               <th className="py-3 px-3.5 min-w-[220px]">Category & Subcategory</th>
               <th className="py-3 px-3.5 min-w-[160px]">City & Corridor</th>
-              <th className="py-3 px-3.5 min-w-[170px]">Shipments & Traded Value</th>
+              <th className="py-3 px-3.5 min-w-[170px] text-right">Shipments & Value</th>
               <th className="py-3 px-3.5 min-w-[170px] whitespace-nowrap">Contact Readiness</th>
               <th className="py-3 px-3.5 min-w-[140px] whitespace-nowrap">Sales Status</th>
-              <th className="py-3 px-4 min-w-[160px] text-center">Action</th>
+              <th className="sticky right-0 z-30 bg-slate-50 py-3 px-4 min-w-[160px] text-center border-l border-slate-200/60 shadow-[-2px_0_4px_-2px_rgba(0,0,0,0.06)]">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -237,14 +248,26 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
               return (
                 <tr
                   key={l.id}
+                  role="row"
+                  tabIndex={0}
+                  aria-selected={isSelected}
                   onClick={() => onLeadClick(l)}
-                  className={`transition-colors cursor-pointer group ${
+                  onKeyDown={(e) => {
+                    if (e.target !== e.currentTarget) return;
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onLeadClick(l);
+                    }
+                  }}
+                  className={`transition-colors cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-apollo focus-visible:ring-inset ${
                     isSelected ? 'bg-blue-50/35 hover:bg-blue-50/50' : 'hover:bg-slate-50/80 bg-white'
                   }`}
                 >
                   {/* Checkbox */}
                   <td
-                    className="py-3 px-3 text-center align-middle"
+                    className={`sticky left-0 z-10 w-10 border-r border-slate-200/60 py-3 px-3 text-center align-middle transition-colors ${
+                      isSelected ? 'bg-blue-50/90 group-hover:bg-blue-50' : 'bg-white group-hover:bg-slate-50/80'
+                    }`}
                     onClick={(e) => handleToggleRow(l.id, e)}
                   >
                     <div className="flex items-center justify-center min-h-[36px] min-w-[36px]">
@@ -259,7 +282,11 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Company Name & Role */}
-                  <td className="py-3 px-4 align-middle">
+                  <td
+                    className={`sticky left-10 z-10 min-w-[260px] border-r border-slate-200/60 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3 px-4 align-middle transition-colors ${
+                      isSelected ? 'bg-blue-50/90 group-hover:bg-blue-50' : 'bg-white group-hover:bg-slate-50/80'
+                    }`}
+                  >
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shrink-0 shadow-2xs">
                         {initials || <Building2 className="w-4 h-4 text-slate-400" />}
@@ -284,13 +311,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
 
                           {/* Role Badge */}
                           <span
-                            className={`inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded border whitespace-nowrap shrink-0 leading-tight ${
-                              l.role === 'Exporter'
-                                ? 'bg-blue-50 text-blue-700 border-blue-200/80'
-                                : l.role === 'Importer'
-                                ? 'bg-rose-50 text-rose-700 border-rose-200/80'
-                                : 'bg-purple-50 text-purple-700 border-purple-200/80'
-                            }`}
+                            className="inline-flex items-center text-[11px] font-medium px-2 py-0.5 rounded border border-slate-200 bg-slate-100/90 text-slate-700 whitespace-nowrap shrink-0 leading-tight"
                             title={`Trading Role: ${l.role}`}
                           >
                             {l.role === 'Both (Exporter & Importer)' || l.role === 'Both'
@@ -301,13 +322,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                           {/* Transport Mode Badge */}
                           {l.transport_mode && (
                             <span
-                              className={`inline-flex items-center gap-1.5 text-[10px] font-semibold px-2 py-0.5 rounded border whitespace-nowrap shrink-0 leading-tight ${
-                                l.transport_mode === 'Air'
-                                  ? 'bg-sky-50 text-sky-700 border-sky-200/80'
-                                  : l.transport_mode === 'Ocean'
-                                  ? 'bg-cyan-50 text-cyan-700 border-cyan-200/80'
-                                  : 'bg-indigo-50 text-indigo-700 border-indigo-200/80'
-                              }`}
+                              className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2 py-0.5 rounded border border-slate-200 bg-slate-100/90 text-slate-700 whitespace-nowrap shrink-0 leading-tight"
                               title={`Transport Mode: ${
                                 l.transport_mode === 'Air & Ocean'
                                   ? 'Multi-modal (Air & Ocean)'
@@ -316,22 +331,22 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                             >
                               {l.transport_mode === 'Air' ? (
                                 <>
-                                  <Plane className="w-2.5 h-2.5 text-sky-600 shrink-0" />
+                                  <Plane className="w-2.5 h-2.5 text-slate-500 shrink-0" />
                                   <span>Air</span>
                                 </>
                               ) : l.transport_mode === 'Ocean' ? (
                                 <>
-                                  <Ship className="w-2.5 h-2.5 text-cyan-600 shrink-0" />
+                                  <Ship className="w-2.5 h-2.5 text-slate-500 shrink-0" />
                                   <span>Ocean</span>
                                 </>
                               ) : (
                                 <>
                                   <span className="inline-flex items-center gap-0.5 shrink-0">
-                                    <Plane className="w-2.5 h-2.5 text-indigo-600 shrink-0" />
-                                    <span className="text-[9px] text-indigo-300 font-normal leading-none select-none">
+                                    <Plane className="w-2.5 h-2.5 text-slate-500 shrink-0" />
+                                    <span className="text-[9px] text-slate-400 font-normal leading-none select-none">
                                       /
                                     </span>
-                                    <Ship className="w-2.5 h-2.5 text-indigo-600 shrink-0" />
+                                    <Ship className="w-2.5 h-2.5 text-slate-500 shrink-0" />
                                   </span>
                                   <span>Multimodal</span>
                                 </>
@@ -356,7 +371,13 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   {/* Category & Subcategory */}
                   <td className="py-3 px-3.5 align-middle">
                     <div>
-                      <DatamyneCategoryBadge category={l.category} />
+                      <span
+                        className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-slate-100/90 text-slate-700 border border-slate-200 whitespace-nowrap shadow-2xs"
+                        title={l.category}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-slate-400" />
+                        <span>{l.category}</span>
+                      </span>
                       <div
                         className="text-[11px] text-slate-500 font-normal truncate max-w-[200px] mt-0.5 leading-tight"
                         title={l.subcategory}
@@ -379,7 +400,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Volume & Value */}
-                  <td className="py-3 px-3.5 align-middle">
+                  <td className="py-3 px-3.5 align-middle text-right font-mono tabular-nums">
                     <div>
                       <div className="font-semibold text-xs text-slate-900 leading-tight">
                         {l.total_shipments.toLocaleString('en-US')} shipments
@@ -433,7 +454,11 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Action CTA: View, Approach, Convert */}
-                  <td className="py-3 px-4 text-center align-middle">
+                  <td
+                    className={`sticky right-0 z-10 min-w-[160px] border-l border-slate-200/60 shadow-[-2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3 px-4 text-center align-middle transition-colors ${
+                      isSelected ? 'bg-blue-50/90 group-hover:bg-blue-50' : 'bg-white group-hover:bg-slate-50/80'
+                    }`}
+                  >
                     <div className="flex items-center justify-center gap-1.5">
                       <button
                         onClick={(e) => {

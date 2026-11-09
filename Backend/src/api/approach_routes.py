@@ -10,7 +10,9 @@ from pathlib import Path
 from typing import Any, Literal
 
 from fastapi import APIRouter, Header, HTTPException, Query
+from pydantic import BaseModel
 
+from src.api.access_control import Permission
 from src.api.approach_models import (
     FUNNEL_RANKS,
     MANDATORY_NOTE_STATUSES,
@@ -23,7 +25,7 @@ from src.api.approach_models import (
     SalesStatus,
 )
 from src.api.config import settings
-from src.api.helpers import require_auth
+from src.api.helpers import require_auth, require_permission
 from src.api.logger import logger
 
 approach_router = APIRouter(prefix="/api/v1/approach-logs", tags=["Sales Approach Logs"])
@@ -152,7 +154,16 @@ def save_approach_data(data: dict[str, Any]) -> None:
         f.flush()
         os.fsync(f.fileno())
 
+    try:
+        os.chmod(temp_path, 0o600)
+    except OSError:
+        pass
+
     os.replace(temp_path, storage_path)
+    try:
+        os.chmod(storage_path, 0o600)
+    except OSError:
+        pass
     try:
         _CACHED_MTIME = storage_path.stat().st_mtime
         _CACHED_DATA = data
@@ -278,6 +289,37 @@ def get_entity_approach_history(
     )
 
 
+class ApproachLogDirectRequest(BaseModel):
+    entity_type: Literal["datamyne", "jfll_customer"] = "datamyne"
+    entity_id: str
+    action: SalesAction = SalesAction.CALLED_CUSTOMER
+    status: SalesStatus = SalesStatus.CONTACTED
+    note: str | None = None
+
+
+@approach_router.post(
+    "/log",
+    response_model=EntityApproachHistory,
+    summary="Log a sales approach activity directly",
+)
+def post_direct_approach_log(
+    payload: ApproachLogDirectRequest,
+    authorization: str | None = Header(None),
+) -> EntityApproachHistory:
+    """Convenience endpoint accepting full payload including entity coordinates."""
+    create_payload = ApproachLogCreate(
+        action=payload.action,
+        status=payload.status,
+        note=payload.note,
+    )
+    return log_approach_activity(
+        entity_type=payload.entity_type,
+        entity_id=payload.entity_id,
+        payload=create_payload,
+        authorization=authorization,
+    )
+
+
 @approach_router.post(
     "/{entity_type}/{entity_id}",
     response_model=EntityApproachHistory,
@@ -292,7 +334,7 @@ def log_approach_activity(
     """
     Records a sales outreach action, validates status transitions, and enforces mandatory notes.
     """
-    user = require_auth(authorization, "log sales approach")
+    user = require_permission(Permission.LOG_APPROACH)(authorization)
     user_email = user.get("sub", "sales.coordinator@jfll.com").strip().lower()
     user_name = user.get("name") or user_email.split("@")[0].replace(".", " ").title()
 

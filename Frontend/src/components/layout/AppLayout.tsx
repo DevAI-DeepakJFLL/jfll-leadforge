@@ -45,35 +45,39 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`flex h-screen w-screen overflow-hidden bg-slate-50 text-slate-900 font-sans antialiased ${className}`}>
+    <div className={`flex h-screen w-screen overflow-hidden bg-slate-50 text-slate-900 font-sans antialiased print:h-auto print:w-auto print:overflow-visible ${className}`}>
       {/* Leftmost 64px Dark Dock (Desktop) & Bottom Navigation Bar (Mobile) */}
-      <AppDock
-        activeNav={activeNav}
-        onNavChange={onNavChange}
-        savedSearchesCount={savedSearchesCount}
-        onOpenSettings={onOpenSettings}
-        onOpenAdminPortal={onOpenAdminPortal}
-        pendingRequestsCount={pendingRequestsCount}
-        onLogout={onLogout}
-        currentUser={currentUser}
-      />
+      <div className="print:hidden">
+        <AppDock
+          activeNav={activeNav}
+          onNavChange={onNavChange}
+          savedSearchesCount={savedSearchesCount}
+          onOpenSettings={onOpenSettings}
+          onOpenAdminPortal={onOpenAdminPortal}
+          pendingRequestsCount={pendingRequestsCount}
+          onLogout={onLogout}
+          currentUser={currentUser}
+        />
+      </div>
 
       {/* Main Workspace Frame */}
-      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden print:h-auto print:overflow-visible print:block">
         {/* Top Navigation Bar */}
-        <TopHeader
-          activeTab={activeTab}
-          onTabChange={onTabChange}
-          searchQuery={searchQuery}
-          onSearchChange={onSearchChange}
-          onSearchSubmit={onSearchSubmit}
-          onToggleMobileFilter={onToggleMobileFilter}
-          activeFilterCount={activeFilterCount}
-          savedCount={savedCount}
-        />
+        <div className="print:hidden">
+          <TopHeader
+            activeTab={activeTab}
+            onTabChange={onTabChange}
+            searchQuery={searchQuery}
+            onSearchChange={onSearchChange}
+            onSearchSubmit={onSearchSubmit}
+            onToggleMobileFilter={onToggleMobileFilter}
+            activeFilterCount={activeFilterCount}
+            savedCount={savedCount}
+          />
+        </div>
 
         {/* Content Viewport with pb-14 on mobile to accommodate bottom dock */}
-        <main className="flex-1 min-h-0 overflow-hidden flex relative bg-slate-50 pb-14 md:pb-0">
+        <main className="flex-1 min-h-0 overflow-hidden flex relative bg-slate-50 pb-14 md:pb-0 print:h-auto print:overflow-visible print:p-0 print:block">
           {children}
         </main>
       </div>

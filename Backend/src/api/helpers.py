@@ -1,28 +1,44 @@
 import re
 from typing import Any
 
-from fastapi import HTTPException, Request
+from fastapi import Header, HTTPException, Request
 from fastapi.params import Query as QueryType
 
-from src.api.access_control import is_email_active
+from src.api.access_control import (
+    ROOT_ADMIN_EMAILS,
+    Permission,
+    has_permission,
+    is_email_active,
+)
 from src.api.auth import check_session_active, verify_token
 from src.api.config import settings
 from src.api.logger import logger
 
+_IP_FORMAT_RE = re.compile(r"^[0-9a-fA-F:\.]+$")
+
+
+def _clean_ip_header(val: str | None) -> str | None:
+    if not val:
+        return None
+    candidate = val.split(",")[0].strip()
+    if candidate and len(candidate) <= 45 and _IP_FORMAT_RE.match(candidate):
+        return candidate
+    return None
+
 
 def get_client_ip(request: Request) -> str:
     """Safely extracts client public IP address considering proxies, CloudFront, and Lambda URL."""
-    cf_connecting_ip = request.headers.get("cf-connecting-ip")
+    cf_connecting_ip = _clean_ip_header(request.headers.get("cf-connecting-ip"))
     if cf_connecting_ip:
-        return cf_connecting_ip.split(",")[0].strip()
+        return cf_connecting_ip
 
-    x_forwarded_for = request.headers.get("x-forwarded-for")
+    x_forwarded_for = _clean_ip_header(request.headers.get("x-forwarded-for"))
     if x_forwarded_for:
-        return x_forwarded_for.split(",")[0].strip()
+        return x_forwarded_for
 
-    x_real_ip = request.headers.get("x-real-ip")
+    x_real_ip = _clean_ip_header(request.headers.get("x-real-ip"))
     if x_real_ip:
-        return x_real_ip.strip()
+        return x_real_ip
 
     if request.client and request.client.host:
         return request.client.host.strip()
@@ -67,9 +83,151 @@ def require_auth(
                 detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
             )
         return user
-    elif settings.env == "production":
+    elif settings.env == "production" or not settings.allow_dev_auth_bypass:
         raise HTTPException(status_code=401, detail=f"Authentication required to access {resource_name}")
     return {}
+
+
+def require_permission(perm: Permission):
+    """
+    FastAPI dependency that extracts user session from Authorization header,
+    validates active session and email, and verifies that the role has the required permission.
+    Raises HTTPException(403) with PERMISSION_DENIED if unauthorized.
+    Allows development bypass when Authorization is omitted in non-production.
+    """
+    def dependency(
+        authorization: str | None = Header(None),
+    ) -> dict[str, Any]:
+        if authorization and authorization.startswith("Bearer "):
+            token = authorization.split("Bearer ", 1)[1].strip()
+            user = verify_token(token)
+            if not user:
+                raise HTTPException(status_code=401, detail="Invalid or expired session token")
+
+            user_email = user.get("sub", "").strip().lower()
+
+            if user_email and not is_email_active(user_email):
+                logger.warning(
+                    f"Audit: Data request rejected (access revoked) for {user_email}",
+                    extra={"event": "ACCESS_REVOKED", "user_email": user_email, "permission": perm.value},
+                )
+                raise HTTPException(
+                    status_code=401,
+                    detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
+                )
+
+            if not check_session_active(user):
+                logger.warning(
+                    f"Audit: Data request rejected (session displaced) for {user_email}",
+                    extra={"event": "SESSION_SUPERSEDED", "user_email": user_email, "permission": perm.value},
+                )
+                raise HTTPException(
+                    status_code=401,
+                    detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
+                )
+
+            user_role = user.get("role", "")
+            if not user_role and user_email in ROOT_ADMIN_EMAILS:
+                user_role = "Root Admin"
+
+            if user_email in ROOT_ADMIN_EMAILS:
+                return user
+
+            if not has_permission(user_role, perm):
+                logger.warning(
+                    "Security: User '%s' with role '%s' denied permission '%s'",
+                    user_email,
+                    user_role,
+                    perm.value,
+                    extra={"event": "PERMISSION_DENIED", "user_email": user_email, "role": user_role, "permission": perm.value},
+                )
+                detail_msg = f"PERMISSION_DENIED: {perm.value} requires elevated role privileges"
+                if perm in (Permission.ADMIN_PORTAL, Permission.MANAGE_USERS):
+                    detail_msg += ". Administrative privileges required."
+                raise HTTPException(
+                    status_code=403,
+                    detail=detail_msg,
+                )
+            return user
+        elif (
+            settings.env == "production"
+            or not settings.allow_dev_auth_bypass
+            or perm in (Permission.ADMIN_PORTAL, Permission.MANAGE_USERS)
+        ):
+            raise HTTPException(status_code=401, detail=f"Authentication required to access {perm.value}")
+        return {
+            "sub": "dev@jfll.com",
+            "name": "Dev User",
+            "role": "Tech Lead",
+        }
+
+    return dependency
+
+
+def require_role(allowed_roles: set[str] | list[str]):
+    """
+    FastAPI dependency that extracts user session and validates that caller's
+    role is in allowed_roles.
+    """
+    allowed_set = {r.strip().lower() for r in allowed_roles}
+
+    def dependency(
+        authorization: str | None = Header(None),
+    ) -> dict[str, Any]:
+        if authorization and authorization.startswith("Bearer "):
+            token = authorization.split("Bearer ", 1)[1].strip()
+            user = verify_token(token)
+            if not user:
+                raise HTTPException(status_code=401, detail="Invalid or expired session token")
+
+            user_email = user.get("sub", "").strip().lower()
+
+            if user_email and not is_email_active(user_email):
+                logger.warning(
+                    f"Audit: Data request rejected (access revoked) for {user_email}",
+                    extra={"event": "ACCESS_REVOKED", "user_email": user_email},
+                )
+                raise HTTPException(
+                    status_code=401,
+                    detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
+                )
+
+            if not check_session_active(user):
+                logger.warning(
+                    f"Audit: Data request rejected (session displaced) for {user_email}",
+                    extra={"event": "SESSION_SUPERSEDED", "user_email": user_email},
+                )
+                raise HTTPException(
+                    status_code=401,
+                    detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
+                )
+
+            user_role = user.get("role", "").strip()
+            if user_email in ROOT_ADMIN_EMAILS:
+                return user
+
+            if user_role.lower() not in allowed_set:
+                logger.warning(
+                    "Security: User '%s' with role '%s' not in allowed roles: %s",
+                    user_email,
+                    user_role,
+                    allowed_set,
+                    extra={"event": "ROLE_FORBIDDEN", "user_email": user_email, "role": user_role},
+                )
+                raise HTTPException(
+                    status_code=403,
+                    detail=f"FORBIDDEN_ROLE: Role '{user_role}' requires elevated role privileges",
+                )
+            return user
+        elif settings.env == "production" or not settings.allow_dev_auth_bypass:
+            raise HTTPException(status_code=401, detail="Authentication required")
+        return {
+            "sub": "dev@jfll.com",
+            "name": "Dev User",
+            "role": "Tech Lead",
+        }
+
+    return dependency
 
 
 def normalize_query(val: Any, default: Any = None) -> Any:

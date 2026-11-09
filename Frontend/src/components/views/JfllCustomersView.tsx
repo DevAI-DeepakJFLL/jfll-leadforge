@@ -19,6 +19,7 @@ import { getLatestApproachNotesForEntities } from '@/services/approachLogService
 import { triggerCsvDownload } from '@/utils/csv';
 import { JFLL_ALL_CUSTOMERS_DATA } from '@/data/jfllAllCustomersData';
 import { logger } from '@/utils/logger';
+import { UserSession } from '@/types/auth';
 
 export interface JfllCustomersViewProps {
   filters: JfllCustomerFilterParams;
@@ -55,6 +56,7 @@ export interface JfllCustomersViewProps {
   onConvertToActive?: (customer: JfllCustomer) => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
+  currentUser?: UserSession | null;
 }
 
 export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
@@ -92,7 +94,9 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
   onConvertToActive,
   isMobileOpen,
   onCloseMobile,
+  currentUser,
 }) => {
+  const isViewer = currentUser?.role === 'Viewer';
   const items = query.items;
   const { showToast } = useToast();
   const [isExportingSummary, setIsExportingSummary] = useState(false);
@@ -181,12 +185,13 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
           isExporting={isExporting}
           onDownloadSummaryReport={handleDownloadSummaryReport}
           isExportingSummary={isExportingSummary}
+          currentUser={currentUser}
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
           searchPlaceholder="Search customers by company, contact, phone, email..."
         />
 
-        <div className="flex-1 overflow-y-auto p-3 sm:p-4 min-h-0">
+        <div className="flex-1 flex flex-col p-3 sm:p-4 min-h-0 overflow-hidden">
           <JfllCustomerTable
             customers={items}
             isLoading={isLoading}
@@ -196,8 +201,8 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
             rowSelection={rowSelection}
             onRowSelectionChange={onRowSelectionChange}
             onCustomerClick={onCustomerClick}
-            onLogApproach={onLogApproach}
-            onConvertToActive={onConvertToActive}
+            onLogApproach={isViewer ? undefined : onLogApproach}
+            onConvertToActive={isViewer ? undefined : onConvertToActive}
             currentPage={query.page}
             totalPages={query.totalPages}
             pageSize={query.limit}

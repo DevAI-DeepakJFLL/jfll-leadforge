@@ -76,7 +76,7 @@ def test_build_company_search_sql_multi_keyword_isolation():
     """Verify that multi-keyword queries require all keywords and do not fall back to loose first-word OR."""
     from src.api.helpers import build_company_search_sql
     
-    sql, params = build_company_search_sql("Titan Laboratories")
+    _sql, params = build_company_search_sql("Titan Laboratories")
     # Must use word boundaries for titan and laboratories
     assert r"\btitan\b" in params
     assert r"\blaboratories\b" in params

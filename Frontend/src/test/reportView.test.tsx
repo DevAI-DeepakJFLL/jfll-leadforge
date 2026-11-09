@@ -120,4 +120,14 @@ describe('ReportView Component Suite', () => {
     expect(html).toContain('$3.20/kg');
     expect(html).toContain('Proposal by Tuesday');
   });
+
+  it('disables Word export and shows viewing mode badge for Viewer role users', () => {
+    const draft = createEmptyReportDraft('Titan Laboratories Pvt Ltd');
+    const viewerUser = { email: 'viewer@jfll.com', name: 'Viewer Person', role: 'Viewer', token: 'tok' };
+    const html = renderToString(<ReportView initialReport={draft} currentUser={viewerUser} />);
+
+    expect(html).toContain('Viewing Mode · Contact Admin for Export Privileges');
+    expect(html).toContain('Export Word (.docx)');
+    expect(html).toContain('cursor-not-allowed');
+  });
 });

@@ -76,6 +76,8 @@ export interface BackendAuthResponse {
   token: string;
   token_type?: string;
   expires_at?: string;
+  requires_password_setup?: boolean;
+  permissions?: string[];
 }
 
 export class AuthError extends Error {
@@ -149,6 +151,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
       email: data.email,
       role: data.role,
       tokenIssued: !!data.token,
+      requiresPasswordSetup: Boolean(data.requires_password_setup),
     });
 
     return {
@@ -156,6 +159,8 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
       name: data.name,
       role: data.role,
       token: data.token,
+      requires_password_setup: Boolean(data.requires_password_setup),
+      permissions: data.permissions,
     };
   } catch (err: unknown) {
     if (err instanceof AuthError) {
@@ -190,6 +195,7 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
               role: entry.role || 'Commercial',
               token: `offline_session_${Date.now()}`,
               isOffline: true,
+              requires_password_setup: false,
             };
           }
         }
@@ -207,11 +213,157 @@ export async function loginUser(credentials: LoginCredentials): Promise<UserSess
         ...matchingUser,
         token: `offline_session_${Date.now()}`,
         isOffline: true,
+        requires_password_setup: false,
       };
     }
 
     throw new Error('Access restricted. Only authorized Jet Freight Logistics personnel can sign in.');
   }
+}
+
+/**
+ * Sets or updates user account password against the Backend REST API.
+ * On success, stores and returns the active UserSession.
+ */
+export async function setUserPassword(email: string, newPassword: string): Promise<UserSession> {
+  const normalizedEmail = email.trim().toLowerCase();
+  const startTime = performance.now();
+  logger.info('AUTH', 'Setting user account password', { email: normalizedEmail });
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/auth/set-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Device-Fingerprint': getDeviceFingerprint(),
+      },
+      body: JSON.stringify({
+        email: normalizedEmail,
+        new_password: newPassword,
+      }),
+    });
+
+    const durationMs = performance.now() - startTime;
+    logger.apiCall('POST', '/api/v1/auth/set-password', durationMs, res.status);
+
+    if (res.status === 403) {
+      const errData = await res.json().catch(() => ({}));
+      const message =
+        errData.detail || 'Access forbidden: Automated browser agents and headless environments are not permitted.';
+      throw new AuthError(message, 403);
+    }
+
+    if (res.status === 401) {
+      const errData = await res.json().catch(() => ({}));
+      const message =
+        errData.detail || 'Access restricted. Only authorized Jet Freight Logistics personnel can set a password.';
+      throw new AuthError(message, 401);
+    }
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      const message = errData.detail || `Password setup failed with status HTTP ${res.status}`;
+      throw new AuthError(message, res.status);
+    }
+
+    const data: BackendAuthResponse = await res.json();
+    const session: UserSession = {
+      email: data.email,
+      name: data.name,
+      role: data.role,
+      token: data.token,
+      requires_password_setup: Boolean(data.requires_password_setup),
+      permissions: data.permissions,
+    };
+
+    setStoredSession(session);
+    return session;
+  } catch (err: unknown) {
+    if (err instanceof AuthError) {
+      throw err;
+    }
+
+    const msg = (err as Error)?.message || '';
+    if (
+      msg.includes('Access restricted') ||
+      msg.includes('Access forbidden') ||
+      msg.includes('Password setup failed') ||
+      msg.includes('Password must be at least')
+    ) {
+      throw err;
+    }
+
+    // Offline fallback for development or test environments
+    const matchingUser = AUTHORIZED_USERS.find(
+      (u) => u.email.toLowerCase() === normalizedEmail
+    );
+    if (matchingUser) {
+      const fallbackSession: UserSession = {
+        ...matchingUser,
+        token: `offline_session_${Date.now()}`,
+        isOffline: true,
+        requires_password_setup: false,
+      };
+      setStoredSession(fallbackSession);
+      return fallbackSession;
+    }
+
+    throw err;
+  }
+}
+
+/**
+ * Evaluates whether an active user session has permission for a specific feature or operation.
+ * 
+ * Rules:
+ * - If session is null: returns false.
+ * - If session.role is "Root Admin" or "Tech Lead": returns true.
+ * - If session.role is "Leadership": returns true for all except user management ('manage_users').
+ * - If session.role is "Viewer": returns false for 'export_csv', 'export_docx', 'log_approach', 'enrich_web', 'admin_portal', 'manage_users'.
+ * - Otherwise returns true for standard operations.
+ */
+export function hasUserPermission(session: UserSession | null, perm: string): boolean {
+  if (!session || !session.role) {
+    return false;
+  }
+
+  const role = session.role.trim().toLowerCase();
+  const normalizedPerm = perm.trim().toLowerCase();
+
+  // Root Admin and Tech Lead (and Admin) have universal access
+  if (role === 'root admin' || role === 'tech lead' || role === 'admin') {
+    return true;
+  }
+
+  // Leadership has all permissions except user management
+  if (role === 'leadership') {
+    return normalizedPerm !== 'manage_users';
+  }
+
+  // Viewer role is strictly restricted from exports, logging approaches, enrichment, and admin
+  if (role === 'viewer') {
+    const viewerForbidden = [
+      'export_csv',
+      'export_docx',
+      'log_approach',
+      'enrich_web',
+      'admin_portal',
+      'manage_users',
+    ];
+    if (viewerForbidden.includes(normalizedPerm)) {
+      return false;
+    }
+    return true;
+  }
+
+  // If session carries explicit permission grants
+  if (Array.isArray(session.permissions) && session.permissions.length > 0) {
+    return session.permissions.some((p) => p.toLowerCase() === normalizedPerm);
+  }
+
+  // Standard business operations permitted for operational roles
+  const adminOnlyPerms = ['admin_portal', 'manage_users'];
+  return !adminOnlyPerms.includes(normalizedPerm);
 }
 
 /**

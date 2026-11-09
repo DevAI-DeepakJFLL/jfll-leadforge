@@ -164,4 +164,46 @@ describe('Table Action Bars with Inline Search Bar', () => {
     expect(html).toContain('Add to List');
     expect(html).toContain('Export All');
   });
+
+  it('disables export and shows viewing mode badge in DatamyneActionBar for Viewer users', () => {
+    const viewerUser = { email: 'viewer@jfll.com', name: 'Viewer User', role: 'Viewer', token: 'tok' };
+    const html = renderToString(
+      <DatamyneActionBar
+        selectedCount={5}
+        totalOnPage={25}
+        totalCount={100}
+        isAllOnPageSelected={false}
+        isIndeterminate={true}
+        onToggleSelectAllPage={() => {}}
+        onDeselectAll={() => {}}
+        onExport={() => {}}
+        onDownloadSummaryReport={() => {}}
+        currentUser={viewerUser}
+      />
+    );
+
+    expect(html).toContain('Viewing Mode · Contact Admin for Export Privileges');
+    expect(html).toContain('opacity-60');
+  });
+
+  it('disables export and shows viewing mode badge in JfllCustomerActionBar for Viewer users', () => {
+    const viewerUser = { email: 'viewer@jfll.com', name: 'Viewer User', role: 'Viewer', token: 'tok' };
+    const html = renderToString(
+      <JfllCustomerActionBar
+        selectedCount={2}
+        totalOnPage={25}
+        totalCount={50}
+        isAllOnPageSelected={false}
+        isIndeterminate={true}
+        onToggleSelectAllPage={() => {}}
+        onDeselectAll={() => {}}
+        onExport={() => {}}
+        onDownloadSummaryReport={() => {}}
+        currentUser={viewerUser}
+      />
+    );
+
+    expect(html).toContain('Viewing Mode · Contact Admin for Export Privileges');
+    expect(html).toContain('opacity-60');
+  });
 });

@@ -1,25 +1,26 @@
 """API routes for automated Client Report generation and Word (.docx) streaming.
 """
-from datetime import datetime
 import re
+from datetime import datetime
 
 from fastapi import APIRouter, Header, HTTPException, Query
 from fastapi.responses import StreamingResponse
 
-from src.api.helpers import require_auth
+from src.api.access_control import Permission
+from src.api.helpers import require_auth, require_permission
 from src.api.logger import logger
 from src.api.report_models import (
     ClientReportData,
     GenerateReportRequest,
     ReportCompanySuggestion,
 )
+from src.services.gemini_report_enricher import enrich_report_with_gemini_search
 from src.services.report_docx_generator import generate_docx_stream
 from src.services.report_service import (
     _build_unlisted_sme_report,
     generate_client_report_data,
     search_report_companies,
 )
-from src.services.gemini_report_enricher import enrich_report_with_gemini_search
 
 router = APIRouter(prefix="/api/v1/reports", tags=["reports"])
 
@@ -51,7 +52,7 @@ def post_generate_report(
     authorization: str | None = Header(None),
 ):
     """Generate structured 4-section prospect briefing data for a company."""
-    require_auth(authorization, "client reports")
+    require_permission(Permission.GENERATE_REPORT)(authorization)
     if not payload.company_name_or_id or not payload.company_name_or_id.strip():
         raise HTTPException(status_code=400, detail="Company name or ID is required")
     
@@ -85,7 +86,7 @@ def post_enrich_web_report(
     authorization: str | None = Header(None),
 ):
     """Enrich client report with live web research via Gemini 3.8 Flash Google Search grounding."""
-    require_auth(authorization, "gemini web search enrichment")
+    require_permission(Permission.ENRICH_WEB)(authorization)
     try:
         return enrich_report_with_gemini_search(
             draft=report,
@@ -104,7 +105,7 @@ def post_export_docx(
     authorization: str | None = Header(None),
 ):
     """Stream an in-memory formatted Word (.docx) document without disk I/O."""
-    require_auth(authorization, "client report document export")
+    require_permission(Permission.EXPORT_DOCX)(authorization)
     try:
         docx_buffer = generate_docx_stream(report)
         # Defense-in-depth: Strict regex sanitization preventing CRLF (CWE-113) in Content-Disposition
@@ -121,4 +122,8 @@ def post_export_docx(
             },
         )
     except Exception as exc:
-        raise HTTPException(status_code=500, detail=f"Failed to generate Word document: {exc!s}")
+        logger.error("Failed to generate Word document: %s", exc, exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to generate Word document. Please try again or contact support.",
+        )

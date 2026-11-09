@@ -161,23 +161,32 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
     field: JfllCustomerSortField,
     label: string,
     widthClass: string,
-    customTooltip?: string
+    customTooltip?: string,
+    isStickyCompanyCol?: boolean
   ) => {
     const isRevenueField = field === 'businessLast3m' || field === 'totalBusinessTillDate';
     const isSorted = sortBy === field || (isRevenueField && (sortBy === 'businessLast3m' || sortBy === 'totalBusinessTillDate'));
     const isAsc = isSorted && sortOrder === 'asc';
+    const stickyClasses = isStickyCompanyCol
+      ? 'sticky left-10 z-30 border-r border-slate-200/60 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)]'
+      : '';
+    const bgClass = isStickyCompanyCol
+      ? (isSorted ? 'bg-blue-50/90 text-apollo-900' : 'bg-slate-50 hover:bg-slate-100/80')
+      : (isSorted ? 'bg-blue-50/70 text-apollo-900' : 'hover:bg-slate-100/80');
+    const alignClass = isRevenueField ? 'text-right' : '';
+
     return (
       <th
         scope="col"
         aria-sort={isSorted ? (isAsc ? 'ascending' : 'descending') : 'none'}
-        className={`py-2.5 ${widthClass} select-none transition-colors ${
-          isSorted ? 'bg-blue-50/70 text-apollo-900' : 'hover:bg-slate-100/80'
-        }`}
+        className={`py-2.5 ${widthClass} select-none transition-colors ${stickyClasses} ${bgClass} ${alignClass}`}
       >
         <button
           type="button"
           onClick={() => onSortChange?.(field)}
-          className="w-full flex items-center justify-between gap-1.5 text-left font-semibold text-[11px] uppercase tracking-wider focus:outline-none focus-visible:ring-2 focus-visible:ring-apollo rounded py-0.5 cursor-pointer group/btn"
+          className={`w-full flex items-center gap-1.5 font-semibold text-[11px] uppercase tracking-wider focus:outline-none focus-visible:ring-2 focus-visible:ring-apollo rounded py-0.5 cursor-pointer group/btn ${
+            isRevenueField ? 'justify-end text-right' : 'justify-between text-left'
+          }`}
           title={
             customTooltip ||
             (isSorted
@@ -219,36 +228,39 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
 
   if (isLoading) {
     return (
-      <div className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex flex-col ${className}`}>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="border-b border-slate-200 bg-slate-50/80 text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-                <th scope="col" className="py-2.5 px-3 w-10 text-center"><span className="sr-only">Select</span></th>
-                <th scope="col" className="py-2.5 px-4 min-w-[260px]">Company Name</th>
+      <div className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex-1 flex flex-col min-h-0 ${className}`}>
+        <div className="flex-1 overflow-auto min-h-0 relative">
+          <table className="w-full min-w-[1080px] text-left text-xs border-collapse">
+            <thead className="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-xs">
+              <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+                <th scope="col" className="sticky left-0 z-30 bg-slate-50 py-2.5 px-3 w-10 text-center border-r border-slate-200/60"><span className="sr-only">Select</span></th>
+                <th scope="col" className="sticky left-10 z-30 bg-slate-50 py-2.5 px-4 min-w-[260px] border-r border-slate-200/60 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)]">Company Name</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[150px]">Customer Group</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[95px]">Status</th>
+                <th scope="col" className="py-2.5 px-3.5 min-w-[130px]">Approach Status</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[120px]">Credit Status</th>
-                <th scope="col" className="py-2.5 px-3.5 min-w-[125px]">Recent Revenue</th>
+                <th scope="col" className="py-2.5 px-3.5 min-w-[125px] text-right">Recent Revenue</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[150px]">Contact Person</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[155px]">Phone Number</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[190px]">Email</th>
-                <th scope="col" className="py-2.5 px-4 w-20 text-center">Action</th>
+                <th scope="col" className="sticky right-0 z-30 bg-slate-50 py-2.5 px-4 min-w-[160px] text-center border-l border-slate-200/60 shadow-[-2px_0_4px_-2px_rgba(0,0,0,0.06)]">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {Array.from({ length: pageSize || 10 }).map((_, i) => (
                 <tr key={i} className="animate-pulse">
-                  <td className="py-3.5 px-3 text-center"><div className="w-4 h-4 bg-slate-200 rounded mx-auto" /></td>
-                  <td className="py-3.5 px-4"><div className="w-48 h-3.5 bg-slate-200 rounded mb-1.5" /><div className="w-24 h-2.5 bg-slate-100 rounded" /></td>
+                  <td className="sticky left-0 z-10 bg-white w-10 border-r border-slate-200/60 py-3.5 px-3 text-center"><div className="w-4 h-4 bg-slate-200 rounded mx-auto" /></td>
+                  <td className="sticky left-10 z-10 bg-white min-w-[260px] border-r border-slate-200/60 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3.5 px-4"><div className="w-48 h-3.5 bg-slate-200 rounded mb-1.5" /><div className="w-24 h-2.5 bg-slate-100 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-24 h-5 bg-slate-150 rounded-full" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-14 h-4 bg-emerald-100/60 rounded-full" /></td>
+                  {/* Approach Status (Column 5) */}
+                  <td className="py-3.5 px-3.5"><div className="w-20 h-4 bg-slate-100 rounded-full" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-20 h-4 bg-slate-150 rounded" /></td>
-                  <td className="py-3.5 px-3.5"><div className="w-16 h-4 bg-slate-150 rounded" /></td>
+                  <td className="py-3.5 px-3.5 text-right font-mono tabular-nums"><div className="w-16 h-4 bg-slate-150 rounded ml-auto" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-28 h-3 bg-slate-200 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-28 h-3 bg-slate-200 rounded" /></td>
                   <td className="py-3.5 px-3.5"><div className="w-36 h-3 bg-slate-200 rounded" /></td>
-                  <td className="py-3.5 px-4 text-center"><div className="w-12 h-6 bg-slate-100 rounded mx-auto" /></td>
+                  <td className="sticky right-0 z-10 bg-white min-w-[160px] border-l border-slate-200/60 shadow-[-2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3.5 px-4 text-center"><div className="w-12 h-6 bg-slate-100 rounded mx-auto" /></td>
                 </tr>
               ))}
             </tbody>
@@ -308,17 +320,17 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex flex-col ${className}`}
+      className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex-1 flex flex-col min-h-0 ${className}`}
     >
       {/* Table Container */}
-      <div className="overflow-x-auto min-w-0">
+      <div className="flex-1 overflow-auto min-h-0 relative">
         <table className="w-full min-w-[1080px] text-left text-xs border-collapse">
-          <thead className="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-xs shadow-2xs">
-            <tr className="border-b border-slate-200 bg-slate-50/95 backdrop-blur-xs text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-              <th scope="col" className="py-2.5 px-3 w-10 text-center">
+          <thead className="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-xs">
+            <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+              <th scope="col" className="sticky left-0 z-30 bg-slate-50 py-2.5 px-3 w-10 text-center border-r border-slate-200/60">
                 <span className="sr-only">Select</span>
               </th>
-              {renderSortHeader('fullName', 'Company Name', 'px-4 min-w-[260px]', 'Sort alphabetically by company name')}
+              {renderSortHeader('fullName', 'Company Name', 'px-4 min-w-[260px]', 'Sort alphabetically by company name', true)}
               {renderSortHeader('customerGroup', 'Customer Group', 'px-3.5 min-w-[150px]', 'Sort by customer category')}
               {renderSortHeader('status', 'Status', 'px-3.5 min-w-[95px]', 'Sort by active / inactive status')}
               <th scope="col" className="py-2.5 px-3.5 min-w-[130px]">Approach Status</th>
@@ -342,7 +354,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               {renderSortHeader('contactPersonName', 'Contact Person', 'px-3.5 min-w-[150px]', 'Sort by named contact person')}
               <th scope="col" className="py-2.5 px-3.5 min-w-[155px]">Phone Number</th>
               <th scope="col" className="py-2.5 px-3.5 min-w-[190px]">Email</th>
-              <th scope="col" className="py-2.5 px-4 min-w-[160px] text-center">Action</th>
+              <th scope="col" className="sticky right-0 z-30 bg-slate-50 py-2.5 px-4 min-w-[160px] text-center border-l border-slate-200/60 shadow-[-2px_0_4px_-2px_rgba(0,0,0,0.06)]">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -361,14 +373,26 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               return (
                 <tr
                   key={c.id}
+                  role="row"
+                  tabIndex={0}
+                  aria-selected={isSelected}
                   onClick={() => onCustomerClick(c)}
-                  className={`transition-colors cursor-pointer group ${
+                  onKeyDown={(e) => {
+                    if (e.target !== e.currentTarget) return;
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onCustomerClick(c);
+                    }
+                  }}
+                  className={`transition-colors cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-apollo focus-visible:ring-inset ${
                     isSelected ? 'bg-blue-50/35 hover:bg-blue-50/50' : 'hover:bg-slate-50/80 bg-white'
                   }`}
                 >
                   {/* Selection Checkbox */}
                   <td
-                    className="py-3 px-3 text-center align-middle"
+                    className={`sticky left-0 z-10 w-10 border-r border-slate-200/60 py-3 px-3 text-center align-middle transition-colors ${
+                      isSelected ? 'bg-blue-50/90 group-hover:bg-blue-50' : 'bg-white group-hover:bg-slate-50/80'
+                    }`}
                     onClick={(e) => handleToggleRow(c.id, e)}
                   >
                     <div className="flex items-center justify-center min-h-[36px] min-w-[36px]">
@@ -383,7 +407,11 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   </td>
 
                   {/* Company Name */}
-                  <td className="py-3 px-4 align-middle">
+                  <td
+                    className={`sticky left-10 z-10 min-w-[260px] border-r border-slate-200/60 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3 px-4 align-middle transition-colors ${
+                      isSelected ? 'bg-blue-50/90 group-hover:bg-blue-50' : 'bg-white group-hover:bg-slate-50/80'
+                    }`}
+                  >
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shrink-0 shadow-2xs">
                         {initials || <Building2 className="w-4 h-4 text-slate-400" />}
@@ -489,9 +517,9 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   </td>
 
                   {/* Revenue (Recent 3M & Total Till Date) */}
-                  <td className="py-3 px-3.5 align-middle whitespace-nowrap">
+                  <td className="py-3 px-3.5 align-middle whitespace-nowrap text-right font-mono tabular-nums">
                     {c.businessLast3m !== undefined && c.businessLast3m !== null && c.businessLast3m > 0 ? (
-                      <div className="flex flex-col">
+                      <div className="flex flex-col items-end">
                         <span
                           className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200"
                           title={`Last 3 Months: ₹${c.businessLast3m.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`}
@@ -500,7 +528,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         </span>
                         {c.totalBusinessTillDate !== undefined && c.totalBusinessTillDate !== null && (
                           <span
-                            className="text-[10px] text-slate-500 font-mono mt-0.5"
+                            className="text-[10px] text-slate-500 font-mono mt-0.5 text-right"
                             title={`Total Till Date: ₹${c.totalBusinessTillDate.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`}
                           >
                             Tot: {formatIndianCurrency(c.totalBusinessTillDate)}
@@ -508,12 +536,14 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                         )}
                       </div>
                     ) : c.totalBusinessTillDate !== undefined && c.totalBusinessTillDate !== null ? (
-                      <span
-                        className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-blue-50 text-blue-800 border border-blue-200"
-                        title={`Total Business: ₹${c.totalBusinessTillDate.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`}
-                      >
-                        {formatIndianCurrency(c.totalBusinessTillDate)}
-                      </span>
+                      <div className="flex justify-end">
+                        <span
+                          className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-blue-50 text-blue-800 border border-blue-200"
+                          title={`Total Business: ₹${c.totalBusinessTillDate.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`}
+                        >
+                          {formatIndianCurrency(c.totalBusinessTillDate)}
+                        </span>
+                      </div>
                     ) : (
                       <span className="text-slate-400 italic text-xs">—</span>
                     )}
@@ -584,7 +614,11 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   </td>
 
                   {/* Action CTA: View, Approach, Convert */}
-                  <td className="py-3 px-4 text-center align-middle">
+                  <td
+                    className={`sticky right-0 z-10 min-w-[160px] border-l border-slate-200/60 shadow-[-2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3 px-4 text-center align-middle transition-colors ${
+                      isSelected ? 'bg-blue-50/90 group-hover:bg-blue-50' : 'bg-white group-hover:bg-slate-50/80'
+                    }`}
+                  >
                     <div className="flex items-center justify-center gap-1.5">
                       <button
                         onClick={(e) => {

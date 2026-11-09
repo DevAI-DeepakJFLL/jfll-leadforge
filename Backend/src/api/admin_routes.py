@@ -4,19 +4,18 @@ from fastapi import APIRouter, Header, HTTPException, Query
 from pydantic import BaseModel
 
 from src.api.access_control import (
+    Permission,
     add_to_allowlist,
     approve_access_request,
     block_device,
     get_access_requests,
     get_allowlist,
     get_blocked_devices,
-    is_admin_user,
     reject_access_request,
     remove_from_allowlist,
     unblock_entity,
 )
-from src.api.helpers import require_auth
-from src.api.logger import logger
+from src.api.helpers import require_permission
 from src.api.models import (
     AccessRequestApproval,
     AccessRequestRejection,
@@ -28,27 +27,16 @@ from src.api.models import (
 admin_router = APIRouter(prefix="/api/v1/admin", tags=["Root Administration"])
 
 
+require_admin_portal = require_permission(Permission.ADMIN_PORTAL)
+require_manage_users = require_permission(Permission.MANAGE_USERS)
+
+
 def require_admin(authorization: str | None = Header(None)) -> dict[str, Any]:
     """
     Enforces that the caller has an active authenticated session
-    AND administrative privileges (Leadership, Tech Lead, or Admin).
+    AND administrative privileges (Permission.ADMIN_PORTAL).
     """
-    user = require_auth(authorization, "root administration portal")
-    user_email = user.get("sub", "").strip().lower()
-    user_role = user.get("role", "")
-
-    if not is_admin_user(user_email, user_role):
-        logger.warning(
-            "Security: Non-admin user attempted admin access: %s (%s)",
-            user_email,
-            user_role,
-            extra={"event": "ADMIN_FORBIDDEN", "user_email": user_email, "role": user_role},
-        )
-        raise HTTPException(
-            status_code=403,
-            detail="FORBIDDEN_ADMIN_ACCESS: Administrative privileges required to manage access.",
-        )
-    return user
+    return require_admin_portal(authorization)
 
 
 @admin_router.get(
@@ -99,7 +87,7 @@ def approve_request(
     Approves a pending access request, assigns the specified functional role,
     and automatically enrolls the user in the active allowlist.
     """
-    admin = require_admin(authorization)
+    admin = require_manage_users(authorization)
     admin_email = admin.get("sub", "admin")
 
     try:
@@ -131,7 +119,7 @@ def reject_request(
     authorization: str | None = Header(None),
 ):
     """Rejects a pending access request with optional explanatory notes."""
-    admin = require_admin(authorization)
+    admin = require_manage_users(authorization)
     admin_email = admin.get("sub", "admin")
 
     try:
@@ -176,7 +164,7 @@ def create_allowlist_entry(
     authorization: str | None = Header(None),
 ):
     """Adds a new employee email directly to the allowlist without waiting for a request."""
-    admin = require_admin(authorization)
+    admin = require_manage_users(authorization)
     admin_email = admin.get("sub", "admin")
 
     try:
@@ -209,7 +197,7 @@ def revoke_allowlist_entry(
     Invalidates any active session for that user immediately.
     Self-lockout and root administrator revocation are strictly prevented.
     """
-    admin = require_admin(authorization)
+    admin = require_manage_users(authorization)
     admin_email = admin.get("sub", "admin")
 
     try:
@@ -257,7 +245,7 @@ def create_blocked_device(
     authorization: str | None = Header(None),
 ) -> dict[str, Any]:
     """Permanently blocks a device by its hardware fingerprint. Preserves employee email accounts."""
-    admin = require_admin(authorization)
+    admin = require_manage_users(authorization)
     admin_email = admin.get("sub", "admin")
     try:
         entry = block_device(
@@ -288,7 +276,7 @@ def delete_blocked_entity(
     authorization: str | None = Header(None),
 ) -> dict[str, Any]:
     """Removes a permanent block from a previously banned machine or device."""
-    admin = require_admin(authorization)
+    admin = require_manage_users(authorization)
     admin_email = admin.get("sub", "admin")
     try:
         entry = unblock_entity(ban_id=ban_id, unblocked_by=admin_email)

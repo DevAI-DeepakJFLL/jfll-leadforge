@@ -29,6 +29,8 @@ export interface TableActionBarProps {
   onSearchChange?: (query: string) => void;
   searchPlaceholder?: string;
   className?: string;
+  currentUser?: { role?: string } | null;
+  isViewer?: boolean;
 }
 
 export const TableActionBar: React.FC<TableActionBarProps> = ({
@@ -50,7 +52,10 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
   onSearchChange,
   searchPlaceholder = 'Search leads by name, title, company...',
   className = '',
+  currentUser,
+  isViewer,
 }) => {
+  const isViewerUser = Boolean(isViewer || currentUser?.role === 'Viewer');
   const [activeMenu, setActiveMenu] = useState<'select' | 'lists' | null>(null);
   const [newListName, setNewListName] = useState('');
   const [isCreatingList, setIsCreatingList] = useState(false);
@@ -323,9 +328,17 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
         <button
           type="button"
           onClick={onExport}
-          disabled={isExporting}
-          className="shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 disabled:opacity-50"
-          title="Download leads dataset as RFC-4180 CSV"
+          disabled={isExporting || isViewerUser}
+          className={`shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 ${
+            isViewerUser
+              ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
+              : 'text-slate-700 bg-white hover:bg-slate-50 hover:text-slate-900 border border-slate-200 cursor-pointer disabled:opacity-50'
+          }`}
+          title={
+            isViewerUser
+              ? 'Viewing Mode · Contact Admin for Export Privileges'
+              : 'Download leads dataset as RFC-4180 CSV'
+          }
         >
           {isExporting ? (
             <Loader2 className="w-3.5 h-3.5 text-apollo animate-spin" />

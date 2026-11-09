@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
   loginUser,
+  setUserPassword,
+  hasUserPermission,
   getStoredSession,
   setStoredSession,
   clearStoredSession,
@@ -84,6 +86,61 @@ describe('authService', () => {
     expect(session.email).toBe('tyra.theknath@jfll.com');
     expect(session.name).toBe('Tyra Theknath');
     expect(session.role).toBe('Leadership');
+  });
+
+  it('authenticates with password included in request payload', async () => {
+    const mockSessionResponse = {
+      email: 'deepak@jfll.com',
+      name: 'Deepak Naidu',
+      role: 'Tech Lead',
+      token: 'mock.signed.jwt.token',
+      token_type: 'Bearer',
+      expires_at: '2026-10-21T12:00:00Z',
+      requires_password_setup: false,
+    };
+
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => mockSessionResponse,
+    });
+
+    const session = await loginUser({
+      email: 'deepak@jfll.com',
+      password: 'JetFreight@2026!',
+    });
+
+    expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/api/v1/auth/login'), {
+      method: 'POST',
+      headers: expect.objectContaining({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify({ email: 'deepak@jfll.com', password: 'JetFreight@2026!' }),
+    });
+
+    expect(session.requires_password_setup).toBe(false);
+  });
+
+  it('correctly maps requires_password_setup flag from backend response', async () => {
+    const mockSessionResponse = {
+      email: 'newuser@jfll.com',
+      name: 'New User',
+      role: 'Commercial',
+      token: 'mock.newuser.jwt.token',
+      token_type: 'Bearer',
+      expires_at: '2026-10-21T12:00:00Z',
+      requires_password_setup: true,
+    };
+
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => mockSessionResponse,
+    });
+
+    const session = await loginUser({
+      email: 'newuser@jfll.com',
+    });
+
+    expect(session.requires_password_setup).toBe(true);
   });
 
   it('throws error when backend returns 401 unauthorized for unlisted email', async () => {
@@ -345,6 +402,145 @@ describe('authService', () => {
         SESSION_SUPERSEDED_EVENT,
         listener as EventListener
       );
+    });
+  });
+
+  describe('setUserPassword', () => {
+    it('successfully calls set-password endpoint and stores active session', async () => {
+      const mockSessionResponse = {
+        email: 'snehal.birje@jfll.com',
+        name: 'Snehal Birje',
+        role: 'Commercial',
+        token: 'new.jwt.token.after.password.set',
+        token_type: 'Bearer',
+        expires_at: '2026-10-22T12:00:00Z',
+        requires_password_setup: false,
+      };
+
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => mockSessionResponse,
+      });
+
+      const session = await setUserPassword('snehal.birje@jfll.com', 'NewSecurePass#2026');
+
+      expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/api/v1/auth/set-password'), {
+        method: 'POST',
+        headers: expect.objectContaining({ 'Content-Type': 'application/json' }),
+        body: JSON.stringify({
+          email: 'snehal.birje@jfll.com',
+          new_password: 'NewSecurePass#2026',
+        }),
+      });
+
+      expect(session.email).toBe('snehal.birje@jfll.com');
+      expect(session.requires_password_setup).toBe(false);
+      expect(getStoredSession()?.email).toBe('snehal.birje@jfll.com');
+    });
+
+    it('rejects password setup when password is too short', async () => {
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 400,
+        json: async () => ({
+          detail: 'Password must be at least 8 characters long.',
+        }),
+      });
+
+      await expect(
+        setUserPassword('deepak@jfll.com', 'short')
+      ).rejects.toThrow('Password must be at least 8 characters long.');
+    });
+
+    it('rejects password setup when email is unauthorized', async () => {
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 401,
+        json: async () => ({
+          detail: 'Access restricted. Only authorized Jet Freight Logistics personnel can set a password.',
+        }),
+      });
+
+      await expect(
+        setUserPassword('outsider@example.com', 'ValidPassword123!')
+      ).rejects.toThrow('Access restricted. Only authorized Jet Freight Logistics personnel can set a password.');
+    });
+  });
+
+  describe('hasUserPermission', () => {
+    it('returns false when session or role is missing', () => {
+      expect(hasUserPermission(null, 'view_leads')).toBe(false);
+      expect(hasUserPermission(undefined as unknown as UserSession, 'view_leads')).toBe(false);
+      expect(hasUserPermission({ email: 'a@jfll.com', name: 'A', role: '', token: '' }, 'view_leads')).toBe(false);
+    });
+
+    it('grants all permissions to Root Admin and Tech Lead', () => {
+      const techLead: UserSession = { email: 'deepak@jfll.com', name: 'Deepak', role: 'Tech Lead', token: 'tok' };
+      const rootAdmin: UserSession = { email: 'admin@jfll.com', name: 'Admin', role: 'Root Admin', token: 'tok' };
+
+      const permissions = [
+        'view_leads',
+        'export_csv',
+        'export_docx',
+        'log_approach',
+        'enrich_web',
+        'admin_portal',
+        'manage_users',
+      ];
+
+      for (const p of permissions) {
+        expect(hasUserPermission(techLead, p)).toBe(true);
+        expect(hasUserPermission(rootAdmin, p)).toBe(true);
+      }
+    });
+
+    it('grants Leadership all permissions except user management', () => {
+      const leadership: UserSession = { email: 'tyra.theknath@jfll.com', name: 'Tyra', role: 'Leadership', token: 'tok' };
+
+      expect(hasUserPermission(leadership, 'view_leads')).toBe(true);
+      expect(hasUserPermission(leadership, 'export_csv')).toBe(true);
+      expect(hasUserPermission(leadership, 'export_docx')).toBe(true);
+      expect(hasUserPermission(leadership, 'log_approach')).toBe(true);
+      expect(hasUserPermission(leadership, 'enrich_web')).toBe(true);
+      expect(hasUserPermission(leadership, 'admin_portal')).toBe(true);
+      expect(hasUserPermission(leadership, 'manage_users')).toBe(false);
+    });
+
+    it('strictly restricts Viewer role from export, log approach, web enrichment, and admin privileges', () => {
+      const viewer: UserSession = { email: 'viewer@jfll.com', name: 'Viewer User', role: 'Viewer', token: 'tok' };
+
+      expect(hasUserPermission(viewer, 'view_leads')).toBe(true);
+      expect(hasUserPermission(viewer, 'export_csv')).toBe(false);
+      expect(hasUserPermission(viewer, 'export_docx')).toBe(false);
+      expect(hasUserPermission(viewer, 'log_approach')).toBe(false);
+      expect(hasUserPermission(viewer, 'enrich_web')).toBe(false);
+      expect(hasUserPermission(viewer, 'admin_portal')).toBe(false);
+      expect(hasUserPermission(viewer, 'manage_users')).toBe(false);
+    });
+
+    it('allows standard operations for Commercial and Operations roles', () => {
+      const commercial: UserSession = { email: 'snehal.birje@jfll.com', name: 'Snehal', role: 'Commercial', token: 'tok' };
+
+      expect(hasUserPermission(commercial, 'view_leads')).toBe(true);
+      expect(hasUserPermission(commercial, 'log_approach')).toBe(true);
+      expect(hasUserPermission(commercial, 'export_csv')).toBe(true);
+      expect(hasUserPermission(commercial, 'admin_portal')).toBe(false);
+      expect(hasUserPermission(commercial, 'manage_users')).toBe(false);
+    });
+
+    it('respects explicit permissions array if provided in user session', () => {
+      const customUser: UserSession = {
+        email: 'custom@jfll.com',
+        name: 'Custom Staff',
+        role: 'Auditor',
+        token: 'tok',
+        permissions: ['view_leads', 'export_csv'],
+      };
+
+      expect(hasUserPermission(customUser, 'view_leads')).toBe(true);
+      expect(hasUserPermission(customUser, 'export_csv')).toBe(true);
+      expect(hasUserPermission(customUser, 'log_approach')).toBe(false);
     });
   });
 });

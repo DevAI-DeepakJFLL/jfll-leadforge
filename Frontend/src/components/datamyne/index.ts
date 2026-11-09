@@ -4,6 +4,7 @@ export * from './DatamyneAudienceTabs';
 export * from './DatamyneFilterSidebar';
 export * from './DatamyneActionBar';
 export * from './DatamyneDetailDrawer';
+export * from './DatamyneLeadDetailDrawer';
 export * from './DatamyneActiveFilterChips';
 export * from './DatamyneTable';
 

@@ -41,6 +41,7 @@ interface ReportFieldRowProps {
   rows?: number;
   highlightLabel?: boolean;
   valueFontMedium?: boolean;
+  subnote?: string;
 }
 
 const ReportFieldRow: React.FC<ReportFieldRowProps> = ({
@@ -52,35 +53,53 @@ const ReportFieldRow: React.FC<ReportFieldRowProps> = ({
   rows = 2,
   highlightLabel = false,
   valueFontMedium = false,
+  subnote,
 }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-12 bg-white">
+  <div className="grid grid-cols-1 sm:grid-cols-12 bg-white print:grid-cols-12">
     <label
       htmlFor={id}
-      className={`sm:col-span-4 p-2.5 font-bold border-r border-slate-200 select-none cursor-pointer ${
+      className={`sm:col-span-4 p-2.5 font-bold border-r border-slate-200 select-none cursor-pointer print:col-span-4 ${
         highlightLabel ? 'bg-blue-50/60 text-blue-900' : 'bg-slate-50/80 text-slate-700'
       }`}
     >
-      {label}
+      <span>{label}</span>
+      {subnote && (
+        <span className="block text-[10px] text-slate-500 font-normal mt-0.5">{subnote}</span>
+      )}
     </label>
-    <div className="sm:col-span-8 p-1.5">
+    <div className="sm:col-span-8 p-1.5 print:col-span-8">
       {multiline ? (
-        <textarea
-          id={id}
-          rows={rows}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className={`w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded resize-none text-slate-800 transition-colors ${
-            valueFontMedium ? 'font-medium' : ''
-          }`}
-        />
+        <>
+          <textarea
+            id={id}
+            rows={rows}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className={`w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded resize-none text-slate-800 transition-colors print:hidden ${
+              valueFontMedium ? 'font-medium' : ''
+            }`}
+          />
+          <div
+            className={`hidden print:block w-full p-1 text-slate-800 whitespace-pre-wrap ${
+              valueFontMedium ? 'font-medium' : ''
+            }`}
+          >
+            {value || <span className="italic text-slate-400 font-normal">[ Pending notes ]</span>}
+          </div>
+        </>
       ) : (
-        <input
-          id={id}
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors"
-        />
+        <>
+          <input
+            id={id}
+            type="text"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="w-full p-1 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
+          />
+          <div className="hidden print:block w-full p-1 text-slate-800">
+            {value || <span className="italic text-slate-400">[ Not specified ]</span>}
+          </div>
+        </>
       )}
     </div>
   </div>
@@ -92,6 +111,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
   currentUser = null,
 }) => {
   const defaultPreparedBy = currentUser?.name || 'Tyra Theknath';
+  const isViewer = currentUser?.role === 'Viewer';
   const [searchQuery, setSearchQuery] = useState(initialCompany || '');
   const [preparedFor, setPreparedFor] = useState('Mumbai Sales Branch');
   const [preparedBy, setPreparedBy] = useState(defaultPreparedBy);
@@ -375,10 +395,24 @@ export const ReportView: React.FC<ReportViewProps> = ({
               <span>Print / Save PDF</span>
             </button>
 
+            {isViewer && (
+              <span
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-xs font-semibold"
+                title="Viewing Mode · Contact Admin for Export Privileges"
+              >
+                Viewing Mode · Contact Admin for Export Privileges
+              </span>
+            )}
+
             <button
               onClick={handleExportDocx}
-              disabled={isExporting}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg text-xs font-bold shadow-xs hover:shadow transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              disabled={isExporting || isViewer}
+              className={`inline-flex items-center gap-2 px-4 py-2 ${
+                isViewer
+                  ? 'bg-slate-200 text-slate-500 cursor-not-allowed opacity-75 border border-slate-300'
+                  : 'bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white cursor-pointer shadow-xs hover:shadow'
+              } rounded-lg text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              title={isViewer ? 'Viewing Mode · Contact Admin for Export Privileges' : undefined}
             >
               <Download className={`w-4 h-4 ${isExporting ? 'animate-bounce' : ''}`} />
               <span>{isExporting ? 'Exporting...' : 'Export Word (.docx)'}</span>
@@ -618,8 +652,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
                   header: { ...prev.header, company_name: e.target.value },
                 }))
               }
-              className="mt-3 w-full text-2xl sm:text-3xl font-extrabold text-blue-950 uppercase tracking-tight bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded px-1 -mx-1 transition-colors"
+              className="mt-3 w-full text-2xl sm:text-3xl font-extrabold text-blue-950 uppercase tracking-tight bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded px-1 -mx-1 transition-colors print:hidden"
             />
+            <div className="hidden print:block mt-3 text-2xl font-extrabold text-blue-950 uppercase tracking-tight">
+              {report.header.company_name}
+            </div>
 
             <label htmlFor="report-subtitle" className="sr-only">Report Subtitle</label>
             <input
@@ -632,8 +669,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
                   header: { ...prev.header, subtitle: e.target.value },
                 }))
               }
-              className="mt-1 w-full text-sm italic text-slate-600 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded px-1 -mx-1 transition-colors"
+              className="mt-1 w-full text-sm italic text-slate-600 bg-transparent hover:bg-slate-50 focus:bg-white border border-transparent hover:border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded px-1 -mx-1 transition-colors print:hidden"
             />
+            <div className="hidden print:block mt-1 text-sm italic text-slate-600">
+              {report.header.subtitle}
+            </div>
 
             {/* Metadata Strip */}
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-xs text-slate-700">
@@ -718,6 +758,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 value={report.section_2_trade_lane.primary_mode}
                 onChange={(val) => updateSection2('primary_mode', val)}
                 multiline={false}
+                subnote={report.section_2_trade_lane.lading_port ? `Gateway: ${report.section_2_trade_lane.lading_port}` : undefined}
               />
               <ReportFieldRow
                 id="sec2-special-handling"
@@ -785,7 +826,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 </thead>
                 <tbody className="divide-y divide-slate-200 bg-white">
                   {report.section_4_contacts.map((contact, idx) => (
-                    <tr key={idx} className="hover:bg-slate-50/60">
+                    <tr key={idx} className="hover:bg-slate-50/60 even:bg-slate-50/50">
                       <td className="p-1.5">
                         <input
                           type="text"
@@ -793,8 +834,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           onChange={(e) => updateContact(idx, 'name', e.target.value)}
                           placeholder="Contact Name..."
                           aria-label={`Contact ${idx + 1} Name`}
-                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-900 font-semibold transition-colors"
+                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-900 font-semibold transition-colors print:hidden"
                         />
+                        <div className="hidden print:block p-1 text-slate-900 font-semibold">
+                          {contact.name || '—'}
+                        </div>
                       </td>
                       <td className="p-1.5">
                         <input
@@ -803,8 +847,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           onChange={(e) => updateContact(idx, 'designation', e.target.value)}
                           placeholder="Role (e.g. Logistics Head)"
                           aria-label={`Contact ${idx + 1} Designation`}
-                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors"
+                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
                         />
+                        <div className="hidden print:block p-1 text-slate-800">
+                          {contact.designation || '—'}
+                        </div>
                       </td>
                       <td className="p-1.5">
                         <input
@@ -813,8 +860,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           onChange={(e) => updateContact(idx, 'contact_info', e.target.value)}
                           placeholder="email@company.com / +91..."
                           aria-label={`Contact ${idx + 1} Contact Information`}
-                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors"
+                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
                         />
+                        <div className="hidden print:block p-1 text-slate-800">
+                          {contact.contact_info || '—'}
+                        </div>
                       </td>
                       <td className="p-1.5">
                         <input
@@ -823,8 +873,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           onChange={(e) => updateContact(idx, 'notes', e.target.value)}
                           placeholder="Context or phone..."
                           aria-label={`Contact ${idx + 1} Notes`}
-                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-600 transition-colors"
+                          className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-600 transition-colors print:hidden"
                         />
+                        <div className="hidden print:block p-1 text-slate-600">
+                          {contact.notes || '—'}
+                        </div>
                       </td>
                       <td className="p-1.5 text-center print:hidden">
                         {report.section_4_contacts.length > 1 && (

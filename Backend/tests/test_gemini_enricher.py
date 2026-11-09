@@ -1,4 +1,3 @@
-import time
 from unittest.mock import MagicMock, patch
 
 from src.api.report_models import (

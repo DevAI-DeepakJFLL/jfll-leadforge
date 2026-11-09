@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Download, CheckSquare, Square, MinusSquare, Search, X, Loader2 } from 'lucide-react';
+import { useDebounce } from '@/hooks/useDebounce';
 
 export interface ApolloActionBarProps {
   selectedCount: number;
@@ -33,6 +34,19 @@ export const ApolloActionBar: React.FC<ApolloActionBarProps> = ({
   className = '',
 }) => {
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const [localQuery, setLocalQuery] = useState(searchQuery);
+  const debouncedQuery = useDebounce(localQuery, 300);
+
+  useEffect(() => {
+    setLocalQuery(searchQuery);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (debouncedQuery !== searchQuery && onSearchChange) {
+      onSearchChange(debouncedQuery);
+    }
+  }, [debouncedQuery, searchQuery, onSearchChange]);
 
   // Global ⌘K / Ctrl+K keyboard shortcut to focus search input
   useEffect(() => {
@@ -92,16 +106,19 @@ export const ApolloActionBar: React.FC<ApolloActionBarProps> = ({
             <input
               ref={searchInputRef}
               type="text"
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
+              value={localQuery}
+              onChange={(e) => setLocalQuery(e.target.value)}
               placeholder={searchPlaceholder}
               className="w-full pl-8 pr-12 sm:pr-14 py-1 text-xs bg-slate-50 border border-slate-200 rounded-md focus:bg-white focus:outline-none focus:ring-1 focus:ring-apollo focus:border-apollo transition-all placeholder:text-slate-400"
               aria-label="Search Apollo leads"
             />
-            {searchQuery ? (
+            {localQuery ? (
               <button
                 onClick={() => {
-                  onSearchChange('');
+                  setLocalQuery('');
+                  if (onSearchChange) {
+                    onSearchChange('');
+                  }
                   searchInputRef.current?.focus();
                 }}
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded transition-colors"

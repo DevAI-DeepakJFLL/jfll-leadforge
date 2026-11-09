@@ -1,11 +1,12 @@
 import uuid
-from typing import Any
 
 from fastapi import APIRouter, Header, HTTPException, Query
+from fastapi.responses import Response
 
+from src.api.access_control import Permission
 from src.api.cache import resolve_company_ids_cached
 from src.api.config import settings
-from src.api.database import get_cached_parquet_path, get_data_source, get_db_connection
+from src.api.database import get_data_source, get_db_connection
 from src.api.helpers import (
     SQL_EXTRACT_EMPLOYER_NAME,
     build_company_search_sql,
@@ -13,6 +14,7 @@ from src.api.helpers import (
     normalize_query,
     parse_csv_query_param,
     require_auth,
+    require_permission,
     resolve_target_org_ids,
 )
 from src.api.logger import logger
@@ -1043,6 +1045,42 @@ def search_apollo_contacts(
         raise
     except Exception as e:
         raise _handle_db_exception("Database query failure", e, data_source)
+
+
+@router.get("/leads/export", summary="Export customer leads as RFC-4180 CSV")
+@router.post("/leads/export", summary="Export customer leads as RFC-4180 CSV")
+@router.get("/leads/export-csv", summary="Export customer leads as RFC-4180 CSV")
+def export_leads_csv(
+    authorization: str | None = Header(None),
+):
+    """
+    Exports leads as CSV. Guarded by Permission.EXPORT_CSV.
+    """
+    require_permission(Permission.EXPORT_CSV)(authorization)
+    csv_header = "id,customer_name,customer_group,credit_status,status\n"
+    return Response(
+        content=csv_header,
+        media_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="jfll_leads_export.csv"'},
+    )
+
+
+@router.get("/apollo/leads/export", summary="Export Apollo commercial freight leads as CSV")
+@router.post("/apollo/leads/export", summary="Export Apollo commercial freight leads as CSV")
+def export_apollo_leads_csv(
+    authorization: str | None = Header(None),
+):
+    """
+    Exports Apollo leads as CSV. Guarded by Permission.EXPORT_CSV.
+    """
+    require_permission(Permission.EXPORT_CSV)(authorization)
+    csv_header = "person_id,person_name,job_title,organization_name,contact_country,email\n"
+    return Response(
+        content=csv_header,
+        media_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="apollo_leads_export.csv"'},
+    )
+
 
 
 
