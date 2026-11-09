@@ -23,7 +23,12 @@ from src.api.models import (
     SetPasswordRequest,
     UserSessionResponse,
 )
-from src.api.session_store import ACTIVE_USER_SESSIONS
+from src.api.session_store import (
+    ACTIVE_USER_SESSIONS,
+    clear_active_session,
+    get_active_session,
+    set_active_session,
+)
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
 
@@ -55,9 +60,9 @@ def check_session_active(payload: dict[str, Any]) -> bool:
     if not is_email_active(email):
         return False
 
-    active_session_id = ACTIVE_USER_SESSIONS.get(email)
+    active_session_id = get_active_session(email)
     if active_session_id is None:
-        ACTIVE_USER_SESSIONS[email] = token_session_id
+        set_active_session(email, token_session_id)
         return True
     return token_session_id == active_session_id
 
@@ -80,7 +85,7 @@ def create_token(payload: dict[str, Any], expires_in_hours: int = 24) -> tuple[s
     session_id = payload.get("session_id") or secrets.token_hex(16)
     user_email = payload.get("sub", "").strip().lower()
     if user_email:
-        ACTIVE_USER_SESSIONS[user_email] = session_id
+        set_active_session(user_email, session_id)
 
     full_payload = {
         **payload,
@@ -347,7 +352,7 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
 
     # Issue unique session ID and invalidate any prior session for this user
     session_id = f"sess_{secrets.token_hex(16)}"
-    ACTIVE_USER_SESSIONS[input_email] = session_id
+    set_active_session(input_email, session_id)
 
     token, expires_at = create_token(
         {
@@ -455,7 +460,7 @@ def set_password(
 
     name, role = get_user_profile(clean_email)
     session_id = f"sess_{secrets.token_hex(16)}"
-    ACTIVE_USER_SESSIONS[clean_email] = session_id
+    set_active_session(clean_email, session_id)
 
     token, expires_at = create_token(
         {

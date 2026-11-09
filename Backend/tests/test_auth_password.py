@@ -278,3 +278,32 @@ def test_set_password_requires_auth_or_current_password_if_already_set():
         headers={"User-Agent": "Mozilla/5.0", "Authorization": f"Bearer {active_token}"},
     )
     assert res_valid_token.status_code == 200
+
+
+def test_thread_safe_session_store_concurrency():
+    """Verify thread-safe session store accessors handle high-concurrency access without race conditions."""
+    import concurrent.futures
+    from src.api.session_store import (
+        get_active_session,
+        set_active_session,
+        clear_active_session,
+        clear_all_sessions,
+    )
+
+    clear_all_sessions()
+
+    def worker(worker_id: int):
+        email = f"user_{worker_id % 10}@jfll.com"
+        for i in range(50):
+            session_id = f"sess_{worker_id}_{i}"
+            set_active_session(email, session_id)
+            current = get_active_session(email)
+            assert current is not None
+            if i % 10 == 0:
+                clear_active_session(email)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        futures = [executor.submit(worker, i) for i in range(20)]
+        for future in concurrent.futures.as_completed(futures):
+            future.result()  # Will raise if an assertion or exception occurred
+

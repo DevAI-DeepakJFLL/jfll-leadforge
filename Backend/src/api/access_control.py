@@ -11,7 +11,7 @@ from typing import Any
 
 from src.api.config import settings
 from src.api.logger import logger
-from src.api.session_store import ACTIVE_USER_SESSIONS
+from src.api.session_store import ACTIVE_USER_SESSIONS, clear_active_session
 
 # Thread lock for thread-safe concurrent in-memory reads and atomic disk operations
 _ACCESS_LOCK = threading.Lock()
@@ -733,10 +733,9 @@ def remove_from_allowlist(email: str, removed_by: str = "admin") -> dict[str, An
         data["allowlist"] = allowlist
         save_access_data(data)
 
-    # Invalidate active session immediately
+    # Invalidate active session immediately in a thread-safe manner
     try:
-        if clean_email in ACTIVE_USER_SESSIONS:
-            del ACTIVE_USER_SESSIONS[clean_email]
+        clear_active_session(clean_email)
     except Exception as err:
         logger.debug("Non-critical notice clearing session for %s: %s", clean_email, err)
 
