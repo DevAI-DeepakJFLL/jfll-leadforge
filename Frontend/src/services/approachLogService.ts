@@ -3,8 +3,6 @@ import { getStoredSession } from '@/services/authService';
 import { logger } from '@/utils/logger';
 import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 import {
-  ALL_SALES_ACTIONS,
-  ALL_SALES_STATUSES,
   ApproachLogCreatePayload,
   ApproachLogEntry,
   BulkStatusesResponse,
@@ -12,7 +10,6 @@ import {
   EntityApproachHistory,
   FUNNEL_RANKS,
   MANDATORY_NOTE_STATUSES,
-  QuickApproachLogParams,
   SalesAction,
   SalesStatus,
 } from '@/types/approachLog';
@@ -425,75 +422,6 @@ export async function logApproachActivity(
     notifyApproachStatusUpdated(entityType, entityId, targetStatus, entity.is_active_converted);
     return { ...entity, is_offline_pending: true };
   }
-}
-
-/**
- * 1-Click micro-action wrapper that normalizes approach channels/statuses
- * and persists the logged interaction via `logApproachActivity`.
- */
-export async function logApproach(
-  arg1: 'datamyne' | 'jfll_customer' | 'jfll' | QuickApproachLogParams,
-  arg2?: string | Partial<QuickApproachLogParams>,
-  arg3?: Partial<QuickApproachLogParams>
-): Promise<EntityApproachHistory> {
-  let params: QuickApproachLogParams;
-  let rawEntityType: 'datamyne' | 'jfll_customer' | 'jfll';
-  let entityId: string;
-
-  if (typeof arg1 === 'object') {
-    params = arg1;
-    rawEntityType = params.entityType || 'datamyne';
-    entityId = params.entityId || '';
-  } else {
-    rawEntityType = arg1;
-    entityId = typeof arg2 === 'string' ? arg2 : '';
-    const rawParams = (typeof arg2 === 'object' ? arg2 : arg3) || {};
-    params = {
-      status: 'Contacted',
-      ...rawParams,
-    };
-  }
-
-  const entityType: 'datamyne' | 'jfll_customer' =
-    rawEntityType === 'jfll' ? 'jfll_customer' : rawEntityType;
-
-  let targetStatus: SalesStatus = 'Contacted';
-  let targetAction: SalesAction = 'Called customer';
-  let defaultNote = params.note || null;
-
-  const rawStatus = (params.status || '').toLowerCase();
-  const rawChannel = (params.type || params.channel || params.action || '').toLowerCase();
-
-  if (rawStatus === 'unreachable') {
-    targetStatus = 'No Response';
-    targetAction = rawChannel.includes('voice') ? 'Left voicemail' : 'Called customer';
-    defaultNote = params.note || 'Attempted call - customer unreachable / no answer';
-  } else if (rawStatus === 'connected') {
-    targetStatus = 'Contacted';
-    targetAction = 'Called customer';
-    defaultNote = params.note || 'Call connected with customer';
-  } else if (rawStatus === 'sent') {
-    targetStatus = 'Contacted';
-    targetAction = 'Sent email';
-    defaultNote = params.note || 'Introductory email sent';
-  } else if (rawStatus === 'scheduled') {
-    targetStatus = 'In Progress';
-    targetAction = 'Follow-up scheduled';
-    defaultNote = params.note || 'Follow-up / discovery meeting scheduled';
-  } else {
-    if (ALL_SALES_STATUSES.includes(params.status as SalesStatus)) {
-      targetStatus = params.status as SalesStatus;
-    }
-    if (ALL_SALES_ACTIONS.includes(params.action as SalesAction)) {
-      targetAction = params.action as SalesAction;
-    }
-  }
-
-  return logApproachActivity(entityType, entityId, {
-    action: targetAction,
-    status: targetStatus,
-    note: defaultNote,
-  });
 }
 
 export async function convertClientToActive(

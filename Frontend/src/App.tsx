@@ -158,33 +158,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAdminPortalOpen, setIsAdminPortalOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [isDesktopFilterExpanded, setIsDesktopFilterExpanded] = useState<boolean>(() => {
-    try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        return window.localStorage.getItem('jfll_desktop_filter_expanded') === 'true';
-      }
-    } catch {
-      // Ignore
-    }
-    return false;
-  });
-
-  const handleToggleFilter = useCallback(() => {
-    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
-      setIsDesktopFilterExpanded((prev) => {
-        const next = !prev;
-        try {
-          window.localStorage.setItem('jfll_desktop_filter_expanded', String(next));
-        } catch {
-          // Ignore
-        }
-        return next;
-      });
-    } else {
-      setIsMobileFilterOpen((prev) => !prev);
-    }
-  }, []);
-
   const { showToast } = useToast();
 
   const { data: adminStats } = useQuery({
@@ -922,28 +895,14 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
 
   const handleSwitchToPeople = () => {
     setApolloSubTab('people');
-    setTopTab('apollo');
+    setTopTab('people');
     setActiveNav('search');
-    try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem(STORAGE_TAB_KEY, 'people');
-      }
-    } catch {
-      // Ignore
-    }
   };
 
   const handleSwitchToCompanies = (companySearchTerm?: string) => {
     setApolloSubTab('companies');
-    setTopTab('apollo');
+    setTopTab('companies');
     setActiveNav('companies');
-    try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem(STORAGE_TAB_KEY, 'companies');
-      }
-    } catch {
-      // Ignore
-    }
     if (companySearchTerm && companySearchTerm !== 'Selected Organization') {
       setApolloDbSearch(companySearchTerm);
     }
@@ -1064,30 +1023,19 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   // Cleanly handles switching between top-level global directory tabs
   const handleAudienceTabChange = (tabId: string) => {
     let normalizedTab = tabId;
-    let targetSubTab = apolloSubTab;
-
-    if (tabId === 'companies' || tabId === 'home') {
+    if (tabId === 'companies') {
       normalizedTab = 'apollo';
-      targetSubTab = 'companies';
       setApolloSubTab('companies');
-    } else if (tabId === 'people' || tabId === 'search') {
+    } else if (tabId === 'people') {
       normalizedTab = 'apollo';
-      targetSubTab = 'people';
       setApolloSubTab('people');
-    } else if (tabId === 'apollo') {
-      normalizedTab = 'apollo';
-      targetSubTab = apolloSubTab || 'companies';
     }
-
     setTopTab(normalizedTab);
     setIsMobileFilterOpen(false);
 
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem(
-          STORAGE_TAB_KEY,
-          normalizedTab === 'apollo' ? targetSubTab : normalizedTab
-        );
+        window.localStorage.setItem(STORAGE_TAB_KEY, normalizedTab);
       }
     } catch {
       // Ignore storage errors
@@ -1102,7 +1050,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     } else if (normalizedTab === 'report') {
       setActiveNav('report');
     } else if (normalizedTab === 'apollo') {
-      setActiveNav(targetSubTab === 'people' ? 'search' : 'companies');
+      setActiveNav(apolloSubTab === 'people' ? 'search' : 'companies');
     } else if (normalizedTab === 'saved-searches' || normalizedTab === 'saved-lists') {
       setActiveNav('saved-searches');
       if (normalizedTab === 'saved-searches') {
@@ -1126,28 +1074,37 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         }),
         true
       );
-    } else if (typeof window !== 'undefined' && window.location.search && normalizedTab !== 'apollo') {
+    } else if (typeof window !== 'undefined' && window.location.search && normalizedTab !== 'people' && normalizedTab !== 'apollo') {
       window.history.replaceState(null, '', window.location.pathname);
     }
   };
-
-  const canonicalActiveTab = useMemo(() => {
-    if (isReportCategory) return 'report';
-    if (isApolloCategory) return 'apollo';
-    if (topTab === 'saved-searches') return 'saved-searches';
-    if (topTab === 'saved-lists') return 'saved-lists';
-    if (topTab === 'datamyne') return 'datamyne';
-    if (topTab === 'jfll-customers') return 'jfll-customers';
-    return 'jfll-customers';
-  }, [isReportCategory, isApolloCategory, topTab]);
 
   return (
     <AppLayout
       activeNav={activeNav}
       savedCount={savedLeadIds.size}
-      savedListsCount={savedLists.length}
-      onNavChange={handleAudienceTabChange}
-      activeTab={canonicalActiveTab}
+      onNavChange={(navId) => {
+        if (navId === 'datamyne') {
+          handleAudienceTabChange('datamyne');
+        } else if (navId === 'jfll-customers') {
+          handleAudienceTabChange('jfll-customers');
+        } else if (navId === 'report') {
+          handleAudienceTabChange('report');
+        } else if (navId === 'home' || navId === 'companies') {
+          setTopTab('apollo');
+          setApolloSubTab('companies');
+          setActiveNav('companies');
+        } else if (navId === 'search') {
+          setTopTab('apollo');
+          setApolloSubTab('people');
+          setActiveNav('search');
+        } else if (navId === 'saved-searches') {
+          handleAudienceTabChange('saved-searches');
+        } else {
+          setActiveNav(navId);
+        }
+      }}
+      activeTab={isReportCategory ? 'report' : isApolloCategory ? 'apollo' : topTab}
       onTabChange={handleAudienceTabChange}
       searchQuery={
         isDatamyneCategory
@@ -1186,10 +1143,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       pendingRequestsCount={adminStats?.pending_requests_count}
       onLogout={onLogout}
       currentUser={currentUser}
-      onToggleMobileFilter={handleToggleFilter}
-      isFilterOpen={isMobileFilterOpen || isDesktopFilterExpanded}
+      onToggleMobileFilter={() => setIsMobileFilterOpen((prev) => !prev)}
       activeFilterCount={currentActiveFilterCount}
-      showSearch={isReportCategory || isSavedTab}
     >
       {isDatamyneCategory ? (
         <DatamyneView
@@ -1223,8 +1178,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           setMinTradedValueUsd={setDatamyneMinTradedValueUsd}
           clearAllFilters={clearAllDatamyneFilters}
           activeFilterCount={datamyneActiveFilterCount}
-          isFilterExpanded={isDesktopFilterExpanded}
-          onToggleFilterExpand={handleToggleFilter}
           onLeadClick={(lead) => setSelectedDatamyneLead(lead)}
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
@@ -1263,9 +1216,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           setApproachStatuses={setJfllApproachStatuses}
           toggleContactOption={toggleJfllContactOption}
           clearAllFilters={clearAllJfllFilters}
-          activeFilterCount={jfllActiveFilterCount}
-          isFilterExpanded={isDesktopFilterExpanded}
-          onToggleFilterExpand={handleToggleFilter}
           onCustomerClick={(c) => setSelectedJfllCustomer(c)}
           onLogApproach={handleOpenJfllApproach}
           onConvertToActive={handleOpenJfllConvert}

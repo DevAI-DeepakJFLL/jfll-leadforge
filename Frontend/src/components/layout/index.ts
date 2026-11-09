@@ -6,13 +6,3 @@ export type { TopHeaderProps } from './TopHeader';
 
 export { AppLayout } from './AppLayout';
 export type { AppLayoutProps } from './AppLayout';
-
-export { UnifiedSidebar } from './UnifiedSidebar';
-export type { UnifiedSidebarProps } from './UnifiedSidebar';
-
-export { SlimHeader } from './SlimHeader';
-export type { SlimHeaderProps } from './SlimHeader';
-
-export { SplitPeekDossier } from '../common/SplitPeekDossier';
-export type { SplitPeekDossierProps } from '../common/SplitPeekDossier';
-

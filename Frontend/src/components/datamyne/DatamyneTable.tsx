@@ -27,8 +27,6 @@ export interface DatamyneTableProps {
   rowSelection: RowSelectionState;
   onRowSelectionChange: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   onLeadClick: (lead: DatamyneLead) => void;
-  onViewFullLead?: (lead: DatamyneLead) => void;
-  peekLeadId?: string | null;
   onLogApproach?: (lead: DatamyneLead) => void;
   onConvertToActive?: (lead: DatamyneLead) => void;
   currentPage: number;
@@ -51,8 +49,6 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   rowSelection,
   onRowSelectionChange,
   onLeadClick,
-  onViewFullLead,
-  peekLeadId,
   onLogApproach,
   onConvertToActive,
   currentPage,
@@ -239,7 +235,6 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
           <tbody className="divide-y divide-slate-100">
             {leads.map((l) => {
               const isSelected = !!rowSelection[l.id];
-              const isPeekActive = peekLeadId === l.id;
               const initials = l.company_name
                 .split(' ')
                 .filter(Boolean)
@@ -256,7 +251,6 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   role="row"
                   tabIndex={0}
                   aria-selected={isSelected}
-                  data-peek-active={isPeekActive ? 'true' : undefined}
                   onClick={() => onLeadClick(l)}
                   onKeyDown={(e) => {
                     if (e.target !== e.currentTarget) return;
@@ -266,21 +260,13 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                     }
                   }}
                   className={`transition-colors cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-apollo focus-visible:ring-inset ${
-                    isPeekActive
-                      ? 'bg-blue-50/70 border-l-4 border-l-apollo'
-                      : isSelected
-                      ? 'bg-blue-50/35 hover:bg-blue-50/50'
-                      : 'hover:bg-slate-50/80 bg-white'
+                    isSelected ? 'bg-blue-50/35 hover:bg-blue-50/50' : 'hover:bg-slate-50/80 bg-white'
                   }`}
                 >
                   {/* Checkbox */}
                   <td
                     className={`sticky left-0 z-10 w-10 border-r border-slate-200/60 py-3 px-3 text-center align-middle transition-colors ${
-                      isPeekActive
-                        ? 'bg-blue-50/70 border-l-4 border-l-apollo group-hover:bg-blue-50'
-                        : isSelected
-                        ? 'bg-blue-50/90 group-hover:bg-blue-50'
-                        : 'bg-white group-hover:bg-slate-50/80'
+                      isSelected ? 'bg-blue-50/90 group-hover:bg-blue-50' : 'bg-white group-hover:bg-slate-50/80'
                     }`}
                     onClick={(e) => handleToggleRow(l.id, e)}
                   >
@@ -298,11 +284,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   {/* Company Name & Role */}
                   <td
                     className={`sticky left-10 z-10 min-w-[260px] border-r border-slate-200/60 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3 px-4 align-middle transition-colors ${
-                      isPeekActive
-                        ? 'bg-blue-50/70 group-hover:bg-blue-50'
-                        : isSelected
-                        ? 'bg-blue-50/90 group-hover:bg-blue-50'
-                        : 'bg-white group-hover:bg-slate-50/80'
+                      isSelected ? 'bg-blue-50/90 group-hover:bg-blue-50' : 'bg-white group-hover:bg-slate-50/80'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -474,22 +456,14 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   {/* Action CTA: View, Approach, Convert */}
                   <td
                     className={`sticky right-0 z-10 min-w-[160px] border-l border-slate-200/60 shadow-[-2px_0_4px_-2px_rgba(0,0,0,0.06)] py-3 px-4 text-center align-middle transition-colors ${
-                      isPeekActive
-                        ? 'bg-blue-50/70 group-hover:bg-blue-50'
-                        : isSelected
-                        ? 'bg-blue-50/90 group-hover:bg-blue-50'
-                        : 'bg-white group-hover:bg-slate-50/80'
+                      isSelected ? 'bg-blue-50/90 group-hover:bg-blue-50' : 'bg-white group-hover:bg-slate-50/80'
                     }`}
                   >
                     <div className="flex items-center justify-center gap-1.5">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (onViewFullLead) {
-                            onViewFullLead(l);
-                          } else {
-                            onLeadClick(l);
-                          }
+                          onLeadClick(l);
                         }}
                         className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-xs group/btn cursor-pointer"
                         title={`View details for ${l.company_name}`}

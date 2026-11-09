@@ -37,7 +37,6 @@ export interface JfllCustomerFilterSidebarProps {
   isMobileOpen?: boolean;
   onCloseMobile?: () => void;
   className?: string;
-  isExpanded?: boolean;
 }
 
 export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps> = ({
@@ -54,7 +53,6 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   isMobileOpen = false,
   onCloseMobile,
   className = '',
-  isExpanded = true,
 }) => {
   const [openSections, setOpenSections] = useState({
     approach: true,
@@ -595,14 +593,12 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   return (
     <>
       {/* Desktop Persistent Sidebar (lg: and up) */}
-      {isExpanded && (
-        <aside
-          className={`hidden lg:flex w-72 lg:w-80 h-full border-r border-surface-border bg-white flex-col shrink-0 overflow-hidden select-none ${className}`}
-          aria-label="JFLL Customer Filters Sidebar"
-        >
-          {filterContent}
-        </aside>
-      )}
+      <aside
+        className={`hidden lg:flex w-72 lg:w-80 h-full border-r border-surface-border bg-white flex-col shrink-0 overflow-hidden select-none ${className}`}
+        aria-label="JFLL Customer Filters Sidebar"
+      >
+        {filterContent}
+      </aside>
 
       {/* Mobile / Tablet Off-Canvas Drawer (lg:hidden) */}
       {isMobileOpen && (

@@ -18,14 +18,6 @@ export interface ToastContextType {
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
-let activeToastHandler: ((text: string, type?: ToastType, duration?: number) => void) | null = null;
-
-export const showToast = (text: string, type: ToastType = 'success', duration = 3200): void => {
-  if (activeToastHandler) {
-    activeToastHandler(text, type, duration);
-  }
-};
-
 export const useToast = (): ToastContextType => {
   const context = useContext(ToastContext);
   if (!context) {
@@ -45,7 +37,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
-  const handleShowToast = useCallback(
+  const showToast = useCallback(
     (text: string, type: ToastType = 'success', duration = 3200) => {
       const id = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
       setToasts((prev) => [...prev, { id, text, type, duration }]);
@@ -53,17 +45,8 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     []
   );
 
-  useEffect(() => {
-    activeToastHandler = handleShowToast;
-    return () => {
-      if (activeToastHandler === handleShowToast) {
-        activeToastHandler = null;
-      }
-    };
-  }, [handleShowToast]);
-
   return (
-    <ToastContext.Provider value={{ toasts, showToast: handleShowToast, removeToast }}>
+    <ToastContext.Provider value={{ toasts, showToast, removeToast }}>
       {children}
       <ToastContainer toasts={toasts} onDismiss={removeToast} />
     </ToastContext.Provider>

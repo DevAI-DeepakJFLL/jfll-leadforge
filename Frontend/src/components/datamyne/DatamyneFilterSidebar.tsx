@@ -52,7 +52,6 @@ export interface DatamyneFilterSidebarProps {
   isMobileOpen?: boolean;
   onCloseMobile?: () => void;
   className?: string;
-  isExpanded?: boolean;
 }
 
 const TRANSPORT_MODES_LIST: {
@@ -141,7 +140,6 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
   isMobileOpen = false,
   onCloseMobile,
   className = '',
-  isExpanded = true,
 }) => {
   const [searchInput, setSearchInput] = useState(filters.q || '');
 
@@ -751,14 +749,12 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
   return (
     <>
       {/* Desktop Persistent Sidebar (lg: and up) */}
-      {isExpanded && (
-        <aside
-          className={`hidden lg:flex w-72 lg:w-80 h-full border-r border-surface-border bg-white flex-col shrink-0 overflow-hidden select-none ${className}`}
-          aria-label="DataMyne Filters Sidebar"
-        >
-          {filterContent}
-        </aside>
-      )}
+      <aside
+        className={`hidden lg:flex w-72 lg:w-80 h-full border-r border-surface-border bg-white flex-col shrink-0 overflow-hidden select-none ${className}`}
+        aria-label="DataMyne Filters Sidebar"
+      >
+        {filterContent}
+      </aside>
 
       {/* Mobile / Tablet Off-Canvas Drawer (lg:hidden) */}
       {isMobileOpen && (
