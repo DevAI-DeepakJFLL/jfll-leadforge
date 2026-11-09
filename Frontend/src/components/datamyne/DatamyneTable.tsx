@@ -88,12 +88,12 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
       >
         <div className="flex-1 overflow-auto min-h-0 relative">
           <table className="w-full text-left text-xs border-collapse">
-            <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200 shadow-2xs">
+            <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200/90 shadow-2xs">
               <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
                 <th className="py-3 px-3 w-10 text-center">
                   <span className="sr-only">Select</span>
                 </th>
-                <th className="py-3 px-4 min-w-[260px]">
+                <th className="py-3 px-4 min-w-[220px]">
                   Company & Role
                 </th>
                 <th className="py-3 px-3.5 min-w-[210px]">Category & Subcategory</th>
@@ -215,12 +215,12 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
     >
       <div className="flex-1 overflow-auto min-h-0 relative">
         <table className="w-full text-left text-xs border-collapse">
-          <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200 shadow-2xs">
+          <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200/90 shadow-2xs">
             <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
               <th className="py-3 px-3 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>
-              <th className="py-3 px-4 min-w-[260px]">
+              <th className="py-3 px-4 min-w-[220px]">
                 Company & Role
               </th>
               <th className="py-3 px-3.5 min-w-[210px]">Category & Subcategory</th>

@@ -225,10 +225,10 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
       <div className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex-1 flex flex-col min-h-0 ${className}`}>
         <div className="flex-1 overflow-auto min-h-0 relative">
           <table className="w-full text-left text-xs border-collapse">
-            <thead className="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-xs">
+            <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200/90 shadow-2xs">
               <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
                 <th scope="col" className="py-2.5 px-3 w-10 text-center"><span className="sr-only">Select</span></th>
-                <th scope="col" className="py-2.5 px-4 min-w-[260px]">Company Name</th>
+                <th scope="col" className="py-2.5 px-4 min-w-[220px]">Company Name</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[150px]">Customer Group</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[95px]">Status</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[130px]">Approach Status</th>
@@ -237,7 +237,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                 <th scope="col" className="py-2.5 px-3.5 min-w-[150px]">Contact Person</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[155px]">Phone Number</th>
                 <th scope="col" className="py-2.5 px-3.5 min-w-[190px]">Email</th>
-                <th scope="col" className="py-2.5 px-4 min-w-[160px] text-center">Action</th>
+                <th scope="col" className="py-2.5 px-4 min-w-[150px] text-center">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -319,12 +319,12 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
       {/* Table Container */}
       <div className="flex-1 overflow-auto min-h-0 relative">
         <table className="w-full text-left text-xs border-collapse">
-          <thead className="sticky top-0 z-20 bg-slate-50 border-b border-slate-200 shadow-xs">
+          <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200/90 shadow-2xs">
             <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
               <th scope="col" className="py-2.5 px-3 w-10 text-center">
                 <span className="sr-only">Select</span>
               </th>
-              {renderSortHeader('fullName', 'Company Name', 'px-4 min-w-[260px]', 'Sort alphabetically by company name')}
+              {renderSortHeader('fullName', 'Company Name', 'px-4 min-w-[220px]', 'Sort alphabetically by company name')}
               {renderSortHeader('customerGroup', 'Customer Group', 'px-3.5 min-w-[150px]', 'Sort by customer category')}
               {renderSortHeader('status', 'Status', 'px-3.5 min-w-[95px]', 'Sort by active / inactive status')}
               <th scope="col" className="py-2.5 px-3.5 min-w-[130px]">Approach Status</th>
@@ -348,7 +348,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
               {renderSortHeader('contactPersonName', 'Contact Person', 'px-3.5 min-w-[150px]', 'Sort by named contact person')}
               <th scope="col" className="py-2.5 px-3.5 min-w-[155px]">Phone Number</th>
               <th scope="col" className="py-2.5 px-3.5 min-w-[190px]">Email</th>
-              <th scope="col" className="py-2.5 px-4 min-w-[160px] text-center">Action</th>
+              <th scope="col" className="py-2.5 px-4 min-w-[150px] text-center">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -399,7 +399,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   </td>
 
                   {/* Company Name */}
-                  <td className="min-w-[260px] py-3 px-4 align-middle">
+                  <td className="min-w-[220px] py-3 px-4 align-middle">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shrink-0 shadow-2xs">
                         {initials || <Building2 className="w-4 h-4 text-slate-400" />}
@@ -602,7 +602,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                   </td>
 
                   {/* Action CTA: View, Approach, Convert */}
-                  <td className="min-w-[160px] py-3 px-4 text-center align-middle">
+                  <td className="min-w-[150px] py-3 px-4 text-center align-middle">
                     <div className="flex items-center justify-center gap-1.5">
                       <button
                         onClick={(e) => {
