@@ -117,3 +117,20 @@ export interface BulkStatusesResponse {
   total_tracked: number;
   statuses: Record<string, SalesStatus>;
 }
+
+export interface QuickApproachLogParams {
+  entityType?: 'datamyne' | 'jfll_customer' | 'jfll';
+  entityId?: string;
+  companyName?: string;
+  contactPerson?: string;
+  phone?: string;
+  email?: string;
+  channel?: 'call' | 'email' | 'meeting' | 'whatsapp' | string;
+  type?: 'call' | 'email' | 'meeting' | string;
+  action?: 'call' | 'email' | 'meeting' | SalesAction | string;
+  status?: 'unreachable' | 'connected' | 'sent' | 'scheduled' | SalesStatus | string;
+  salespersonName?: string;
+  salespersonEmail?: string;
+  note?: string | null;
+}
+

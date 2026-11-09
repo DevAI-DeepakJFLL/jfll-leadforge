@@ -13,3 +13,6 @@ export type { UnifiedSidebarProps } from './UnifiedSidebar';
 export { SlimHeader } from './SlimHeader';
 export type { SlimHeaderProps } from './SlimHeader';
 
+export { SplitPeekDossier } from '../common/SplitPeekDossier';
+export type { SplitPeekDossierProps } from '../common/SplitPeekDossier';
+

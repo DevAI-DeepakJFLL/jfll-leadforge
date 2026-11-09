@@ -7,12 +7,25 @@ import {
   DatamyneActiveFilterChips,
   DatamyneTable,
 } from '@/components/datamyne';
-import { Sparkles, Layers } from 'lucide-react';
+import {
+  Sparkles,
+  Layers,
+  MapPin,
+  Phone,
+  Mail,
+  PackageCheck,
+  DollarSign,
+  Maximize2,
+  PhoneOff,
+} from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 import { useToast } from '@/components/ui';
-import { TierAudienceTabs } from '@/components/tiers';
+import { TierAudienceTabs, TierScoreBadge } from '@/components/tiers';
 import { useTierFilter } from '@/hooks/useTierFilter';
+import { SplitPeekDossier } from '@/components/common';
+import { useTableQueueNavigation } from '@/hooks/useTableQueueNavigation';
+import { QuickTouchpointLogger, SalesStatusBadge } from '@/components/approach';
 import {
   fetchTierCounts,
   fetchTierLeads,
@@ -26,7 +39,11 @@ import {
   getLoadedDatamyneDataset,
 } from '@/services/datamyneService';
 import { triggerCsvDownload } from '@/utils/csv';
-import { getLatestApproachNotesForEntities } from '@/services/approachLogService';
+import {
+  getLatestApproachNotesForEntities,
+  getCachedApproachStatus,
+  APPROACH_STATUS_CHANGED_EVENT,
+} from '@/services/approachLogService';
 import { logger } from '@/utils/logger';
 import { TierFilterParams } from '@/types/tierSegmentation';
 import { UserSession } from '@/types/auth';
@@ -280,6 +297,37 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   const displayPage = perspective === 'tiers' ? tierPage : query.page;
   const displayTotalPages = perspective === 'tiers' ? (tierData?.totalPages || 0) : query.totalPages;
   const handleDisplayPageChange = perspective === 'tiers' ? setTierPage : onPageChange;
+
+  const [peekLead, setPeekLead] = React.useState<DatamyneLead | null>(null);
+
+  // Clear peekLead if filters or page switch excludes current lead from displayItems
+  React.useEffect(() => {
+    if (peekLead && !displayItems.some((l) => l.id === peekLead.id)) {
+      setPeekLead(null);
+    }
+  }, [displayItems, peekLead]);
+
+  const [, setUpdateTrigger] = React.useState(0);
+  React.useEffect(() => {
+    const handler = () => setUpdateTrigger((v) => v + 1);
+    window.addEventListener(APPROACH_STATUS_CHANGED_EVENT, handler);
+    return () => window.removeEventListener(APPROACH_STATUS_CHANGED_EVENT, handler);
+  }, []);
+
+  const peekIndex = React.useMemo(() => {
+    if (!peekLead) return -1;
+    return displayItems.findIndex((l) => l.id === peekLead.id);
+  }, [displayItems, peekLead]);
+
+  const { goToNext, goToPrev } = useTableQueueNavigation<DatamyneLead>({
+    items: displayItems,
+    selectedIndex: peekIndex >= 0 ? peekIndex : undefined,
+    onNavigate: (_idx, lead) => {
+      if (lead) setPeekLead(lead);
+    },
+    onClose: () => setPeekLead(null),
+    enabled: !!peekLead,
+  });
 
   const { showToast } = useToast();
   const [isExportingTiers, setIsExportingTiers] = React.useState(false);
@@ -551,24 +599,220 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           onClearAll={clearAllFilters}
         />
 
-        <div className="flex-1 flex flex-col p-3 sm:p-4 min-h-0 overflow-hidden">
-          <DatamyneTable
-            leads={displayItems}
-            rowSelection={rowSelection}
-            onRowSelectionChange={onRowSelectionChange}
-            onLeadClick={onLeadClick}
-            onLogApproach={isViewer ? undefined : onLogApproach}
-            onConvertToActive={isViewer ? undefined : onConvertToActive}
-            currentPage={displayPage}
-            totalPages={displayTotalPages}
-            pageSize={query.limit || 25}
-            totalItems={displayTotal}
-            totalFormatted={displayTotalFormatted}
-            onPageChange={handleDisplayPageChange}
-            onClearFilters={clearAllFilters}
-            onResetToAllVerticals={() => onTabChange('all')}
-            isLoading={perspective === 'tiers' ? isTierLoading : false}
-          />
+        <div className="flex-1 flex flex-row min-h-0 overflow-hidden relative">
+          <div
+            className={`flex flex-col p-3 sm:p-4 min-h-0 overflow-hidden transition-all duration-200 ${
+              peekLead ? 'w-full lg:w-[60%] shrink-0' : 'flex-1 w-full'
+            }`}
+          >
+            <DatamyneTable
+              leads={displayItems}
+              rowSelection={rowSelection}
+              onRowSelectionChange={onRowSelectionChange}
+              onLeadClick={(lead) => setPeekLead(lead)}
+              onViewFullLead={(lead) => onLeadClick?.(lead)}
+              peekLeadId={peekLead?.id}
+              onLogApproach={isViewer ? undefined : onLogApproach}
+              onConvertToActive={isViewer ? undefined : onConvertToActive}
+              currentPage={displayPage}
+              totalPages={displayTotalPages}
+              pageSize={query.limit || 25}
+              totalItems={displayTotal}
+              totalFormatted={displayTotalFormatted}
+              onPageChange={handleDisplayPageChange}
+              onClearFilters={clearAllFilters}
+              onResetToAllVerticals={() => onTabChange('all')}
+              isLoading={perspective === 'tiers' ? isTierLoading : false}
+            />
+          </div>
+
+          {peekLead && (
+            <SplitPeekDossier
+              isOpen={!!peekLead}
+              onClose={() => setPeekLead(null)}
+              title={peekLead.company_name}
+              subtitle={`${peekLead.role} · ${peekLead.city || 'India'} · ${peekLead.category}`}
+              currentIndex={peekIndex >= 0 ? peekIndex : 0}
+              totalCount={displayItems.length}
+              onNext={goToNext}
+              onPrev={goToPrev}
+              onExpandFull={() => onLeadClick?.(peekLead)}
+              queueLabel="Lead"
+              className="w-full lg:w-[40%] xl:w-[40%] flex-1"
+            >
+              <div className="flex flex-col divide-y divide-slate-100">
+                {/* 1-Click Micro-touchpoint Logger */}
+                <div className="p-4 bg-slate-50/70">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                      Quick Touchpoint
+                    </span>
+                    <SalesStatusBadge
+                      status={getCachedApproachStatus('datamyne', peekLead.id)}
+                      size="sm"
+                    />
+                  </div>
+                  <QuickTouchpointLogger
+                    entityType="datamyne"
+                    entityId={peekLead.id}
+                    companyName={peekLead.company_name}
+                    phone={peekLead.phone}
+                    email={peekLead.email}
+                    currentUser={currentUser}
+                    className="w-full justify-between"
+                  />
+                </div>
+
+                {/* Lead Summary Card */}
+                <div className="p-4 space-y-4">
+                  {/* Badges */}
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {(peekLead as any).segment_status && (
+                      <TierScoreBadge
+                        status={(peekLead as any).segment_status}
+                        score={(peekLead as any).total_score || 0}
+                        breakdown={(peekLead as any).score_breakdown}
+                      />
+                    )}
+                    <span
+                      className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap ${
+                        peekLead.role === 'Exporter'
+                          ? 'bg-blue-50 text-blue-700 border-blue-200'
+                          : peekLead.role === 'Importer'
+                          ? 'bg-rose-50 text-rose-700 border-rose-200'
+                          : 'bg-purple-50 text-purple-700 border-purple-200'
+                      }`}
+                    >
+                      {peekLead.role === 'Both (Exporter & Importer)' || peekLead.role === 'Both'
+                        ? 'Both (Exp & Imp)'
+                        : peekLead.role}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                      {peekLead.category}
+                    </span>
+                    {peekLead.subcategory && (
+                      <span className="text-[11px] text-slate-500 font-medium truncate max-w-[200px]">
+                        {peekLead.subcategory}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Volume & Value Metrics */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-slate-50 border border-slate-200/70 rounded-lg p-2.5">
+                      <div className="flex items-center gap-1.5 text-slate-500 text-[11px] mb-1">
+                        <PackageCheck className="w-3.5 h-3.5 text-slate-400" />
+                        <span>Total Shipments</span>
+                      </div>
+                      <div className="text-sm font-bold text-slate-900 font-mono tabular-nums">
+                        {peekLead.total_shipments.toLocaleString()}
+                      </div>
+                    </div>
+                    <div className="bg-slate-50 border border-slate-200/70 rounded-lg p-2.5">
+                      <div className="flex items-center gap-1.5 text-slate-500 text-[11px] mb-1">
+                        <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>Traded Value</span>
+                      </div>
+                      <div className="text-sm font-bold text-emerald-700 font-mono tabular-nums">
+                        {peekLead.total_value_usd > 0
+                          ? `$${
+                              peekLead.total_value_usd >= 1_000_000
+                                ? (peekLead.total_value_usd / 1_000_000).toFixed(2) + 'M'
+                                : peekLead.total_value_usd >= 1_000
+                                ? (peekLead.total_value_usd / 1_000).toFixed(1) + 'K'
+                                : peekLead.total_value_usd.toFixed(0)
+                            }`
+                          : '—'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Key Details */}
+                  <div className="space-y-2 text-xs">
+                    {peekLead.city && (
+                      <div className="flex items-start gap-2">
+                        <MapPin className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+                        <div>
+                          <span className="font-semibold text-slate-800">{peekLead.city}</span>
+                          {peekLead.trade_lanes && (
+                            <span className="text-slate-500 ml-1.5">({peekLead.trade_lanes})</span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Contact Details */}
+                    <div className="border border-slate-200/70 rounded-lg p-3 bg-white space-y-2">
+                      <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                        Contact Information
+                      </div>
+                      {peekLead.phone ? (
+                        <div className="flex items-center gap-2">
+                          <Phone className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                          <span className="font-medium text-slate-800 select-all">{peekLead.phone}</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2 text-slate-400 italic text-[11px]">
+                          <PhoneOff className="w-3.5 h-3.5 shrink-0" />
+                          <span>No phone number on file</span>
+                        </div>
+                      )}
+                      {peekLead.email ? (
+                        <div className="flex items-center gap-2">
+                          <Mail className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                          <span className="font-medium text-slate-800 select-all truncate">{peekLead.email}</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2 text-slate-400 italic text-[11px]">
+                          <Mail className="w-3.5 h-3.5 shrink-0" />
+                          <span>No email on file</span>
+                        </div>
+                      )}
+                      {peekLead.tax_id && (
+                        <div className="text-[11px] text-slate-500 font-mono">
+                          IEC: <span className="text-slate-700 font-semibold">{peekLead.tax_id}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Open Full Dossier Button */}
+                  <div className="pt-2 flex flex-col gap-2">
+                    <button
+                      type="button"
+                      onClick={() => onLeadClick?.(peekLead)}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-semibold text-white bg-apollo hover:bg-apollo-600 rounded-lg shadow-2xs transition-colors cursor-pointer"
+                    >
+                      <Maximize2 className="w-4 h-4" />
+                      <span>Open Full Dossier</span>
+                    </button>
+
+                    <div className="flex items-center gap-2">
+                      {onLogApproach && !isViewer && (
+                        <button
+                          type="button"
+                          onClick={() => onLogApproach(peekLead)}
+                          className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-apollo bg-apollo/10 hover:bg-apollo hover:text-white border border-apollo/30 rounded-lg transition-colors cursor-pointer"
+                        >
+                          <span>Detailed Log</span>
+                        </button>
+                      )}
+                      {onConvertToActive && !isViewer && (
+                        <button
+                          type="button"
+                          onClick={() => onConvertToActive(peekLead)}
+                          className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-600 hover:text-white border border-emerald-300 rounded-lg transition-colors cursor-pointer"
+                        >
+                          <Sparkles className="w-3.5 h-3.5 text-emerald-600 hover:text-white" />
+                          <span>Convert</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SplitPeekDossier>
+          )}
         </div>
       </div>
     </div>
