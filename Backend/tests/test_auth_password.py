@@ -307,3 +307,34 @@ def test_thread_safe_session_store_concurrency():
         for future in concurrent.futures.as_completed(futures):
             future.result()  # Will raise if an assertion or exception occurred
 
+
+def test_session_store_redis_adapter(monkeypatch):
+    """Verify session store delegates to Redis when REDIS_URL is provided for horizontal scaling."""
+    import src.api.session_store as store
+
+    mock_redis_storage = {}
+
+    class MockRedis:
+        def get(self, key):
+            return mock_redis_storage.get(key)
+
+        def set(self, key, value, ex=None):
+            mock_redis_storage[key] = value
+
+        def delete(self, key):
+            return mock_redis_storage.pop(key, None)
+
+    monkeypatch.setattr(store, "_REDIS_CLIENT", MockRedis())
+
+    email = "redis_user@jfll.com"
+    sess_id = "sess_redis_123"
+
+    store.set_active_session(email, sess_id)
+    assert mock_redis_storage.get("session:redis_user@jfll.com") == sess_id
+    assert store.get_active_session(email) == sess_id
+
+    store.clear_active_session(email)
+    assert "session:redis_user@jfll.com" not in mock_redis_storage
+    assert store.get_active_session(email) is None
+
+

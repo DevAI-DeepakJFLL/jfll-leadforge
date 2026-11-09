@@ -4,7 +4,11 @@ from fastapi import APIRouter, Header, HTTPException, Query
 from fastapi.responses import Response
 
 from src.api.access_control import Permission
-from src.api.cache import resolve_company_ids_cached
+from src.api.cache import (
+    get_cached_complex_query,
+    resolve_company_ids_cached,
+    set_cached_complex_query,
+)
 from src.api.config import settings
 from src.api.database import get_data_source, get_db_connection
 from src.api.helpers import (
@@ -1018,6 +1022,18 @@ def search_apollo_contacts(
         """
         # Fetch page_size + 1 to reliably determine has_next without full table scan
         query_params = employer_param + params + [page_size + 1, offset]
+        cache_key = f"{data_source}:{where_sql}:{tuple(query_params)}"
+        cached_result = get_cached_complex_query(cache_key)
+        if cached_result:
+            return {
+                "page": page,
+                "page_size": page_size,
+                "total_records": cached_result["total_records"],
+                "total_pages": cached_result["total_pages"],
+                "has_next": cached_result["has_next"],
+                "data": cached_result["data"],
+            }
+
         result_cursor = con.execute(data_query, query_params)
         columns = [desc[0] for desc in result_cursor.description]
         rows = result_cursor.fetchall()
@@ -1032,6 +1048,7 @@ def search_apollo_contacts(
                 total_records = offset + len(clean_rows)
 
         total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
+        set_cached_complex_query(cache_key, clean_records, total_records, total_pages, has_next)
 
         return {
             "page": page,

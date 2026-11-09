@@ -71,3 +71,31 @@ def test_resolve_company_ids_lru_cache(monkeypatch):
     clear_company_cache()
     assert _cached_lookup.cache_info().currsize == 0
 
+
+def test_complex_contact_query_cache():
+    """Verify complex analytical contact queries are memoized with 10-minute TTL."""
+    from src.api.cache import (
+        clear_complex_query_cache,
+        get_cached_complex_query,
+        set_cached_complex_query,
+    )
+
+    clear_complex_query_cache()
+    sig = "s3://lead-cache/apollo_contacts:1=1:('Logistics', 10, 0)"
+
+    # Initially not cached
+    assert get_cached_complex_query(sig) is None
+
+    records = [{"person_id": "p_1", "person_name": "Alice"}]
+    set_cached_complex_query(sig, records, total_records=1, total_pages=1, has_next=False)
+
+    cached = get_cached_complex_query(sig)
+    assert cached is not None
+    assert cached["total_records"] == 1
+    assert cached["data"][0]["person_name"] == "Alice"
+
+    # Reset cache
+    clear_complex_query_cache()
+    assert get_cached_complex_query(sig) is None
+
+
