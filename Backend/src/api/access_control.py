@@ -47,6 +47,7 @@ def _rebuild_cache(data: dict[str, Any], storage_path: Path, mtime: float) -> No
 ROOT_ADMIN_EMAILS = {
     "deepak@jfll.com",
     "tyra.theknath@jfll.com",
+    "tyra@jfll.com",
 }
 
 class Permission(str, Enum):

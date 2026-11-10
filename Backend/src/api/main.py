@@ -26,6 +26,7 @@ from src.api.auth import is_headless_user_agent, verify_token
 from src.api.auth import router as auth_router
 from src.api.config import settings
 from src.api.helpers import get_client_ip, require_permission
+from src.api.lead_tracker_routes import lead_tracker_router
 from src.api.logger import CloudWatchLoggingMiddleware, logger
 from src.api.models import HealthResponse
 from src.api.report_routes import router as report_router
@@ -204,7 +205,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=get_allowed_origins(),
     allow_credentials=True,
-    allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=[
         "Authorization",
         "Content-Type",
@@ -223,6 +224,7 @@ app.include_router(leads_router)
 app.include_router(tier_router)
 app.include_router(approach_router)
 app.include_router(report_router)
+app.include_router(lead_tracker_router)
 
 
 @app.post("/api/v1/approaches/log", response_model=EntityApproachHistory, tags=["Sales Approach Logs"])
@@ -258,7 +260,7 @@ async def global_exception_handler(request: Request, exc: Exception):
     if origin and (origin in allowed_origins or "*" in allowed_origins):
         headers["Access-Control-Allow-Origin"] = origin
         headers["Access-Control-Allow-Credentials"] = "true"
-        headers["Access-Control-Allow-Methods"] = "GET, POST, DELETE, OPTIONS"
+        headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, PATCH, DELETE, OPTIONS"
         headers["Access-Control-Allow-Headers"] = (
             "Authorization, Content-Type, Accept, Origin, User-Agent, "
             "X-Request-ID, X-Amzn-Trace-Id, X-Device-Fingerprint"
