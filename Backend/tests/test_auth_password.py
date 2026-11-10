@@ -93,8 +93,8 @@ def test_set_and_verify_user_password():
 
 
 def test_set_user_password_min_length_validation():
-    """Verifies that passwords shorter than 8 characters are rejected."""
-    with pytest.raises(ValueError, match="at least 8 characters"):
+    """Verifies that passwords shorter than 6 characters are rejected."""
+    with pytest.raises(ValueError, match="at least 6 characters"):
         set_user_password("deepak@jfll.com", "short")
 
 

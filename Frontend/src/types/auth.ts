@@ -17,7 +17,7 @@ export interface AuthorizedUser {
   defaultPassword?: string;
 }
 
-export const DEFAULT_DEMO_PASSWORD = 'JetFreight@2026!';
+export const DEFAULT_DEMO_PASSWORD = 'Jet@123';
 
 function resolveAuthorizedUsers(): AuthorizedUser[] {
   // 1. Resolve from secure build-time/local .env variables

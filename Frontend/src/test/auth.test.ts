@@ -107,13 +107,13 @@ describe('authService', () => {
 
     const session = await loginUser({
       email: 'deepak@jfll.com',
-      password: 'JetFreight@2026!',
+      password: 'Jet@123',
     });
 
     expect(globalThis.fetch).toHaveBeenCalledWith(expect.stringContaining('/api/v1/auth/login'), {
       method: 'POST',
       headers: expect.objectContaining({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify({ email: 'deepak@jfll.com', password: 'JetFreight@2026!' }),
+      body: JSON.stringify({ email: 'deepak@jfll.com', password: 'Jet@123' }),
     });
 
     expect(session.requires_password_setup).toBe(false);
@@ -444,13 +444,13 @@ describe('authService', () => {
         ok: false,
         status: 400,
         json: async () => ({
-          detail: 'Password must be at least 8 characters long.',
+          detail: 'Password must be at least 6 characters long.',
         }),
       });
 
       await expect(
         setUserPassword('deepak@jfll.com', 'short')
-      ).rejects.toThrow('Password must be at least 8 characters long.');
+      ).rejects.toThrow('Password must be at least 6 characters long.');
     });
 
     it('rejects password setup when email is unauthorized', async () => {

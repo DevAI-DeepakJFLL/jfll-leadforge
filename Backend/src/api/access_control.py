@@ -157,7 +157,7 @@ DEFAULT_AUTHORIZED_DIGESTS: dict[str, dict[str, str]] = {
     },
 }
 
-DEFAULT_INITIAL_PASSWORD = "JetFreight@2026!"
+DEFAULT_INITIAL_PASSWORD = "Jet@123"
 
 
 def hash_password(password: str) -> tuple[str, str]:
@@ -580,8 +580,8 @@ def set_user_password(email: str, password: str) -> bool:
     clean_email = email.strip().lower()
     if not clean_email or not password:
         return False
-    if len(password) < 8:
-        raise ValueError("Password must be at least 8 characters long.")
+    if len(password) < 6:
+        raise ValueError("Password must be at least 6 characters long.")
 
     hex_hash, hex_salt = hash_password(password)
     now_str = datetime.now(UTC).isoformat()

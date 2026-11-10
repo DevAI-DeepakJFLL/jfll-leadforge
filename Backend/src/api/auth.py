@@ -442,10 +442,10 @@ def set_password(
             )
 
     new_pwd = payload.new_password
-    if len(new_pwd) < 8:
+    if len(new_pwd) < 6:
         raise HTTPException(
             status_code=400,
-            detail="Password must be at least 8 characters long.",
+            detail="Password must be at least 6 characters long.",
         )
 
     try:

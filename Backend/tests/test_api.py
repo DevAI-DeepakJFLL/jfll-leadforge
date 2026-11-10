@@ -224,7 +224,7 @@ def test_sql_injection_attempt_is_safe():
 
 def test_auth_login_success_and_verify_token():
     # 1. Successful whitelist login with default passphrase
-    res = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com", "password": "JetFreight@2026!"})
+    res = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com", "password": "Jet@123"})
     assert res.status_code == 200
     payload = res.json()
     assert payload["email"] == "deepak@jfll.com"
@@ -248,7 +248,7 @@ def test_auth_login_success_and_verify_token():
         ("akash.dhara@jfll.com", "Akash Dhara", "Operations"),
         ("snehal.birje@jfll.com", "Snehal Birje", "Commercial"),
     ]:
-        team_res = client.post("/api/v1/auth/login", json={"email": email, "password": "JetFreight@2026!"})
+        team_res = client.post("/api/v1/auth/login", json={"email": email, "password": "Jet@123"})
         assert team_res.status_code == 200
         team_payload = team_res.json()
         assert team_payload["email"] == email.strip().lower()
@@ -288,7 +288,7 @@ def test_single_device_session_displacement():
     email = "deepak@jfll.com"
 
     # 1. Device 1 logs in and receives token_dev1
-    res1 = client.post("/api/v1/auth/login", json={"email": email, "password": "JetFreight@2026!"})
+    res1 = client.post("/api/v1/auth/login", json={"email": email, "password": "Jet@123"})
     assert res1.status_code == 200
     token_dev1 = res1.json()["token"]
 
@@ -298,7 +298,7 @@ def test_single_device_session_displacement():
     assert me1.json()["email"] == email
 
     # 2. Device 2 logs in with same email and receives token_dev2
-    res2 = client.post("/api/v1/auth/login", json={"email": email, "password": "JetFreight@2026!"})
+    res2 = client.post("/api/v1/auth/login", json={"email": email, "password": "Jet@123"})
     assert res2.status_code == 200
     token_dev2 = res2.json()["token"]
     assert token_dev1 != token_dev2
@@ -373,7 +373,7 @@ def test_audit_logging_and_user_attribution(caplog):
 
     with caplog.at_level(logging.INFO):
         # 1. Login success audit record
-        res = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com", "password": "JetFreight@2026!"})
+        res = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com", "password": "Jet@123"})
         assert res.status_code == 200
         token = res.json()["token"]
 
@@ -410,7 +410,7 @@ def test_rotating_file_handler_auto_clean(tmp_path):
 def test_single_device_session_displacement_immediate():
     """Verify that a second login immediately displaces the first device session."""
     # 1. Device 1 logs in
-    res1 = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com", "password": "JetFreight@2026!"})
+    res1 = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com", "password": "Jet@123"})
     assert res1.status_code == 200
     token1 = res1.json()["token"]
 
@@ -419,7 +419,7 @@ def test_single_device_session_displacement_immediate():
     assert me1.status_code == 200
 
     # 2. Device 2 logs in with same email
-    res2 = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com", "password": "JetFreight@2026!"})
+    res2 = client.post("/api/v1/auth/login", json={"email": "deepak@jfll.com", "password": "Jet@123"})
     assert res2.status_code == 200
     token2 = res2.json()["token"]
 

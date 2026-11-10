@@ -101,8 +101,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       setSetPasswordError('Please enter a new password.');
       return;
     }
-    if (newPassword.length < 8) {
-      setSetPasswordError('Password must be at least 8 characters long.');
+    if (newPassword.length < 6) {
+      setSetPasswordError('Password must be at least 6 characters long.');
       return;
     }
     if (newPassword !== confirmPassword) {

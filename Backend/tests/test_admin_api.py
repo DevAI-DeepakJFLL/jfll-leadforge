@@ -231,7 +231,7 @@ def test_direct_allowlist_management_and_safety():
     # Also verify deepak@jfll.com can log in directly
     res_deepak_login = client.post(
         "/api/v1/auth/login",
-        json={"email": "deepak@jfll.com", "password": "JetFreight@2026!"},
+        json={"email": "deepak@jfll.com", "password": "Jet@123"},
         headers={"User-Agent": "Mozilla/5.0"},
     )
     assert res_deepak_login.status_code == 200
@@ -375,7 +375,7 @@ def test_device_level_blocking_preserves_email_id():
     # 3. The SAME employee logs in from a clean device on the SAME office IP
     clean_device_login = client.post(
         "/api/v1/auth/login",
-        json={"email": employee_email, "password": "JetFreight@2026!"},
+        json={"email": employee_email, "password": "Jet@123"},
         headers={
             "User-Agent": "Mozilla/5.0",
             "X-Forwarded-For": shared_ip,
