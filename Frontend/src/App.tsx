@@ -78,6 +78,9 @@ import {
   syncPendingApproachOutbox,
   APPROACH_STATUS_CHANGED_EVENT,
 } from '@/services/approachLogService';
+import { LeadStatusTrackerView } from '@/components/tracker';
+import { createTrackedLead } from '@/services/leadTrackerService';
+import { LeadTrackerCreatePayload } from '@/types/leadTracker';
 
 
 interface SavedSearchPreset {
@@ -113,7 +116,7 @@ function getInitialTopTab(): string {
       const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
       if (
         saved &&
-        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'report', 'saved-searches', 'saved-lists'].includes(saved)
+        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(saved)
       ) {
         if (saved === 'companies' || saved === 'people') return 'apollo';
         return saved;
@@ -126,6 +129,7 @@ function getInitialTopTab(): string {
 }
 
 function getInitialActiveNav(tab: string): string {
+  if (tab === 'tracker') return 'tracker';
   if (tab === 'datamyne') return 'datamyne';
   if (tab === 'jfll-customers') return 'jfll-customers';
   if (tab === 'report') return 'report';
@@ -989,6 +993,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const isJfllCategory = topTab === 'jfll-customers';
   const isDatamyneCategory = topTab === 'datamyne';
   const isReportCategory = topTab === 'report' || activeNav === 'report';
+  const isTrackerCategory = topTab === 'tracker' || activeNav === 'tracker';
   const isApolloCategory = topTab === 'apollo' || topTab === 'companies' || topTab === 'people';
 
   const apolloActiveFilterCount = useMemo(() => {
@@ -1012,7 +1017,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     return count;
   }, [jfllFilters]);
 
-  const currentActiveFilterCount = isDatamyneCategory
+  const currentActiveFilterCount = isTrackerCategory
+    ? 0
+    : isDatamyneCategory
     ? datamyneActiveFilterCount
     : isJfllCategory
     ? jfllActiveFilterCount
@@ -1043,7 +1050,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
 
     const wasEntityScoped = Boolean(filters.company || filters.organizationId || filters.q);
 
-    if (normalizedTab === 'datamyne') {
+    if (normalizedTab === 'tracker') {
+      setActiveNav('tracker');
+    } else if (normalizedTab === 'datamyne') {
       setActiveNav('datamyne');
     } else if (normalizedTab === 'jfll-customers') {
       setActiveNav('jfll-customers');
@@ -1079,12 +1088,59 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     }
   };
 
+  const handleAssignToTracker = useCallback(
+    async (lead: DatamyneLead | ApolloLead) => {
+      try {
+        const isApollo = 'organization_name' in lead;
+        const companyName = isApollo ? lead.organization_name : lead.company_name;
+        const phone = lead.phone || null;
+        const email = !isApollo && (lead as DatamyneLead).email ? (lead as DatamyneLead).email : null;
+        const entityId = isApollo
+          ? (lead as ApolloLead).organization_id || null
+          : (lead as DatamyneLead).id ? String((lead as DatamyneLead).id) : null;
+
+        const payload: LeadTrackerCreatePayload = {
+          company_name: companyName,
+          assigned_to: 'Edward',
+          branch: 'Mumbai',
+          contact_person:
+            !isApollo && (lead as DatamyneLead).directors
+              ? (lead as DatamyneLead).directors?.split(/[,;\n]/)[0]?.trim() || null
+              : null,
+          contact_phone: phone,
+          contact_email: email,
+          status: 'Assigned',
+          transport_mode:
+            !isApollo && (lead as DatamyneLead).transport_mode === 'Ocean'
+              ? 'Ocean FCL'
+              : 'Air Freight',
+          routing_type: 'Not Specified',
+          assigned_by: currentUser?.name || 'Tyra Theknath',
+          linked_entity_type: isApollo ? 'apollo' : 'datamyne',
+          linked_entity_id: entityId,
+          feedback_notes: `Assigned from ${isApollo ? 'Apollo database' : 'DataMyne intelligence'}.`,
+        };
+
+        await createTrackedLead(payload);
+        showToast(`Assigned "${companyName}" to Lead Tracker`);
+        setSelectedDatamyneLead(null);
+        setSelectedApolloDbLead(null);
+        handleAudienceTabChange('tracker');
+      } catch {
+        showToast('Failed to assign lead to tracker', 'error');
+      }
+    },
+    [currentUser, showToast]
+  );
+
   return (
     <AppLayout
       activeNav={activeNav}
       savedCount={savedLeadIds.size}
       onNavChange={(navId) => {
-        if (navId === 'datamyne') {
+        if (navId === 'tracker') {
+          handleAudienceTabChange('tracker');
+        } else if (navId === 'datamyne') {
           handleAudienceTabChange('datamyne');
         } else if (navId === 'jfll-customers') {
           handleAudienceTabChange('jfll-customers');
@@ -1104,10 +1160,12 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           setActiveNav(navId);
         }
       }}
-      activeTab={isReportCategory ? 'report' : isApolloCategory ? 'apollo' : topTab}
+      activeTab={isTrackerCategory ? 'tracker' : isReportCategory ? 'report' : isApolloCategory ? 'apollo' : topTab}
       onTabChange={handleAudienceTabChange}
       searchQuery={
-        isDatamyneCategory
+        isTrackerCategory
+          ? ''
+          : isDatamyneCategory
           ? datamyneFilters.q || ''
           : isJfllCategory
           ? jfllFilters.q || ''
@@ -1116,7 +1174,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           : filters.q || ''
       }
       onSearchChange={(q) => {
-        if (isDatamyneCategory) {
+        if (isTrackerCategory) {
+          // LeadStatusTrackerView manages its own search
+        } else if (isDatamyneCategory) {
           setDatamyneSearch(q);
         } else if (isJfllCategory) {
           setJfllSearch(q);
@@ -1127,7 +1187,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         }
       }}
       onSearchSubmit={(q) => {
-        if (isDatamyneCategory) {
+        if (isTrackerCategory) {
+          // LeadStatusTrackerView manages its own search
+        } else if (isDatamyneCategory) {
           setDatamyneSearch(q);
         } else if (isJfllCategory) {
           setJfllSearch(q);
@@ -1146,7 +1208,12 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       onToggleMobileFilter={() => setIsMobileFilterOpen((prev) => !prev)}
       activeFilterCount={currentActiveFilterCount}
     >
-      {isDatamyneCategory ? (
+      {isTrackerCategory ? (
+        <LeadStatusTrackerView
+          currentUser={currentUser}
+          onLeadClick={(_lead) => {}}
+        />
+      ) : isDatamyneCategory ? (
         <DatamyneView
           filters={datamyneFilters}
           query={datamyneQuery}
@@ -1375,6 +1442,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onClose={() => setSelectedDatamyneLead(null)}
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
+          onAssignToTracker={handleAssignToTracker}
         />
       </ErrorBoundary>
 
@@ -1388,6 +1456,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           lead={selectedApolloDbLead}
           onClose={() => setSelectedApolloDbLead(null)}
           onFindDecisionMakers={handleFindDecisionMakersInPeople}
+          onAssignToTracker={handleAssignToTracker}
         />
       </ErrorBoundary>
 

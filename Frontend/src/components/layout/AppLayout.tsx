@@ -73,6 +73,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             onToggleMobileFilter={onToggleMobileFilter}
             activeFilterCount={activeFilterCount}
             savedCount={savedCount}
+            currentUser={currentUser}
           />
         </div>
 

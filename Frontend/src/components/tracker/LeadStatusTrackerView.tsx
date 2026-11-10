@@ -19,6 +19,7 @@ import {
   TrackerKPIs,
   TrackerStatus,
 } from '@/types/leadTracker';
+import { UserSession } from '@/types/auth';
 import {
   fetchTrackedLeads,
   fetchTrackerKPIs,
@@ -32,6 +33,8 @@ export interface LeadStatusTrackerViewProps {
   initialBranch?: string;
   initialRep?: string;
   todayStr?: string;
+  currentUser?: UserSession | null;
+  onLeadClick?: (lead: LeadTrackerItem) => void;
   className?: string;
 }
 
@@ -39,6 +42,8 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
   initialBranch = 'All',
   initialRep = 'All',
   todayStr,
+  currentUser,
+  onLeadClick,
   className = '',
 }) => {
   // Leads & KPIs state
@@ -131,6 +136,7 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
     setSelectedLead(lead);
     setDrawerMode('edit');
     setIsDrawerOpen(true);
+    onLeadClick?.(lead);
   };
 
   const handleCloseDrawer = () => {
@@ -569,6 +575,11 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
         onLeadUpdated={handleLeadSaved}
         onLeadCreated={handleLeadCreated}
         onLeadDeleted={handleLeadDeleted}
+        currentUser={
+          currentUser
+            ? { name: currentUser.name || currentUser.email, email: currentUser.email }
+            : undefined
+        }
       />
     </div>
   );

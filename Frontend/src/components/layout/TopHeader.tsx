@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Search, X, SlidersHorizontal } from 'lucide-react';
+import { UserSession, canAccessLeadTracker } from '@/types/auth';
 
 interface TopNavTab {
   id: string;
@@ -18,6 +19,7 @@ export interface TopHeaderProps {
   activeFilterCount?: number;
   showSearch?: boolean;
   savedCount?: number;
+  currentUser?: UserSession | null;
   className?: string;
 }
 
@@ -41,10 +43,34 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   activeFilterCount = 0,
   showSearch = false,
   savedCount,
+  currentUser,
   className = '',
 }) => {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+
+  const isTrackerVisible = useMemo(() => {
+    return canAccessLeadTracker(currentUser);
+  }, [currentUser]);
+
+  const navTabs = useMemo(() => {
+    if (!isTrackerVisible) {
+      return TOP_NAV_TABS;
+    }
+    const datamyneIdx = TOP_NAV_TABS.findIndex((t) => t.id === 'datamyne');
+    const tabs = [...TOP_NAV_TABS];
+    const trackerTab: TopNavTab = {
+      id: 'tracker',
+      label: 'Lead Tracker',
+      badge: 'Active',
+    };
+    if (datamyneIdx !== -1) {
+      tabs.splice(datamyneIdx + 1, 0, trackerTab);
+    } else {
+      tabs.push(trackerTab);
+    }
+    return tabs;
+  }, [isTrackerVisible]);
 
   const handleClearSearch = () => {
     onSearchChange?.('');
@@ -79,7 +105,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             className="flex space-x-1 sm:space-x-2 h-14 items-center shrink-0 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap min-w-0"
             aria-label="Audience Entity Tabs"
           >
-            {TOP_NAV_TABS.map((tab) => {
+            {navTabs.map((tab) => {
               const isActive =
                 tab.id === 'apollo'
                   ? activeTab === 'apollo' || activeTab === 'companies' || activeTab === 'people'

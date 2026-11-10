@@ -97,3 +97,29 @@ function resolveAuthorizedUsers(): AuthorizedUser[] {
 }
 
 export const AUTHORIZED_USERS: AuthorizedUser[] = resolveAuthorizedUsers();
+
+export const LEAD_TRACKER_ALLOWED_EMAILS = [
+  'deepak@jfll.com',
+  'tyra.theknath@jfll.com',
+  'tyra@jfll.com',
+];
+
+export const LEAD_TRACKER_ALLOWED_ROLES = [
+  'leadership',
+  'tech lead',
+  'admin',
+];
+
+const ALLOWED_EMAILS_SET = new Set(LEAD_TRACKER_ALLOWED_EMAILS.map((e) => e.toLowerCase()));
+const ALLOWED_ROLES_SET = new Set(LEAD_TRACKER_ALLOWED_ROLES.map((r) => r.toLowerCase()));
+
+export function canAccessLeadTracker(
+  user?: UserSession | { email?: string; role?: string } | null
+): boolean {
+  if (!user || !user.email) return false;
+  const email = user.email.trim().toLowerCase();
+  const role = (user.role || '').trim().toLowerCase();
+
+  return ALLOWED_EMAILS_SET.has(email) || ALLOWED_ROLES_SET.has(role);
+}
+

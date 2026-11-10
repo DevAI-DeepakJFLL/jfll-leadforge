@@ -15,6 +15,7 @@ import {
   Plane,
   Ship,
   PhoneOff,
+  ClipboardList,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -31,6 +32,7 @@ export interface DatamyneDetailDrawerProps {
   onClose: () => void;
   onLogApproach?: (lead: DatamyneLead) => void;
   onConvertToActive?: (lead: DatamyneLead) => void;
+  onAssignToTracker?: (lead: DatamyneLead) => void;
   className?: string;
 }
 
@@ -40,6 +42,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   onClose,
   onLogApproach,
   onConvertToActive,
+  onAssignToTracker,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -204,6 +207,17 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
+              {onAssignToTracker && (
+                <button
+                  type="button"
+                  onClick={() => onAssignToTracker(lead)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[36px] cursor-pointer"
+                  title="Assign lead to sales coordinator in Lead Tracker"
+                >
+                  <ClipboardList className="w-3.5 h-3.5" />
+                  <span>Assign & Track</span>
+                </button>
+              )}
               <button
                 onClick={onClose}
                 className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"

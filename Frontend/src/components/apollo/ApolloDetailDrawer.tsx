@@ -23,6 +23,7 @@ import {
   UserCheck,
   Loader2,
   ShieldCheck,
+  ClipboardList,
 } from 'lucide-react';
 import { ApolloVerticalBadge } from './ApolloVerticalBadge';
 import {
@@ -41,6 +42,7 @@ export interface ApolloDetailDrawerProps {
   lead: ApolloLead | null;
   onClose: () => void;
   onFindDecisionMakers?: (companyName: string, organizationId?: string) => void;
+  onAssignToTracker?: (lead: ApolloLead) => void;
   className?: string;
 }
 
@@ -49,6 +51,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
   lead,
   onClose,
   onFindDecisionMakers,
+  onAssignToTracker,
   className = '',
 }) => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -221,6 +224,18 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                   <Users className="w-3.5 h-3.5" />
                   <span>Find Decision-Makers</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {onAssignToTracker && (
+                <button
+                  type="button"
+                  onClick={() => onAssignToTracker(lead)}
+                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[36px]"
+                  title={`Assign ${lead.organization_name} to freight sales coordinator`}
+                >
+                  <ClipboardList className="w-3.5 h-3.5" />
+                  <span>Assign & Track</span>
                 </button>
               )}
             </div>

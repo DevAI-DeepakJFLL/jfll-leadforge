@@ -13,8 +13,9 @@ import {
   FileText,
   LogOut,
   ShieldCheck,
+  ClipboardList,
 } from 'lucide-react';
-import { UserSession } from '@/types/auth';
+import { UserSession, canAccessLeadTracker } from '@/types/auth';
 import { getStoredSession, DEFAULT_ANONYMOUS_SESSION } from '@/services/authService';
 
 export interface AppDockProps {
@@ -59,12 +60,7 @@ export const AppDock: React.FC<AppDockProps> = ({
 }) => {
   const resolvedUser: UserSession = currentUser || getStoredSession() || DEFAULT_ANONYMOUS_SESSION;
   const userFirstName = resolvedUser.name?.trim().split(/\s+/)[0] || 'User';
-  const isAdmin =
-    resolvedUser.role === 'Leadership' ||
-    resolvedUser.role === 'Tech Lead' ||
-    resolvedUser.role === 'Admin' ||
-    resolvedUser.email?.toLowerCase() === 'deepak@jfll.com' ||
-    resolvedUser.email?.toLowerCase() === 'tyra.theknath@jfll.com';
+  const isAdmin = canAccessLeadTracker(resolvedUser);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(defaultShowProfileMenu);
   const [notifications, setNotifications] = useState([
@@ -121,6 +117,7 @@ export const AppDock: React.FC<AppDockProps> = ({
     { id: 'search', label: 'Leads Explorer', icon: Search },
     { id: 'jfll-customers', label: 'JFLL Customers', icon: Building2 },
     { id: 'datamyne', label: 'DataMyne Leads', icon: Database },
+    ...(isAdmin ? [{ id: 'tracker', label: 'Lead Tracker', icon: ClipboardList }] : []),
     { id: 'report', label: 'Client Reports', icon: FileText },
     {
       id: 'saved-searches',
@@ -135,6 +132,7 @@ export const AppDock: React.FC<AppDockProps> = ({
     search: 'Leads',
     'jfll-customers': 'Customers',
     datamyne: 'DataMyne',
+    tracker: 'Tracker',
     report: 'Reports',
     'saved-searches': 'Saved',
   };
