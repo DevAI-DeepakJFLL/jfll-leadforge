@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet, ShieldAlert } from 'lucide-react';
 import { useDebounce } from '@/hooks/useDebounce';
 import { UserSession } from '@/types/auth';
+import { DatamyneDatasetType } from '@/types/datamyneLead';
 
 export interface DatamyneActionBarProps {
   selectedCount: number;
@@ -22,6 +23,8 @@ export interface DatamyneActionBarProps {
   className?: string;
   currentUser?: UserSession | null;
   isViewer?: boolean;
+  activeDataset?: DatamyneDatasetType;
+  onChangeDataset?: (dataset: DatamyneDatasetType) => void;
 }
 
 export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
@@ -43,6 +46,8 @@ export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
   className = '',
   currentUser,
   isViewer,
+  activeDataset = 'valid',
+  onChangeDataset,
 }) => {
   const isViewerUser = Boolean(isViewer || currentUser?.role === 'Viewer');
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -159,6 +164,48 @@ export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
 
       {/* Right: Actions (Export CSV, Save) */}
       <div className="flex items-center space-x-2 shrink-0">
+        {onChangeDataset && (
+          <div
+            role="group"
+            aria-label="Filter by contact data pool"
+            className="hidden xl:flex items-center p-0.5 bg-slate-100 border border-slate-200 rounded-md text-[11px] shrink-0 font-medium"
+          >
+            <button
+              type="button"
+              onClick={() => onChangeDataset('valid')}
+              className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                activeDataset === 'valid'
+                  ? 'bg-white text-emerald-700 shadow-2xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              With Contacts
+            </button>
+            <button
+              type="button"
+              onClick={() => onChangeDataset('missing')}
+              className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                activeDataset === 'missing'
+                  ? 'bg-white text-amber-700 shadow-2xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Without
+            </button>
+            <button
+              type="button"
+              onClick={() => onChangeDataset('all')}
+              className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                activeDataset === 'all'
+                  ? 'bg-white text-apollo shadow-2xs font-semibold'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              All
+            </button>
+          </div>
+        )}
+
         {isViewerUser && (
           <span
             className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[11px] font-medium"

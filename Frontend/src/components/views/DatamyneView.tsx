@@ -385,99 +385,84 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
       />
 
       <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-50">
-        {/* Subcategory Mode Toggle */}
-        <div className="bg-white border-b border-slate-200/90 px-3 sm:px-4 lg:px-6 py-2 flex items-center justify-between gap-3 shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:inline">
-              Subcategory Mode:
-            </span>
+        {/* Streamlined Unified Mode & Audience Tabs Strip */}
+        <div className="bg-white border-b border-slate-200/90 px-3 sm:px-4 py-1.5 flex items-center justify-between gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar scroll-smooth flex-1 min-w-0">
+            {/* View Mode Toggle */}
             <div
               role="tablist"
               aria-label="Subcategory View Mode"
-              className="inline-flex p-0.5 bg-slate-100 border border-slate-200 rounded-lg text-xs font-medium"
+              className="inline-flex p-0.5 bg-slate-100 border border-slate-200 rounded-lg text-xs font-medium shrink-0"
             >
               <button
                 type="button"
                 role="tab"
                 aria-selected={perspective === 'verticals'}
                 onClick={() => setPerspective('verticals')}
-                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1.5 cursor-pointer ${
+                className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1.5 cursor-pointer text-xs ${
                   perspective === 'verticals'
                     ? 'bg-white text-slate-900 font-semibold shadow-2xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
+                title="View leads categorized across 9 logistics industry cargo sectors"
               >
                 <Layers className="w-3.5 h-3.5 shrink-0" />
-                <span>Logistics Verticals (9)</span>
-                <CategoryInfoTooltip
-                  title="Logistics Verticals (9 Sectors)"
-                  description="Complete dataset of 37,273 Indian international customs shippers categorized across 9 core industrial cargo sectors."
-                  badge={{ text: '9 Industry Verticals', variant: 'blue' }}
-                  criteria={[
-                    'HS Code Chapter classification (Chapters 01–90)',
-                    'Specialized handling: Cold Chain, Pharma GDP, DGR Chemicals, OOG Cargo',
-                    'Active bills of lading & customs shipping bills',
-                  ]}
-                  actionTip="Select industry verticals to pinpoint high-yield freight opportunities aligned with Jet Freight branch specializations."
-                  align="left"
-                  iconClassName={perspective === 'verticals' ? 'text-slate-500 hover:text-slate-800' : 'text-slate-400 hover:text-slate-600'}
-                />
+                <span className="hidden sm:inline">Logistics Verticals</span>
+                <span className="sm:hidden">Verticals</span>
+                <span className="text-[10px] text-slate-500 font-normal">9</span>
               </button>
               <button
                 type="button"
                 role="tab"
                 aria-selected={perspective === 'tiers'}
                 onClick={() => setPerspective('tiers')}
-                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1.5 cursor-pointer ${
+                className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1.5 cursor-pointer text-xs ${
                   perspective === 'tiers'
                     ? 'bg-apollo text-white font-semibold shadow-2xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
+                title="View leads ranked by SOP qualification score (Tier A, Tier B, Parked)"
               >
                 <Sparkles className="w-3.5 h-3.5 shrink-0" />
-                <span>SOP Tiers (A / B / Parked)</span>
-                <CategoryInfoTooltip
-                  title="JFLL SOP Stage 2 Lead Scoring"
-                  description="Algorithmic qualification ranking 37,273 customs shippers from Tier A (immediate inside sales priority) down to Parked/Excluded."
-                  badge={{ text: 'SOP Stage 2', variant: 'emerald' }}
-                  criteria={[
-                    'High shipment frequency: 24+ shipments / year (20 pts)',
-                    'Air freight conversion suitability & customs recency (15 pts)',
-                    'Core priority lanes: US, UAE, Europe, LATAM (15 pts)',
-                    'Tier A: Score 70–100 · Tier B: Score 40–69 · Parked: <40',
-                  ]}
-                  actionTip="Focus outbound calling on Tier A priority accounts for immediate 24–48 hour discovery meetings."
-                  align="left"
-                  iconClassName={perspective === 'tiers' ? 'text-white/80 hover:text-white' : 'text-slate-400 hover:text-slate-600'}
-                />
+                <span className="hidden sm:inline">SOP Tiers</span>
+                <span className="sm:hidden">Tiers</span>
               </button>
+            </div>
+
+            {/* Vertical separator */}
+            <div className="h-5 w-[1px] bg-slate-200 shrink-0" />
+
+            {/* Active Audience Tabs (Verticals or SOP Tiers) */}
+            <div className="flex-1 min-w-0 overflow-x-auto no-scrollbar">
+              {perspective === 'tiers' ? (
+                <TierAudienceTabs
+                  activeTab={tierTab}
+                  onTabChange={setTierTab}
+                  counts={tierCounts}
+                  className="border-b-0 bg-transparent px-0"
+                />
+              ) : (
+                <DatamyneAudienceTabs
+                  activeTab={filters.tab}
+                  onTabChange={onTabChange}
+                  activeDataset={filters.dataset || 'valid'}
+                  onChangeDataset={onDatasetChange}
+                  counts={query.audienceCounts}
+                  totalFormatted={query.totalFormatted}
+                  showSegmentSwitcher={false}
+                  className="border-b-0 bg-transparent px-0"
+                />
+              )}
             </div>
           </div>
 
-          <div className="text-xs text-slate-500">
-            {perspective === 'tiers' ? null : (
-              <span>Customs Trade Intelligence</span>
-            )}
+          {/* Current Scope total count on the right */}
+          <div className="hidden lg:flex items-center gap-1.5 text-xs text-slate-500 shrink-0 pl-2">
+            <span className="text-slate-400">Scope:</span>
+            <strong className="text-slate-800 font-semibold">{displayTotalFormatted}</strong>
+            <span className="text-slate-500">Leads</span>
           </div>
         </div>
-
-        {/* Audience Subcategory Tabs */}
-        {perspective === 'tiers' ? (
-          <TierAudienceTabs
-            activeTab={tierTab}
-            onTabChange={setTierTab}
-            counts={tierCounts}
-          />
-        ) : (
-          <DatamyneAudienceTabs
-            activeTab={filters.tab}
-            onTabChange={onTabChange}
-            activeDataset={filters.dataset || 'valid'}
-            onChangeDataset={onDatasetChange}
-            counts={query.audienceCounts}
-            totalFormatted={query.totalFormatted}
-          />
-        )}
 
         <DatamyneActionBar
           selectedCount={selectedCount}
@@ -494,6 +479,8 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           currentUser={currentUser}
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
+          activeDataset={filters.dataset || 'valid'}
+          onChangeDataset={onDatasetChange}
           searchPlaceholder={
             perspective === 'tiers'
               ? 'Search tiered leads by company, city, category...'
@@ -519,7 +506,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           onClearAll={clearAllFilters}
         />
 
-        <div className="flex-1 flex flex-col p-3 sm:p-4 min-h-0 overflow-hidden">
+        <div className="flex-1 flex flex-col px-3 sm:px-4 py-2 min-h-0 overflow-hidden">
           <DatamyneTable
             leads={displayItems}
             rowSelection={rowSelection}

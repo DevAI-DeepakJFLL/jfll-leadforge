@@ -21,10 +21,11 @@ import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 export interface DatamyneAudienceTabsProps {
   activeTab?: DatamyneAudienceTab;
   onTabChange?: (tab: DatamyneAudienceTab) => void;
-  activeDataset: DatamyneDatasetType;
-  onChangeDataset: (dataset: DatamyneDatasetType) => void;
+  activeDataset?: DatamyneDatasetType;
+  onChangeDataset?: (dataset: DatamyneDatasetType) => void;
   counts?: DatamyneAudienceCounts;
   totalFormatted?: string;
+  showSegmentSwitcher?: boolean;
   className?: string;
 }
 
@@ -45,7 +46,7 @@ interface DatamyneTabDefinition {
 export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
   activeTab = 'all',
   onTabChange,
-  activeDataset,
+  activeDataset = 'valid',
   onChangeDataset,
   counts = {
     all: 19760,
@@ -61,6 +62,7 @@ export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
     missingTotal: 17513,
   },
   totalFormatted = '19,760',
+  showSegmentSwitcher = true,
   className = '',
 }) => {
   const tabs: DatamyneTabDefinition[] = [
@@ -197,27 +199,29 @@ export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
       className={`border-b border-surface-border bg-white select-none ${className}`}
       aria-label="DataMyne Logistics Leads Directory"
     >
-      {/* Top Banner: Dataset Switcher + Overall Total Count */}
-      <div className="py-2.5 px-3 sm:px-4 lg:px-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-slate-50/70">
-        <div className="flex items-center gap-3 flex-wrap">
-          <DatamyneSegmentSwitcher
-            activeDataset={activeDataset}
-            onChangeDataset={onChangeDataset}
-            validCount={counts.validTotal}
-            missingCount={counts.missingTotal}
-            allCount={counts.validTotal + counts.missingTotal}
-          />
-        </div>
+      {/* Top Banner: Dataset Switcher + Overall Total Count (Only rendered when showSegmentSwitcher is true) */}
+      {showSegmentSwitcher && onChangeDataset && (
+        <div className="py-2 px-3 sm:px-4 lg:px-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-slate-50/70">
+          <div className="flex items-center gap-3 flex-wrap">
+            <DatamyneSegmentSwitcher
+              activeDataset={activeDataset}
+              onChangeDataset={onChangeDataset}
+              validCount={counts.validTotal}
+              missingCount={counts.missingTotal}
+              allCount={counts.validTotal + counts.missingTotal}
+            />
+          </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-500 shrink-0">
-          <span className="text-slate-400">Current Scope:</span>
-          <strong className="text-slate-900 font-semibold">{totalFormatted} Companies</strong>
+          <div className="flex items-center gap-2 text-xs text-slate-500 shrink-0">
+            <span className="text-slate-400">Current Scope:</span>
+            <strong className="text-slate-900 font-semibold">{totalFormatted} Companies</strong>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Bottom: Logistics Verticals Strip (Horizontal scrollable to prevent wrapping/overflow) */}
-      <div className="px-3 sm:px-4 lg:px-6 py-3 sm:py-3.5 bg-white border-b border-slate-200/80">
-        <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap min-w-0 py-1">
+      <div className="px-1 sm:px-2 py-1.5 bg-white">
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scroll-smooth flex-nowrap min-w-0">
           {tabs.map((tab, idx) => {
             const isActive = activeTab === tab.id;
             const Icon = tab.icon;
@@ -225,30 +229,21 @@ export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
               <div key={tab.id} className="relative shrink-0 flex items-center">
                 <button
                   onClick={() => onTabChange?.(tab.id)}
-                  className={`relative px-3.5 py-2 rounded-xl border text-left transition-all flex items-center gap-2.5 shrink-0 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-apollo/20 min-h-[42px] cursor-pointer ${
+                  className={`relative px-2.5 py-1 rounded-lg border text-left transition-all flex items-center gap-1.5 shrink-0 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-apollo/20 min-h-[30px] cursor-pointer text-xs ${
                     isActive
-                      ? 'bg-blue-50/70 border-apollo text-apollo font-semibold shadow-xs ring-1 ring-apollo/30'
+                      ? 'bg-blue-50/70 border-apollo text-apollo font-semibold shadow-2xs ring-1 ring-apollo/30'
                       : 'bg-slate-50/60 hover:bg-slate-100/80 border-slate-200 text-slate-700 hover:text-slate-900'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  <CategoryInfoTooltip
-                    title={tab.label}
-                    description={tab.description}
-                    criteria={tab.criteria}
-                    actionTip={tab.actionTip}
-                    badge={tab.badge}
-                    align={idx === 0 ? 'left' : idx === tabs.length - 1 ? 'right' : 'center'}
-                  >
-                    <Icon
-                      className={`w-3.5 h-3.5 shrink-0 ${
-                        isActive ? 'text-apollo' : 'text-slate-400'
-                      }`}
-                    />
-                  </CategoryInfoTooltip>
+                  <Icon
+                    className={`w-3.5 h-3.5 shrink-0 ${
+                      isActive ? 'text-apollo' : 'text-slate-400'
+                    }`}
+                  />
                   <span className="text-xs font-medium">{tab.label}</span>
                   <span
-                    className={`text-[10px] sm:text-[11px] px-2 py-0.5 rounded-full font-mono shrink-0 ${
+                    className={`text-[10px] sm:text-[11px] px-1.5 py-0.2 rounded-full font-mono shrink-0 tabular-nums ${
                       isActive
                         ? 'bg-apollo text-white font-semibold'
                         : 'bg-white text-slate-600 border border-slate-200'

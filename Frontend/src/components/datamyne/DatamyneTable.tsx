@@ -90,18 +90,18 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
           <table className="w-full text-left text-xs border-collapse">
             <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200/90 shadow-2xs">
               <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-                <th className="py-3 px-3 w-10 text-center">
+                <th className="py-2.5 px-2 w-9 text-center">
                   <span className="sr-only">Select</span>
                 </th>
-                <th className="py-3 px-4 min-w-[220px]">
+                <th className="py-2.5 px-3 min-w-[220px]">
                   Company & Role
                 </th>
-                <th className="py-3 px-3.5 min-w-[210px]">Category & Subcategory</th>
-                <th className="py-3 px-3.5 min-w-[150px]">City & Corridor</th>
-                <th className="py-3 px-3.5 min-w-[160px]">Shipments & Value</th>
-                <th className="py-3 px-3.5 min-w-[150px]">Contact Readiness</th>
-                <th className="py-3 px-3.5 min-w-[130px]">Sales Status</th>
-                <th className="py-3 px-4 min-w-[150px] text-center">
+                <th className="py-2.5 px-2.5 min-w-[140px]">Category & Subcategory</th>
+                <th className="py-2.5 px-2.5 min-w-[120px]">City & Corridor</th>
+                <th className="py-2.5 px-2.5 min-w-[115px]">Shipments & Value</th>
+                <th className="py-2.5 px-2.5 min-w-[120px] whitespace-nowrap">Contact Readiness</th>
+                <th className="py-2.5 px-2.5 min-w-[110px] whitespace-nowrap">Sales Status</th>
+                <th className="py-2.5 px-3 min-w-[150px] text-center">
                   Action
                 </th>
               </tr>
@@ -109,34 +109,34 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
             <tbody className="divide-y divide-slate-100">
               {Array.from({ length: pageSize || 10 }).map((_, i) => (
                 <tr key={i} className="animate-pulse">
-                  <td className="py-3.5 px-3 text-center">
+                  <td className="py-2.5 px-2 text-center">
                     <div className="w-4 h-4 bg-slate-200 rounded mx-auto" />
                   </td>
-                  <td className="py-3.5 px-4">
-                    <div className="w-48 h-3.5 bg-slate-200 rounded mb-1.5" />
-                    <div className="w-20 h-2.5 bg-slate-100 rounded" />
+                  <td className="py-2.5 px-3">
+                    <div className="w-44 h-3.5 bg-slate-200 rounded mb-1" />
+                    <div className="w-28 h-2.5 bg-slate-100 rounded" />
                   </td>
-                  <td className="py-3.5 px-3.5">
-                    <div className="w-28 h-5 bg-slate-100 rounded-full mb-1" />
-                    <div className="w-32 h-2.5 bg-slate-100 rounded" />
+                  <td className="py-2.5 px-2.5">
+                    <div className="w-24 h-4.5 bg-slate-100 rounded-full mb-1" />
+                    <div className="w-28 h-2 bg-slate-100 rounded" />
                   </td>
-                  <td className="py-3.5 px-3.5">
-                    <div className="w-24 h-3 bg-slate-200 rounded mb-1" />
+                  <td className="py-2.5 px-2.5">
+                    <div className="w-20 h-3 bg-slate-200 rounded mb-1" />
                     <div className="w-16 h-2 bg-slate-100 rounded" />
                   </td>
-                  <td className="py-3.5 px-3.5">
-                    <div className="w-20 h-3.5 bg-slate-200 rounded mb-1" />
-                    <div className="w-24 h-3 bg-emerald-100 rounded" />
+                  <td className="py-2.5 px-2.5">
+                    <div className="w-18 h-3 bg-slate-200 rounded mb-1" />
+                    <div className="w-20 h-2.5 bg-emerald-100 rounded" />
                   </td>
-                  <td className="py-3.5 px-3.5">
-                    <div className="w-24 h-4 bg-slate-200 rounded-full" />
+                  <td className="py-2.5 px-2.5">
+                    <div className="w-22 h-4 bg-slate-200 rounded-full" />
                   </td>
                   {/* Sales Status (Column 7) */}
-                  <td className="py-3.5 px-3.5">
-                    <div className="w-20 h-4 bg-slate-100 rounded-full" />
+                  <td className="py-2.5 px-2.5">
+                    <div className="w-18 h-4 bg-slate-100 rounded-full" />
                   </td>
-                  <td className="py-3.5 px-4 text-center">
-                    <div className="w-16 h-6 bg-slate-100 rounded mx-auto" />
+                  <td className="py-2.5 px-3 text-center">
+                    <div className="w-14 h-5.5 bg-slate-100 rounded mx-auto" />
                   </td>
                 </tr>
               ))}
@@ -217,18 +217,18 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
         <table className="w-full text-left text-xs border-collapse">
           <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200/90 shadow-2xs">
             <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
-              <th className="py-3 px-3 w-10 text-center">
+              <th className="py-2.5 px-2 w-9 text-center">
                 <span className="sr-only">Select</span>
               </th>
-              <th className="py-3 px-4 min-w-[220px]">
+              <th className="py-2.5 px-3 min-w-[220px]">
                 Company & Role
               </th>
-              <th className="py-3 px-3.5 min-w-[210px]">Category & Subcategory</th>
-              <th className="py-3 px-3.5 min-w-[150px]">City & Corridor</th>
-              <th className="py-3 px-3.5 min-w-[160px]">Shipments & Value</th>
-              <th className="py-3 px-3.5 min-w-[150px] whitespace-nowrap">Contact Readiness</th>
-              <th className="py-3 px-3.5 min-w-[130px] whitespace-nowrap">Sales Status</th>
-              <th className="py-3 px-4 min-w-[150px] text-center">
+              <th className="py-2.5 px-2.5 min-w-[140px]">Category & Subcategory</th>
+              <th className="py-2.5 px-2.5 min-w-[120px]">City & Corridor</th>
+              <th className="py-2.5 px-2.5 min-w-[115px]">Shipments & Value</th>
+              <th className="py-2.5 px-2.5 min-w-[120px] whitespace-nowrap">Contact Readiness</th>
+              <th className="py-2.5 px-2.5 min-w-[110px] whitespace-nowrap">Sales Status</th>
+              <th className="py-2.5 px-3 min-w-[150px] text-center">
                 Action
               </th>
             </tr>
@@ -266,10 +266,10 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                 >
                   {/* Checkbox */}
                   <td
-                    className="py-3 px-3 text-center align-middle"
+                    className="py-2 px-2.5 text-center align-middle"
                     onClick={(e) => handleToggleRow(l.id, e)}
                   >
-                    <div className="flex items-center justify-center min-h-[36px] min-w-[36px]">
+                    <div className="flex items-center justify-center min-h-[32px] min-w-[32px]">
                       <input
                         type="checkbox"
                         checked={isSelected}
@@ -281,20 +281,20 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Company Name & Role */}
-                  <td className="py-3 px-4 align-middle">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shrink-0 shadow-2xs">
-                        {initials || <Building2 className="w-4 h-4 text-slate-400" />}
+                  <td className="py-2 px-3 align-middle">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-md bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-[11px] text-slate-700 shrink-0 shadow-2xs">
+                        {initials || <Building2 className="w-3.5 h-3.5 text-slate-400" />}
                       </div>
-                      <div className="min-w-0">
+                      <div className="min-w-0 flex-1">
                         <div
-                          className="font-semibold text-xs text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[340px] leading-tight"
+                          className="font-semibold text-xs text-slate-900 group-hover:text-apollo hover:underline transition-colors truncate max-w-[240px] lg:max-w-[320px] leading-tight"
                           title={l.company_name}
                         >
                           {l.company_name}
                         </div>
-                        {/* Role, Transport Mode & IEC Badges */}
-                        <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                        {/* Streamlined Metadata Row with Tier Badge + Clean Dot Separators */}
+                        <div className="flex items-center gap-1.5 mt-0.5 text-[11px] text-slate-500 font-normal truncate">
                           {/* SOP Tier Score Badge if segmented */}
                           {(l as any).segment_status && (
                             <TierScoreBadge
@@ -304,91 +304,79 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                             />
                           )}
 
-                          {/* Role Badge */}
+                          {/* Role text */}
                           <span
-                            className={`inline-flex items-center text-[10px] font-semibold px-2 py-0.5 rounded border whitespace-nowrap shrink-0 leading-tight ${
+                            className={`font-medium ${
                               l.role === 'Exporter'
-                                ? 'bg-blue-50 text-blue-700 border-blue-200/80'
+                                ? 'text-blue-700'
                                 : l.role === 'Importer'
-                                ? 'bg-rose-50 text-rose-700 border-rose-200/80'
-                                : 'bg-purple-50 text-purple-700 border-purple-200/80'
+                                ? 'text-rose-700'
+                                : 'text-purple-700'
                             }`}
                             title={`Trading Role: ${l.role}`}
                           >
                             {l.role === 'Both (Exporter & Importer)' || l.role === 'Both'
-                              ? 'Both (Exp & Imp)'
+                              ? 'Exp & Imp'
                               : l.role}
                           </span>
 
-                          {/* Transport Mode Badge */}
+                          {/* Transport Mode */}
                           {l.transport_mode && (
-                            <span
-                              className={`inline-flex items-center gap-1.5 text-[10px] font-semibold px-2 py-0.5 rounded border whitespace-nowrap shrink-0 leading-tight ${
-                                l.transport_mode === 'Air'
-                                  ? 'bg-sky-50 text-sky-700 border-sky-200/80'
-                                  : l.transport_mode === 'Ocean'
-                                  ? 'bg-cyan-50 text-cyan-700 border-cyan-200/80'
-                                  : 'bg-indigo-50 text-indigo-700 border-indigo-200/80'
-                              }`}
-                              title={`Transport Mode: ${
-                                l.transport_mode === 'Air & Ocean'
-                                  ? 'Multi-modal (Air & Ocean)'
-                                  : l.transport_mode
-                              }`}
-                            >
-                              {l.transport_mode === 'Air' ? (
-                                <>
-                                  <Plane className="w-2.5 h-2.5 text-sky-600 shrink-0" />
-                                  <span>Air</span>
-                                </>
-                              ) : l.transport_mode === 'Ocean' ? (
-                                <>
-                                  <Ship className="w-2.5 h-2.5 text-cyan-600 shrink-0" />
-                                  <span>Ocean</span>
-                                </>
-                              ) : (
-                                <>
-                                  <span className="inline-flex items-center gap-0.5 shrink-0">
+                            <>
+                              <span className="text-slate-300">·</span>
+                              <span
+                                className="inline-flex items-center gap-0.5 text-slate-600 font-medium"
+                                title={`Transport Mode: ${l.transport_mode}`}
+                              >
+                                {l.transport_mode === 'Air' ? (
+                                  <>
+                                    <Plane className="w-2.5 h-2.5 text-sky-600 shrink-0" />
+                                    <span>Air</span>
+                                  </>
+                                ) : l.transport_mode === 'Ocean' ? (
+                                  <>
+                                    <Ship className="w-2.5 h-2.5 text-cyan-600 shrink-0" />
+                                    <span>Ocean</span>
+                                  </>
+                                ) : (
+                                  <>
                                     <Plane className="w-2.5 h-2.5 text-indigo-600 shrink-0" />
-                                    <span className="text-[9px] text-indigo-300 font-normal leading-none select-none">
-                                      /
-                                    </span>
-                                    <Ship className="w-2.5 h-2.5 text-indigo-600 shrink-0" />
-                                  </span>
-                                  <span>Multimodal</span>
-                                </>
-                              )}
-                            </span>
+                                    <span>Multi</span>
+                                  </>
+                                )}
+                              </span>
+                            </>
                           )}
 
                           {/* Tax ID (IEC) */}
                           {l.tax_id && (
-                            <span
-                              className="inline-flex items-center text-[10px] font-mono text-slate-500 bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200/60 whitespace-nowrap shrink-0 leading-tight"
-                              title={`Import Export Code: ${l.tax_id}`}
-                            >
-                              IEC: {l.tax_id}
-                            </span>
+                            <>
+                              <span className="text-slate-300">·</span>
+                              <span
+                                className="font-mono text-[10px] text-slate-500"
+                                title={`Import Export Code: ${l.tax_id}`}
+                              >
+                                IEC: {l.tax_id}
+                              </span>
+                            </>
                           )}
 
-                          {/* Declared HS Code Badge */}
+                          {/* Declared HS Code */}
                           {l.top_hs_codes && (() => {
                             const codes = l.top_hs_codes.split(',').map((c) => c.trim()).filter(Boolean);
                             if (codes.length === 0) return null;
                             const primaryCode = codes[0];
                             const additionalCount = codes.length - 1;
                             return (
-                              <span
-                                className="inline-flex items-center gap-1 text-[10px] font-mono text-slate-600 bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200/80 whitespace-nowrap shrink-0 leading-tight"
-                                title={`Declared Harmonized System Codes: ${l.top_hs_codes}`}
-                              >
-                                <span>HS: {primaryCode}</span>
-                                {additionalCount > 0 && (
-                                  <span className="text-[9px] text-slate-400 font-sans">
-                                    +{additionalCount}
-                                  </span>
-                                )}
-                              </span>
+                              <>
+                                <span className="text-slate-300">·</span>
+                                <span
+                                  className="font-mono text-[10px] text-slate-500"
+                                  title={`Declared HS Codes: ${l.top_hs_codes}`}
+                                >
+                                  HS: {primaryCode}{additionalCount > 0 ? ` (+${additionalCount})` : ''}
+                                </span>
+                              </>
                             );
                           })()}
                         </div>
@@ -397,11 +385,11 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Category & Subcategory */}
-                  <td className="py-3 px-3.5 align-middle">
+                  <td className="py-2 px-2.5 align-middle">
                     <div>
                       <DatamyneCategoryBadge category={l.category} />
                       <div
-                        className="text-[11px] text-slate-500 font-normal truncate max-w-[200px] mt-0.5 leading-tight"
+                        className="text-[11px] text-slate-500 font-normal truncate max-w-[150px] mt-0.5 leading-tight"
                         title={l.subcategory}
                       >
                         {l.subcategory}
@@ -410,19 +398,19 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* City & Trade Corridor */}
-                  <td className="py-3 px-3.5 align-middle">
+                  <td className="py-2 px-2.5 align-middle">
                     <div className="min-w-0">
-                      <div className="font-medium text-xs text-slate-900 truncate max-w-[150px] leading-tight">
+                      <div className="font-medium text-xs text-slate-900 truncate max-w-[130px] leading-tight">
                         {l.city || '—'}
                       </div>
-                      <div className="text-[11px] text-slate-500 font-normal truncate max-w-[150px] mt-0.5 leading-tight">
+                      <div className="text-[11px] text-slate-500 font-normal truncate max-w-[130px] mt-0.5 leading-tight">
                         {l.trade_lanes || '—'}
                       </div>
                     </div>
                   </td>
 
                   {/* Volume & Value */}
-                  <td className="py-3 px-3.5 align-middle">
+                  <td className="py-2 px-2.5 align-middle">
                     <div>
                       <div className="font-semibold text-xs text-slate-900 leading-tight">
                         {l.total_shipments.toLocaleString('en-US')} shipments
@@ -440,27 +428,27 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Contact Readiness */}
-                  <td className="py-3 px-3.5 whitespace-nowrap align-middle">
+                  <td className="py-2 px-2.5 whitespace-nowrap align-middle">
                     {isMissing ? (
                       <span
-                        className="inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200/90 whitespace-nowrap shrink-0 shadow-2xs"
+                        className="inline-flex items-center gap-1 text-[10px] font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200/90 whitespace-nowrap shrink-0 shadow-2xs"
                         title="No direct phone or email on file for this lead"
                       >
                         <PhoneOff className="w-3 h-3 text-slate-400 shrink-0" />
                         No Contact on File
                       </span>
                     ) : l.phone && l.email ? (
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 whitespace-nowrap shrink-0">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 whitespace-nowrap shrink-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                         Phone & Email
                       </span>
                     ) : l.phone ? (
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 whitespace-nowrap shrink-0">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap shrink-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                         Phone Only
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200 whitespace-nowrap shrink-0">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-purple-700 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200 whitespace-nowrap shrink-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
                         Email Only
                       </span>
@@ -468,7 +456,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Sales Approach Status */}
-                  <td className="py-3 px-3.5 whitespace-nowrap align-middle">
+                  <td className="py-2 px-2.5 whitespace-nowrap align-middle">
                     <SalesStatusBadge
                       status={getCachedApproachStatus('datamyne', l.id)}
                       size="sm"
@@ -476,14 +464,14 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   </td>
 
                   {/* Action CTA: View, Approach, Convert */}
-                  <td className="py-3 px-4 text-center align-middle">
+                  <td className="py-2 px-3 text-center align-middle">
                     <div className="flex items-center justify-center gap-1.5">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           onLeadClick(l);
                         }}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-xs group/btn cursor-pointer"
+                        className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn cursor-pointer"
                         title={`View details for ${l.company_name}`}
                       >
                         <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
@@ -496,7 +484,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                             e.stopPropagation();
                             onLogApproach(l);
                           }}
-                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-apollo bg-apollo/10 hover:bg-apollo hover:text-white border border-apollo/30 rounded-md transition-all shadow-xs cursor-pointer"
+                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-apollo bg-apollo/10 hover:bg-apollo hover:text-white border border-apollo/30 rounded-md transition-all shadow-2xs cursor-pointer"
                           title={`Log sales approach for ${l.company_name}`}
                         >
                           <PhoneCall className="w-3.5 h-3.5" />
@@ -511,7 +499,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                               e.stopPropagation();
                               onConvertToActive(l);
                             }}
-                            className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-600 hover:text-white border border-emerald-300 rounded-md transition-all shadow-xs cursor-pointer"
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-600 hover:text-white border border-emerald-300 rounded-md transition-all shadow-2xs cursor-pointer"
                             title={`Convert ${l.company_name} to Active customer`}
                           >
                             <Sparkles className="w-3.5 h-3.5 text-emerald-600 group-hover:text-white" />
