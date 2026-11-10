@@ -56,6 +56,8 @@ export interface JfllCustomersViewProps {
   onConvertToActive?: (customer: JfllCustomer) => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
+  isSidebarCollapsed?: boolean;
+  onToggleSidebarCollapse?: () => void;
   currentUser?: UserSession | null;
 }
 
@@ -94,6 +96,8 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
   onConvertToActive,
   isMobileOpen,
   onCloseMobile,
+  isSidebarCollapsed = false,
+  onToggleSidebarCollapse,
   currentUser,
 }) => {
   const isViewer = currentUser?.role === 'Viewer';
@@ -159,6 +163,8 @@ export const JfllCustomersView: React.FC<JfllCustomersViewProps> = ({
         setApproachStatuses={setApproachStatuses}
         onToggleContactOption={toggleContactOption}
         onClearAll={clearAllFilters}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={onToggleSidebarCollapse}
         isMobileOpen={isMobileOpen}
         onCloseMobile={onCloseMobile}
       />

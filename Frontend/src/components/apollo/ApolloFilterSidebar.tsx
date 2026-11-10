@@ -17,6 +17,8 @@ import {
   PhoneCall,
   Search,
   X,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 
 export interface ApolloFilterSidebarProps {
@@ -29,6 +31,8 @@ export interface ApolloFilterSidebarProps {
   onToggleHasLinkedin: () => void;
   onClearCategory: (category: string) => void;
   onClearAll: () => void;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
   isMobileOpen?: boolean;
   onCloseMobile?: () => void;
   className?: string;
@@ -44,6 +48,8 @@ export const ApolloFilterSidebar: React.FC<ApolloFilterSidebarProps> = ({
   onToggleHasLinkedin,
   onClearCategory: _onClearCategory,
   onClearAll,
+  isCollapsed = false,
+  onToggleCollapse,
   isMobileOpen = false,
   onCloseMobile,
   className = '',
@@ -104,6 +110,17 @@ export const ApolloFilterSidebar: React.FC<ApolloFilterSidebarProps> = ({
             >
               <RotateCcw className="w-3 h-3" />
               <span>Reset</span>
+            </button>
+          )}
+          {onToggleCollapse && (
+            <button
+              type="button"
+              onClick={onToggleCollapse}
+              className="hidden lg:flex p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded transition-colors cursor-pointer"
+              aria-label="Collapse Apollo filters"
+              title="Collapse sidebar (⌘B)"
+            >
+              <PanelLeftClose className="w-3.5 h-3.5" />
             </button>
           )}
           {isMobileOpen && (
@@ -377,13 +394,60 @@ export const ApolloFilterSidebar: React.FC<ApolloFilterSidebarProps> = ({
 
   return (
     <>
-      {/* Desktop Persistent Left Sidebar (lg: and up) */}
-      <aside
-        className={`hidden lg:flex w-64 lg:w-72 shrink-0 border-r border-surface-border bg-white flex-col h-full z-10 ${className}`}
-        aria-label="Apollo Shipper Filter Sidebar"
-      >
-        {sidebarContent}
-      </aside>
+      {/* Desktop Collapsible Left Sidebar (lg: and up) */}
+      {isCollapsed ? (
+        <aside
+          className="hidden lg:flex w-12 h-full border-r border-surface-border bg-white flex-col items-center py-3 shrink-0 select-none transition-all duration-200 ease-in-out z-10"
+          aria-label="Apollo Shipper Filters (Collapsed)"
+        >
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            className="p-2 text-slate-500 hover:text-apollo hover:bg-blue-50/70 rounded-lg transition-colors cursor-pointer relative group focus:outline-none focus:ring-2 focus:ring-apollo/20"
+            aria-label="Expand Apollo filters"
+            title="Expand Apollo filters (⌘B)"
+          >
+            <PanelLeftOpen className="w-4 h-4 text-apollo" />
+            {activeFilterCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] rounded-full bg-apollo text-white text-[9px] font-bold flex items-center justify-center px-0.5">
+                {activeFilterCount}
+              </span>
+            )}
+            <span className="absolute left-12 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50">
+              Expand Filters (⌘B)
+            </span>
+          </button>
+
+          {activeFilterCount > 0 && (
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <button
+                type="button"
+                onClick={onToggleCollapse}
+                className="text-[9px] font-mono text-apollo font-bold [writing-mode:vertical-lr] rotate-180 uppercase tracking-widest cursor-pointer hover:underline py-1"
+                title={`${activeFilterCount} active filters - click to expand`}
+              >
+                {activeFilterCount} Active
+              </button>
+              <button
+                type="button"
+                onClick={onClearAll}
+                className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-slate-100 rounded transition-colors cursor-pointer"
+                title="Reset all filters"
+                aria-label="Reset all filters"
+              >
+                <RotateCcw className="w-3 h-3" />
+              </button>
+            </div>
+          )}
+        </aside>
+      ) : (
+        <aside
+          className={`hidden lg:flex w-64 lg:w-72 shrink-0 border-r border-surface-border bg-white flex-col h-full z-10 transition-all duration-200 ease-in-out ${className}`}
+          aria-label="Apollo Shipper Filter Sidebar"
+        >
+          {sidebarContent}
+        </aside>
+      )}
 
       {/* Mobile / Tablet Off-Canvas Drawer (lg:hidden) */}
       {isMobileOpen && (

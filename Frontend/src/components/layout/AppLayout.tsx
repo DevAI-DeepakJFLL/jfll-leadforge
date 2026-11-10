@@ -13,6 +13,8 @@ export interface AppLayoutProps {
   onSearchChange?: (query: string) => void;
   onSearchSubmit?: (query: string) => void;
   onToggleMobileFilter?: () => void;
+  onToggleSidebar?: () => void;
+  isSidebarCollapsed?: boolean;
   activeFilterCount?: number;
   savedSearchesCount?: number;
   savedCount?: number;
@@ -34,6 +36,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onSearchChange,
   onSearchSubmit,
   onToggleMobileFilter,
+  onToggleSidebar,
+  isSidebarCollapsed = false,
   activeFilterCount = 0,
   savedSearchesCount = 0,
   savedCount,
@@ -71,6 +75,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             onSearchChange={onSearchChange}
             onSearchSubmit={onSearchSubmit}
             onToggleMobileFilter={onToggleMobileFilter}
+            onToggleSidebar={onToggleSidebar}
+            isSidebarCollapsed={isSidebarCollapsed}
             activeFilterCount={activeFilterCount}
             savedCount={savedCount}
             currentUser={currentUser}

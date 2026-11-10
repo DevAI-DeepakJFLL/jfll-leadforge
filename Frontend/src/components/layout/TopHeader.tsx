@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, X, SlidersHorizontal } from 'lucide-react';
+import { Search, X, SlidersHorizontal, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { UserSession, canAccessLeadTracker } from '@/types/auth';
 
 interface TopNavTab {
@@ -16,6 +16,8 @@ export interface TopHeaderProps {
   onSearchChange?: (query: string) => void;
   onSearchSubmit?: (query: string) => void;
   onToggleMobileFilter?: () => void;
+  onToggleSidebar?: () => void;
+  isSidebarCollapsed?: boolean;
   activeFilterCount?: number;
   showSearch?: boolean;
   savedCount?: number;
@@ -40,6 +42,8 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   onSearchChange,
   onSearchSubmit,
   onToggleMobileFilter,
+  onToggleSidebar,
+  isSidebarCollapsed = false,
   activeFilterCount = 0,
   showSearch = false,
   savedCount,
@@ -193,17 +197,38 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             </button>
           )}
 
-          {/* Mobile Filter Drawer Toggle Button (Visible on screens < lg) */}
-          {onToggleMobileFilter && (
+          {/* Collapsible Filter Toggle Button (Desktop Sidebar & Mobile Drawer) */}
+          {(onToggleMobileFilter || onToggleSidebar) && (
             <button
               type="button"
-              onClick={onToggleMobileFilter}
-              className="lg:hidden relative inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-apollo/20 transition-all active:scale-95"
-              aria-label="Open filter options"
-              title="Filter prospects"
+              onClick={() => {
+                if (typeof window !== 'undefined' && window.innerWidth >= 1024 && onToggleSidebar) {
+                  onToggleSidebar();
+                } else if (onToggleMobileFilter) {
+                  onToggleMobileFilter();
+                }
+              }}
+              className={`relative inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg border min-h-[44px] focus:outline-none focus:ring-2 focus:ring-apollo/20 transition-all active:scale-95 cursor-pointer ${
+                isSidebarCollapsed
+                  ? 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-200'
+                  : 'bg-blue-50 text-apollo border-apollo/30 hover:bg-blue-100/60'
+              }`}
+              aria-label={isSidebarCollapsed ? 'Expand filter options' : 'Collapse filter options'}
+              aria-expanded={!isSidebarCollapsed}
+              title={isSidebarCollapsed ? 'Expand filters sidebar (⌘B)' : 'Collapse filters sidebar (⌘B)'}
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-apollo" />
+              {isSidebarCollapsed ? (
+                <PanelLeftOpen className="w-3.5 h-3.5 text-apollo" />
+              ) : (
+                <PanelLeftClose className="w-3.5 h-3.5 text-apollo hidden lg:block" />
+              )}
+              {isSidebarCollapsed ? null : (
+                <SlidersHorizontal className="w-3.5 h-3.5 text-apollo lg:hidden" />
+              )}
               <span className="hidden sm:inline">Filters</span>
+              <span className="hidden lg:inline text-[10px] font-mono text-slate-500 bg-white/80 px-1 py-0.2 rounded border border-slate-200/80">
+                ⌘B
+              </span>
               {activeFilterCount > 0 && (
                 <span className="min-w-[18px] h-[18px] rounded-full bg-apollo text-white text-[10px] font-bold flex items-center justify-center px-1">
                   {activeFilterCount}

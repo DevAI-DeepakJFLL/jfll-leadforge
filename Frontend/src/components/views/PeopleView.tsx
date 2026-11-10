@@ -51,6 +51,8 @@ export interface PeopleViewProps {
   subTabHeader?: React.ReactNode;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
+  isSidebarCollapsed?: boolean;
+  onToggleSidebarCollapse?: () => void;
 }
 
 export const PeopleView: React.FC<PeopleViewProps> = ({
@@ -96,6 +98,8 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
   subTabHeader,
   isMobileOpen,
   onCloseMobile,
+  isSidebarCollapsed = false,
+  onToggleSidebarCollapse,
 }) => {
   return (
     <div className="flex-1 flex w-full h-full min-h-0 overflow-hidden bg-white">
@@ -112,6 +116,8 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
         onClearSavedLists={onClearSavedLists}
         onSaveSearch={onSaveSearch}
         onLoadSearch={onLoadSearch}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={onToggleSidebarCollapse}
         isMobileOpen={isMobileOpen}
         onCloseMobile={onCloseMobile}
       />

@@ -15,6 +15,8 @@ import {
   X,
   Compass,
   Layers,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 import { FilterAccordion } from '@/components/filters/FilterAccordion';
 import {
@@ -45,6 +47,8 @@ export interface LeadTrackerFilterSidebarProps {
   activeFilterCount: number;
   kpis: TrackerKPIs;
   leads?: LeadTrackerItem[];
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
   isMobileOpen?: boolean;
   onCloseMobile?: () => void;
   className?: string;
@@ -69,6 +73,8 @@ export const LeadTrackerFilterSidebar: React.FC<LeadTrackerFilterSidebarProps> =
   activeFilterCount,
   kpis,
   leads = [],
+  isCollapsed = false,
+  onToggleCollapse,
   isMobileOpen = false,
   onCloseMobile,
   className = '',
@@ -115,16 +121,30 @@ export const LeadTrackerFilterSidebar: React.FC<LeadTrackerFilterSidebarProps> =
           )}
         </div>
 
-        {activeFilterCount > 0 && (
-          <button
-            type="button"
-            onClick={onResetFilters}
-            className="inline-flex items-center gap-1 text-[11px] text-blue-600 hover:text-blue-800 font-semibold cursor-pointer"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Reset</span>
-          </button>
-        )}
+        <div className="flex items-center gap-1.5">
+          {activeFilterCount > 0 && (
+            <button
+              type="button"
+              onClick={onResetFilters}
+              className="inline-flex items-center gap-1 text-[11px] text-blue-600 hover:text-blue-800 font-semibold cursor-pointer px-1 py-0.5 rounded hover:bg-blue-50/50"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>Reset</span>
+            </button>
+          )}
+
+          {onToggleCollapse && (
+            <button
+              type="button"
+              onClick={onToggleCollapse}
+              className="hidden lg:flex p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded transition-colors cursor-pointer"
+              aria-label="Collapse Lead Tracker filters"
+              title="Collapse sidebar (⌘B)"
+            >
+              <PanelLeftClose className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Instant Filter Search Input */}
@@ -415,13 +435,60 @@ export const LeadTrackerFilterSidebar: React.FC<LeadTrackerFilterSidebarProps> =
 
   return (
     <>
-      {/* Desktop Persistent Sidebar (lg: and up) */}
-      <aside
-        className={`hidden lg:flex w-64 xl:w-72 h-full border-r border-slate-200/90 bg-white flex-col shrink-0 overflow-hidden select-none ${className}`}
-        aria-label="Lead Status Tracker Filters Sidebar"
-      >
-        {filterContent}
-      </aside>
+      {/* Desktop Collapsible Sidebar (lg: and up) */}
+      {isCollapsed ? (
+        <aside
+          className="hidden lg:flex w-12 h-full border-r border-slate-200/90 bg-white flex-col items-center py-3 shrink-0 select-none transition-all duration-200 ease-in-out"
+          aria-label="Lead Status Tracker Filters (Collapsed)"
+        >
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50/70 rounded-lg transition-colors cursor-pointer relative group focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+            aria-label="Expand Lead Tracker filters"
+            title="Expand Lead Tracker filters (⌘B)"
+          >
+            <PanelLeftOpen className="w-4 h-4 text-blue-600" />
+            {activeFilterCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] rounded-full bg-blue-600 text-white text-[9px] font-bold flex items-center justify-center px-0.5">
+                {activeFilterCount}
+              </span>
+            )}
+            <span className="absolute left-12 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50">
+              Expand Filters (⌘B)
+            </span>
+          </button>
+
+          {activeFilterCount > 0 && (
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <button
+                type="button"
+                onClick={onToggleCollapse}
+                className="text-[9px] font-mono text-blue-600 font-bold [writing-mode:vertical-lr] rotate-180 uppercase tracking-widest cursor-pointer hover:underline py-1"
+                title={`${activeFilterCount} active filters - click to expand`}
+              >
+                {activeFilterCount} Active
+              </button>
+              <button
+                type="button"
+                onClick={onResetFilters}
+                className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-slate-100 rounded transition-colors cursor-pointer"
+                title="Reset all filters"
+                aria-label="Reset all filters"
+              >
+                <RotateCcw className="w-3 h-3" />
+              </button>
+            </div>
+          )}
+        </aside>
+      ) : (
+        <aside
+          className={`hidden lg:flex w-64 xl:w-72 h-full border-r border-slate-200/90 bg-white flex-col shrink-0 overflow-hidden select-none transition-all duration-200 ease-in-out ${className}`}
+          aria-label="Lead Status Tracker Filters Sidebar"
+        >
+          {filterContent}
+        </aside>
+      )}
 
       {/* Mobile / Tablet Off-Canvas Drawer (lg:hidden) */}
       {isMobileOpen && (

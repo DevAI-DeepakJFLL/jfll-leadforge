@@ -42,6 +42,8 @@ export interface ApolloCompaniesViewProps {
   subTabHeader?: React.ReactNode;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
+  isSidebarCollapsed?: boolean;
+  onToggleSidebarCollapse?: () => void;
 }
 
 export const ApolloCompaniesView: React.FC<ApolloCompaniesViewProps> = ({
@@ -77,6 +79,8 @@ export const ApolloCompaniesView: React.FC<ApolloCompaniesViewProps> = ({
   subTabHeader,
   isMobileOpen,
   onCloseMobile,
+  isSidebarCollapsed = false,
+  onToggleSidebarCollapse,
 }) => {
   const items = data?.items || [];
 
@@ -92,6 +96,8 @@ export const ApolloCompaniesView: React.FC<ApolloCompaniesViewProps> = ({
         onToggleHasLinkedin={onToggleHasLinkedin}
         onClearCategory={onClearCategory}
         onClearAll={onClearAllFilters}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={onToggleSidebarCollapse}
         isMobileOpen={isMobileOpen}
         onCloseMobile={onCloseMobile}
       />

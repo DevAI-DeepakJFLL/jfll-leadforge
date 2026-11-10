@@ -42,6 +42,7 @@ import {
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { DatamyneDetailDrawer } from '@/components/datamyne';
 import { useDatamyneFilter } from '@/hooks/useDatamyneFilter';
+import { useSidebarCollapse } from '@/hooks/useSidebarCollapse';
 import {
   queryDatamyneLeads,
   exportDatamyneLeadsCsv,
@@ -162,6 +163,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAdminPortalOpen, setIsAdminPortalOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const { isCollapsed: isSidebarCollapsed, toggleCollapse: toggleSidebarCollapse } = useSidebarCollapse();
   const { showToast } = useToast();
 
   const { data: adminStats } = useQuery({
@@ -1207,11 +1209,15 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       onLogout={onLogout}
       currentUser={currentUser}
       onToggleMobileFilter={() => setIsMobileFilterOpen((prev) => !prev)}
+      onToggleSidebar={toggleSidebarCollapse}
+      isSidebarCollapsed={isSidebarCollapsed}
       activeFilterCount={currentActiveFilterCount}
     >
       {isTrackerCategory ? (
         <LeadStatusTrackerView
           currentUser={currentUser}
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebarCollapse={toggleSidebarCollapse}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
           onLeadClick={(_lead) => {}}
@@ -1252,6 +1258,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onLeadClick={(lead) => setSelectedDatamyneLead(lead)}
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebarCollapse={toggleSidebarCollapse}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
           currentUser={currentUser}
@@ -1290,6 +1298,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onCustomerClick={(c) => setSelectedJfllCustomer(c)}
           onLogApproach={handleOpenJfllApproach}
           onConvertToActive={handleOpenJfllConvert}
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebarCollapse={toggleSidebarCollapse}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
           currentUser={currentUser}
@@ -1344,6 +1354,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
               peopleCount={effectiveData?.totalFormatted || '684.1k'}
             />
           }
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebarCollapse={toggleSidebarCollapse}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />
@@ -1403,6 +1415,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
               />
             ) : null
           }
+          isSidebarCollapsed={isSidebarCollapsed}
+          onToggleSidebarCollapse={toggleSidebarCollapse}
           isMobileOpen={isMobileFilterOpen}
           onCloseMobile={() => setIsMobileFilterOpen(false)}
         />

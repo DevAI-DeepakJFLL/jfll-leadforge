@@ -78,6 +78,8 @@ export interface DatamyneViewProps {
   onConvertToActive?: (lead: DatamyneLead) => void;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
+  isSidebarCollapsed?: boolean;
+  onToggleSidebarCollapse?: () => void;
   currentUser?: UserSession | null;
 }
 
@@ -119,6 +121,8 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   onConvertToActive,
   isMobileOpen,
   onCloseMobile,
+  isSidebarCollapsed = false,
+  onToggleSidebarCollapse,
   currentUser,
 }) => {
   const isViewer = currentUser?.role === 'Viewer';
@@ -374,6 +378,8 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
         setMinTradedValueUsd={setMinTradedValueUsd}
         clearAllFilters={clearAllFilters}
         activeFilterCount={activeFilterCount}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={onToggleSidebarCollapse}
         isMobileOpen={isMobileOpen}
         onCloseMobile={onCloseMobile}
       />

@@ -37,6 +37,8 @@ export interface LeadStatusTrackerViewProps {
   onLeadClick?: (lead: LeadTrackerItem) => void;
   isMobileOpen?: boolean;
   onCloseMobile?: () => void;
+  isSidebarCollapsed?: boolean;
+  onToggleSidebarCollapse?: () => void;
   className?: string;
 }
 
@@ -48,6 +50,8 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
   onLeadClick,
   isMobileOpen = false,
   onCloseMobile,
+  isSidebarCollapsed = false,
+  onToggleSidebarCollapse,
   className = '',
 }) => {
   // Leads & KPIs state
@@ -276,6 +280,8 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
         activeFilterCount={activeFilterCount}
         kpis={kpis}
         leads={leads}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={onToggleSidebarCollapse}
         isMobileOpen={isMobileOpen}
         onCloseMobile={onCloseMobile}
       />

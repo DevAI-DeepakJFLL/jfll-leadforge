@@ -10,6 +10,8 @@ import {
   UserCheck,
   TrendingUp,
   X,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 import { JfllCustomerFilterParams } from '@/types/jfllCustomer';
 import {
@@ -34,6 +36,8 @@ export interface JfllCustomerFilterSidebarProps {
   setApproachStatuses?: (statuses: string[]) => void;
   onToggleContactOption: (option: 'hasPhone' | 'hasEmail' | 'hasContactPerson') => void;
   onClearAll: () => void;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
   isMobileOpen?: boolean;
   onCloseMobile?: () => void;
   className?: string;
@@ -50,6 +54,8 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
   setApproachStatuses,
   onToggleContactOption,
   onClearAll,
+  isCollapsed = false,
+  onToggleCollapse,
   isMobileOpen = false,
   onCloseMobile,
   className = '',
@@ -153,16 +159,30 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
           )}
         </div>
 
-        {activeCount > 0 && (
-          <button
-            onClick={onClearAll}
-            className="inline-flex items-center gap-1 text-[11px] text-slate-500 hover:text-apollo transition-colors cursor-pointer"
-            title="Reset all filters"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Reset</span>
-          </button>
-        )}
+        <div className="flex items-center gap-1.5">
+          {activeCount > 0 && (
+            <button
+              onClick={onClearAll}
+              className="inline-flex items-center gap-1 text-[11px] text-slate-500 hover:text-apollo transition-colors cursor-pointer px-1 py-0.5 rounded hover:bg-slate-50"
+              title="Reset all filters"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>Reset</span>
+            </button>
+          )}
+
+          {onToggleCollapse && (
+            <button
+              type="button"
+              onClick={onToggleCollapse}
+              className="hidden lg:flex p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded transition-colors cursor-pointer"
+              aria-label="Collapse customer filters"
+              title="Collapse sidebar (⌘B)"
+            >
+              <PanelLeftClose className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Accordion List */}
@@ -592,13 +612,60 @@ export const JfllCustomerFilterSidebar: React.FC<JfllCustomerFilterSidebarProps>
 
   return (
     <>
-      {/* Desktop Persistent Sidebar (lg: and up) */}
-      <aside
-        className={`hidden lg:flex w-72 lg:w-80 h-full border-r border-surface-border bg-white flex-col shrink-0 overflow-hidden select-none ${className}`}
-        aria-label="JFLL Customer Filters Sidebar"
-      >
-        {filterContent}
-      </aside>
+      {/* Desktop Collapsible Sidebar (lg: and up) */}
+      {isCollapsed ? (
+        <aside
+          className="hidden lg:flex w-12 h-full border-r border-surface-border bg-white flex-col items-center py-3 shrink-0 select-none transition-all duration-200 ease-in-out"
+          aria-label="Customer Filters (Collapsed)"
+        >
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            className="p-2 text-slate-500 hover:text-apollo hover:bg-blue-50/70 rounded-lg transition-colors cursor-pointer relative group focus:outline-none focus:ring-2 focus:ring-apollo/20"
+            aria-label="Expand Customer filters"
+            title="Expand Customer filters (⌘B)"
+          >
+            <PanelLeftOpen className="w-4 h-4 text-apollo" />
+            {activeCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] rounded-full bg-apollo text-white text-[9px] font-bold flex items-center justify-center px-0.5">
+                {activeCount}
+              </span>
+            )}
+            <span className="absolute left-12 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50">
+              Expand Filters (⌘B)
+            </span>
+          </button>
+
+          {activeCount > 0 && (
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <button
+                type="button"
+                onClick={onToggleCollapse}
+                className="text-[9px] font-mono text-apollo font-bold [writing-mode:vertical-lr] rotate-180 uppercase tracking-widest cursor-pointer hover:underline py-1"
+                title={`${activeCount} active filters - click to expand`}
+              >
+                {activeCount} Active
+              </button>
+              <button
+                type="button"
+                onClick={onClearAll}
+                className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-slate-100 rounded transition-colors cursor-pointer"
+                title="Reset all filters"
+                aria-label="Reset all filters"
+              >
+                <RotateCcw className="w-3 h-3" />
+              </button>
+            </div>
+          )}
+        </aside>
+      ) : (
+        <aside
+          className={`hidden lg:flex w-72 lg:w-80 h-full border-r border-surface-border bg-white flex-col shrink-0 overflow-hidden select-none transition-all duration-200 ease-in-out ${className}`}
+          aria-label="JFLL Customer Filters Sidebar"
+        >
+          {filterContent}
+        </aside>
+      )}
 
       {/* Mobile / Tablet Off-Canvas Drawer (lg:hidden) */}
       {isMobileOpen && (

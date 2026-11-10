@@ -18,6 +18,8 @@ import {
   Tag,
   X,
   CheckCircle2,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 import { FilterAccordion } from './FilterAccordion';
 import { SearchableCheckboxList } from './SearchableCheckboxList';
@@ -40,6 +42,8 @@ export interface FilterSidebarProps {
   onClearSavedLists?: () => void;
   onSaveSearch?: () => void;
   onLoadSearch?: () => void;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
   isMobileOpen?: boolean;
   onCloseMobile?: () => void;
   className?: string;
@@ -128,6 +132,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   onClearSavedLists,
   onSaveSearch,
   onLoadSearch,
+  isCollapsed = false,
+  onToggleCollapse,
   isMobileOpen = false,
   onCloseMobile,
   className = '',
@@ -243,6 +249,17 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
               title="Reload default presets"
             >
               <RotateCw className="w-3.5 h-3.5" />
+            </button>
+          )}
+          {onToggleCollapse && (
+            <button
+              type="button"
+              onClick={onToggleCollapse}
+              className="hidden lg:flex p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded transition-colors cursor-pointer"
+              aria-label="Collapse People filters"
+              title="Collapse sidebar (⌘B)"
+            >
+              <PanelLeftClose className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
@@ -604,13 +621,69 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   return (
     <>
-      {/* Desktop Persistent Sidebar (lg: and up) */}
-      <aside
-        className={`hidden lg:flex w-64 lg:w-72 h-full bg-white border-r border-surface-border flex-col shrink-0 select-none z-10 ${className}`}
-        aria-label="Lead Filters Sidebar"
-      >
-        {filterContent}
-      </aside>
+      {/* Desktop Collapsible Sidebar (lg: and up) */}
+      {isCollapsed ? (
+        <aside
+          className="hidden lg:flex w-12 h-full border-r border-surface-border bg-white flex-col items-center py-3 shrink-0 select-none transition-all duration-200 ease-in-out z-10"
+          aria-label="People Filters (Collapsed)"
+        >
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            className="p-2 text-slate-500 hover:text-apollo hover:bg-blue-50/70 rounded-lg transition-colors cursor-pointer relative group focus:outline-none focus:ring-2 focus:ring-apollo/20"
+            aria-label="Expand People filters"
+            title="Expand People filters (⌘B)"
+          >
+            <PanelLeftOpen className="w-4 h-4 text-apollo" />
+            {activeCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] rounded-full bg-apollo text-white text-[9px] font-bold flex items-center justify-center px-0.5">
+                {activeCount}
+              </span>
+            )}
+            <span className="absolute left-12 px-2 py-1 bg-slate-900 text-white text-xs font-medium rounded shadow-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity z-50">
+              Expand Filters (⌘B)
+            </span>
+          </button>
+
+          {activeCount > 0 && (
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <button
+                type="button"
+                onClick={onToggleCollapse}
+                className="text-[9px] font-mono text-apollo font-bold [writing-mode:vertical-lr] rotate-180 uppercase tracking-widest cursor-pointer hover:underline py-1"
+                title={`${activeCount} active filters - click to expand`}
+              >
+                {activeCount} Active
+              </button>
+              {onClearCategory && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClearCategory('jobTitles');
+                    onClearCategory('departments');
+                    onClearCategory('seniority');
+                    onClearCategory('locations');
+                    onClearCategory('industries');
+                    onClearCategory('companySize');
+                  }}
+                  className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-slate-100 rounded transition-colors cursor-pointer"
+                  title="Reset all filters"
+                  aria-label="Reset all filters"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                </button>
+              )}
+            </div>
+          )}
+        </aside>
+      ) : (
+        <aside
+          className={`hidden lg:flex w-64 lg:w-72 h-full bg-white border-r border-surface-border flex-col shrink-0 select-none z-10 transition-all duration-200 ease-in-out ${className}`}
+          aria-label="Lead Filters Sidebar"
+        >
+          {filterContent}
+        </aside>
+      )}
 
       {/* Mobile / Tablet Off-Canvas Drawer (lg:hidden) */}
       {isMobileOpen && (
