@@ -159,6 +159,7 @@ DEFAULT_AUTHORIZED_DIGESTS: dict[str, dict[str, str]] = {
 }
 
 DEFAULT_INITIAL_PASSWORD = "Jet@123"
+LEGACY_INITIAL_PASSWORD = "JetFreight@2026!"
 
 
 def hash_password(password: str) -> tuple[str, str]:
@@ -363,17 +364,25 @@ def load_access_data() -> dict[str, Any]:
 
             for entry in data.get("allowlist", []):
                 email = entry.get("email", "").strip().lower()
-                if "is_password_set" not in entry or (email in seeded_emails and entry.get("password_hash") is None):
-                    if email in seeded_emails:
-                        if default_pwd_hash is None:
-                            default_pwd_hash, default_pwd_salt = hash_password(DEFAULT_INITIAL_PASSWORD)
-                        entry["password_hash"] = default_pwd_hash
-                        entry["salt"] = default_pwd_salt
-                        entry["is_password_set"] = True
-                    else:
-                        entry.setdefault("password_hash", None)
-                        entry.setdefault("salt", None)
-                        entry.setdefault("is_password_set", False)
+                stored_h = entry.get("password_hash")
+                stored_s = entry.get("salt")
+                is_seeded = email in seeded_emails
+
+                if is_seeded and (
+                    not stored_h
+                    or not stored_s
+                    or verify_password(LEGACY_INITIAL_PASSWORD, stored_h, stored_s)
+                ):
+                    if default_pwd_hash is None:
+                        default_pwd_hash, default_pwd_salt = hash_password(DEFAULT_INITIAL_PASSWORD)
+                    entry["password_hash"] = default_pwd_hash
+                    entry["salt"] = default_pwd_salt
+                    entry["is_password_set"] = True
+                    needs_save = True
+                elif "is_password_set" not in entry:
+                    entry.setdefault("password_hash", None)
+                    entry.setdefault("salt", None)
+                    entry.setdefault("is_password_set", False)
                     needs_save = True
 
             _rebuild_cache(data, storage_path, current_mtime)
@@ -699,6 +708,27 @@ def verify_user_credentials(email: str, password: str | None) -> tuple[bool, str
         return False, "PASSWORD_REQUIRED"
 
     if verify_password(password, stored_hash, stored_salt):
+        return True, None
+
+    # Seamless automatic upgrade: if user logs in with new default password Jet@123,
+    # but stored hash in S3/disk was created under legacy JetFreight@2026!
+    if password == DEFAULT_INITIAL_PASSWORD and verify_password(LEGACY_INITIAL_PASSWORD, stored_hash, stored_salt):
+        new_h, new_s = hash_password(DEFAULT_INITIAL_PASSWORD)
+        entry["password_hash"] = new_h
+        entry["salt"] = new_s
+        entry["is_password_set"] = True
+        try:
+            with _ACCESS_LOCK:
+                disk_data = load_access_data()
+                for e in disk_data.get("allowlist", []):
+                    if e.get("email", "").strip().lower() == clean_email:
+                        e["password_hash"] = new_h
+                        e["salt"] = new_s
+                        e["is_password_set"] = True
+                        break
+                save_access_data(disk_data)
+        except Exception as up_err:
+            logger.debug("Notice saving auto-upgraded password hash: %s", up_err)
         return True, None
 
     return False, "INVALID_CREDENTIALS"

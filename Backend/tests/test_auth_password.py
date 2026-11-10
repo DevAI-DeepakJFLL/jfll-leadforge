@@ -338,3 +338,41 @@ def test_session_store_redis_adapter(monkeypatch):
     assert store.get_active_session(email) is None
 
 
+def test_legacy_password_auto_upgrade_to_jet123():
+    """Verifies that an account holding the legacy JetFreight@2026! password auto-upgrades to Jet@123 on login."""
+    from src.api.access_control import (
+        LEGACY_INITIAL_PASSWORD,
+        load_access_data,
+        save_access_data,
+    )
+
+    data = load_access_data()
+    leg_h, leg_s = hash_password(LEGACY_INITIAL_PASSWORD)
+    user_email = "tyra.theknath@jfll.com"
+
+    for u in data.get("allowlist", []):
+        if u.get("email", "").lower() == user_email:
+            u["password_hash"] = leg_h
+            u["salt"] = leg_s
+            u["is_password_set"] = True
+            break
+    save_access_data(data)
+
+    # Login with Jet@123 must succeed and auto-upgrade
+    res = client.post(
+        "/api/v1/auth/login",
+        json={"email": user_email, "password": DEFAULT_INITIAL_PASSWORD},
+        headers={"User-Agent": "Mozilla/5.0"},
+    )
+    assert res.status_code == 200
+    assert res.json()["email"] == user_email
+
+    # Subsequent login with Jet@123 still succeeds
+    res2 = client.post(
+        "/api/v1/auth/login",
+        json={"email": user_email, "password": DEFAULT_INITIAL_PASSWORD},
+        headers={"User-Agent": "Mozilla/5.0"},
+    )
+    assert res2.status_code == 200
+
+

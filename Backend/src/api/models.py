@@ -56,7 +56,7 @@ class LoginRequest(BaseModel):
 
 class SetPasswordRequest(BaseModel):
     email: str = Field(..., min_length=3, max_length=150, description="Enterprise work email")
-    new_password: str = Field(..., min_length=8, max_length=128, description="New account password (min 8 chars)")
+    new_password: str = Field(..., min_length=6, max_length=128, description="New account password (min 6 chars)")
     current_password: str | None = Field(default=None, max_length=128, description="Current password when updating an existing password")
 
 
