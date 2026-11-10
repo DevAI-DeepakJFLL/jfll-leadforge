@@ -79,6 +79,10 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     setFilters((prev) => ({ ...prev, q: q || undefined, page: 1 }));
   }, []);
 
+  const setHsCode = useCallback((hsCode: string) => {
+    setFilters((prev) => ({ ...prev, hsCode: hsCode || undefined, page: 1 }));
+  }, []);
+
   const setPage = useCallback((page: number) => {
     setFilters((prev) => ({ ...prev, page }));
   }, []);
@@ -264,6 +268,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
       minTradedValueUsd: 0,
       hasDirectors: false,
       q: undefined,
+      hsCode: undefined,
     }));
   }, []);
 
@@ -282,6 +287,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     if (filters.minShipments && filters.minShipments > 0) count += 1;
     if (filters.minTradedValueUsd && filters.minTradedValueUsd > 0) count += 1;
     if (filters.q) count += 1;
+    if (filters.hsCode) count += 1;
     return count;
   }, [filters]);
 
@@ -291,6 +297,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
     setDataset,
     setTab,
     setSearch,
+    setHsCode,
     setPage,
     setLimit,
     toggleCountry,

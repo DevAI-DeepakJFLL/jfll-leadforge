@@ -399,6 +399,46 @@ describe('DataMyne Leads Service & Schemas', () => {
       expect(formatDatamyneCityCorridor(noCorridorLead)).toBe('São Paulo');
     });
 
+    it('filters leads by exact 8-digit HS Code', () => {
+      const res = queryDatamyneLeads({ hsCode: '29309099', dataset: 'all' });
+      expect(res.items.length).toBeGreaterThan(0);
+      expect(res.items.every((item) => item.top_hs_codes.includes('29309099'))).toBe(true);
+    });
+
+    it('filters leads by 4-digit heading HS Code prefix', () => {
+      const res = queryDatamyneLeads({ hsCode: '2933', dataset: 'all' });
+      expect(res.items.length).toBeGreaterThan(0);
+      expect(res.items.every((item) => item.top_hs_codes.includes('2933'))).toBe(true);
+    });
+
+    it('filters leads by 2-digit chapter HS Code prefix', () => {
+      const res = queryDatamyneLeads({ hsCode: '29', dataset: 'all' });
+      expect(res.items.length).toBeGreaterThan(0);
+      expect(
+        res.items.every((item) =>
+          item.top_hs_codes.split(',').some((c) => c.trim().startsWith('29'))
+        )
+      ).toBe(true);
+    });
+
+    it('handles punctuation, dots and spaces in HS Code input cleanly', () => {
+      const resFormatted = queryDatamyneLeads({ hsCode: '2930.90.99', dataset: 'all' });
+      const resClean = queryDatamyneLeads({ hsCode: '29309099', dataset: 'all' });
+      expect(resFormatted.items.length).toBe(resClean.items.length);
+      expect(resFormatted.items.length).toBeGreaterThan(0);
+    });
+
+    it('combines company name text search and hsCode filter without collision', () => {
+      const res = queryDatamyneLeads({
+        q: 'SUMMIT',
+        hsCode: '2930',
+        dataset: 'all',
+      });
+      expect(res.items.length).toBeGreaterThan(0);
+      expect(res.items[0].company_name).toContain('SUMMIT');
+      expect(res.items[0].top_hs_codes).toContain('2930');
+    });
+
     it('generates a 5-column CSV Blob with UTF-8 BOM and sanitized RFC-4180 cells', async () => {
       const notesMap = {
         'dm-val-00001': 'Discovery meeting held with procurement director; requested GRU-BOM charter quote.',

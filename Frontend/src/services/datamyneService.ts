@@ -99,6 +99,7 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
   const dataset = getLoadedDatamyneDataset();
   const {
     q,
+    hsCode,
     dataset: datasetType = 'valid',
     tab = 'all',
     countries = [],
@@ -132,6 +133,7 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
   const normalizedFilterCities = cities && cities.length > 0 ? cities.map(normalizeCityString) : null;
   const cityExactSet = normalizedFilterCities ? new Set(normalizedFilterCities) : null;
   const query = q && q.trim() ? q.trim().toLowerCase() : null;
+  const cleanHs = hsCode ? hsCode.replace(/[^0-9a-zA-Z]/g, '').trim().toLowerCase() : null;
 
   const contactStatusSet = contactStatus && contactStatus.length > 0 ? new Set(contactStatus) : null;
   const hasContactBoth = contactStatusSet?.has('both') ?? false;
@@ -172,6 +174,19 @@ export function queryDatamyneLeads(params: DatamyneFilterParams = {}): DatamyneR
 
     // 1b. Transport Mode Filter
     if (transportModeSet && !transportModeSet.has(d.transport_mode as any)) continue;
+
+    // 1b-2. HS Code Filter
+    if (cleanHs) {
+      if (!d.top_hs_codes) continue;
+      const hsCodesList = d.top_hs_codes
+        .split(',')
+        .map((code) => code.replace(/[^0-9a-zA-Z]/g, '').toLowerCase())
+        .filter(Boolean);
+      const matchesHs = hsCodesList.some(
+        (code) => code.startsWith(cleanHs) || cleanHs.startsWith(code)
+      );
+      if (!matchesHs) continue;
+    }
 
     // 1c. Search Query
     if (query) {

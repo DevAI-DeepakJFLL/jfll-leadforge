@@ -698,6 +698,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     setDataset: setDatamyneDataset,
     setTab: setDatamyneTab,
     setSearch: setDatamyneSearch,
+    setHsCode: setDatamyneHsCode,
     setPage: setDatamynePage,
     setLimit: _setDatamyneLimit,
     toggleCountry: toggleDatamyneCountry,
@@ -1229,6 +1230,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onExport={handleExportDatamyneCsv}
           isExporting={isExportingDatamyne}
           onSearchChange={setDatamyneSearch}
+          setHsCode={setDatamyneHsCode}
           onDatasetChange={setDatamyneDataset}
           onTabChange={setDatamyneTab}
           onPageChange={setDatamynePage}

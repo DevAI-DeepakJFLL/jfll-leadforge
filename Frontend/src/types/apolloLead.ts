@@ -140,6 +140,7 @@ export const APOLLO_TOP_COUNTRIES: ApolloCountryOption[] = [
   { code: 'US', name: 'United States', flag: '🇺🇸' },
   { code: 'UK', name: 'United Kingdom', flag: '🇬🇧' },
   { code: 'IN', name: 'India', flag: '🇮🇳' },
+  { code: 'BR', name: 'Brazil', flag: '🇧🇷' },
   { code: 'CA', name: 'Canada', flag: '🇨🇦' },
   { code: 'AU', name: 'Australia', flag: '🇦🇺' },
   { code: 'DE', name: 'Germany', flag: '🇩🇪' },

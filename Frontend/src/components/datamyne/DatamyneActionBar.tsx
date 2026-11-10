@@ -39,7 +39,7 @@ export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
   isExportingSummary = false,
   searchQuery = '',
   onSearchChange,
-  searchPlaceholder = 'Search DataMyne by company, description, country...',
+  searchPlaceholder = 'Search by company, HS code, commodity, country... (e.g. 2709, Petrobras)',
   className = '',
   currentUser,
   isViewer,

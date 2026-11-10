@@ -70,6 +70,7 @@ export const CATEGORY_TO_TAB_MAP: Record<string, DatamyneAudienceTab> = {
 
 export interface DatamyneFilterParams {
   q?: string;
+  hsCode?: string;
   dataset?: DatamyneDatasetType;
   tab?: DatamyneAudienceTab;
   countries?: string[];

@@ -13,6 +13,7 @@ export interface DatamyneActiveFilterChipsProps {
   onRemoveTradeLane: (tradeLane: string) => void;
   onRemoveContactStatus: (status: string) => void;
   onRemoveApproachStatus?: (status: string) => void;
+  onRemoveHsCode?: () => void;
   onToggleHasDirectors: () => void;
   onClearSearch: () => void;
   onClearAll: () => void;
@@ -37,6 +38,7 @@ export const DatamyneActiveFilterChips: React.FC<DatamyneActiveFilterChipsProps>
   onRemoveTradeLane,
   onRemoveContactStatus,
   onRemoveApproachStatus,
+  onRemoveHsCode,
   onToggleHasDirectors,
   onClearSearch,
   onClearAll,
@@ -51,6 +53,16 @@ export const DatamyneActiveFilterChips: React.FC<DatamyneActiveFilterChipsProps>
       category: 'Search',
       label: `"${filters.q}"`,
       onRemove: onClearSearch,
+    });
+  }
+
+  // HS Code filter chip
+  if (filters.hsCode && filters.hsCode.trim()) {
+    chips.push({
+      id: `hsCode-${filters.hsCode}`,
+      category: 'HS Code',
+      label: `HS: ${filters.hsCode.trim()}`,
+      onRemove: () => onRemoveHsCode?.(),
     });
   }
 

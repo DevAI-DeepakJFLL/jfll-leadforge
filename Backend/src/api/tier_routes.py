@@ -2,6 +2,7 @@
 Directly implements Section 1, 6, 7, and 10 of tier_segmentation_spec.md.
 Cleanly decoupled from core leads, datamyne, and apollo endpoints.
 """
+import re
 import uuid
 from typing import Any
 
@@ -46,6 +47,7 @@ def _format_score_breakdown(record: dict[str, Any], pop: bool = False) -> dict[s
 def _build_tier_filter_conditions(
     status: str | None = None,
     search: str | None = None,
+    hs_code: str | None = None,
     min_score: int | None = None,
     max_score: int | None = None,
     categories: list[str] | None = None,
@@ -100,6 +102,13 @@ def _build_tier_filter_conditions(
             "(lower(d.company_name) LIKE ? OR lower(d.city) LIKE ? OR lower(d.category) LIKE ? OR lower(d.subcategory) LIKE ? OR lower(d.top_hs_codes) LIKE ? OR lower(d.address) LIKE ?)"
         )
         params.extend([pat, pat, pat, pat, pat, pat])
+
+    # HS Code Prefix/Filter
+    if hs_code and hs_code.strip():
+        clean_hs = re.sub(r"[^0-9a-zA-Z]", "", hs_code.strip()).lower()
+        if clean_hs:
+            conditions.append("lower(d.top_hs_codes) LIKE ?")
+            params.append(f"%{clean_hs}%")
 
     # Categories
     all_cats: list[str] = []
@@ -264,6 +273,7 @@ def _build_tier_filter_conditions(
 @tier_router.get("/counts", summary="Get Tier A/B status counts and capacity telemetry")
 def get_tier_counts(
     search: str | None = Query(default=None),
+    hs_code: str | None = Query(default=None, description="Filter by HS code prefix or chapter"),
     min_score: int | None = Query(default=None, ge=0, le=100),
     max_score: int | None = Query(default=None, ge=0, le=100),
     categories: list[str] | None = Query(default=None),
@@ -296,6 +306,7 @@ def get_tier_counts(
         conditions, params = _build_tier_filter_conditions(
             status=None,
             search=search,
+            hs_code=hs_code,
             min_score=min_score,
             max_score=max_score,
             categories=categories,
@@ -368,6 +379,7 @@ def get_tier_counts(
 def get_tier_leads(
     status: str | None = Query(default=None, description="Filter: 'Tier A', 'Tier B', 'Parked', 'Excluded', 'Unscored', or None for all"),
     search: str | None = Query(default=None, description="Search company name or city"),
+    hs_code: str | None = Query(default=None, description="Filter by HS code prefix or chapter"),
     min_score: int | None = Query(default=None, ge=0, le=100),
     max_score: int | None = Query(default=None, ge=0, le=100),
     categories: list[str] | None = Query(default=None),
@@ -402,6 +414,7 @@ def get_tier_leads(
         conditions, params = _build_tier_filter_conditions(
             status=status,
             search=search,
+            hs_code=hs_code,
             min_score=min_score,
             max_score=max_score,
             categories=categories,

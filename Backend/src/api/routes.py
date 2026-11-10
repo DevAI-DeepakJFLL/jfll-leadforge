@@ -433,6 +433,32 @@ def list_leads(
 
 ALLOWED_APOLLO_TABS = {"all", "high_headcount", "high_revenue", "top_cargo_verticals", "with_website_linkedin"}
 
+EMPLOYEE_TIER_RANGES: dict[str, tuple[int | None, int | None]] = {
+    "1-10": (1, 10),
+    "11-50": (11, 50),
+    "51-200": (51, 200),
+    "201-500": (201, 500),
+    "501-1000": (501, 1000),
+    "1000+": (1001, None),
+    "1000": (1001, None),
+    "1000 ": (1001, None),
+    ">1000": (1001, None),
+    "1000-5000": (1000, 5000),
+    "5001-10000": (5001, 10000),
+    "10001+": (10001, None),
+}
+
+REVENUE_RANGES_MAP: dict[str, tuple[int | None, int | None]] = {
+    "under-1m": (None, 1000000),
+    "1m-10m": (1000000, 10000000),
+    "10m-50m": (10000000, 50000000),
+    "50m-250m": (50000000, 250000000),
+    "250m+": (250000000, None),
+    "250m": (250000000, None),
+    "250m ": (250000000, None),
+    ">250m": (250000000, None),
+}
+
 
 @router.get(
     "/apollo/leads",
@@ -447,9 +473,12 @@ def list_apollo_leads(
     country: str | None = Query(default=None, description="Single country filter"),
     countries: list[str] | None = Query(default=None, description="Multi-select countries"),
     state: str | None = Query(default=None, description="State/Province filter"),
+    employee_tiers: list[str] | None = Query(default=None, description="Multi-select employee tier IDs: 1-10, 11-50, etc."),
+    revenue_ranges: list[str] | None = Query(default=None, description="Multi-select revenue range IDs: under-1m, 1m-10m, etc."),
     min_employees: int | None = Query(default=None, ge=0, description="Minimum headcount"),
     max_employees: int | None = Query(default=None, ge=0, description="Maximum headcount"),
     min_revenue: int | None = Query(default=None, ge=0, description="Minimum annual revenue USD"),
+    max_revenue: int | None = Query(default=None, ge=0, description="Maximum annual revenue USD"),
     has_website: bool | None = Query(default=None, description="Require corporate website"),
     has_linkedin: bool | None = Query(default=None, description="Require LinkedIn profile"),
     tab: str | None = Query(default=None, description="Audience quick tab"),
@@ -465,9 +494,12 @@ def list_apollo_leads(
     country = normalize_query(country)
     countries = normalize_query(countries)
     state = normalize_query(state)
+    employee_tiers = normalize_query(employee_tiers)
+    revenue_ranges = normalize_query(revenue_ranges)
     min_employees = normalize_query(min_employees)
     max_employees = normalize_query(max_employees)
     min_revenue = normalize_query(min_revenue)
+    max_revenue = normalize_query(max_revenue)
     has_website = normalize_query(has_website)
     has_linkedin = normalize_query(has_linkedin)
     tab = normalize_query(tab)
@@ -510,17 +542,55 @@ def list_apollo_leads(
             base_conditions.append("lower(hq_state) = ?")
             base_params.append(state.strip().lower())
 
-        if min_employees is not None:
-            base_conditions.append("employee_count >= ?")
-            base_params.append(min_employees)
+        if employee_tiers:
+            clean_tiers = [t.strip().lower() for t in employee_tiers if t and t.strip()]
+            tier_clauses = []
+            for t in clean_tiers:
+                if t in EMPLOYEE_TIER_RANGES:
+                    t_min, t_max = EMPLOYEE_TIER_RANGES[t]
+                    if t_min is not None and t_max is not None:
+                        tier_clauses.append("(employee_count >= ? AND employee_count <= ?)")
+                        base_params.extend([t_min, t_max])
+                    elif t_min is not None:
+                        tier_clauses.append("(employee_count >= ?)")
+                        base_params.append(t_min)
+                    elif t_max is not None:
+                        tier_clauses.append("(employee_count <= ?)")
+                        base_params.append(t_max)
+            if tier_clauses:
+                base_conditions.append(f"({' OR '.join(tier_clauses)})")
+        else:
+            if min_employees is not None:
+                base_conditions.append("employee_count >= ?")
+                base_params.append(min_employees)
+            if max_employees is not None:
+                base_conditions.append("employee_count <= ?")
+                base_params.append(max_employees)
 
-        if max_employees is not None:
-            base_conditions.append("employee_count <= ?")
-            base_params.append(max_employees)
-
-        if min_revenue is not None:
-            base_conditions.append("revenue_usd >= ?")
-            base_params.append(min_revenue)
+        if revenue_ranges:
+            clean_ranges = [r.strip().lower() for r in revenue_ranges if r and r.strip()]
+            rev_clauses = []
+            for r in clean_ranges:
+                if r in REVENUE_RANGES_MAP:
+                    r_min, r_max = REVENUE_RANGES_MAP[r]
+                    if r_min is not None and r_max is not None:
+                        rev_clauses.append("(revenue_usd >= ? AND revenue_usd < ?)")
+                        base_params.extend([r_min, r_max])
+                    elif r_min is not None:
+                        rev_clauses.append("(revenue_usd >= ?)")
+                        base_params.append(r_min)
+                    elif r_max is not None:
+                        rev_clauses.append("(revenue_usd < ?)")
+                        base_params.append(r_max)
+            if rev_clauses:
+                base_conditions.append(f"({' OR '.join(rev_clauses)})")
+        else:
+            if min_revenue is not None:
+                base_conditions.append("revenue_usd >= ?")
+                base_params.append(min_revenue)
+            if max_revenue is not None:
+                base_conditions.append("revenue_usd <= ?")
+                base_params.append(max_revenue)
 
         if has_website is True:
             base_conditions.append("website_url IS NOT NULL AND trim(website_url) != ''")
@@ -811,6 +881,9 @@ def search_apollo_contacts(
     job_title: str | None = Query(default=None, description="Filter by job title"),
     country: str | None = Query(default=None, description="Contact country"),
     company: str | None = Query(default=None, description="Filter by company / employer name"),
+    company_sizes: list[str] | None = Query(default=None, description="Company size tiers: 1-10, 11-50, etc."),
+    industry: str | None = Query(default=None, description="Filter by company cargo industry"),
+    industries: list[str] | None = Query(default=None, description="Multi-select company cargo industries"),
     search: str | None = Query(default=None, min_length=1, max_length=100, description="Search name, title, company, email"),
     authorization: str | None = Header(None, description="Bearer token for authenticated session"),
 ):
@@ -828,6 +901,9 @@ def search_apollo_contacts(
     job_title = normalize_query(job_title)
     country = normalize_query(country)
     company = normalize_query(company)
+    company_sizes = normalize_query(company_sizes)
+    industry = normalize_query(industry)
+    industries = normalize_query(industries)
     search = normalize_query(search)
 
     offset = (page - 1) * page_size
@@ -960,6 +1036,45 @@ def search_apollo_contacts(
             placeholders = ", ".join(["?"] * len(c_list))
             conditions.append(f"lower(c.contact_country) IN ({placeholders})")
             params.extend(c_list)
+
+        # Company Size and Cargo Industry filters resolved via apollo_source subquery
+        org_subquery_conds = []
+        org_subquery_params = []
+
+        if company_sizes:
+            clean_sizes = [s.strip().lower() for s in company_sizes if s and s.strip()]
+            size_clauses = []
+            for s in clean_sizes:
+                if s in EMPLOYEE_TIER_RANGES:
+                    s_min, s_max = EMPLOYEE_TIER_RANGES[s]
+                    if s_min is not None and s_max is not None:
+                        size_clauses.append("(employee_count >= ? AND employee_count <= ?)")
+                        org_subquery_params.extend([s_min, s_max])
+                    elif s_min is not None:
+                        size_clauses.append("(employee_count >= ?)")
+                        org_subquery_params.append(s_min)
+                    elif s_max is not None:
+                        size_clauses.append("(employee_count <= ?)")
+                        org_subquery_params.append(s_max)
+            if size_clauses:
+                org_subquery_conds.append(f"({' OR '.join(size_clauses)})")
+
+        if industry and industry.strip():
+            org_subquery_conds.append("lower(industry) = ?")
+            org_subquery_params.append(industry.strip().lower())
+
+        if industries:
+            clean_inds = [i.strip().lower() for i in industries if i and i.strip()]
+            if clean_inds:
+                placeholders = ", ".join(["?"] * len(clean_inds))
+                org_subquery_conds.append(f"lower(industry) IN ({placeholders})")
+                org_subquery_params.extend(clean_inds)
+
+        if org_subquery_conds:
+            conditions.append(
+                f"c.organization_id IN (SELECT organization_id FROM '{apollo_source}' WHERE {' AND '.join(org_subquery_conds)})"
+            )
+            params.extend(org_subquery_params)
 
         where_sql = " AND ".join(conditions)
 

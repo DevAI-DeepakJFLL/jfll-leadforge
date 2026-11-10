@@ -26,6 +26,7 @@ import {
   UserCheck,
   Globe,
   PhoneCall,
+  FileText,
   X,
 } from 'lucide-react';
 import { CompactSalesApproachFilter } from '@/components/approach';
@@ -33,6 +34,7 @@ import { CompactSalesApproachFilter } from '@/components/approach';
 export interface DatamyneFilterSidebarProps {
   filters: DatamyneFilterParams;
   setSearch: (q: string) => void;
+  setHsCode?: (code: string) => void;
   setDataset: (dataset: DatamyneDatasetType) => void;
   toggleCountry?: (country: string) => void;
   toggleTransportMode: (mode: TransportMode) => void;
@@ -118,9 +120,21 @@ const COUNTRIES_LIST = [
   { id: 'Brazil', label: 'Brazil' },
 ];
 
+const POPULAR_HS_CODES = [
+  { code: '2709', label: 'Crude Petroleum Oils' },
+  { code: '3004', label: 'Medicaments & Vaccines' },
+  { code: '2601', label: 'Iron Ores & Minerals' },
+  { code: '8471', label: 'Computers & Processors' },
+  { code: '8708', label: 'Motor Vehicle Parts' },
+  { code: '5201', label: 'Raw Cotton Fibers' },
+  { code: '1507', label: 'Soya-bean Oil' },
+  { code: '2933', label: 'Heterocyclic APIs' },
+];
+
 export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
   filters,
   setSearch,
+  setHsCode,
   setDataset,
   toggleCountry,
   toggleTransportMode,
@@ -451,7 +465,72 @@ export const DatamyneFilterSidebar: React.FC<DatamyneFilterSidebarProps> = ({
         </div>
       </FilterAccordion>
 
-      {/* Accordion 4: Trading Role */}
+      {/* Accordion 4: HS Code (Customs Tariff) */}
+      <FilterAccordion
+        icon={<FileText className="w-4 h-4" />}
+        label="HS Code (Customs Tariff)"
+        defaultOpen={Boolean(filters.hsCode)}
+        activeCount={filters.hsCode ? 1 : 0}
+        onClear={filters.hsCode ? () => setHsCode?.('') : undefined}
+      >
+        <div className="space-y-2.5">
+          <div className="relative">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5 pointer-events-none" />
+            <input
+              type="text"
+              value={filters.hsCode || ''}
+              onChange={(e) => setHsCode?.(e.target.value)}
+              placeholder="e.g. 2709, 3004, 8471..."
+              aria-label="Filter by HS Code"
+              className="w-full pl-8 pr-7 py-1.5 text-xs font-mono bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder:text-slate-400 placeholder:font-sans focus:outline-none focus:ring-2 focus:ring-apollo/20 focus:border-apollo transition-all"
+            />
+            {filters.hsCode && (
+              <button
+                type="button"
+                onClick={() => setHsCode?.('')}
+                className="absolute right-2 top-2 p-0.5 text-slate-400 hover:text-slate-600 rounded-sm cursor-pointer"
+                aria-label="Clear HS Code filter"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+          <p className="text-[10px] text-slate-500 leading-normal">
+            Matches 2-digit chapter (e.g. <span className="font-mono font-medium">27</span>), 4-digit heading (<span className="font-mono font-medium">2709</span>), or full tariff code.
+          </p>
+
+          <div>
+            <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">
+              Popular Freight Chapters:
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {POPULAR_HS_CODES.map((item) => {
+                const isSelected = filters.hsCode === item.code;
+                return (
+                  <button
+                    key={item.code}
+                    type="button"
+                    onClick={() => setHsCode?.(isSelected ? '' : item.code)}
+                    className={`inline-flex items-center gap-1 px-2 py-1 text-[11px] rounded-md border font-mono transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-apollo text-white border-apollo font-semibold shadow-2xs'
+                        : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                    }`}
+                    title={`${item.code} - ${item.label}`}
+                  >
+                    <span>{item.code}</span>
+                    <span className="text-[9px] font-sans opacity-75">
+                      {item.label.split(' ')[0]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </FilterAccordion>
+
+      {/* Accordion 5: Trading Role */}
       <FilterAccordion
         icon={<CheckCircle2 className="w-4 h-4" />}
         label="Trading Role"

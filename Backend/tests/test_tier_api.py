@@ -138,3 +138,37 @@ def test_tier_leads_faceted_filtering_perishables_and_mumbai():
     counts = res_counts.json()
     assert counts["tier_a"] == 57
 
+
+def test_tier_leads_hs_code_filtering():
+    """Verify HS Code filtering on both /leads and /counts with normalization."""
+    headers = _get_auth_headers()
+
+    # 1. 4-digit Heading Search (e.g. 2709 Crude Petroleum)
+    res_2709 = client.get("/api/v1/tiers/leads?hs_code=2709&page_size=20", headers=headers)
+    assert res_2709.status_code == 200
+    data_2709 = res_2709.json()
+    assert data_2709["total"] > 0
+    assert all("2709" in item["top_hs_codes"] for item in data_2709["items"])
+
+    # 2. Punctuation normalization (e.g. '2709.00' should clean to '270900')
+    res_punct = client.get("/api/v1/tiers/leads?hs_code=2709.00&page_size=20", headers=headers)
+    assert res_punct.status_code == 200
+    data_punct = res_punct.json()
+    assert data_punct["total"] > 0
+    assert all("270900" in item["top_hs_codes"] for item in data_punct["items"])
+
+    # 3. HS Code with Tier A filter
+    res_tier_a = client.get("/api/v1/tiers/leads?hs_code=2709&status=Tier A", headers=headers)
+    assert res_tier_a.status_code == 200
+    data_tier_a = res_tier_a.json()
+    assert all(item["segment_status"] == "Tier A" for item in data_tier_a["items"])
+    assert all("2709" in item["top_hs_codes"] for item in data_tier_a["items"])
+
+    # 4. Tier Counts with HS Code
+    res_counts = client.get("/api/v1/tiers/counts?hs_code=2709", headers=headers)
+    assert res_counts.status_code == 200
+    counts = res_counts.json()
+    assert counts["all"] == data_2709["total"]
+    assert counts["tier_a"] == data_tier_a["total"]
+
+

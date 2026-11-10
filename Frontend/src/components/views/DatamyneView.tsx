@@ -54,6 +54,7 @@ export interface DatamyneViewProps {
   isExporting: boolean;
   onDownloadSummaryReport?: () => void;
   onSearchChange: (query: string) => void;
+  setHsCode?: (code: string) => void;
   onDatasetChange: (dataset: DatamyneDatasetType) => void;
   onTabChange: (tab: DatamyneAudienceTab) => void;
   onPageChange: (page: number) => void;
@@ -94,6 +95,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   isExporting,
   onDownloadSummaryReport,
   onSearchChange,
+  setHsCode,
   onDatasetChange,
   onTabChange,
   onPageChange,
@@ -355,6 +357,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
       <DatamyneFilterSidebar
         filters={filters}
         setSearch={onSearchChange}
+        setHsCode={setHsCode}
         setDataset={onDatasetChange}
         toggleCountry={toggleCountry}
         toggleTransportMode={toggleTransportMode}
@@ -504,6 +507,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           onRemoveTradeLane={toggleTradeLane}
           onRemoveContactStatus={toggleContactStatus}
           onRemoveApproachStatus={toggleApproachStatus}
+          onRemoveHsCode={setHsCode ? () => setHsCode('') : undefined}
           onToggleHasDirectors={toggleHasDirectors}
           onClearSearch={() => onSearchChange('')}
           onClearAll={clearAllFilters}

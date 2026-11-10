@@ -195,6 +195,8 @@ export async function fetchApolloLeadsFromApi(
     tab = 'all',
     industries = [],
     countries = [],
+    employeeTiers = [],
+    revenueRanges = [],
     hasWebsite,
     hasLinkedin,
     minEmployees,
@@ -218,6 +220,8 @@ export async function fetchApolloLeadsFromApi(
 
   industries.forEach((ind) => urlParams.append('industries', ind));
   countries.forEach((country) => urlParams.append('countries', country));
+  employeeTiers.forEach((tier) => urlParams.append('employee_tiers', tier));
+  revenueRanges.forEach((range) => urlParams.append('revenue_ranges', range));
 
   const targetUrl = `${API_BASE_URL}/api/v1/apollo/leads?${urlParams.toString()}`;
 
@@ -827,6 +831,14 @@ export function filterLeadsInMemory(
     result = result.filter((lead) => Boolean(lead.linkedin && lead.linkedin.trim().length > 5));
   }
 
+  // 8. Company Headcount / Size
+  if (filters.companySize && filters.companySize.length > 0) {
+    result = result.filter((lead) => {
+      if (!lead.employees) return false;
+      return filters.companySize!.some((size) => lead.employees!.includes(size));
+    });
+  }
+
   return result;
 }
 
@@ -847,6 +859,7 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
     jobTitles = [],
     locations = [],
     industries = [],
+    companySize = [],
     logisticsOnly,
     decisionMakersOnly,
     hasEmailOnly,
@@ -901,6 +914,11 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
 
   if (industries && industries.length > 0) {
     urlParams.set('industry', industries[0]);
+    industries.forEach((ind) => urlParams.append('industries', ind));
+  }
+
+  if (companySize && companySize.length > 0) {
+    companySize.forEach((size) => urlParams.append('company_sizes', size));
   }
 
   if (organizationId && organizationId.trim()) {

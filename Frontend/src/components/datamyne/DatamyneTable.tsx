@@ -370,6 +370,27 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                               IEC: {l.tax_id}
                             </span>
                           )}
+
+                          {/* Declared HS Code Badge */}
+                          {l.top_hs_codes && (() => {
+                            const codes = l.top_hs_codes.split(',').map((c) => c.trim()).filter(Boolean);
+                            if (codes.length === 0) return null;
+                            const primaryCode = codes[0];
+                            const additionalCount = codes.length - 1;
+                            return (
+                              <span
+                                className="inline-flex items-center gap-1 text-[10px] font-mono text-slate-600 bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200/80 whitespace-nowrap shrink-0 leading-tight"
+                                title={`Declared Harmonized System Codes: ${l.top_hs_codes}`}
+                              >
+                                <span>HS: {primaryCode}</span>
+                                {additionalCount > 0 && (
+                                  <span className="text-[9px] text-slate-400 font-sans">
+                                    +{additionalCount}
+                                  </span>
+                                )}
+                              </span>
+                            );
+                          })()}
                         </div>
                       </div>
                     </div>

@@ -300,4 +300,58 @@ describe('DatamyneFilterSidebar Brazil Filters & Operational Hubs', () => {
     expect(html).toContain('All Leads');
     expect(html).toContain('whitespace-nowrap');
   });
+
+  it('renders HS Code accordion with input and popular commodity tags in sidebar', () => {
+    const html = renderToString(
+      <DatamyneFilterSidebar
+        filters={{ hsCode: '2709' }}
+        setSearch={vi.fn()}
+        setHsCode={vi.fn()}
+        setDataset={vi.fn()}
+        toggleTransportMode={vi.fn()}
+        toggleCategory={vi.fn()}
+        toggleSubcategory={vi.fn()}
+        toggleRole={vi.fn()}
+        toggleCity={vi.fn()}
+        toggleTradeLane={vi.fn()}
+        toggleContactStatus={vi.fn()}
+        toggleHasDirectors={vi.fn()}
+        setMinShipments={vi.fn()}
+        setMinTradedValueUsd={vi.fn()}
+        clearAllFilters={vi.fn()}
+        activeFilterCount={1}
+      />
+    );
+
+    expect(html).toContain('HS Code (Customs Tariff)');
+    expect(html).toContain('Filter by HS Code');
+    expect(html).toContain('2709');
+    expect(html).toContain('3004');
+    expect(html).toContain('8471');
+    expect(html).toContain('Popular Freight Chapters');
+  });
+
+  it('renders active HS Code chip and calls onRemoveHsCode when clicked', () => {
+    const removeHs = vi.fn();
+    const html = renderToString(
+      <DatamyneActiveFilterChips
+        filters={{ hsCode: '27090010' }}
+        onRemoveHsCode={removeHs}
+        onRemoveTransportMode={vi.fn()}
+        onRemoveRole={vi.fn()}
+        onRemoveCategory={vi.fn()}
+        onRemoveSubcategory={vi.fn()}
+        onRemoveCity={vi.fn()}
+        onRemoveTradeLane={vi.fn()}
+        onRemoveContactStatus={vi.fn()}
+        onToggleHasDirectors={vi.fn()}
+        onClearSearch={vi.fn()}
+        onClearAll={vi.fn()}
+      />
+    );
+
+    expect(html).toContain('HS Code:');
+    expect(html).toContain('HS: 27090010');
+    expect(html).toContain('Remove HS Code: HS: 27090010');
+  });
 });
