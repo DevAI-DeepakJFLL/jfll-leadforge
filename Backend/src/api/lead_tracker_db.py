@@ -148,7 +148,7 @@ def get_activities_for_lead(
     db_path: Path | str | None = None,
     conn: sqlite3.Connection | None = None,
 ) -> list[dict[str, Any]]:
-    """Retrieves chronological activity log for a specific lead."""
+    """Retrieves chronological activity log for a specific lead (oldest first)."""
     should_close = False
     if conn is None:
         conn = get_db_connection(db_path)
@@ -160,7 +160,7 @@ def get_activities_for_lead(
             SELECT id, lead_id, timestamp, author_name, author_email, action, old_status, new_status, notes
             FROM lead_tracker_activities
             WHERE lead_id = ?
-            ORDER BY timestamp DESC
+            ORDER BY timestamp ASC
             """,
             (lead_id,),
         )
@@ -253,7 +253,7 @@ def get_all_leads(
             SELECT id, lead_id, timestamp, author_name, author_email, action, old_status, new_status, notes
             FROM lead_tracker_activities
             WHERE lead_id IN ({placeholders})
-            ORDER BY timestamp DESC
+            ORDER BY timestamp ASC
             """,
             lead_ids,
         )
@@ -361,7 +361,7 @@ def create_lead(lead_data: dict[str, Any], db_path: Path | str | None = None) ->
                             now_iso,
                             lead_data.get("created_by", "Tyra Theknath"),
                             "tyra@jfll.com",
-                            "Created lead",
+                            "Lead Created / Assigned",
                             None,
                             lead_data.get("status", TrackerStatus.ASSIGNED.value),
                             lead_data.get("feedback_notes") or "Initial lead tracking started",

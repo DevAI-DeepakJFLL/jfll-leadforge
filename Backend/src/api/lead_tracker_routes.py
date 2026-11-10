@@ -1,12 +1,12 @@
 """FastAPI router and persistence controller for Phase 2 Lead Status Tracker.
 
 Follows freight-forwarding domain concepts (Transport Mode, Routing Control,
-Sales Feedback, Follow-up Cadence) and DSA-conscious design principles:
-- O(1) hash map lookups & updates via entity dictionary.
-- Lexicographical ISO 8601 date string comparisons (< today_str) avoiding strptime overhead.
+Sales Feedback, Follow-up Cadence, Rate Validity Horizon) and DSA-conscious design principles:
+- SQLite persistence backed by WAL mode for multi-worker safe concurrency.
+- O(log N) indexed lookups and queries via relational SQLite tables.
 - Single O(N) pass for high-level executive KPI metrics.
-- Concurrency safety with atomic file replacement and threading lock.
-- Automatic hydration of 14 real-world records from Phase2/Lead_Tracker.xlsx.
+- Automatic migration from legacy lead_tracker.json or Phase2/Lead_Tracker.xlsx.
+- S3 backup & restore integration for serverless cloud durability.
 """
 
 from datetime import date, datetime, timezone
@@ -29,6 +29,20 @@ from src.api.access_control import (
 )
 from src.api.auth import check_session_active, verify_token
 from src.api.config import settings
+from src.api.lead_tracker_db import (
+    add_activity,
+    backup_db_to_s3,
+    create_lead,
+    delete_lead,
+    get_all_leads,
+    get_db_connection,
+    get_kpis,
+    get_lead_by_id,
+    init_db,
+    migrate_from_json_if_needed,
+    restore_db_from_s3,
+    update_lead,
+)
 from src.api.lead_tracker_models import (
     LeadTrackerCreate,
     LeadTrackerItem,
@@ -45,13 +59,8 @@ from src.api.logger import logger
 
 lead_tracker_router = APIRouter(prefix="/api/v1/lead-tracker", tags=["Lead Status Tracker"])
 
-_FILE_LOCK = threading.Lock()
-_CACHED_DATA: dict[str, Any] | None = None
-_CACHED_MTIME: float | None = None
-_CACHED_STORAGE_KEY: str | None = None
-_LAST_S3_SYNC: float = 0.0
-
-S3_LEAD_TRACKER_KEY = "data/lead_tracker.json"
+_ROUTER_LOCK = threading.Lock()
+_DB_INITIALIZED = False
 
 CLOSED_STATUSES = {
     TrackerStatus.WON.value,
@@ -75,7 +84,7 @@ TRACKER_ADMIN_ROLES = {
 
 
 def get_storage_path() -> Path:
-    """Resolves the persistence path for lead_tracker.json."""
+    """Resolves legacy json persistence path."""
     custom_path = os.getenv("LEAD_TRACKER_PATH")
     if custom_path:
         return Path(custom_path)
@@ -85,152 +94,97 @@ def get_storage_path() -> Path:
     return base_dir / "data" / "lead_tracker.json"
 
 
-def _restore_from_s3(storage_path: Path) -> bool:
-    """Restores lead_tracker.json from S3 if available (e.g. AWS Lambda cold start)."""
-    try:
-        import boto3
-        s3 = boto3.client("s3", region_name=settings.aws_region)
-        storage_path.parent.mkdir(parents=True, exist_ok=True)
-        s3.download_file(settings.s3_bucket, S3_LEAD_TRACKER_KEY, str(storage_path))
-        logger.info(
-            "Lead Tracker: Restored lead_tracker.json from s3://%s/%s",
-            settings.s3_bucket,
-            S3_LEAD_TRACKER_KEY,
-        )
-        return True
-    except Exception as err:
-        logger.debug("Lead Tracker: S3 restore skipped or unavailable: %s", err)
-        return False
+def get_db_path() -> Path:
+    """Resolves SQLite database path, inheriting directory overrides from tests or environment."""
+    custom_db = os.getenv("LEAD_TRACKER_DB_PATH")
+    if custom_db:
+        return Path(custom_db)
+    custom_json = os.getenv("LEAD_TRACKER_PATH")
+    if custom_json:
+        return Path(custom_json).with_suffix(".db")
+    if os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+        return Path("/tmp/data/lead_tracker.db")
+    base_dir = Path(__file__).resolve().parent.parent.parent
+    return base_dir / "data" / "lead_tracker.db"
 
 
-def _backup_to_s3(storage_path: Path) -> None:
-    """Uploads lead_tracker.json to S3 so records persist across Lambda cold starts."""
-    try:
-        import boto3
-        s3 = boto3.client("s3", region_name=settings.aws_region)
-        s3.upload_file(str(storage_path), settings.s3_bucket, S3_LEAD_TRACKER_KEY)
-        logger.info(
-            "Lead Tracker: Persisted lead_tracker.json to s3://%s/%s",
-            settings.s3_bucket,
-            S3_LEAD_TRACKER_KEY,
-        )
-    except Exception as err:
-        logger.debug("Lead Tracker: S3 backup skipped or unavailable: %s", err)
+def _ensure_db_initialized() -> Path:
+    """Ensures SQLite schema exists and initial records are hydrated."""
+    global _DB_INITIALIZED
+    db_path = get_db_path()
+    with _ROUTER_LOCK:
+        if not db_path.exists() and os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
+            restore_db_from_s3(db_path)
+        init_db(db_path)
+        conn = get_db_connection(db_path)
+        try:
+            cur = conn.execute("SELECT COUNT(*) AS cnt FROM lead_tracker_items")
+            cnt = cur.fetchone()["cnt"]
+        finally:
+            conn.close()
+
+        if cnt == 0:
+            migrate_from_json_if_needed(json_path=get_storage_path(), db_path=db_path)
+        _DB_INITIALIZED = True
+    return db_path
 
 
 def reset_tracker_cache() -> None:
-    """Explicitly resets in-memory cache to force reloading from disk on next read."""
-    global _CACHED_DATA, _CACHED_MTIME, _CACHED_STORAGE_KEY, _LAST_S3_SYNC
-    _CACHED_DATA = None
-    _CACHED_MTIME = None
-    _CACHED_STORAGE_KEY = None
-    _LAST_S3_SYNC = 0.0
-
-
-def _build_empty_store() -> dict[str, Any]:
-    return {
-        "version": 1,
-        "entities": {},
-    }
-
-
-def _seed_initial_store() -> dict[str, Any]:
-    """Hydrates store from Phase2/Lead_Tracker.xlsx or deterministic fallback."""
-    store = _build_empty_store()
-    try:
-        items = seed_leads_from_excel()
-        for item in items:
-            item_dict = item.model_dump() if hasattr(item, "model_dump") else item.dict()
-            store["entities"][item.id] = item_dict
-        logger.info("Lead Tracker: Seeded %d initial leads from Excel", len(items))
-    except Exception as err:
-        logger.warning("Lead Tracker: Seeding failed (%s), initializing empty store", err)
-    return store
-
-
-def save_tracker_data(data: dict[str, Any]) -> None:
-    """Atomically writes lead tracker data to disk using fsync and os.replace."""
-    global _CACHED_DATA, _CACHED_MTIME, _CACHED_STORAGE_KEY, _LAST_S3_SYNC
-    storage_path = get_storage_path()
-    storage_path.parent.mkdir(parents=True, exist_ok=True)
-    temp_path = storage_path.with_suffix(f".tmp.{os.getpid()}.{threading.get_ident()}")
-
-    with open(temp_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
-        f.flush()
-        os.fsync(f.fileno())
-
-    try:
-        os.chmod(temp_path, 0o600)
-    except OSError:
-        pass
-
-    os.replace(temp_path, storage_path)
-    try:
-        os.chmod(storage_path, 0o600)
-    except OSError:
-        pass
-
-    try:
-        _CACHED_MTIME = storage_path.stat().st_mtime
-        _CACHED_DATA = data
-        _CACHED_STORAGE_KEY = str(storage_path)
-    except OSError:
-        pass
-
-    if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or settings.env != "local" or os.getenv("ENABLE_S3_TRACKER_BACKUP"):
-        _backup_to_s3(storage_path)
-    _LAST_S3_SYNC = time.time()
+    """Resets memory state for clean test isolation."""
+    global _DB_INITIALIZED
+    _DB_INITIALIZED = False
 
 
 def load_tracker_data() -> dict[str, Any]:
-    """Loads lead tracker state from memory cache or disk, restoring from S3 or seeding if missing."""
-    global _CACHED_DATA, _CACHED_MTIME, _CACHED_STORAGE_KEY, _LAST_S3_SYNC
-    storage_path = get_storage_path()
-    is_lambda = bool(os.getenv("AWS_LAMBDA_FUNCTION_NAME"))
-    now = time.time()
+    """Compatibility wrapper that reads leads from SQLite into entity dictionary."""
+    db_path = _ensure_db_initialized()
+    leads = get_all_leads(db_path=db_path)
+    entities = {lead["id"]: lead for lead in leads}
+    return {"version": 1, "entities": entities}
 
-    should_sync_s3 = not storage_path.exists() or (is_lambda and (now - _LAST_S3_SYNC > 10.0))
 
-    if should_sync_s3:
-        storage_path.parent.mkdir(parents=True, exist_ok=True)
-        restored = _restore_from_s3(storage_path)
-        _LAST_S3_SYNC = now
-        if not storage_path.exists():
-            initial_data = _seed_initial_store()
-            save_tracker_data(initial_data)
-            return initial_data
-        if restored:
-            _CACHED_MTIME = None
+def save_tracker_data(data: dict[str, Any]) -> None:
+    """Compatibility wrapper for tests that invoke save_tracker_data directly."""
+    db_path = _ensure_db_initialized()
+    entities = data.get("entities", {})
+    for item in entities.values():
+        if get_lead_by_id(item["id"], db_path=db_path):
+            update_lead(item["id"], item, db_path=db_path)
+        else:
+            create_lead(item, db_path=db_path)
 
-    try:
-        current_mtime = storage_path.stat().st_mtime
-        if (
-            _CACHED_DATA is not None
-            and _CACHED_STORAGE_KEY == str(storage_path)
-            and _CACHED_MTIME == current_mtime
-        ):
-            return _CACHED_DATA
 
-        with open(storage_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            if not isinstance(data, dict):
-                raise TypeError("Corrupt lead tracker file structure")
-            if "entities" not in data or not isinstance(data["entities"], dict):
-                data["entities"] = {}
-            _CACHED_DATA = data
-            _CACHED_MTIME = current_mtime
-            _CACHED_STORAGE_KEY = str(storage_path)
-            return data
-    except Exception as err:
-        logger.warning(
-            "Lead Tracker: Could not read JSON storage (%s), using initial/empty fallback",
-            err,
-        )
-        _CACHED_DATA = None
-        _CACHED_MTIME = None
-        _CACHED_STORAGE_KEY = None
-        return _build_empty_store()
+def compute_tracker_kpis(entities: dict[str, dict[str, Any]], today_str: str | None = None) -> TrackerKPIs:
+    """Computes high-level executive KPIs in a single O(N) pass across all records."""
+    if today_str is None:
+        today_str = date.today().isoformat()
+
+    total = len(entities)
+    active = 0
+    quoted = 0
+    won = 0
+    overdue = 0
+
+    for item in entities.values():
+        st = item.get("status")
+        is_active = st not in CLOSED_STATUSES
+        if is_active:
+            active += 1
+            fup = item.get("next_followup_date")
+            if fup and str(fup) < today_str:
+                overdue += 1
+        if st in (TrackerStatus.QUOTED.value, "Quoted"):
+            quoted += 1
+        elif st in (TrackerStatus.WON.value, "Won"):
+            won += 1
+
+    return TrackerKPIs(
+        total_leads=total,
+        active_leads=active,
+        quoted_leads=quoted,
+        won_leads=won,
+        overdue_leads=overdue,
+    )
 
 
 def require_lead_tracker_auth(authorization: str | None = Header(None)) -> dict[str, Any]:
@@ -291,40 +245,6 @@ def require_lead_tracker_auth(authorization: str | None = Header(None)) -> dict[
     return user
 
 
-def compute_tracker_kpis(entities: dict[str, dict[str, Any]], today_str: str | None = None) -> TrackerKPIs:
-    """Computes high-level executive KPIs in a single O(N) pass across all records."""
-    if today_str is None:
-        today_str = date.today().isoformat()
-
-    total = len(entities)
-    active = 0
-    quoted = 0
-    won = 0
-    overdue = 0
-
-    for item in entities.values():
-        st = item.get("status")
-        is_active = st not in CLOSED_STATUSES
-        if is_active:
-            active += 1
-            fup = item.get("next_followup_date")
-            # Direct ISO string comparison without strptime overhead
-            if fup and str(fup) < today_str:
-                overdue += 1
-        if st in (TrackerStatus.QUOTED.value, "Quoted"):
-            quoted += 1
-        elif st in (TrackerStatus.WON.value, "Won"):
-            won += 1
-
-    return TrackerKPIs(
-        total_leads=total,
-        active_leads=active,
-        quoted_leads=quoted,
-        won_leads=won,
-        overdue_leads=overdue,
-    )
-
-
 @lead_tracker_router.get(
     "/kpis",
     response_model=TrackerKPIs,
@@ -335,9 +255,9 @@ def get_tracker_kpis(
 ) -> TrackerKPIs:
     """Returns aggregated executive metrics across all tracked leads."""
     require_lead_tracker_auth(authorization)
-    with _FILE_LOCK:
-        data = load_tracker_data()
-    return compute_tracker_kpis(data.get("entities", {}))
+    db_path = _ensure_db_initialized()
+    kpi_dict = get_kpis(db_path=db_path)
+    return TrackerKPIs(**kpi_dict)
 
 
 @lead_tracker_router.get(
@@ -355,68 +275,22 @@ def list_tracked_leads(
     order: str = Query(default="desc", description="Sort order: asc or desc"),
     authorization: str | None = Header(None),
 ) -> list[LeadTrackerItem]:
-    """Lists tracked leads with single-pass filtering and O(N log N) sorting."""
+    """Lists tracked leads with indexed SQLite queries and O(N log N) ordering."""
     require_lead_tracker_auth(authorization)
+    db_path = _ensure_db_initialized()
 
-    with _FILE_LOCK:
-        data = load_tracker_data()
-    entities = data.get("entities", {})
+    leads = get_all_leads(
+        branch=branch,
+        assigned_to=assigned_to,
+        status_filter=status,
+        search=search,
+        overdue_only=overdue_only,
+        sort_by=sort_by,
+        order=order,
+        db_path=db_path,
+    )
 
-    today_str = date.today().isoformat()
-    results = []
-
-    # Single-pass filter
-    for item in entities.values():
-        if branch and item.get("branch", "").strip().lower() != branch.strip().lower():
-            continue
-        if assigned_to and assigned_to.strip().lower() not in item.get("assigned_to", "").strip().lower():
-            continue
-        if status and item.get("status", "").strip().lower() != status.strip().lower():
-            continue
-        if overdue_only:
-            fup = item.get("next_followup_date")
-            st = item.get("status")
-            if not (fup and str(fup) < today_str and st not in CLOSED_STATUSES):
-                continue
-        if search:
-            s_lower = search.strip().lower()
-            company = item.get("company_name", "").lower()
-            contact = (item.get("contact_person") or "").lower()
-            rep = item.get("assigned_to", "").lower()
-            notes = (item.get("feedback_notes") or "").lower()
-            action = (item.get("next_action") or "").lower()
-            if not (
-                s_lower in company
-                or s_lower in contact
-                or s_lower in rep
-                or s_lower in notes
-                or s_lower in action
-            ):
-                continue
-        results.append(item)
-
-    is_reverse = order.strip().lower() == "desc"
-    if sort_by == "next_followup_date":
-        # Missing follow-up dates sort to the end
-        results.sort(
-            key=lambda x: (
-                x.get("next_followup_date") is None,
-                x.get("next_followup_date") or "",
-            ),
-            reverse=is_reverse,
-        )
-    elif sort_by == "company_name":
-        results.sort(
-            key=lambda x: x.get("company_name", "").lower(),
-            reverse=is_reverse,
-        )
-    else:
-        results.sort(
-            key=lambda x: x.get("updated_at") or "",
-            reverse=is_reverse,
-        )
-
-    return [LeadTrackerItem(**item) for item in results]
+    return [LeadTrackerItem(**item) for item in leads]
 
 
 @lead_tracker_router.get(
@@ -430,15 +304,16 @@ def get_tracked_lead(
 ) -> LeadTrackerItem:
     """Returns single LeadTrackerItem with full chronological history."""
     require_lead_tracker_auth(authorization)
-    with _FILE_LOCK:
-        data = load_tracker_data()
-    entities = data.get("entities", {})
-    if id not in entities:
+    db_path = _ensure_db_initialized()
+
+    lead = get_lead_by_id(id, db_path=db_path)
+    if not lead or lead.get("is_archived"):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Tracked lead with ID '{id}' not found",
         )
-    return LeadTrackerItem(**entities[id])
+
+    return LeadTrackerItem(**lead)
 
 
 @lead_tracker_router.post(
@@ -453,61 +328,19 @@ def create_tracked_lead(
 ) -> LeadTrackerItem:
     """Creates a new lead entry with automatic ID generation, rep email lookup, and initial log."""
     user = require_lead_tracker_auth(authorization)
+    db_path = _ensure_db_initialized()
 
-    with _FILE_LOCK:
-        data = load_tracker_data()
-        entities = data.setdefault("entities", {})
+    lead_dict = payload.model_dump() if hasattr(payload, "model_dump") else payload.dict()
+    assigned_by = payload.assigned_by or user.get("name") or "Tyra Theknath"
+    lead_dict["assigned_by"] = assigned_by
+    lead_dict["created_by"] = assigned_by
 
-        now_iso = datetime.now(timezone.utc).isoformat()
-        lead_id = f"trk_{uuid.uuid4().hex[:12]}"
+    created = create_lead(lead_dict, db_path=db_path)
 
-        author_name = user.get("name") or payload.assigned_by or "Tyra Theknath"
-        author_email = user.get("sub") or "tyra@jfll.com"
+    if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or settings.env != "local" or os.getenv("ENABLE_S3_TRACKER_BACKUP"):
+        backup_db_to_s3(db_path)
 
-        assigned_rep_email = payload.assigned_to_email
-        if not assigned_rep_email:
-            assigned_rep_email = SALES_REP_EMAILS.get(payload.assigned_to.strip().lower())
-
-        initial_history = [
-            LeadTrackerLogEntry(
-                id=f"log_{uuid.uuid4().hex[:8]}",
-                timestamp=now_iso,
-                author_name=author_name,
-                author_email=author_email,
-                action="Lead Created / Assigned",
-                notes=payload.feedback_notes or f"Assigned to {payload.assigned_to} ({payload.branch} branch)",
-            )
-        ]
-
-        item = LeadTrackerItem(
-            id=lead_id,
-            company_name=payload.company_name,
-            contact_person=payload.contact_person,
-            contact_phone=payload.contact_phone,
-            contact_email=payload.contact_email,
-            branch=payload.branch,
-            assigned_to=payload.assigned_to,
-            assigned_to_email=assigned_rep_email,
-            assigned_by=payload.assigned_by or author_name,
-            assigned_date=payload.assigned_date,
-            status=payload.status,
-            transport_mode=payload.transport_mode,
-            routing_type=payload.routing_type,
-            feedback_notes=payload.feedback_notes,
-            next_followup_date=payload.next_followup_date,
-            next_action=payload.next_action,
-            linked_entity_type=payload.linked_entity_type,
-            linked_entity_id=payload.linked_entity_id,
-            history=initial_history,
-            created_at=now_iso,
-            updated_at=now_iso,
-        )
-
-        item_dict = item.model_dump() if hasattr(item, "model_dump") else item.dict()
-        entities[lead_id] = item_dict
-        save_tracker_data(data)
-
-    return item
+    return LeadTrackerItem(**created)
 
 
 @lead_tracker_router.patch(
@@ -522,99 +355,62 @@ def update_tracked_lead(
 ) -> LeadTrackerItem:
     """Updates lead attributes and records automatic audit history entries."""
     user = require_lead_tracker_auth(authorization)
+    db_path = _ensure_db_initialized()
 
-    with _FILE_LOCK:
-        data = load_tracker_data()
-        entities = data.setdefault("entities", {})
-        if id not in entities:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Tracked lead with ID '{id}' not found",
-            )
-
-        record = entities[id]
-        updates = (
-            payload.model_dump(exclude_unset=True)
-            if hasattr(payload, "model_dump")
-            else payload.dict(exclude_unset=True)
+    existing = get_lead_by_id(id, db_path=db_path)
+    if not existing or existing.get("is_archived"):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Tracked lead with ID '{id}' not found",
         )
-        now_iso = datetime.now(timezone.utc).isoformat()
-        author_name = user.get("name") or "Leadership"
-        author_email = user.get("sub") or "leadership@jfll.com"
 
-        history_entries = record.setdefault("history", [])
+    update_data = payload.model_dump(exclude_unset=True) if hasattr(payload, "model_dump") else payload.dict(exclude_unset=True)
+    if not update_data:
+        return LeadTrackerItem(**existing)
 
-        # Detect changes and append corresponding history entry
-        if "status" in updates and updates["status"] != record.get("status"):
-            old_status = record.get("status")
-            new_status = updates["status"]
-            note = f"Status updated from '{old_status}' to '{new_status}'"
-            if updates.get("feedback_notes"):
-                note += f". Notes: {updates['feedback_notes']}"
-            history_entries.append(
-                LeadTrackerLogEntry(
-                    id=f"log_{uuid.uuid4().hex[:8]}",
-                    timestamp=now_iso,
-                    author_name=author_name,
-                    author_email=author_email,
-                    action="Status Change",
-                    notes=note,
-                ).model_dump()
-            )
-        elif "assigned_to" in updates and updates["assigned_to"] != record.get("assigned_to"):
-            old_rep = record.get("assigned_to")
-            new_rep = updates["assigned_to"]
-            history_entries.append(
-                LeadTrackerLogEntry(
-                    id=f"log_{uuid.uuid4().hex[:8]}",
-                    timestamp=now_iso,
-                    author_name=author_name,
-                    author_email=author_email,
-                    action="Reassignment",
-                    notes=f"Reassigned from {old_rep} to {new_rep}",
-                ).model_dump()
-            )
-        elif "next_followup_date" in updates and updates["next_followup_date"] != record.get("next_followup_date"):
-            new_fup = updates["next_followup_date"]
-            note = f"Next follow-up date set to {new_fup}"
-            if updates.get("next_action"):
-                note += f": {updates['next_action']}"
-            history_entries.append(
-                LeadTrackerLogEntry(
-                    id=f"log_{uuid.uuid4().hex[:8]}",
-                    timestamp=now_iso,
-                    author_name=author_name,
-                    author_email=author_email,
-                    action="Follow-up Scheduled",
-                    notes=note,
-                ).model_dump()
-            )
-        elif "feedback_notes" in updates and updates["feedback_notes"] != record.get("feedback_notes"):
-            history_entries.append(
-                LeadTrackerLogEntry(
-                    id=f"log_{uuid.uuid4().hex[:8]}",
-                    timestamp=now_iso,
-                    author_name=author_name,
-                    author_email=author_email,
-                    action="Feedback Logged",
-                    notes=updates["feedback_notes"],
-                ).model_dump()
-            )
+    author_name = user.get("name") or "Leadership"
+    author_email = user.get("sub") or "admin@jfll.com"
 
-        # Apply field updates
-        for k, v in updates.items():
-            if v is not None or k in {"feedback_notes", "next_followup_date", "next_action"}:
-                record[k] = v
+    # Detect reassignment and log activity
+    new_rep = update_data.get("assigned_to")
+    old_rep = existing.get("assigned_to")
+    if new_rep and new_rep != old_rep:
+        add_activity(
+            id,
+            {
+                "action": "Reassignment",
+                "author_name": author_name,
+                "author_email": author_email,
+                "old_status": existing.get("status"),
+                "new_status": existing.get("status"),
+                "notes": f"Reassigned from {old_rep} to {new_rep}",
+            },
+            db_path=db_path,
+        )
 
-        if "assigned_to" in updates and not updates.get("assigned_to_email"):
-            rep_clean = updates["assigned_to"].strip().lower()
-            if rep_clean in SALES_REP_EMAILS:
-                record["assigned_to_email"] = SALES_REP_EMAILS[rep_clean]
+    # Detect status changes and log activity
+    new_status = update_data.get("status")
+    old_status = existing.get("status")
+    if new_status and new_status != old_status:
+        add_activity(
+            id,
+            {
+                "action": "Status Change",
+                "author_name": author_name,
+                "author_email": author_email,
+                "old_status": old_status,
+                "new_status": new_status,
+                "notes": update_data.get("feedback_notes") or f"Stage moved to {new_status}",
+            },
+            db_path=db_path,
+        )
 
-        record["updated_at"] = now_iso
-        save_tracker_data(data)
+    updated = update_lead(id, update_data, db_path=db_path)
 
-    return LeadTrackerItem(**record)
+    if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or settings.env != "local" or os.getenv("ENABLE_S3_TRACKER_BACKUP"):
+        backup_db_to_s3(db_path)
+
+    return LeadTrackerItem(**updated)
 
 
 @lead_tracker_router.post(
@@ -629,47 +425,34 @@ def append_tracker_activity(
 ) -> LeadTrackerItem:
     """Appends an interaction log entry to history and optionally updates stage/followup date."""
     user = require_lead_tracker_auth(authorization)
+    db_path = _ensure_db_initialized()
 
-    with _FILE_LOCK:
-        data = load_tracker_data()
-        entities = data.setdefault("entities", {})
-        if id not in entities:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Tracked lead with ID '{id}' not found",
-            )
-
-        record = entities[id]
-        now_iso = datetime.now(timezone.utc).isoformat()
-        author_name = payload.author_name or user.get("name") or "Sales Coordinator"
-        author_email = payload.author_email or user.get("sub") or "sales@jfll.com"
-
-        log_entry = LeadTrackerLogEntry(
-            id=f"log_{uuid.uuid4().hex[:8]}",
-            timestamp=now_iso,
-            author_name=author_name,
-            author_email=author_email,
-            action=payload.action,
-            notes=payload.notes,
+    existing = get_lead_by_id(id, db_path=db_path)
+    if not existing or existing.get("is_archived"):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Tracked lead with ID '{id}' not found",
         )
 
-        history_entries = record.setdefault("history", [])
-        history_entries.append(
-            log_entry.model_dump() if hasattr(log_entry, "model_dump") else log_entry.dict()
-        )
+    author_name = payload.author_name or user.get("name") or "Sales Coordinator"
+    author_email = payload.author_email or user.get("sub") or "sales@jfll.com"
 
-        # Update stage or follow-up date if specified in activity payload
-        if payload.status:
-            record["status"] = payload.status
-        if payload.next_followup_date is not None:
-            record["next_followup_date"] = payload.next_followup_date
-        if payload.notes:
-            record["feedback_notes"] = payload.notes
+    activity_data = {
+        "action": payload.action,
+        "author_name": author_name,
+        "author_email": author_email,
+        "status": payload.status,
+        "next_followup_date": payload.next_followup_date,
+        "notes": payload.notes,
+    }
 
-        record["updated_at"] = now_iso
-        save_tracker_data(data)
+    add_activity(id, activity_data, db_path=db_path)
+    updated = get_lead_by_id(id, db_path=db_path)
 
-    return LeadTrackerItem(**record)
+    if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or settings.env != "local" or os.getenv("ENABLE_S3_TRACKER_BACKUP"):
+        backup_db_to_s3(db_path)
+
+    return LeadTrackerItem(**updated)
 
 
 @lead_tracker_router.delete(
@@ -680,23 +463,63 @@ def delete_tracked_lead(
     id: str,
     authorization: str | None = Header(None),
 ) -> dict[str, Any]:
-    """Deletes a tracked lead record by ID."""
+    """Deletes or archives a tracked lead record by ID."""
     require_lead_tracker_auth(authorization)
+    db_path = _ensure_db_initialized()
 
-    with _FILE_LOCK:
-        data = load_tracker_data()
-        entities = data.setdefault("entities", {})
-        if id not in entities:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Tracked lead with ID '{id}' not found",
-            )
+    existing = get_lead_by_id(id, db_path=db_path)
+    if not existing or existing.get("is_archived"):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Tracked lead with ID '{id}' not found",
+        )
 
-        del entities[id]
-        save_tracker_data(data)
+    delete_lead(id, hard_delete=False, db_path=db_path)
+
+    if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or settings.env != "local" or os.getenv("ENABLE_S3_TRACKER_BACKUP"):
+        backup_db_to_s3(db_path)
 
     return {
         "success": True,
         "deleted_id": id,
-        "message": f"Lead '{id}' deleted successfully",
+        "status": "success",
+        "message": f"Tracked lead '{existing['company_name']}' has been archived",
+        "id": id,
+    }
+
+
+@lead_tracker_router.post(
+    "/sync-s3",
+    summary="Manually trigger synchronization of Lead Tracker database to AWS S3",
+)
+def sync_tracker_to_s3(
+    authorization: str | None = Header(None),
+) -> dict[str, Any]:
+    """Flushes active SQLite database snapshot to AWS S3 bucket."""
+    require_lead_tracker_auth(authorization)
+    db_path = _ensure_db_initialized()
+    ok = backup_db_to_s3(db_path)
+    return {
+        "status": "success" if ok else "skipped",
+        "message": "SQLite database synced to S3" if ok else "S3 sync skipped (running locally or S3 unreachable)",
+    }
+
+
+@lead_tracker_router.post(
+    "/restore-s3",
+    summary="Manually trigger restoration of Lead Tracker database from AWS S3",
+)
+def restore_tracker_from_s3(
+    authorization: str | None = Header(None),
+) -> dict[str, Any]:
+    """Fetches SQLite database snapshot from AWS S3 and replaces local file."""
+    require_lead_tracker_auth(authorization)
+    db_path = get_db_path()
+    ok = restore_db_from_s3(db_path)
+    if ok:
+        reset_tracker_cache()
+        _ensure_db_initialized()
+    return {
+        "status": "success" if ok else "skipped",
+        "message": "SQLite database restored from S3" if ok else "No remote S3 snapshot restored",
     }
