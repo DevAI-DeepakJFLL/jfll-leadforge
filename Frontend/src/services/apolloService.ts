@@ -534,6 +534,16 @@ export async function fetchCompanyContacts(
 
 const BRAND_COLORS = ['#0066F5', '#FF7A00', '#00C2CB', '#7C3AED', '#059669', '#DC2626'];
 
+function formatHeadcount(count?: number | null): string {
+  if (!count || count <= 0) return '51-200';
+  if (count <= 10) return '1-10';
+  if (count <= 50) return '11-50';
+  if (count <= 200) return '51-200';
+  if (count <= 500) return '201-500';
+  if (count <= 1000) return '501-1000';
+  return '1000+';
+}
+
 function mapApolloContactToLead(contact: ApolloContact): Lead {
   const emailDomain = contact.email?.includes('@') ? contact.email.split('@')[1] : null;
   const companyClean = emailDomain
@@ -562,10 +572,12 @@ function mapApolloContactToLead(contact: ApolloContact): Lead {
     logoBgColor: logoColor,
     logoTextColor: '#FFFFFF',
     logoInitials: initials,
-    industry: contact.department ? `${contact.department} / Freight` : 'Freight & Logistics Services',
+    industry: contact.industry || (contact.department ? `${contact.department} / Freight` : 'Freight & Logistics Services'),
     department: contact.department || (contact.is_logistics_role ? 'Supply Chain & Logistics' : 'Operations'),
     status: contact.is_decision_maker ? 'NET NEW' : 'COLD',
     decisionMaker: contact.is_decision_maker,
+    seniority: contact.seniority || undefined,
+    employeeCount: contact.employee_count ?? undefined,
     location: location,
     city: contact.contact_city || undefined,
     state: contact.contact_state || undefined,
@@ -574,7 +586,7 @@ function mapApolloContactToLead(contact: ApolloContact): Lead {
     phone: phoneValue,
     workPhone: undefined,
     linkedin: contact.linkedin_url || undefined,
-    employees: '500+ Enterprise',
+    employees: formatHeadcount(contact.employee_count),
     revenue: '$10M+ Enterprise',
     funding: 'Commercial Freight Shipper',
     technologies: ['CargoWise', 'EDI', 'TMS', 'WMS', 'Supply Chain ERP'],
@@ -687,19 +699,40 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
     });
   }
 
-  // 4. Audience Tab
-  if (tab === 'new') {
+  // 4. Audience Tab & Decision Makers
+  if (tab === 'new' || params.decisionMakersOnly) {
     filtered = filtered.filter((c) => c.is_decision_maker);
   }
 
-  // 5. Departments
+  // 5. Logistics Only
+  if (params.logisticsOnly === true) {
+    filtered = filtered.filter((c) => c.is_logistics_role);
+  }
+
+  // 6. Seniority
+  if (params.seniority && params.seniority.length > 0) {
+    const sSet = new Set(params.seniority.map((s) => s.toLowerCase()));
+    filtered = filtered.filter((c) => {
+      const s = (c.seniority || '').toLowerCase();
+      if (s) {
+        return (
+          sSet.has(s) ||
+          (sSet.has('owner') && (s === 'partner' || s === 'founder')) ||
+          (sSet.has('director') && s === 'head')
+        );
+      }
+      return false;
+    });
+  }
+
+  // 7. Departments
   if (departments.length > 0) {
     filtered = filtered.filter(
       (c) => c.department && departments.some((d) => c.department!.toLowerCase().includes(d.toLowerCase()))
     );
   }
 
-  // 6. Locations
+  // 8. Locations
   if (locations.length > 0) {
     filtered = filtered.filter((c) => {
       const locStr = [c.contact_city, c.contact_state, c.contact_country].filter(Boolean).join(', ').toLowerCase();
@@ -707,7 +740,38 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
     });
   }
 
-  // 7. Outreach Readiness (Verified Email & LinkedIn Only)
+  // 9. Industries / Cargo Verticals
+  if (params.industries && params.industries.length > 0) {
+    filtered = filtered.filter((c) => {
+      const ind = (c.industry || c.department || '').toLowerCase();
+      return params.industries!.some((rawInd) => {
+        const indLower = rawInd.toLowerCase();
+        const mapped = CARGO_VERTICAL_MAP[indLower];
+        if (mapped) {
+          return mapped.some((m) => ind.includes(m) || m.includes(ind));
+        }
+        return ind.includes(indLower);
+      });
+    });
+  }
+
+  // 10. Company Size
+  if (params.companySize && params.companySize.length > 0) {
+    filtered = filtered.filter((c) => {
+      const count = c.employee_count ?? 100;
+      return params.companySize!.some((size) => {
+        if (size === '1-10') return count >= 1 && count <= 10;
+        if (size === '11-50') return count >= 11 && count <= 50;
+        if (size === '51-200') return count >= 51 && count <= 200;
+        if (size === '201-500') return count >= 201 && count <= 500;
+        if (size === '501-1000') return count >= 501 && count <= 1000;
+        if (size === '1000+') return count > 1000;
+        return false;
+      });
+    });
+  }
+
+  // 11. Outreach Readiness (Verified Email & LinkedIn Only)
   if (params.hasEmailOnly) {
     filtered = filtered.filter((c) => Boolean(c.email && isValidEmailAddress(c.email)));
   }
@@ -739,6 +803,28 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
     },
   };
 }
+
+const CARGO_VERTICAL_MAP: Record<string, string[]> = {
+  'automotive & transportation': ['automotive', 'transportation', 'logistics & supply chain'],
+  'pharmaceuticals & healthcare': ['pharmaceuticals', 'medical devices', 'biotechnology'],
+  'perishables, food & beverage': ['food & beverages', 'food production', 'farming', 'wine & spirits'],
+  'chemicals & hazardous goods': ['chemicals', 'plastics'],
+  'industrial machinery & engineering': [
+    'machinery',
+    'mechanical or industrial engineering',
+    'industrial automation',
+    'civil engineering',
+  ],
+  'textiles, apparel & retail': ['apparel & fashion', 'retail', 'textiles', 'wholesale'],
+  'electronics & high tech': [
+    'electrical/electronic manufacturing',
+    'consumer electronics',
+    'telecommunications',
+    'semiconductors',
+  ],
+  'construction & building materials': ['construction', 'building materials'],
+  'oil, gas & energy': ['oil & energy', 'mining & metals', 'environmental services & clean energy'],
+};
 
 /**
  * Filter leads in-memory based on client-side filter parameters.
@@ -781,16 +867,97 @@ export function filterLeadsInMemory(
     result = result.filter((lead) => lead.saved === true);
   }
 
-  // 3. Departments
-  if (filters.departments && filters.departments.length > 0) {
+  // 3. Freight Role Focus: Logistics Roles Only
+  if (filters.logisticsOnly === true) {
     result = result.filter((lead) => {
-      if (!lead.department) return false;
-      const deptLower = lead.department.toLowerCase();
-      return filters.departments!.some((d) => deptLower.includes(d.toLowerCase()));
+      const t = (lead.title || '').toLowerCase();
+      const d = (lead.department || '').toLowerCase();
+      return (
+        d.includes('logistics') ||
+        d.includes('supply') ||
+        d.includes('operation') ||
+        t.includes('logistics') ||
+        t.includes('supply chain') ||
+        t.includes('freight') ||
+        t.includes('import') ||
+        t.includes('export') ||
+        t.includes('customs') ||
+        t.includes('transportation') ||
+        t.includes('warehouse') ||
+        t.includes('shipping') ||
+        t.includes('procurement') ||
+        t.includes('sourcing')
+      );
     });
   }
 
-  // 4. Job Titles
+  // 4. Decision Makers Only
+  if (filters.decisionMakersOnly === true) {
+    result = result.filter((lead) => {
+      if (lead.decisionMaker !== undefined) return lead.decisionMaker === true;
+      const s = (lead.seniority || '').toLowerCase();
+      if (['c_suite', 'vp', 'director', 'manager', 'head', 'owner', 'founder', 'partner'].includes(s)) {
+        return true;
+      }
+      const t = (lead.title || '').toLowerCase();
+      return (
+        t.includes('chief') ||
+        t.includes('president') ||
+        t.includes('director') ||
+        t.includes('head') ||
+        t.includes('manager') ||
+        t.includes('owner') ||
+        t.includes('founder') ||
+        t.includes('partner') ||
+        t.includes('vp')
+      );
+    });
+  }
+
+  // 5. Seniority Level
+  if (filters.seniority && filters.seniority.length > 0) {
+    const sSet = new Set(filters.seniority.map((s) => s.toLowerCase()));
+    result = result.filter((lead) => {
+      const s = (lead.seniority || '').toLowerCase();
+      if (s) {
+        return (
+          sSet.has(s) ||
+          (sSet.has('owner') && (s === 'partner' || s === 'founder')) ||
+          (sSet.has('director') && s === 'head')
+        );
+      }
+      // Title-based heuristic when seniority metadata is absent
+      const t = (lead.title || '').toLowerCase();
+      if (sSet.has('c_suite') && (t.includes('chief') || t.includes('ceo') || t.includes('coo') || t.includes('cto') || t.includes('cfo'))) return true;
+      if (sSet.has('vp') && (t.includes('vice president') || t.includes('vp'))) return true;
+      if (sSet.has('director') && (t.includes('director') || t.includes('head'))) return true;
+      if (sSet.has('manager') && (t.includes('manager') || t.includes('lead'))) return true;
+      if (sSet.has('owner') && (t.includes('owner') || t.includes('founder') || t.includes('partner'))) return true;
+      if (sSet.has('senior') && (t.includes('senior') || t.includes('sr.'))) return true;
+      return false;
+    });
+  }
+
+  // 6. Departments
+  if (filters.departments && filters.departments.length > 0) {
+    result = result.filter((lead) => {
+      const deptLower = (lead.department || '').toLowerCase();
+      const titleLower = (lead.title || '').toLowerCase();
+      return filters.departments!.some((d) => {
+        const dTarget = d.toLowerCase();
+        if (dTarget === 'supply_chain') {
+          return (
+            deptLower.includes('supply') ||
+            titleLower.includes('supply chain') ||
+            titleLower.includes('procurement')
+          );
+        }
+        return deptLower.includes(dTarget);
+      });
+    });
+  }
+
+  // 7. Job Titles
   if (filters.jobTitles && filters.jobTitles.length > 0) {
     result = result.filter((lead) => {
       if (!lead.title) return false;
@@ -799,7 +966,7 @@ export function filterLeadsInMemory(
     });
   }
 
-  // 5. Locations
+  // 8. Locations / Countries
   if (filters.locations && filters.locations.length > 0) {
     result = result.filter((lead) => {
       const locLower = (lead.location || '').toLowerCase();
@@ -818,12 +985,28 @@ export function filterLeadsInMemory(
     });
   }
 
-  // 6. Status
+  // 9. Cargo Verticals / Industries
+  if (filters.industries && filters.industries.length > 0) {
+    result = result.filter((lead) => {
+      const leadInd = (lead.industry || '').toLowerCase();
+      if (!leadInd) return false;
+      return filters.industries!.some((indFilter) => {
+        const filterLower = indFilter.toLowerCase();
+        const mappedSlugs = CARGO_VERTICAL_MAP[filterLower];
+        if (mappedSlugs) {
+          return mappedSlugs.some((slug) => leadInd.includes(slug) || slug.includes(leadInd));
+        }
+        return leadInd.includes(filterLower);
+      });
+    });
+  }
+
+  // 10. Status
   if (filters.status && filters.status.length > 0) {
     result = result.filter((lead) => filters.status!.includes(lead.status));
   }
 
-  // 7. Outreach Readiness
+  // 11. Outreach Readiness
   if (filters.hasEmailOnly) {
     result = result.filter((lead) => isValidEmailAddress(lead.email));
   }
@@ -831,11 +1014,21 @@ export function filterLeadsInMemory(
     result = result.filter((lead) => Boolean(lead.linkedin && lead.linkedin.trim().length > 5));
   }
 
-  // 8. Company Headcount / Size
+  // 12. Company Headcount / Size
   if (filters.companySize && filters.companySize.length > 0) {
     result = result.filter((lead) => {
-      if (!lead.employees) return false;
-      return filters.companySize!.some((size) => lead.employees!.includes(size));
+      if (!lead.employees && lead.employeeCount === undefined) return false;
+      return filters.companySize!.some((size) => {
+        if (lead.employeeCount !== undefined) {
+          if (size === '1-10') return lead.employeeCount >= 1 && lead.employeeCount <= 10;
+          if (size === '11-50') return lead.employeeCount >= 11 && lead.employeeCount <= 50;
+          if (size === '51-200') return lead.employeeCount >= 51 && lead.employeeCount <= 200;
+          if (size === '201-500') return lead.employeeCount >= 201 && lead.employeeCount <= 500;
+          if (size === '501-1000') return lead.employeeCount >= 501 && lead.employeeCount <= 1000;
+          if (size === '1000+') return lead.employeeCount > 1000;
+        }
+        return (lead.employees || '').includes(size);
+      });
     });
   }
 
@@ -881,12 +1074,14 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
   if (isEntityScoped) {
     if (logisticsOnly === true) {
       urlParams.set('logistics_only', 'true');
+    } else if (logisticsOnly === false) {
+      urlParams.set('logistics_only', 'false');
     }
   } else {
-    if (logisticsOnly !== undefined) {
-      if (logisticsOnly) {
-        urlParams.set('logistics_only', 'true');
-      }
+    if (logisticsOnly === true) {
+      urlParams.set('logistics_only', 'true');
+    } else if (logisticsOnly === false) {
+      urlParams.set('logistics_only', 'false');
     } else {
       urlParams.set('logistics_only', 'true');
     }
@@ -938,10 +1133,17 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
   }
 
   if (locations && locations.length > 0) {
-    const loc = locations[0];
-    const country = loc.includes(',') ? loc.split(',').pop()?.trim() : loc.trim();
-    if (country) {
-      urlParams.set('country', country);
+    locations.forEach((loc) => {
+      const country = loc.includes(',') ? loc.split(',').pop()?.trim() : loc.trim();
+      if (country) {
+        urlParams.append('countries', country);
+      }
+    });
+    const firstCountry = locations[0].includes(',')
+      ? locations[0].split(',').pop()?.trim()
+      : locations[0].trim();
+    if (firstCountry) {
+      urlParams.set('country', firstCountry);
     }
   }
 

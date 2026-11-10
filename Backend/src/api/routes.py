@@ -15,6 +15,9 @@ from src.api.helpers import (
     SQL_EXTRACT_EMPLOYER_NAME,
     build_company_search_sql,
     clean_corporate_term,
+    expand_cargo_industries,
+    expand_seniorities,
+    normalize_country_names,
     normalize_query,
     parse_csv_query_param,
     require_auth,
@@ -880,6 +883,7 @@ def search_apollo_contacts(
     has_linkedin_only: bool | None = Query(default=None, description="Require LinkedIn profile"),
     job_title: str | None = Query(default=None, description="Filter by job title"),
     country: str | None = Query(default=None, description="Contact country"),
+    countries: list[str] | None = Query(default=None, description="Multi-select contact countries"),
     company: str | None = Query(default=None, description="Filter by company / employer name"),
     company_sizes: list[str] | None = Query(default=None, description="Company size tiers: 1-10, 11-50, etc."),
     industry: str | None = Query(default=None, description="Filter by company cargo industry"),
@@ -900,6 +904,7 @@ def search_apollo_contacts(
     has_linkedin_only = normalize_query(has_linkedin_only)
     job_title = normalize_query(job_title)
     country = normalize_query(country)
+    countries = normalize_query(countries)
     company = normalize_query(company)
     company_sizes = normalize_query(company_sizes)
     industry = normalize_query(industry)
@@ -1000,7 +1005,8 @@ def search_apollo_contacts(
         if has_linkedin_only is True:
             conditions.append("c.linkedin_url IS NOT NULL AND length(trim(c.linkedin_url)) > 5")
 
-        s_list = parse_csv_query_param(seniority)
+        raw_s_list = parse_csv_query_param(seniority)
+        s_list = expand_seniorities(raw_s_list)
         if len(s_list) == 1:
             conditions.append("lower(c.seniority) = ?")
             params.append(s_list[0])
@@ -1020,15 +1026,25 @@ def search_apollo_contacts(
             conditions.append(f"({' OR '.join(title_conds)})")
 
         d_list = parse_csv_query_param(department)
-        if len(d_list) == 1:
-            conditions.append("lower(c.department) LIKE ?")
-            params.append(f"%{d_list[0]}%")
-        elif len(d_list) > 1:
-            dept_conds = ["lower(c.department) LIKE ?" for _ in d_list]
-            params.extend([f"%{d}%" for d in d_list])
-            conditions.append(f"({' OR '.join(dept_conds)})")
+        if d_list:
+            dept_clauses = []
+            for d in d_list:
+                if d == "supply_chain":
+                    dept_clauses.append("(lower(c.department) LIKE ? OR lower(c.job_title) LIKE ? OR lower(c.job_title) LIKE ?)")
+                    params.extend(["%supply%", "%supply chain%", "%procurement%"])
+                else:
+                    dept_clauses.append("lower(c.department) LIKE ?")
+                    params.append(f"%{d}%")
+            if dept_clauses:
+                conditions.append(f"({' OR '.join(dept_clauses)})")
 
-        c_list = parse_csv_query_param(country)
+        raw_c_tokens = []
+        if country:
+            raw_c_tokens.extend(parse_csv_query_param(country))
+        if countries:
+            for item in countries:
+                raw_c_tokens.extend(parse_csv_query_param(item))
+        c_list = normalize_country_names(raw_c_tokens)
         if len(c_list) == 1:
             conditions.append("lower(c.contact_country) = ?")
             params.append(c_list[0])
@@ -1059,16 +1075,18 @@ def search_apollo_contacts(
             if size_clauses:
                 org_subquery_conds.append(f"({' OR '.join(size_clauses)})")
 
+        raw_ind_tokens = []
         if industry and industry.strip():
-            org_subquery_conds.append("lower(industry) = ?")
-            org_subquery_params.append(industry.strip().lower())
-
+            raw_ind_tokens.append(industry.strip())
         if industries:
-            clean_inds = [i.strip().lower() for i in industries if i and i.strip()]
-            if clean_inds:
-                placeholders = ", ".join(["?"] * len(clean_inds))
-                org_subquery_conds.append(f"lower(industry) IN ({placeholders})")
-                org_subquery_params.extend(clean_inds)
+            for ind in industries:
+                if ind and ind.strip():
+                    raw_ind_tokens.append(ind.strip())
+        clean_inds = expand_cargo_industries(raw_ind_tokens)
+        if clean_inds:
+            placeholders = ", ".join(["?"] * len(clean_inds))
+            org_subquery_conds.append(f"lower(industry) IN ({placeholders})")
+            org_subquery_params.extend(clean_inds)
 
         if org_subquery_conds:
             conditions.append(
@@ -1108,6 +1126,11 @@ def search_apollo_contacts(
             employer_select = "CASE WHEN c.email IS NOT NULL AND c.email LIKE '%@%' THEN upper(regexp_extract(c.email, '@([^.]+)', 1)) ELSE 'COMMERCIAL SHIPPER' END as employer_name"
             employer_param = []
 
+        if logistics_only is False:
+            order_by = "c.is_decision_maker DESC, c.has_email DESC"
+        else:
+            order_by = "c.is_logistics_role DESC, c.is_decision_maker DESC, c.has_email DESC"
+
         data_query = f"""
             SELECT 
                 c.person_id,
@@ -1132,12 +1155,12 @@ def search_apollo_contacts(
                 {employer_select}
             FROM '{data_source}' c
             WHERE {where_sql}
-            ORDER BY c.is_logistics_role DESC, c.is_decision_maker DESC, c.has_email DESC
+            ORDER BY {order_by}
             LIMIT ? OFFSET ?
         """
         # Fetch page_size + 1 to reliably determine has_next without full table scan
         query_params = employer_param + params + [page_size + 1, offset]
-        cache_key = f"{data_source}:{where_sql}:{tuple(query_params)}"
+        cache_key = f"{data_source}:{where_sql}:{order_by}:{tuple(query_params)}"
         cached_result = get_cached_complex_query(cache_key)
         if cached_result:
             return {
@@ -1156,11 +1179,38 @@ def search_apollo_contacts(
         clean_rows = rows[:page_size] if has_next else rows
         clean_records = [dict(zip(columns, row)) for row in clean_rows]
 
+        # Enrich page contacts with accurate company details (headcount, industry, official company name)
+        page_org_ids = list({r["organization_id"] for r in clean_records if r.get("organization_id")})
+        if page_org_ids:
+            try:
+                org_placeholders = ", ".join(["?"] * len(page_org_ids))
+                org_info_rows = con.execute(
+                    f"SELECT organization_id, organization_name, employee_count, industry FROM '{apollo_source}' WHERE organization_id IN ({org_placeholders})",
+                    page_org_ids,
+                ).fetchall()
+                org_map = {row[0]: (row[1], row[2], row[3]) for row in org_info_rows}
+                for rec in clean_records:
+                    org_id = rec.get("organization_id")
+                    if org_id in org_map:
+                        resolved_org_name, emp_count, ind = org_map[org_id]
+                        if resolved_org_name and not company:
+                            rec["employer_name"] = resolved_org_name
+                        rec["employee_count"] = emp_count
+                        rec["industry"] = ind
+            except Exception as e:
+                logger.warning(f"Error enriching page contact organization details: {e}")
+
         if total_records is None:
-            if has_next:
-                total_records = offset + page_size + 1
-            else:
-                total_records = offset + len(clean_rows)
+            try:
+                count_query = f"SELECT count(*) FROM '{data_source}' c WHERE {where_sql}"
+                count_res = con.execute(count_query, params).fetchone()
+                total_records = count_res[0] if count_res else (offset + len(clean_rows))
+            except Exception as e:
+                logger.warning(f"Analytical count fallback: {e}")
+                if has_next:
+                    total_records = offset + page_size + 1
+                else:
+                    total_records = offset + len(clean_rows)
 
         total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
         set_cached_complex_query(cache_key, clean_records, total_records, total_pages, has_next)

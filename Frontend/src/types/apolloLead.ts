@@ -189,6 +189,8 @@ export interface ApolloContact {
   is_logistics_role: boolean;
   has_email: boolean;
   employer_name?: string | null;
+  employee_count?: number | null;
+  industry?: string | null;
 }
 
 export interface ApolloContactsResponse {

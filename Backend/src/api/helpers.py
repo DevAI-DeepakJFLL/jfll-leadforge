@@ -255,6 +255,119 @@ CORPORATE_SUFFIX_REGEX = re.compile(
 LEADING_THE_REGEX = re.compile(r"^(the\s+)", re.IGNORECASE)
 
 
+# Canonical mapping from frontend Freight Cargo Verticals to underlying DuckDB Apollo industry slugs
+CARGO_VERTICAL_TO_APOLLO_INDUSTRIES: dict[str, list[str]] = {
+    "automotive & transportation": ["automotive", "transportation", "logistics & supply chain"],
+    "pharmaceuticals & healthcare": ["pharmaceuticals", "medical devices", "biotechnology"],
+    "perishables, food & beverage": ["food & beverages", "food production", "farming", "wine & spirits"],
+    "chemicals & hazardous goods": ["chemicals", "plastics"],
+    "industrial machinery & engineering": [
+        "machinery",
+        "mechanical or industrial engineering",
+        "industrial automation",
+        "civil engineering",
+    ],
+    "textiles, apparel & retail": ["apparel & fashion", "retail", "textiles", "wholesale"],
+    "electronics & high tech": [
+        "electrical/electronic manufacturing",
+        "consumer electronics",
+        "telecommunications",
+        "semiconductors",
+    ],
+    "construction & building materials": ["construction", "building materials"],
+    "oil, gas & energy": ["oil & energy", "mining & metals", "environmental services & clean energy"],
+}
+
+# Seniority synonyms and hierarchy expansion to capture relevant decision-makers
+SENIORITY_EXPANSIONS: dict[str, list[str]] = {
+    "c_suite": ["c_suite", "cxo"],
+    "owner": ["owner", "partner", "founder"],
+    "director": ["director", "head"],
+    "vp": ["vp"],
+    "manager": ["manager"],
+    "senior": ["senior"],
+    "entry": ["entry"],
+}
+
+# ISO 2-letter country codes mapped to lowercase full country names in contacts parquet
+COUNTRY_CODE_TO_NAME: dict[str, str] = {
+    "us": "united states",
+    "usa": "united states",
+    "in": "india",
+    "ind": "india",
+    "gb": "united kingdom",
+    "uk": "united kingdom",
+    "br": "brazil",
+    "bra": "brazil",
+    "ca": "canada",
+    "can": "canada",
+    "ae": "united arab emirates",
+    "uae": "united arab emirates",
+    "de": "germany",
+    "deu": "germany",
+    "nl": "netherlands",
+    "nld": "netherlands",
+    "fr": "france",
+    "fra": "france",
+    "au": "australia",
+    "aus": "australia",
+    "it": "italy",
+    "ita": "italy",
+    "mx": "mexico",
+    "mex": "mexico",
+    "es": "spain",
+    "esp": "spain",
+    "cn": "china",
+    "chn": "china",
+    "jp": "japan",
+    "jpn": "japan",
+    "sg": "singapore",
+    "sgp": "singapore",
+}
+
+
+def expand_cargo_industries(raw_industries: list[str]) -> list[str]:
+    """Expands frontend cargo vertical labels or slug tokens to all matching Apollo industry slugs."""
+    expanded: list[str] = []
+    for item in raw_industries:
+        if not item or not item.strip():
+            continue
+        token = item.strip().lower()
+        if token in CARGO_VERTICAL_TO_APOLLO_INDUSTRIES:
+            expanded.extend(CARGO_VERTICAL_TO_APOLLO_INDUSTRIES[token])
+        else:
+            expanded.append(token)
+    return list(dict.fromkeys(expanded))
+
+
+def expand_seniorities(raw_seniorities: list[str]) -> list[str]:
+    """Expands seniority tokens with relevant synonyms (e.g., owner -> owner, partner, founder)."""
+    expanded: list[str] = []
+    for item in raw_seniorities:
+        if not item or not item.strip():
+            continue
+        token = item.strip().lower()
+        if token in SENIORITY_EXPANSIONS:
+            expanded.extend(SENIORITY_EXPANSIONS[token])
+        else:
+            expanded.append(token)
+    return list(dict.fromkeys(expanded))
+
+
+def normalize_country_names(raw_countries: list[str]) -> list[str]:
+    """Normalizes country names or ISO 2-letter codes to lowercase full country names."""
+    normalized: list[str] = []
+    for item in raw_countries:
+        if not item or not item.strip():
+            continue
+        token = item.strip().lower()
+        if token in COUNTRY_CODE_TO_NAME:
+            normalized.append(COUNTRY_CODE_TO_NAME[token])
+        else:
+            normalized.append(token)
+    return list(dict.fromkeys(normalized))
+
+
 def clean_corporate_term(raw: str) -> str:
     """
     Normalizes commercial entity names by stripping legal entity suffixes

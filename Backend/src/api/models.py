@@ -130,6 +130,8 @@ class ApolloContactRecord(BaseModel):
     is_logistics_role: bool = Field(default=False, description="True for logistics, supply chain, freight, or procurement")
     has_email: bool = Field(default=False, description="True if email is present")
     employer_name: str | None = Field(None, description="Employer name for unprofiled contacts")
+    employee_count: int | None = Field(None, description="Linked employer headcount")
+    industry: str | None = Field(None, description="Linked employer cargo industry")
 
 
 class ApolloContactsPaginatedResponse(BaseModel):
