@@ -44,6 +44,7 @@ export const FilterParamsSchema = z.object({
   q: z.string().optional(),
   organizationId: z.string().optional(),
   company: z.string().optional(),
+  domain: z.string().optional(),
   jobTitles: z.array(z.string()).optional(),
   departments: z.array(z.string()).optional(),
   seniority: z.array(z.string()).optional(),

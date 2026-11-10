@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import {
   filterLeadsInMemory,
   fetchApolloPeopleLeads,
-  queryApolloPeopleLeadsLocal,
 } from '@/services/apolloService';
 import { Lead } from '@/types/lead';
 

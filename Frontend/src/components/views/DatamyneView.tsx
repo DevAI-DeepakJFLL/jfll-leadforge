@@ -73,6 +73,7 @@ export interface DatamyneViewProps {
   clearAllFilters: () => void;
   activeFilterCount: number;
   onLeadClick: (lead: DatamyneLead) => void;
+  onFindDecisionMakers?: (companyName: string, domain?: string, director?: string) => void;
   onLogApproach?: (lead: DatamyneLead) => void;
   onConvertToActive?: (lead: DatamyneLead) => void;
   isMobileOpen: boolean;
@@ -116,6 +117,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   clearAllFilters,
   activeFilterCount,
   onLeadClick,
+  onFindDecisionMakers,
   onLogApproach,
   onConvertToActive,
   isMobileOpen,
@@ -511,6 +513,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             rowSelection={rowSelection}
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
+            onFindDecisionMakers={onFindDecisionMakers}
             onLogApproach={isViewer ? undefined : onLogApproach}
             onConvertToActive={isViewer ? undefined : onConvertToActive}
             currentPage={displayPage}

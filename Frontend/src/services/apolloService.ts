@@ -595,15 +595,21 @@ function mapApolloContactToLead(contact: ApolloContact): Lead {
   };
 }
 
+export interface PeopleLeadsFilterOptions extends Partial<FilterParams> {
+  domain?: string;
+  director?: string;
+}
+
 /**
  * Query preloaded local starter decision-makers.
  * Provides instant 0ms rendering and offline fallback so the Person tab is never blank.
  */
-export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}): LeadsResponse {
+export function queryApolloPeopleLeadsLocal(params: PeopleLeadsFilterOptions = {}): LeadsResponse {
   const {
     q,
     organizationId,
     company,
+    domain,
     page = 1,
     limit = 25,
     tab = 'all',
@@ -620,6 +626,19 @@ export function queryApolloPeopleLeadsLocal(params: Partial<FilterParams> = {}):
     // If exact match found in starter data, or if no company name was provided, apply org filter
     if (orgMatches.length > 0 || !company || !company.trim()) {
       filtered = orgMatches;
+    }
+  }
+
+  // 1b. Domain match from extracted corporate emails
+  if (domain && domain.trim()) {
+    const rawDom = domain.trim().toLowerCase();
+    const domMatches = filtered.filter((c) => {
+      const mail = (c.email || '').toLowerCase();
+      const emp = (c.employer_name || '').toLowerCase();
+      return mail.includes(`@${rawDom}`) || emp.includes(rawDom);
+    });
+    if (domMatches.length > 0) {
+      filtered = domMatches;
     }
   }
 
@@ -1039,11 +1058,12 @@ export function filterLeadsInMemory(
  * Fetch Apollo freight decision-makers and contacts from the live backend API.
  * Seamlessly falls back to local preloaded starter data if offline, warming up, or error.
  */
-export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {}): Promise<LeadsResponse> {
+export async function fetchApolloPeopleLeads(params: PeopleLeadsFilterOptions = {}): Promise<LeadsResponse> {
   const {
     q,
     organizationId,
     company,
+    domain,
     page = 1,
     limit = 25,
     tab = 'all',
@@ -1059,9 +1079,13 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
     hasLinkedinOnly,
   } = params;
 
-  // When organizationId or company is present, default request page_size to 250 (unless explicitly specified higher)
+  // When organizationId, company, or domain is present, default request page_size to 250 (unless explicitly specified higher)
   // so a rich working set for the company is fetched in one fast request.
-  const isEntityScoped = Boolean((organizationId && organizationId.trim()) || (company && company.trim()));
+  const isEntityScoped = Boolean(
+    (organizationId && organizationId.trim()) ||
+    (company && company.trim()) ||
+    (domain && domain.trim())
+  );
   const effectiveLimit = isEntityScoped ? Math.max(limit, 250) : limit;
 
   const urlParams = new URLSearchParams();
@@ -1122,6 +1146,10 @@ export async function fetchApolloPeopleLeads(params: Partial<FilterParams> = {})
 
   if (company && company.trim()) {
     urlParams.set('company', company.trim());
+  }
+
+  if (domain && domain.trim()) {
+    urlParams.set('domain', domain.trim());
   }
 
   if (q && q.trim()) {

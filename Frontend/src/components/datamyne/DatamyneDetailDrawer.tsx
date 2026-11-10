@@ -16,8 +16,11 @@ import {
   Ship,
   PhoneOff,
   ClipboardList,
+  Globe,
+  Mail,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
+import { Lead } from '@/types/lead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
 import { TierScoreBadge, TierScoreBreakdownModal } from '@/components/tiers';
 import { TieredLead } from '@/types/tierSegmentation';
@@ -25,11 +28,20 @@ import { useToast } from '@/components/ui';
 import { parseAndFormatContactNumbers } from '@/utils/phoneUtils';
 import { SalesApproachTimeline, SalesStatusBadge } from '@/components/approach';
 import { getCachedApproachStatus } from '@/services/approachLogService';
+import { fetchApolloPeopleLeads } from '@/services/apolloService';
+import {
+  getContactInitials,
+  getSeniorityBadge,
+  extractDomainFromEmail,
+  extractFirstDirectorName,
+  cleanCustomsCompanyName,
+} from '@/utils/apolloUtils';
 
 export interface DatamyneDetailDrawerProps {
   isOpen: boolean;
   lead: DatamyneLead | null;
   onClose: () => void;
+  onFindDecisionMakers?: (companyName: string, domain?: string, director?: string) => void;
   onLogApproach?: (lead: DatamyneLead) => void;
   onConvertToActive?: (lead: DatamyneLead) => void;
   onAssignToTracker?: (lead: DatamyneLead) => void;
@@ -40,6 +52,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   isOpen,
   lead,
   onClose,
+  onFindDecisionMakers,
   onLogApproach,
   onConvertToActive,
   onAssignToTracker,
@@ -47,6 +60,46 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 }) => {
   const { showToast } = useToast();
   const [isTierModalOpen, setIsTierModalOpen] = React.useState(false);
+  const [contacts, setContacts] = React.useState<Lead[]>([]);
+  const [totalContacts, setTotalContacts] = React.useState<number>(0);
+  const [isLoadingContacts, setIsLoadingContacts] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isOpen || !lead) {
+      setContacts([]);
+      setTotalContacts(0);
+      setIsLoadingContacts(false);
+      return;
+    }
+    let isMounted = true;
+    setIsLoadingContacts(true);
+    const domain = extractDomainFromEmail(lead.email);
+    const cleaned = cleanCustomsCompanyName(lead.company_name);
+
+    fetchApolloPeopleLeads({
+      company: cleaned || lead.company_name,
+      domain: domain || undefined,
+      limit: 3,
+    })
+      .then((res) => {
+        if (isMounted) {
+          setContacts(res.items.slice(0, 3));
+          setTotalContacts(res.totalEstimate);
+          setIsLoadingContacts(false);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setContacts([]);
+          setTotalContacts(0);
+          setIsLoadingContacts(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isOpen, lead]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -82,6 +135,10 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
     .map((word) => word[0])
     .join('')
     .toUpperCase();
+
+  const corporateDomain = extractDomainFromEmail(lead.email);
+  const directorName = extractFirstDirectorName(lead.directors);
+  const cleanedCompany = cleanCustomsCompanyName(lead.company_name);
 
   const isMissingContact = lead.dataset_type === 'missing';
   const tieredLead = (lead as any).segment_status ? (lead as unknown as TieredLead) : null;
@@ -207,6 +264,23 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
+              {onFindDecisionMakers && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    onFindDecisionMakers(
+                      cleanedCompany || lead.company_name,
+                      corporateDomain || undefined,
+                      directorName || undefined
+                    )
+                  }
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-apollo hover:bg-apollo/90 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[36px] cursor-pointer"
+                  title="Find verified decision makers in Apollo"
+                >
+                  <UserCheck className="w-3.5 h-3.5" />
+                  <span>Find Decision Makers</span>
+                </button>
+              )}
               {onAssignToTracker && (
                 <button
                   type="button"
@@ -232,19 +306,227 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
           <div className="flex-1 overflow-y-auto p-5 space-y-5 text-xs">
             {/* Notice Banner for Missing Contacts */}
             {isMissingContact && (
-              <div className="p-3.5 bg-amber-50/70 border border-amber-200 rounded-xl flex items-start gap-2.5">
-                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                <div className="space-y-1">
-                  <div className="font-semibold text-amber-900 text-xs">
-                    No Direct Contact on File
+              <div className="p-3.5 bg-amber-50/70 border border-amber-200 rounded-xl flex flex-col gap-2.5">
+                <div className="flex items-start gap-2.5">
+                  <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <div className="font-semibold text-amber-900 text-xs">
+                      No Direct Contact on File
+                    </div>
+                    <p className="text-[11px] text-amber-800/90 leading-relaxed">
+                      Direct phone and email were not included on customs manifests for this account.
+                      Refer to registered address, IEC, or directors below for verification.
+                    </p>
                   </div>
-                  <p className="text-[11px] text-amber-800/90 leading-relaxed">
-                    Direct phone and email were not included on customs manifests for this account.
-                    Refer to registered address, IEC, or directors below for verification.
-                  </p>
                 </div>
+                {onFindDecisionMakers && (
+                  <div className="pt-2 border-t border-amber-200/80 flex items-center justify-between">
+                    <span className="text-[11px] text-amber-950 font-medium">
+                      Cross-reference Apollo verified database for executive decision-makers:
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        onFindDecisionMakers(
+                          cleanedCompany || lead.company_name,
+                          corporateDomain || undefined,
+                          directorName || undefined
+                        )
+                      }
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-apollo hover:underline shrink-0 cursor-pointer"
+                    >
+                      <UserCheck className="w-3.5 h-3.5" />
+                      <span>Search Apollo for Verified Decision Makers →</span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
+
+            {/* Apollo Verified Decision Makers Preview Card */}
+            <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3 shadow-2xs">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <UserCheck className="w-4 h-4 text-apollo" />
+                  <span className="font-bold text-slate-900 text-xs uppercase tracking-wider">
+                    Apollo Verified Decision Makers
+                  </span>
+                </div>
+                {totalContacts > 0 && (
+                  <span className="text-[11px] font-semibold text-apollo bg-apollo/10 px-2 py-0.5 rounded-full border border-apollo/20">
+                    {totalContacts} verified
+                  </span>
+                )}
+              </div>
+
+              {isLoadingContacts ? (
+                <div className="space-y-2.5 py-1">
+                  {[1, 2].map((i) => (
+                    <div
+                      key={i}
+                      className="flex items-center justify-between p-2 bg-slate-50/70 rounded-lg animate-pulse"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-full bg-slate-200" />
+                        <div className="space-y-1">
+                          <div className="w-24 h-3 bg-slate-200 rounded" />
+                          <div className="w-32 h-2.5 bg-slate-100 rounded" />
+                        </div>
+                      </div>
+                      <div className="w-16 h-4 bg-slate-100 rounded" />
+                    </div>
+                  ))}
+                </div>
+              ) : contacts.length > 0 ? (
+                <div className="space-y-2">
+                  <div className="divide-y divide-slate-100">
+                    {contacts.map((contact) => {
+                      const badge = getSeniorityBadge(contact.seniority);
+                      return (
+                        <div
+                          key={contact.id}
+                          className="py-2.5 first:pt-0 last:pb-0 flex items-center justify-between gap-3"
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <div className="w-8 h-8 rounded-full bg-apollo/10 text-apollo border border-apollo/20 flex items-center justify-center font-bold text-xs shrink-0">
+                              {getContactInitials(contact.name)}
+                            </div>
+                            <div className="min-w-0">
+                              <div className="font-semibold text-slate-900 text-xs truncate">
+                                {contact.name}
+                              </div>
+                              <div
+                                className="text-[11px] text-slate-500 truncate"
+                                title={contact.title}
+                              >
+                                {contact.title}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            {badge && (
+                              <span
+                                className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${badge.bg}`}
+                              >
+                                {badge.label}
+                              </span>
+                            )}
+                            {contact.email && (
+                              <span
+                                className="p-1 rounded text-emerald-600 bg-emerald-50 border border-emerald-200"
+                                title={`Verified Email: ${contact.email}`}
+                              >
+                                <Mail className="w-3 h-3" />
+                              </span>
+                            )}
+                            {contact.phone && (
+                              <span
+                                className="p-1 rounded text-blue-600 bg-blue-50 border border-blue-200"
+                                title={`Direct Phone: ${contact.phone}`}
+                              >
+                                <Phone className="w-3 h-3" />
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {onFindDecisionMakers && (
+                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                      <span className="text-[11px] text-slate-500 font-medium">
+                        {totalContacts > contacts.length
+                          ? `Showing top ${contacts.length} of ${totalContacts} indexed contacts`
+                          : `${contacts.length} direct contact${contacts.length === 1 ? '' : 's'} available`}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onFindDecisionMakers(
+                            cleanedCompany || lead.company_name,
+                            corporateDomain || undefined,
+                            directorName || undefined
+                          )
+                        }
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-apollo hover:underline cursor-pointer"
+                      >
+                        <span>View all {totalContacts} in Apollo People →</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-3 py-1">
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    No indexed contacts found under exact legal customs title. Search Apollo People directory using extracted corporate attributes:
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => onFindDecisionMakers?.(cleanedCompany || lead.company_name)}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-apollo hover:text-white rounded-lg border border-slate-200 transition-colors cursor-pointer"
+                      title="Search by cleaned company name"
+                    >
+                      <Building2 className="w-3 h-3" />
+                      <span>{cleanedCompany || lead.company_name}</span>
+                    </button>
+
+                    {corporateDomain && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onFindDecisionMakers?.(cleanedCompany || lead.company_name, corporateDomain)
+                        }
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-600 hover:text-white rounded-lg border border-blue-200 transition-colors cursor-pointer"
+                        title="Search by corporate domain"
+                      >
+                        <Globe className="w-3 h-3" />
+                        <span>@{corporateDomain}</span>
+                      </button>
+                    )}
+
+                    {directorName && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onFindDecisionMakers?.(
+                            cleanedCompany || lead.company_name,
+                            corporateDomain || undefined,
+                            directorName
+                          )
+                        }
+                        className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-purple-700 bg-purple-50 hover:bg-purple-600 hover:text-white rounded-lg border border-purple-200 transition-colors cursor-pointer"
+                        title="Search by director name"
+                      >
+                        <UserCheck className="w-3 h-3" />
+                        <span>{directorName}</span>
+                      </button>
+                    )}
+                  </div>
+
+                  {onFindDecisionMakers && (
+                    <div className="pt-2 border-t border-slate-100 flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onFindDecisionMakers(
+                            cleanedCompany || lead.company_name,
+                            corporateDomain || undefined,
+                            directorName || undefined
+                          )
+                        }
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-apollo hover:underline cursor-pointer"
+                      >
+                        <span>Search Apollo People Directory →</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
 
             {/* Direct Outreach / Contact Card */}
             <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-4 space-y-2.5">

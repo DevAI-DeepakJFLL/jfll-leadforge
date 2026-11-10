@@ -180,4 +180,175 @@ export function isValidEmailAddress(email?: string | null): boolean {
  */
 export { isValidPhoneNumber } from './phoneUtils';
 
+/**
+ * Free public webmail providers filtered out when extracting corporate domains from customs manifests.
+ */
+export const FREE_WEBMAIL_DOMAINS: ReadonlySet<string> = new Set([
+  'gmail.com',
+  'googlemail.com',
+  'yahoo.com',
+  'yahoo.co.in',
+  'yahoo.in',
+  'yahoo.co.uk',
+  'hotmail.com',
+  'hotmail.co.in',
+  'outlook.com',
+  'outlook.in',
+  'rediffmail.com',
+  'rediff.com',
+  'icloud.com',
+  'me.com',
+  'mac.com',
+  'aol.com',
+  'zoho.com',
+  'zoho.in',
+  'protonmail.com',
+  'proton.me',
+  'live.com',
+  'mail.com',
+  'yandex.com',
+  'gmx.com',
+  'msn.com',
+]);
+
+/**
+ * Extracts authentic corporate domain from an email address or manifest email dump,
+ * filtering out common free webmail providers (Gmail, Yahoo, Outlook, Rediffmail, etc.).
+ */
+export function extractDomainFromEmail(email?: string | null): string | null {
+  if (!email || typeof email !== 'string') return null;
+  const clean = email.trim().toLowerCase();
+  if (!clean) return null;
+
+  // Split multiple emails if comma, semicolon, or space separated
+  const candidates = clean.split(/[,;\s]+/).filter(Boolean);
+  for (const cand of candidates) {
+    if (!cand.includes('@')) continue;
+    const parts = cand.split('@');
+    if (parts.length !== 2 || !parts[0].trim() || !parts[1].trim()) continue;
+    let domain = parts[1].replace(/^[.\s;,/<>[\]{}()"'`]+|[.\s;,/<>[\]{}()"'`]+$/g, '');
+    if (!domain || !domain.includes('.')) continue;
+    if (domain.includes(':')) {
+      domain = domain.split(':')[0];
+    }
+    if (FREE_WEBMAIL_DOMAINS.has(domain)) continue;
+    let isFree = false;
+    for (const freeDomain of FREE_WEBMAIL_DOMAINS) {
+      if (domain === freeDomain || domain.endsWith(`.${freeDomain}`)) {
+        isFree = true;
+        break;
+      }
+    }
+    if (!isFree) {
+      return domain;
+    }
+  }
+  return null;
+}
+
+const DIRECTOR_PREFIX_RE = /(?:director\s*[:\-]|dir\s*[:.\-]|proprietor\s*[:\-]|prop\s*[:.\-]|partner\s*[:\-]|managing\s+director\s*[:\-]|md\s*[:.\-]|ceo\s*[:\-]|attn\s*[:.\-]|attention\s*[:\-]|contact\s*[:\-]|name\s*[:\-])\s*/i;
+const HONORIFIC_PREFIX_RE = /^(?:mr\b\.?|mrs\b\.?|ms\b\.?|dr\b\.?|shri\b|shree\b|smt\b\.?)\s*/i;
+const DESIGNATION_SUFFIX_RE = /[\s,\-([\]]+(?:director|managing\s+director|proprietor|partner|md|ceo|head|manager|promoter|founder)[\s)\]\,]*$/i;
+const INVALID_DIRECTOR_STRINGS: ReadonlySet<string> = new Set([
+  'na',
+  'n/a',
+  'none',
+  'null',
+  'not available',
+  'no direct contact on file',
+  'as per invoice',
+  'to order',
+  'self',
+  'same as consignee',
+  'applicant',
+  'unknown',
+  'nil',
+  'director',
+  'proprietor',
+  'partner',
+  'commercial shipper',
+]);
+
+/**
+ * Extracts and standardizes an executive or director name from messy customs manifest text dumps,
+ * stripping manifest prefixes (DIR:, MD:, ATTN:), corporate designations, DIN numbers,
+ * and phone/email noise, while rejecting generic placeholders and corporate legal entities.
+ */
+export function extractFirstDirectorName(directorsStr?: string | null): string | null {
+  if (!directorsStr || typeof directorsStr !== 'string') return null;
+  let cleaned = directorsStr.trim();
+  if (!cleaned) return null;
+
+  if (INVALID_DIRECTOR_STRINGS.has(cleaned.toLowerCase())) {
+    return null;
+  }
+
+  // Reject corporate legal entities (contains Ltd, Pvt, LLC, etc.)
+  if (/\b(pvt|private\s+limited|limited|ltd|llc|llp|inc|corp|co\.|company)\b/i.test(cleaned)) {
+    return null;
+  }
+
+  // 1. Remove labeled prefix (DIR:, MD:, ATTN:, etc.)
+  const prefixMatch = cleaned.match(DIRECTOR_PREFIX_RE);
+  if (prefixMatch && prefixMatch.index !== undefined) {
+    cleaned = cleaned.slice(prefixMatch.index + prefixMatch[0].length);
+  }
+
+  // 2. Cut off at delimiters like DIN, Tel, Mobile, Email, S/O, D/O, newline, semicolon, pipe
+  cleaned = cleaned.split(/[;\n\r|]|\b(?:din|tel|phone|mob|mobile|email|s\/o|d\/o|w\/o)\b/i)[0];
+
+  // 3. Cut off designation suffixes
+  cleaned = cleaned.replace(DESIGNATION_SUFFIX_RE, '').trim();
+
+  // 4. Remove honorifics
+  cleaned = cleaned.replace(HONORIFIC_PREFIX_RE, '').trim();
+
+  // 5. Clean up punctuation and parentheses
+  cleaned = cleaned.replace(/[()[\]"']/g, '').replace(/^[ .,\-/: ]+|[ .,\-/: ]+$/g, '');
+
+  // 6. Normalize internal whitespace
+  cleaned = cleaned.replace(/\s+/g, ' ').trim();
+
+  if (!cleaned || cleaned.length < 3) return null;
+  if (INVALID_DIRECTOR_STRINGS.has(cleaned.toLowerCase())) return null;
+  if (/\d/.test(cleaned)) return null;
+  if (!/^[a-zA-Z\s.'-]+$/.test(cleaned)) return null;
+
+  // Title case the name
+  return cleaned
+    .toLowerCase()
+    .split(' ')
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
+const CUSTOMS_PREFIX_RE = /^(?:(?:m\s*\/\s*s(?:\.|\b)|m\.s(?:\.|\b)|ms\b\.?|messrs(?:\.|\b)|shree\b|shri\b|the\b)\s*)+/i;
+const LEADING_THE_RE = /^the\s+/i;
+const CORPORATE_SUFFIX_RE = /\b(inc|corp|corporation|llc|llp|ltd|limited|pvt|private|co|company|group|holdings|india|asia|impex)\b/gi;
+
+/**
+ * Normalizes commercial entity names by stripping customs prefixes (M/S, Messrs, Shree, The),
+ * legal entity suffixes (Inc, Corp, LLC, LLP, Ltd, Limited, Pvt, Private),
+ * regional qualifiers (India, Asia), and trading tokens (Impex) to maximize matching across
+ * Apollo directories.
+ */
+export function cleanCustomsCompanyName(name: string): string {
+  if (!name || typeof name !== 'string') return '';
+  let cleaned = name.trim().toLowerCase();
+  cleaned = cleaned.replace(CUSTOMS_PREFIX_RE, '').trim();
+  cleaned = cleaned.replace(LEADING_THE_RE, '').trim();
+
+  const normalized = cleaned.replace(/[()[\]]/g, ' ');
+  let stripped = normalized.replace(CORPORATE_SUFFIX_RE, '');
+  stripped = stripped.replace(/\s+/g, ' ').replace(/^[ .,\-&]+|[ .,\-&]+$/g, '');
+
+  if (stripped.length >= 2) {
+    return stripped;
+  }
+  const fallback = normalized.replace(/\s+/g, ' ').replace(/^[ .,\-&]+|[ .,\-&]+$/g, '');
+  return fallback || cleaned;
+}
+
+
 

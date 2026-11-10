@@ -13,6 +13,7 @@ import {
   PhoneOff,
   PhoneCall,
   Sparkles,
+  UserCheck,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -22,12 +23,18 @@ import {
   APPROACH_STATUS_CHANGED_EVENT,
   getCachedApproachStatus,
 } from '@/services/approachLogService';
+import {
+  extractDomainFromEmail,
+  extractFirstDirectorName,
+  cleanCustomsCompanyName,
+} from '@/utils/apolloUtils';
 
 export interface DatamyneTableProps {
   leads: DatamyneLead[];
   rowSelection: RowSelectionState;
   onRowSelectionChange: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   onLeadClick: (lead: DatamyneLead) => void;
+  onFindDecisionMakers?: (companyName: string, domain?: string, director?: string) => void;
   onLogApproach?: (lead: DatamyneLead) => void;
   onConvertToActive?: (lead: DatamyneLead) => void;
   currentPage: number;
@@ -50,6 +57,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   rowSelection,
   onRowSelectionChange,
   onLeadClick,
+  onFindDecisionMakers,
   onLogApproach,
   onConvertToActive,
   currentPage,
@@ -478,6 +486,24 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                         <span>View</span>
                       </button>
 
+                      {onFindDecisionMakers && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const domain = extractDomainFromEmail(l.email);
+                            const director = extractFirstDirectorName(l.directors);
+                            const cleaned = cleanCustomsCompanyName(l.company_name);
+                            onFindDecisionMakers(cleaned || l.company_name, domain || undefined, director || undefined);
+                          }}
+                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn cursor-pointer"
+                          title={`Find decision makers at ${l.company_name} in Apollo`}
+                          aria-label={`Find decision makers at ${l.company_name}`}
+                        >
+                          <UserCheck className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
+                          <span>Decision Makers</span>
+                        </button>
+                      )}
+
                       {onLogApproach && (
                         <button
                           onClick={(e) => {
@@ -520,13 +546,13 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
         <div>
           Showing{' '}
           <strong className="text-slate-800">
-            {totalItems > 0 ? (currentPage - 1) * pageSize + 1 : 0}
+            {(totalItems || 0) > 0 ? (Math.max(1, currentPage || 1) - 1) * (pageSize || 25) + 1 : 0}
           </strong>{' '}
           to{' '}
           <strong className="text-slate-800">
-            {Math.min(currentPage * pageSize, totalItems)}
+            {Math.min((Math.max(1, currentPage || 1)) * (pageSize || 25), totalItems || 0)}
           </strong>{' '}
-          of <strong className="text-slate-800">{totalFormatted || totalItems}</strong>{' '}
+          of <strong className="text-slate-800">{totalFormatted || totalItems || 0}</strong>{' '}
           leads
         </div>
 

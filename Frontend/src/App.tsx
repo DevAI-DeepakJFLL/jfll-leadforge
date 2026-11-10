@@ -864,15 +864,22 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   };
 
   // Cross-Navigation: Search inside People directory for decision-makers at this company
-  const handleFindDecisionMakersInPeople = (companyName: string, organizationId?: string) => {
+  const handleFindDecisionMakersInPeople = (
+    companyName: string,
+    organizationId?: string,
+    domain?: string,
+    director?: string
+  ) => {
     setSelectedApolloDbLead(null);
+    setSelectedDatamyneLead(null);
     setApolloSubTab('people');
     setTopTab('apollo');
     setActiveNav('search');
     applyFilters({
       tab: 'all',
-      q: undefined,
+      q: director ? director : undefined,
       company: companyName,
+      domain: domain || undefined,
       organizationId: organizationId || undefined,
       page: 1,
       limit: filters.limit || 25,
@@ -1256,6 +1263,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           clearAllFilters={clearAllDatamyneFilters}
           activeFilterCount={datamyneActiveFilterCount}
           onLeadClick={(lead) => setSelectedDatamyneLead(lead)}
+          onFindDecisionMakers={(companyName, domain, director) =>
+            handleFindDecisionMakersInPeople(companyName, undefined, domain, director)
+          }
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
           isSidebarCollapsed={isSidebarCollapsed}
@@ -1458,6 +1468,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           isOpen={!!selectedDatamyneLead}
           lead={selectedDatamyneLead}
           onClose={() => setSelectedDatamyneLead(null)}
+          onFindDecisionMakers={(companyName, domain, director) =>
+            handleFindDecisionMakersInPeople(companyName, undefined, domain, director)
+          }
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
           onAssignToTracker={handleAssignToTracker}
