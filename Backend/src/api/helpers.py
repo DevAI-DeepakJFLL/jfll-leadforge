@@ -248,8 +248,12 @@ def parse_csv_query_param(val: str | None) -> list[str]:
     return [token.strip().lower() for token in val.split(",") if token.strip()]
 
 
+CUSTOMS_PREFIX_REGEX = re.compile(
+    r"^(?:(?:m\s*/\s*s(?:\.|\b)|m\.s(?:\.|\b)|ms\b\.?|messrs(?:\.|\b)|shree\b|shri\b|the\b)\s*)+",
+    re.IGNORECASE,
+)
 CORPORATE_SUFFIX_REGEX = re.compile(
-    r"\b(inc|corp|corporation|llc|llp|ltd|limited|pvt|private|co|company|group|holdings)\b",
+    r"\b(inc|corp|corporation|llc|llp|ltd|limited|pvt|private|co|company|group|holdings|india|asia|impex)\b",
     re.IGNORECASE,
 )
 LEADING_THE_REGEX = re.compile(r"^(the\s+)", re.IGNORECASE)
@@ -370,20 +374,213 @@ def normalize_country_names(raw_countries: list[str]) -> list[str]:
 
 def clean_corporate_term(raw: str) -> str:
     """
-    Normalizes commercial entity names by stripping legal entity suffixes
-    (Inc, Corp, LLC, LLP, Ltd, Limited, Pvt, Private) and leading articles
-    to maximize matching across corporate email domains.
+    Normalizes commercial entity names by stripping customs prefixes (M/S, Messrs, Shree, The),
+    legal entity suffixes (Inc, Corp, LLC, LLP, Ltd, Limited, Pvt, Private),
+    regional qualifiers (India, Asia), and trading tokens (Impex) to maximize matching across
+    corporate email domains and Apollo directories.
     """
-    cleaned = LEADING_THE_REGEX.sub("", raw.strip().lower())
-    return CORPORATE_SUFFIX_REGEX.sub("", cleaned).strip(" .,-")
+    if not raw:
+        return ""
+    cleaned = raw.strip().lower()
+    cleaned = CUSTOMS_PREFIX_REGEX.sub("", cleaned).strip()
+    cleaned = LEADING_THE_REGEX.sub("", cleaned).strip()
+    # Normalize punctuation that separates suffixes or noise
+    normalized = re.sub(r"[\(\)\[\],]", " ", cleaned)
+    stripped = CORPORATE_SUFFIX_REGEX.sub("", normalized)
+    stripped = re.sub(r"\s+", " ", stripped).strip(" .,-&")
+    if len(stripped) >= 2:
+        return stripped
+    fallback = re.sub(r"\s+", " ", normalized).strip(" .,-&")
+    return fallback if fallback else cleaned
 
 
 COMPANY_STOP_WORDS = {
     "ltd", "limited", "pvt", "private", "inc", "corp", "corporation",
-    "llc", "co", "company", "holdings", "group", "and", "india", "the", "enterprises",
+    "llc", "llp", "co", "company", "holdings", "group", "and", "india", "asia", "the", "enterprises",
     "healthcare", "pharma", "pharmaceuticals", "technologies", "services", "solutions",
-    "industries", "international", "global", "trading", "engineering"
+    "industries", "international", "global", "trading", "engineering",
+    "impex", "ms", "messrs", "shree", "shri", "exports", "imports",
 }
+
+
+ENTERPRISE_ALIASES: dict[str, list[str]] = {
+    "l&t": ["larsen & toubro", "larsen and toubro"],
+    "larsen & toubro": ["l&t", "larsen and toubro"],
+    "larsen and toubro": ["l&t", "larsen & toubro"],
+    "bhel": ["bharat heavy electricals"],
+    "bharat heavy electricals": ["bhel"],
+    "ongc": ["oil and natural gas corporation", "oil & natural gas corporation"],
+    "oil and natural gas corporation": ["ongc", "oil & natural gas corporation"],
+    "oil & natural gas corporation": ["ongc", "oil and natural gas corporation"],
+    "iocl": ["indian oil corporation", "indian oil"],
+    "indian oil corporation": ["iocl", "indian oil"],
+    "indian oil": ["iocl", "indian oil corporation"],
+    "bpcl": ["bharat petroleum corporation", "bharat petroleum"],
+    "bharat petroleum corporation": ["bpcl", "bharat petroleum"],
+    "bharat petroleum": ["bpcl", "bharat petroleum corporation"],
+    "hpcl": ["hindustan petroleum corporation", "hindustan petroleum"],
+    "hindustan petroleum corporation": ["hpcl", "hindustan petroleum"],
+    "hindustan petroleum": ["hpcl", "hindustan petroleum corporation"],
+    "tcs": ["tata consultancy services"],
+    "tata consultancy services": ["tcs"],
+    "ril": ["reliance industries"],
+    "reliance industries": ["ril"],
+    "gail": ["gas authority of india"],
+    "gas authority of india": ["gail"],
+    "sail": ["steel authority of india"],
+    "steel authority of india": ["sail"],
+    "ntpc": ["national thermal power corporation"],
+    "national thermal power corporation": ["ntpc"],
+    "hal": ["hindustan aeronautics"],
+    "hindustan aeronautics": ["hal"],
+    "bel": ["bharat electronics"],
+    "bharat electronics": ["bel"],
+    "itc": ["itc limited"],
+    "itc limited": ["itc"],
+    "hcl": ["hcl technologies"],
+    "hcl technologies": ["hcl"],
+    "sbi": ["state bank of india"],
+    "state bank of india": ["sbi"],
+}
+
+
+FREE_WEBMAIL_DOMAINS: set[str] = {
+    "gmail.com",
+    "googlemail.com",
+    "yahoo.com",
+    "yahoo.co.in",
+    "yahoo.in",
+    "yahoo.co.uk",
+    "hotmail.com",
+    "hotmail.co.in",
+    "outlook.com",
+    "outlook.in",
+    "rediffmail.com",
+    "rediff.com",
+    "icloud.com",
+    "me.com",
+    "mac.com",
+    "aol.com",
+    "zoho.com",
+    "zoho.in",
+    "protonmail.com",
+    "proton.me",
+    "live.com",
+    "mail.com",
+    "yandex.com",
+    "gmx.com",
+    "msn.com",
+}
+
+
+def extract_domain_from_email(email: str | None) -> str | None:
+    """
+    Extracts corporate domain from an email address, filtering out common free webmail providers
+    (Gmail, Yahoo, Outlook, Rediffmail, etc.) to ensure only authentic commercial corporate domains
+    are used for entity matching and Apollo linking.
+    """
+    if not email or not isinstance(email, str):
+        return None
+    email_clean = email.strip().lower()
+    if "@" not in email_clean:
+        return None
+    parts = email_clean.split("@")
+    if len(parts) != 2 or not parts[0].strip() or not parts[1].strip():
+        return None
+    domain = parts[1].strip(" .;,/<>[]{}()\"'")
+    if not domain or "." not in domain:
+        return None
+    if ":" in domain:
+        domain = domain.split(":")[0]
+    if domain in FREE_WEBMAIL_DOMAINS:
+        return None
+    for free_domain in FREE_WEBMAIL_DOMAINS:
+        if domain == free_domain or domain.endswith(f".{free_domain}"):
+            return None
+    return domain
+
+
+_DIRECTOR_PREFIX_RE = re.compile(
+    r"(?:director\s*[:\-]|dir\s*[:\.\-]|proprietor\s*[:\-]|prop\s*[:\.\-]|"
+    r"partner\s*[:\-]|managing\s+director\s*[:\-]|md\s*[:\.\-]|ceo\s*[:\-]|"
+    r"attn\s*[:\.\-]|attention\s*[:\-]|contact\s*[:\-]|name\s*[:\-])\s*",
+    re.IGNORECASE,
+)
+
+_HONORIFIC_PREFIX_RE = re.compile(
+    r"^(?:mr\b\.?|mrs\b\.?|ms\b\.?|dr\b\.?|shri\b|shree\b|smt\b\.?)\s*",
+    re.IGNORECASE,
+)
+
+_DESIGNATION_SUFFIX_RE = re.compile(
+    r"[\s,\-\(\[]+(?:director|managing\s+director|proprietor|partner|md|ceo|head|manager|promoter|founder)[\s\)\],]*$",
+    re.IGNORECASE,
+)
+
+_INVALID_DIRECTOR_STRINGS = {
+    "na", "n/a", "none", "null", "not available", "no direct contact on file",
+    "as per invoice", "to order", "self", "same as consignee", "applicant",
+    "unknown", "nil", "director", "proprietor", "partner", "commercial shipper",
+}
+
+
+def extract_customs_director_name(raw: str | None) -> str | None:
+    """
+    Extracts and standardizes an executive or director name from messy customs manifest text dumps,
+    removing manifest prefixes (DIR:, MD:, ATTN:), corporate designations, DIN numbers,
+    and phone/email noise, while rejecting generic placeholders and corporate entity names.
+    """
+    if not raw or not isinstance(raw, str):
+        return None
+
+    cleaned = raw.strip()
+    if not cleaned:
+        return None
+
+    # Check for known invalid/placeholder values
+    if cleaned.lower() in _INVALID_DIRECTOR_STRINGS:
+        return None
+
+    # If it's a corporate legal entity name (contains Ltd, Pvt, LLC, etc.), it's not a director
+    if re.search(r"\b(pvt|private\s+limited|limited|ltd|llc|llp|inc|corp|co\.|company)\b", cleaned, re.IGNORECASE):
+        return None
+
+    # 1. Check for labeled prefix (e.g. "DIR: RAJESH SHARMA", "ATTN: MR. AMIT GUPTA")
+    prefix_match = _DIRECTOR_PREFIX_RE.search(cleaned)
+    if prefix_match:
+        cleaned = cleaned[prefix_match.end():]
+
+    # 2. Cut off at delimiters like DIN, Tel, Mobile, Email, S/O, newline, semicolon
+    cleaned = re.split(r"[;\n\r|]|\b(?:din|tel|phone|mob|mobile|email|s/o|d/o|w/o)\b", cleaned, flags=re.IGNORECASE)[0]
+
+    # 3. Cut off designation suffixes (e.g. "RAJESH SHARMA - DIRECTOR" or "RAJESH SHARMA, MD")
+    cleaned = _DESIGNATION_SUFFIX_RE.sub("", cleaned).strip()
+
+    # 4. Remove honorifics (Mr., Mrs., Shri, etc.)
+    cleaned = _HONORIFIC_PREFIX_RE.sub("", cleaned).strip()
+
+    # 5. Clean up lingering punctuation and parentheses
+    cleaned = re.sub(r"[\(\)\[\]\"']", "", cleaned).strip(" .,-/:")
+
+    # 6. Normalize internal whitespace
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+
+    # Reject if empty, or too short
+    if not cleaned or len(cleaned) < 3:
+        return None
+
+    if cleaned.lower() in _INVALID_DIRECTOR_STRINGS:
+        return None
+
+    # Reject if it has digits
+    if re.search(r"\d", cleaned):
+        return None
+
+    # Reject if it contains invalid non-name characters
+    if not re.match(r"^[a-zA-Z\s\.\'-]+$", cleaned):
+        return None
+
+    return cleaned.title()
 
 
 def extract_company_search_keywords(raw: str) -> list[str]:
@@ -399,13 +596,15 @@ def build_company_search_sql(raw_search: str, col_prefix: str = "") -> tuple[str
     """
     Builds SQL fragment and parameters to match companies across organization_name and domain
     using strict word boundaries, preventing partial-string false positives, while supporting
-    corporate aliases (e.g., 'Larsen & Toubro' <-> 'L&T') and concatenated domain matches.
+    bidirectional corporate/PSU aliases (e.g., 'Larsen & Toubro' <-> 'L&T', 'BHEL' <-> 'Bharat Heavy Electricals')
+    and concatenated domain matches.
     """
     if not raw_search or not raw_search.strip():
         return "1=1", []
 
     raw = raw_search.strip().lower()
-    kws = extract_company_search_keywords(raw)
+    cleaned = clean_corporate_term(raw)
+    kws = extract_company_search_keywords(cleaned if cleaned else raw)
 
     pfx = f"{col_prefix}." if col_prefix else ""
     conds = []
@@ -415,6 +614,12 @@ def build_company_search_sql(raw_search: str, col_prefix: str = "") -> tuple[str
     pat = f"%{raw}%"
     conds.append(f"(lower({pfx}organization_name) LIKE ? OR lower({pfx}domain) LIKE ?)")
     params.extend([pat, pat])
+
+    # If clean_corporate_term stripped prefixes/suffixes, also match the cleaned term
+    if cleaned and cleaned != raw:
+        clean_pat = f"%{cleaned}%"
+        conds.append(f"(lower({pfx}organization_name) LIKE ? OR lower({pfx}domain) LIKE ?)")
+        params.extend([clean_pat, clean_pat])
 
     # 2. Significant keywords matching (e.g. 'sanofi' from 'SANOFI INDIA LIMITED')
     if kws:
@@ -429,14 +634,46 @@ def build_company_search_sql(raw_search: str, col_prefix: str = "") -> tuple[str
                 conds.append(f"lower({pfx}domain) LIKE ?")
                 params.append(f"%{concat_kws}%")
 
-        # Cross-alias for Larsen & Toubro <-> L&T
-        words = re.findall(r"[a-zA-Z0-9]+", raw)
-        if ("larsen" in kws and "toubro" in kws) or ("l" in words and "t" in words):
+    # 3. Bidirectional PSU and Enterprise alias matching
+    matched_aliases: list[str] = []
+    lookup_candidates = [raw, cleaned, raw.replace(" ", ""), cleaned.replace(" ", "")]
+    for cand in lookup_candidates:
+        if cand in ENTERPRISE_ALIASES:
+            matched_aliases.extend(ENTERPRISE_ALIASES[cand])
+
+    if not matched_aliases:
+        for alias_key, alias_vals in ENTERPRISE_ALIASES.items():
+            if len(alias_key) >= 5 and (alias_key in raw or alias_key in cleaned):
+                matched_aliases.extend(alias_vals)
+
+    # Cross-alias for Larsen & Toubro <-> L&T
+    words = re.findall(r"[a-zA-Z0-9]+", raw)
+    if ("larsen" in kws and "toubro" in kws) or ("l" in words and "t" in words):
+        conds.append(
+            f"(lower({pfx}organization_name) LIKE 'l&t %' OR lower({pfx}organization_name) LIKE '% l&t %' "
+            f"OR lower({pfx}organization_name) LIKE 'l&t,%' OR lower({pfx}organization_name) = 'l&t' "
+            f"OR lower({pfx}organization_name) LIKE '%larsen%toubro%')"
+        )
+
+    for alias in list(dict.fromkeys(matched_aliases)):
+        alias_clean = alias.strip().lower()
+        if not alias_clean:
+            continue
+        if len(alias_clean) <= 5:
             conds.append(
-                f"(lower({pfx}organization_name) LIKE 'l&t %' OR lower({pfx}organization_name) LIKE '% l&t %' "
-                f"OR lower({pfx}organization_name) LIKE 'l&t,%' OR lower({pfx}organization_name) = 'l&t' "
-                f"OR lower({pfx}organization_name) LIKE '%larsen%toubro%')"
+                f"(regexp_matches(lower({pfx}organization_name), ?) OR lower({pfx}domain) LIKE ?)"
             )
+            params.extend([rf"\b{re.escape(alias_clean)}\b", f"%{alias_clean}%"])
+        else:
+            conds.append(
+                f"(lower({pfx}organization_name) LIKE ? OR lower({pfx}domain) LIKE ?)"
+            )
+            params.extend([f"%{alias_clean}%", f"%{alias_clean.replace(' ', '')}%"])
+            alias_kws = extract_company_search_keywords(alias_clean)
+            if alias_kws:
+                alias_kw_sql = " AND ".join([f"regexp_matches(lower({pfx}organization_name), ?)" for _ in alias_kws])
+                conds.append(f"({alias_kw_sql})")
+                params.extend([rf"\b{re.escape(w)}\b" for w in alias_kws])
 
     return " OR ".join(conds), params
 

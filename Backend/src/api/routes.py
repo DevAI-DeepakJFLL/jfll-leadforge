@@ -1,3 +1,4 @@
+import re
 import uuid
 
 from fastapi import APIRouter, Header, HTTPException, Query
@@ -12,6 +13,7 @@ from src.api.cache import (
 from src.api.config import settings
 from src.api.database import get_data_source, get_db_connection
 from src.api.helpers import (
+    FREE_WEBMAIL_DOMAINS,
     SQL_EXTRACT_EMPLOYER_NAME,
     build_company_search_sql,
     clean_corporate_term,
@@ -885,6 +887,7 @@ def search_apollo_contacts(
     country: str | None = Query(default=None, description="Contact country"),
     countries: list[str] | None = Query(default=None, description="Multi-select contact countries"),
     company: str | None = Query(default=None, description="Filter by company / employer name"),
+    domain: str | None = Query(default=None, description="Filter by company website domain (e.g. example.com)"),
     company_sizes: list[str] | None = Query(default=None, description="Company size tiers: 1-10, 11-50, etc."),
     industry: str | None = Query(default=None, description="Filter by company cargo industry"),
     industries: list[str] | None = Query(default=None, description="Multi-select company cargo industries"),
@@ -906,6 +909,7 @@ def search_apollo_contacts(
     country = normalize_query(country)
     countries = normalize_query(countries)
     company = normalize_query(company)
+    domain = normalize_query(domain)
     company_sizes = normalize_query(company_sizes)
     industry = normalize_query(industry)
     industries = normalize_query(industries)
@@ -963,7 +967,7 @@ def search_apollo_contacts(
                 placeholders = ", ".join(["?"] * len(matched_org_ids))
                 conditions.append(f"c.organization_id IN ({placeholders})")
                 params.extend(matched_org_ids)
-            else:
+            elif not (domain and domain.strip()):
                 clean_comp = clean_corporate_term(company)
                 if clean_comp and len(clean_comp) >= 3:
                     conditions.append("(lower(COALESCE(c.email, '')) LIKE ?)")
@@ -995,6 +999,27 @@ def search_apollo_contacts(
                     )
                 """)
                 params.extend([pat, pat, pat])
+
+        if domain and domain.strip():
+            clean_dom = re.sub(r"^https?://", "", domain.strip().lower())
+            clean_dom = re.sub(r"^www\.", "", clean_dom).strip(" /")
+            if clean_dom:
+                if clean_dom in FREE_WEBMAIL_DOMAINS:
+                    conditions.append("(lower(COALESCE(c.email, '')) LIKE ?)")
+                    params.append(f"%@{clean_dom}%")
+                else:
+                    dom_org_rows = con.execute(
+                        f"SELECT organization_id FROM '{apollo_source}' WHERE lower(domain) = ? OR lower(domain) = ? LIMIT 50",
+                        [clean_dom, f"www.{clean_dom}"],
+                    ).fetchall()
+                    dom_org_ids = [r[0] for r in dom_org_rows if r[0]]
+                    if dom_org_ids:
+                        placeholders = ", ".join(["?"] * len(dom_org_ids))
+                        conditions.append(f"(c.organization_id IN ({placeholders}) OR lower(COALESCE(c.email, '')) LIKE ?)")
+                        params.extend(dom_org_ids + [f"%@{clean_dom}%"])
+                    else:
+                        conditions.append("(lower(COALESCE(c.email, '')) LIKE ?)")
+                        params.append(f"%@{clean_dom}%")
 
         if logistics_only is True:
             conditions.append("c.is_logistics_role = true")
@@ -1118,6 +1143,16 @@ def search_apollo_contacts(
             ).fetchone()
             if org_row and org_row[0]:
                 resolved_employer_name = org_row[0]
+        elif domain and domain.strip():
+            clean_dom = re.sub(r"^https?://", "", domain.strip().lower())
+            clean_dom = re.sub(r"^www\.", "", clean_dom).strip(" /")
+            if clean_dom and clean_dom not in FREE_WEBMAIL_DOMAINS:
+                org_row = con.execute(
+                    f"SELECT organization_name FROM '{apollo_source}' WHERE lower(domain) = ? OR lower(domain) = ? LIMIT 1",
+                    [clean_dom, f"www.{clean_dom}"]
+                ).fetchone()
+                if org_row and org_row[0]:
+                    resolved_employer_name = org_row[0]
 
         if resolved_employer_name:
             employer_select = "COALESCE(?, CASE WHEN c.email IS NOT NULL AND c.email LIKE '%@%' THEN upper(regexp_extract(c.email, '@([^.]+)', 1)) ELSE 'COMMERCIAL SHIPPER' END) as employer_name"
