@@ -330,7 +330,7 @@ describe('Sales Approach & Active Conversion Suite', () => {
       expect(res.logs[0].note).toContain('Converted from cold trade lead');
     });
 
-    it('renders Convert button in DatamyneTable when onConvertToActive is provided', () => {
+    it('keeps Action column focused on View and omits raw Approach/Convert buttons from table row', () => {
       const mockLead: DatamyneLead = {
         id: 'dm-test-101',
         company_name: 'TEST EXPORTER CORP',
@@ -361,8 +361,6 @@ describe('Sales Approach & Active Conversion Suite', () => {
           rowSelection={{}}
           onRowSelectionChange={vi.fn()}
           onLeadClick={vi.fn()}
-          onLogApproach={vi.fn()}
-          onConvertToActive={vi.fn()}
           currentPage={1}
           totalPages={1}
           pageSize={25}
@@ -371,9 +369,11 @@ describe('Sales Approach & Active Conversion Suite', () => {
         />
       );
 
-      expect(html).toContain('Approach');
-      expect(html).toContain('Convert');
-      expect(html).toContain('Convert TEST EXPORTER CORP to Active customer');
+      // Kept relevant action
+      expect(html).toContain('View');
+      // Omitted noisy raw buttons from table row
+      expect(html).not.toContain('<span>Approach</span>');
+      expect(html).not.toContain('<span>Convert</span>');
     });
   });
 

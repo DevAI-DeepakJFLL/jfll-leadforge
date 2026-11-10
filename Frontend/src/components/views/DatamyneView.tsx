@@ -118,15 +118,12 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   activeFilterCount,
   onLeadClick,
   onFindDecisionMakers,
-  onLogApproach,
-  onConvertToActive,
   isMobileOpen,
   onCloseMobile,
   isSidebarCollapsed = false,
   onToggleSidebarCollapse,
   currentUser,
 }) => {
-  const isViewer = currentUser?.role === 'Viewer';
   const [perspective, setPerspective] = React.useState<'verticals' | 'tiers'>('verticals');
   const {
     tab: tierTab,
@@ -514,8 +511,6 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
             onFindDecisionMakers={onFindDecisionMakers}
-            onLogApproach={isViewer ? undefined : onLogApproach}
-            onConvertToActive={isViewer ? undefined : onConvertToActive}
             currentPage={displayPage}
             totalPages={displayTotalPages}
             pageSize={query.limit || 25}

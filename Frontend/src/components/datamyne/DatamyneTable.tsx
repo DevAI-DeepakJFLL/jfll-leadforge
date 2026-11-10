@@ -11,8 +11,6 @@ import {
   Plane,
   Ship,
   PhoneOff,
-  PhoneCall,
-  Sparkles,
   UserCheck,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
@@ -35,8 +33,6 @@ export interface DatamyneTableProps {
   onRowSelectionChange: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   onLeadClick: (lead: DatamyneLead) => void;
   onFindDecisionMakers?: (companyName: string, domain?: string, director?: string) => void;
-  onLogApproach?: (lead: DatamyneLead) => void;
-  onConvertToActive?: (lead: DatamyneLead) => void;
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -58,8 +54,6 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   onRowSelectionChange,
   onLeadClick,
   onFindDecisionMakers,
-  onLogApproach,
-  onConvertToActive,
   currentPage,
   totalPages,
   pageSize,
@@ -109,7 +103,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                 <th className="py-2.5 px-2.5 min-w-[115px]">Shipments & Value</th>
                 <th className="py-2.5 px-2.5 min-w-[120px] whitespace-nowrap">Contact Readiness</th>
                 <th className="py-2.5 px-2.5 min-w-[110px] whitespace-nowrap">Sales Status</th>
-                <th className="py-2.5 px-3 min-w-[150px] text-center">
+                <th className="py-2.5 px-3 min-w-[180px] text-center">
                   Action
                 </th>
               </tr>
@@ -236,7 +230,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
               <th className="py-2.5 px-2.5 min-w-[115px]">Shipments & Value</th>
               <th className="py-2.5 px-2.5 min-w-[120px] whitespace-nowrap">Contact Readiness</th>
               <th className="py-2.5 px-2.5 min-w-[110px] whitespace-nowrap">Sales Status</th>
-              <th className="py-2.5 px-3 min-w-[150px] text-center">
+              <th className="py-2.5 px-3 min-w-[180px] text-center">
                 Action
               </th>
             </tr>
@@ -471,8 +465,8 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                     />
                   </td>
 
-                  {/* Action CTA: View, Approach, Convert */}
-                  <td className="py-2 px-3 text-center align-middle">
+                  {/* Action CTA: View, Decision Makers */}
+                  <td className="py-2 px-3 text-center align-middle whitespace-nowrap">
                     <div className="flex items-center justify-center gap-1.5">
                       <button
                         onClick={(e) => {
@@ -503,35 +497,6 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                           <span>Decision Makers</span>
                         </button>
                       )}
-
-                      {onLogApproach && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onLogApproach(l);
-                          }}
-                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-apollo bg-apollo/10 hover:bg-apollo hover:text-white border border-apollo/30 rounded-md transition-all shadow-2xs cursor-pointer"
-                          title={`Log sales approach for ${l.company_name}`}
-                        >
-                          <PhoneCall className="w-3.5 h-3.5" />
-                          <span>Approach</span>
-                        </button>
-                      )}
-
-                      {onConvertToActive &&
-                        getCachedApproachStatus('datamyne', l.id) !== 'Converted to Active' && (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onConvertToActive(l);
-                            }}
-                            className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-600 hover:text-white border border-emerald-300 rounded-md transition-all shadow-2xs cursor-pointer"
-                            title={`Convert ${l.company_name} to Active customer`}
-                          >
-                            <Sparkles className="w-3.5 h-3.5 text-emerald-600 group-hover:text-white" />
-                            <span>Convert</span>
-                          </button>
-                        )}
                     </div>
                   </td>
                 </tr>
