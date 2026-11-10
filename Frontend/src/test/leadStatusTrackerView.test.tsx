@@ -364,7 +364,7 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
 
       expect(html).toContain('Lead Status Tracker');
       expect(html).toContain('Executive Sales Command');
-      expect(html).toContain('Tyra &amp; Deepak Master View');
+      expect(html).not.toContain('Tyra &amp; Deepak Master View');
 
       // 5 KPI Cards
       expect(html).toContain('Total Tracked');
