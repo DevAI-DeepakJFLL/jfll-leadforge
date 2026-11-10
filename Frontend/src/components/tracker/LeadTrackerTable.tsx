@@ -284,13 +284,13 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
   }
 
   return (
-    <div className={`w-full overflow-x-auto border border-slate-200 rounded-lg bg-white shadow-xs ${className}`}>
+    <div className={`flex-1 h-full min-h-0 overflow-auto border border-slate-200 rounded-lg bg-white shadow-xs ${className}`}>
       <table className="min-w-full text-left text-xs divide-y divide-slate-200 border-collapse table-auto">
-        <thead className="bg-slate-50 sticky top-0 z-10 border-b border-slate-200">
+        <thead className="bg-slate-50 sticky top-0 z-20 border-b border-slate-200">
           <tr className="text-slate-600 font-semibold tracking-wider uppercase text-[11px]">
             <th
               scope="col"
-              className="py-3 px-3.5 group cursor-pointer hover:bg-slate-100 transition-colors"
+              className="py-3 px-3.5 group cursor-pointer hover:bg-slate-100 transition-colors sticky left-0 top-0 z-30 bg-slate-50 border-r border-slate-200 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)] min-w-[200px] max-w-[260px]"
               onClick={() => handleSort('company_name')}
             >
               <div className="flex items-center gap-1.5">
@@ -301,7 +301,7 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
 
             <th
               scope="col"
-              className="py-3 px-3 group cursor-pointer hover:bg-slate-100 transition-colors"
+              className="py-3 px-3 group cursor-pointer hover:bg-slate-100 transition-colors min-w-[150px] whitespace-nowrap"
               onClick={() => handleSort('assigned_to')}
             >
               <div className="flex items-center gap-1.5">
@@ -310,25 +310,25 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
               </div>
             </th>
 
-            <th scope="col" className="py-3 px-3">
+            <th scope="col" className="py-3 px-3 min-w-[140px] whitespace-nowrap">
               <span>Mode &amp; Routing</span>
             </th>
 
-            <th scope="col" className="py-3 px-3">
+            <th scope="col" className="py-3 px-3 min-w-[150px]">
               <span>Contact Person</span>
             </th>
 
-            <th scope="col" className="py-3 px-3">
+            <th scope="col" className="py-3 px-3 min-w-[130px] whitespace-nowrap">
               <span>Status</span>
             </th>
 
-            <th scope="col" className="py-3 px-3 min-w-[200px]">
+            <th scope="col" className="py-3 px-3 min-w-[200px] max-w-[280px]">
               <span>Feedback Notes</span>
             </th>
 
             <th
               scope="col"
-              className="py-3 px-3 group cursor-pointer hover:bg-slate-100 transition-colors whitespace-nowrap"
+              className="py-3 px-3 group cursor-pointer hover:bg-slate-100 transition-colors whitespace-nowrap min-w-[140px]"
               onClick={() => handleSort('next_followup_date')}
             >
               <div className="flex items-center gap-1.5">
@@ -337,11 +337,11 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
               </div>
             </th>
 
-            <th scope="col" className="py-3 px-3 min-w-[160px]">
+            <th scope="col" className="py-3 px-3 min-w-[160px] max-w-[220px]">
               <span>Next Action</span>
             </th>
 
-            <th scope="col" className="py-3 px-3.5 text-right">
+            <th scope="col" className="py-3 px-3.5 text-right min-w-[120px] whitespace-nowrap">
               <span>Actions</span>
             </th>
           </tr>
@@ -369,8 +369,8 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
                 }}
                 className="hover:bg-slate-50/90 transition-colors cursor-pointer group focus:outline-hidden focus:bg-blue-50/50"
               >
-                {/* 1. Company Name & Linked Entity */}
-                <td className="py-2.5 px-3.5 max-w-[240px]">
+                {/* 1. Company Name & Linked Entity (Sticky Left Pinned Column) */}
+                <td className="py-2.5 px-3.5 min-w-[200px] max-w-[260px] sticky left-0 z-10 bg-white group-hover:bg-slate-50/90 group-focus:bg-blue-50/50 border-r border-slate-200 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)]">
                   <div className="flex flex-col gap-0.5">
                     <div className="flex items-center gap-1.5">
                       <span className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
@@ -459,11 +459,13 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
                 </td>
 
                 {/* 5. Status Pill & Inline Dropdown */}
-                <td className="py-2.5 px-3 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                <td className="py-2.5 px-3 whitespace-nowrap min-w-[130px]" onClick={(e) => e.stopPropagation()}>
                   <div className="relative inline-block">
                     <select
                       value={lead.status}
+                      onClick={(e) => e.stopPropagation()}
                       onChange={(e) => {
+                        e.stopPropagation();
                         const newStatus = e.target.value as TrackerStatus;
                         if (onStatusChange) {
                           onStatusChange(lead.id, newStatus);

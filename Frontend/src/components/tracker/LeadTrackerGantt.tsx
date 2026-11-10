@@ -264,7 +264,7 @@ export const LeadTrackerGanttRowBase: React.FC<LeadTrackerGanttRowProps> = ({
       <div
         data-testid={`gantt-lead-card-${lead.id}`}
         onClick={() => onSelectLead(lead)}
-        className="w-80 shrink-0 px-3.5 py-2 flex flex-col justify-center border-r border-slate-200 bg-white group-hover:bg-slate-50/90 transition-colors cursor-pointer sticky left-0 z-20 shadow-2xs"
+        className="w-80 shrink-0 px-3.5 py-2 flex flex-col justify-center border-r border-slate-200 bg-white group-hover:bg-slate-50/90 transition-colors cursor-pointer sticky left-0 z-30 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)]"
         title={`Click to view interaction history for ${lead.company_name}`}
       >
         <div className="flex items-center justify-between gap-1.5 mb-1">
@@ -314,7 +314,7 @@ export const LeadTrackerGanttRowBase: React.FC<LeadTrackerGanttRowProps> = ({
 
         {/* Today Vertical Line Indicator */}
         <div
-          className="absolute top-0 bottom-0 w-0.5 bg-blue-500 z-10 pointer-events-none"
+          className="absolute top-0 bottom-0 w-0.5 bg-blue-500 z-5 pointer-events-none"
           style={{ left: `${todayMarkerPercent}%` }}
         />
 
@@ -328,7 +328,7 @@ export const LeadTrackerGanttRowBase: React.FC<LeadTrackerGanttRowProps> = ({
               width: `${barWidth}%`,
             }}
             title={`Quotation Validity: ${lead.quote_date || lead.assigned_date} to ${lead.rate_validity_date} (${rateInfo.label})`}
-            className={`absolute h-7 rounded-md shadow-2xs z-15 flex items-center px-2 cursor-pointer transition-all hover:scale-[1.01] hover:brightness-105 border ${
+            className={`absolute h-7 rounded-md shadow-2xs z-10 flex items-center px-2 cursor-pointer transition-all hover:scale-[1.01] hover:brightness-105 border ${
               modeVisual.barBg
             } ${modeVisual.barBorder} ${modeVisual.barText} ${
               rateInfo.status === 'expiring_soon'
@@ -338,10 +338,17 @@ export const LeadTrackerGanttRowBase: React.FC<LeadTrackerGanttRowProps> = ({
                 : ''
             }`}
           >
-            <div className="flex items-center gap-1 text-[11px] font-semibold truncate w-full">
-              <ModeIcon className="w-3 h-3 shrink-0" />
-              <span className="truncate">{rateInfo.label}</span>
-            </div>
+            {barWidth < 15 ? (
+              <div className="flex items-center justify-center gap-1 text-[10px] font-bold w-full truncate">
+                <ModeIcon className="w-2.5 h-2.5 shrink-0" />
+                <span className="truncate">{rateInfo.label.replace(' remaining', '').replace(' expired', 'exp')}</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1 text-[11px] font-semibold truncate w-full">
+                <ModeIcon className="w-3 h-3 shrink-0" />
+                <span className="truncate">{rateInfo.label}</span>
+              </div>
+            )}
           </div>
         ) : (
           // No Quote Ghost Bar
@@ -360,7 +367,7 @@ export const LeadTrackerGanttRowBase: React.FC<LeadTrackerGanttRowProps> = ({
             onClick={() => onSelectLead(lead)}
             style={{ left: `${followupPercent}%` }}
             title={`Next Cadence: ${lead.next_followup_date || 'None'} • Action: ${lead.next_action || 'Follow up'} (${followupUrgency})`}
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-25 cursor-pointer group/pin"
+            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-15 cursor-pointer group/pin"
           >
             <div
               className={`flex items-center justify-center w-5 h-5 rounded-full shadow-xs ring-2 ring-white border transition-transform hover:scale-125 ${
@@ -389,7 +396,7 @@ export const LeadTrackerGanttRowBase: React.FC<LeadTrackerGanttRowProps> = ({
             onClick={() => onSelectLead(lead)}
             style={{ left: `${shipmentPercent}%` }}
             title={`Target Shipment Date: ${lead.target_shipment_date}`}
-            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 cursor-pointer"
+            className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-12 cursor-pointer"
           >
             <div className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-600 text-white shadow-xs ring-2 ring-white hover:scale-125 transition-transform">
               <Flag className="w-2.5 h-2.5" />
@@ -662,7 +669,7 @@ export const LeadTrackerGantt: React.FC<LeadTrackerGanttProps> = ({
   return (
     <div
       data-testid="lead-tracker-gantt"
-      className={`space-y-3 ${className}`}
+      className={`flex-1 min-h-0 flex flex-col overflow-hidden space-y-2.5 ${className}`}
     >
       {/* 1. Gantt Controls Bar (Horizon Selector + Grouping Selector + Summary KPIs) */}
       <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-2xs flex flex-wrap items-center justify-between gap-3">
@@ -800,12 +807,12 @@ export const LeadTrackerGantt: React.FC<LeadTrackerGanttProps> = ({
       </div>
 
       {/* 3. Gantt Timeline Viewport (Scrollable with Sticky Header and Left Column) */}
-      <div className="border border-slate-200 rounded-xl bg-white shadow-xs overflow-x-auto">
+      <div className="flex-1 min-h-0 border border-slate-200 rounded-xl bg-white shadow-xs overflow-auto">
         <div className="min-w-fit">
           {/* Header Row: Column Titles & Timeline Dates */}
-          <div className="flex border-b border-slate-200 bg-slate-50 sticky top-0 z-30">
+          <div className="flex border-b border-slate-200 bg-slate-50 sticky top-0 z-40">
             {/* Sticky Lead / Shipper Header */}
-            <div className="w-80 shrink-0 px-4 py-2 flex items-center justify-between font-semibold text-xs text-slate-700 uppercase tracking-wider sticky left-0 z-40 bg-slate-50 border-r border-slate-200">
+            <div className="w-80 shrink-0 px-4 py-2 flex items-center justify-between font-semibold text-xs text-slate-700 uppercase tracking-wider sticky left-0 top-0 z-50 bg-slate-50 border-r border-slate-200 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)]">
               <span className="flex items-center gap-1.5">
                 <Building2 className="w-3.5 h-3.5 text-slate-500" />
                 Lead / Shipper
@@ -849,7 +856,7 @@ export const LeadTrackerGantt: React.FC<LeadTrackerGanttProps> = ({
               {/* Prominent Sticky TODAY Pill Marker in Header */}
               <div
                 data-testid="gantt-today-marker"
-                className="absolute top-1 -translate-x-1/2 z-35 pointer-events-none"
+                className="absolute top-1 -translate-x-1/2 z-20 pointer-events-none"
                 style={{ left: `${todayMarkerPercent}%` }}
               >
                 <span
@@ -873,7 +880,7 @@ export const LeadTrackerGantt: React.FC<LeadTrackerGanttProps> = ({
                     {/* Coordinator Header Bar */}
                     <div
                       onClick={() => toggleGroupCollapse(group.coordinator)}
-                      className="flex items-center justify-between px-3.5 py-2 bg-slate-50/90 border-y border-slate-200 hover:bg-slate-100/80 cursor-pointer transition-colors sticky left-0 z-20"
+                      className="flex items-center justify-between px-3.5 py-2 bg-slate-100/95 border-y border-slate-200 hover:bg-slate-200/80 cursor-pointer transition-colors sticky left-0 z-25"
                     >
                       <div className="flex items-center gap-2">
                         <button

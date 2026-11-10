@@ -1211,6 +1211,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       {isTrackerCategory ? (
         <LeadStatusTrackerView
           currentUser={currentUser}
+          isMobileOpen={isMobileFilterOpen}
+          onCloseMobile={() => setIsMobileFilterOpen(false)}
           onLeadClick={(_lead) => {}}
         />
       ) : isDatamyneCategory ? (
