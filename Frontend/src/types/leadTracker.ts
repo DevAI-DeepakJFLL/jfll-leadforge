@@ -69,6 +69,16 @@ export const ALL_ROUTING_TYPES: RoutingType[] = [
 
 export type TrackerFollowupStatus = 'overdue' | 'due_today' | 'upcoming' | 'none';
 
+export type RateValidityStatus = 'valid' | 'expiring_soon' | 'expired' | 'none';
+
+export interface RateValidityInfo {
+  status: RateValidityStatus;
+  daysRemaining: number | null;
+  label: string;
+  badgeClass: string;
+  borderClass: string;
+}
+
 export interface LeadTrackerLogEntry {
   id: string;
   timestamp: string;
@@ -97,6 +107,10 @@ export interface LeadTrackerItem {
   feedback_notes: string | null;
   next_followup_date: string | null; // YYYY-MM-DD
   next_action: string | null;
+  quote_date?: string | null;
+  rate_validity_date?: string | null;
+  rate_validity_days?: number | null;
+  target_shipment_date?: string | null;
   linked_entity_type: LinkedEntityType;
   linked_entity_id: string | null;
   history: LeadTrackerLogEntry[];
@@ -138,6 +152,10 @@ export interface LeadTrackerCreatePayload {
   feedback_notes?: string | null;
   next_followup_date?: string | null;
   next_action?: string | null;
+  quote_date?: string | null;
+  rate_validity_date?: string | null;
+  rate_validity_days?: number | null;
+  target_shipment_date?: string | null;
   linked_entity_type?: LinkedEntityType;
   linked_entity_id?: string | null;
 }
@@ -158,6 +176,10 @@ export interface LeadTrackerUpdatePayload {
   feedback_notes?: string | null;
   next_followup_date?: string | null;
   next_action?: string | null;
+  quote_date?: string | null;
+  rate_validity_date?: string | null;
+  rate_validity_days?: number | null;
+  target_shipment_date?: string | null;
   linked_entity_type?: LinkedEntityType;
   linked_entity_id?: string | null;
 }

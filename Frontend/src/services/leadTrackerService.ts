@@ -16,10 +16,14 @@ import {
   LeadTrackerItem,
   LeadTrackerLogEntry,
   LeadTrackerUpdatePayload,
+  RateValidityInfo,
+  RateValidityStatus,
   TrackerActivityCreatePayload,
   TrackerFollowupStatus,
   TrackerKPIs,
 } from '@/types/leadTracker';
+
+export type { RateValidityInfo, RateValidityStatus };
 
 export const TRACKER_API_BASE_URL = `${API_BASE_URL}/api/v1/lead-tracker`;
 export const TRACKER_CACHE_STORAGE_KEY = 'jfll_lead_tracker_cache_v1';
@@ -64,6 +68,10 @@ export const DEFAULT_TRACKER_STARTER_LEADS: LeadTrackerItem[] = [
     feedback_notes: 'Met the person but they mainly do sea freight and the rates we are offering is not that competitive',
     next_followup_date: '2026-08-16',
     next_action: 'Ask if quotation shared with client; Next time I see him',
+    quote_date: '2026-08-01',
+    rate_validity_date: '2026-08-15',
+    rate_validity_days: 14,
+    target_shipment_date: '2026-08-25',
     linked_entity_type: 'custom',
     linked_entity_id: null,
     history: [
@@ -96,6 +104,10 @@ export const DEFAULT_TRACKER_STARTER_LEADS: LeadTrackerItem[] = [
     feedback_notes: 'Talked to Sunil Patil, they do purely courier and works with Fedex, need to include Rahul to talk to vendors',
     next_followup_date: '2026-09-18',
     next_action: 'Edward is personally gonna meet him and connect with him; flag this with dad',
+    quote_date: '2026-09-10',
+    rate_validity_date: '2026-09-24',
+    rate_validity_days: 14,
+    target_shipment_date: '2026-10-05',
     linked_entity_type: 'custom',
     linked_entity_id: null,
     history: [
@@ -160,6 +172,10 @@ export const DEFAULT_TRACKER_STARTER_LEADS: LeadTrackerItem[] = [
     feedback_notes: 'Got in touch with a person, will follow up with him in a few days',
     next_followup_date: '2026-09-09',
     next_action: 'Bhabika - everytime she calls shes busy, meeting her',
+    quote_date: '2026-09-01',
+    rate_validity_date: '2026-09-15',
+    rate_validity_days: 14,
+    target_shipment_date: '2026-09-22',
     linked_entity_type: 'custom',
     linked_entity_id: null,
     history: [
@@ -224,6 +240,10 @@ export const DEFAULT_TRACKER_STARTER_LEADS: LeadTrackerItem[] = [
     feedback_notes: 'Existing client, could not match rates. She wants to step back, be prepared and go again. Need higher rates and credit. Work on volume rather than GP.',
     next_followup_date: '2026-09-18',
     next_action: 'Have meeting with pricing person; work on volume rather than GP',
+    quote_date: '2026-09-12',
+    rate_validity_date: '2026-09-19',
+    rate_validity_days: 7,
+    target_shipment_date: '2026-09-28',
     linked_entity_type: 'custom',
     linked_entity_id: null,
     history: [
@@ -658,6 +678,89 @@ export function getFollowupStatus(
   return 'upcoming';
 }
 
+export const NO_QUOTE_INFO: RateValidityInfo = Object.freeze({
+  status: 'none',
+  daysRemaining: null,
+  label: 'No Quote',
+  badgeClass: 'bg-slate-50 text-slate-600 border-slate-200',
+  borderClass: 'border-slate-200',
+});
+
+/**
+ * Evaluates the freight quote rate validity horizon using pure UTC date arithmetic.
+ * Ensures O(1) constant time evaluation and eliminates timezone drift across client environments.
+ *
+ * Rules:
+ * - Returns 'none' with 'No Quote' label and slate styling if rate_validity_date is missing or invalid.
+ * - If delta < 0: status is 'expired', label is `Expired (${Math.abs(delta)}d ago)`, rose styling.
+ * - If delta === 0: status is 'expiring_soon', label is 'Expires Today', amber styling.
+ * - If delta is 1 or 2: status is 'expiring_soon', label is `${delta}d left`, amber styling.
+ * - If delta > 2: status is 'valid', label is `${delta}d valid`, emerald styling.
+ */
+export function getRateValidityInfo(
+  lead?: Partial<LeadTrackerItem> | null,
+  referenceDateStr?: string
+): RateValidityInfo {
+  const dateStr = lead?.rate_validity_date?.trim();
+  if (!dateStr) {
+    return NO_QUOTE_INFO;
+  }
+
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) {
+    return NO_QUOTE_INFO;
+  }
+
+  const [vy, vm, vd] = parts.map(Number);
+  if (Number.isNaN(vy) || Number.isNaN(vm) || Number.isNaN(vd)) {
+    return NO_QUOTE_INFO;
+  }
+
+  const refStr = referenceDateStr?.trim() || new Date().toISOString().slice(0, 10);
+  const refParts = refStr.split('-');
+  if (refParts.length !== 3) {
+    return NO_QUOTE_INFO;
+  }
+
+  const [ry, rm, rd] = refParts.map(Number);
+  if (Number.isNaN(ry) || Number.isNaN(rm) || Number.isNaN(rd)) {
+    return NO_QUOTE_INFO;
+  }
+
+  const targetUtc = Date.UTC(vy, vm - 1, vd);
+  const refUtc = Date.UTC(ry, rm - 1, rd);
+  const diffMs = targetUtc - refUtc;
+  const delta = Math.round(diffMs / 86400000);
+
+  if (delta < 0) {
+    return {
+      status: 'expired',
+      daysRemaining: delta,
+      label: `Expired (${Math.abs(delta)}d ago)`,
+      badgeClass: 'bg-rose-50 text-rose-700 border-rose-200',
+      borderClass: 'border-rose-300',
+    };
+  }
+
+  if (delta <= 2) {
+    return {
+      status: 'expiring_soon',
+      daysRemaining: delta,
+      label: delta === 0 ? 'Expires Today' : `${delta}d left`,
+      badgeClass: 'bg-amber-50 text-amber-700 border-amber-200',
+      borderClass: 'border-amber-300',
+    };
+  }
+
+  return {
+    status: 'valid',
+    daysRemaining: delta,
+    label: `${delta}d valid`,
+    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    borderClass: 'border-emerald-300',
+  };
+}
+
 /**
  * High-performance single-pass in-memory filter and sort.
  * Executes in O(N log N) time without multi-pass array allocations.
@@ -956,6 +1059,10 @@ export async function createTrackedLead(
     feedback_notes: payload.feedback_notes ?? null,
     next_followup_date: payload.next_followup_date ?? null,
     next_action: payload.next_action ?? null,
+    quote_date: payload.quote_date ?? null,
+    rate_validity_date: payload.rate_validity_date ?? null,
+    rate_validity_days: payload.rate_validity_days ?? null,
+    target_shipment_date: payload.target_shipment_date ?? null,
     linked_entity_type: payload.linked_entity_type || 'custom',
     linked_entity_id: payload.linked_entity_id ?? null,
     history: initialHistory,

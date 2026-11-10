@@ -11,6 +11,7 @@ import {
   getAllTrackerCachedItems,
   getAuthHeaders,
   getFollowupStatus,
+  getRateValidityInfo,
   getTrackerCachedItem,
   logTrackerActivity,
   resetTrackerLocalCache,
@@ -62,6 +63,164 @@ describe('Lead Tracker Service Suite', () => {
       expect(getFollowupStatus('2026-09-16', 'Assigned', fixedToday)).toBe('upcoming');
       expect(getFollowupStatus('2026-09-24', 'Contacted', fixedToday)).toBe('upcoming');
       expect(getFollowupStatus('2026-12-31', 'Trial Shipment', fixedToday)).toBe('upcoming');
+    });
+  });
+
+  describe('getRateValidityInfo (Freight Horizon Validity Calculation)', () => {
+    const refDate = '2026-09-15';
+
+    describe('none status when rate_validity_date is missing / empty', () => {
+      it('returns "none" with "No Quote" label for empty lead or undefined/null/empty date', () => {
+        expect(getRateValidityInfo({}, refDate)).toEqual({
+          status: 'none',
+          daysRemaining: null,
+          label: 'No Quote',
+          badgeClass: 'bg-slate-50 text-slate-600 border-slate-200',
+          borderClass: 'border-slate-200',
+        });
+        expect(getRateValidityInfo(null, refDate)).toEqual({
+          status: 'none',
+          daysRemaining: null,
+          label: 'No Quote',
+          badgeClass: 'bg-slate-50 text-slate-600 border-slate-200',
+          borderClass: 'border-slate-200',
+        });
+        expect(getRateValidityInfo({ rate_validity_date: null }, refDate)).toEqual({
+          status: 'none',
+          daysRemaining: null,
+          label: 'No Quote',
+          badgeClass: 'bg-slate-50 text-slate-600 border-slate-200',
+          borderClass: 'border-slate-200',
+        });
+        expect(getRateValidityInfo({ rate_validity_date: '' }, refDate).status).toBe('none');
+        expect(getRateValidityInfo({ rate_validity_date: '   ' }, refDate).status).toBe('none');
+        expect(getRateValidityInfo({ rate_validity_date: 'invalid-date' }, refDate).status).toBe('none');
+      });
+    });
+
+    describe('expired status when rate_validity_date is in the past', () => {
+      it('returns "expired" with elapsed days and rose styling for dates before reference date', () => {
+        const info1 = getRateValidityInfo({ rate_validity_date: '2026-09-14' }, refDate);
+        expect(info1.status).toBe('expired');
+        expect(info1.daysRemaining).toBe(-1);
+        expect(info1.label).toBe('Expired (1d ago)');
+        expect(info1.badgeClass).toContain('rose');
+        expect(info1.borderClass).toContain('rose');
+
+        const info15 = getRateValidityInfo({ rate_validity_date: '2026-08-31' }, refDate);
+        expect(info15.status).toBe('expired');
+        expect(info15.daysRemaining).toBe(-15);
+        expect(info15.label).toBe('Expired (15d ago)');
+
+        // Test on starter lead Royal Arc
+        const royalArc = DEFAULT_TRACKER_STARTER_LEADS.find((l) => l.company_name === 'Royal Arc')!;
+        const royalArcInfo = getRateValidityInfo(royalArc, refDate);
+        expect(royalArcInfo.status).toBe('expired');
+        expect(royalArcInfo.daysRemaining).toBe(-31);
+        expect(royalArcInfo.label).toBe('Expired (31d ago)');
+      });
+    });
+
+    describe('expiring_soon status when 0, 1, or 2 days left', () => {
+      it('returns "Expires Today" when date exactly equals reference date (0 days left)', () => {
+        const info = getRateValidityInfo({ rate_validity_date: '2026-09-15' }, refDate);
+        expect(info.status).toBe('expiring_soon');
+        expect(info.daysRemaining).toBe(0);
+        expect(info.label).toBe('Expires Today');
+        expect(info.badgeClass).toContain('amber');
+        expect(info.borderClass).toContain('amber');
+      });
+
+      it('returns "1d left" when date is tomorrow (1 day left)', () => {
+        const info = getRateValidityInfo({ rate_validity_date: '2026-09-16' }, refDate);
+        expect(info.status).toBe('expiring_soon');
+        expect(info.daysRemaining).toBe(1);
+        expect(info.label).toBe('1d left');
+        expect(info.badgeClass).toContain('amber');
+      });
+
+      it('returns "2d left" when date is in 2 days', () => {
+        const info = getRateValidityInfo({ rate_validity_date: '2026-09-17' }, refDate);
+        expect(info.status).toBe('expiring_soon');
+        expect(info.daysRemaining).toBe(2);
+        expect(info.label).toBe('2d left');
+        expect(info.badgeClass).toContain('amber');
+      });
+    });
+
+    describe('valid status when > 2 days left', () => {
+      it('returns "valid" with emerald styling when 3 or more days left', () => {
+        const info3 = getRateValidityInfo({ rate_validity_date: '2026-09-18' }, refDate);
+        expect(info3.status).toBe('valid');
+        expect(info3.daysRemaining).toBe(3);
+        expect(info3.label).toBe('3d valid');
+        expect(info3.badgeClass).toContain('emerald');
+        expect(info3.borderClass).toContain('emerald');
+
+        const info9 = getRateValidityInfo({ rate_validity_date: '2026-09-24' }, refDate);
+        expect(info9.status).toBe('valid');
+        expect(info9.daysRemaining).toBe(9);
+        expect(info9.label).toBe('9d valid');
+
+        // Test on starter lead CLEARSYNTH LABS
+        const clearsynth = DEFAULT_TRACKER_STARTER_LEADS.find((l) => l.company_name === 'CLEARSYNTH LABS LIMITED')!;
+        const clearsynthInfo = getRateValidityInfo(clearsynth, refDate);
+        expect(clearsynthInfo.status).toBe('valid');
+        expect(clearsynthInfo.daysRemaining).toBe(9);
+        expect(clearsynthInfo.label).toBe('9d valid');
+      });
+    });
+
+    describe('edge cases (exact today, month boundary, leap year)', () => {
+      it('handles default reference date when referenceDateStr is omitted', () => {
+        const todayUtc = new Date().toISOString().slice(0, 10);
+        const infoToday = getRateValidityInfo({ rate_validity_date: todayUtc });
+        expect(infoToday.status).toBe('expiring_soon');
+        expect(infoToday.daysRemaining).toBe(0);
+        expect(infoToday.label).toBe('Expires Today');
+      });
+
+      it('handles month boundaries in standard years', () => {
+        // August 31 to September 1
+        const infoAugToSep = getRateValidityInfo({ rate_validity_date: '2026-09-01' }, '2026-08-31');
+        expect(infoAugToSep.daysRemaining).toBe(1);
+        expect(infoAugToSep.label).toBe('1d left');
+        expect(infoAugToSep.status).toBe('expiring_soon');
+
+        // September 30 to October 1
+        const infoSepToOct = getRateValidityInfo({ rate_validity_date: '2026-10-01' }, '2026-09-30');
+        expect(infoSepToOct.daysRemaining).toBe(1);
+        expect(infoSepToOct.label).toBe('1d left');
+
+        // Year boundary: Dec 31 to Jan 1
+        const infoYearBoundary = getRateValidityInfo({ rate_validity_date: '2027-01-01' }, '2026-12-31');
+        expect(infoYearBoundary.daysRemaining).toBe(1);
+        expect(infoYearBoundary.label).toBe('1d left');
+      });
+
+      it('handles February leap year vs non-leap year transitions', () => {
+        // Non-leap year 2026: Feb 28 to March 1 is 1 day
+        const nonLeap = getRateValidityInfo({ rate_validity_date: '2026-03-01' }, '2026-02-28');
+        expect(nonLeap.daysRemaining).toBe(1);
+        expect(nonLeap.label).toBe('1d left');
+
+        // Leap year 2028: Feb 28 to March 1 is 2 days (Feb 29 exists)
+        const leap28 = getRateValidityInfo({ rate_validity_date: '2028-03-01' }, '2028-02-28');
+        expect(leap28.daysRemaining).toBe(2);
+        expect(leap28.label).toBe('2d left');
+        expect(leap28.status).toBe('expiring_soon');
+
+        // Leap year 2028: Feb 29 to March 1 is 1 day
+        const leap29 = getRateValidityInfo({ rate_validity_date: '2028-03-01' }, '2028-02-29');
+        expect(leap29.daysRemaining).toBe(1);
+        expect(leap29.label).toBe('1d left');
+
+        // Leap year 2028: March 1 looking back at Feb 29 (expired 1 day ago)
+        const leapBack = getRateValidityInfo({ rate_validity_date: '2028-02-29' }, '2028-03-01');
+        expect(leapBack.daysRemaining).toBe(-1);
+        expect(leapBack.label).toBe('Expired (1d ago)');
+        expect(leapBack.status).toBe('expired');
+      });
     });
   });
 
