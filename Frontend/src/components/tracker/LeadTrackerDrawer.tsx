@@ -35,6 +35,7 @@ import {
   createTrackedLead,
   deleteTrackedLead,
   getFollowupStatus,
+  getRateValidityInfo,
 } from '@/services/leadTrackerService';
 import { getStatusStyle } from './LeadTrackerTable';
 
@@ -127,18 +128,28 @@ export const LeadTrackerDrawer: React.FC<LeadTrackerDrawerProps> = ({
   className = '',
 }) => {
   // Form state
-  const [companyName, setCompanyName] = useState('');
-  const [assignedTo, setAssignedTo] = useState('Edward');
-  const [branch, setBranch] = useState('Mumbai');
-  const [status, setStatus] = useState<TrackerStatus>('Assigned');
-  const [transportMode, setTransportMode] = useState<TransportMode>('Air Freight');
-  const [routingType, setRoutingType] = useState<RoutingType>('Freehand');
-  const [contactPerson, setContactPerson] = useState('');
-  const [contactPhone, setContactPhone] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [nextFollowupDate, setNextFollowupDate] = useState('');
-  const [nextAction, setNextAction] = useState('');
-  const [feedbackNotes, setFeedbackNotes] = useState('');
+  const isEdit = mode === 'edit' && !!lead;
+  const [companyName, setCompanyName] = useState(isEdit ? lead.company_name || '' : '');
+  const [assignedTo, setAssignedTo] = useState(isEdit ? lead.assigned_to || 'Edward' : 'Edward');
+  const [branch, setBranch] = useState(isEdit ? lead.branch || 'Mumbai' : 'Mumbai');
+  const [status, setStatus] = useState<TrackerStatus>(isEdit ? lead.status || 'Assigned' : 'Assigned');
+  const [transportMode, setTransportMode] = useState<TransportMode>(
+    isEdit ? lead.transport_mode || 'Air Freight' : 'Air Freight'
+  );
+  const [routingType, setRoutingType] = useState<RoutingType>(
+    isEdit ? lead.routing_type || 'Freehand' : 'Freehand'
+  );
+  const [contactPerson, setContactPerson] = useState(isEdit ? lead.contact_person || '' : '');
+  const [contactPhone, setContactPhone] = useState(isEdit ? lead.contact_phone || '' : '');
+  const [contactEmail, setContactEmail] = useState(isEdit ? lead.contact_email || '' : '');
+  const [quoteDate, setQuoteDate] = useState(isEdit ? lead.quote_date || '' : '');
+  const [rateValidityDate, setRateValidityDate] = useState(isEdit ? lead.rate_validity_date || '' : '');
+  const [targetShipmentDate, setTargetShipmentDate] = useState(
+    isEdit ? lead.target_shipment_date || '' : ''
+  );
+  const [nextFollowupDate, setNextFollowupDate] = useState(isEdit ? lead.next_followup_date || '' : '');
+  const [nextAction, setNextAction] = useState(isEdit ? lead.next_action || '' : '');
+  const [feedbackNotes, setFeedbackNotes] = useState(isEdit ? lead.feedback_notes || '' : '');
 
   // Quick touchpoint logger state
   const [touchAction, setTouchAction] = useState('Called customer');
@@ -163,6 +174,9 @@ export const LeadTrackerDrawer: React.FC<LeadTrackerDrawerProps> = ({
       setContactPerson(lead.contact_person || '');
       setContactPhone(lead.contact_phone || '');
       setContactEmail(lead.contact_email || '');
+      setQuoteDate(lead.quote_date || '');
+      setRateValidityDate(lead.rate_validity_date || '');
+      setTargetShipmentDate(lead.target_shipment_date || '');
       setNextFollowupDate(lead.next_followup_date || '');
       setNextAction(lead.next_action || '');
       setFeedbackNotes(lead.feedback_notes || '');
@@ -176,6 +190,9 @@ export const LeadTrackerDrawer: React.FC<LeadTrackerDrawerProps> = ({
       setContactPerson('');
       setContactPhone('');
       setContactEmail('');
+      setQuoteDate('');
+      setRateValidityDate('');
+      setTargetShipmentDate('');
       setNextFollowupDate('');
       setNextAction('');
       setFeedbackNotes('');
@@ -248,6 +265,9 @@ export const LeadTrackerDrawer: React.FC<LeadTrackerDrawerProps> = ({
           contact_person: contactPerson.trim() || null,
           contact_phone: contactPhone.trim() || null,
           contact_email: contactEmail.trim() || null,
+          quote_date: quoteDate || null,
+          rate_validity_date: rateValidityDate || null,
+          target_shipment_date: targetShipmentDate || null,
           next_followup_date: nextFollowupDate || null,
           next_action: nextAction.trim() || null,
           feedback_notes: feedbackNotes.trim() || null,
@@ -267,6 +287,9 @@ export const LeadTrackerDrawer: React.FC<LeadTrackerDrawerProps> = ({
           contact_person: contactPerson.trim() || null,
           contact_phone: contactPhone.trim() || null,
           contact_email: contactEmail.trim() || null,
+          quote_date: quoteDate || null,
+          rate_validity_date: rateValidityDate || null,
+          target_shipment_date: targetShipmentDate || null,
           next_followup_date: nextFollowupDate || null,
           next_action: nextAction.trim() || null,
           feedback_notes: feedbackNotes.trim() || null,
@@ -335,6 +358,7 @@ export const LeadTrackerDrawer: React.FC<LeadTrackerDrawerProps> = ({
   const historyEntries = lead?.history ? [...lead.history].reverse() : [];
   const statusConfig = getStatusStyle(status);
   const followupUrgency = getFollowupStatus(nextFollowupDate, status);
+  const rateValidityInfo = rateValidityDate ? getRateValidityInfo({ rate_validity_date: rateValidityDate }) : null;
 
   return (
     <div
@@ -524,6 +548,62 @@ export const LeadTrackerDrawer: React.FC<LeadTrackerDrawerProps> = ({
                   {routingType === 'Nominated' && '• Nominated: Overseas consignee dictates forwarder. Need overseas agency coordination.'}
                   {routingType === 'Not Specified' && '• Not Specified: Determine during initial discovery call.'}
                 </p>
+              </div>
+
+              {/* Rate & Quotation Horizon Panel */}
+              <div className="p-3 bg-slate-50/80 rounded-lg border border-slate-200 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
+                    <DollarSign className="w-3.5 h-3.5 text-blue-600" />
+                    Rate &amp; Quotation Horizon
+                  </span>
+                  {rateValidityInfo && rateValidityInfo.status !== 'none' && (
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${rateValidityInfo.badgeClass}`}>
+                      {rateValidityInfo.label}
+                    </span>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div>
+                    <label htmlFor="drawer-quote-date" className="block text-[11px] font-medium text-slate-600 mb-0.5">
+                      Quote Date
+                    </label>
+                    <input
+                      id="drawer-quote-date"
+                      type="date"
+                      value={quoteDate}
+                      onChange={(e) => setQuoteDate(e.target.value)}
+                      className="w-full text-xs px-2.5 py-1.5 bg-white border border-slate-300 rounded focus:border-blue-500 outline-hidden"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="drawer-rate-validity" className="block text-[11px] font-medium text-slate-600 mb-0.5">
+                      Rate Validity Expiry
+                    </label>
+                    <input
+                      id="drawer-rate-validity"
+                      type="date"
+                      value={rateValidityDate}
+                      onChange={(e) => setRateValidityDate(e.target.value)}
+                      className="w-full text-xs px-2.5 py-1.5 bg-white border border-slate-300 rounded focus:border-blue-500 outline-hidden"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="drawer-target-shipment" className="block text-[11px] font-medium text-slate-600 mb-0.5">
+                      Target Shipment Date
+                    </label>
+                    <input
+                      id="drawer-target-shipment"
+                      type="date"
+                      value={targetShipmentDate}
+                      onChange={(e) => setTargetShipmentDate(e.target.value)}
+                      className="w-full text-xs px-2.5 py-1.5 bg-white border border-slate-300 rounded focus:border-blue-500 outline-hidden"
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Contact Information (Name, Phone, Email) */}

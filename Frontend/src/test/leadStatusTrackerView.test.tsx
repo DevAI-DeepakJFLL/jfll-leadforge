@@ -275,6 +275,32 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
       expect(html).toContain('Save Details');
     });
 
+    it('renders Rate & Quotation Horizon panel with quote date, rate validity, and target shipment inputs', () => {
+      const mockLeadWithHorizon: LeadTrackerItem = {
+        ...mockLead,
+        quote_date: '2026-09-01',
+        rate_validity_date: '2026-09-25',
+        target_shipment_date: '2026-10-10',
+      };
+
+      const html = renderToString(
+        <LeadTrackerDrawer
+          isOpen={true}
+          lead={mockLeadWithHorizon}
+          mode="edit"
+          onClose={vi.fn()}
+        />
+      );
+
+      expect(html).toContain('Rate &amp; Quotation Horizon');
+      expect(html).toContain('id="drawer-quote-date"');
+      expect(html).toContain('value="2026-09-01"');
+      expect(html).toContain('id="drawer-rate-validity"');
+      expect(html).toContain('value="2026-09-25"');
+      expect(html).toContain('id="drawer-target-shipment"');
+      expect(html).toContain('value="2026-10-10"');
+    });
+
     it('renders Quick Touchpoint Logger with actions, textarea, and submit button', () => {
       const html = renderToString(
         <LeadTrackerDrawer

@@ -11,6 +11,8 @@ import {
   X,
   TrendingUp,
   Clock,
+  Table,
+  CalendarRange,
 } from 'lucide-react';
 import {
   ALL_TRACKER_STATUSES,
@@ -27,6 +29,7 @@ import {
   TRACKER_UPDATED_EVENT,
 } from '@/services/leadTrackerService';
 import { LeadTrackerTable } from './LeadTrackerTable';
+import { LeadTrackerGantt } from './LeadTrackerGantt';
 import { LeadTrackerDrawer, STANDARD_BRANCHES, STANDARD_SALES_REPS } from './LeadTrackerDrawer';
 
 export interface LeadStatusTrackerViewProps {
@@ -68,6 +71,9 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
   // Sorting state
   const [sortBy, setSortBy] = useState<string>('updated_at');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+
+  // View mode switcher: table vs gantt
+  const [viewMode, setViewMode] = useState<'table' | 'gantt'>('table');
 
   // Drawer state
   const [selectedLead, setSelectedLead] = useState<LeadTrackerItem | null>(null);
@@ -529,9 +535,9 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
         </div>
       </div>
 
-      {/* 4. Table Header Count & Content */}
+      {/* 4. Table / Gantt View Switcher & Content */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between text-xs text-slate-500 px-1">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 px-1">
           <div>
             Showing <span className="font-semibold text-slate-800">{leads.length}</span> tracked leads
             {selectedBranch !== 'All' && ` in ${selectedBranch}`}
@@ -540,30 +546,80 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
             {isOverdueOnly && ` · Overdue only`}
           </div>
 
-          <div className="text-[11px] text-slate-400 hidden sm:block">
-            Click any row to open touchpoint drawer &amp; timeline
+          <div className="flex items-center gap-3">
+            <div className="text-[11px] text-slate-400 hidden sm:block">
+              {viewMode === 'table' ? 'Click row to open drawer' : 'Click bar or pin to open drawer'}
+            </div>
+
+            {/* Segmented View Toggle: Table View vs Freight Horizon */}
+            <div className="inline-flex rounded-lg border border-slate-200 bg-slate-100 p-0.5">
+              <button
+                type="button"
+                data-testid="view-toggle-table"
+                onClick={() => setViewMode('table')}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                  viewMode === 'table'
+                    ? 'bg-white text-blue-700 shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Table className="w-3.5 h-3.5" />
+                <span>Table View</span>
+              </button>
+              <button
+                type="button"
+                data-testid="view-toggle-gantt"
+                onClick={() => setViewMode('gantt')}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                  viewMode === 'gantt'
+                    ? 'bg-white text-blue-700 shadow-2xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <CalendarRange className="w-3.5 h-3.5" />
+                <span>Freight Horizon</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        <LeadTrackerTable
-          leads={leads}
-          isLoading={isLoading}
-          onSelectLead={handleSelectLead}
-          onStatusChange={handleInlineStatusChange}
-          sortBy={sortBy}
-          sortOrder={sortOrder}
-          onSortChange={handleSortChange}
-          todayStr={todayStr}
-          emptyStateAction={
-            <button
-              type="button"
-              onClick={handleResetFilters}
-              className="text-xs px-3 py-1.5 bg-blue-50 text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition-colors"
-            >
-              Reset Filters
-            </button>
-          }
-        />
+        {viewMode === 'table' ? (
+          <LeadTrackerTable
+            leads={leads}
+            isLoading={isLoading}
+            onSelectLead={handleSelectLead}
+            onStatusChange={handleInlineStatusChange}
+            sortBy={sortBy}
+            sortOrder={sortOrder}
+            onSortChange={handleSortChange}
+            todayStr={todayStr}
+            emptyStateAction={
+              <button
+                type="button"
+                onClick={handleResetFilters}
+                className="text-xs px-3 py-1.5 bg-blue-50 text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition-colors"
+              >
+                Reset Filters
+              </button>
+            }
+          />
+        ) : (
+          <LeadTrackerGantt
+            leads={leads}
+            isLoading={isLoading}
+            onSelectLead={handleSelectLead}
+            todayStr={todayStr}
+            emptyStateAction={
+              <button
+                type="button"
+                onClick={handleResetFilters}
+                className="text-xs px-3 py-1.5 bg-blue-50 text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition-colors"
+              >
+                Reset Filters
+              </button>
+            }
+          />
+        )}
       </div>
 
       {/* 5. Slide-Over Detail / Touchpoint Drawer */}
