@@ -317,7 +317,7 @@ export function renderBotBlockScreen(reason?: string, fingerprint?: string): voi
   const desc = document.createElement('p');
   desc.setAttribute('style', 'font-size:14px;color:#9ca3af;line-height:1.6;margin:0 0 20px;');
   desc.textContent =
-    'This device has been restricted by Jet Freight Security. Only an Administrator can remove restrictions from any user or machine.';
+    'This device has been restricted by Jet Freight Security.';
   card.appendChild(desc);
 
   if (reason) {
@@ -384,7 +384,7 @@ export function renderBotBlockScreen(reason?: string, fingerprint?: string): voi
 
   const adminHelp = document.createElement('div');
   adminHelp.textContent =
-    'To request unblocking, please share your Device Reference ID with an administrator (deepak@jfll.com). Only an administrator can unblock your device.';
+    'To request access, please share your Device Reference ID with an administrator (deepak@jfll.com).';
   footer.appendChild(adminHelp);
 
   const verifyBtn = document.createElement('button');

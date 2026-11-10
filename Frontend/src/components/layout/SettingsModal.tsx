@@ -109,19 +109,19 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </div>
           </div>
 
-          {/* API & Mock Engine Status */}
+          {/* API & Engine Status */}
           <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-1.5">
             <div className="flex items-center justify-between">
               <span className="font-semibold text-slate-900 flex items-center gap-1.5">
                 <Database className="w-3.5 h-3.5 text-apollo" />
-                <span>Synthetic Mock Data Engine</span>
+                <span>Data Engine</span>
               </span>
               <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
                 Active
               </span>
             </div>
             <p className="text-slate-500 text-[11px]">
-              Running 350+ deterministic leads with client-side MSW interception. No real personal records are stored.
+              FastAPI & DuckDB Parquet engine with real-time analytics and customs records.
             </p>
           </div>
         </div>

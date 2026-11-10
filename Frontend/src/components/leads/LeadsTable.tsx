@@ -383,25 +383,9 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
           <h3 className="text-base font-semibold text-slate-900 tracking-tight">
             No decision-makers indexed for &ldquo;{activeCompany}&rdquo;
           </h3>
-          <p className="text-xs text-slate-600 mt-1.5 mb-4 leading-relaxed max-w-md mx-auto">
-            This shipper was identified from Indian customs bills of entry, but the Apollo executive index does not currently have verified decision-makers mapped under this exact legal entity name.
+          <p className="text-xs text-slate-600 mt-1.5 mb-5 leading-relaxed max-w-md mx-auto">
+            No verified decision-makers found for this entity name. Try searching for the parent company name in the Companies directory.
           </p>
-
-          {/* Contextual guidance / pro-tips box */}
-          <div className="bg-slate-50/90 border border-slate-200/80 rounded-lg p-3.5 text-left text-xs text-slate-600 mb-5 space-y-1.5">
-            <div className="flex items-start gap-2">
-              <span className="text-blue-500 font-semibold select-none">💡</span>
-              <span>
-                <strong>Subsidiary vs Parent:</strong> Port shipping manifests often register regional branch names (e.g. factory units or clearing divisions) rather than parent corporate holdings.
-              </span>
-            </div>
-            <div className="flex items-start gap-2">
-              <span className="text-blue-500 font-semibold select-none">🔍</span>
-              <span>
-                Try searching for the main corporate holding group or parent brand in the Companies Directory.
-              </span>
-            </div>
-          </div>
 
           {/* Action buttons */}
           <div className="flex flex-wrap items-center justify-center gap-2.5">
@@ -466,7 +450,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
         </div>
         <h3 className="text-sm font-semibold text-slate-900">No leads match your selected filters</h3>
         <p className="text-xs text-slate-500 mt-1 mb-5 leading-relaxed">
-          Try broadening your criteria, removing location or department filters, or resetting filters to explore the 684k verified contacts.
+          Try broadening your search or resetting filters.
         </p>
         {onClearFilters && (
           <button

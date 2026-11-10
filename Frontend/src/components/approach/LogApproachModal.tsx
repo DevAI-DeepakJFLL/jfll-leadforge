@@ -103,7 +103,7 @@ export const LogApproachModal: React.FC<LogApproachModalProps> = ({
 
       if (result.is_offline_pending) {
         showToast(
-          `Logged approach: ${action} (${selectedStatus}) — [Saved offline, queued to sync with server]`,
+          `Logged approach: ${action} (${selectedStatus}) (Saved offline, will sync when online)`,
           'warning'
         );
       } else {
@@ -267,7 +267,7 @@ export const LogApproachModal: React.FC<LogApproachModalProps> = ({
               onChange={(e) => setNote(e.target.value)}
               placeholder={
                 isNoteRequired
-                  ? 'Please explain the reason for this status change...'
+                  ? 'Reason for status change...'
                   : 'Enter conversation summary, quotes discussed, or next steps...'
               }
               className={`w-full px-3.5 py-2.5 bg-white border rounded-xl text-xs text-slate-800 placeholder:text-slate-400 shadow-xs focus:outline-none focus:ring-2 transition-all resize-none ${

@@ -116,6 +116,6 @@ describe('Tier Components Suite', () => {
     expect(html).toContain('1. Shipment Frequency (12 Months)');
     expect(html).toContain('37,548 shipments recorded');
     expect(html).toContain('Recommended Sales Playbook:');
-    expect(html).toContain('Conduct immediate discovery verification call within 24 hours');
+    expect(html).toContain('Priority outreach within 24 hours');
   });
 });

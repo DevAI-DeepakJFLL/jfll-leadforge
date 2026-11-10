@@ -356,7 +356,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 Client Report Generator
               </h1>
               <p className="text-xs text-slate-600">
-                1-Click executive prospect briefings combining customs shipment history, regulatory research & JFLL fit.
+                Executive prospect briefings with shipment history and account intelligence.
               </p>
             </div>
           </div>
@@ -367,7 +367,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
               onClick={handleEnrichWeb}
               disabled={isEnrichingWeb || isLoading}
               className="inline-flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 text-blue-800 border border-blue-300 rounded-lg text-xs font-semibold shadow-2xs transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              title="Enrich company background and contacts using Gemini 3.8 Flash Google Search grounding"
+              title="Enrich company background and contacts with web search"
             >
               {isEnrichingWeb ? (
                 <RefreshCw className="w-4 h-4 text-blue-600 animate-spin" />

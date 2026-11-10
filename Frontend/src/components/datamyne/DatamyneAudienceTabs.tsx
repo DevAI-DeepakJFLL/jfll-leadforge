@@ -187,7 +187,7 @@ export const DatamyneAudienceTabs: React.FC<DatamyneAudienceTabsProps> = ({
         'Standard ocean FCL/LCL container shipping',
         'Price-sensitive cargo with consistent regular sailings',
       ],
-      actionTip: 'Compete on ocean freight freight forwarding rates, free time at destination, and multi-carrier booking options.',
+      actionTip: 'Compete on ocean freight forwarding rates, free time at destination, and multi-carrier booking options.',
       badge: { text: 'Dry Freight', variant: 'slate' },
     },
   ];

@@ -43,16 +43,16 @@ export const TierScoreBreakdownModal: React.FC<TierScoreBreakdownModalProps> = (
   const getSalesActionText = () => {
     switch (lead.segment_status) {
       case 'Tier A':
-        return 'Conduct immediate discovery verification call within 24 hours. If verified as Hot/Warm, prepare custom freight intelligence client report within 48 hours.';
+        return 'Priority outreach within 24 hours. Prepare freight intelligence briefing if qualified.';
       case 'Tier B':
-        return 'Enroll prospect into automated 4-stage value email sequence. If prospect clicks or replies, immediately trigger Inside Sales phone outreach.';
+        return 'Follow up via email sequence and inside sales outreach.';
       case 'Parked':
-        return 'Account on hold. No active outreach bandwidth expended until market or commodity export season review.';
+        return 'On hold. Re-evaluate during seasonal commodity reviews.';
       case 'Excluded':
-        return 'Strictly suppressed from cold outreach. Matched with active customer or competitor database; assigned to account management.';
+        return 'Excluded from cold outreach. Active customer or competitor match.';
       case 'Unscored':
       default:
-        return 'Data remediation required. Assigned to research analyst for domain, lane, and HS code enrichment.';
+        return 'Requires data enrichment before outreach.';
     }
   };
 

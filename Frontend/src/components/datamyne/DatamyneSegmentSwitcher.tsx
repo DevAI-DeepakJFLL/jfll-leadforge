@@ -58,11 +58,11 @@ export const DatamyneSegmentSwitcher: React.FC<DatamyneSegmentSwitcherProps> = (
       description: 'Unified customs trade database of 37,273 active exporters and importers, containing both contact-ready and enrichment accounts.',
       criteria: [
         'Complete directory of Indian air and ocean shippers',
-        '100% sanitized of active JFLL customer accounts',
+        'Excludes active JFLL customer accounts',
         'Includes full historical customs volume & shipment stats',
       ],
       actionTip: 'Use for broad market intelligence and discovering all shippers in specific trade lanes or HS codes.',
-      badge: { text: 'Complete Universe', variant: 'blue' as const },
+      badge: { text: 'All Shippers', variant: 'blue' as const },
     },
   ];
 

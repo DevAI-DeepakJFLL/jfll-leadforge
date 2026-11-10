@@ -294,7 +294,7 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('Customs Entity Cataloged • 0 Indexed Contacts');
       expect(html).toContain('Clear Company Filter');
       expect(html).toContain('Search in Companies Directory');
-      expect(html).toContain('Subsidiary vs Parent:');
+      expect(html).toContain('No verified decision-makers found for this entity name.');
     });
 
     it('renders LeadsTable standard empty state when activeCompany is not provided and leads are empty', () => {

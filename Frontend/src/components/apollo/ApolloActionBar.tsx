@@ -30,7 +30,7 @@ export const ApolloActionBar: React.FC<ApolloActionBarProps> = ({
   isExporting = false,
   searchQuery = '',
   onSearchChange,
-  searchPlaceholder = 'Search 686.7k corporate shipper accounts by company, domain, keywords...',
+  searchPlaceholder = 'Search companies by name, domain, keywords...',
   className = '',
 }) => {
   const searchInputRef = useRef<HTMLInputElement>(null);

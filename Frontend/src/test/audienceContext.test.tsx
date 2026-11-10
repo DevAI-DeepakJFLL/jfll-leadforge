@@ -288,6 +288,6 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     );
     expect(html).toContain('View All Verticals');
     expect(html).toContain('Reset Filters');
-    expect(html).toContain('Try viewing All Verticals, clearing active category filters');
+    expect(html).toContain('Try clearing active filters or selecting another vertical.');
   });
 });

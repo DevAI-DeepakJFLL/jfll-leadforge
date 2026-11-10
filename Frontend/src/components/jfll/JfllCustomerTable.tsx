@@ -298,7 +298,7 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
           No JFLL Customers match your filters
         </h3>
         <p className="text-xs text-slate-500 max-w-sm mb-4">
-          Try loosening your search keywords or resetting your filters.
+          Try adjusting your search terms or clearing active filters.
         </p>
         {onClearFilters && (
           <button

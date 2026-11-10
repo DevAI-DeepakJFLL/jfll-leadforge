@@ -150,7 +150,7 @@ describe('Sales Approach & Active Conversion Suite', () => {
       expect(html).toContain('Convert to Active Customer');
       expect(html).toContain('Acme Global Logistics');
       expect(html).toContain('Effective Active Start Date');
-      expect(html).toContain('Activation Milestone');
+      expect(html).toContain('Move');
       expect(html).toContain('Activation / Handover Notes');
       expect(html).toContain('Confirm &amp; Convert to Active');
     });

@@ -326,7 +326,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                     Set Account Password
                   </h1>
                   <p className="text-xs text-slate-500 mt-1">
-                    Welcome! Please create a secure password for <strong className="text-slate-700">{email}</strong> before proceeding.
+                    Create a password for <strong className="text-slate-700">{email}</strong> to continue.
                   </p>
                 </div>
 
@@ -355,7 +355,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                           setNewPassword(e.target.value);
                           if (setPasswordError) setSetPasswordError('');
                         }}
-                        placeholder="At least 8 characters..."
+                        placeholder="At least 6 characters..."
                         required
                         autoComplete="new-password"
                         className="w-full pl-9 pr-10 py-2.5 text-sm bg-slate-50/80 hover:bg-slate-50 focus:bg-white border border-slate-300 rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-apollo focus:ring-4 focus:ring-apollo/10 transition-all font-medium"
@@ -447,7 +447,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                     Welcome back
                   </h1>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    Enter your registered work email and account password to enter.
+                    Sign in with your registered work email and password.
                   </p>
                 </div>
 
@@ -565,9 +565,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                   <div className="mt-4 pt-3 border-t border-slate-100">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                        Demo Quick-Fill:
+                        Demo Accounts:
                       </span>
-                      <span className="text-[10px] text-slate-400">Click to fill credentials</span>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
                       {demoUsers.map((user) => (
@@ -588,7 +587,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
                 {/* Secondary Request Access Prompt */}
                 <div className="mt-4 text-center">
-                  <span className="text-xs text-slate-500">Not on the allowlist yet? </span>
+                  <span className="text-xs text-slate-500">Don&apos;t have access? </span>
                   <button
                     type="button"
                     onClick={() => {

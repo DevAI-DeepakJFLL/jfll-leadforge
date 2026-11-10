@@ -120,7 +120,7 @@ describe('People Contact Information Validation & UI Resilience', () => {
         />
       );
 
-      expect(html).toContain('Verified 100% Deliverable');
+      expect(html).toContain('Deliverable');
       expect(html).toContain('SMTP Validated');
       expect(html).toContain('carlos.mendes@embraer.com.br');
       expect(html).toContain('+55 11 3840-0000');

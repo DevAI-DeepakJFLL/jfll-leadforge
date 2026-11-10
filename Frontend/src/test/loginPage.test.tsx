@@ -10,7 +10,7 @@ describe('LoginPage UI Component', () => {
     // Check header & greeting
     expect(html).toContain('Welcome back');
     expect(html).toContain('Authorized Personnel Sign-In');
-    expect(html).toContain('Enter your registered work email and account password to enter.');
+    expect(html).toContain('Sign in with your registered work email and password.');
 
     // Check work email field
     expect(html).toContain('Work Email Address');
@@ -34,8 +34,7 @@ describe('LoginPage UI Component', () => {
   it('renders demo quick-fill pill buttons for seeded team members', () => {
     const html = renderToString(<LoginPage onLoginSuccess={() => {}} />);
 
-    expect(html).toContain('Demo Quick-Fill:');
-    expect(html).toContain('Click to fill credentials');
+    expect(html).toContain('Demo Accounts:');
 
     // Check seeded team members from AUTHORIZED_USERS are present
     const demoMembers = AUTHORIZED_USERS.slice(0, 4);
@@ -57,7 +56,7 @@ describe('LoginPage UI Component', () => {
     // Verify dual-mode switcher and request access trigger
     expect(html).toContain('Sign In');
     expect(html).toContain('Request Access');
-    expect(html).toContain('Not on the allowlist yet?');
+    expect(html).toContain('Don&#x27;t have access?');
     expect(html).toContain('Request Application Access');
   });
 });

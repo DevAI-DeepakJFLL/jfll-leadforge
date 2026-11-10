@@ -183,7 +183,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
           No DataMyne leads match your filters
         </h3>
         <p className="text-xs text-slate-500 max-w-sm mb-4">
-          Try viewing All Verticals, clearing active category filters, or switching between With Contacts and Without Contacts pools.
+          Try clearing active filters or selecting another vertical.
         </p>
         <div className="flex items-center gap-2 flex-wrap justify-center">
           {onResetToAllVerticals && (

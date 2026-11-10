@@ -1024,7 +1024,7 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-slate-900">Add Personnel to Allowlist</h4>
-                    <p className="text-[11px] text-slate-500">Authorize employee for passwordless sign-in</p>
+                    <p className="text-[11px] text-slate-500">Authorize employee access</p>
                   </div>
                 </div>
                 <button

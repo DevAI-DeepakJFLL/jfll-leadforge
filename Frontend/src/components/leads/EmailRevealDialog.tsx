@@ -117,7 +117,7 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
                 </div>
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
                   <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                  <span>Verified 100% Deliverable</span>
+                  <span>Deliverable</span>
                 </span>
               </div>
 
@@ -157,11 +157,6 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   Mailbox Active
                 </span>
-                <span className="text-slate-300">&bull;</span>
-                <span className="inline-flex items-center gap-1 text-slate-600">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  Zero Bounce Guarantee
-                </span>
               </div>
             </div>
           ) : (
@@ -185,7 +180,7 @@ export const EmailRevealDialog: React.FC<EmailRevealDialogProps> = ({
               <div className="text-[11px] text-slate-500 pt-0.5">
                 Direct email address is not on file for this contact.
                 {lead.linkedin && (
-                  <span className="ml-1 text-apollo font-medium">Outreach can be conducted via LinkedIn.</span>
+                  <span className="ml-1 text-apollo font-medium">LinkedIn profile available.</span>
                 )}
               </div>
             </div>

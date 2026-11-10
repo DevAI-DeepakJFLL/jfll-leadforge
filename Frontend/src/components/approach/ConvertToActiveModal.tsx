@@ -133,7 +133,7 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
 
       if (result.is_offline_pending) {
         showToast(
-          `Converted "${companyName}" to Active — [Saved offline, queued to sync with server]`,
+          `Converted "${companyName}" to Active (Saved offline, will sync when online)`,
           'warning'
         );
       } else {
@@ -178,12 +178,9 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
                 <h2 id="convert-active-title" className="text-base font-bold text-slate-900 tracking-tight leading-none">
                   Convert to Active Customer
                 </h2>
-                <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-full">
-                  Activation Milestone
-                </span>
               </div>
               <p className="text-xs text-slate-500 mt-1 truncate max-w-xs" title={companyName}>
-                Re-classify <span className="font-medium text-slate-800">{companyName}</span> into active billing master
+                Move <span className="font-medium text-slate-800">{companyName}</span> to active customers
               </p>
             </div>
           </div>
@@ -235,9 +232,6 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
               className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-medium text-slate-900 shadow-2xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all cursor-pointer"
               required
             />
-            <p className="mt-1 text-[11px] text-slate-500">
-              The contract or booking start date when the customer resumes active shipments.
-            </p>
           </div>
 
           {/* Optional Note */}
@@ -254,7 +248,7 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
               maxLength={2000}
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="e.g. Commercial rate agreement confirmed for air cargo ex-BOM to DXB; assigned to sales desk..."
+              placeholder="Add notes or commercial terms (optional)..."
               className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs text-slate-800 placeholder:text-slate-400 shadow-2xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all resize-none"
             />
           </div>
@@ -307,7 +301,7 @@ export const ConvertToActiveModal: React.FC<ConvertToActiveModalProps> = ({
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-600 mt-1.5 leading-relaxed">
-                  I verify that commercial terms are finalized for <strong className="text-slate-900">{companyName}</strong>. Transitioning updates Jet Freight's active master effective <strong className="text-emerald-800 font-semibold">{startDate || 'selected date'}</strong> and permanently retains all outreach logs.
+                  I confirm commercial terms are finalized and this customer should be marked active.
                 </p>
               </div>
             </label>
