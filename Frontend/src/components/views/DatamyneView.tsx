@@ -9,7 +9,6 @@ import {
 } from '@/components/datamyne';
 import { Sparkles, Layers } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { CategoryInfoTooltip } from '@/components/ui/CategoryInfoTooltip';
 import { useToast } from '@/components/ui';
 import { TierAudienceTabs } from '@/components/tiers';
 import { useTierFilter } from '@/hooks/useTierFilter';

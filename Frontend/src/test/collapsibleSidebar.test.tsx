@@ -1,7 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import React from 'react';
+import { describe, it, expect, vi } from 'vitest';
 import { renderToString } from 'react-dom/server';
-import { useSidebarCollapse } from '@/hooks/useSidebarCollapse';
 import { TopHeader } from '@/components/layout/TopHeader';
 import { DatamyneFilterSidebar } from '@/components/datamyne/DatamyneFilterSidebar';
 import { ApolloFilterSidebar } from '@/components/apollo/ApolloFilterSidebar';
@@ -195,25 +193,11 @@ describe('Collapsible Sidebar Architecture Suite', () => {
       onResetFilters: vi.fn(),
       activeFilterCount: 0,
       kpis: {
-        totalTracked: 10,
-        activeInProgress: 5,
-        overdueCount: 1,
-        convertedActiveCount: 2,
-        pipelineValueUsd: 100000,
-        onHoldCount: 1,
-        noResponseCount: 1,
-        notInterestedCount: 0,
-        stageBreakdown: {
-          not_contacted: 2,
-          contacted: 2,
-          qualifying: 1,
-          proposal_sent: 1,
-          negotiating: 1,
-          converted_active: 2,
-          on_hold: 1,
-          no_response: 1,
-          not_interested: 0,
-        },
+        total_leads: 10,
+        active_leads: 5,
+        quoted_leads: 3,
+        won_leads: 2,
+        overdue_leads: 1,
       },
     };
 
