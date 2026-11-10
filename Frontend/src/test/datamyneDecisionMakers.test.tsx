@@ -342,7 +342,7 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
   // 6. DatamyneDetailDrawer Header & Inline Decision Makers
   // --------------------------------------------------------------------------
   describe('DatamyneDetailDrawer Decision Makers Integration Suite', () => {
-    it('renders "Find Decision Makers" header button when onFindDecisionMakers is provided', () => {
+    it('renders "Decision Maker" header button and on-demand "Get Apollo Verified Decision Maker" CTA', () => {
       const onFindSpy = vi.fn();
       const html = renderToString(
         <ToastProvider>
@@ -351,33 +351,36 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
             lead={sampleValidLead}
             onClose={() => {}}
             onFindDecisionMakers={onFindSpy}
-            onAssignToTracker={() => {}}
           />
         </ToastProvider>
       );
 
-      expect(html).toContain('Find Decision Makers');
-      expect(html).toContain('Assign &amp; Track');
+      // Header button
+      expect(html).toContain('Decision Maker');
+      // Assign & Track is omitted (activity logging in timeline)
+      expect(html).not.toContain('Assign &amp; Track');
+      // On-demand search CTA
+      expect(html).toContain('Get Apollo Verified Decision Maker');
       expect(html).toContain('Apollo Verified Decision Makers');
+      expect(html).toContain('@sanofi.com');
     });
 
-    it('omits "Find Decision Makers" header button when onFindDecisionMakers is undefined', () => {
+    it('omits "Decision Maker" header button when onFindDecisionMakers is undefined and omits "Assign & Track"', () => {
       const html = renderToString(
         <ToastProvider>
           <DatamyneDetailDrawer
             isOpen={true}
             lead={sampleValidLead}
             onClose={() => {}}
-            onAssignToTracker={() => {}}
           />
         </ToastProvider>
       );
 
-      expect(html).not.toContain('Find Decision Makers');
-      expect(html).toContain('Assign &amp; Track');
+      expect(html).not.toContain('<span>Decision Maker</span>');
+      expect(html).not.toContain('Assign &amp; Track');
     });
 
-    it('renders smart fallback chips with company, domain, and director attributes when no contacts are preloaded', () => {
+    it('renders on-demand CTA card with recognized attributes instead of auto-fetching on open', () => {
       const onFindSpy = vi.fn();
       const html = renderToString(
         <ToastProvider>
@@ -390,17 +393,15 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
         </ToastProvider>
       );
 
-      // Cleaned company name chip
-      expect(html).toContain('sanofi');
-      // Extracted corporate domain chip
+      // On-demand button
+      expect(html).toContain('Get Apollo Verified Decision Maker');
+      // Recognized domain
       expect(html).toContain('@sanofi.com');
-      // Extracted director name chip
+      // Recognized director
       expect(html).toContain('Rajesh Sharma');
-      // Primary button
-      expect(html).toContain('Search Apollo People Directory →');
     });
 
-    it('enhances missing contact notice banner with Apollo verified CTA when lead dataset_type is missing', () => {
+    it('enhances missing contact notice banner with on-demand Apollo verified CTA when lead dataset_type is missing', () => {
       const onFindSpy = vi.fn();
       const html = renderToString(
         <ToastProvider>
@@ -415,8 +416,7 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
 
       expect(html).toContain('No Direct Contact on File');
       expect(html).toContain('Cross-reference Apollo verified database for executive decision-makers:');
-      expect(html).toContain('Search Apollo for Verified Decision Makers →');
-      // Also renders director fallback chip for L&T
+      expect(html).toContain('Get Apollo Verified Decision Maker →');
       expect(html).toContain('Amit Gupta');
     });
 

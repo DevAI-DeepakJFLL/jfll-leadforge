@@ -253,25 +253,7 @@ describe('Lead Tracker Navigation & Cross-Drawer Integration Suite (Task 5)', ()
   });
 
   describe('Cross-Drawer "Assign & Track" CTAs', () => {
-    it('renders "Assign & Track" button in DatamyneDetailDrawer when onAssignToTracker is provided', () => {
-      const onAssignSpy = vi.fn();
-      const html = renderToString(
-        <ToastProvider>
-          <DatamyneDetailDrawer
-            isOpen={true}
-            lead={mockDatamyneLead}
-            onClose={() => {}}
-            onAssignToTracker={onAssignSpy}
-          />
-        </ToastProvider>
-      );
-
-      expect(html).toContain('Assign &amp; Track');
-      expect(html).toContain('Assign lead to sales coordinator in Lead Tracker');
-      expect(html).toContain('ROYAL ARC ELECTRODES LTD');
-    });
-
-    it('omits "Assign & Track" button in DatamyneDetailDrawer when handler is not provided', () => {
+    it('omits "Assign & Track" button in DatamyneDetailDrawer since activity logging is handled in timeline', () => {
       const html = renderToString(
         <ToastProvider>
           <DatamyneDetailDrawer
@@ -283,6 +265,7 @@ describe('Lead Tracker Navigation & Cross-Drawer Integration Suite (Task 5)', ()
       );
 
       expect(html).not.toContain('Assign &amp; Track');
+      expect(html).toContain('ROYAL ARC ELECTRODES LTD');
     });
 
     it('renders "Assign & Track" button in ApolloDetailDrawer when onAssignToTracker is provided', () => {

@@ -1473,7 +1473,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           }
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
-          onAssignToTracker={handleAssignToTracker}
         />
       </ErrorBoundary>
 

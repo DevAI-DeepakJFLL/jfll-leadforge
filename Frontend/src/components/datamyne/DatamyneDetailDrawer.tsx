@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   X,
   Building2,
@@ -15,9 +15,10 @@ import {
   Plane,
   Ship,
   PhoneOff,
-  ClipboardList,
   Globe,
   Mail,
+  Sparkles,
+  Loader2,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { Lead } from '@/types/lead';
@@ -55,23 +56,26 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   onFindDecisionMakers,
   onLogApproach,
   onConvertToActive,
-  onAssignToTracker,
   className = '',
 }) => {
   const { showToast } = useToast();
-  const [isTierModalOpen, setIsTierModalOpen] = React.useState(false);
-  const [contacts, setContacts] = React.useState<Lead[]>([]);
-  const [totalContacts, setTotalContacts] = React.useState<number>(0);
-  const [isLoadingContacts, setIsLoadingContacts] = React.useState<boolean>(false);
+  const [isTierModalOpen, setIsTierModalOpen] = useState(false);
+  const [contacts, setContacts] = useState<Lead[]>([]);
+  const [totalContacts, setTotalContacts] = useState<number>(0);
+  const [isLoadingContacts, setIsLoadingContacts] = useState<boolean>(false);
+  const [hasSearched, setHasSearched] = useState<boolean>(false);
 
+  // Reset search state when a new lead is selected or drawer reopens
   useEffect(() => {
-    if (!isOpen || !lead) {
-      setContacts([]);
-      setTotalContacts(0);
-      setIsLoadingContacts(false);
-      return;
-    }
-    let isMounted = true;
+    setContacts([]);
+    setTotalContacts(0);
+    setIsLoadingContacts(false);
+    setHasSearched(false);
+  }, [lead?.id, isOpen]);
+
+  const handleFetchDecisionMakers = () => {
+    if (!lead?.company_name) return;
+    setHasSearched(true);
     setIsLoadingContacts(true);
     const domain = extractDomainFromEmail(lead.email);
     const cleaned = cleanCustomsCompanyName(lead.company_name);
@@ -82,24 +86,16 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
       limit: 3,
     })
       .then((res) => {
-        if (isMounted) {
-          setContacts(res.items.slice(0, 3));
-          setTotalContacts(res.totalEstimate);
-          setIsLoadingContacts(false);
-        }
+        setContacts(res.items.slice(0, 3));
+        setTotalContacts(res.totalEstimate);
+        setIsLoadingContacts(false);
       })
       .catch(() => {
-        if (isMounted) {
-          setContacts([]);
-          setTotalContacts(0);
-          setIsLoadingContacts(false);
-        }
+        setContacts([]);
+        setTotalContacts(0);
+        setIsLoadingContacts(false);
       });
-
-    return () => {
-      isMounted = false;
-    };
-  }, [isOpen, lead]);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -278,18 +274,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                   title="Find verified decision makers in Apollo"
                 >
                   <UserCheck className="w-3.5 h-3.5" />
-                  <span>Find Decision Makers</span>
-                </button>
-              )}
-              {onAssignToTracker && (
-                <button
-                  type="button"
-                  onClick={() => onAssignToTracker(lead)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[36px] cursor-pointer"
-                  title="Assign lead to sales coordinator in Lead Tracker"
-                >
-                  <ClipboardList className="w-3.5 h-3.5" />
-                  <span>Assign & Track</span>
+                  <span>Decision Maker</span>
                 </button>
               )}
               <button
@@ -326,24 +311,18 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                     </span>
                     <button
                       type="button"
-                      onClick={() =>
-                        onFindDecisionMakers(
-                          cleanedCompany || lead.company_name,
-                          corporateDomain || undefined,
-                          directorName || undefined
-                        )
-                      }
+                      onClick={handleFetchDecisionMakers}
                       className="inline-flex items-center gap-1 text-xs font-semibold text-apollo hover:underline shrink-0 cursor-pointer"
                     >
-                      <UserCheck className="w-3.5 h-3.5" />
-                      <span>Search Apollo for Verified Decision Makers →</span>
+                      <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                      <span>Get Apollo Verified Decision Maker →</span>
                     </button>
                   </div>
                 )}
               </div>
             )}
 
-            {/* Apollo Verified Decision Makers Preview Card */}
+            {/* Apollo Verified Decision Makers Card */}
             <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3 shadow-2xs">
               <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
                 <div className="flex items-center gap-2">
@@ -359,23 +338,93 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 )}
               </div>
 
-              {isLoadingContacts ? (
-                <div className="space-y-2.5 py-1">
-                  {[1, 2].map((i) => (
-                    <div
-                      key={i}
-                      className="flex items-center justify-between p-2 bg-slate-50/70 rounded-lg animate-pulse"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-full bg-slate-200" />
-                        <div className="space-y-1">
-                          <div className="w-24 h-3 bg-slate-200 rounded" />
-                          <div className="w-32 h-2.5 bg-slate-100 rounded" />
-                        </div>
-                      </div>
-                      <div className="w-16 h-4 bg-slate-100 rounded" />
+              {!hasSearched && !isLoadingContacts ? (
+                <div className="p-3.5 bg-gradient-to-br from-slate-50 to-blue-50/40 rounded-xl border border-slate-200/80 space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-apollo/10 text-apollo border border-apollo/20 flex items-center justify-center shrink-0 mt-0.5">
+                      <Sparkles className="w-4 h-4 text-apollo" />
                     </div>
-                  ))}
+                    <div className="min-w-0 space-y-1">
+                      <div className="text-xs font-bold text-slate-900 leading-snug">
+                        Discover Executive Contacts
+                      </div>
+                      <p className="text-[11px] text-slate-600 leading-relaxed">
+                        Query Apollo&apos;s 15.5M executive database for verified CXOs, Directors, and Procurement decision makers at this shipper.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Attributes recognized preview */}
+                  {(corporateDomain || directorName) && (
+                    <div className="flex flex-wrap items-center gap-1.5 pt-1 text-[11px]">
+                      <span className="text-slate-400 font-medium">Recognized:</span>
+                      {corporateDomain && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-white text-blue-700 font-mono text-[10px] rounded border border-blue-200">
+                          <Globe className="w-2.5 h-2.5 text-blue-500" />
+                          @{corporateDomain}
+                        </span>
+                      )}
+                      {directorName && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-white text-purple-700 text-[10px] rounded border border-purple-200 font-medium">
+                          <UserCheck className="w-2.5 h-2.5 text-purple-500" />
+                          {directorName}
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="pt-1 flex items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={handleFetchDecisionMakers}
+                      className="inline-flex items-center gap-2 px-3.5 py-2 bg-apollo hover:bg-apollo/90 text-white rounded-lg text-xs font-semibold shadow-xs hover:shadow-sm transition-all cursor-pointer"
+                      title="Run Apollo verified decision maker query for this account"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                      <span>Get Apollo Verified Decision Maker</span>
+                    </button>
+
+                    {onFindDecisionMakers && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onFindDecisionMakers(
+                            cleanedCompany || lead.company_name,
+                            corporateDomain || undefined,
+                            directorName || undefined
+                          )
+                        }
+                        className="text-[11px] font-semibold text-slate-500 hover:text-apollo hover:underline cursor-pointer"
+                        title="Open Apollo People directory directly"
+                      >
+                        Open Directory →
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ) : isLoadingContacts ? (
+                <div className="space-y-3 py-2">
+                  <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
+                    <Loader2 className="w-4 h-4 text-apollo animate-spin shrink-0" />
+                    <span>Cross-referencing Apollo executive directory...</span>
+                  </div>
+                  <div className="space-y-2.5">
+                    {[1, 2].map((i) => (
+                      <div
+                        key={i}
+                        className="flex items-center justify-between p-2.5 bg-slate-50/70 rounded-lg animate-pulse"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-full bg-slate-200" />
+                          <div className="space-y-1">
+                            <div className="w-28 h-3 bg-slate-200 rounded" />
+                            <div className="w-36 h-2.5 bg-slate-100 rounded" />
+                          </div>
+                        </div>
+                        <div className="w-16 h-4 bg-slate-100 rounded" />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ) : contacts.length > 0 ? (
                 <div className="space-y-2">
