@@ -105,6 +105,7 @@ export interface ApproachLogCreatePayload {
   action: SalesAction;
   status: SalesStatus;
   note?: string | null;
+  company_name?: string | null;
 }
 
 export interface ConvertToActivePayload {

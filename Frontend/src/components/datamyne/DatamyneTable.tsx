@@ -11,7 +11,8 @@ import {
   Plane,
   Ship,
   PhoneOff,
-  UserCheck,
+  ClipboardList,
+  Sparkles,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -21,11 +22,7 @@ import {
   APPROACH_STATUS_CHANGED_EVENT,
   getCachedApproachStatus,
 } from '@/services/approachLogService';
-import {
-  extractDomainFromEmail,
-  extractFirstDirectorName,
-  cleanCustomsCompanyName,
-} from '@/utils/apolloUtils';
+
 
 export interface DatamyneTableProps {
   leads: DatamyneLead[];
@@ -33,6 +30,8 @@ export interface DatamyneTableProps {
   onRowSelectionChange: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   onLeadClick: (lead: DatamyneLead) => void;
   onFindDecisionMakers?: (companyName: string, domain?: string, director?: string) => void;
+  onLogApproach?: (lead: DatamyneLead) => void;
+  onConvertToActive?: (lead: DatamyneLead) => void;
   currentPage: number;
   totalPages: number;
   pageSize: number;
@@ -53,7 +52,9 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   rowSelection,
   onRowSelectionChange,
   onLeadClick,
-  onFindDecisionMakers,
+  onFindDecisionMakers: _onFindDecisionMakers,
+  onLogApproach,
+  onConvertToActive,
   currentPage,
   totalPages,
   pageSize,
@@ -465,7 +466,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                     />
                   </td>
 
-                  {/* Action CTA: View, Decision Makers */}
+                  {/* Action CTA: View, Logs, Convert */}
                   <td className="py-2 px-3 text-center align-middle whitespace-nowrap">
                     <div className="flex items-center justify-center gap-1.5">
                       <button
@@ -475,28 +476,42 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                         }}
                         className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn cursor-pointer"
                         title={`View details for ${l.company_name}`}
+                        aria-label={`View details for ${l.company_name}`}
                       >
                         <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
                         <span>View</span>
                       </button>
 
-                      {onFindDecisionMakers && (
+                      {onLogApproach && (
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            const domain = extractDomainFromEmail(l.email);
-                            const director = extractFirstDirectorName(l.directors);
-                            const cleaned = cleanCustomsCompanyName(l.company_name);
-                            onFindDecisionMakers(cleaned || l.company_name, domain || undefined, director || undefined);
+                            onLogApproach(l);
                           }}
-                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-apollo hover:text-white border border-slate-200 hover:border-apollo rounded-md transition-all shadow-2xs group/btn cursor-pointer"
-                          title={`Find decision makers at ${l.company_name} in Apollo`}
-                          aria-label={`Find decision makers at ${l.company_name}`}
+                          className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-apollo bg-apollo/10 hover:bg-apollo hover:text-white border border-apollo/30 rounded-md transition-all shadow-2xs cursor-pointer group/btn"
+                          title={`Log sales activity for ${l.company_name}`}
+                          aria-label={`Log sales activity for ${l.company_name}`}
                         >
-                          <UserCheck className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
-                          <span>Decision Makers</span>
+                          <ClipboardList className="w-3.5 h-3.5 text-apollo group-hover/btn:text-white transition-colors" />
+                          <span>Logs</span>
                         </button>
                       )}
+
+                      {onConvertToActive &&
+                        getCachedApproachStatus('datamyne', l.id) !== 'Converted to Active' && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onConvertToActive(l);
+                            }}
+                            className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-600 hover:text-white border border-emerald-300 rounded-md transition-all shadow-2xs cursor-pointer group/btn"
+                            title={`Convert ${l.company_name} to Active customer`}
+                            aria-label={`Convert ${l.company_name} to Active customer`}
+                          >
+                            <Sparkles className="w-3.5 h-3.5 text-emerald-600 group-hover/btn:text-white transition-colors" />
+                            <span>Convert</span>
+                          </button>
+                        )}
                     </div>
                   </td>
                 </tr>

@@ -289,9 +289,135 @@ def get_entity_approach_history(
     )
 
 
+def _map_approach_to_tracker_status(sales_status: SalesStatus, action: SalesAction) -> str:
+    """Maps SalesStatus / SalesAction to LeadTracker pipeline status."""
+    if action == SalesAction.SENT_QUOTE:
+        return "Quoted"
+    if action == SalesAction.HELD_MEETING:
+        return "Feedback Received"
+    if action == SalesAction.FOLLOW_UP_SCHEDULED:
+        return "Meeting Scheduled"
+
+    status_map = {
+        SalesStatus.NOT_CONTACTED: "Assigned",
+        SalesStatus.CONTACTED: "Contacted",
+        SalesStatus.REPORT_SENT: "Quoted",
+        SalesStatus.WORKING_ON_IT: "Contacted",
+        SalesStatus.IN_PROGRESS: "Feedback Received",
+        SalesStatus.ON_HOLD: "On Hold",
+        SalesStatus.NO_RESPONSE: "On Hold",
+        SalesStatus.NOT_INTERESTED: "Closed / Lost",
+        SalesStatus.CONVERTED_TO_ACTIVE: "Won",
+    }
+    return status_map.get(sales_status, "Contacted")
+
+
+def _sync_to_lead_tracker(
+    entity_type: str,
+    entity_id: str,
+    company_name: str | None,
+    action: str,
+    status: SalesStatus,
+    note: str | None,
+    user_name: str,
+    user_email: str,
+) -> None:
+    """
+    Synchronizes logged sales coordinator outreach to the SQLite Lead Status Tracker.
+    If the lead is already tracked, appends an activity touchpoint and updates its status.
+    If not yet tracked, creates a new tracked lead assigned to the logging user.
+    """
+    try:
+        from src.api.lead_tracker_db import (
+            get_db_connection,
+            create_lead,
+            add_activity,
+            update_lead,
+            init_db,
+        )
+
+        init_db()
+
+        sales_act = SalesAction.CALLED_CUSTOMER
+        try:
+            sales_act = SalesAction(action)
+        except Exception:
+            pass
+
+        mapped_status = _map_approach_to_tracker_status(status, sales_act)
+        clean_company = (company_name or "").strip()
+        if not clean_company:
+            clean_company = entity_id.replace("dm_", "").replace("cust_", "").replace("_", " ").title()
+
+        conn = get_db_connection()
+        existing_lead_id = None
+        try:
+            cur = conn.execute(
+                """
+                SELECT id, company_name, status FROM lead_tracker_items
+                WHERE (linked_entity_type = ? AND linked_entity_id = ?)
+                   OR (LOWER(TRIM(company_name)) = LOWER(TRIM(?)))
+                LIMIT 1
+                """,
+                (entity_type, entity_id, clean_company),
+            )
+            row = cur.fetchone()
+            if row:
+                existing_lead_id = row["id"]
+        finally:
+            conn.close()
+
+        if existing_lead_id:
+            add_activity(
+                lead_id=existing_lead_id,
+                activity_data={
+                    "author_name": user_name,
+                    "author_email": user_email,
+                    "action": action,
+                    "notes": note,
+                    "new_status": mapped_status,
+                },
+            )
+            update_lead(
+                lead_id=existing_lead_id,
+                update_data={
+                    "status": mapped_status,
+                    "feedback_notes": note,
+                    "linked_entity_type": entity_type,
+                    "linked_entity_id": entity_id,
+                },
+            )
+        else:
+            create_lead(
+                lead_data={
+                    "company_name": clean_company,
+                    "assigned_to": user_name,
+                    "assigned_to_email": user_email,
+                    "assigned_by": user_name,
+                    "status": mapped_status,
+                    "feedback_notes": note,
+                    "linked_entity_type": entity_type,
+                    "linked_entity_id": entity_id,
+                    "branch": "Mumbai",
+                    "history": [
+                        {
+                            "author_name": user_name,
+                            "author_email": user_email,
+                            "action": action,
+                            "new_status": mapped_status,
+                            "notes": note,
+                        }
+                    ],
+                }
+            )
+    except Exception as err:
+        logger.warning("Lead Tracker Sync: Failed to sync activity for %s %s: %s", entity_type, entity_id, err)
+
+
 class ApproachLogDirectRequest(BaseModel):
     entity_type: Literal["datamyne", "jfll_customer"] = "datamyne"
     entity_id: str
+    company_name: str | None = None
     action: SalesAction = SalesAction.CALLED_CUSTOMER
     status: SalesStatus = SalesStatus.CONTACTED
     note: str | None = None
@@ -311,6 +437,7 @@ def post_direct_approach_log(
         action=payload.action,
         status=payload.status,
         note=payload.note,
+        company_name=payload.company_name,
     )
     return log_approach_activity(
         entity_type=payload.entity_type,
@@ -393,6 +520,18 @@ def log_approach_activity(
         entity["logs"].append(new_entry)
 
         save_approach_data(data)
+
+    # Sync touchpoint to Lead Status Tracker SQLite database
+    _sync_to_lead_tracker(
+        entity_type=entity_type,
+        entity_id=entity_id,
+        company_name=payload.company_name,
+        action=payload.action.value,
+        status=target_status,
+        note=payload.note,
+        user_name=user_name,
+        user_email=user_email,
+    )
 
     logger.info(
         "Sales Approach Logged: %s %s -> %s by %s",
@@ -484,6 +623,18 @@ def convert_client_to_active(
         entity["logs"].append(new_entry)
 
         save_approach_data(data)
+
+    # Sync touchpoint to Lead Status Tracker SQLite database
+    _sync_to_lead_tracker(
+        entity_type=entity_type,
+        entity_id=entity_id,
+        company_name=None,
+        action=SalesAction.OTHER.value,
+        status=SalesStatus.CONVERTED_TO_ACTIVE,
+        note=activation_note,
+        user_name=user_name,
+        user_email=user_email,
+    )
 
     logger.info(
         "Client Converted to Active: %s %s by %s (Start Date: %s)",

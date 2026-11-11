@@ -99,6 +99,7 @@ export const LogApproachModal: React.FC<LogApproachModalProps> = ({
         action,
         status: selectedStatus,
         note: trimmedNote || null,
+        company_name: companyName,
       });
 
       if (result.is_offline_pending) {

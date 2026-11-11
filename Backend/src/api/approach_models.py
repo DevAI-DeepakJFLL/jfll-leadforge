@@ -66,6 +66,7 @@ class ApproachLogCreate(BaseModel):
     action: SalesAction = Field(..., description="Sales activity action taken")
     status: SalesStatus = Field(..., description="Target status")
     note: str | None = Field(default=None, max_length=2000, description="Context note (mandatory for backward or hold/no-response/uninterested)")
+    company_name: str | None = Field(default=None, description="Optional company name for cross-entity tracking")
 
     @field_validator("note")
     @classmethod

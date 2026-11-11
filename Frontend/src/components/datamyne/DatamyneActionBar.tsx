@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet, ShieldAlert } from 'lucide-react';
-import { useDebounce } from '@/hooks/useDebounce';
 import { UserSession } from '@/types/auth';
 import { DatamyneDatasetType } from '@/types/datamyneLead';
 
@@ -53,17 +52,32 @@ export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const [localQuery, setLocalQuery] = useState(searchQuery);
-  const debouncedQuery = useDebounce(localQuery, 300);
+  const lastEmittedRef = useRef(searchQuery);
 
+  // Sync external prop changes (e.g. from filter chips or clear all)
   useEffect(() => {
-    setLocalQuery(searchQuery);
+    if (searchQuery !== lastEmittedRef.current) {
+      lastEmittedRef.current = searchQuery;
+      setLocalQuery(searchQuery);
+    }
   }, [searchQuery]);
 
+  // Debounce user typing
   useEffect(() => {
-    if (debouncedQuery !== searchQuery && onSearchChange) {
-      onSearchChange(debouncedQuery);
-    }
-  }, [debouncedQuery, searchQuery, onSearchChange]);
+    if (localQuery === lastEmittedRef.current) return;
+    const timer = setTimeout(() => {
+      lastEmittedRef.current = localQuery;
+      onSearchChange?.(localQuery);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [localQuery, onSearchChange]);
+
+  const handleClear = () => {
+    setLocalQuery('');
+    lastEmittedRef.current = '';
+    onSearchChange?.('');
+    searchInputRef.current?.focus();
+  };
 
   // Global ⌘K / Ctrl+K keyboard shortcut to focus search input
   useEffect(() => {
@@ -139,13 +153,7 @@ export const DatamyneActionBar: React.FC<DatamyneActionBarProps> = ({
               {localQuery ? (
                 <button
                   type="button"
-                  onClick={() => {
-                    setLocalQuery('');
-                    if (onSearchChange) {
-                      onSearchChange('');
-                    }
-                    searchInputRef.current?.focus();
-                  }}
+                  onClick={handleClear}
                   className="absolute right-2 p-0.5 text-slate-400 hover:text-slate-600 rounded cursor-pointer"
                   title="Clear search"
                   aria-label="Clear search input"

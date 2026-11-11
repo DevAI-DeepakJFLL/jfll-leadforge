@@ -63,7 +63,7 @@ Object.defineProperty(globalThis, 'localStorage', {
 describe('Sales Approach & Active Conversion Suite', () => {
   beforeEach(() => {
     localStorage.clear();
-    vi.restoreAllMocks();
+    globalThis.fetch = vi.fn().mockRejectedValue(new TypeError('Failed to fetch'));
   });
 
   describe('SalesStatusBadge Component', () => {
@@ -330,7 +330,7 @@ describe('Sales Approach & Active Conversion Suite', () => {
       expect(res.logs[0].note).toContain('Converted from cold trade lead');
     });
 
-    it('keeps Action column focused on View and omits raw Approach/Convert buttons from table row', () => {
+    it('renders View, Logs (with ClipboardList), and Convert in DatamyneTable row, omitting Decision Makers from row', () => {
       const mockLead: DatamyneLead = {
         id: 'dm-test-101',
         company_name: 'TEST EXPORTER CORP',
@@ -361,6 +361,8 @@ describe('Sales Approach & Active Conversion Suite', () => {
           rowSelection={{}}
           onRowSelectionChange={vi.fn()}
           onLeadClick={vi.fn()}
+          onLogApproach={vi.fn()}
+          onConvertToActive={vi.fn()}
           currentPage={1}
           totalPages={1}
           pageSize={25}
@@ -369,11 +371,14 @@ describe('Sales Approach & Active Conversion Suite', () => {
         />
       );
 
-      // Kept relevant action
+      // Kept relevant actions: View, Logs, Convert
       expect(html).toContain('View');
-      // Omitted noisy raw buttons from table row
+      expect(html).toContain('Logs');
+      expect(html).toContain('Convert');
+      // Replaced misleading phone call 'Approach' button with 'Logs'
       expect(html).not.toContain('<span>Approach</span>');
-      expect(html).not.toContain('<span>Convert</span>');
+      // Decision Makers button moved from row into drawer
+      expect(html).not.toContain('<span>Decision Makers</span>');
     });
   });
 

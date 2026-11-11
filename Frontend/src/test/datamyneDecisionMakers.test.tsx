@@ -289,11 +289,13 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
   });
 
   // --------------------------------------------------------------------------
-  // 5. DatamyneTable Decision Makers Button
+  // 5. DatamyneTable Streamlined Actions & Decision Makers via Drawer
   // --------------------------------------------------------------------------
-  describe('DatamyneTable Decision Makers Button Suite', () => {
-    it('renders "Decision Makers" button in Action column when onFindDecisionMakers is provided', () => {
+  describe('DatamyneTable Streamlined Action Column Suite', () => {
+    it('renders View, Logs, and Convert while omitting Decision Makers button from table row', () => {
       const onFindSpy = vi.fn();
+      const onLogSpy = vi.fn();
+      const onConvertSpy = vi.fn();
       const html = renderToString(
         <ToastProvider>
           <DatamyneTable
@@ -302,6 +304,8 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
             onRowSelectionChange={() => {}}
             onLeadClick={() => {}}
             onFindDecisionMakers={onFindSpy}
+            onLogApproach={onLogSpy}
+            onConvertToActive={onConvertSpy}
             currentPage={1}
             totalPages={1}
             pageSize={10}
@@ -311,13 +315,14 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
         </ToastProvider>
       );
 
-      expect(html).toContain('Decision Makers');
-      expect(html).toContain('Find decision makers at M/S SANOFI INDIA LIMITED in Apollo');
-      expect(html).toContain('Find decision makers at MESSRS. LARSEN &amp; TOUBRO LTD in Apollo');
-      expect(html).toContain('lucide-user-check');
+      expect(html).toContain('View');
+      expect(html).toContain('Logs');
+      expect(html).toContain('Convert');
+      // Decision Makers button kept exclusively in Drawer to avoid cluttered table rows
+      expect(html).not.toContain('<span>Decision Makers</span>');
     });
 
-    it('omits "Decision Makers" button when onFindDecisionMakers is undefined', () => {
+    it('omits Logs and Convert when handlers are not provided (e.g. Viewer role)', () => {
       const html = renderToString(
         <ToastProvider>
           <DatamyneTable
@@ -334,7 +339,10 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
         </ToastProvider>
       );
 
-      expect(html).not.toContain('Decision Makers');
+      expect(html).toContain('View');
+      expect(html).not.toContain('<span>Logs</span>');
+      expect(html).not.toContain('<span>Convert</span>');
+      expect(html).not.toContain('<span>Decision Makers</span>');
     });
   });
 
@@ -518,8 +526,8 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
         </QueryClientProvider>
       );
 
-      expect(html).toContain('Decision Makers');
-      expect(html).toContain('Find decision makers at M/S SANOFI INDIA LIMITED in Apollo');
+      expect(html).toContain('View');
+      expect(html).not.toContain('<span>Decision Makers</span>');
     });
   });
 });

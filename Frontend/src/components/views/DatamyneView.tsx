@@ -118,6 +118,8 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   activeFilterCount,
   onLeadClick,
   onFindDecisionMakers,
+  onLogApproach,
+  onConvertToActive,
   isMobileOpen,
   onCloseMobile,
   isSidebarCollapsed = false,
@@ -511,6 +513,8 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
             onFindDecisionMakers={onFindDecisionMakers}
+            onLogApproach={currentUser?.role === 'Viewer' ? undefined : onLogApproach}
+            onConvertToActive={currentUser?.role === 'Viewer' ? undefined : onConvertToActive}
             currentPage={displayPage}
             totalPages={displayTotalPages}
             pageSize={query.limit || 25}

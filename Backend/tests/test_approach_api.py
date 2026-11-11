@@ -262,3 +262,42 @@ def test_lambda_warm_container_s3_periodic_refresh(tmp_path, monkeypatch):
     mock_s3.download_file.assert_called_once()
 
 
+def test_approach_log_syncs_to_lead_tracker(clean_approach_store):
+    """Verifies logging approach activity on a DataMyne lead creates/syncs a record in SQLite Lead Tracker."""
+    from src.api.lead_tracker_db import get_db_connection
+
+    headers = _auth_header(email="snehal.birje@jfll.com", name="Snehal Birje", role="Commercial")
+    response = client.post(
+        "/api/v1/approach-logs/datamyne/lead_jsw_101",
+        headers=headers,
+        json={
+            "action": "Called customer",
+            "status": "Contacted",
+            "note": "Spoke with logistics team regarding ocean rates",
+            "company_name": "JSW STEEL LIMITED",
+        },
+    )
+    assert response.status_code == 200
+
+    conn = get_db_connection()
+    try:
+        cur = conn.execute(
+            "SELECT * FROM lead_tracker_items WHERE company_name = 'JSW STEEL LIMITED'"
+        )
+        lead = cur.fetchone()
+        assert lead is not None
+        assert lead["assigned_to"] == "Snehal Birje"
+        assert lead["status"] == "Contacted"
+        assert lead["linked_entity_type"] == "datamyne"
+
+        cur_act = conn.execute(
+            "SELECT * FROM lead_tracker_activities WHERE lead_id = ?", (lead["id"],)
+        )
+        activities = cur_act.fetchall()
+        assert len(activities) >= 1
+        assert any("Spoke with logistics team" in (a["notes"] or "") for a in activities)
+    finally:
+        conn.close()
+
+
+

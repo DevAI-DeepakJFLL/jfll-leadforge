@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Download, CheckSquare, Square, MinusSquare, Search, X, Loader2 } from 'lucide-react';
-import { useDebounce } from '@/hooks/useDebounce';
 
 export interface ApolloActionBarProps {
   selectedCount: number;
@@ -36,17 +35,32 @@ export const ApolloActionBar: React.FC<ApolloActionBarProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const [localQuery, setLocalQuery] = useState(searchQuery);
-  const debouncedQuery = useDebounce(localQuery, 300);
+  const lastEmittedRef = useRef(searchQuery);
 
+  // Sync external prop changes (e.g. from filter chips or clear all)
   useEffect(() => {
-    setLocalQuery(searchQuery);
+    if (searchQuery !== lastEmittedRef.current) {
+      lastEmittedRef.current = searchQuery;
+      setLocalQuery(searchQuery);
+    }
   }, [searchQuery]);
 
+  // Debounce user typing
   useEffect(() => {
-    if (debouncedQuery !== searchQuery && onSearchChange) {
-      onSearchChange(debouncedQuery);
-    }
-  }, [debouncedQuery, searchQuery, onSearchChange]);
+    if (localQuery === lastEmittedRef.current) return;
+    const timer = setTimeout(() => {
+      lastEmittedRef.current = localQuery;
+      onSearchChange?.(localQuery);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [localQuery, onSearchChange]);
+
+  const handleClear = () => {
+    setLocalQuery('');
+    lastEmittedRef.current = '';
+    onSearchChange?.('');
+    searchInputRef.current?.focus();
+  };
 
   // Global ⌘K / Ctrl+K keyboard shortcut to focus search input
   useEffect(() => {
@@ -114,14 +128,9 @@ export const ApolloActionBar: React.FC<ApolloActionBarProps> = ({
             />
             {localQuery ? (
               <button
-                onClick={() => {
-                  setLocalQuery('');
-                  if (onSearchChange) {
-                    onSearchChange('');
-                  }
-                  searchInputRef.current?.focus();
-                }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded transition-colors"
+                type="button"
+                onClick={handleClear}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded transition-colors cursor-pointer"
                 title="Clear search"
                 aria-label="Clear search"
               >

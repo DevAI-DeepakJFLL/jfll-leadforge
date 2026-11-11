@@ -152,9 +152,13 @@ Backend/data/.backups/
 Backend/data/raw/
 Backend/data/access_control.json
 Backend/data/approach_logs.json
+Backend/data/*.db
+Backend/data/*.sqlite
 Backend/data/*.tmp
 *.bak
 *.tmp
+*.sqlite
+*.db
 
 # Analytical Datasets & Data Files (Stored directly in AWS S3, NOT in GitHub)
 *.parquet

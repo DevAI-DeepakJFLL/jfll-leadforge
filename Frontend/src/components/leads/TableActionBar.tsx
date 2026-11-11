@@ -62,6 +62,34 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
   const menuRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const [localQuery, setLocalQuery] = useState(searchQuery);
+  const lastEmittedRef = useRef(searchQuery);
+
+  // Sync external prop changes (e.g. from filter chips or clear all)
+  useEffect(() => {
+    if (searchQuery !== lastEmittedRef.current) {
+      lastEmittedRef.current = searchQuery;
+      setLocalQuery(searchQuery);
+    }
+  }, [searchQuery]);
+
+  // Debounce user typing
+  useEffect(() => {
+    if (localQuery === lastEmittedRef.current) return;
+    const timer = setTimeout(() => {
+      lastEmittedRef.current = localQuery;
+      onSearchChange?.(localQuery);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [localQuery, onSearchChange]);
+
+  const handleClear = () => {
+    setLocalQuery('');
+    lastEmittedRef.current = '';
+    onSearchChange?.('');
+    searchInputRef.current?.focus();
+  };
+
   const hasSelection = selectedCount > 0;
 
   useEffect(() => {
@@ -192,18 +220,15 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
               <input
                 ref={searchInputRef}
                 type="text"
-                value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
+                value={localQuery}
+                onChange={(e) => setLocalQuery(e.target.value)}
                 placeholder={searchPlaceholder}
                 className="w-full pl-8 pr-12 py-1 text-xs bg-white hover:bg-slate-50 focus:bg-white text-slate-900 placeholder:text-slate-400 border border-slate-200 hover:border-slate-300 focus:border-apollo rounded-md focus:outline-none focus:ring-2 focus:ring-apollo/15 transition-all shadow-2xs"
               />
-              {searchQuery ? (
+              {localQuery ? (
                 <button
                   type="button"
-                  onClick={() => {
-                    onSearchChange('');
-                    searchInputRef.current?.focus();
-                  }}
+                  onClick={handleClear}
                   className="absolute right-2 p-0.5 text-slate-400 hover:text-slate-600 rounded cursor-pointer"
                   title="Clear search"
                   aria-label="Clear search input"
