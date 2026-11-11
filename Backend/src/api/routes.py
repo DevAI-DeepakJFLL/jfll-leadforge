@@ -13,9 +13,11 @@ from src.api.cache import (
 from src.api.config import settings
 from src.api.database import get_data_source, get_db_connection
 from src.api.helpers import (
+    EMPLOYEE_TIER_RANGES,
     FREE_WEBMAIL_DOMAINS,
     SQL_EXTRACT_EMPLOYER_NAME,
     build_company_search_sql,
+    build_employee_tier_sql,
     clean_corporate_term,
     expand_cargo_industries,
     expand_seniorities,
@@ -438,21 +440,6 @@ def list_leads(
 
 ALLOWED_APOLLO_TABS = {"all", "high_headcount", "high_revenue", "top_cargo_verticals", "with_website_linkedin"}
 
-EMPLOYEE_TIER_RANGES: dict[str, tuple[int | None, int | None]] = {
-    "1-10": (1, 10),
-    "11-50": (11, 50),
-    "51-200": (51, 200),
-    "201-500": (201, 500),
-    "501-1000": (501, 1000),
-    "1000+": (1001, None),
-    "1000": (1001, None),
-    "1000 ": (1001, None),
-    ">1000": (1001, None),
-    "1000-5000": (1000, 5000),
-    "5001-10000": (5001, 10000),
-    "10001+": (10001, None),
-}
-
 REVENUE_RANGES_MAP: dict[str, tuple[int | None, int | None]] = {
     "under-1m": (None, 1000000),
     "1m-10m": (1000000, 10000000),
@@ -548,22 +535,10 @@ def list_apollo_leads(
             base_params.append(state.strip().lower())
 
         if employee_tiers:
-            clean_tiers = [t.strip().lower() for t in employee_tiers if t and t.strip()]
-            tier_clauses = []
-            for t in clean_tiers:
-                if t in EMPLOYEE_TIER_RANGES:
-                    t_min, t_max = EMPLOYEE_TIER_RANGES[t]
-                    if t_min is not None and t_max is not None:
-                        tier_clauses.append("(employee_count >= ? AND employee_count <= ?)")
-                        base_params.extend([t_min, t_max])
-                    elif t_min is not None:
-                        tier_clauses.append("(employee_count >= ?)")
-                        base_params.append(t_min)
-                    elif t_max is not None:
-                        tier_clauses.append("(employee_count <= ?)")
-                        base_params.append(t_max)
-            if tier_clauses:
-                base_conditions.append(f"({' OR '.join(tier_clauses)})")
+            clause, tier_params = build_employee_tier_sql(employee_tiers, column="employee_count")
+            if clause:
+                base_conditions.append(clause)
+                base_params.extend(tier_params)
         else:
             if min_employees is not None:
                 base_conditions.append("employee_count >= ?")
@@ -1083,22 +1058,10 @@ def search_apollo_contacts(
         org_subquery_params = []
 
         if company_sizes:
-            clean_sizes = [s.strip().lower() for s in company_sizes if s and s.strip()]
-            size_clauses = []
-            for s in clean_sizes:
-                if s in EMPLOYEE_TIER_RANGES:
-                    s_min, s_max = EMPLOYEE_TIER_RANGES[s]
-                    if s_min is not None and s_max is not None:
-                        size_clauses.append("(employee_count >= ? AND employee_count <= ?)")
-                        org_subquery_params.extend([s_min, s_max])
-                    elif s_min is not None:
-                        size_clauses.append("(employee_count >= ?)")
-                        org_subquery_params.append(s_min)
-                    elif s_max is not None:
-                        size_clauses.append("(employee_count <= ?)")
-                        org_subquery_params.append(s_max)
-            if size_clauses:
-                org_subquery_conds.append(f"({' OR '.join(size_clauses)})")
+            clause, size_params = build_employee_tier_sql(company_sizes, column="employee_count")
+            if clause:
+                org_subquery_conds.append(clause)
+                org_subquery_params.extend(size_params)
 
         raw_ind_tokens = []
         if industry and industry.strip():

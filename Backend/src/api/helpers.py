@@ -732,3 +732,46 @@ def resolve_target_org_ids(
 
     return matched_ids
 
+
+EMPLOYEE_TIER_RANGES: dict[str, tuple[int | None, int | None]] = {
+    "1-10": (1, 10),
+    "11-50": (11, 50),
+    "51-200": (51, 200),
+    "201-500": (201, 500),
+    "501-1000": (501, 1000),
+    "1000+": (1001, None),
+    "1000": (1001, None),
+    "1000 ": (1001, None),
+    ">1000": (1001, None),
+    "1000-5000": (1000, 5000),
+    "5001-10000": (5001, 10000),
+    "10001+": (10001, None),
+}
+
+
+def build_employee_tier_sql(
+    tiers: list[str] | None, column: str = "employee_count"
+) -> tuple[str | None, list[int]]:
+    """Builds a SQL WHERE clause and parameter list for employee count tiers."""
+    if not tiers:
+        return None, []
+    clean_tiers = [t.strip().lower() for t in tiers if t and t.strip()]
+    tier_clauses = []
+    params: list[int] = []
+    for t in clean_tiers:
+        if t in EMPLOYEE_TIER_RANGES:
+            t_min, t_max = EMPLOYEE_TIER_RANGES[t]
+            if t_min is not None and t_max is not None:
+                tier_clauses.append(f"({column} >= ? AND {column} <= ?)")
+                params.extend([t_min, t_max])
+            elif t_min is not None:
+                tier_clauses.append(f"({column} >= ?)")
+                params.append(t_min)
+            elif t_max is not None:
+                tier_clauses.append(f"({column} <= ?)")
+                params.append(t_max)
+    if not tier_clauses:
+        return None, []
+    return f"({' OR '.join(tier_clauses)})", params
+
+
