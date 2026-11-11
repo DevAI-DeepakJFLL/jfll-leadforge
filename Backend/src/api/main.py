@@ -3,7 +3,7 @@ import threading
 import time
 from collections import defaultdict
 
-from fastapi import FastAPI, Header
+from fastapi import BackgroundTasks, FastAPI, Header
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
@@ -243,10 +243,11 @@ app.include_router(lead_tracker_router)
 @app.post("/api/v1/approaches/log", response_model=EntityApproachHistory, tags=["Sales Approach Logs"])
 def api_v1_approaches_log(
     payload: ApproachLogDirectRequest,
+    background_tasks: BackgroundTasks = None,
     authorization: str | None = Header(None),
 ) -> EntityApproachHistory:
     """Canonical alias for direct approach logging."""
-    return post_direct_approach_log(payload, authorization)
+    return post_direct_approach_log(payload, authorization=authorization, background_tasks=background_tasks)
 
 
 @app.post("/api/leads/export", tags=["Leads Export"])

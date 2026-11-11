@@ -77,3 +77,25 @@ def test_convert_to_active_route_offloads_s3_to_background(tmp_path, monkeypatch
         )
         assert res.status_code == 200
         mock_backup.assert_called_once()
+
+
+def test_canonical_alias_approaches_log_route_offloads_s3_to_background(tmp_path, monkeypatch):
+    test_store = tmp_path / "test_approach_logs.json"
+    monkeypatch.setenv("APPROACH_LOGS_PATH", str(test_store))
+    save_approach_data(_build_empty_store())
+
+    monkeypatch.setenv("ENABLE_S3_APPROACH_BACKUP", "1")
+
+    token, _ = create_token({"sub": "deepak@jfll.com", "name": "Deepak Naidu", "role": "Tech Lead"})
+    headers = {"Authorization": f"Bearer {token}"}
+
+    client = TestClient(app)
+    with patch("src.api.approach_routes._backup_to_s3") as mock_backup:
+        res = client.post(
+            "/api/v1/approaches/log",
+            json={"entity_type": "jfll_customer", "entity_id": "cust_bg_3", "action": "Called customer", "status": "Contacted"},
+            headers=headers,
+        )
+        assert res.status_code == 200
+        mock_backup.assert_called_once()
+

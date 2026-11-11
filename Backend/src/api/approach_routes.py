@@ -590,8 +590,8 @@ class ApproachLogDirectRequest(BaseModel):
 )
 def post_direct_approach_log(
     payload: ApproachLogDirectRequest,
-    background_tasks: BackgroundTasks = None,
     authorization: str | None = Header(None),
+    background_tasks: BackgroundTasks = None,
 ) -> EntityApproachHistory:
     """Convenience endpoint accepting full payload including entity coordinates."""
     create_payload = ApproachLogCreate(
@@ -604,8 +604,8 @@ def post_direct_approach_log(
         entity_type=payload.entity_type,
         entity_id=payload.entity_id,
         payload=create_payload,
-        background_tasks=background_tasks,
         authorization=authorization,
+        background_tasks=background_tasks,
     )
 
 
@@ -618,8 +618,8 @@ def log_approach_activity(
     entity_type: Literal["datamyne", "jfll_customer"],
     entity_id: str,
     payload: ApproachLogCreate,
-    background_tasks: BackgroundTasks = None,
     authorization: str | None = Header(None),
+    background_tasks: BackgroundTasks = None,
 ) -> EntityApproachHistory:
     """
     Records a sales outreach action, validates status transitions, and enforces mandatory notes.
@@ -738,8 +738,8 @@ def convert_client_to_active(
     entity_type: Literal["datamyne", "jfll_customer"],
     entity_id: str,
     payload: ConvertToActiveRequest,
-    background_tasks: BackgroundTasks = None,
     authorization: str | None = Header(None),
+    background_tasks: BackgroundTasks = None,
 ) -> EntityApproachHistory:
     """
     Dedicated transition workflow: sets status to 'Converted to Active',
