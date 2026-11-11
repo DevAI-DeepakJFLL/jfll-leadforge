@@ -9,7 +9,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
-from fastapi import APIRouter, Header, HTTPException, Query
+from fastapi import APIRouter, BackgroundTasks, Header, HTTPException, Query
 from pydantic import BaseModel
 
 from src.api.access_control import Permission
@@ -140,11 +140,15 @@ def load_approach_data() -> dict[str, Any]:
         return _build_empty_store()
 
 
-def save_approach_data(data: dict[str, Any]) -> None:
+def save_approach_data(
+    data: dict[str, Any],
+    background_tasks: BackgroundTasks | None = None,
+    force_s3: bool = False,
+) -> None:
     """
     Atomically writes approach log data to disk using fsync and os.replace.
     """
-    global _CACHED_DATA, _CACHED_MTIME, _CACHED_STORAGE_KEY
+    global _CACHED_DATA, _CACHED_MTIME, _CACHED_STORAGE_KEY, _LAST_S3_SYNC
     storage_path = get_storage_path()
     storage_path.parent.mkdir(parents=True, exist_ok=True)
     temp_path = storage_path.with_suffix(".tmp")
@@ -171,8 +175,17 @@ def save_approach_data(data: dict[str, Any]) -> None:
     except OSError:
         pass
 
-    if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or settings.env != "local" or os.getenv("ENABLE_S3_APPROACH_BACKUP"):
-        _backup_to_s3(storage_path)
+    should_backup = (
+        force_s3
+        or os.getenv("AWS_LAMBDA_FUNCTION_NAME")
+        or settings.env != "local"
+        or os.getenv("ENABLE_S3_APPROACH_BACKUP")
+    )
+    if should_backup:
+        if background_tasks is not None:
+            background_tasks.add_task(_backup_to_s3, storage_path)
+        else:
+            _backup_to_s3(storage_path)
     _LAST_S3_SYNC = time.time()
 
 
@@ -577,6 +590,7 @@ class ApproachLogDirectRequest(BaseModel):
 )
 def post_direct_approach_log(
     payload: ApproachLogDirectRequest,
+    background_tasks: BackgroundTasks = None,
     authorization: str | None = Header(None),
 ) -> EntityApproachHistory:
     """Convenience endpoint accepting full payload including entity coordinates."""
@@ -590,6 +604,7 @@ def post_direct_approach_log(
         entity_type=payload.entity_type,
         entity_id=payload.entity_id,
         payload=create_payload,
+        background_tasks=background_tasks,
         authorization=authorization,
     )
 
@@ -603,6 +618,7 @@ def log_approach_activity(
     entity_type: Literal["datamyne", "jfll_customer"],
     entity_id: str,
     payload: ApproachLogCreate,
+    background_tasks: BackgroundTasks = None,
     authorization: str | None = Header(None),
 ) -> EntityApproachHistory:
     """
@@ -669,7 +685,7 @@ def log_approach_activity(
             entity["logs"] = []
         entity["logs"].append(new_entry)
 
-        save_approach_data(data)
+        save_approach_data(data, background_tasks=background_tasks)
 
     # Sync touchpoint to Lead Status Tracker SQLite database
     _sync_to_lead_tracker(
@@ -722,6 +738,7 @@ def convert_client_to_active(
     entity_type: Literal["datamyne", "jfll_customer"],
     entity_id: str,
     payload: ConvertToActiveRequest,
+    background_tasks: BackgroundTasks = None,
     authorization: str | None = Header(None),
 ) -> EntityApproachHistory:
     """
@@ -772,7 +789,7 @@ def convert_client_to_active(
             entity["logs"] = []
         entity["logs"].append(new_entry)
 
-        save_approach_data(data)
+        save_approach_data(data, background_tasks=background_tasks)
 
     # Sync touchpoint to Lead Status Tracker SQLite database
     _sync_to_lead_tracker(
@@ -813,3 +830,8 @@ def convert_client_to_active(
         conversion_start_date=payload.start_date,
         logs=[ApproachLogEntry(**item) for item in logs_sorted],
     )
+
+
+# Alias endpoints for backward compatibility / alternate naming
+update_entity_approach_status = log_approach_activity
+
