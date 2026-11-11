@@ -494,9 +494,12 @@ def _sync_to_lead_tracker(
             add_activity,
             update_lead,
             init_db,
+            backup_db_to_s3,
+            get_storage_path,
         )
 
-        init_db()
+        db_path = get_storage_path()
+        init_db(db_path)
 
         sales_act = SalesAction.CALLED_CUSTOMER
         try:
@@ -509,7 +512,7 @@ def _sync_to_lead_tracker(
         if not clean_company:
             clean_company = entity_id.replace("dm_", "").replace("cust_", "").replace("_", " ").title()
 
-        conn = get_db_connection()
+        conn = get_db_connection(db_path)
         existing_lead_id = None
         try:
             cur = conn.execute(
@@ -537,6 +540,7 @@ def _sync_to_lead_tracker(
                     "notes": note,
                     "new_status": mapped_status,
                 },
+                db_path=db_path,
             )
             update_lead(
                 lead_id=existing_lead_id,
@@ -546,6 +550,7 @@ def _sync_to_lead_tracker(
                     "linked_entity_type": entity_type,
                     "linked_entity_id": entity_id,
                 },
+                db_path=db_path,
             )
         else:
             create_lead(
@@ -568,8 +573,12 @@ def _sync_to_lead_tracker(
                             "notes": note,
                         }
                     ],
-                }
+                },
+                db_path=db_path,
             )
+
+        if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or os.getenv("ENABLE_S3_TRACKER_BACKUP") or settings.env != "local":
+            backup_db_to_s3(db_path)
     except Exception as err:
         logger.warning("Lead Tracker Sync: Failed to sync activity for %s %s: %s", entity_type, entity_id, err)
 

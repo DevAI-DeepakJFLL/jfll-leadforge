@@ -588,6 +588,13 @@ function notifyApproachStatusUpdated(
       detail: { entityType, entityId, newStatus, isActiveConverted, companyName, note },
     });
     window.dispatchEvent(event);
+
+    // Also dispatch Lead Tracker updated event so Lead Status view auto-refreshes
+    window.dispatchEvent(
+      new CustomEvent('jfll-tracker-lead-updated', {
+        detail: { entityType, entityId, companyName, newStatus },
+      })
+    );
   }
 }
 
