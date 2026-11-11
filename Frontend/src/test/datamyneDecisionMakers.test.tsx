@@ -209,6 +209,36 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
       expect(extractFirstDirectorName(null)).toBeNull();
       expect(extractFirstDirectorName('')).toBeNull();
     });
+
+    it('extracts clean director name from dense Indian customs manifest with addresses (e.g. JSW Steel)', () => {
+      const jswSteelDirectors =
+        '1.  :  SHRI SAJJAN JINDAL SHRI OMPRAKESH JINDAL JINDAL HOUSE 32 WALKESHWAR ROAD MUMBAI PIN-400006PHONE/EMAIL:';
+      expect(extractFirstDirectorName(jswSteelDirectors)).toBe('Sajjan Jindal');
+    });
+
+    it('extracts clean director name and deduplicates father name suffix (e.g. JSW Steel Coated Products)', () => {
+      const jswCoatedDirectors =
+        '1.  :  JAYANT RABINDRANATH ACHARYA RABINDRANATH ACHARYA F-303 GREAT EASTERN GARDENS LBS MARG KANJUR MARG WEST MUMBAI PIN-400078PHONE/EMAIL:02242861000';
+      expect(extractFirstDirectorName(jswCoatedDirectors)).toBe('Jayant Rabindranath Acharya');
+    });
+
+    it('rejects text with only addresses, location data, or corporate legal entity names', () => {
+      expect(
+        extractFirstDirectorName(
+          'PLOT NO. 13/1 ENNAR EXCELLENCY HUDA ENCLAVE SECTOR-1 MADHAPUR HITECH CITY HYDERABAD PIN-500081'
+        )
+      ).toBeNull();
+      expect(
+        extractFirstDirectorName(
+          'GREAT EASTERN GARDENS LBS MARG KANJUR MARG WEST MUMBAI PIN-400078'
+        )
+      ).toBeNull();
+      expect(extractFirstDirectorName('32 WALKESHWAR ROAD MUMBAI PIN-400006')).toBeNull();
+      expect(extractFirstDirectorName('JINDAL HOUSE 32 WALKESHWAR ROAD MUMBAI PIN-400006')).toBeNull();
+      expect(extractFirstDirectorName('Corporate (Corporate)')).toBeNull();
+      expect(extractFirstDirectorName('CHOICE SOLUTIONS LTD.')).toBeNull();
+      expect(extractFirstDirectorName('JSW STEEL COATED PRODUCTS LIMITED')).toBeNull();
+    });
   });
 
   // --------------------------------------------------------------------------

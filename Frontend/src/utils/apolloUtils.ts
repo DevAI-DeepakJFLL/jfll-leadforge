@@ -247,7 +247,7 @@ export function extractDomainFromEmail(email?: string | null): string | null {
 }
 
 const DIRECTOR_PREFIX_RE = /(?:director\s*[:\-]|dir\s*[:.\-]|proprietor\s*[:\-]|prop\s*[:.\-]|partner\s*[:\-]|managing\s+director\s*[:\-]|md\s*[:.\-]|ceo\s*[:\-]|attn\s*[:.\-]|attention\s*[:\-]|contact\s*[:\-]|name\s*[:\-])\s*/i;
-const HONORIFIC_PREFIX_RE = /^(?:mr\b\.?|mrs\b\.?|ms\b\.?|dr\b\.?|shri\b|shree\b|smt\b\.?)\s*/i;
+const LEADING_HONORIFIC_RE = /^(?:(?:mr|mrs|ms|dr|shri|shree|smt|late|sh|lt)\b\.?|attn\s*[:.\-]?)\s*/i;
 const DESIGNATION_SUFFIX_RE = /[\s,\-([\]]+(?:director|managing\s+director|proprietor|partner|md|ceo|head|manager|promoter|founder)[\s)\]\,]*$/i;
 const INVALID_DIRECTOR_STRINGS: ReadonlySet<string> = new Set([
   'na',
@@ -267,12 +267,96 @@ const INVALID_DIRECTOR_STRINGS: ReadonlySet<string> = new Set([
   'proprietor',
   'partner',
   'commercial shipper',
+  'corporate',
+  'corporate (corporate)',
 ]);
 
 /**
+ * Corporate, non-human, or institutional words that cannot appear as a human director name token.
+ */
+const FORBIDDEN_NAME_WORDS: ReadonlySet<string> = new Set([
+  'pvt', 'private', 'ltd', 'limited', 'llc', 'llp', 'inc', 'corp', 'corporation', 'co', 'company',
+  'corporate', 'commercial', 'enterprises', 'enterprise', 'industries', 'industry', 'holdings',
+  'holding', 'group', 'exports', 'export', 'imports', 'import', 'logistics', 'freight', 'cargo',
+  'shipping', 'services', 'service', 'solutions', 'solution', 'technologies', 'technology', 'tech',
+  'systems', 'system', 'management', 'consulting', 'consultants', 'associates', 'properties',
+  'realty', 'developers', 'builders', 'trading', 'traders', 'impex', 'steels', 'steel', 'metals',
+  'metal', 'chemicals', 'chemical', 'pharma', 'pharmaceuticals', 'energy', 'power', 'infra',
+  'infrastructure', 'engineering', 'projects', 'project', 'international', 'national', 'global',
+  'central', 'eastern', 'western', 'northern', 'southern', 'royal', 'golden', 'silver', 'grand',
+  'house', 'mansion', 'apt', 'apts', 'apartment', 'apartments', 'flat', 'flats', 'plot', 'plots',
+  'room', 'rooms', 'bldg', 'building', 'buildings', 'tower', 'towers', 'chsl', 'chs', 'society',
+  'soc', 'nagar', 'colony', 'enclave', 'complex', 'residency', 'niwas', 'bhuvan', 'chambers',
+  'bunglow', 'bungalow', 'villa', 'villas', 'vihar', 'heights', 'court', 'gardens', 'garden',
+  'park', 'parks', 'farms', 'farm', 'estate', 'estates', 'road', 'rd', 'marg', 'street', 'st',
+  'lane', 'floor', 'floors', 'sector', 'sec', 'village', 'pin', 'pincode', 'post', 'po', 'dist',
+  'district', 'taluka', 'tehsil', 'state', 'india', 'mumbai', 'bombay', 'delhi', 'kolkata',
+  'calcutta', 'chennai', 'madras', 'bangalore', 'bengaluru', 'hyderabad', 'secunderabad',
+  'ahmedabad', 'pune', 'poona', 'surat', 'jaipur', 'lucknow', 'kanpur', 'nagpur', 'indore',
+  'thane', 'bhopal', 'visakhapatnam', 'vizag', 'patna', 'vadodara', 'baroda', 'ghaziabad',
+  'ludhiana', 'agra', 'nashik', 'faridabad', 'meerut', 'rajkot', 'varanasi', 'srinagar',
+  'aurangabad', 'dhanbad', 'amritsar', 'ranchi', 'howrah', 'coimbatore', 'jabalpur', 'gwalior',
+  'vijayawada', 'jodhpur', 'madurai', 'raipur', 'kota', 'guwahati', 'chandigarh', 'solapur',
+  'hubli', 'bareilly', 'moradabad', 'mysore', 'gurgaon', 'gurugram', 'aligarh', 'jalandhar',
+  'bhubaneswar', 'salem', 'warangal', 'thiruvananthapuram', 'bhiwandi', 'saharanpur', 'gorakhpur',
+  'guntur', 'bikaner', 'amravati', 'noida', 'jamshedpur', 'bhilai', 'cuttack', 'kochi', 'cochin',
+  'bhavnagar', 'dehradun', 'durgapur', 'asansol', 'rourkela', 'nanded', 'kolhapur', 'ajmer',
+  'akola', 'jamnagar', 'ujjain', 'vapi', 'hazira', 'dahej', 'mundra', 'kandla',
+]);
+
+const ADDRESS_KEYWORDS = '(?:house|mansion|apts?|apt|apartments?|flat|flats|plot|plots|room|rooms|bldg|building|buildings|tower|towers|chsl|chs|society|soc|nagar|road|rd|marg|street|lane|floor|sector|sec|village|bunglow|bungalow|niwas|bhuvan|chambers|residency|enclave|complex|colony|estate|gardens?|vihar|heights|court|farm|farms)';
+
+const CUTOFF_DELIMITERS_RE = new RegExp(
+  '(?:' +
+  '\\s+(?:shri|shree|smt|late|mr|mrs|dr|sh|lt)\\b|' +
+  '\\b(?:s\\/o|d\\/o|w\\/o|son\\s+of|daughter\\s+of|wife\\s+of)\\b|' +
+  '\\bpin[-:\\s]*\\d+|' +
+  '\\b(?:phone|email|tel|mob|mobile|fax|web)\\b|' +
+  '(?:\\b[a-zA-Z0-9.\'-]+\\s+)?' + ADDRESS_KEYWORDS + '\\b|' +
+  '\\b[a-z]-\\d+\\b|\\b[a-z]\\/\\d+\\b|\\b\\d+[-/]\\d+\\b|\\b\\d+\\b|\\bdin\\b' +
+  ')',
+  'i'
+);
+
+/**
+ * Detects and trims repeated father name sequences appended to director names in Indian customs manifests.
+ */
+function deduplicateFatherName(nameStr: string): string {
+  let words = nameStr.split(/\s+/).filter(Boolean);
+  if (words.length <= 1) return nameStr;
+
+  // 1. Check for exact duplicate tail sequence of length k (e.g. "RABINDRANATH ACHARYA RABINDRANATH ACHARYA")
+  for (let k = Math.floor(words.length / 2); k >= 1; k--) {
+    const tail = words.slice(words.length - k).map((w) => w.toLowerCase());
+    const prev = words.slice(words.length - 2 * k, words.length - k).map((w) => w.toLowerCase());
+    if (tail.every((w, idx) => w === prev[idx])) {
+      words = words.slice(0, words.length - k);
+      break;
+    }
+  }
+
+  // 2. Check if the last word (surname) matches an earlier word (director's surname)
+  if (words.length >= 3) {
+    const lastWord = words[words.length - 1].toLowerCase().replace(/[^a-z]/g, '');
+    if (lastWord.length >= 2) {
+      for (let i = 1; i < words.length - 1; i++) {
+        const candidateSurname = words[i].toLowerCase().replace(/[^a-z]/g, '');
+        if (candidateSurname === lastWord) {
+          words = words.slice(0, i + 1);
+          break;
+        }
+      }
+    }
+  }
+
+  return words.join(' ');
+}
+
+/**
  * Extracts and standardizes an executive or director name from messy customs manifest text dumps,
- * stripping manifest prefixes (DIR:, MD:, ATTN:), corporate designations, DIN numbers,
- * and phone/email noise, while rejecting generic placeholders and corporate legal entities.
+ * stripping Indian customs numbering, subsequent director markers, manifest prefixes (DIR:, MD:, ATTN:),
+ * leading honorifics, residential address patterns, PIN codes, phone/email noise, and father's names,
+ * while strictly rejecting corporate legal entities and address-only strings.
  */
 export function extractFirstDirectorName(directorsStr?: string | null): string | null {
   if (!directorsStr || typeof directorsStr !== 'string') return null;
@@ -283,43 +367,73 @@ export function extractFirstDirectorName(directorsStr?: string | null): string |
     return null;
   }
 
-  // Reject corporate legal entities (contains Ltd, Pvt, LLC, etc.)
-  if (/\b(pvt|private\s+limited|limited|ltd|llc|llp|inc|corp|co\.|company)\b/i.test(cleaned)) {
-    return null;
+  // 1. Truncate at subsequent numbered director markers (e.g. " :  2.  : ", " 2. : ", "; 2. : ", "\n2. : ")
+  const subsequentMarkerMatch = cleaned.search(/(?:\s*:\s*|\s*;\s*|\s*\|\s*|\n)\d+\.\s*(?::\s*)?|\s{2,}\d+\.\s*:\s*/);
+  if (subsequentMarkerMatch > 0) {
+    cleaned = cleaned.slice(0, subsequentMarkerMatch);
   }
 
-  // 1. Remove labeled prefix (DIR:, MD:, ATTN:, etc.)
+  // 2. Support Indian customs manifest numbering: strip leading ^\s*\d+\.\s*:\s* or ^\s*\d+\.\s*
+  cleaned = cleaned.replace(/^\s*\d+\.\s*(?::\s*)?/, '').trim();
+
+  // 3. Remove labeled prefixes (DIR:, MD:, ATTN:, etc.)
   const prefixMatch = cleaned.match(DIRECTOR_PREFIX_RE);
-  if (prefixMatch && prefixMatch.index !== undefined) {
+  if (prefixMatch && prefixMatch.index !== undefined && prefixMatch.index < 10) {
     cleaned = cleaned.slice(prefixMatch.index + prefixMatch[0].length);
   }
 
-  // 2. Cut off at delimiters like DIN, Tel, Mobile, Email, S/O, D/O, newline, semicolon, pipe
-  cleaned = cleaned.split(/[;\n\r|]|\b(?:din|tel|phone|mob|mobile|email|s\/o|d\/o|w\/o)\b/i)[0];
+  // 4. Strip leading honorifics (SHRI, SHREE, SMT, MR, MRS, MS, DR, LATE, ATTN:)
+  while (LEADING_HONORIFIC_RE.test(cleaned)) {
+    cleaned = cleaned.replace(LEADING_HONORIFIC_RE, '').trim();
+  }
 
-  // 3. Cut off designation suffixes
+  // 5. Split at newlines, semicolons, or pipes
+  cleaned = cleaned.split(/[\n\r;|]/)[0].trim();
+
+  // 6. Cut off at address patterns, phone/email, DIN, numbers, and father delimiters
+  const delimMatch = cleaned.match(CUTOFF_DELIMITERS_RE);
+  if (delimMatch && delimMatch.index !== undefined) {
+    cleaned = cleaned.slice(0, delimMatch.index);
+  }
+
+  // 7. Cut off designation suffixes
   cleaned = cleaned.replace(DESIGNATION_SUFFIX_RE, '').trim();
 
-  // 4. Remove honorifics
-  cleaned = cleaned.replace(HONORIFIC_PREFIX_RE, '').trim();
-
-  // 5. Clean up punctuation and parentheses
+  // 8. Clean punctuation and parentheses
   cleaned = cleaned.replace(/[()[\]"']/g, '').replace(/^[ .,\-/: ]+|[ .,\-/: ]+$/g, '');
-
-  // 6. Normalize internal whitespace
   cleaned = cleaned.replace(/\s+/g, ' ').trim();
+
+  // 9. Deduplicate repeated father name pattern
+  cleaned = deduplicateFatherName(cleaned);
 
   if (!cleaned || cleaned.length < 3) return null;
   if (INVALID_DIRECTOR_STRINGS.has(cleaned.toLowerCase())) return null;
   if (/\d/.test(cleaned)) return null;
   if (!/^[a-zA-Z\s.'-]+$/.test(cleaned)) return null;
 
-  // Title case the name
-  return cleaned
-    .toLowerCase()
-    .split(' ')
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+  const words = cleaned.toLowerCase().split(/\s+/).filter(Boolean);
+  // Human names in customs records must have at least 2 tokens (given name + surname / initial + surname)
+  if (words.length < 2) return null;
+
+  // Reject if any token is a corporate or address word
+  for (const w of words) {
+    const cleanW = w.replace(/[^a-z]/g, '');
+    if (FORBIDDEN_NAME_WORDS.has(cleanW)) {
+      return null;
+    }
+  }
+
+  // Title case formatting
+  return words
+    .map((w) => {
+      if (w.includes('.')) {
+        return w
+          .split('.')
+          .map((part) => (part ? part.charAt(0).toUpperCase() + part.slice(1).toLowerCase() : ''))
+          .join('.');
+      }
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    })
     .join(' ');
 }
 

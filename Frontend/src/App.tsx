@@ -72,6 +72,7 @@ import {
   subscribeToSavedChanges,
 } from '@/services/savedLeadsService';
 import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
+import { extractFirstDirectorName } from '@/utils/apolloUtils';
 import { LogApproachModal, ConvertToActiveModal } from '@/components/approach';
 import { SalesStatus } from '@/types/approachLog';
 import {
@@ -1122,7 +1123,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           branch: 'Mumbai',
           contact_person:
             !isApollo && (lead as DatamyneLead).directors
-              ? (lead as DatamyneLead).directors?.split(/[,;\n]/)[0]?.trim() || null
+              ? extractFirstDirectorName((lead as DatamyneLead).directors)
               : null,
           contact_phone: phone,
           contact_email: email,
