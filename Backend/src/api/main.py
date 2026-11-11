@@ -120,6 +120,21 @@ class RateLimitingMiddleware(BaseHTTPMiddleware):
         self.requests: dict[str, list[float]] = defaultdict(list)
         self._lock = threading.Lock()
 
+    def prune_expired(self, now: float | None = None) -> None:
+        """Removes expired timestamps and deletes IP keys with no remaining active requests."""
+        if now is None:
+            now = time.time()
+        cutoff = now - self.window_seconds
+        expired_keys = []
+        for ip, timestamps in list(self.requests.items()):
+            active = [t for t in timestamps if t > cutoff]
+            if active:
+                self.requests[ip] = active
+            else:
+                expired_keys.append(ip)
+        for ip in expired_keys:
+            self.requests.pop(ip, None)
+
     async def dispatch(self, request: Request, call_next):
         path = request.url.path
         if request.method != "OPTIONS" and path.startswith(
@@ -141,18 +156,16 @@ class RateLimitingMiddleware(BaseHTTPMiddleware):
             if not is_internal_test:
                 now = time.time()
                 with self._lock:
-                    # Clean up expired entries if dictionary exceeds 1,000 tracked IPs
-                    if len(self.requests) > 1000:
-                        cutoff_global = now - self.window_seconds
-                        self.requests = defaultdict(
-                            list,
-                            {k: [t for t in v if t > cutoff_global] for k, v in self.requests.items() if any(t > cutoff_global for t in v)}
-                        )
+                    # Clean up expired entries if dictionary exceeds 500 tracked IPs
+                    if len(self.requests) > 500:
+                        self.prune_expired(now)
 
                     timestamps = self.requests[ip]
                     cutoff = now - self.window_seconds
                     self.requests[ip] = [t for t in timestamps if t > cutoff]
-                    if len(self.requests[ip]) >= self.max_requests:
+                    if not self.requests[ip]:
+                        self.requests.pop(ip, None)
+                    if len(self.requests.get(ip, [])) >= self.max_requests:
                         return JSONResponse(
                             status_code=429,
                             content={
