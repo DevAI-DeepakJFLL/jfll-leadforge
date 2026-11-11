@@ -20,11 +20,17 @@ import {
 import {
   convertClientToActive,
   getCachedApproachStatus,
+  getCachedApproachLatestNote,
   logApproachActivity,
   getPendingOutbox,
   syncPendingApproachOutbox,
   fetchBulkStatuses,
   APPROACH_STATUS_CHANGED_EVENT,
+  clearCachedBulkStatuses,
+  loadPersistedBulkData,
+  savePersistedBulkData,
+  hydrateBulkCaches,
+  getBulkApproachStorageKey,
 } from '@/services/approachLogService';
 
 vi.mock('@/services/authService', () => ({
@@ -60,9 +66,28 @@ Object.defineProperty(globalThis, 'localStorage', {
   configurable: true,
 });
 
+const sessionMemoryStore = new Map<string, string>();
+const mockSessionStorage = {
+  getItem: (key: string) => sessionMemoryStore.get(key) || null,
+  setItem: (key: string, val: string) => sessionMemoryStore.set(key, String(val)),
+  removeItem: (key: string) => sessionMemoryStore.delete(key),
+  clear: () => sessionMemoryStore.clear(),
+  get length() {
+    return sessionMemoryStore.size;
+  },
+  key: (i: number) => Array.from(sessionMemoryStore.keys())[i] || null,
+};
+Object.defineProperty(globalThis, 'sessionStorage', {
+  value: mockSessionStorage,
+  writable: true,
+  configurable: true,
+});
+
 describe('Sales Approach & Active Conversion Suite', () => {
   beforeEach(() => {
     localStorage.clear();
+    sessionStorage.clear();
+    clearCachedBulkStatuses();
     globalThis.fetch = vi.fn().mockRejectedValue(new TypeError('Failed to fetch'));
   });
 
@@ -725,6 +750,172 @@ describe('Sales Approach & Active Conversion Suite', () => {
         (globalThis as any).window = originalWindow;
         globalThis.fetch = originalFetch;
       }
+    });
+  });
+
+  describe('Bulk Statuses Persistence & Storage Lifecycle', () => {
+    it('persists retrieved bulk statuses, notes, and company mappings into sessionStorage', async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          entity_type: 'datamyne',
+          total_tracked: 2,
+          statuses: { 'dm-101': 'Working on It', 'dm-102': 'Contacted' },
+          notes: { 'dm-101': 'Sent rate card', 'dm-102': 'Follow up next week' },
+          company_statuses: { 'acme ocean lines': 'Working on It', 'beta air cargo': 'Contacted' },
+          company_notes: { 'acme ocean lines': 'Sent rate card', 'beta air cargo': 'Follow up next week' },
+        }),
+      } as unknown as Response);
+
+      try {
+        const statuses = await fetchBulkStatuses('datamyne');
+        expect(statuses['dm-101']).toBe('Working on It');
+
+        // Verify data was persisted to sessionStorage under jfll_bulk_approach_datamyne
+        const storedRaw = sessionStorage.getItem(getBulkApproachStorageKey('datamyne'));
+        expect(storedRaw).toBeTruthy();
+        const parsed = JSON.parse(storedRaw!);
+        expect(parsed.statuses['dm-101']).toBe('Working on It');
+        expect(parsed.statuses['dm-102']).toBe('Contacted');
+        expect(parsed.notes['dm-101']).toBe('Sent rate card');
+        expect(parsed.company_statuses['acme ocean lines']).toBe('Working on It');
+        expect(parsed.company_notes['beta air cargo']).toBe('Follow up next week');
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
+
+    it('falls back to localStorage when sessionStorage throws an error', async () => {
+      const originalFetch = globalThis.fetch;
+      const originalSetItem = sessionStorage.setItem;
+      sessionStorage.setItem = vi.fn().mockImplementation(() => {
+        throw new Error('QuotaExceededError: sessionStorage quota exceeded');
+      });
+
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          entity_type: 'jfll_customer',
+          total_tracked: 1,
+          statuses: { 'cust-fb-1': 'In Progress' },
+          notes: { 'cust-fb-1': 'Contract under review' },
+          company_statuses: { 'fallback logistics ltd': 'In Progress' },
+          company_notes: { 'fallback logistics ltd': 'Contract under review' },
+        }),
+      } as unknown as Response);
+
+      try {
+        await fetchBulkStatuses('jfll_customer');
+
+        // Check fallback in localStorage
+        const storedLocal = localStorage.getItem(getBulkApproachStorageKey('jfll_customer'));
+        expect(storedLocal).toBeTruthy();
+        const parsed = JSON.parse(storedLocal!);
+        expect(parsed.statuses['cust-fb-1']).toBe('In Progress');
+        expect(parsed.company_statuses['fallback logistics ltd']).toBe('In Progress');
+        expect(parsed.notes['cust-fb-1']).toBe('Contract under review');
+      } finally {
+        sessionStorage.setItem = originalSetItem;
+        globalThis.fetch = originalFetch;
+      }
+    });
+
+    it('resolves getCachedApproachStatus from sessionStorage when in-memory cache is empty', () => {
+      // Seed sessionStorage directly
+      savePersistedBulkData('datamyne', {
+        statuses: { 'dm-stored-99': 'Report Sent' },
+        company_statuses: { 'zenith freight forwarding': 'Working on It' },
+      });
+
+      // Clear volatile in-memory caches
+      clearCachedBulkStatuses();
+
+      // Resolve by entity ID
+      const statusById = getCachedApproachStatus('datamyne', 'dm-stored-99');
+      expect(statusById).toBe('Report Sent');
+
+      // Resolve by company name
+      const statusByCompany = getCachedApproachStatus('datamyne', 'unknown-id', 'Zenith Freight Forwarding');
+      expect(statusByCompany).toBe('Working on It');
+    });
+
+    it('resolves getCachedApproachStatus from localStorage fallback when sessionStorage is empty', () => {
+      // Ensure sessionStorage is empty
+      sessionStorage.clear();
+
+      // Seed localStorage
+      localStorage.setItem(
+        getBulkApproachStorageKey('jfll_customer'),
+        JSON.stringify({
+          statuses: { 'cust-local-77': 'On Hold' },
+          notes: { 'cust-local-77': 'Budget postponed' },
+          company_statuses: { 'pacific express': 'On Hold' },
+          company_notes: { 'pacific express': 'Budget postponed' },
+        })
+      );
+
+      // Clear in-memory caches
+      clearCachedBulkStatuses();
+
+      // Verify resolution via localStorage fallback
+      expect(getCachedApproachStatus('jfll_customer', 'cust-local-77')).toBe('On Hold');
+      expect(getCachedApproachStatus('jfll_customer', 'non-existent', 'PACIFIC EXPRESS')).toBe('On Hold');
+    });
+
+    it('resolves getCachedApproachLatestNote from persisted storage when in-memory cache is empty', () => {
+      savePersistedBulkData('datamyne', {
+        statuses: { 'dm-note-1': 'In Progress' },
+        notes: { 'dm-note-1': 'Sent customized reefer container schedule' },
+        company_statuses: { 'cold chain logistics': 'In Progress' },
+        company_notes: { 'cold chain logistics': 'Sent customized reefer container schedule' },
+      });
+
+      clearCachedBulkStatuses();
+
+      expect(getCachedApproachLatestNote('datamyne', 'dm-note-1')).toBe(
+        'Sent customized reefer container schedule'
+      );
+      expect(
+        getCachedApproachLatestNote('datamyne', 'unknown-lead', 'Cold Chain Logistics')
+      ).toBe('Sent customized reefer container schedule');
+    });
+
+    it('hydrates in-memory bulk cache via hydrateBulkCaches', () => {
+      savePersistedBulkData('jfll_customer', {
+        statuses: { 'cust-hyd-1': 'Contacted' },
+        notes: { 'cust-hyd-1': 'Introductory email sent' },
+        company_statuses: { 'hydrated motors': 'Contacted' },
+        company_notes: { 'hydrated motors': 'Introductory email sent' },
+      });
+
+      clearCachedBulkStatuses();
+
+      hydrateBulkCaches();
+
+      expect(getCachedApproachStatus('jfll_customer', 'cust-hyd-1')).toBe('Contacted');
+      expect(getCachedApproachLatestNote('jfll_customer', 'cust-hyd-1')).toBe('Introductory email sent');
+      expect(getCachedApproachStatus('jfll_customer', 'cust-other', 'Hydrated Motors')).toBe('Contacted');
+    });
+
+    it('updates persisted storage when a new approach activity is logged', async () => {
+      const res = await logApproachActivity('jfll_customer', 'cust-persist-act', {
+        action: 'Held meeting',
+        status: 'In Progress',
+        note: 'Meeting conducted with operations team',
+        company_name: 'Starlight Global',
+      });
+
+      expect(res.current_status).toBe('In Progress');
+
+      const persisted = loadPersistedBulkData('jfll_customer');
+      expect(persisted).toBeTruthy();
+      expect(persisted?.statuses['cust-persist-act']).toBe('In Progress');
+      expect(persisted?.notes['cust-persist-act']).toBe('Meeting conducted with operations team');
+      expect(persisted?.company_statuses['starlight global']).toBe('In Progress');
+      expect(persisted?.company_notes['starlight global']).toBe('Meeting conducted with operations team');
     });
   });
 });

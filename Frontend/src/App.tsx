@@ -760,12 +760,26 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     companyName: string;
   } | null>(null);
 
-  // Fetch initial bulk statuses for both entity types and flush any pending offline outbox
+  // Flush any pending offline outbox on mount
   useEffect(() => {
     syncPendingApproachOutbox().catch(() => {});
-    fetchBulkStatuses('datamyne').catch(() => {});
-    fetchBulkStatuses('jfll_customer').catch(() => {});
   }, []);
+
+  // Trigger bulk statuses when currentUser becomes available or changes (e.g. user logs in)
+  useEffect(() => {
+    if (currentUser) {
+      fetchBulkStatuses('datamyne').catch(() => {});
+      fetchBulkStatuses('jfll_customer').catch(() => {});
+    }
+  }, [currentUser]);
+
+  // Trigger bulk statuses when topTab switches to 'datamyne' or 'tracker'
+  useEffect(() => {
+    if (topTab === 'datamyne' || topTab === 'tracker') {
+      fetchBulkStatuses('datamyne').catch(() => {});
+      fetchBulkStatuses('jfll_customer').catch(() => {});
+    }
+  }, [topTab]);
 
   // Listen for approach status updates to ensure tables re-query with latest data
   useEffect(() => {

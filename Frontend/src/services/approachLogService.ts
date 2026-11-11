@@ -150,11 +150,183 @@ const cachedBulkCompanyNotes: Record<'datamyne' | 'jfll_customer', Record<string
   jfll_customer: {},
 };
 
+export interface PersistedBulkApproachData {
+  statuses: Record<string, SalesStatus>;
+  notes: Record<string, string>;
+  company_statuses: Record<string, SalesStatus>;
+  company_notes: Record<string, string>;
+}
+
+export function getBulkApproachStorageKey(entityType: 'datamyne' | 'jfll_customer'): string {
+  return `jfll_bulk_approach_${entityType}`;
+}
+
+export function loadPersistedBulkData(
+  entityType: 'datamyne' | 'jfll_customer'
+): PersistedBulkApproachData | null {
+  const key = getBulkApproachStorageKey(entityType);
+
+  // 1. Try sessionStorage
+  try {
+    if (typeof sessionStorage !== 'undefined' && sessionStorage) {
+      const raw = sessionStorage.getItem(key);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          return {
+            statuses: parsed.statuses || {},
+            notes: parsed.notes || {},
+            company_statuses: parsed.company_statuses || {},
+            company_notes: parsed.company_notes || {},
+          };
+        }
+      }
+    }
+  } catch {
+    // sessionStorage not available or threw
+  }
+
+  // 2. Fallback to localStorage
+  try {
+    if (typeof localStorage !== 'undefined' && localStorage) {
+      const raw = localStorage.getItem(key);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object') {
+          return {
+            statuses: parsed.statuses || {},
+            notes: parsed.notes || {},
+            company_statuses: parsed.company_statuses || {},
+            company_notes: parsed.company_notes || {},
+          };
+        }
+      }
+    }
+  } catch {
+    // localStorage not available or threw
+  }
+
+  return null;
+}
+
+export function savePersistedBulkData(
+  entityType: 'datamyne' | 'jfll_customer',
+  data: Partial<PersistedBulkApproachData>
+): void {
+  const key = getBulkApproachStorageKey(entityType);
+  const payload: PersistedBulkApproachData = {
+    statuses: data.statuses || {},
+    notes: data.notes || {},
+    company_statuses: data.company_statuses || {},
+    company_notes: data.company_notes || {},
+  };
+  const serialized = JSON.stringify(payload);
+  let savedInSession = false;
+
+  try {
+    if (typeof sessionStorage !== 'undefined' && sessionStorage) {
+      sessionStorage.setItem(key, serialized);
+      savedInSession = true;
+    }
+  } catch (err) {
+    logger.warn('APPROACH_SERVICE', `Failed to save bulk data to sessionStorage for ${entityType}`, {
+      error: String(err),
+    });
+  }
+
+  if (!savedInSession) {
+    try {
+      if (typeof localStorage !== 'undefined' && localStorage) {
+        localStorage.setItem(key, serialized);
+      }
+    } catch (err) {
+      logger.warn('APPROACH_SERVICE', `Failed to save bulk data to localStorage for ${entityType}`, {
+        error: String(err),
+      });
+    }
+  }
+}
+
+export function hydrateBulkCaches(): void {
+  const entityTypes: Array<'datamyne' | 'jfll_customer'> = ['datamyne', 'jfll_customer'];
+  for (const entityType of entityTypes) {
+    const data = loadPersistedBulkData(entityType);
+    if (data) {
+      if (data.statuses) {
+        cachedBulkStatuses[entityType] = { ...data.statuses, ...cachedBulkStatuses[entityType] };
+      }
+      if (data.notes) {
+        cachedBulkNotes[entityType] = { ...data.notes, ...cachedBulkNotes[entityType] };
+      }
+      if (data.company_statuses) {
+        cachedBulkCompanyStatuses[entityType] = {
+          ...data.company_statuses,
+          ...cachedBulkCompanyStatuses[entityType],
+        };
+      }
+      if (data.company_notes) {
+        cachedBulkCompanyNotes[entityType] = {
+          ...data.company_notes,
+          ...cachedBulkCompanyNotes[entityType],
+        };
+      }
+    }
+  }
+}
+
+export function clearCachedBulkStatuses(): void {
+  cachedBulkStatuses.datamyne = {};
+  cachedBulkStatuses.jfll_customer = {};
+  cachedBulkNotes.datamyne = {};
+  cachedBulkNotes.jfll_customer = {};
+  cachedBulkCompanyStatuses.datamyne = {};
+  cachedBulkCompanyStatuses.jfll_customer = {};
+  cachedBulkCompanyNotes.datamyne = {};
+  cachedBulkCompanyNotes.jfll_customer = {};
+}
+
+// Hydrate bulk caches on module initialization
+hydrateBulkCaches();
+
+function ensureBulkCacheHydrated(entityType: 'datamyne' | 'jfll_customer'): void {
+  const isStatusesEmpty =
+    !cachedBulkStatuses[entityType] || Object.keys(cachedBulkStatuses[entityType]).length === 0;
+  const isNotesEmpty =
+    !cachedBulkNotes[entityType] || Object.keys(cachedBulkNotes[entityType]).length === 0;
+  const isCompanyStatusesEmpty =
+    !cachedBulkCompanyStatuses[entityType] ||
+    Object.keys(cachedBulkCompanyStatuses[entityType]).length === 0;
+  const isCompanyNotesEmpty =
+    !cachedBulkCompanyNotes[entityType] ||
+    Object.keys(cachedBulkCompanyNotes[entityType]).length === 0;
+
+  if (isStatusesEmpty || isNotesEmpty || isCompanyStatusesEmpty || isCompanyNotesEmpty) {
+    const data = loadPersistedBulkData(entityType);
+    if (data) {
+      if (isStatusesEmpty && data.statuses) {
+        cachedBulkStatuses[entityType] = { ...data.statuses };
+      }
+      if (isNotesEmpty && data.notes) {
+        cachedBulkNotes[entityType] = { ...data.notes };
+      }
+      if (isCompanyStatusesEmpty && data.company_statuses) {
+        cachedBulkCompanyStatuses[entityType] = { ...data.company_statuses };
+      }
+      if (isCompanyNotesEmpty && data.company_notes) {
+        cachedBulkCompanyNotes[entityType] = { ...data.company_notes };
+      }
+    }
+  }
+}
+
 export function getCachedApproachStatus(
   entityType: 'datamyne' | 'jfll_customer',
   entityId: string,
   companyName?: string | null
 ): SalesStatus {
+  // If in-memory cache is empty, check stored bulk data
+  ensureBulkCacheHydrated(entityType);
+
   if (cachedBulkStatuses[entityType]?.[entityId]) {
     return cachedBulkStatuses[entityType][entityId];
   }
@@ -164,6 +336,23 @@ export function getCachedApproachStatus(
       return cachedBulkCompanyStatuses[entityType][norm];
     }
   }
+
+  // Check stored bulk data directly if not yet in memory
+  const storedData = loadPersistedBulkData(entityType);
+  if (storedData) {
+    if (storedData.statuses?.[entityId]) {
+      cachedBulkStatuses[entityType][entityId] = storedData.statuses[entityId];
+      return storedData.statuses[entityId];
+    }
+    if (companyName && companyName.trim()) {
+      const norm = companyName.trim().toLowerCase();
+      if (storedData.company_statuses?.[norm]) {
+        cachedBulkCompanyStatuses[entityType][norm] = storedData.company_statuses[norm];
+        return storedData.company_statuses[norm];
+      }
+    }
+  }
+
   const store = getLocalStore();
   const key = `${entityType}:${entityId}`;
   if (store[key]?.current_status) {
@@ -193,6 +382,9 @@ export function getCachedApproachLatestNote(
   entityId: string,
   companyName?: string | null
 ): string {
+  // If in-memory cache is empty, check stored bulk data
+  ensureBulkCacheHydrated(entityType);
+
   if (cachedBulkNotes[entityType]?.[entityId]) {
     return cachedBulkNotes[entityType][entityId];
   }
@@ -202,6 +394,23 @@ export function getCachedApproachLatestNote(
       return cachedBulkCompanyNotes[entityType][norm];
     }
   }
+
+  // Check stored bulk data directly if not yet in memory
+  const storedData = loadPersistedBulkData(entityType);
+  if (storedData) {
+    if (storedData.notes?.[entityId]) {
+      cachedBulkNotes[entityType][entityId] = storedData.notes[entityId];
+      return storedData.notes[entityId];
+    }
+    if (companyName && companyName.trim()) {
+      const norm = companyName.trim().toLowerCase();
+      if (storedData.company_notes?.[norm]) {
+        cachedBulkCompanyNotes[entityType][norm] = storedData.company_notes[norm];
+        return storedData.company_notes[norm];
+      }
+    }
+  }
+
   const store = getLocalStore();
   const key = `${entityType}:${entityId}`;
   const record = store[key];
@@ -365,6 +574,14 @@ function notifyApproachStatusUpdated(
       cachedBulkCompanyNotes[entityType][norm] = note.trim();
     }
   }
+
+  // Persist the updated maps into storage so other views or reloads retain the company statuses and notes
+  savePersistedBulkData(entityType, {
+    statuses: cachedBulkStatuses[entityType],
+    notes: cachedBulkNotes[entityType],
+    company_statuses: cachedBulkCompanyStatuses[entityType],
+    company_notes: cachedBulkCompanyNotes[entityType],
+  });
 
   if (typeof window !== 'undefined') {
     const event = new CustomEvent(APPROACH_STATUS_CHANGED_EVENT, {
@@ -636,6 +853,15 @@ export async function fetchBulkStatuses(
       if (data.company_notes) {
         cachedBulkCompanyNotes[entityType] = { ...data.company_notes };
       }
+
+      // Persist the updated maps into storage so other views or reloads retain the company statuses and notes
+      savePersistedBulkData(entityType, {
+        statuses: cachedBulkStatuses[entityType],
+        notes: cachedBulkNotes[entityType],
+        company_statuses: cachedBulkCompanyStatuses[entityType],
+        company_notes: cachedBulkCompanyNotes[entityType],
+      });
+
       if (typeof window !== 'undefined') {
         window.dispatchEvent(
           new CustomEvent(APPROACH_STATUS_CHANGED_EVENT, { detail: { entityType, bulk: true } })
@@ -648,9 +874,13 @@ export async function fetchBulkStatuses(
   }
 
   // Local fallback
-  const store = getLocalStore();
+  const storedData = loadPersistedBulkData(entityType);
   const prefix = `${entityType}:`;
-  const result: Record<string, SalesStatus> = {};
+  const result: Record<string, SalesStatus> = {
+    ...(storedData?.statuses || {}),
+    ...(cachedBulkStatuses[entityType] || {}),
+  };
+  const store = getLocalStore();
   for (const [key, value] of Object.entries(store)) {
     if (key.startsWith(prefix)) {
       const rawId = value.entity_id || key.substring(prefix.length);
