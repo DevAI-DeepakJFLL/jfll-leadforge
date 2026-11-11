@@ -81,6 +81,7 @@ export interface DatamyneViewProps {
   isSidebarCollapsed?: boolean;
   onToggleSidebarCollapse?: () => void;
   currentUser?: UserSession | null;
+  isLoading?: boolean;
 }
 
 export const DatamyneView: React.FC<DatamyneViewProps> = ({
@@ -125,6 +126,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   isSidebarCollapsed = false,
   onToggleSidebarCollapse,
   currentUser,
+  isLoading,
 }) => {
   const [perspective, setPerspective] = React.useState<'verticals' | 'tiers'>('verticals');
   const {
@@ -523,7 +525,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             onPageChange={handleDisplayPageChange}
             onClearFilters={clearAllFilters}
             onResetToAllVerticals={() => onTabChange('all')}
-            isLoading={perspective === 'tiers' ? isTierLoading : false}
+            isLoading={perspective === 'tiers' ? isTierLoading : (isLoading ?? false)}
           />
         </div>
       </div>

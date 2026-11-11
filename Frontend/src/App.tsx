@@ -49,6 +49,7 @@ import {
   getLoadedDatamyneDataset,
   loadFullDatamyneDataset,
   subscribeToDatamyneDataset,
+  isDatamyneDatasetLoading,
 } from '@/services/datamyneService';
 import { getLoadedTierDataset } from '@/services/tierService';
 import { DatamyneLead } from '@/types/datamyneLead';
@@ -623,6 +624,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const {
     data: jfllData,
     isLoading: isJfllLoading,
+    isFetching: isJfllFetching,
     isError: isJfllError,
     error: jfllError,
     refetch: refetchJfll,
@@ -721,6 +723,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   } = useDatamyneFilter();
 
   const [datamyneDatasetVersion, setDatamyneDatasetVersion] = useState(0);
+  const [isDatamyneLoading, setIsDatamyneLoading] = useState(() => isDatamyneDatasetLoading());
 
   useEffect(() => {
     if (topTab === 'datamyne') {
@@ -728,6 +731,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     }
     return subscribeToDatamyneDataset(() => {
       setDatamyneDatasetVersion((v) => v + 1);
+      setIsDatamyneLoading(isDatamyneDatasetLoading());
     });
   }, [topTab]);
 
@@ -943,6 +947,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const {
     data: apolloDbData,
     isLoading: isApolloDbLoading,
+    isFetching: isApolloDbFetching,
     isError: isApolloDbError,
     error: apolloDbError,
     refetch: refetchApolloDb,
@@ -1233,6 +1238,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         <DatamyneView
           filters={datamyneFilters}
           query={datamyneQuery}
+          isLoading={isDatamyneLoading}
           rowSelection={datamyneRowSelection}
           onRowSelectionChange={setDatamyneRowSelection}
           selectedCount={selectedDatamyneCount}
@@ -1278,7 +1284,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         <JfllCustomersView
           filters={jfllFilters}
           query={jfllQuery}
-          isLoading={isJfllLoading}
+          isLoading={isJfllLoading || isJfllFetching}
           isError={isJfllError}
           error={jfllError}
           refetch={refetchJfll}
@@ -1323,7 +1329,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         <ApolloCompaniesView
           filters={apolloDbFilters}
           data={apolloDbData}
-          isLoading={isApolloDbLoading}
+          isLoading={isApolloDbLoading || isApolloDbFetching}
           isError={isApolloDbError}
           error={apolloDbError}
           refetch={refetchApolloDb}

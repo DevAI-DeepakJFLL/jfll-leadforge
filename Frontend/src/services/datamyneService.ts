@@ -26,6 +26,10 @@ export function subscribeToDatamyneDataset(listener: DatasetListener): () => voi
   };
 }
 
+export function isDatamyneDatasetLoading(): boolean {
+  return isLoadingFullData;
+}
+
 function notifyDatasetListeners(): void {
   datasetListeners.forEach((fn) => {
     try {
@@ -65,6 +69,7 @@ export async function loadFullDatamyneDataset(): Promise<DatamyneLead[]> {
   if (isLoadingFullData) return DATAMYNE_STARTER_DATA;
 
   isLoadingFullData = true;
+  notifyDatasetListeners();
   try {
     const res = await fetch('/data/datamyne_tier_segments.json');
     if (res.ok) {
@@ -77,13 +82,13 @@ export async function loadFullDatamyneDataset(): Promise<DatamyneLead[]> {
       cachedFullDataset = data;
       setLoadedTierDataset(data as unknown as TieredLead[]);
       logger.info('DATAMYNE', `Loaded full dataset with ${data.length} records into memory.`);
-      notifyDatasetListeners();
       return data;
     }
   } catch (err) {
     logger.warn('DATAMYNE', 'Failed to fetch /data/datamyne_tier_segments.json, continuing with starter dataset', { err });
   } finally {
     isLoadingFullData = false;
+    notifyDatasetListeners();
   }
   return DATAMYNE_STARTER_DATA;
 }

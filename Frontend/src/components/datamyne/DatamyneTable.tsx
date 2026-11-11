@@ -13,6 +13,7 @@ import {
   PhoneOff,
   ClipboardList,
   Sparkles,
+  Loader2,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -93,6 +94,12 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
       <div
         className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex-1 flex flex-col min-h-0 ${className}`}
       >
+        {/* Active Query Status Header banner */}
+        <div className="flex items-center gap-2.5 px-4 py-2.5 bg-amber-50/70 border-b border-amber-100/80 text-xs text-amber-900 font-medium select-none">
+          <Loader2 className="w-4 h-4 text-amber-600 animate-spin shrink-0" />
+          <span>Querying customs trade manifests...</span>
+        </div>
+
         <div className="flex-1 overflow-auto min-h-0 relative">
           <table className="w-full text-left text-xs border-collapse">
             <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200/90 shadow-2xs">

@@ -13,6 +13,7 @@ import {
   AlertCircle,
   Users,
   MapPin,
+  Loader2,
 } from 'lucide-react';
 import { ApolloVerticalBadge } from './ApolloVerticalBadge';
 import {
@@ -84,12 +85,73 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
   // 1. Loading Skeleton View
   if (isLoading) {
     return (
-      <div className={`w-full bg-white rounded-lg border border-surface-border p-4 space-y-3 ${className}`}>
-        <div className="h-6 bg-slate-100 rounded w-1/4 animate-pulse" />
-        <div className="space-y-2">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="h-14 bg-slate-50 border border-slate-100 rounded-lg animate-pulse" />
-          ))}
+      <div className={`flex flex-col h-full bg-white rounded-lg border border-surface-border shadow-2xs overflow-hidden ${className}`}>
+        {/* Active Query Status Header banner */}
+        <div className="flex items-center gap-2.5 px-4 py-2.5 bg-blue-50/70 border-b border-blue-100/80 text-xs text-blue-900 font-medium select-none">
+          <Loader2 className="w-4 h-4 text-blue-600 animate-spin shrink-0" />
+          <span>Querying verified Apollo companies...</span>
+        </div>
+
+        {/* Scrollable Table Viewport with Skeleton Rows */}
+        <div className="flex-1 overflow-auto min-h-0">
+          <table className="w-full text-left text-xs border-collapse" aria-label="Apollo Shippers Table Loading">
+            <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs shadow-2xs">
+              <tr className="bg-slate-50/95 border-b border-slate-200/90 text-slate-600 font-semibold select-none text-[11px] uppercase tracking-wider">
+                <th className="py-3 px-3.5 w-10 text-center">
+                  <span className="sr-only">Select</span>
+                </th>
+                <th className="py-3 px-3.5 min-w-[230px]">Company & Domain</th>
+                <th className="py-3 px-3.5 min-w-[180px]">Cargo Vertical</th>
+                <th className="py-3 px-3.5 min-w-[140px]">Scale & Revenue</th>
+                <th className="py-3 px-3.5 min-w-[150px]">Headquarters</th>
+                <th className="py-3 px-3.5 min-w-[175px]">Direct Phone</th>
+                <th className="py-3 px-3.5 w-28 text-right">Details</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {Array.from({ length: pageSize || 10 }).map((_, i) => (
+                <tr key={i} className="animate-pulse bg-white">
+                  {/* Select */}
+                  <td className="py-3 px-3.5 text-center">
+                    <div className="w-4 h-4 bg-slate-200/80 rounded mx-auto" />
+                  </td>
+                  {/* Company & Domain */}
+                  <td className="py-3 px-3.5">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 rounded-lg bg-slate-200/80 shrink-0" />
+                      <div className="min-w-0 flex-1 space-y-1.5">
+                        <div className="w-36 h-3.5 bg-slate-200/80 rounded" />
+                        <div className="w-24 h-2.5 bg-slate-200/60 rounded" />
+                      </div>
+                    </div>
+                  </td>
+                  {/* Cargo Vertical */}
+                  <td className="py-3 px-3.5">
+                    <div className="w-28 h-5 bg-slate-200/70 rounded-md" />
+                  </td>
+                  {/* Scale & Revenue */}
+                  <td className="py-3 px-3.5">
+                    <div className="space-y-1">
+                      <div className="w-20 h-4 bg-slate-200/80 rounded" />
+                      <div className="w-16 h-3 bg-slate-200/60 rounded" />
+                    </div>
+                  </td>
+                  {/* Headquarters */}
+                  <td className="py-3 px-3.5">
+                    <div className="w-24 h-3.5 bg-slate-200/70 rounded" />
+                  </td>
+                  {/* Direct Phone */}
+                  <td className="py-3 px-3.5">
+                    <div className="w-28 h-3.5 bg-slate-200/70 rounded" />
+                  </td>
+                  {/* Details */}
+                  <td className="py-3 px-3.5 text-right">
+                    <div className="w-14 h-6 bg-slate-200/80 rounded ml-auto" />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     );

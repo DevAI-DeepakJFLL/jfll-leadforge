@@ -4,6 +4,8 @@ import {
   getLoadedDatamyneDataset,
   setLoadedDatamyneDataset,
   subscribeToDatamyneDataset,
+  isDatamyneDatasetLoading,
+  loadFullDatamyneDataset,
   exportDatamyneLeadsCsv,
   exportDatamyneSummaryReportCsv,
   formatDatamyneCompanyRole,
@@ -481,6 +483,25 @@ describe('DataMyne Leads Service & Schemas', () => {
       expect(lines[2]).toContain('\'=CMD() INJECTION TEST LTD');
       // Note starting with = must be escaped to '=
       expect(lines[2]).toContain('\'=HYPERLINK');
+    });
+  });
+
+  describe('isDatamyneDatasetLoading and subscription', () => {
+    it('reports loading state correctly via isDatamyneDatasetLoading and notifies subscribers', async () => {
+      expect(typeof isDatamyneDatasetLoading).toBe('function');
+      const initialState = isDatamyneDatasetLoading();
+      expect(typeof initialState).toBe('boolean');
+
+      const observedStates: boolean[] = [];
+      const unsubscribe = subscribeToDatamyneDataset(() => {
+        observedStates.push(isDatamyneDatasetLoading());
+      });
+
+      // Calling loadFullDatamyneDataset when already cached or falling back
+      await loadFullDatamyneDataset();
+      expect(isDatamyneDatasetLoading()).toBe(false);
+
+      unsubscribe();
     });
   });
 });

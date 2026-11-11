@@ -18,6 +18,7 @@ import {
   Sparkles,
   GitFork,
   Network,
+  Loader2,
 } from 'lucide-react';
 import { JfllCustomer, JfllCustomerSortField } from '@/types/jfllCustomer';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
@@ -223,6 +224,12 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
   if (isLoading) {
     return (
       <div className={`bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex-1 flex flex-col min-h-0 ${className}`}>
+        {/* Active Query Status Header banner */}
+        <div className="flex items-center gap-2.5 px-4 py-2.5 bg-emerald-50/70 border-b border-emerald-100/80 text-xs text-emerald-900 font-medium select-none">
+          <Loader2 className="w-4 h-4 text-emerald-600 animate-spin shrink-0" />
+          <span>Querying Jet Freight customer accounts...</span>
+        </div>
+
         <div className="flex-1 overflow-auto min-h-0 relative">
           <table className="w-full text-left text-xs border-collapse">
             <thead className="sticky top-0 z-20 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200/90 shadow-2xs">
