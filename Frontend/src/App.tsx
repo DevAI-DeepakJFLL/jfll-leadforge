@@ -726,13 +726,15 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const [isDatamyneLoading, setIsDatamyneLoading] = useState(() => isDatamyneDatasetLoading());
 
   useEffect(() => {
-    if (topTab === 'datamyne') {
-      loadFullDatamyneDataset().catch(() => {});
-    }
-    return subscribeToDatamyneDataset(() => {
+    const unsubscribe = subscribeToDatamyneDataset(() => {
       setDatamyneDatasetVersion((v) => v + 1);
       setIsDatamyneLoading(isDatamyneDatasetLoading());
     });
+    if (topTab === 'datamyne') {
+      loadFullDatamyneDataset().catch(() => {});
+    }
+    setIsDatamyneLoading(isDatamyneDatasetLoading());
+    return unsubscribe;
   }, [topTab]);
 
   const datamyneQuery = useMemo(() => {
