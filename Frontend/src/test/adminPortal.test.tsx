@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderToString } from 'react-dom/server';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -28,6 +28,16 @@ const createTestQueryClient = () =>
   });
 
 describe('Root Admin Portal & Access Request Suite', () => {
+  const originalFetch = global.fetch;
+
+  beforeEach(() => {
+    global.fetch = vi.fn().mockRejectedValue(new Error('Network offline or backend down'));
+  });
+
+  afterEach(() => {
+    global.fetch = originalFetch;
+  });
+
   it('renders AdminPortalModal with title, tabs, and security badges when open', () => {
     const queryClient = createTestQueryClient();
     const html = renderToString(

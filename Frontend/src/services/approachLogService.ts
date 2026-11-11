@@ -135,16 +135,53 @@ const cachedBulkStatuses: Record<'datamyne' | 'jfll_customer', Record<string, Sa
   jfll_customer: {},
 };
 
+const cachedBulkNotes: Record<'datamyne' | 'jfll_customer', Record<string, string>> = {
+  datamyne: {},
+  jfll_customer: {},
+};
+
+const cachedBulkCompanyStatuses: Record<'datamyne' | 'jfll_customer', Record<string, SalesStatus>> = {
+  datamyne: {},
+  jfll_customer: {},
+};
+
+const cachedBulkCompanyNotes: Record<'datamyne' | 'jfll_customer', Record<string, string>> = {
+  datamyne: {},
+  jfll_customer: {},
+};
+
 export function getCachedApproachStatus(
   entityType: 'datamyne' | 'jfll_customer',
-  entityId: string
+  entityId: string,
+  companyName?: string | null
 ): SalesStatus {
   if (cachedBulkStatuses[entityType]?.[entityId]) {
     return cachedBulkStatuses[entityType][entityId];
   }
+  if (companyName && companyName.trim()) {
+    const norm = companyName.trim().toLowerCase();
+    if (cachedBulkCompanyStatuses[entityType]?.[norm]) {
+      return cachedBulkCompanyStatuses[entityType][norm];
+    }
+  }
   const store = getLocalStore();
   const key = `${entityType}:${entityId}`;
-  return store[key]?.current_status || 'Not Contacted';
+  if (store[key]?.current_status) {
+    return store[key].current_status;
+  }
+  if (companyName && companyName.trim()) {
+    const norm = companyName.trim().toLowerCase();
+    for (const rec of Object.values(store)) {
+      if (rec.entity_type === entityType && rec.logs) {
+        for (const log of rec.logs) {
+          if ((log as any).company_name?.trim().toLowerCase() === norm) {
+            return rec.current_status;
+          }
+        }
+      }
+    }
+  }
+  return 'Not Contacted';
 }
 
 /**
@@ -153,17 +190,42 @@ export function getCachedApproachStatus(
  */
 export function getCachedApproachLatestNote(
   entityType: 'datamyne' | 'jfll_customer',
-  entityId: string
+  entityId: string,
+  companyName?: string | null
 ): string {
+  if (cachedBulkNotes[entityType]?.[entityId]) {
+    return cachedBulkNotes[entityType][entityId];
+  }
+  if (companyName && companyName.trim()) {
+    const norm = companyName.trim().toLowerCase();
+    if (cachedBulkCompanyNotes[entityType]?.[norm]) {
+      return cachedBulkCompanyNotes[entityType][norm];
+    }
+  }
   const store = getLocalStore();
   const key = `${entityType}:${entityId}`;
   const record = store[key];
-  if (!record || !record.logs || record.logs.length === 0) {
-    return '—';
+  if (record?.logs && record.logs.length > 0) {
+    for (const log of record.logs) {
+      if (log.note && log.note.trim()) {
+        return log.note.trim();
+      }
+    }
   }
-  for (const log of record.logs) {
-    if (log.note && log.note.trim()) {
-      return log.note.trim();
+  if (companyName && companyName.trim()) {
+    const norm = companyName.trim().toLowerCase();
+    for (const rec of Object.values(store)) {
+      if (rec.entity_type === entityType && rec.logs) {
+        for (const log of rec.logs) {
+          if (
+            (log as any).company_name?.trim().toLowerCase() === norm &&
+            log.note &&
+            log.note.trim()
+          ) {
+            return log.note.trim();
+          }
+        }
+      }
     }
   }
   return '—';
@@ -274,16 +336,39 @@ function notifyApproachStatusUpdated(
   entityType: 'datamyne' | 'jfll_customer',
   entityId: string,
   newStatus: SalesStatus,
-  isActiveConverted: boolean = false
+  isActiveConverted: boolean = false,
+  companyName?: string | null,
+  note?: string | null
 ): void {
   if (!cachedBulkStatuses[entityType]) {
     cachedBulkStatuses[entityType] = {};
   }
   cachedBulkStatuses[entityType][entityId] = newStatus;
 
+  if (note && note.trim()) {
+    if (!cachedBulkNotes[entityType]) {
+      cachedBulkNotes[entityType] = {};
+    }
+    cachedBulkNotes[entityType][entityId] = note.trim();
+  }
+
+  if (companyName && companyName.trim()) {
+    const norm = companyName.trim().toLowerCase();
+    if (!cachedBulkCompanyStatuses[entityType]) {
+      cachedBulkCompanyStatuses[entityType] = {};
+    }
+    cachedBulkCompanyStatuses[entityType][norm] = newStatus;
+    if (note && note.trim()) {
+      if (!cachedBulkCompanyNotes[entityType]) {
+        cachedBulkCompanyNotes[entityType] = {};
+      }
+      cachedBulkCompanyNotes[entityType][norm] = note.trim();
+    }
+  }
+
   if (typeof window !== 'undefined') {
     const event = new CustomEvent(APPROACH_STATUS_CHANGED_EVENT, {
-      detail: { entityType, entityId, newStatus, isActiveConverted },
+      detail: { entityType, entityId, newStatus, isActiveConverted, companyName, note },
     });
     window.dispatchEvent(event);
   }
@@ -291,10 +376,15 @@ function notifyApproachStatusUpdated(
 
 export async function fetchEntityApproachHistory(
   entityType: 'datamyne' | 'jfll_customer',
-  entityId: string
+  entityId: string,
+  companyName?: string | null
 ): Promise<EntityApproachHistory> {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/v1/approach-logs/${entityType}/${encodeURIComponent(entityId)}`, {
+    let url = `${API_BASE_URL}/api/v1/approach-logs/${entityType}/${encodeURIComponent(entityId)}`;
+    if (companyName && companyName.trim()) {
+      url += `?company_name=${encodeURIComponent(companyName.trim())}`;
+    }
+    const res = await fetch(url, {
       method: 'GET',
       headers: getAuthHeaders(),
     });
@@ -316,6 +406,18 @@ export async function fetchEntityApproachHistory(
   const cached = store[`${entityType}:${entityId}`];
   if (cached) {
     return cached;
+  }
+  if (companyName && companyName.trim()) {
+    const norm = companyName.trim().toLowerCase();
+    for (const rec of Object.values(store)) {
+      if (rec.entity_type === entityType && rec.logs) {
+        for (const log of rec.logs) {
+          if ((log as any).company_name?.trim().toLowerCase() === norm) {
+            return rec;
+          }
+        }
+      }
+    }
   }
 
   return {
@@ -345,7 +447,14 @@ export async function logApproachActivity(
       store[`${entityType}:${entityId}`] = data;
       saveLocalStore(store);
 
-      notifyApproachStatusUpdated(entityType, entityId, data.current_status, data.is_active_converted);
+      notifyApproachStatusUpdated(
+        entityType,
+        entityId,
+        data.current_status,
+        data.is_active_converted,
+        payload.company_name,
+        payload.note
+      );
       return data;
     }
 
@@ -391,6 +500,7 @@ export async function logApproachActivity(
       previous_status: currentStatus,
       status: targetStatus,
       note: payload.note?.trim() || null,
+      company_name: payload.company_name,
       salesperson_name: salespersonName,
       salesperson_email: salespersonEmail,
       created_at: new Date().toISOString(),
@@ -408,7 +518,14 @@ export async function logApproachActivity(
       payload,
     });
 
-    notifyApproachStatusUpdated(entityType, entityId, targetStatus, entity.is_active_converted);
+    notifyApproachStatusUpdated(
+      entityType,
+      entityId,
+      targetStatus,
+      entity.is_active_converted,
+      payload.company_name,
+      payload.note
+    );
     return { ...entity, is_offline_pending: true };
   }
 }
@@ -510,6 +627,15 @@ export async function fetchBulkStatuses(
       const data: BulkStatusesResponse = await res.json();
       const statusMap = data.statuses || {};
       cachedBulkStatuses[entityType] = { ...statusMap };
+      if (data.notes) {
+        cachedBulkNotes[entityType] = { ...data.notes };
+      }
+      if (data.company_statuses) {
+        cachedBulkCompanyStatuses[entityType] = { ...data.company_statuses };
+      }
+      if (data.company_notes) {
+        cachedBulkCompanyNotes[entityType] = { ...data.company_notes };
+      }
       if (typeof window !== 'undefined') {
         window.dispatchEvent(
           new CustomEvent(APPROACH_STATUS_CHANGED_EVENT, { detail: { entityType, bulk: true } })

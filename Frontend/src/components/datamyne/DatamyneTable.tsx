@@ -21,6 +21,7 @@ import { SalesStatusBadge } from '@/components/approach';
 import {
   APPROACH_STATUS_CHANGED_EVENT,
   getCachedApproachStatus,
+  getCachedApproachLatestNote,
 } from '@/services/approachLogService';
 
 
@@ -101,7 +102,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                 </th>
                 <th className="py-2.5 px-2.5 min-w-[140px]">Category & Subcategory</th>
                 <th className="py-2.5 px-2.5 min-w-[120px]">City & Corridor</th>
-                <th className="py-2.5 px-2.5 min-w-[115px]">Shipments & Value</th>
+                <th className="py-2.5 px-2.5 min-w-[160px]">Shipments & Value</th>
                 <th className="py-2.5 px-2.5 min-w-[120px] whitespace-nowrap">Contact Readiness</th>
                 <th className="py-2.5 px-2.5 min-w-[110px] whitespace-nowrap">Sales Status</th>
                 <th className="py-2.5 px-3 min-w-[180px] text-center">
@@ -127,7 +128,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                     <div className="w-20 h-3 bg-slate-200 rounded mb-1" />
                     <div className="w-16 h-2 bg-slate-100 rounded" />
                   </td>
-                  <td className="py-2.5 px-2.5">
+                  <td className="py-3.5 px-2.5">
                     <div className="w-18 h-3 bg-slate-200 rounded mb-1" />
                     <div className="w-20 h-2.5 bg-emerald-100 rounded" />
                   </td>
@@ -228,7 +229,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
               </th>
               <th className="py-2.5 px-2.5 min-w-[140px]">Category & Subcategory</th>
               <th className="py-2.5 px-2.5 min-w-[120px]">City & Corridor</th>
-              <th className="py-2.5 px-2.5 min-w-[115px]">Shipments & Value</th>
+              <th className="py-2.5 px-2.5 min-w-[160px]">Shipments & Value</th>
               <th className="py-2.5 px-2.5 min-w-[120px] whitespace-nowrap">Contact Readiness</th>
               <th className="py-2.5 px-2.5 min-w-[110px] whitespace-nowrap">Sales Status</th>
               <th className="py-2.5 px-3 min-w-[180px] text-center">
@@ -309,12 +310,12 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
 
                           {/* Role text */}
                           <span
-                            className={`font-medium ${
+                            className={`font-medium px-2 py-0.5 rounded-full text-[10px] border ${
                               l.role === 'Exporter'
-                                ? 'text-blue-700'
+                                ? 'bg-blue-50 text-blue-700 border-blue-200'
                                 : l.role === 'Importer'
-                                ? 'text-rose-700'
-                                : 'text-purple-700'
+                                ? 'bg-rose-50 text-rose-700 border-rose-200'
+                                : 'bg-purple-50 text-purple-700 border-purple-200'
                             }`}
                             title={`Trading Role: ${l.role}`}
                           >
@@ -328,7 +329,13 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                             <>
                               <span className="text-slate-300">·</span>
                               <span
-                                className="inline-flex items-center gap-0.5 text-slate-600 font-medium"
+                                className={`inline-flex items-center gap-0.5 font-medium px-2 py-0.5 rounded-full text-[10px] border ${
+                                  l.transport_mode === 'Air'
+                                    ? 'bg-sky-50 text-sky-700 border-sky-200'
+                                    : l.transport_mode === 'Ocean'
+                                    ? 'bg-cyan-50 text-cyan-700 border-cyan-200'
+                                    : 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                                }`}
                                 title={`Transport Mode: ${l.transport_mode}`}
                               >
                                 {l.transport_mode === 'Air' ? (
@@ -460,10 +467,26 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
 
                   {/* Sales Approach Status */}
                   <td className="py-2 px-2.5 whitespace-nowrap align-middle">
-                    <SalesStatusBadge
-                      status={getCachedApproachStatus('datamyne', l.id)}
-                      size="sm"
-                    />
+                    {(() => {
+                      const approachStatus = getCachedApproachStatus('datamyne', l.id, l.company_name);
+                      const latestNote = getCachedApproachLatestNote('datamyne', l.id, l.company_name);
+                      return (
+                        <div className="flex flex-col gap-0.5">
+                          <SalesStatusBadge
+                            status={approachStatus}
+                            size="sm"
+                          />
+                          {latestNote && latestNote !== '—' && (
+                            <div
+                              className="text-[10px] text-slate-500 font-normal truncate max-w-[130px]"
+                              title={latestNote}
+                            >
+                              {latestNote}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </td>
 
                   {/* Action CTA: View, Logs, Convert */}

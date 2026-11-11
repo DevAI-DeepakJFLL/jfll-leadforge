@@ -2,6 +2,7 @@
 In-memory LRU caching layer for corporate name and entity resolution in DuckDB.
 Prevents repeated full-table or S3 range scans for frequent company queries.
 """
+from collections import OrderedDict
 from functools import lru_cache
 import threading
 import time
@@ -47,19 +48,20 @@ def clear_company_cache() -> None:
 
 # In-memory query result cache with 10-minute TTL for complex analytical contact queries
 # Memoizes top complex contact queries over remote S3 HTTPFS to eliminate network jitter
-_QUERY_RESULT_CACHE: dict[str, tuple[float, list[dict[str, Any]], int, int, bool]] = {}
+_QUERY_RESULT_CACHE: OrderedDict[str, tuple[float, list[dict[str, Any]], int, int, bool]] = OrderedDict()
 _MAX_QUERY_CACHE_SIZE = 100
 _QUERY_CACHE_TTL_SECONDS = 600  # 10 minutes
 _QUERY_CACHE_LOCK = threading.Lock()
 
 
 def get_cached_complex_query(signature: str) -> Optional[dict[str, Any]]:
-    """Retrieve memoized query results if within 10-minute TTL."""
+    """Retrieve memoized query results if within 10-minute TTL (O(1) lookup & touch)."""
     now = time.time()
     with _QUERY_CACHE_LOCK:
         if signature in _QUERY_RESULT_CACHE:
             ts, records, total_records, total_pages, has_next = _QUERY_RESULT_CACHE[signature]
             if now - ts <= _QUERY_CACHE_TTL_SECONDS:
+                _QUERY_RESULT_CACHE.move_to_end(signature)
                 return {
                     "total_records": total_records,
                     "total_pages": total_pages,
@@ -77,12 +79,14 @@ def set_cached_complex_query(
     total_pages: int,
     has_next: bool,
 ) -> None:
-    """Store query result in-memory with FIFO eviction capped at 100 entries."""
+    """Store query result in-memory with O(1) FIFO/LRU eviction capped at 100 entries."""
     now = time.time()
     with _QUERY_CACHE_LOCK:
-        if len(_QUERY_RESULT_CACHE) >= _MAX_QUERY_CACHE_SIZE:
-            oldest_key = min(_QUERY_RESULT_CACHE.keys(), key=lambda k: _QUERY_RESULT_CACHE[k][0])
-            del _QUERY_RESULT_CACHE[oldest_key]
+        if signature in _QUERY_RESULT_CACHE:
+            del _QUERY_RESULT_CACHE[signature]
+        elif len(_QUERY_RESULT_CACHE) >= _MAX_QUERY_CACHE_SIZE:
+            # O(1) pop of the oldest entry without full key scan
+            _QUERY_RESULT_CACHE.popitem(last=False)
         _QUERY_RESULT_CACHE[signature] = (now, records, total_records, total_pages, has_next)
 
 

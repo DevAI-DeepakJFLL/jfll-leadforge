@@ -85,6 +85,7 @@ export interface ApproachLogEntry {
   previous_status: SalesStatus;
   status: SalesStatus;
   note?: string | null;
+  company_name?: string | null;
   salesperson_name: string;
   salesperson_email: string;
   created_at: string;
@@ -117,4 +118,7 @@ export interface BulkStatusesResponse {
   entity_type: 'datamyne' | 'jfll_customer';
   total_tracked: number;
   statuses: Record<string, SalesStatus>;
+  notes?: Record<string, string>;
+  company_statuses?: Record<string, SalesStatus>;
+  company_notes?: Record<string, string>;
 }

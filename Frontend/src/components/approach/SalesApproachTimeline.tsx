@@ -97,7 +97,7 @@ export const SalesApproachTimeline: React.FC<SalesApproachTimelineProps> = ({
   const loadHistory = async () => {
     setIsLoading(true);
     try {
-      const data = await fetchEntityApproachHistory(entityType, entityId);
+      const data = await fetchEntityApproachHistory(entityType, entityId, companyName);
       setHistory(data);
     } catch {
       // Fallback handled in service
@@ -111,17 +111,21 @@ export const SalesApproachTimeline: React.FC<SalesApproachTimelineProps> = ({
 
     const handleUpdate = (e: Event) => {
       const customEvt = e as CustomEvent;
-      if (
+      const isEntityMatch =
         customEvt.detail?.entityType === entityType &&
-        customEvt.detail?.entityId === entityId
-      ) {
+        customEvt.detail?.entityId === entityId;
+      const isCompanyMatch =
+        companyName &&
+        customEvt.detail?.companyName &&
+        customEvt.detail.companyName.trim().toLowerCase() === companyName.trim().toLowerCase();
+      if (isEntityMatch || isCompanyMatch || customEvt.detail?.bulk) {
         loadHistory();
       }
     };
 
     window.addEventListener(APPROACH_STATUS_CHANGED_EVENT, handleUpdate);
     return () => window.removeEventListener(APPROACH_STATUS_CHANGED_EVENT, handleUpdate);
-  }, [entityType, entityId]);
+  }, [entityType, entityId, companyName]);
 
   const currentStatus = history?.current_status || 'Not Contacted';
   const isConverted = history?.is_active_converted || currentStatus === 'Converted to Active';

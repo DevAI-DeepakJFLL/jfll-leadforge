@@ -67,10 +67,10 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 
   // Reset search state when a new lead is selected or drawer reopens
   useEffect(() => {
-    setContacts([]);
-    setTotalContacts(0);
-    setIsLoadingContacts(false);
-    setHasSearched(false);
+    if (contacts.length > 0) setContacts([]);
+    if (totalContacts !== 0) setTotalContacts(0);
+    if (isLoadingContacts) setIsLoadingContacts(false);
+    if (hasSearched) setHasSearched(false);
   }, [lead?.id, isOpen]);
 
   const handleFetchDecisionMakers = () => {
@@ -109,10 +109,10 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 
   useEffect(() => {
     if (isOpen && typeof document !== 'undefined') {
-      const originalOverflow = document.body.style.overflow;
+      const originalOverflow = document.body.style.overflow === 'hidden' ? 'auto' : (document.body.style.overflow || 'auto');
       document.body.style.overflow = 'hidden';
       return () => {
-        document.body.style.overflow = originalOverflow;
+        document.body.style.overflow = originalOverflow === 'hidden' ? 'auto' : originalOverflow;
       };
     }
   }, [isOpen]);
@@ -300,25 +300,10 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                     </div>
                     <p className="text-[11px] text-amber-800/90 leading-relaxed">
                       Direct phone and email were not included on customs manifests for this account.
-                      Refer to registered address, IEC, or directors below for verification.
+                      Refer to registered address, IEC, or directors below, or discover executive contacts in the Apollo Verified Decision Makers card below.
                     </p>
                   </div>
                 </div>
-                {onFindDecisionMakers && (
-                  <div className="pt-2 border-t border-amber-200/80 flex items-center justify-between">
-                    <span className="text-[11px] text-amber-950 font-medium">
-                      Cross-reference Apollo verified database for executive decision-makers:
-                    </span>
-                    <button
-                      type="button"
-                      onClick={handleFetchDecisionMakers}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-apollo hover:underline shrink-0 cursor-pointer"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                      <span>Get Apollo Verified Decision Maker →</span>
-                    </button>
-                  </div>
-                )}
               </div>
             )}
 
@@ -769,7 +754,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                     Sales Outreach & Funnel
                   </span>
                 </div>
-                <SalesStatusBadge status={getCachedApproachStatus('datamyne', lead.id)} size="sm" />
+                <SalesStatusBadge status={getCachedApproachStatus('datamyne', lead.id, lead.company_name)} size="sm" />
               </div>
               <SalesApproachTimeline
                 entityType="datamyne"

@@ -114,3 +114,6 @@ class BulkStatusesResponse(BaseModel):
     entity_type: Literal["datamyne", "jfll_customer"]
     total_tracked: int
     statuses: dict[str, SalesStatus]
+    notes: dict[str, str] = {}
+    company_statuses: dict[str, SalesStatus] = {}
+    company_notes: dict[str, str] = {}

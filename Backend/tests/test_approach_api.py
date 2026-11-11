@@ -300,4 +300,41 @@ def test_approach_log_syncs_to_lead_tracker(clean_approach_store):
         conn.close()
 
 
+def test_bulk_statuses_and_company_matching(clean_approach_store):
+    """Verifies that bulk-statuses returns company_statuses and notes, and history matches by company_name."""
+    headers = _auth_header(email="snehal.birje@jfll.com", name="Snehal Birje", role="Commercial")
+    post_res = client.post(
+        "/api/v1/approach-logs/datamyne/dm-bra-00006",
+        headers=headers,
+        json={
+            "action": "Called customer",
+            "status": "Contacted",
+            "note": "Snehal spoke with procurement team regarding rates.",
+            "company_name": "JSW STEEL LIMITED",
+        },
+    )
+    assert post_res.status_code == 200
+
+    # Test bulk-statuses returns both raw ID and company-level mapping
+    bulk_res = client.get("/api/v1/approach-logs/bulk-statuses?entity_type=datamyne", headers=headers)
+    assert bulk_res.status_code == 200
+    bulk_data = bulk_res.json()
+    assert bulk_data["statuses"]["dm-bra-00006"] == "Contacted"
+    assert bulk_data["notes"]["dm-bra-00006"] == "Snehal spoke with procurement team regarding rates."
+    assert bulk_data["company_statuses"]["jsw steel limited"] == "Contacted"
+    assert bulk_data["company_notes"]["jsw steel limited"] == "Snehal spoke with procurement team regarding rates."
+
+    # Test cross-entity ID resolution by company_name query parameter
+    history_res = client.get(
+        "/api/v1/approach-logs/datamyne/dm-val-07613?company_name=JSW%20STEEL%20LIMITED",
+        headers=headers,
+    )
+    assert history_res.status_code == 200
+    hist_data = history_res.json()
+    assert hist_data["current_status"] == "Contacted"
+    assert len(hist_data["logs"]) >= 1
+    assert hist_data["logs"][0]["salesperson_name"] == "Snehal Birje"
+
+
+
 

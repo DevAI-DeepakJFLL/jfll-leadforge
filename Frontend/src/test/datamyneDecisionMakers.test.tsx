@@ -423,8 +423,8 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
       );
 
       expect(html).toContain('No Direct Contact on File');
-      expect(html).toContain('Cross-reference Apollo verified database for executive decision-makers:');
-      expect(html).toContain('Get Apollo Verified Decision Maker →');
+      expect(html).not.toContain('Get Apollo Verified Decision Maker →');
+      expect(html).toContain('Get Apollo Verified Decision Maker');
       expect(html).toContain('Amit Gupta');
     });
 

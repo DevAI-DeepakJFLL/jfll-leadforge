@@ -1236,16 +1236,22 @@ def search_apollo_contacts(
                 logger.warning(f"Error enriching page contact organization details: {e}")
 
         if total_records is None:
-            try:
-                count_query = f"SELECT count(*) FROM '{data_source}' c WHERE {where_sql}"
-                count_res = con.execute(count_query, params).fetchone()
-                total_records = count_res[0] if count_res else (offset + len(clean_rows))
-            except Exception as e:
-                logger.warning(f"Analytical count fallback: {e}")
+            if organization_id or company:
                 if has_next:
                     total_records = offset + page_size + 1
                 else:
                     total_records = offset + len(clean_rows)
+            else:
+                try:
+                    count_query = f"SELECT count(*) FROM '{data_source}' c WHERE {where_sql}"
+                    count_res = con.execute(count_query, params).fetchone()
+                    total_records = count_res[0] if count_res else (offset + len(clean_rows))
+                except Exception as e:
+                    logger.warning(f"Analytical count fallback: {e}")
+                    if has_next:
+                        total_records = offset + page_size + 1
+                    else:
+                        total_records = offset + len(clean_rows)
 
         total_pages = (total_records + page_size - 1) // page_size if total_records > 0 else 0
         set_cached_complex_query(cache_key, clean_records, total_records, total_pages, has_next)

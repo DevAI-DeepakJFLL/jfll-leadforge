@@ -122,7 +122,7 @@ Research Instructions:
 Output Requirement:
 Return ONLY a valid JSON object matching this exact schema without any markdown formatting or commentary:
 {{
-  "company_name": "{company_name}",
+  "company_name": {json.dumps(company_name)},
   "subtitle": "Concise industry positioning (e.g. API & advanced-intermediate manufacturer–exporter)",
   "what_they_do": "Detailed summary of manufactured or traded product lines and commercial offerings",
   "hq_facilities": "Corporate headquarters address, plus specific factory, processing unit, or R&D plant locations in India",

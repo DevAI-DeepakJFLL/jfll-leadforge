@@ -380,6 +380,62 @@ describe('Sales Approach & Active Conversion Suite', () => {
       // Decision Makers button moved from row into drawer
       expect(html).not.toContain('<span>Decision Makers</span>');
     });
+
+    it('renders the latest logged approach note in the Sales Status column for cross-user visibility', async () => {
+      // Simulate Snehal logging a note for a lead
+      await logApproachActivity('datamyne', 'dm-test-jsw', {
+        action: 'Called customer',
+        status: 'Contacted',
+        note: 'Snehal spoke with logistics procurement team regarding ocean rates.',
+        company_name: 'TEST JSW CORP',
+      });
+
+      // Another lead record for the same company with a different ID
+      const secondRecord = {
+        id: 'dm-test-jsw-2',
+        company_name: 'TEST JSW CORP',
+        country: 'India',
+        role: 'Importer',
+        transport_mode: 'Ocean' as const,
+        category: 'Engineering & Machinery',
+        subcategory: 'Steel & Metals',
+        contact_type: 'Phone Only',
+        phone: '+91 9820012345',
+        email: '',
+        tax_id: '794007368',
+        city: 'MUMBAI',
+        address: 'Nariman Point',
+        pin_code: '400021',
+        directors: '',
+        trade_lanes: 'GCR/Ocean',
+        top_hs_codes: '72081000',
+        total_shipments: 80,
+        total_value_usd: 1200000,
+        latest_activity_date: '2026-03-01',
+        dataset_type: 'valid' as const,
+      };
+
+      const html = renderToString(
+        <DatamyneTable
+          leads={[secondRecord]}
+          rowSelection={{}}
+          onRowSelectionChange={vi.fn()}
+          onLeadClick={vi.fn()}
+          onLogApproach={vi.fn()}
+          onConvertToActive={vi.fn()}
+          currentPage={1}
+          totalPages={1}
+          pageSize={25}
+          totalItems={1}
+          onPageChange={vi.fn()}
+        />
+      );
+
+      // Status badge resolved via company name matching
+      expect(html).toContain('Contacted');
+      // Latest note snippet rendered in Sales Status column
+      expect(html).toContain('Snehal spoke with logistics procurement team');
+    });
   });
 
   describe('CompactSalesApproachFilter Component', () => {

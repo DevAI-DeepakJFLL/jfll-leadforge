@@ -219,7 +219,8 @@ def get_bulk_statuses(
     authorization: str | None = Header(None),
 ) -> BulkStatusesResponse:
     """
-    Returns an O(1) lookup dictionary of entity_id -> status for high-speed table rendering.
+    Returns an O(1) lookup dictionary of entity_id -> status for high-speed table rendering,
+    including mapped company-level statuses and notes for seamless cross-dataset visibility.
     """
     require_auth(authorization, "sales approach bulk statuses")
 
@@ -227,20 +228,91 @@ def get_bulk_statuses(
         data = load_approach_data()
 
     statuses: dict[str, SalesStatus] = {}
+    notes: dict[str, str] = {}
+    company_statuses: dict[str, SalesStatus] = {}
+    company_notes: dict[str, str] = {}
+
     prefix = f"{entity_type.lower()}:"
     for key, entity_record in data.get("entities", {}).items():
         if key.startswith(prefix):
             raw_id = entity_record.get("entity_id") or key.split(":", 1)[1]
             raw_status = entity_record.get("current_status", SalesStatus.NOT_CONTACTED.value)
             try:
-                statuses[raw_id] = SalesStatus(raw_status)
+                st = SalesStatus(raw_status)
             except ValueError:
-                statuses[raw_id] = SalesStatus.NOT_CONTACTED
+                st = SalesStatus.NOT_CONTACTED
+            statuses[raw_id] = st
+
+            logs = entity_record.get("logs", [])
+            latest_note = ""
+            for log in reversed(logs):
+                n = (log.get("note") or "").strip()
+                if n:
+                    latest_note = n
+                    break
+            if latest_note:
+                notes[raw_id] = latest_note
+
+            comp_name = (entity_record.get("company_name") or "").strip()
+            if not comp_name:
+                for log in reversed(logs):
+                    c = (log.get("company_name") or "").strip()
+                    if c:
+                        comp_name = c
+                        break
+            if comp_name:
+                norm_c = comp_name.lower()
+                company_statuses[norm_c] = st
+                if latest_note:
+                    company_notes[norm_c] = latest_note
+
+    # Augment with any synced leads from lead_tracker_items
+    try:
+        from src.api.lead_tracker_db import get_db_connection
+        conn = get_db_connection()
+        try:
+            cur = conn.execute(
+                """
+                SELECT linked_entity_id, company_name, status, feedback_notes
+                FROM lead_tracker_items
+                WHERE linked_entity_type = ? AND is_archived = 0
+                """,
+                (entity_type,),
+            )
+            for row in cur.fetchall():
+                lid = row["linked_entity_id"]
+                cname = (row["company_name"] or "").strip()
+                r_status = row["status"]
+                f_notes = (row["feedback_notes"] or "").strip()
+
+                st = SalesStatus.CONTACTED
+                for s in SalesStatus:
+                    if s.value == r_status:
+                        st = s
+                        break
+
+                if lid and lid not in statuses:
+                    statuses[lid] = st
+                    if f_notes:
+                        notes[lid] = f_notes
+                if cname:
+                    norm_c = cname.lower()
+                    if norm_c not in company_statuses:
+                        company_statuses[norm_c] = st
+                    if f_notes and norm_c not in company_notes:
+                        company_notes[norm_c] = f_notes
+        finally:
+            conn.close()
+    except Exception:
+        pass
 
     return BulkStatusesResponse(
         entity_type=entity_type,
         total_tracked=len(statuses),
         statuses=statuses,
+        notes=notes,
+        company_statuses=company_statuses,
+        company_notes=company_notes,
     )
 
 
@@ -252,6 +324,7 @@ def get_bulk_statuses(
 def get_entity_approach_history(
     entity_type: Literal["datamyne", "jfll_customer"],
     entity_id: str,
+    company_name: str | None = Query(None, description="Optional company name fallback for cross-record resolution"),
     authorization: str | None = Header(None),
 ) -> EntityApproachHistory:
     """
@@ -260,12 +333,86 @@ def get_entity_approach_history(
     """
     require_auth(authorization, "sales approach history")
 
+    record = None
     with _FILE_LOCK:
         data = load_approach_data()
         key = _entity_key(entity_type, entity_id)
         record = data.get("entities", {}).get(key)
 
+        # Fallback: cross-record match by company name if entity ID differs across import datasets
+        if not record and company_name and company_name.strip():
+            target_norm = company_name.strip().lower()
+            prefix = f"{entity_type.lower()}:"
+            for k, ent in data.get("entities", {}).items():
+                if k.startswith(prefix):
+                    ent_comp = (ent.get("company_name") or "").strip().lower()
+                    if not ent_comp:
+                        for l in ent.get("logs", []):
+                            lc = (l.get("company_name") or "").strip().lower()
+                            if lc:
+                                ent_comp = lc
+                                break
+                    if ent_comp == target_norm:
+                        record = ent
+                        break
+
     if not record:
+        # Check SQLite lead_tracker_items fallback
+        if company_name and company_name.strip():
+            try:
+                from src.api.lead_tracker_db import get_db_connection
+                conn = get_db_connection()
+                try:
+                    cur = conn.execute(
+                        """
+                        SELECT id, status, feedback_notes, assigned_to, updated_at
+                        FROM lead_tracker_items
+                        WHERE (linked_entity_type = ? AND linked_entity_id = ?)
+                           OR LOWER(TRIM(company_name)) = LOWER(TRIM(?))
+                        LIMIT 1
+                        """,
+                        (entity_type, entity_id, company_name.strip()),
+                    )
+                    row = cur.fetchone()
+                    if row:
+                        cur_act = conn.execute(
+                            """
+                            SELECT id, author_name, author_email, action, notes, new_status, created_at
+                            FROM lead_tracker_activities
+                            WHERE lead_id = ?
+                            ORDER BY created_at DESC
+                            """,
+                            (row["id"],),
+                        )
+                        act_rows = cur_act.fetchall()
+                        fallback_logs = []
+                        for act in act_rows:
+                            fallback_logs.append(
+                                ApproachLogEntry(
+                                    id=act["id"],
+                                    action=act["action"] or "Called customer",
+                                    previous_status=SalesStatus.NOT_CONTACTED,
+                                    status=SalesStatus.CONTACTED,
+                                    note=act["notes"],
+                                    company_name=company_name.strip(),
+                                    salesperson_name=act["author_name"] or row["assigned_to"] or "Sales Coordinator",
+                                    salesperson_email=act["author_email"] or "sales@jfll.com",
+                                    created_at=act["created_at"] or datetime.now(UTC).isoformat(),
+                                )
+                            )
+                        if fallback_logs:
+                            return EntityApproachHistory(
+                                entity_type=entity_type,
+                                entity_id=entity_id,
+                                current_status=SalesStatus.CONTACTED,
+                                is_active_converted=False,
+                                logs=fallback_logs,
+                            )
+                finally:
+                    conn.close()
+            except Exception:
+                pass
+
         return EntityApproachHistory(
             entity_type=entity_type,
             entity_id=entity_id,
@@ -509,12 +656,15 @@ def log_approach_activity(
             "previous_status": current_status.value,
             "status": target_status.value,
             "note": payload.note,
+            "company_name": payload.company_name,
             "salesperson_name": user_name,
             "salesperson_email": user_email,
             "created_at": datetime.now(UTC).isoformat(),
         }
 
         entity["current_status"] = target_status.value
+        if payload.company_name:
+            entity["company_name"] = payload.company_name
         if "logs" not in entity:
             entity["logs"] = []
         entity["logs"].append(new_entry)
