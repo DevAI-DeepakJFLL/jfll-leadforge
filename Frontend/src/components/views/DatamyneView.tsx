@@ -9,7 +9,7 @@ import {
 } from '@/components/datamyne';
 import { Sparkles, Layers } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { useToast } from '@/components/ui';
+import { useToast, SegmentContextBanner } from '@/components/ui';
 import { TierAudienceTabs } from '@/components/tiers';
 import { useTierFilter } from '@/hooks/useTierFilter';
 import {
@@ -250,6 +250,197 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   const displayPage = perspective === 'tiers' ? tierPage : query.page;
   const displayTotalPages = perspective === 'tiers' ? (tierData?.totalPages || 0) : query.totalPages;
   const handleDisplayPageChange = perspective === 'tiers' ? setTierPage : onPageChange;
+
+  const bannerConfig = React.useMemo(() => {
+    if (perspective === 'tiers') {
+      const tierConfigs: Record<
+        string,
+        {
+          title: string;
+          description: string;
+          criteria: string;
+          actionTip: string;
+          variant: 'amber' | 'emerald' | 'blue' | 'purple' | 'slate';
+        }
+      > = {
+        'tier-a': {
+          title: 'Tier A Priority Prospects',
+          description:
+            'High-intent freight shippers qualifying for direct inside sales engagement and customized freight analysis.',
+          criteria:
+            'Score 70–100 • 24+ shipments/year, active air cargo or high-value goods, priority lanes (US, UAE, LATAM)',
+          actionTip:
+            'Immediate Inside Sales discovery call within 24h. Deliver custom freight intelligence client report within 48h.',
+          variant: 'emerald',
+        },
+        'tier-b': {
+          title: 'Tier B Nurture Prospects',
+          description:
+            'Established international shippers targeted for automated multi-touch sequence nurturing.',
+          criteria:
+            'Score 40–69 • 4–23 shipments/year, ocean shipper with air suitability, customs recency 61–180 days',
+          actionTip:
+            'Automated 4-stage value email sequence. Trigger inside sales outreach upon engagement.',
+          variant: 'blue',
+        },
+        parked: {
+          title: 'Parked Accounts',
+          description:
+            'Low-fit or dormant cargo shippers requiring zero immediate outbound sales bandwidth.',
+          criteria:
+            'Score <40 • Under 4 shipments/year, bulk/low-value commodities, inactive >180 days',
+          actionTip:
+            'No active sales bandwidth expended. Accounts are automatically re-evaluated before annual export seasons.',
+          variant: 'amber',
+        },
+        excluded: {
+          title: 'Excluded Accounts',
+          description:
+            'Companies suppressed from prospecting pipelines due to existing customer status or forwarder competition.',
+          criteria:
+            'Matched with existing JFLL customer database or identified competitor freight forwarder / NVOCC',
+          actionTip:
+            'Strictly suppressed from cold sales prospecting. Forward to existing account manager or CRM team.',
+          variant: 'slate',
+        },
+        unscored: {
+          title: 'Unscored (Data Remediation Queue)',
+          description:
+            'Customs records with incomplete required parameters requiring analyst research and enrichment.',
+          criteria:
+            'Missing mandatory SOP fields: transport mode, commodity, trade lane, or activity date',
+          actionTip:
+            'Assigned to research analyst for domain, lane, and HS code enrichment before sales assignment.',
+          variant: 'slate',
+        },
+        all: {
+          title: 'All Scored Customs Leads',
+          description:
+            'Complete universe of 37,273 DataMyne shipping leads evaluated under JFLL SOP Stage 2.',
+          criteria:
+            'Full dataset evaluated against JFLL Lead Generation SOP Stage 2 across all scoring tiers',
+          actionTip:
+            'Select a specific tier tab above or filter by score thresholds to drive focused freight prospecting.',
+          variant: 'blue',
+        },
+      };
+
+      const cfg = tierConfigs[tierTab] || tierConfigs.all;
+      return {
+        ...cfg,
+        count: displayTotal,
+      };
+    }
+
+    const verticalConfigs: Record<
+      string,
+      {
+        title: string;
+        description: string;
+        criteria: string;
+        actionTip: string;
+        variant: 'amber' | 'emerald' | 'blue' | 'purple' | 'slate';
+      }
+    > = {
+      all: {
+        title: 'Customs Trade Manifests — All Verticals',
+        description:
+          'Unified customs trade directory across all classified industrial cargo sectors.',
+        criteria:
+          'Verified cross-border customs shipping bills • Air and ocean freight consignments documented',
+        actionTip:
+          'Use secondary filters (transport mode, trade lanes, shipments count) to refine target list.',
+        variant: 'blue',
+      },
+      perishables: {
+        title: 'Perishables & Cold Chain Shippers',
+        description:
+          'Time-critical cold-chain cargo: fresh fruits, vegetables, seafood, meat, and floriculture.',
+        criteria:
+          'HS Codes: Chapters 01–24 • Requires temperature-controlled reefer containers or fast-transit cold room air freight',
+        actionTip:
+          'Highlight Jet Freight specialized perishable handling, airport cool-chain hubs, and rapid customs clearance.',
+        variant: 'emerald',
+      },
+      pharma: {
+        title: 'Pharma & Healthcare Logistics',
+        description:
+          'High-yield life sciences cargo: finished formulations, active pharmaceutical ingredients (APIs), and medical instruments.',
+        criteria:
+          'HS Codes: Chapters 30 & 90 • GDP compliance, continuous temperature data logging (+15°C to +25°C, +2°C to +8°C)',
+        actionTip:
+          'Pitch certified cold-chain packaging, Envirotainer partnerships, and specialized pharma corridors.',
+        variant: 'emerald',
+      },
+      textiles: {
+        title: 'Textiles & Apparel Exporters',
+        description:
+          'High-volume fashion goods: readymade garments (RMG), cotton fabrics, yarns, home textiles, and accessories.',
+        criteria:
+          'HS Codes: Chapters 50–63 • High ocean FCL container volume with seasonal urgent airfreight surges',
+        actionTip:
+          'Propose blended sea-air logistics solutions and priority peak-season air freight allocations.',
+        variant: 'purple',
+      },
+      engineering: {
+        title: 'Engineering & Heavy Machinery',
+        description:
+          'Industrial machinery, boilers, electrical equipment, machine tools, and fabricated industrial components.',
+        criteria:
+          'HS Codes: Chapters 84 & 85 • Heavy-lift, out-of-gauge (OOG), and breakbulk ocean freight requirements',
+        actionTip:
+          'Showcase Jet Freight project cargo capabilities, flat-rack/open-top container handling, and port-side operations.',
+        variant: 'blue',
+      },
+      chemicals: {
+        title: 'Chemicals & Dangerous Goods (DGR)',
+        description:
+          'Specialty chemicals, organic compounds, dyes, polymers, and raw bulk pharmaceutical chemicals.',
+        criteria:
+          'HS Codes: Chapters 28 & 29 • Requires Dangerous Goods (DGR / IMO) compliance and certified packing',
+        actionTip:
+          'Emphasize certified IATA DGR personnel and dangerous goods documentation expertise.',
+        variant: 'amber',
+      },
+      electronics: {
+        title: 'Electronics & High-Tech Hardware',
+        description:
+          'High-value tech freight: consumer electronics, telecom gear, printed circuit boards (PCBs), and semiconductors.',
+        criteria:
+          'HS Codes: Chapter 85 • High susceptibility to damage/pilferage; time-sensitive air transit from Asian tech hubs',
+        actionTip:
+          'Highlight secured bonded trucking, high-value cargo escorts, and real-time GPS tracking.',
+        variant: 'purple',
+      },
+      automotive: {
+        title: 'Automotive & EV Components',
+        description:
+          'Automotive components, electric vehicle powertrains, two-wheeler assemblies, and replacement parts.',
+        criteria:
+          'HS Codes: Chapter 87 • Just-In-Time (JIT) production delivery schedules with strict penalty clauses',
+        actionTip:
+          'Offer dedicated JIT emergency air charters and consolidated sea-freight schedules for Tier-1 suppliers.',
+        variant: 'blue',
+      },
+      general: {
+        title: 'General Cargo & Dry Freight',
+        description:
+          'Diversified trade commodities: plastics, packaging materials, paper, hardware, and assorted manufactured dry goods.',
+        criteria:
+          'Assorted consumer and commercial dry goods • Standard ocean FCL/LCL container shipping',
+        actionTip:
+          'Compete on ocean freight forwarding rates, free time at destination, and multi-carrier booking options.',
+        variant: 'slate',
+      },
+    };
+
+    const activeTab = filters.tab || 'all';
+    const cfg = verticalConfigs[activeTab] || verticalConfigs.all;
+    return {
+      ...cfg,
+      count: displayTotal,
+    };
+  }, [perspective, tierTab, filters.tab, displayTotal]);
 
   const { showToast } = useToast();
   const [isExportingTiers, setIsExportingTiers] = React.useState(false);
@@ -509,6 +700,15 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
         />
 
         <div className="flex-1 flex flex-col px-3 sm:px-4 py-2 min-h-0 overflow-hidden">
+          <SegmentContextBanner
+            title={bannerConfig.title}
+            count={bannerConfig.count}
+            description={bannerConfig.description}
+            criteria={bannerConfig.criteria}
+            actionTip={bannerConfig.actionTip}
+            variant={bannerConfig.variant}
+            className="mb-2 shrink-0"
+          />
           <DatamyneTable
             leads={displayItems}
             rowSelection={rowSelection}

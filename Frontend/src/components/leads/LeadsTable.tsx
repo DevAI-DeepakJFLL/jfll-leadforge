@@ -480,14 +480,14 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
             <col style={{ width: '16%' }} />
           </colgroup>
 
-          {/* Semantic Table Header for Accessibility (WCAG 1.3.1) */}
-          <thead className="sr-only">
-            <tr>
-              <th scope="col">Select</th>
-              <th scope="col">Name & Title</th>
-              <th scope="col">Company & Industry</th>
-              <th scope="col">Location</th>
-              <th scope="col">Actions</th>
+          {/* Semantic & Sticky Table Header matching Design System (WCAG 1.3.1) */}
+          <thead className="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-xs border-b border-slate-200/90 shadow-2xs">
+            <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+              <th scope="col" className="py-2.5 px-3 text-center"><span className="sr-only">Select</span></th>
+              <th scope="col" className="py-2.5 px-3">Name &amp; Title</th>
+              <th scope="col" className="py-2.5 px-3">Company &amp; Industry</th>
+              <th scope="col" className="py-2.5 px-3">Location</th>
+              <th scope="col" className="py-2.5 px-3 text-center">Actions</th>
             </tr>
           </thead>
 

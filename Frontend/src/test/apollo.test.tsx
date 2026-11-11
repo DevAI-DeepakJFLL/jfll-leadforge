@@ -314,6 +314,51 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('Clear All Filters');
     });
 
+    it('renders LeadsTable visible sticky column headers matching design system', () => {
+      const sampleLead: Lead = {
+        id: 'lead-test-1',
+        name: 'Sarah Connor',
+        title: 'Director of Global Supply Chain',
+        company: 'Acme Freight Corp',
+        companyLogo: '',
+        industry: 'Freight & Logistics Services',
+        department: 'Supply Chain & Logistics',
+        status: 'NET NEW',
+        decisionMaker: true,
+        location: 'Chicago, Illinois, United States',
+        city: 'Chicago',
+        state: 'Illinois',
+        country: 'United States',
+        email: 'sconnor@acmefreight.com',
+        phone: '+1 (555) 123-4567',
+        employees: '500+ Enterprise',
+        revenue: '$10M+ Enterprise',
+        funding: 'Commercial Freight Shipper',
+        saved: false,
+      };
+
+      const html = renderToString(
+        <LeadsTable
+          leads={[sampleLead]}
+          rowSelection={{}}
+          onRowSelectionChange={() => {}}
+          currentPage={1}
+          totalPages={1}
+          onPageChange={() => {}}
+        />
+      );
+
+      // Verify visible sticky header container
+      expect(html).toContain('sticky top-0 z-10 bg-slate-50/95');
+      // Verify visible column headers
+      expect(html).toContain('Name &amp; Title');
+      expect(html).toContain('Company &amp; Industry');
+      expect(html).toContain('Location');
+      expect(html).toContain('Actions');
+      // Verify accessibility select column
+      expect(html).toContain('<span class="sr-only">Select</span>');
+    });
+
     it('renders ActiveFilterChips with company highlight badge when company filter is active', () => {
       const html = renderToString(
         <ActiveFilterChips

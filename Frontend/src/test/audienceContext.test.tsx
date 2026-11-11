@@ -8,6 +8,9 @@ import { ApolloCompaniesView } from '@/components/views/ApolloCompaniesView';
 import { DatamyneAudienceTabs } from '@/components/datamyne/DatamyneAudienceTabs';
 import { DatamyneSegmentSwitcher } from '@/components/datamyne/DatamyneSegmentSwitcher';
 import { DatamyneTable } from '@/components/datamyne/DatamyneTable';
+import { DatamyneView } from '@/components/views/DatamyneView';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ToastProvider } from '@/components/ui/Toast';
 
 describe('Audience Context & Subcategory Explanations Suite', () => {
   it('renders CategoryInfoTooltip with accessibility attributes and info icon', () => {
@@ -289,5 +292,77 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('View All Verticals');
     expect(html).toContain('Reset Filters');
     expect(html).toContain('Try clearing active filters or selecting another vertical.');
+  });
+
+  it('renders DatamyneView with mounted SegmentContextBanner in vertical perspective', () => {
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    const mockQuery = {
+      items: [],
+      totalEstimate: 2352,
+      totalFormatted: '2,352',
+      page: 1,
+      limit: 25,
+      totalPages: 1,
+      audienceCounts: {
+        all: 19760,
+        perishables: 2352,
+        pharma: 1800,
+        textiles: 4026,
+        engineering: 4559,
+        chemicals: 1533,
+        electronics: 1571,
+        automotive: 370,
+        general: 3581,
+        validTotal: 19760,
+        missingTotal: 17513,
+      },
+      datasetCounts: { valid: 19760, missing: 17513, all: 37273 },
+    };
+
+    const html = renderToString(
+      <QueryClientProvider client={queryClient}>
+        <ToastProvider>
+          <DatamyneView
+            filters={{ page: 1, limit: 25, dataset: 'valid', tab: 'perishables' }}
+            query={mockQuery}
+            rowSelection={{}}
+            onRowSelectionChange={() => {}}
+            selectedCount={0}
+            isAllOnPageSelected={false}
+            isSomeOnPageSelected={false}
+            onToggleSelectAllPage={() => {}}
+            onDeselectAll={() => {}}
+            onExport={() => {}}
+            isExporting={false}
+            onSearchChange={() => {}}
+            onDatasetChange={() => {}}
+            onTabChange={() => {}}
+            onPageChange={() => {}}
+            toggleTransportMode={() => {}}
+            toggleCategory={() => {}}
+            toggleSubcategory={() => {}}
+            toggleRole={() => {}}
+            toggleCity={() => {}}
+            toggleTradeLane={() => {}}
+            toggleContactStatus={() => {}}
+            toggleHasDirectors={() => {}}
+            setMinShipments={() => {}}
+            setMinTradedValueUsd={() => {}}
+            clearAllFilters={() => {}}
+            activeFilterCount={0}
+            onLeadClick={() => {}}
+            isMobileOpen={false}
+            onCloseMobile={() => {}}
+          />
+        </ToastProvider>
+      </QueryClientProvider>
+    );
+
+    // Verify SegmentContextBanner rendered inside DatamyneView
+    expect(html).toContain('Perishables &amp; Cold Chain Shippers');
+    expect(html).toContain('Time-critical cold-chain cargo: fresh fruits, vegetables, seafood, meat, and floriculture.');
+    expect(html).toContain('Details &amp; Guidance');
   });
 });
