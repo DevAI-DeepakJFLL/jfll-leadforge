@@ -26,7 +26,8 @@ import {
 export type { RateValidityInfo, RateValidityStatus };
 
 export const TRACKER_API_BASE_URL = `${API_BASE_URL}/api/v1/lead-tracker`;
-export const TRACKER_CACHE_STORAGE_KEY = 'jfll_lead_tracker_cache_v1';
+export const TRACKER_CACHE_STORAGE_KEY = 'jfll_lead_tracker_cache_v2';
+export const LEGACY_TRACKER_CACHE_STORAGE_KEY = 'jfll_lead_tracker_cache_v1';
 export const TRACKER_UPDATED_EVENT = 'jfll-tracker-lead-updated';
 
 /**
@@ -66,6 +67,11 @@ function ensureCacheInitialized(): void {
 
   try {
     if (typeof window !== 'undefined' && window.localStorage) {
+      // Purge any stale legacy cache containing deprecated hardcoded seed leads
+      if (localStorage.getItem(LEGACY_TRACKER_CACHE_STORAGE_KEY)) {
+        localStorage.removeItem(LEGACY_TRACKER_CACHE_STORAGE_KEY);
+      }
+
       const raw = localStorage.getItem(TRACKER_CACHE_STORAGE_KEY);
       if (raw) {
         const parsed: LeadTrackerItem[] = JSON.parse(raw);
@@ -455,6 +461,7 @@ export async function fetchTrackedLeads(
     const data: LeadTrackerItem[] = await response.json();
 
     // Refresh in-memory cache with fresh items
+    leadTrackerCache.clear();
     for (const item of data) {
       leadTrackerCache.set(item.id, item);
     }
