@@ -502,14 +502,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <label htmlFor="password-input" className="text-xs font-semibold text-slate-700 block">
-                        Account Password
-                      </label>
-                      <span className="text-[10px] text-slate-400">
-                        Default: <code className="font-mono text-slate-600 bg-slate-100 px-1 py-0.5 rounded">{DEFAULT_DEMO_PASSWORD}</code>
-                      </span>
-                    </div>
+                    <label htmlFor="password-input" className="text-xs font-semibold text-slate-700 block">
+                      Account Password
+                    </label>
                     <div className="relative">
                       <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                       <input

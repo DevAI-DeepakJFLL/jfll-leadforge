@@ -24,8 +24,8 @@ describe('LoginPage UI Component', () => {
     expect(html).toContain('placeholder="••••••••••••"');
     expect(html).toContain('aria-label="Show password"');
 
-    // Check default password hint
-    expect(html).toContain(DEFAULT_DEMO_PASSWORD);
+    // Check default password hint is not exposed
+    expect(html).not.toContain(DEFAULT_DEMO_PASSWORD);
 
     // Check primary CTA
     expect(html).toContain('Sign In to Dashboard');
