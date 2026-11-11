@@ -380,7 +380,7 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
   // 6. DatamyneDetailDrawer Header & Inline Decision Makers
   // --------------------------------------------------------------------------
   describe('DatamyneDetailDrawer Decision Makers Integration Suite', () => {
-    it('renders "Decision Maker" header button and on-demand "Get Apollo Verified Decision Maker" CTA', () => {
+    it('omits redundant "Decision Maker" header button and retains on-demand "Get Apollo Verified Decision Maker" CTA in drawer body', () => {
       const onFindSpy = vi.fn();
       const html = renderToString(
         <ToastProvider>
@@ -393,11 +393,11 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
         </ToastProvider>
       );
 
-      // Header button
-      expect(html).toContain('Decision Maker');
+      // Header button is omitted (no redundant button in top-right company header)
+      expect(html).not.toContain('<span>Decision Maker</span>');
       // Assign & Track is omitted (activity logging in timeline)
       expect(html).not.toContain('Assign &amp; Track');
-      // On-demand search CTA
+      // On-demand search CTA retained in drawer body
       expect(html).toContain('Get Apollo Verified Decision Maker');
       expect(html).toContain('Apollo Verified Decision Makers');
       expect(html).toContain('@sanofi.com');

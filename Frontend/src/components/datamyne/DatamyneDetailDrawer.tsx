@@ -260,23 +260,6 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
-              {onFindDecisionMakers && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    onFindDecisionMakers(
-                      cleanedCompany || lead.company_name,
-                      corporateDomain || undefined,
-                      directorName || undefined
-                    )
-                  }
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-apollo hover:bg-apollo/90 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[36px] cursor-pointer"
-                  title="Find verified decision makers in Apollo"
-                >
-                  <UserCheck className="w-3.5 h-3.5" />
-                  <span>Decision Maker</span>
-                </button>
-              )}
               <button
                 onClick={onClose}
                 className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
