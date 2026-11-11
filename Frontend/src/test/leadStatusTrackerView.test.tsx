@@ -7,7 +7,6 @@ import {
   getStatusStyle,
 } from '@/components/tracker';
 import {
-  DEFAULT_TRACKER_STARTER_LEADS,
   filterTrackedLeadsInMemory,
   computeTrackerKPIsInMemory,
   resetTrackerLocalCache,
