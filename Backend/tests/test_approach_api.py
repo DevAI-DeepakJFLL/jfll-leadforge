@@ -404,6 +404,33 @@ def test_sqlite_fallback_resolves_activities_without_column_crash(tmp_path, monk
     assert data["logs"][0]["created_at"] == "2026-11-02T10:30:00Z"
 
 
+def test_log_approach_auto_syncs_to_lead_tracker(tmp_path, monkeypatch):
+    """Verifies logging outreach auto-creates/syncs lead in lead_tracker_items."""
+    test_db = tmp_path / "test_tracker.db"
+    monkeypatch.setenv("LEAD_TRACKER_DB_PATH", str(test_db))
+    from src.api.lead_tracker_db import init_db, get_all_leads
+    init_db(test_db)
+
+    headers = _auth_header(email="snehal.birje@jfll.com", name="Snehal Birje")
+    payload = {
+        "action": "Called customer",
+        "status": "Contacted",
+        "note": "Reefer container trial discussed",
+        "company_name": "Fazlani Perishables",
+    }
+    res = client.post("/api/v1/approach-logs/datamyne/dm_fazlani_01", json=payload, headers=headers)
+    assert res.status_code == 200
+
+    leads = get_all_leads(db_path=test_db)
+    matching = [l for l in leads if l["company_name"] == "Fazlani Perishables"]
+    assert len(matching) == 1
+    lead = matching[0]
+    assert lead["status"] == "Contacted"
+    assert lead["assigned_to"] == "Snehal Birje"
+    assert lead["feedback_notes"] == "Reefer container trial discussed"
+
+
+
 
 
 
