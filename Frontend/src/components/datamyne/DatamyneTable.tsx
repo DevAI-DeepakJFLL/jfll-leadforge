@@ -30,7 +30,10 @@ export interface DatamyneTableProps {
   rowSelection: RowSelectionState;
   onRowSelectionChange: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   onLeadClick: (lead: DatamyneLead) => void;
-  onFindDecisionMakers?: (companyName: string, domain?: string, director?: string) => void;
+  /**
+   * @deprecated Decision makers are accessed via the lead drawer or Apollo Cross-navigation.
+   */
+  onFindDecisionMakers?: ((companyName: string, domain?: string, director?: string) => void) | ((lead: DatamyneLead) => void);
   onLogApproach?: (lead: DatamyneLead) => void;
   onConvertToActive?: (lead: DatamyneLead) => void;
   currentPage: number;
