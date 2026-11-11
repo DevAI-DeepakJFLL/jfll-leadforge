@@ -140,6 +140,7 @@ docs/reference/
 # Local Runbooks, Deployment Guides, and Internal Docs
 Backend/README.md
 AUDIT_AND_REVIEW.md
+UI_UX_AUDIT.md
 Backend/docs/AWS_FREE_TIER_DEPLOYMENT_RUNBOOK.md
 Backend/docs/SECURITY_AND_CODE_REVIEW.md
 Backend/requirements.txt
