@@ -336,5 +336,74 @@ def test_bulk_statuses_and_company_matching(clean_approach_store):
     assert hist_data["logs"][0]["salesperson_name"] == "Snehal Birje"
 
 
+def test_sqlite_fallback_resolves_activities_without_column_crash(tmp_path, monkeypatch):
+    """Verifies SQLite lead_tracker fallback correctly retrieves activities and status without crashing on column names."""
+    from src.api.lead_tracker_db import get_db_connection, init_db
+
+    test_db = tmp_path / "test_fallback_tracker.db"
+    monkeypatch.setenv("LEAD_TRACKER_DB_PATH", str(test_db))
+    init_db(test_db)
+
+    conn = get_db_connection(test_db)
+    try:
+        conn.execute(
+            """
+            INSERT INTO lead_tracker_items (
+                id, company_name, branch, assigned_to, assigned_date, status, transport_mode, routing_type, linked_entity_type, linked_entity_id, created_at, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                "lead_fallback_1",
+                "Acme Global Logistics",
+                "Mumbai",
+                "Deepak Naidu",
+                "2026-11-01",
+                "Contacted",
+                "Air",
+                "Export",
+                "datamyne",
+                "dm_acme_101",
+                "2026-11-01T09:00:00Z",
+                "2026-11-02T10:30:00Z",
+            ),
+        )
+        conn.execute(
+            """
+            INSERT INTO lead_tracker_activities (
+                id, lead_id, timestamp, author_name, author_email, action, old_status, new_status, notes
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                "act_fallback_1",
+                "lead_fallback_1",
+                "2026-11-02T10:30:00Z",
+                "Deepak Naidu",
+                "deepak@jfll.com",
+                "Called customer",
+                "Not Contacted",
+                "Contacted",
+                "Discussed freight forwarding contract",
+            ),
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+    headers = _auth_header()
+    res = client.get(
+        "/api/v1/approach-logs/datamyne/dm_acme_101?company_name=Acme%20Global%20Logistics",
+        headers=headers,
+    )
+    assert res.status_code == 200
+    data = res.json()
+    assert data["current_status"] == "Contacted"
+    assert len(data["logs"]) == 1
+    assert data["logs"][0]["action"] == "Called customer"
+    assert data["logs"][0]["salesperson_name"] == "Deepak Naidu"
+    assert data["logs"][0]["note"] == "Discussed freight forwarding contract"
+    assert data["logs"][0]["created_at"] == "2026-11-02T10:30:00Z"
+
+
+
 
 

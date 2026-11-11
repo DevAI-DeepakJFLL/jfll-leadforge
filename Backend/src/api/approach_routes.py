@@ -390,10 +390,10 @@ def get_entity_approach_history(
                     if row:
                         cur_act = conn.execute(
                             """
-                            SELECT id, author_name, author_email, action, notes, new_status, created_at
+                            SELECT id, author_name, author_email, action, notes, new_status, timestamp
                             FROM lead_tracker_activities
                             WHERE lead_id = ?
-                            ORDER BY created_at DESC
+                            ORDER BY timestamp DESC
                             """,
                             (row["id"],),
                         )
@@ -410,7 +410,7 @@ def get_entity_approach_history(
                                     company_name=company_name.strip(),
                                     salesperson_name=act["author_name"] or row["assigned_to"] or "Sales Coordinator",
                                     salesperson_email=act["author_email"] or "sales@jfll.com",
-                                    created_at=act["created_at"] or datetime.now(UTC).isoformat(),
+                                    created_at=act["timestamp"] or datetime.now(UTC).isoformat(),
                                 )
                             )
                         if fallback_logs:
