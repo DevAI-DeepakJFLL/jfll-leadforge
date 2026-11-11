@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderToString } from 'react-dom/server';
 import {
   LeadTrackerGantt,
@@ -7,6 +7,8 @@ import {
   getTransportModeVisual,
 } from '@/components/tracker/LeadTrackerGantt';
 import { LeadStatusTrackerView } from '@/components/tracker/LeadStatusTrackerView';
+import { seedTrackerLocalCacheForTesting } from '@/services/leadTrackerService';
+import { MOCK_TRACKER_STARTER_LEADS } from '@/test/fixtures/leadTrackerFixtures';
 import { LeadTrackerItem } from '@/types/leadTracker';
 
 const mockLeads: LeadTrackerItem[] = [
@@ -149,6 +151,10 @@ function findNodeByTestId(node: any, testId: string): any {
 
 describe('LeadTrackerGantt Component Suite', () => {
   const FIXED_TODAY = '2026-09-15';
+
+  beforeEach(() => {
+    seedTrackerLocalCacheForTesting(MOCK_TRACKER_STARTER_LEADS);
+  });
 
   describe('Pure UTC Date & Transport Mode Helpers', () => {
     it('parses YYYY-MM-DD into pure UTC midnight timestamp', () => {

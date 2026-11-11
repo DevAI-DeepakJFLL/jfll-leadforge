@@ -597,8 +597,8 @@ def migrate_from_json_if_needed(
         except Exception as err:
             logger.warning("Lead Tracker SQLite: Failed to migrate from json (%s)", err)
 
-    # If no JSON or empty JSON, seed directly from Excel
-    return seed_from_excel_if_empty(db_path=db_path)
+    # If no JSON or empty JSON, keep database clean and empty (no auto-seeding)
+    return 0
 
 
 def seed_from_excel_if_empty(db_path: Path | str | None = None) -> int:

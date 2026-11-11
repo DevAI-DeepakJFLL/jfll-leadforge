@@ -11,12 +11,15 @@ import {
   filterTrackedLeadsInMemory,
   computeTrackerKPIsInMemory,
   resetTrackerLocalCache,
+  seedTrackerLocalCacheForTesting,
 } from '@/services/leadTrackerService';
+import { MOCK_TRACKER_STARTER_LEADS } from '@/test/fixtures/leadTrackerFixtures';
 import { LeadTrackerItem } from '@/types/leadTracker';
 
 describe('Lead Status Tracker (Phase 2) Component Suite', () => {
   beforeEach(() => {
     resetTrackerLocalCache();
+    seedTrackerLocalCacheForTesting(MOCK_TRACKER_STARTER_LEADS);
     vi.restoreAllMocks();
   });
 
@@ -411,7 +414,7 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
 
   describe('Single-Pass Filtering & KPI Logic Verification', () => {
     it('accurately filters Gujarat branch leads from starter dataset', () => {
-      const gujaratLeads = filterTrackedLeadsInMemory(DEFAULT_TRACKER_STARTER_LEADS, {
+      const gujaratLeads = filterTrackedLeadsInMemory(MOCK_TRACKER_STARTER_LEADS, {
         branch: 'Gujarat',
       });
 
@@ -423,7 +426,7 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
     });
 
     it('accurately filters leads assigned to Edward', () => {
-      const edwardLeads = filterTrackedLeadsInMemory(DEFAULT_TRACKER_STARTER_LEADS, {
+      const edwardLeads = filterTrackedLeadsInMemory(MOCK_TRACKER_STARTER_LEADS, {
         assigned_to: 'Edward',
       });
 
@@ -436,7 +439,7 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
     it('accurately filters overdue leads against a fixed reference date', () => {
       const referenceDate = '2026-09-15';
       const overdueLeads = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { overdue_only: true },
         referenceDate
       );
@@ -451,9 +454,9 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
     });
 
     it('computes accurate executive KPIs across starter leads', () => {
-      const kpis = computeTrackerKPIsInMemory(DEFAULT_TRACKER_STARTER_LEADS, '2026-09-15');
+      const kpis = computeTrackerKPIsInMemory(MOCK_TRACKER_STARTER_LEADS, '2026-09-15');
 
-      expect(kpis.total_leads).toBe(DEFAULT_TRACKER_STARTER_LEADS.length);
+      expect(kpis.total_leads).toBe(MOCK_TRACKER_STARTER_LEADS.length);
       expect(kpis.active_leads).toBeGreaterThan(0);
       expect(kpis.quoted_leads).toBeGreaterThanOrEqual(1);
       expect(kpis.overdue_leads).toBeGreaterThanOrEqual(1);

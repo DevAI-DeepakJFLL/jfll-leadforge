@@ -21,6 +21,7 @@ from src.api.lead_tracker_db import (
     get_lead_by_id,
     init_db,
     migrate_from_json_if_needed,
+    seed_from_excel_if_empty,
     update_lead,
 )
 
@@ -283,3 +284,30 @@ def test_concurrent_writes(temp_db: Path):
     assert len(errors) == 0
     leads = get_all_leads(db_path=temp_db)
     assert len(leads) == 20
+
+
+def test_migrate_from_json_missing_or_empty_returns_zero(tmp_path: Path):
+    """Verifies that migrate_from_json_if_needed returns 0 and does NOT auto-seed from Excel when JSON is absent or empty."""
+    db_file = tmp_path / "empty_tracker.db"
+    missing_json = tmp_path / "non_existent.json"
+
+    count = migrate_from_json_if_needed(json_path=missing_json, db_path=db_file)
+    assert count == 0
+
+    leads = get_all_leads(db_path=db_file)
+    assert len(leads) == 0
+    assert leads == []
+
+
+def test_seed_from_excel_if_empty_manual_invocation(tmp_path: Path):
+    """Verifies that seed_from_excel_if_empty still works for manual/script seeding when invoked explicitly."""
+    db_file = tmp_path / "manual_seeded_tracker.db"
+    count = seed_from_excel_if_empty(db_path=db_file)
+    assert count == 14
+
+    leads = get_all_leads(db_path=db_file)
+    assert len(leads) == 14
+
+    # Second invocation is a no-op since table is no longer empty
+    assert seed_from_excel_if_empty(db_path=db_file) == 0
+

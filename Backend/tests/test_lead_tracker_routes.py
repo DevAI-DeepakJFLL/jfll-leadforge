@@ -20,6 +20,7 @@ from fastapi.testclient import TestClient
 
 from src.api.access_control import add_to_allowlist
 from src.api.auth import create_token
+from src.api.lead_tracker_db import seed_from_excel_if_empty
 from src.api.lead_tracker_routes import (
     compute_tracker_kpis,
     load_tracker_data,
@@ -32,11 +33,15 @@ client = TestClient(app)
 
 
 @pytest.fixture(autouse=True)
-def clean_tracker_store(tmp_path, monkeypatch):
+def clean_tracker_store(request, tmp_path, monkeypatch):
     """Isolate lead tracker storage in a temporary directory for each test run."""
     test_store = tmp_path / "test_lead_tracker.json"
     monkeypatch.setenv("LEAD_TRACKER_PATH", str(test_store))
     reset_tracker_cache()
+    # Unless testing unseeded cold-start behavior, seed the test store with the 14 records
+    # so filter/KPI/search integration tests have valid baseline fixture data.
+    if "unseeded" not in request.node.name and "cold_start" not in request.node.name:
+        seed_from_excel_if_empty(db_path=test_store.with_suffix(".db"))
     yield test_store
     reset_tracker_cache()
 
@@ -52,11 +57,25 @@ def _auth_header(
 
 
 # ---------------------------------------------------------------------------
-# 1. Cold Start Seeder Hydration
+# 1. Cold Start & Seeder Hydration
 # ---------------------------------------------------------------------------
 
-def test_seeder_cold_start_serves_14_records():
-    """Verifies that an uninitialized store cold-starts and serves the 14 records from Excel."""
+def test_cold_start_unseeded_store_serves_zero_records():
+    """Verifies that an uninitialized store cold-starts clean with 0 records (no Excel auto-seeding)."""
+    headers = _auth_header()
+    res = client.get("/api/v1/lead-tracker", headers=headers)
+    assert res.status_code == 200
+    leads = res.json()
+    assert len(leads) == 0
+    assert leads == []
+
+
+def test_unseeded_seed_from_excel_utility_populates_14_records(clean_tracker_store):
+    """Verifies that seed_from_excel_if_empty populates 14 records when explicitly invoked."""
+    db_file = clean_tracker_store.with_suffix(".db")
+    count = seed_from_excel_if_empty(db_path=db_file)
+    assert count == 14
+
     headers = _auth_header()
     res = client.get("/api/v1/lead-tracker", headers=headers)
     assert res.status_code == 200

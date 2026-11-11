@@ -15,9 +15,11 @@ import {
   getTrackerCachedItem,
   logTrackerActivity,
   resetTrackerLocalCache,
+  seedTrackerLocalCacheForTesting,
   setTrackerCachedItems,
   updateTrackedLead,
 } from '@/services/leadTrackerService';
+import { MOCK_TRACKER_STARTER_LEADS } from '@/test/fixtures/leadTrackerFixtures';
 import { API_BASE_URL } from '@/config/api';
 import { LeadTrackerItem } from '@/types/leadTracker';
 
@@ -112,8 +114,8 @@ describe('Lead Tracker Service Suite', () => {
         expect(info15.daysRemaining).toBe(-15);
         expect(info15.label).toBe('Expired (15d ago)');
 
-        // Test on starter lead Royal Arc
-        const royalArc = DEFAULT_TRACKER_STARTER_LEADS.find((l) => l.company_name === 'Royal Arc')!;
+        // Test on mock starter lead Royal Arc
+        const royalArc = MOCK_TRACKER_STARTER_LEADS.find((l) => l.company_name === 'Royal Arc')!;
         const royalArcInfo = getRateValidityInfo(royalArc, refDate);
         expect(royalArcInfo.status).toBe('expired');
         expect(royalArcInfo.daysRemaining).toBe(-31);
@@ -162,8 +164,8 @@ describe('Lead Tracker Service Suite', () => {
         expect(info9.daysRemaining).toBe(9);
         expect(info9.label).toBe('9d valid');
 
-        // Test on starter lead CLEARSYNTH LABS
-        const clearsynth = DEFAULT_TRACKER_STARTER_LEADS.find((l) => l.company_name === 'CLEARSYNTH LABS LIMITED')!;
+        // Test on mock starter lead CLEARSYNTH LABS
+        const clearsynth = MOCK_TRACKER_STARTER_LEADS.find((l) => l.company_name === 'CLEARSYNTH LABS LIMITED')!;
         const clearsynthInfo = getRateValidityInfo(clearsynth, refDate);
         expect(clearsynthInfo.status).toBe('valid');
         expect(clearsynthInfo.daysRemaining).toBe(9);
@@ -229,7 +231,7 @@ describe('Lead Tracker Service Suite', () => {
 
     it('filters by branch accurately (case-insensitive)', () => {
       const gujaratLeads = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { branch: 'Gujarat' },
         today
       );
@@ -237,7 +239,7 @@ describe('Lead Tracker Service Suite', () => {
       expect(gujaratLeads.every((l) => l.branch === 'Gujarat')).toBe(true);
 
       const southLeads = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { branch: 'south india' },
         today
       );
@@ -247,7 +249,7 @@ describe('Lead Tracker Service Suite', () => {
 
     it('filters by assigned sales rep (substring matching)', () => {
       const edwardLeads = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { assigned_to: 'edward' },
         today
       );
@@ -257,7 +259,7 @@ describe('Lead Tracker Service Suite', () => {
       );
 
       const priyankaLeads = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { assigned_to: 'priyanka' },
         today
       );
@@ -266,7 +268,7 @@ describe('Lead Tracker Service Suite', () => {
 
     it('filters by status stage', () => {
       const quotedLeads = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { status: 'Quoted' },
         today
       );
@@ -274,7 +276,7 @@ describe('Lead Tracker Service Suite', () => {
       expect(quotedLeads[0].company_name).toBe('Royal Arc');
 
       const feedbackLeads = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { status: 'Feedback Received' },
         today
       );
@@ -283,7 +285,7 @@ describe('Lead Tracker Service Suite', () => {
 
     it('filters overdue_only leads (strictly active with followup < today)', () => {
       const overdue = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { overdue_only: true },
         today
       );
@@ -296,7 +298,7 @@ describe('Lead Tracker Service Suite', () => {
 
     it('searches across company, contact, notes, and actions', () => {
       const pharmaMatches = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { search: 'pharma' },
         today
       );
@@ -306,7 +308,7 @@ describe('Lead Tracker Service Suite', () => {
       );
 
       const fedexMatches = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { search: 'fedex' },
         today
       );
@@ -316,14 +318,14 @@ describe('Lead Tracker Service Suite', () => {
 
     it('sorts by company_name ascending and descending', () => {
       const asc = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { sort_by: 'company_name', order: 'asc' },
         today
       );
       expect(asc[0].company_name).toBe('CLEARSYNTH LABS LIMITED');
 
       const desc = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { sort_by: 'company_name', order: 'desc' },
         today
       );
@@ -332,7 +334,7 @@ describe('Lead Tracker Service Suite', () => {
 
     it('sorts by next_followup_date with nulls placed at the bottom', () => {
       const sorted = filterTrackedLeadsInMemory(
-        DEFAULT_TRACKER_STARTER_LEADS,
+        MOCK_TRACKER_STARTER_LEADS,
         { sort_by: 'next_followup_date', order: 'asc' },
         today
       );
@@ -347,7 +349,7 @@ describe('Lead Tracker Service Suite', () => {
 
   describe('computeTrackerKPIsInMemory (Aggregated Executive Telemetry)', () => {
     it('accurately computes KPIs on starter dataset', () => {
-      const kpis = computeTrackerKPIsInMemory(DEFAULT_TRACKER_STARTER_LEADS, '2026-09-15');
+      const kpis = computeTrackerKPIsInMemory(MOCK_TRACKER_STARTER_LEADS, '2026-09-15');
       expect(kpis.total_leads).toBe(14);
       expect(kpis.active_leads).toBe(14); // none in starter dataset are Won or Closed
       expect(kpis.quoted_leads).toBe(1); // Royal Arc
@@ -358,19 +360,19 @@ describe('Lead Tracker Service Suite', () => {
     it('accurately accounts for Won and Closed / Lost items', () => {
       const customItems: LeadTrackerItem[] = [
         {
-          ...DEFAULT_TRACKER_STARTER_LEADS[0],
+          ...MOCK_TRACKER_STARTER_LEADS[0],
           id: 'test_1',
           status: 'Won',
           next_followup_date: '2026-08-01', // Should NOT count as overdue because Won
         },
         {
-          ...DEFAULT_TRACKER_STARTER_LEADS[1],
+          ...MOCK_TRACKER_STARTER_LEADS[1],
           id: 'test_2',
           status: 'Closed / Lost',
           next_followup_date: '2026-08-01', // Should NOT count as overdue because Closed
         },
         {
-          ...DEFAULT_TRACKER_STARTER_LEADS[2],
+          ...MOCK_TRACKER_STARTER_LEADS[2],
           id: 'test_3',
           status: 'Quoted',
           next_followup_date: '2026-08-01', // Overdue
@@ -387,10 +389,14 @@ describe('Lead Tracker Service Suite', () => {
   });
 
   describe('API Operations & Fallback Resilience', () => {
+    beforeEach(() => {
+      seedTrackerLocalCacheForTesting(MOCK_TRACKER_STARTER_LEADS);
+    });
+
     it('fetchTrackedLeads fetches live leads when API is online and caches them', async () => {
       const mockApiData: LeadTrackerItem[] = [
         {
-          ...DEFAULT_TRACKER_STARTER_LEADS[0],
+          ...MOCK_TRACKER_STARTER_LEADS[0],
           id: 'trk_live_001',
           company_name: 'Live Air Shipper Ltd',
         },
@@ -463,7 +469,7 @@ describe('Lead Tracker Service Suite', () => {
 
     it('createTrackedLead creates lead online and caches it', async () => {
       const createdItem: LeadTrackerItem = {
-        ...DEFAULT_TRACKER_STARTER_LEADS[0],
+        ...MOCK_TRACKER_STARTER_LEADS[0],
         id: 'trk_new_101',
         company_name: 'Cadila Pharma Export',
       };
@@ -555,11 +561,18 @@ describe('Lead Tracker Service Suite', () => {
       expect(getTrackerCachedItem('trk_seed_003')).toBeUndefined();
     });
 
-    it('getAllTrackerCachedItems and setTrackerCachedItems manipulate cache correctly', () => {
+    it('getAllTrackerCachedItems returns empty array by default when unseeded', () => {
+      resetTrackerLocalCache();
       const all = getAllTrackerCachedItems();
-      expect(all.length).toBeGreaterThan(0);
+      expect(all).toEqual([]);
+      expect(DEFAULT_TRACKER_STARTER_LEADS).toEqual([]);
+    });
 
-      const customList: LeadTrackerItem[] = [DEFAULT_TRACKER_STARTER_LEADS[0]];
+    it('getAllTrackerCachedItems and setTrackerCachedItems manipulate cache correctly', () => {
+      resetTrackerLocalCache();
+      expect(getAllTrackerCachedItems()).toHaveLength(0);
+
+      const customList: LeadTrackerItem[] = [MOCK_TRACKER_STARTER_LEADS[0]];
       setTrackerCachedItems(customList);
       expect(getAllTrackerCachedItems()).toHaveLength(1);
       expect(getTrackerCachedItem('trk_seed_001')).toBeDefined();

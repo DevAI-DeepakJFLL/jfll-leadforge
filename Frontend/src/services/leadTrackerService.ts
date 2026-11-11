@@ -46,476 +46,10 @@ export const SALES_REP_EMAILS: Record<string, string> = {
 };
 
 /**
- * Deterministic starter fallback dataset mirroring the 14 real companies
- * from Lead_Tracker.xlsx. Guarantees that executive and sales reps have
- * functional data even if the backend service is offline.
+ * Baseline for tracker starter leads. Hardcoded mock leads have been stripped;
+ * live leads load exclusively from SQLite / REST API.
  */
-export const DEFAULT_TRACKER_STARTER_LEADS: LeadTrackerItem[] = [
-  {
-    id: 'trk_seed_001',
-    company_name: 'Royal Arc',
-    contact_person: 'Trith Amrania',
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Edward',
-    assigned_to_email: 'edward@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-07-29',
-    status: 'Quoted',
-    transport_mode: 'Ocean FCL',
-    routing_type: 'Freehand',
-    feedback_notes: 'Met the person but they mainly do sea freight and the rates we are offering is not that competitive',
-    next_followup_date: '2026-08-16',
-    next_action: 'Ask if quotation shared with client; Next time I see him',
-    quote_date: '2026-08-01',
-    rate_validity_date: '2026-08-15',
-    rate_validity_days: 14,
-    target_shipment_date: '2026-08-25',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_001',
-        timestamp: '2026-07-29T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Initial lead assignment to Edward. Sea freight rate gap feedback.',
-      },
-    ],
-    created_at: '2026-07-29T10:00:00Z',
-    updated_at: '2026-07-29T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_002',
-    company_name: 'CLEARSYNTH LABS LIMITED',
-    contact_person: 'Sunil Patil',
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Edward',
-    assigned_to_email: 'edward@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-02-09',
-    status: 'Feedback Received',
-    transport_mode: 'Courier / Express',
-    routing_type: 'Freehand',
-    feedback_notes: 'Talked to Sunil Patil, they do purely courier and works with Fedex, need to include Rahul to talk to vendors',
-    next_followup_date: '2026-09-18',
-    next_action: 'Edward is personally gonna meet him and connect with him; flag this with dad',
-    quote_date: '2026-09-10',
-    rate_validity_date: '2026-09-24',
-    rate_validity_days: 14,
-    target_shipment_date: '2026-10-05',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_002',
-        timestamp: '2026-02-09T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Courier and Fedex vendor negotiation needed.',
-      },
-    ],
-    created_at: '2026-02-09T10:00:00Z',
-    updated_at: '2026-02-09T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_003',
-    company_name: 'SIMSON PHARMA LIMITED',
-    contact_person: 'Kartike Sharma',
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Utkarsha',
-    assigned_to_email: 'utkarsha@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-07-31',
-    status: 'Assigned',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Originally sent to Shruti but reassigned to Sweety / Utkarsha. Reached out on LinkedIn, in progress of meeting',
-    next_followup_date: '2026-09-24',
-    next_action: 'Needs to do a follow up; Got a meeting from him',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_003',
-        timestamp: '2026-07-31T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Initial assignment to Utkarsha.',
-      },
-    ],
-    created_at: '2026-07-31T10:00:00Z',
-    updated_at: '2026-07-31T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_004',
-    company_name: 'VEA IMPEX (I) PVT LTD',
-    contact_person: 'Bhabika',
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Tasneem',
-    assigned_to_email: 'tasneem@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-02-09',
-    status: 'Feedback Received',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Got in touch with a person, will follow up with him in a few days',
-    next_followup_date: '2026-09-09',
-    next_action: 'Bhabika - everytime she calls shes busy, meeting her',
-    quote_date: '2026-09-01',
-    rate_validity_date: '2026-09-15',
-    rate_validity_days: 14,
-    target_shipment_date: '2026-09-22',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_004',
-        timestamp: '2026-02-09T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Initial assignment to Tasneem.',
-      },
-    ],
-    created_at: '2026-02-09T10:00:00Z',
-    updated_at: '2026-02-09T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_005',
-    company_name: 'GEMINI EXPORTS + NIVIRA EXPORTS',
-    contact_person: null,
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Priyanka Sardesai',
-    assigned_to_email: 'priyanka.sardesai@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-03-09',
-    status: 'Contacted',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Sent two leads. Nivira has not answered; Gemini is already working with another company',
-    next_followup_date: '2026-09-10',
-    next_action: 'Follow up with Nivira and assess Gemini contract expiry',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_005',
-        timestamp: '2026-03-09T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Assigned to Priyanka Sardesai.',
-      },
-    ],
-    created_at: '2026-03-09T10:00:00Z',
-    updated_at: '2026-03-09T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_006',
-    company_name: 'Himedia labs',
-    contact_person: null,
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Tasneem',
-    assigned_to_email: 'tasneem@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-03-09',
-    status: 'Contacted',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Existing client, could not match rates. She wants to step back, be prepared and go again. Need higher rates and credit. Work on volume rather than GP.',
-    next_followup_date: '2026-09-18',
-    next_action: 'Have meeting with pricing person; work on volume rather than GP',
-    quote_date: '2026-09-12',
-    rate_validity_date: '2026-09-19',
-    rate_validity_days: 7,
-    target_shipment_date: '2026-09-28',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_006',
-        timestamp: '2026-03-09T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Rate matching and credit terms discussion.',
-      },
-    ],
-    created_at: '2026-03-09T10:00:00Z',
-    updated_at: '2026-03-09T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_007',
-    company_name: 'GMSANJIVANI (General) + SUPRIYA LIFESCIENCE',
-    contact_person: null,
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Priyanka Sardesai',
-    assigned_to_email: 'priyanka.sardesai@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-08-09',
-    status: 'Assigned',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Did not get a lot of phone numbers, not the strongest lead',
-    next_followup_date: '2026-09-15',
-    next_action: 'Deep research for direct procurement contacts',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_007',
-        timestamp: '2026-08-09T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Assigned to Priyanka Sardesai.',
-      },
-    ],
-    created_at: '2026-08-09T10:00:00Z',
-    updated_at: '2026-08-09T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_008',
-    company_name: 'TITAN LABORATORIES PVT LTD',
-    contact_person: null,
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Utkarsha',
-    assigned_to_email: 'utkarsha@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-09-09',
-    status: 'Assigned',
-    transport_mode: 'Air Freight',
-    routing_type: 'Nominated',
-    feedback_notes: "Most shipments are nominated, try to set a meeting but still hasn't gotten a time",
-    next_followup_date: '2026-09-24',
-    next_action: 'Explore CIF/DDP conversion or contact overseas consignee partner',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_008',
-        timestamp: '2026-09-09T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Nominated routing analysis.',
-      },
-    ],
-    created_at: '2026-09-09T10:00:00Z',
-    updated_at: '2026-09-09T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_009',
-    company_name: 'Invetia Healthcare',
-    contact_person: null,
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Sheela',
-    assigned_to_email: 'sheela@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-09-21',
-    status: 'Assigned',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Lead recently dispatched for sales discovery',
-    next_followup_date: '2026-09-28',
-    next_action: 'Initiate introductory outreach call',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_009',
-        timestamp: '2026-09-21T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Initial assignment to Sheela.',
-      },
-    ],
-    created_at: '2026-09-21T10:00:00Z',
-    updated_at: '2026-09-21T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_010',
-    company_name: 'MEGA FINE PHARMA PRIVATE LIMITED',
-    contact_person: 'Dharamvi',
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Mumbai',
-    assigned_to: 'Sanjay',
-    assigned_to_email: 'sanjay@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-09-23',
-    status: 'Assigned',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Visited their office and talked to Dharamvi. Ready to quote but has request for temperature warehouse',
-    next_followup_date: null,
-    next_action: 'See if we can work with cold-chain agency; look at temperature controlled warehouse',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_010',
-        timestamp: '2026-09-23T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Cold chain temperature warehouse request.',
-      },
-    ],
-    created_at: '2026-09-23T10:00:00Z',
-    updated_at: '2026-09-23T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_011',
-    company_name: 'Sun Bio',
-    contact_person: null,
-    contact_phone: null,
-    contact_email: null,
-    branch: 'South India',
-    assigned_to: 'Jaya',
-    assigned_to_email: 'jaya@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-07-28',
-    status: 'Assigned',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Meeting to get updates, sent contact person on LinkedIn',
-    next_followup_date: '2026-08-10',
-    next_action: 'Need to do more background research and follow up',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_011',
-        timestamp: '2026-07-28T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'South India branch lead assignment to Jaya.',
-      },
-    ],
-    created_at: '2026-07-28T10:00:00Z',
-    updated_at: '2026-07-28T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_012',
-    company_name: 'Veer Internatinal',
-    contact_person: null,
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Gujarat',
-    assigned_to: 'Sidhart Ji',
-    assigned_to_email: 'sidhart@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-07-30',
-    status: 'Assigned',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Doing deep research to support Sidhart Ji',
-    next_followup_date: '2026-08-10',
-    next_action: 'Need to do deep research on export lanes',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_012',
-        timestamp: '2026-07-30T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Gujarat branch lead assigned to Sidhart Ji.',
-      },
-    ],
-    created_at: '2026-07-30T10:00:00Z',
-    updated_at: '2026-07-30T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_013',
-    company_name: 'Pooja Foods',
-    contact_person: null,
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Gujarat',
-    assigned_to: 'Sidhart Ji',
-    assigned_to_email: 'sidhart@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-07-30',
-    status: 'Assigned',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Doing deep research to support Sidhart Ji',
-    next_followup_date: '2026-08-10',
-    next_action: 'Need to do deep research on food cargo certifications',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_013',
-        timestamp: '2026-07-30T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Gujarat branch lead assigned to Sidhart Ji.',
-      },
-    ],
-    created_at: '2026-07-30T10:00:00Z',
-    updated_at: '2026-07-30T10:00:00Z',
-  },
-  {
-    id: 'trk_seed_014',
-    company_name: 'Kirti Foods',
-    contact_person: null,
-    contact_phone: null,
-    contact_email: null,
-    branch: 'Gujarat',
-    assigned_to: 'Sidhart Ji',
-    assigned_to_email: 'sidhart@jfll.com',
-    assigned_by: 'Tyra Theknath',
-    assigned_date: '2026-07-30',
-    status: 'Assigned',
-    transport_mode: 'Air Freight',
-    routing_type: 'Freehand',
-    feedback_notes: 'Doing deep research to support Sidhart Ji',
-    next_followup_date: '2026-08-10',
-    next_action: 'Need to do deep research on Gulf and US food imports',
-    linked_entity_type: 'custom',
-    linked_entity_id: null,
-    history: [
-      {
-        id: 'log_seed_014',
-        timestamp: '2026-07-30T10:00:00Z',
-        author_name: 'Tyra Theknath',
-        author_email: 'tyra@jfll.com',
-        action: 'Imported from Lead Tracker Excel',
-        notes: 'Gujarat branch lead assigned to Sidhart Ji.',
-      },
-    ],
-    created_at: '2026-07-30T10:00:00Z',
-    updated_at: '2026-07-30T10:00:00Z',
-  },
-];
+export const DEFAULT_TRACKER_STARTER_LEADS: LeadTrackerItem[] = [];
 
 /**
  * In-memory cache: Map<id, LeadTrackerItem> providing O(1) random access.
@@ -524,10 +58,11 @@ const leadTrackerCache = new Map<string, LeadTrackerItem>();
 let _cacheInitialized = false;
 
 /**
- * Ensures the in-memory cache is populated from localStorage or starter seeds.
+ * Ensures the in-memory cache is populated from localStorage.
+ * Initializes to empty [] if no cached data exists.
  */
 function ensureCacheInitialized(): void {
-  if (_cacheInitialized && leadTrackerCache.size > 0) return;
+  if (_cacheInitialized) return;
 
   try {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -545,16 +80,13 @@ function ensureCacheInitialized(): void {
       }
     }
   } catch (err) {
-    logger.warn('LEAD_TRACKER_SERVICE', 'Failed to read localStorage cache, seeding defaults', {
+    logger.warn('LEAD_TRACKER_SERVICE', 'Failed to read localStorage cache', {
       error: String(err),
     });
   }
 
-  // Seed default dataset if cache is empty
+  // Initialize clean empty cache (no mock leads auto-seeding)
   leadTrackerCache.clear();
-  for (const item of DEFAULT_TRACKER_STARTER_LEADS) {
-    leadTrackerCache.set(item.id, item);
-  }
   _cacheInitialized = true;
 }
 
@@ -575,15 +107,19 @@ function persistCache(): void {
 }
 
 /**
- * Resets local cache to the deterministic baseline. Useful for test isolation.
+ * Resets local cache to empty []. Useful for clean test isolation.
  */
 export function resetTrackerLocalCache(): void {
   leadTrackerCache.clear();
-  for (const item of DEFAULT_TRACKER_STARTER_LEADS) {
-    leadTrackerCache.set(item.id, { ...item, history: [...item.history] });
-  }
   _cacheInitialized = true;
   persistCache();
+}
+
+/**
+ * Test helper to populate the local tracker cache for isolated testing.
+ */
+export function seedTrackerLocalCacheForTesting(items: LeadTrackerItem[]): void {
+  setTrackerCachedItems(items);
 }
 
 /**
