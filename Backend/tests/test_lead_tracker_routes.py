@@ -316,6 +316,42 @@ def test_append_tracker_activity_history():
     assert latest_entry["author_email"] == "deepak@jfll.com"
 
 
+def test_append_activity_syncs_notes_and_status():
+    """Verifies that appending an activity to a tracked lead updates item.feedback_notes (trimmed), status, and next_followup_date."""
+    headers = _auth_header(name="Deepak Naidu", email="deepak@jfll.com")
+    res_all = client.get("/api/v1/lead-tracker", headers=headers)
+    target = res_all.json()[0]
+    target_id = target["id"]
+
+    activity_payload = {
+        "action": "Rate Discussion",
+        "notes": "  Discussed Q1 contract rates for export freight.  ",
+        "status": "Quoted",
+        "next_followup_date": "2026-12-01",
+    }
+
+    res_act = client.post(
+        f"/api/v1/lead-tracker/{target_id}/activity",
+        json=activity_payload,
+        headers=headers,
+    )
+    assert res_act.status_code == 200
+    item = res_act.json()
+
+    # feedback_notes must be synced and trimmed
+    assert item["feedback_notes"] == "Discussed Q1 contract rates for export freight."
+    assert item["status"] == "Quoted"
+    assert item["next_followup_date"] == "2026-12-01"
+
+    # Direct fetch from persistence must also reflect the synced feedback_notes
+    res_get = client.get(f"/api/v1/lead-tracker/{target_id}", headers=headers)
+    assert res_get.status_code == 200
+    fetched = res_get.json()
+    assert fetched["feedback_notes"] == "Discussed Q1 contract rates for export freight."
+    assert fetched["status"] == "Quoted"
+    assert fetched["next_followup_date"] == "2026-12-01"
+
+
 def test_delete_tracked_lead():
     """Deletes a tracked lead and confirms it cannot be retrieved subsequently."""
     headers = _auth_header()

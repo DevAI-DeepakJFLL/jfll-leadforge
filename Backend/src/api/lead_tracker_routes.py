@@ -447,6 +447,17 @@ def append_tracker_activity(
     }
 
     add_activity(id, activity_data, db_path=db_path)
+
+    update_data: dict[str, Any] = {}
+    if payload.notes and payload.notes.strip():
+        update_data["feedback_notes"] = payload.notes.strip()
+    if payload.status:
+        update_data["status"] = payload.status
+    if payload.next_followup_date:
+        update_data["next_followup_date"] = payload.next_followup_date
+    if update_data:
+        update_lead(id, update_data, db_path=db_path)
+
     updated = get_lead_by_id(id, db_path=db_path)
 
     if os.getenv("AWS_LAMBDA_FUNCTION_NAME") or settings.env != "local" or os.getenv("ENABLE_S3_TRACKER_BACKUP"):
