@@ -52,7 +52,7 @@ describe('AppDock Navigation & User Logout Details Suite', () => {
   it('renders primary navigation items with correct active status', () => {
     const html = renderToString(<AppDock activeNav="search" currentUser={mockUser} />);
 
-    expect(html).toContain('Leads Explorer');
+    expect(html).toContain('Leads Explorer (Apollo)');
     expect(html).toContain('JFLL Customers');
     expect(html).toContain('DataMyne Leads');
     expect(html).toContain('Client Reports');

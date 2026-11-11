@@ -114,7 +114,7 @@ export const AppDock: React.FC<AppDockProps> = ({
   // Streamlined navigation items focused on prospecting and internal customer master
   const PRIMARY_NAV_ITEMS: NavItem[] = [
     { id: 'home', label: 'Prospecting Overview', icon: Home },
-    { id: 'search', label: 'Leads Explorer', icon: Search },
+    { id: 'search', label: 'Leads Explorer (Apollo)', icon: Search },
     { id: 'jfll-customers', label: 'JFLL Customers', icon: Building2 },
     { id: 'datamyne', label: 'DataMyne Leads', icon: Database },
     ...(isAdmin ? [{ id: 'tracker', label: 'Lead Tracker', icon: ClipboardList }] : []),
