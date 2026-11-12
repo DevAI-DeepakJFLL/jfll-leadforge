@@ -146,3 +146,19 @@ def test_generate_client_report_prepopulates_historical_approach_notes():
         assert "Deepak Naidu" in report.section_5_feedback.meeting_takeaways
         assert report.section_5_feedback.next_action_followup == "2026-11-12"
 
+
+def test_generate_client_report_pulls_all_decision_makers_and_directors():
+    """Verify that report generation is not artificially capped at 3 contacts and pulls multiple decision makers & directors."""
+    # Cipla has multiple MCA directors and multiple Apollo decision makers
+    report = generate_client_report_data("Cipla")
+    assert len(report.section_4_contacts) > 3, f"Expected more than 3 contacts, got {len(report.section_4_contacts)}"
+
+    # Multiple directors should be present
+    director_contacts = [c for c in report.section_4_contacts if "Director / Board Member" in c.designation]
+    assert len(director_contacts) >= 2, f"Expected at least 2 directors, got {len(director_contacts)}"
+
+    # Multiple Apollo verified decision makers should be present
+    apollo_contacts = [c for c in report.section_4_contacts if "Apollo Verified" in c.notes]
+    assert len(apollo_contacts) >= 2, f"Expected at least 2 Apollo contacts, got {len(apollo_contacts)}"
+
+

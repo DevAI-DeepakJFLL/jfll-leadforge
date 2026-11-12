@@ -249,7 +249,7 @@ def enrich_report_with_gemini_search(
         raw_contacts = parsed_json.get("contacts", [])
         if isinstance(raw_contacts, list) and len(raw_contacts) > 0:
             new_contacts: list[ContactItem] = []
-            for c in raw_contacts[:5]:
+            for c in raw_contacts[:20]:
                 if isinstance(c, dict) and c.get("name"):
                     new_contacts.append(
                         ContactItem(

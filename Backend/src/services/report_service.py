@@ -8,7 +8,7 @@ from typing import Any
 
 from src.api.cache import resolve_company_ids_cached
 from src.api.database import get_data_source, get_db_connection
-from src.api.helpers import extract_company_search_keywords
+from src.api.helpers import clean_corporate_term, extract_company_search_keywords
 from src.api.logger import logger
 from src.api.report_models import (
     ClientReportData,
@@ -281,7 +281,7 @@ def _build_unlisted_sme_report(
             cargo_strength="Multimodal air + ocean network covers their global trade lanes; licensed CHA for fast Mumbai customs clearance; 150+ country partner network.",
             pitch_angle="Multimodal sea + express air · Licensed CHA customs broker · ISO 9001:2015 · Listed since 1986 (NSE/BSE: JETFREIGHT) · Mumbai-local dedicated account team",
         ),
-        section_4_contacts=_find_apollo_contacts(company_name, limit=3) or [
+        section_4_contacts=_find_apollo_contacts(company_name, limit=10) or [
             ContactItem(
                 name="General / Switchboard",
                 designation="Corporate Inquiries",
@@ -405,7 +405,7 @@ def _synthesize_jfll_fit(lead: dict[str, Any]) -> JfllFit:
     )
 
 
-def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem]:
+def _find_apollo_contacts(company_name: str, limit: int = 10) -> list[ContactItem]:
     """Search Apollo 15.5M contact directory for verified logistics & supply chain decision makers."""
     contacts: list[ContactItem] = []
     clean_name = (company_name or "").strip()
@@ -414,12 +414,18 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
 
     conn = _get_duckdb_cursor()
     try:
+        seen_names: set[str] = set()
+        cleaned_term = clean_corporate_term(clean_name)
+
         # 1. Profiled contacts via Apollo organization lookup
         try:
             apollo_leads_src = _get_apollo_leads_source()
             apollo_contacts_src = _get_apollo_contacts_source()
 
             org_ids = resolve_company_ids_cached(clean_name, apollo_leads_src)
+            if not org_ids and cleaned_term and cleaned_term.lower() != clean_name.lower():
+                org_ids = resolve_company_ids_cached(cleaned_term, apollo_leads_src)
+
             if org_ids:
                 placeholders = ", ".join(["?"] * len(org_ids[:15]))
                 sql = f"""
@@ -434,6 +440,10 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
                 rows = conn.execute(sql, list(org_ids[:15]) + [limit]).fetchall()
                 for r in rows:
                     p_name, title, email, linkedin, sen, is_log = r
+                    norm_name = p_name.strip().lower()
+                    if norm_name in seen_names:
+                        continue
+                    seen_names.add(norm_name)
                     c_info = email or (linkedin if linkedin else "Apollo Verified")
                     sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
                     notes = f"Apollo Verified ({sen_tag})"
@@ -454,7 +464,8 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
         if len(contacts) < limit:
             try:
                 apollo_unprofiled_src = _get_apollo_unprofiled_source()
-                kws = extract_company_search_keywords(clean_name)
+                search_term = cleaned_term if cleaned_term else clean_name
+                kws = extract_company_search_keywords(search_term)
                 if kws:
                     where_clause = " AND ".join(["employer_name ILIKE ?" for _ in kws])
                     sql2 = f"""
@@ -467,6 +478,10 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
                     rows2 = conn.execute(sql2, [f"%{w}%" for w in kws] + [limit - len(contacts)]).fetchall()
                     for r in rows2:
                         p_name, title, email, linkedin, sen = r
+                        norm_name = p_name.strip().lower()
+                        if norm_name in seen_names:
+                            continue
+                        seen_names.add(norm_name)
                         c_info = email or (linkedin if linkedin else "Apollo Verified")
                         sen_tag = sen.title() if sen else "Logistics Lead"
                         notes = f"Apollo Verified ({sen_tag})"
@@ -488,8 +503,9 @@ def _find_apollo_contacts(company_name: str, limit: int = 2) -> list[ContactItem
     return contacts
 
 
-def _synthesize_contacts(lead: dict[str, Any]) -> list[ContactItem]:
+def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[ContactItem]:
     contacts: list[ContactItem] = []
+    seen_names: set[str] = set()
     clean_addr = lead["address"].replace("*", " ").strip(", ")
 
     # Row 1: Customs registered corporate office (DataMyne)
@@ -502,7 +518,7 @@ def _synthesize_contacts(lead: dict[str, Any]) -> list[ContactItem]:
         )
     )
 
-    # Row 2: Statutory Directors if available (DataMyne MCA Registry)
+    # Statutory Directors if available (DataMyne MCA Registry)
     if lead["directors"]:
         d_chunks = re.split(r"\d+\.\s*:\s*", lead["directors"])
         for chunk in d_chunks:
@@ -513,19 +529,25 @@ def _synthesize_contacts(lead: dict[str, Any]) -> list[ContactItem]:
             name_tokens = clean_name.split()[:3]
             director_name = " ".join(name_tokens).title()
             if director_name and len(director_name) > 3:
-                contacts.append(
-                    ContactItem(
-                        name=director_name,
-                        designation="Director / Board Member",
-                        contact_info=lead["email"] or "MCA Directory",
-                        notes="Corporate Director (Ministry of Corporate Affairs)",
+                norm_dname = director_name.lower()
+                if norm_dname not in seen_names:
+                    seen_names.add(norm_dname)
+                    contacts.append(
+                        ContactItem(
+                            name=director_name,
+                            designation="Director / Board Member",
+                            contact_info=lead["email"] or "MCA Directory",
+                            notes="Corporate Director (Ministry of Corporate Affairs)",
+                        )
                     )
-                )
-                break
 
-    # Row 3 & 4: Apollo Decision Makers (Logistics / Supply Chain Managers)
-    apollo_contacts = _find_apollo_contacts(lead["company_name"], limit=2)
-    contacts.extend(apollo_contacts)
+    # Apollo Decision Makers (Logistics / Supply Chain Managers / CXOs)
+    apollo_contacts = _find_apollo_contacts(lead["company_name"], limit=apollo_limit)
+    for ac in apollo_contacts:
+        norm_ac_name = ac.name.strip().lower()
+        if norm_ac_name not in seen_names:
+            seen_names.add(norm_ac_name)
+            contacts.append(ac)
 
     # If only 1 contact, append an editable row for the sales rep to fill
     if len(contacts) < 2:

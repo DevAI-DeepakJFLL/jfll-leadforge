@@ -83,10 +83,10 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
     fetchApolloPeopleLeads({
       company: cleaned || lead.company_name,
       domain: domain || undefined,
-      limit: 3,
+      limit: 10,
     })
       .then((res) => {
-        setContacts(res.items.slice(0, 3));
+        setContacts(res.items);
         setTotalContacts(res.totalEstimate);
         setIsLoadingContacts(false);
       })
