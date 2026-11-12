@@ -71,6 +71,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
       });
 
       if (session.requires_password_setup) {
+        setStoredSession(session);
         setEmail(trimmedEmail);
         setAuthMode('set-password');
         setSetPasswordError('');

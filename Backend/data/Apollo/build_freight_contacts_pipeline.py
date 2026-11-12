@@ -50,15 +50,11 @@ COPY (
         SELECT 
             trim(_id) AS person_id,
             trim(person_name) AS person_name,
-            trim(person_first_name_unanalyzed) AS first_name,
-            trim(person_last_name_unanalyzed) AS last_name,
             trim(person_title) AS job_title,
-            trim(person_title_normalized) AS job_title_normalized,
             lower(trim(person_seniority)) AS seniority,
             trim(replace(replace(replace(person_functions, chr(91)||chr(39), ''), chr(39)||chr(93), ''), chr(39), '')) AS department,
             lower(trim(person_email)) AS email,
             trim(person_email_status_cd) AS email_status,
-            TRY_CAST(person_extrapolated_email_confidence AS FLOAT) AS email_confidence,
             trim(person_linkedin_url) AS linkedin_url,
             trim(person_location_city) AS contact_city,
             trim(person_location_state) AS contact_state,
@@ -95,15 +91,11 @@ COPY (
     SELECT 
         p.person_id,
         p.person_name,
-        p.first_name,
-        p.last_name,
         p.job_title,
-        p.job_title_normalized,
         p.seniority,
         p.department,
         p.email,
         p.email_status,
-        p.email_confidence,
         p.linkedin_url,
         p.contact_city,
         p.contact_state,
@@ -159,10 +151,10 @@ print(f"Contacts in Logistics / SCM Roles:    {logistics_titles:,} ({logistics_t
 
 print("\nTop 10 Supply Chain Job Titles in dataset:")
 top_titles = con.execute(f"""
-    SELECT job_title_normalized, count(*) as cnt
+    SELECT job_title, count(*) as cnt
     FROM '{OUTPUT_CONTACTS_PARQUET}'
     WHERE is_logistics_role = true
-    GROUP BY job_title_normalized
+    GROUP BY job_title
     ORDER BY cnt DESC
     LIMIT 10;
 """).fetchall()

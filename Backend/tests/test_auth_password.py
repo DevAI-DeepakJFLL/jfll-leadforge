@@ -376,3 +376,66 @@ def test_legacy_password_auto_upgrade_to_jet123():
     assert res2.status_code == 200
 
 
+def test_sec_01_onboarding_token_cannot_access_data_endpoints():
+    """SEC-01: Verifies that an uninitialized account's onboarding token cannot access data endpoints."""
+    user_email = "new.restricted.rep@jfll.com"
+    add_to_allowlist(email=user_email, name="Restricted Rep", role="Commercial", added_by="admin")
+
+    # 1. Login returns token with requires_password_setup=True
+    login_res = client.post(
+        "/api/v1/auth/login",
+        json={"email": user_email},
+        headers={"User-Agent": "Mozilla/5.0"},
+    )
+    assert login_res.status_code == 200
+    data = login_res.json()
+    assert data["requires_password_setup"] is True
+    onboarding_token = data["token"]
+
+    # 2. Attempting to query protected leads with this token is blocked with 403
+    leads_res = client.get(
+        "/api/v1/leads",
+        headers={"Authorization": f"Bearer {onboarding_token}"},
+    )
+    assert leads_res.status_code == 403
+    assert "PASSWORD_SETUP_REQUIRED" in leads_res.json()["detail"]
+
+
+def test_sec_01_unauthenticated_set_password_rejected_in_production(monkeypatch):
+    """SEC-01: Verifies that an unauthenticated attacker cannot set an initial password in production."""
+    user_email = "victim.onboarding@jfll.com"
+    add_to_allowlist(email=user_email, name="Victim Onboarding", role="Commercial", added_by="admin")
+
+    from src.api.config import settings
+    monkeypatch.setattr(settings, "allow_dev_auth_bypass", False)
+
+    # Calling /set-password without token or current_password must be rejected
+    unauth_res = client.post(
+        "/api/v1/auth/set-password",
+        json={"email": user_email, "new_password": "HackerPassword#2026"},
+        headers={"User-Agent": "Mozilla/5.0"},
+    )
+    assert unauth_res.status_code == 401
+    assert "Authentication required to initialize account password" in unauth_res.json()["detail"]
+
+
+def test_sec_03_ip_ban_cannot_be_bypassed_with_arbitrary_device_fingerprint():
+    """SEC-03: Verifies that a banned IP cannot bypass the block by supplying an arbitrary device fingerprint."""
+    from src.api.access_control import block_entity
+
+    banned_ip = "198.51.100.222"
+    block_entity(ip=banned_ip, reason="Malicious activity", actor="test")
+
+    # Request from banned IP with arbitrary clean fingerprint must still be blocked
+    bypass_attempt = client.get(
+        "/api/v1/leads",
+        headers={
+            "User-Agent": "Mozilla/5.0",
+            "X-Forwarded-For": banned_ip,
+            "X-Device-Fingerprint": "fp_random_unbanned_bypass_12345",
+        },
+    )
+    assert bypass_attempt.status_code == 403
+    assert "DEVICE_BLOCKED" in bypass_attempt.json()["detail"]
+
+

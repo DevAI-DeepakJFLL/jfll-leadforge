@@ -9,8 +9,6 @@ export interface ApolloLead {
   founded_year?: number | null;
   industry: string;
   specialties?: string | null;
-  keywords?: string | null;
-  technologies_raw?: string | null;
   job_functions_json?: string | null;
   linkedin_url?: string | null;
   hq_city?: string | null;
@@ -172,15 +170,11 @@ export interface ApolloContact {
   organization_id?: string | null;
   person_id: string;
   person_name: string;
-  first_name?: string | null;
-  last_name?: string | null;
   job_title: string;
-  job_title_normalized?: string | null;
   seniority?: string | null;
   department?: string | null;
   email?: string | null;
   email_status?: 'Verified' | 'Extrapolated' | string | null;
-  email_confidence?: number | null;
   linkedin_url?: string | null;
   contact_city?: string | null;
   contact_state?: string | null;

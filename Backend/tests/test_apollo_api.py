@@ -11,10 +11,10 @@ def test_apollo_leads_pagination():
     data = response.json()
     assert data["page"] == 1
     assert data["page_size"] == 5
-    assert data["total_records"] == 686700
+    assert data["total_records"] == 684669
     assert len(data["data"]) == 5
     assert data["audience_counts"] is not None
-    assert data["audience_counts"]["all"] == 686700
+    assert data["audience_counts"]["all"] == 684669
     first_lead = data["data"][0]
     assert "organization_name" in first_lead
     assert "industry" in first_lead
@@ -25,7 +25,7 @@ def test_apollo_leads_industry_filter():
     response = client.get("/api/v1/apollo/leads?industry=automotive&page_size=5")
     assert response.status_code == 200
     data = response.json()
-    assert data["total_records"] == 39850
+    assert data["total_records"] == 39760
     assert len(data["data"]) == 5
     for lead in data["data"]:
         assert lead["industry"].lower() == "automotive"
@@ -44,16 +44,16 @@ def test_apollo_leads_dynamic_audience_counts():
     res_base = client.get("/api/v1/apollo/leads?page_size=5")
     assert res_base.status_code == 200
     base_counts = res_base.json()["audience_counts"]
-    assert base_counts["all"] == 686700
+    assert base_counts["all"] == 684669
 
     # Filter by industry
     res_ind = client.get("/api/v1/apollo/leads?industry=automotive&page_size=5")
     assert res_ind.status_code == 200
     ind_payload = res_ind.json()
     ind_counts = ind_payload["audience_counts"]
-    assert ind_payload["total_records"] == 39850
-    assert ind_counts["all"] == 39850
-    assert ind_counts["top_cargo_verticals"] == 39850
+    assert ind_payload["total_records"] == 39760
+    assert ind_counts["all"] == 39760
+    assert ind_counts["top_cargo_verticals"] == 39760
     assert ind_counts["all"] < base_counts["all"]
 
     # Filter by search
@@ -78,10 +78,10 @@ def test_apollo_stats_endpoint():
     response = client.get("/api/v1/apollo/stats")
     assert response.status_code == 200
     data = response.json()
-    assert data["total_records"] == 686700
+    assert data["total_records"] == 684669
     assert len(data["top_industries"]) > 0
     assert data["top_industries"][0]["industry"] == "construction"
-    assert data["top_industries"][0]["count"] == 91760
+    assert data["top_industries"][0]["count"] == 91646
 
 
 def test_apollo_stats_unauthorized():

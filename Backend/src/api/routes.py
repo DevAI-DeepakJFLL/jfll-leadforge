@@ -341,11 +341,10 @@ def list_leads(
                     "Sales Person" as sales_person,
                     "Total Business Received From Cusomer In Last 3 Month" as business_last_3m,
                     "Total Business from 1.04.2024 till date" as total_business_till_date,
-                    "parent_id" as parent_id,
-                    "parent_name" as parent_name,
                     "group_total_business" as group_total_business,
-                    "is_branch_alias" as is_branch_alias,
-                    "branch_alias_tag" as branch_alias_tag
+                    "co_reps" as co_reps,
+                    "merged_count" as merged_count,
+                    "merged_aliases" as merged_aliases
                 FROM '{data_source}'
                 WHERE {where_sql}
                 ORDER BY {order_by_sql}
@@ -395,11 +394,10 @@ def list_leads(
                     "Sales Person" as sales_person,
                     NULL as business_last_3m,
                     "Total Business from 1.04.2024 till date" as total_business_till_date,
-                    "parent_id" as parent_id,
-                    "parent_name" as parent_name,
                     "group_total_business" as group_total_business,
-                    "is_branch_alias" as is_branch_alias,
-                    "branch_alias_tag" as branch_alias_tag
+                    "co_reps" as co_reps,
+                    "merged_count" as merged_count,
+                    "merged_aliases" as merged_aliases
                 FROM '{data_source}'
                 WHERE {where_sql}
                 ORDER BY {order_by_sql}
@@ -474,7 +472,7 @@ def list_apollo_leads(
     has_website: bool | None = Query(default=None, description="Require corporate website"),
     has_linkedin: bool | None = Query(default=None, description="Require LinkedIn profile"),
     tab: str | None = Query(default=None, description="Audience quick tab"),
-    search: str | None = Query(default=None, min_length=1, max_length=100, description="Search company, domain, keywords"),
+    search: str | None = Query(default=None, min_length=1, max_length=100, description="Search company, domain, specialties"),
     authorization: str | None = Header(None, description="Bearer token for authenticated session"),
 ):
     require_auth(authorization, "Apollo leads")
@@ -582,9 +580,9 @@ def list_apollo_leads(
             comp_sql, comp_params = build_company_search_sql(search)
             search_pattern = f"%{search.strip().lower()}%"
             base_conditions.append(
-                f"({comp_sql} OR lower(COALESCE(keywords, '')) LIKE ? OR lower(COALESCE(specialties, '')) LIKE ?)"
+                f"({comp_sql} OR lower(COALESCE(specialties, '')) LIKE ?)"
             )
-            base_params.extend(comp_params + [search_pattern, search_pattern])
+            base_params.extend(comp_params + [search_pattern])
 
         where_base_sql = " AND ".join(base_conditions)
 
@@ -640,8 +638,6 @@ def list_apollo_leads(
                 founded_year,
                 industry,
                 specialties,
-                keywords,
-                technologies_raw,
                 job_functions_json,
                 linkedin_url,
                 hq_city,
@@ -791,15 +787,11 @@ def list_company_contacts(
                 person_id,
                 organization_id,
                 person_name,
-                first_name,
-                last_name,
                 job_title,
-                job_title_normalized,
                 seniority,
                 department,
                 email,
                 email_status,
-                email_confidence,
                 linkedin_url,
                 contact_city,
                 contact_state,
@@ -1017,12 +1009,12 @@ def search_apollo_contacts(
 
         j_list = parse_csv_query_param(job_title)
         if len(j_list) == 1:
-            conditions.append("(lower(c.job_title) LIKE ? OR lower(COALESCE(c.job_title_normalized, '')) LIKE ?)")
-            params.extend([f"%{j_list[0]}%", f"%{j_list[0]}%"])
+            conditions.append("lower(c.job_title) LIKE ?")
+            params.append(f"%{j_list[0]}%")
         elif len(j_list) > 1:
-            title_conds = ["(lower(c.job_title) LIKE ? OR lower(COALESCE(c.job_title_normalized, '')) LIKE ?)" for _ in j_list]
+            title_conds = ["lower(c.job_title) LIKE ?" for _ in j_list]
             for j in j_list:
-                params.extend([f"%{j}%", f"%{j}%"])
+                params.append(f"%{j}%")
             conditions.append(f"({' OR '.join(title_conds)})")
 
         d_list = parse_csv_query_param(department)
@@ -1134,15 +1126,11 @@ def search_apollo_contacts(
                 c.person_id,
                 c.organization_id,
                 c.person_name,
-                c.first_name,
-                c.last_name,
                 c.job_title,
-                c.job_title_normalized,
                 c.seniority,
                 c.department,
                 c.email,
                 c.email_status,
-                c.email_confidence,
                 c.linkedin_url,
                 c.contact_city,
                 c.contact_state,

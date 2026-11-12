@@ -231,12 +231,18 @@ export async function setUserPassword(email: string, newPassword: string): Promi
   logger.info('AUTH', 'Setting user account password', { email: normalizedEmail });
 
   try {
+    const currentSession = getStoredSession();
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'X-Device-Fingerprint': getDeviceFingerprint(),
+    };
+    if (currentSession?.token) {
+      headers['Authorization'] = `Bearer ${currentSession.token}`;
+    }
+
     const res = await fetch(`${API_BASE_URL}/api/v1/auth/set-password`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Device-Fingerprint': getDeviceFingerprint(),
-      },
+      headers,
       body: JSON.stringify({
         email: normalizedEmail,
         new_password: newPassword,

@@ -35,8 +35,6 @@ const mockLeads: ApolloLead[] = [
     founded_year: 1995,
     industry: 'aviation & aerospace',
     specialties: 'Aviation electronics, avionics manufacturing',
-    keywords: 'avionics, aerospace, aircraft parts, air cargo',
-    technologies_raw: "['sap', 'salesforce', 'oracle']",
     job_functions_json: "{'engineering': 500, 'operations': 200}",
     linkedin_url: 'https://linkedin.com/company/aerotech',
     hq_city: 'Seattle',
@@ -55,8 +53,6 @@ const mockLeads: ApolloLead[] = [
     founded_year: 2005,
     industry: 'automotive',
     specialties: 'OEM brake systems, automotive components',
-    keywords: 'auto parts, brakes, ocean fcl, car manufacturing',
-    technologies_raw: "['shopify', 'google_analytics']",
     job_functions_json: "{'operations': 30, 'sales': 15}",
     linkedin_url: 'https://linkedin.com/company/precisionauto',
     hq_city: 'Detroit',
@@ -75,8 +71,6 @@ const mockLeads: ApolloLead[] = [
     founded_year: 2012,
     industry: 'pharmaceuticals',
     specialties: 'Active pharmaceutical ingredients, cold-chain biologics',
-    keywords: 'pharma, biologics, cold chain, air freight',
-    technologies_raw: null,
     job_functions_json: null,
     linkedin_url: null,
     hq_city: 'London',
@@ -96,7 +90,7 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(res.audienceCounts.high_headcount).toBeGreaterThan(0);
     });
 
-    it('filters by search term matching company name or keywords', () => {
+    it('filters by search term matching company name', () => {
       const res = queryApolloLeads({ q: 'Boeing' });
       expect(res.items.length).toBeGreaterThanOrEqual(1);
       expect(res.items.some((i) => i.organization_name.toLowerCase().includes('boeing'))).toBe(true);
@@ -255,8 +249,6 @@ describe('Apollo Sourcing Tool Suite', () => {
       expect(html).toContain('1,250 staff');
       expect(html).toContain('1995');
       expect(html).toContain('Aviation electronics, avionics manufacturing');
-      expect(html).toContain('sap');
-      expect(html).toContain('salesforce');
       expect(html).toContain('Jet Freight Logistics Alignment');
       expect(html).toContain('Find Decision-Makers');
       expect(html).toContain('Key Decision-Makers');

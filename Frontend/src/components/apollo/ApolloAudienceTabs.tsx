@@ -29,13 +29,13 @@ export const ApolloAudienceTabs: React.FC<ApolloAudienceTabsProps> = ({
   activeTab = 'all',
   onTabChange,
   counts = {
-    all: 686700,
-    high_headcount: 23540,
-    high_revenue: 82451,
-    top_cargo_verticals: 123208,
-    with_website_linkedin: 656045,
+    all: 684669,
+    high_headcount: 23227,
+    high_revenue: 81920,
+    top_cargo_verticals: 122797,
+    with_website_linkedin: 654068,
   },
-  totalFormatted = '686.7k',
+  totalFormatted = '684.7k',
   className = '',
 }) => {
   const tabs: ApolloTabDefinition[] = [

@@ -27,11 +27,25 @@ def _clean_ip_header(val: str | None) -> str | None:
 
 
 def get_client_ip(request: Request) -> str:
-    """Safely extracts client public IP address considering proxies, CloudFront, and Lambda URL."""
+    """Safely extracts client public IP address considering trusted proxies, CloudFront, and Lambda URL."""
+    # 1. AWS CloudFront edge viewer IP (trusted edge header set by AWS CloudFront)
+    cf_viewer = request.headers.get("cloudfront-viewer-address")
+    if cf_viewer:
+        candidate = cf_viewer.split("]:")[0].lstrip("[") if "]:" in cf_viewer else cf_viewer.rsplit(":", 1)[0]
+        cleaned = _clean_ip_header(candidate)
+        if cleaned:
+            return cleaned
+
+    # 2. Cloudflare edge header if routed through Cloudflare
     cf_connecting_ip = _clean_ip_header(request.headers.get("cf-connecting-ip"))
     if cf_connecting_ip:
         return cf_connecting_ip
 
+    # 3. Direct socket connection for genuine public clients
+    if request.client and request.client.host and request.client.host not in ("127.0.0.1", "testclient"):
+        return request.client.host.strip()
+
+    # 4. Reverse proxy / TestClient forwarding fallback
     x_forwarded_for = _clean_ip_header(request.headers.get("x-forwarded-for"))
     if x_forwarded_for:
         return x_forwarded_for
@@ -82,6 +96,13 @@ def require_auth(
                 status_code=401,
                 detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
             )
+
+        if user.get("requires_password_setup"):
+            raise HTTPException(
+                status_code=403,
+                detail="PASSWORD_SETUP_REQUIRED: You must configure an account password before accessing application data.",
+            )
+
         return user
     elif settings.env == "production" or not settings.allow_dev_auth_bypass:
         raise HTTPException(status_code=401, detail=f"Authentication required to access {resource_name}")
@@ -124,6 +145,12 @@ def require_permission(perm: Permission):
                 raise HTTPException(
                     status_code=401,
                     detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
+                )
+
+            if user.get("requires_password_setup"):
+                raise HTTPException(
+                    status_code=403,
+                    detail="PASSWORD_SETUP_REQUIRED: You must configure an account password before accessing application data.",
                 )
 
             user_role = user.get("role", "")

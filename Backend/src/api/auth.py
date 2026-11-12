@@ -360,6 +360,7 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
             "name": name,
             "role": role,
             "session_id": session_id,
+            "requires_password_setup": requires_password_setup,
         },
         expires_in_hours=settings.auth_token_expire_hours,
     )
@@ -421,24 +422,29 @@ def set_password(
         verify_user_credentials,
     )
 
-    # Protect against unauthenticated account takeover if password already exists
-    if is_user_password_set(clean_email):
-        authenticated = False
-        if payload.current_password:
-            valid, _ = verify_user_credentials(clean_email, payload.current_password)
-            if valid:
-                authenticated = True
+    # Protect against unauthenticated account takeover
+    authenticated = False
+    if payload.current_password:
+        valid, _ = verify_user_credentials(clean_email, payload.current_password)
+        if valid:
+            authenticated = True
 
-        if not authenticated and authorization and authorization.startswith("Bearer "):
-            token = authorization.split("Bearer ", 1)[1].strip()
-            user_payload = verify_token(token)
-            if user_payload and user_payload.get("sub", "").strip().lower() == clean_email:
-                authenticated = True
+    if not authenticated and authorization and authorization.startswith("Bearer "):
+        token = authorization.split("Bearer ", 1)[1].strip()
+        user_payload = verify_token(token)
+        if user_payload and user_payload.get("sub", "").strip().lower() == clean_email:
+            authenticated = True
 
-        if not authenticated:
+    if not authenticated:
+        if is_user_password_set(clean_email):
             raise HTTPException(
                 status_code=401,
                 detail="Account password is already configured. Valid current password or active session required to update it.",
+            )
+        elif settings.env == "production" or not settings.allow_dev_auth_bypass:
+            raise HTTPException(
+                status_code=401,
+                detail="Authentication required to initialize account password. Active session token or initial credential required.",
             )
 
     new_pwd = payload.new_password
@@ -468,6 +474,7 @@ def set_password(
             "name": name,
             "role": role,
             "session_id": session_id,
+            "requires_password_setup": False,
         },
         expires_in_hours=settings.auth_token_expire_hours,
     )

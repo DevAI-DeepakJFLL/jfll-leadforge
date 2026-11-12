@@ -16,7 +16,6 @@ import {
   ChevronsUpDown,
   PhoneCall,
   Sparkles,
-  GitFork,
   Network,
   Loader2,
 } from 'lucide-react';
@@ -419,21 +418,13 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                           >
                             {c.fullName}
                           </span>
-                          {c.isBranchAlias ? (
+                          {c.mergedCount && c.mergedCount > 1 ? (
                             <span
-                              className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 shrink-0 leading-tight"
-                              title={`Branch / Alias of ${c.parentName || 'Parent Account'}`}
+                              className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 shrink-0 leading-tight"
+                              title={`Unified Golden Record — Merged ${c.mergedCount} duplicate accounts into 1 primary record`}
                             >
-                              <GitFork className="w-2.5 h-2.5 text-amber-600" />
-                              ↳ {c.branchAliasTag || 'Branch Entity'}
-                            </span>
-                          ) : c.parentId && c.groupTotalBusiness ? (
-                            <span
-                              className="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-800 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200 shrink-0 leading-tight"
-                              title={`Corporate Parent — Combined Group: ₹${c.groupTotalBusiness.toLocaleString('en-IN')}`}
-                            >
-                              <Network className="w-2.5 h-2.5 text-blue-600" />
-                              Group: {formatIndianCurrency(c.groupTotalBusiness)}
+                              <Network className="w-2.5 h-2.5 text-emerald-600" />
+                              Unified ({c.mergedCount})
                             </span>
                           ) : null}
                           {c.inDataMyne && (
@@ -449,6 +440,11 @@ export const JfllCustomerTable: React.FC<JfllCustomerTableProps> = ({
                             <>
                               <span className="text-slate-300">•</span>
                               <span className="text-indigo-600 font-medium">Rep: {c.salesPerson}</span>
+                              {c.coReps && (
+                                <span className="text-slate-500 font-normal text-[10px]" title={`Co-Reps: ${c.coReps}`}>
+                                  (+{c.coReps})
+                                </span>
+                              )}
                             </>
                           )}
                         </div>

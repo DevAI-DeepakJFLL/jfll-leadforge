@@ -28,7 +28,7 @@ def test_companies_base_unfiltered(client, auth_headers):
     resp = client.get("/api/v1/apollo/leads?page=1&page_size=10", headers=auth_headers)
     assert resp.status_code == 200
     data = resp.json()
-    assert data["total_records"] == 686700
+    assert data["total_records"] == 684669
     assert len(data["data"]) == 10
 
 def test_companies_filter_employee_tiers(client, auth_headers):
@@ -51,7 +51,7 @@ def test_companies_filter_employee_tiers(client, auth_headers):
         data = resp.json()
         count = data["total_records"]
         assert count > 0, f"Tier {tier_id} returned 0 records"
-        assert count < 686700, f"Tier {tier_id} failed to filter (returned all {count})"
+        assert count < 684669, f"Tier {tier_id} failed to filter (returned all {count})"
         tier_counts[tier_id] = count
 
         # Verify all returned records strictly adhere to the range
@@ -89,7 +89,7 @@ def test_companies_filter_revenue_ranges(client, auth_headers):
         data = resp.json()
         count = data["total_records"]
         assert count > 0, f"Revenue range {range_id} returned 0 records"
-        assert count < 686700, f"Revenue range {range_id} failed to filter (returned all {count})"
+        assert count < 684669, f"Revenue range {range_id} failed to filter (returned all {count})"
         rev_counts[range_id] = count
 
         for rec in data["data"]:
@@ -114,7 +114,7 @@ def test_companies_filter_countries(client, auth_headers):
     resp_br = client.get("/api/v1/apollo/leads?page=1&page_size=10&countries=brazil", headers=auth_headers)
     assert resp_br.status_code == 200
     br_data = resp_br.json()
-    assert br_data["total_records"] == 11702
+    assert br_data["total_records"] == 11691
     for r in br_data["data"]:
         assert r["hq_country"].lower() == "brazil"
 
@@ -122,7 +122,7 @@ def test_companies_filter_countries(client, auth_headers):
     resp_in = client.get("/api/v1/apollo/leads?page=1&page_size=10&countries=india", headers=auth_headers)
     assert resp_in.status_code == 200
     in_data = resp_in.json()
-    assert in_data["total_records"] == 12708
+    assert in_data["total_records"] == 12280
     for r in in_data["data"]:
         assert r["hq_country"].lower() == "india"
 
@@ -130,7 +130,7 @@ def test_companies_filter_industries(client, auth_headers):
     resp_auto = client.get("/api/v1/apollo/leads?page=1&page_size=10&industries=automotive", headers=auth_headers)
     assert resp_auto.status_code == 200
     data_auto = resp_auto.json()
-    assert data_auto["total_records"] == 39850
+    assert data_auto["total_records"] == 39760
     for r in data_auto["data"]:
         assert r["industry"].lower() == "automotive"
 
@@ -139,14 +139,14 @@ def test_companies_filter_industries(client, auth_headers):
         headers=auth_headers,
     )
     assert resp_multi.status_code == 200
-    assert resp_multi.json()["total_records"] == 50037
+    assert resp_multi.json()["total_records"] == 49889
 
 def test_companies_filter_channels(client, auth_headers):
     # has_website
     resp_web = client.get("/api/v1/apollo/leads?page=1&page_size=10&has_website=true", headers=auth_headers)
     assert resp_web.status_code == 200
     data_web = resp_web.json()
-    assert data_web["total_records"] == 679588
+    assert data_web["total_records"] == 677579
     for r in data_web["data"]:
         assert r["website_url"] is not None and len(r["website_url"].strip()) > 0
 
@@ -154,17 +154,17 @@ def test_companies_filter_channels(client, auth_headers):
     resp_li = client.get("/api/v1/apollo/leads?page=1&page_size=10&has_linkedin=true", headers=auth_headers)
     assert resp_li.status_code == 200
     data_li = resp_li.json()
-    assert data_li["total_records"] == 663100
+    assert data_li["total_records"] == 661101
     for r in data_li["data"]:
         assert r["linkedin_url"] is not None and len(r["linkedin_url"].strip()) > 0
 
 def test_companies_audience_tabs(client, auth_headers):
     tab_expected = {
-        "all": 686700,
-        "high_headcount": 23540,
-        "high_revenue": 82451,
-        "top_cargo_verticals": 123208,
-        "with_website_linkedin": 656045,
+        "all": 684669,
+        "high_headcount": 23227,
+        "high_revenue": 81920,
+        "top_cargo_verticals": 122797,
+        "with_website_linkedin": 654068,
     }
     for tab_name, expected_count in tab_expected.items():
         resp = client.get(f"/api/v1/apollo/leads?page=1&page_size=5&tab={tab_name}", headers=auth_headers)

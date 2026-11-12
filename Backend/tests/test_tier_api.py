@@ -26,7 +26,7 @@ def test_get_tier_counts():
     assert "unscored" in data
     assert "all" in data
     assert data["tier_a"] > 0
-    assert data["all"] == 37273
+    assert data["all"] == 36575
 
 
 def test_get_tier_leads_pagination():
@@ -107,7 +107,7 @@ def test_tier_leads_faceted_filtering_perishables_and_mumbai():
     res_perishables = client.get("/api/v1/tiers/leads?status=Tier A&categories=Perishables&page_size=10", headers=headers)
     assert res_perishables.status_code == 200
     data_p = res_perishables.json()
-    assert data_p["total"] == 243
+    assert data_p["total"] == 239
     assert all(item["category"] == "Perishables" for item in data_p["items"])
     assert all(item["segment_status"] == "Tier A" for item in data_p["items"])
 
@@ -115,8 +115,8 @@ def test_tier_leads_faceted_filtering_perishables_and_mumbai():
     res_mumbai = client.get("/api/v1/tiers/leads?status=Tier A&categories=Perishables&cities=MUMBAI&page_size=100", headers=headers)
     assert res_mumbai.status_code == 200
     data_m = res_mumbai.json()
-    assert data_m["total"] == 57
-    assert len(data_m["items"]) == 57
+    assert data_m["total"] == 56
+    assert len(data_m["items"]) == 56
     assert all("mumbai" in item["city"].lower() for item in data_m["items"])
     assert all(item["category"] == "Perishables" for item in data_m["items"])
 
@@ -124,7 +124,7 @@ def test_tier_leads_faceted_filtering_perishables_and_mumbai():
     res_air = client.get("/api/v1/tiers/leads?status=Tier A&categories=Perishables&cities=MUMBAI&transport_modes=Air", headers=headers)
     assert res_air.status_code == 200
     data_air = res_air.json()
-    assert data_air["total"] == 53
+    assert data_air["total"] == 52
     assert all(item["transport_mode"] == "Air" for item in data_air["items"])
 
     # 4. Tier A + Pharma & Healthcare + Hyderabad (with URL encoded &)
@@ -136,7 +136,7 @@ def test_tier_leads_faceted_filtering_perishables_and_mumbai():
     res_counts = client.get("/api/v1/tiers/counts?categories=Perishables&cities=MUMBAI", headers=headers)
     assert res_counts.status_code == 200
     counts = res_counts.json()
-    assert counts["tier_a"] == 57
+    assert counts["tier_a"] == 56
 
 
 def test_tier_leads_hs_code_filtering():

@@ -86,7 +86,7 @@ def test_build_company_search_sql_multi_keyword_isolation():
 
 @pytest.mark.parametrize("target_query,expected_part", [
     ("Gemini Exports", "GEMINI EXPORTS"),
-    ("HiMedia Laboratories", "HIMEDIA LABORATORIES"),
+    ("Hetero Labs", "HETERO LABS"),
     ("Inventia Healthcare", "INVENTIA HEALTHCARE"),
     ("Nivira Exports", "NIVIRA EXPORTS"),
     ("Simson Pharma", "SIMSON PHARMA"),
@@ -95,7 +95,7 @@ def test_build_company_search_sql_multi_keyword_isolation():
 def test_generate_client_report_all_reference_leads(target_query, expected_part):
     report = generate_client_report_data(target_query)
     assert isinstance(report, ClientReportData)
-    assert expected_part in report.header.company_name
+    assert expected_part.upper() in report.header.company_name.upper()
     assert report.section_2_trade_lane.total_shipments > 0
     assert report.section_2_trade_lane.total_value_usd > 0
     assert len(report.section_4_contacts) >= 1

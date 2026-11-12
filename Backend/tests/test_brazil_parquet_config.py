@@ -45,12 +45,12 @@ def test_unified_datamyne_leads_contains_brazil():
         f"SELECT count(*) FROM '{parquet_path}' WHERE country = 'Brazil'"
     ).fetchone()[0]
     assert res_brazil > 0, "Expected Brazil leads in unified datamyne parquet"
-    assert res_brazil == 1302, f"Expected 1,302 Brazil leads, got {res_brazil}"
+    assert res_brazil == 1298, f"Expected 1,298 Brazil leads, got {res_brazil}"
 
     res_india = con.execute(
         f"SELECT count(*) FROM '{parquet_path}' WHERE country = 'India'"
     ).fetchone()[0]
-    assert res_india == 38779, f"Expected 38,779 India leads (37,273 + 1,506), got {res_india}"
+    assert res_india == 38057, f"Expected 38,057 India leads, got {res_india}"
 
     res_null = con.execute(
         f"SELECT count(*) FROM '{parquet_path}' WHERE country IS NULL OR country = ''"
@@ -58,7 +58,7 @@ def test_unified_datamyne_leads_contains_brazil():
     assert res_null == 0, f"Expected 0 leads without country, got {res_null}"
 
     total_rows = con.execute(f"SELECT count(*) FROM '{parquet_path}'").fetchone()[0]
-    assert total_rows == 40081, f"Expected 40,081 total leads (37,273 + 2,808), got {total_rows}"
+    assert total_rows == 39355, f"Expected 39,355 total leads, got {total_rows}"
 
 
 def test_valid_and_missing_datamyne_parquets_unified():
@@ -73,7 +73,7 @@ def test_valid_and_missing_datamyne_parquets_unified():
     cnt_val = con.execute(f"SELECT count(*) FROM '{valid_path}'").fetchone()[0]
     cnt_val_brazil = con.execute(f"SELECT count(*) FROM '{valid_path}' WHERE country = 'Brazil'").fetchone()[0]
     cnt_val_null = con.execute(f"SELECT count(*) FROM '{valid_path}' WHERE country IS NULL OR country = ''").fetchone()[0]
-    assert cnt_val == 20942, f"Expected 20,942 valid leads (19,760 + 1,182), got {cnt_val}"
+    assert cnt_val == 20566, f"Expected 20,566 valid leads, got {cnt_val}"
     assert cnt_val_brazil > 0
     assert cnt_val_null == 0
 
@@ -81,6 +81,6 @@ def test_valid_and_missing_datamyne_parquets_unified():
     cnt_mis = con.execute(f"SELECT count(*) FROM '{missing_path}'").fetchone()[0]
     cnt_mis_brazil = con.execute(f"SELECT count(*) FROM '{missing_path}' WHERE country = 'Brazil'").fetchone()[0]
     cnt_mis_null = con.execute(f"SELECT count(*) FROM '{missing_path}' WHERE country IS NULL OR country = ''").fetchone()[0]
-    assert cnt_mis == 19139, f"Expected 19,139 missing leads (17,513 + 1,626), got {cnt_mis}"
+    assert cnt_mis == 18789, f"Expected 18,789 missing leads, got {cnt_mis}"
     assert cnt_mis_brazil > 0
     assert cnt_mis_null == 0

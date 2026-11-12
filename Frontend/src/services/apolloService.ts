@@ -63,7 +63,6 @@ export function queryApolloLeads(params: ApolloFilterParams = {}): ApolloRespons
         lead.organization_name.toLowerCase().includes(searchLower) ||
         lead.domain.toLowerCase().includes(searchLower) ||
         (lead.industry && lead.industry.toLowerCase().includes(searchLower)) ||
-        (lead.keywords && lead.keywords.toLowerCase().includes(searchLower)) ||
         (lead.specialties && lead.specialties.toLowerCase().includes(searchLower)) ||
         (lead.hq_city && lead.hq_city.toLowerCase().includes(searchLower)) ||
         (lead.hq_country && lead.hq_country.toLowerCase().includes(searchLower))
@@ -291,7 +290,6 @@ export function exportApolloLeadsCsv(leads: ApolloLead[], filename = 'apollo_fre
     'Headquarters State',
     'Headquarters Country',
     'Specialties',
-    'Keywords',
     'LinkedIn URL',
   ];
 
@@ -308,7 +306,6 @@ export function exportApolloLeadsCsv(leads: ApolloLead[], filename = 'apollo_fre
     lead.hq_state,
     lead.hq_country,
     lead.specialties,
-    lead.keywords,
     lead.linkedin_url,
   ]);
 

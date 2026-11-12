@@ -11,11 +11,9 @@ import {
   Layers,
   CreditCard,
   TrendingUp,
-  GitFork,
   Network,
 } from 'lucide-react';
 import { JfllCustomer } from '@/types/jfllCustomer';
-import { JFLL_ALL_CUSTOMERS_DATA } from '@/data/jfllAllCustomersData';
 import { JfllCustomerGroupBadge } from './JfllCustomerGroupBadge';
 import { useToast } from '@/components/ui';
 import { parseAndFormatContactNumbers } from '@/utils/phoneUtils';
@@ -79,13 +77,6 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
 
   // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD)
   const contactNumbers = parseAndFormatContactNumbers(customer.mobileNumber, customer.territory);
-
-  // Linked corporate family members (sister branches or parent)
-  const linkedFamilyMembers = customer.parentId
-    ? JFLL_ALL_CUSTOMERS_DATA.filter(
-        (c) => (c.parentId === customer.parentId || c.id === customer.parentId) && c.id !== customer.id
-      )
-    : [];
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
@@ -263,79 +254,59 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
               </div>
             </div>
 
-            {/* Corporate Family & Linked Branches Card */}
-            {customer.parentId && (
+            {/* Corporate Family & Merged Golden Record Card */}
+            {customer.mergedCount && customer.mergedCount > 1 ? (
               <div className="bg-slate-50/80 border border-slate-200/90 rounded-xl p-4 shadow-2xs space-y-3">
                 <div className="flex items-center justify-between border-b border-slate-200 pb-2">
                   <div className="flex items-center gap-2">
                     <Network className="w-4 h-4 text-apollo" />
                     <span className="font-bold text-slate-900 text-xs uppercase tracking-wider">
-                      Corporate Family & Linked Accounts
+                      Unified Master & Consolidated Accounts
                     </span>
                   </div>
-                  {customer.isBranchAlias ? (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                      <GitFork className="w-2.5 h-2.5 text-amber-600" />
-                      {customer.branchAliasTag || 'Branch Entity'}
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
-                      Primary Corporate Parent
-                    </span>
-                  )}
+                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    Golden Record ({customer.mergedCount} Accounts)
+                  </span>
                 </div>
 
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200/80 shadow-2xs">
-                    <span className="text-slate-600 font-medium">Combined Group Volume</span>
+                    <span className="text-slate-600 font-medium">Consolidated Lifetime Business</span>
                     <span className="font-mono font-bold text-slate-900 text-sm">
-                      ₹{customer.groupTotalBusiness?.toLocaleString('en-IN', { minimumFractionDigits: 2 }) ?? '—'}
+                      ₹{(customer.totalBusinessTillDate ?? customer.groupTotalBusiness)?.toLocaleString('en-IN', { minimumFractionDigits: 2 }) ?? '—'}
                     </span>
                   </div>
 
-                  {customer.isBranchAlias && customer.parentName && (
-                    <div className="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200/80 shadow-2xs">
-                      <span className="text-slate-600 font-medium">Corporate Parent</span>
-                      <span className="font-semibold text-slate-900 text-right truncate max-w-[220px]" title={customer.parentName}>
-                        {customer.parentName}
-                      </span>
-                    </div>
-                  )}
-
-                  {linkedFamilyMembers.length > 0 && (
+                  {customer.mergedAliases && customer.mergedAliases.length > 0 && (
                     <div className="mt-2 space-y-1.5">
                       <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-                        {customer.isBranchAlias ? 'Parent & Sister Accounts' : 'Linked Branches & Divisions'}:
+                        Consolidated Trade Entities & Prior Rep Entries ({customer.mergedAliases.length}):
                       </div>
-                      {linkedFamilyMembers.map((member) => (
+                      {customer.mergedAliases.map((alias: any, idx: number) => (
                         <div
-                          key={member.id}
+                          key={alias.id || idx}
                           className="bg-white p-2.5 rounded-lg border border-slate-200 flex items-center justify-between gap-2"
                         >
                           <div className="min-w-0">
                             <div className="font-medium text-slate-900 truncate text-[11px]">
-                              {member.fullName}
+                              {alias.fullName}
                             </div>
                             <div className="text-[10px] text-slate-500 flex items-center gap-1.5 mt-0.5">
-                              <span className={member.status === 'Active' ? 'text-emerald-600 font-medium' : 'text-amber-600'}>
-                                {member.status}
+                              <span className={alias.status === 'Active' ? 'text-emerald-600 font-medium' : 'text-slate-500'}>
+                                {alias.status}
                               </span>
-                              {member.branchAliasTag && (
+                              {alias.salesPerson && (
                                 <>
                                   <span>•</span>
-                                  <span className="text-indigo-600">{member.branchAliasTag}</span>
+                                  <span>Rep: {alias.salesPerson}</span>
                                 </>
                               )}
-                              {member.salesPerson && (
-                                <>
-                                  <span>•</span>
-                                  <span>Rep: {member.salesPerson}</span>
-                                </>
-                              )}
+                              <span>•</span>
+                              <span className="font-mono text-slate-400">ID: {alias.id}</span>
                             </div>
                           </div>
                           <div className="text-right shrink-0 font-mono text-[11px] font-semibold text-slate-800">
-                            ₹{member.totalBusinessTillDate?.toLocaleString('en-IN', { minimumFractionDigits: 0 }) ?? '0'}
+                            ₹{alias.totalBusiness?.toLocaleString('en-IN', { minimumFractionDigits: 0 }) ?? '0'}
                           </div>
                         </div>
                       ))}
@@ -343,7 +314,7 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                   )}
                 </div>
               </div>
-            )}
+            ) : null}
 
             {/* Operational Logistics Profile */}
             <div className="space-y-3">
@@ -368,7 +339,14 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                 {customer.salesPerson && (
                   <div className="p-3 flex justify-between items-center">
                     <span className="text-slate-500">Sales Representative</span>
-                    <span className="font-semibold text-slate-900">{customer.salesPerson}</span>
+                    <div className="text-right">
+                      <span className="font-semibold text-slate-900">{customer.salesPerson}</span>
+                      {customer.coReps && (
+                        <div className="text-[11px] text-slate-500 font-normal">
+                          Co-Reps: {customer.coReps}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
                 {customer.creditStatus && (

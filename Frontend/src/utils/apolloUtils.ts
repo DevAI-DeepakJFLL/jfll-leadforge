@@ -85,28 +85,6 @@ export function getSeniorityBadge(seniority?: string | null): { label: string; b
 }
 
 /**
- * Parses technologies array from string like "['salesforce', 'sap']" or comma separated
- */
-export function parseTechnologies(raw?: string | null): string[] {
-  if (!raw) return [];
-  try {
-    const cleaned = raw.replace(/'/g, '"');
-    const arr = JSON.parse(cleaned);
-    if (Array.isArray(arr)) {
-      return arr.slice(0, 20).map((t) => String(t).replace(/_/g, ' '));
-    }
-  } catch {
-    return raw
-      .replace(/[\[\]']/g, '')
-      .split(',')
-      .map((t) => t.trim().replace(/_/g, ' '))
-      .filter(Boolean)
-      .slice(0, 20);
-  }
-  return [];
-}
-
-/**
  * Parses job functions from string like "{'engineering': 21515, 'operations': 1929}"
  */
 export function parseJobFunctions(raw?: string | null): { name: string; count: number }[] {

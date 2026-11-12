@@ -948,17 +948,17 @@ def is_device_blocked(fingerprint: str | None) -> bool:
 def is_ip_or_fingerprint_blocked(ip: str | None, fingerprint: str | None = None) -> bool:
     """
     Checks whether a request is blocked.
-    Prioritizes device-level fingerprint checking to ensure innocent machines
-    on the same shared network / IP (NAT, office Wi-Fi) are not blocked.
+    Enforces strict access denial if either the hardware fingerprint OR the IP address is blocked.
     """
     clean_fp = fingerprint.strip() if fingerprint else ""
-    if clean_fp:
-        return is_device_blocked(clean_fp)
+    if clean_fp and is_device_blocked(clean_fp):
+        return True
     clean_ip = ip.strip() if ip else ""
     if clean_ip:
         with _ACCESS_LOCK:
             load_access_data()
-            return clean_ip in _CACHED_BLOCKED_IPS
+            if clean_ip in _CACHED_BLOCKED_IPS:
+                return True
     return False
 
 

@@ -32,11 +32,10 @@ interface ApiLeadRecord {
   sales_person?: string | null;
   business_last_3m?: number | null;
   total_business_till_date?: number | null;
-  parent_id?: string | null;
-  parent_name?: string | null;
   group_total_business?: number | null;
-  is_branch_alias?: boolean;
-  branch_alias_tag?: string | null;
+  co_reps?: string | null;
+  merged_count?: number;
+  merged_aliases?: string | null;
 }
 
 /**
@@ -138,11 +137,14 @@ export async function fetchJfllCustomersFromApi(
       salesPerson: row.sales_person || null,
       businessLast3m: row.business_last_3m !== null && row.business_last_3m !== undefined ? row.business_last_3m : undefined,
       totalBusinessTillDate: row.total_business_till_date !== null && row.total_business_till_date !== undefined ? row.total_business_till_date : undefined,
-      parentId: row.parent_id ?? undefined,
-      parentName: row.parent_name ?? undefined,
       groupTotalBusiness: row.group_total_business !== null && row.group_total_business !== undefined ? row.group_total_business : undefined,
-      isBranchAlias: !!row.is_branch_alias,
-      branchAliasTag: row.branch_alias_tag ?? undefined,
+      coReps: row.co_reps || undefined,
+      mergedCount: row.merged_count ?? 1,
+      mergedAliases: row.merged_aliases
+        ? (typeof row.merged_aliases === 'string'
+            ? (() => { try { return JSON.parse(row.merged_aliases); } catch { return undefined; } })()
+            : row.merged_aliases)
+        : undefined,
       saved: false,
       inDataMyne: false,
     }));
@@ -508,11 +510,7 @@ export function exportJfllCustomerSummaryReportCsv(
   ];
 
   const rows = customers.map((c) => {
-    const companyGroup = c.isBranchAlias
-      ? `${c.fullName} [Branch: ${c.branchAliasTag || 'Entity'}]`
-      : c.parentId && c.groupTotalBusiness
-      ? `${c.fullName} [Group: ${formatIndianCurrency(c.groupTotalBusiness)}]`
-      : c.fullName;
+    const companyGroup = c.fullName;
 
     const typeTerritory = `${c.customerGroup || 'Commercial'} · ${c.territory || 'National'}`;
     const revenueVal = c.businessLast3m !== undefined && c.businessLast3m !== null

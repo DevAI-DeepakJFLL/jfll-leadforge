@@ -61,8 +61,12 @@ def normalize_company(s: str | None) -> str:
     s = re.sub(r"\bINC\.?\b", "INCORPORATED", s)
     s = re.sub(r"\(PROP\..*?\)", " ", s)
     s = re.sub(r"\(PROP\s+.*?\)", " ", s)
-    s = re.sub(r"\(INDIA\)", "INDIA", s)
-    s = re.sub(r"\(I\)", "I", s)
+    s = re.sub(r"\(TRANSFER FROM.*?\)", " ", s)
+    s = re.sub(r"\((DOMESTIC|EXPORT|SEZ|AIR|OCEAN|CARGO|COMMERCIAL|FACTORY|UNIT|HO|BRANCH|100% EOU).*?\)", " ", s)
+    s = re.sub(r"\((INDIA|IND|I)\)", " INDIA ", s)
+    s = re.sub(r"[\-\/]\s*(INDIA|IND|I)\b", " INDIA ", s)
+    s = re.sub(r"\b(I)\s*[\-\/]\s*INDIA\b", " INDIA ", s)
+    s = re.sub(r"\b(INDIA\s+)+INDIA\b", "INDIA", s)
     s = re.sub(r"\(HUF\)", "HUF", s)
     s = re.sub(r"[^A-Z0-9]", "", s)
     return s
@@ -516,57 +520,155 @@ def main():
             "datamyne_match_details": dm_match_details,
         })
 
-    # 3.5 Corporate Family & Duplicate Resolution (Option 1: Preserve Source Fidelity with Linked Unified View)
-    print("\n[Step 3.5/5] Resolving Corporate Family & Parent-Branch duplicate clusters...")
-    clusters = defaultdict(list)
+    # 3.5 Unified Golden Master Merge Engine (0 Duplicates Mandate)
+    print("\n[Step 3.5/5] Consolidating duplicate accounts into Unified Golden Master records...")
+    stem_clusters = defaultdict(list)
     for r in processed_records:
         st = clean_entity_stem(r["Full Name"])
         if st:
-            clusters[st].append(r)
+            stem_clusters[st].append(r)
 
-    linked_clusters_count = 0
-    linked_accounts_count = 0
+    cluster_list = [members for members in stem_clusters.values() if len(members) > 1]
 
-    for st, members in clusters.items():
-        if len(members) > 1:
-            linked_clusters_count += 1
-            linked_accounts_count += len(members)
-            active_m = [m for m in members if m["Status"] == "Active"]
-            cands = active_m if active_m else members
+    # Additional verified phonetic, pluralization, and rep duplicate pairs
+    manual_duplicate_pairs = [
+        ("jfll-0474", "jfll-0569"),  # M/S KRISHNA ENTERPRISES <-> KRISHNA ENTERPRISE
+        ("jfll-0099", "jfll-0671"),  # VASAI FROZEN FOOD CO <-> VASAI FROZEN FOODS
+        ("jfll-1445", "jfll-2202"),  # HEJAZI FOODSTUFFS <-> HEJAZI FOODSTUFF PVT. LTD.
+        ("jfll-0723", "jfll-1159"),  # BOARD & PAPER LAMINATORS <-> SALASAR BOARD & PAPER LAMINATORS
+        ("jfll-0504", "jfll-0614"),  # SNK WORLD <-> SNK GLOBAL
+        ("jfll-1710", "jfll-1925"),  # VISHAL SHIPPING GLOBAL LOGISTICS LLP <-> VISHAL SHIPPING AGENCIES PVT LTD
+        ("jfll-1877", "jfll-1953"),  # SKY CONNECT LOGISTICS <-> BORJAN LOGISTICS
+    ]
 
-            has_unannotated = any(not is_annotated_branch(m["Full Name"]) for m in cands)
+    id_to_record = {r["id"]: r for r in processed_records}
 
-            def score_candidate(cand):
-                is_annot = is_annotated_branch(cand["Full Name"])
-                penalty = 1 if (has_unannotated and is_annot) else 0
-                return (0 if penalty else 1, cand["Total Business from 1.04.2024 till date"])
-
-            cands_sorted = sorted(cands, key=score_candidate, reverse=True)
-            parent = cands_sorted[0]
-            group_total = sum(m["Total Business from 1.04.2024 till date"] for m in members)
-
-            for m in members:
-                m["parent_id"] = parent["id"]
-                m["parent_name"] = parent["Full Name"]
-                m["group_total_business"] = round(group_total, 2)
-                if m["id"] == parent["id"]:
-                    m["is_branch_alias"] = False
-                    m["branch_alias_tag"] = None
+    for p1, p2 in manual_duplicate_pairs:
+        if p1 in id_to_record and p2 in id_to_record:
+            r1, r2 = id_to_record[p1], id_to_record[p2]
+            matching_clusters = []
+            remaining_clusters = []
+            for grp in cluster_list:
+                grp_ids = {m["id"] for m in grp}
+                if p1 in grp_ids or p2 in grp_ids:
+                    matching_clusters.append(grp)
                 else:
-                    m["is_branch_alias"] = True
-                    m["branch_alias_tag"] = infer_branch_tag(m["Full Name"], parent["Full Name"])
-        else:
-            r = members[0]
-            r["parent_id"] = None
-            r["parent_name"] = None
-            r["group_total_business"] = None
-            r["is_branch_alias"] = False
-            r["branch_alias_tag"] = None
+                    remaining_clusters.append(grp)
 
-    print(f"  • Successfully linked {linked_clusters_count} corporate duplicate clusters ({linked_accounts_count} accounts)")
+            if matching_clusters:
+                merged_dict = {}
+                for grp in matching_clusters:
+                    for m in grp:
+                        merged_dict[m["id"]] = m
+                merged_dict[r1["id"]] = r1
+                merged_dict[r2["id"]] = r2
+                remaining_clusters.append(list(merged_dict.values()))
+                cluster_list = remaining_clusters
+            else:
+                cluster_list.append([r1, r2])
 
-    df_all_processed = pd.DataFrame(processed_records)
-    print(f"  • Successfully processed {len(df_all_processed)} total customer records:")
+    clustered_ids = set()
+    golden_records = []
+
+    for members in cluster_list:
+        for m in members:
+            clustered_ids.add(m["id"])
+
+        active_m = [m for m in members if m["Status"] == "Active" or m["Total Business Received From Cusomer In Last 3 Month"] > 0]
+        cands = active_m if active_m else members
+        has_unannotated = any(not is_annotated_branch(m["Full Name"]) for m in cands)
+
+        def score_candidate(cand):
+            is_annot = is_annotated_branch(cand["Full Name"])
+            penalty = 1 if (has_unannotated and is_annot) else 0
+            return (0 if penalty else 1, cand["Total Business from 1.04.2024 till date"])
+
+        sorted_cands = sorted(cands, key=score_candidate, reverse=True)
+        primary = dict(sorted_cands[0])
+
+        tot_rev = round(sum(m["Total Business from 1.04.2024 till date"] for m in members), 2)
+        m3_rev = round(sum(m["Total Business Received From Cusomer In Last 3 Month"] for m in members), 2)
+        primary["Total Business from 1.04.2024 till date"] = tot_rev
+        primary["Total Business Received From Cusomer In Last 3 Month"] = m3_rev
+        primary["Status"] = "Active" if (m3_rev > 0 or any(m["Status"] == "Active" for m in members)) else "Not Active"
+
+        # Unique reps & co-reps
+        all_reps = [m["Sales Person"] for m in members if m.get("Sales Person") and pd.notna(m["Sales Person"])]
+        unique_reps = []
+        for rep in all_reps:
+            if rep not in unique_reps:
+                unique_reps.append(rep)
+        primary_rep = primary["Sales Person"]
+        co_reps = [rep for rep in unique_reps if rep != primary_rep]
+        primary["co_reps"] = ", ".join(co_reps) if co_reps else None
+
+        # Consolidate Phones
+        phones = []
+        for m in members:
+            if pd.notna(m.get("Mobile Number")) and m.get("Mobile Number"):
+                p = str(m["Mobile Number"]).strip()
+                if p not in phones:
+                    phones.append(p)
+        primary["Mobile Number"] = " / ".join(phones) if phones else primary.get("Mobile Number")
+
+        # Consolidate Emails
+        emails = []
+        for m in members:
+            if pd.notna(m.get("Email")) and m.get("Email"):
+                e = str(m["Email"]).strip()
+                if e not in emails:
+                    emails.append(e)
+        primary["Email"] = ", ".join(emails) if emails else primary.get("Email")
+
+        # Consolidate DataMyne status
+        primary["in_datamyne"] = any(m.get("in_datamyne", False) for m in members)
+        dm_details = [m["datamyne_match_details"] for m in members if m.get("datamyne_match_details")]
+        if dm_details:
+            primary["datamyne_match_details"] = "; ".join(set(dm_details))
+
+        # Build Merged Aliases Audit Trail
+        aliases = []
+        for m in members:
+            if m["id"] != primary["id"]:
+                aliases.append({
+                    "id": m["id"],
+                    "fullName": m["Full Name"],
+                    "salesPerson": m["Sales Person"],
+                    "totalBusiness": m["Total Business from 1.04.2024 till date"],
+                    "status": m["Status"],
+                })
+        primary["merged_count"] = len(members)
+        primary["merged_aliases"] = json.dumps(aliases)
+        primary["group_total_business"] = tot_rev
+
+        golden_records.append(primary)
+
+    # Non-clustered records
+    non_clustered = []
+    for r in processed_records:
+        if r["id"] not in clustered_ids:
+            r_copy = dict(r)
+            r_copy["merged_count"] = 1
+            r_copy["merged_aliases"] = None
+            r_copy["co_reps"] = None
+            r_copy["group_total_business"] = r_copy["Total Business from 1.04.2024 till date"]
+            non_clustered.append(r_copy)
+
+    final_processed = golden_records + non_clustered
+    final_processed.sort(key=lambda x: x["id"])
+
+    # Update summary counts
+    active_count = sum(1 for r in final_processed if r["Status"] == "Active")
+    inactive_count = sum(1 for r in final_processed if r["Status"] == "Not Active")
+    enriched_contact_person = sum(1 for r in final_processed if r.get("Contact Person Name"))
+    enriched_phone = sum(1 for r in final_processed if r.get("Mobile Number"))
+    enriched_email = sum(1 for r in final_processed if r.get("Email"))
+
+    print(f"  • Successfully consolidated {len(cluster_list)} duplicate clusters into Golden Records")
+    print(f"  • Absorbed {len(clustered_ids) - len(golden_records)} duplicate records (0 duplicate rows remaining)")
+
+    df_all_processed = pd.DataFrame(final_processed)
+    print(f"  • Successfully processed {len(df_all_processed)} unique Golden Master records:")
     print(f"    - Active Accounts (3-Month Activity): {active_count}")
     print(f"    - Inactive Accounts (>3-Month Inactivity): {inactive_count}")
     print(f"    - With Contact Person: {enriched_contact_person} ({enriched_contact_person / len(df_all_processed):.1%})")
@@ -594,11 +696,10 @@ def main():
         "Total Business Received From Cusomer In Last 3 Month",
         "in_datamyne",
         "datamyne_match_details",
-        "parent_id",
-        "parent_name",
         "group_total_business",
-        "is_branch_alias",
-        "branch_alias_tag",
+        "co_reps",
+        "merged_count",
+        "merged_aliases",
     ]
     df_all_processed[all_export_cols].to_parquet(
         OUTPUT_ALL_PARQUET, engine="pyarrow", compression="zstd", index=False
@@ -625,11 +726,10 @@ def main():
         "Sales Person",
         "Total Business Received From Cusomer In Last 3 Month",
         "Total Business from 1.04.2024 till date",
-        "parent_id",
-        "parent_name",
         "group_total_business",
-        "is_branch_alias",
-        "branch_alias_tag",
+        "co_reps",
+        "merged_count",
+        "merged_aliases",
     ]
     df_active[active_export_cols].to_parquet(
         OUTPUT_ACTIVE_PARQUET, engine="pyarrow", compression="zstd", index=False
@@ -657,11 +757,10 @@ def main():
         "Total Business from 1.04.2024 till date",
         "in_datamyne",
         "datamyne_match_details",
-        "parent_id",
-        "parent_name",
         "group_total_business",
-        "is_branch_alias",
-        "branch_alias_tag",
+        "co_reps",
+        "merged_count",
+        "merged_aliases",
     ]
     df_inactive[inactive_export_cols].to_parquet(
         OUTPUT_INACTIVE_PARQUET, engine="pyarrow", compression="zstd", index=False
@@ -698,15 +797,15 @@ def main():
         "Entity Type",
         "Credit Status",
         "Assigned Sales Rep",
+        "Co-Reps / Sales Team",
         "Total Business (1.04.2024 till Date)",
         "Business Last 3 Months",
         "Contact Person",
         "Mobile Number",
         "Email Address",
         "DataMyne Verified",
-        "Parent Entity Name",
-        "Group Combined Business",
-        "Branch / Alias Tag",
+        "Merged Accounts Count",
+        "Merged Aliases Detail",
     ]
     ws.append(excel_headers)
 
@@ -717,7 +816,7 @@ def main():
         cell.fill = FILL_HEADER
         cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 
-    for r_idx, rec in enumerate(processed_records, start=2):
+    for r_idx, rec in enumerate(final_processed, start=2):
         ws.row_dimensions[r_idx].height = 20
         c1 = ws.cell(row=r_idx, column=1, value=rec["id"])
         c2 = ws.cell(row=r_idx, column=2, value=rec["Full Name"])
@@ -726,24 +825,24 @@ def main():
         c5 = ws.cell(row=r_idx, column=5, value=rec["Type"])
         c6 = ws.cell(row=r_idx, column=6, value=rec["Credit Status"])
         c7 = ws.cell(row=r_idx, column=7, value=rec["Sales Person"] or "Unassigned")
-        c8 = ws.cell(row=r_idx, column=8, value=rec["Total Business from 1.04.2024 till date"])
-        c9 = ws.cell(row=r_idx, column=9, value=rec["Total Business Received From Cusomer In Last 3 Month"])
-        c10 = ws.cell(row=r_idx, column=10, value=rec["Contact Person Name"] or "")
-        c11 = ws.cell(row=r_idx, column=11, value=rec["Mobile Number"] or "")
-        c12 = ws.cell(row=r_idx, column=12, value=rec["Email"] or "")
-        c13 = ws.cell(row=r_idx, column=13, value="Yes" if rec["in_datamyne"] else "No")
-        c14 = ws.cell(row=r_idx, column=14, value=rec["parent_name"] or "")
-        c15 = ws.cell(row=r_idx, column=15, value=rec["group_total_business"] if rec["group_total_business"] is not None else "")
-        c16 = ws.cell(row=r_idx, column=16, value=rec["branch_alias_tag"] or ("Primary Account" if rec["parent_id"] else ""))
+        c8 = ws.cell(row=r_idx, column=8, value=rec.get("co_reps") or "")
+        c9 = ws.cell(row=r_idx, column=9, value=rec["Total Business from 1.04.2024 till date"])
+        c10 = ws.cell(row=r_idx, column=10, value=rec["Total Business Received From Cusomer In Last 3 Month"])
+        c11 = ws.cell(row=r_idx, column=11, value=rec["Contact Person Name"] or "")
+        c12 = ws.cell(row=r_idx, column=12, value=rec["Mobile Number"] or "")
+        c13 = ws.cell(row=r_idx, column=13, value=rec["Email"] or "")
+        c14 = ws.cell(row=r_idx, column=14, value="Yes" if rec["in_datamyne"] else "No")
+        c15 = ws.cell(row=r_idx, column=15, value=rec.get("merged_count", 1))
+        c16 = ws.cell(row=r_idx, column=16, value=rec.get("merged_aliases") or "")
 
         # Format cell alignment & borders
-        for cell in (c1, c2, c3, c4, c5, c6, c7, c10, c11, c12, c13, c14, c16):
+        for cell in (c1, c2, c3, c4, c5, c6, c7, c8, c11, c12, c13, c14, c15, c16):
             cell.font = FONT_DATA
             cell.border = CELL_BORDER
-            cell.alignment = ALIGN_CENTER if cell in (c1, c3, c6, c13, c16) else ALIGN_LEFT
+            cell.alignment = ALIGN_CENTER if cell in (c1, c3, c6, c14, c15) else ALIGN_LEFT
 
         # Currency formatting for revenue columns
-        for num_cell in (c8, c9, c15):
+        for num_cell in (c9, c10):
             num_cell.font = FONT_NUMERIC
             num_cell.border = CELL_BORDER
             num_cell.alignment = ALIGN_RIGHT
@@ -758,14 +857,14 @@ def main():
 
     ws.freeze_panes = "A2"
     wb.save(OUTPUT_ALL_EXCEL)
-    print(f"  ✓ Saved formatted Excel workbook: {OUTPUT_ALL_EXCEL} ({len(processed_records)} rows)")
+    print(f"  ✓ Saved formatted Excel workbook: {OUTPUT_ALL_EXCEL} ({len(final_processed)} rows)")
 
     # 5. Generate Frontend TypeScript Data Files
     print("\n[Step 5/5] Generating frontend TypeScript datasets...")
 
     # Active TS Items
     active_ts_items = []
-    for r in processed_records:
+    for r in final_processed:
         if r["Status"] == "Active":
             active_ts_items.append({
                 "id": r["id"],
@@ -778,15 +877,15 @@ def main():
                 "customerGroup": r["Customer Group"],
                 "type": r["Type"],
                 "saved": False,
+                "inDataMyne": r.get("in_datamyne", False),
                 "creditStatus": r["Credit Status"],
                 "salesPerson": r["Sales Person"],
+                "coReps": r.get("co_reps"),
+                "mergedCount": r.get("merged_count", 1),
+                "mergedAliases": json.loads(r["merged_aliases"]) if r.get("merged_aliases") else None,
                 "businessLast3m": r["Total Business Received From Cusomer In Last 3 Month"],
                 "totalBusinessTillDate": r["Total Business from 1.04.2024 till date"],
-                "parentId": r["parent_id"],
-                "parentName": r["parent_name"],
-                "groupTotalBusiness": r["group_total_business"],
-                "isBranchAlias": r["is_branch_alias"],
-                "branchAliasTag": r["branch_alias_tag"],
+                "groupTotalBusiness": r.get("group_total_business"),
             })
 
     active_ts_content = f"""// {len(active_ts_items)} Active Customer Records from Jet Freight Logistics Master Database (Last 3 Months Activity Window)
@@ -800,7 +899,7 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = {json.dumps(active_ts_items, 
 
     # Inactive TS Items
     inactive_ts_items = []
-    for r in processed_records:
+    for r in final_processed:
         if r["Status"] == "Not Active":
             inactive_ts_items.append({
                 "id": r["id"],
@@ -813,15 +912,14 @@ export const JFLL_CUSTOMERS_DATA: JfllCustomer[] = {json.dumps(active_ts_items, 
                 "customerGroup": r["Customer Group"],
                 "type": r["Type"],
                 "saved": False,
-                "inDataMyne": r["in_datamyne"],
+                "inDataMyne": r.get("in_datamyne", False),
                 "creditStatus": r["Credit Status"],
                 "salesPerson": r["Sales Person"],
+                "coReps": r.get("co_reps"),
+                "mergedCount": r.get("merged_count", 1),
+                "mergedAliases": json.loads(r["merged_aliases"]) if r.get("merged_aliases") else None,
                 "totalBusinessTillDate": r["Total Business from 1.04.2024 till date"],
-                "parentId": r["parent_id"],
-                "parentName": r["parent_name"],
-                "groupTotalBusiness": r["group_total_business"],
-                "isBranchAlias": r["is_branch_alias"],
-                "branchAliasTag": r["branch_alias_tag"],
+                "groupTotalBusiness": r.get("group_total_business"),
             })
 
     inactive_ts_content = f"""// {len(inactive_ts_items):,} Inactive Customer Records from Customer List From 1.04.2026 till Date (>3 Months Inactivity Window)
@@ -835,7 +933,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = {json.dumps(inactive
 
     # All Customers TS Items
     all_ts_items = []
-    for r in processed_records:
+    for r in final_processed:
         all_ts_items.append({
             "id": r["id"],
             "fullName": r["Full Name"],
@@ -847,16 +945,15 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = {json.dumps(inactive
             "customerGroup": r["Customer Group"],
             "type": r["Type"],
             "saved": False,
-            "inDataMyne": r["in_datamyne"],
+            "inDataMyne": r.get("in_datamyne", False),
             "creditStatus": r["Credit Status"],
             "salesPerson": r["Sales Person"],
+            "coReps": r.get("co_reps"),
+            "mergedCount": r.get("merged_count", 1),
+            "mergedAliases": json.loads(r["merged_aliases"]) if r.get("merged_aliases") else None,
             "businessLast3m": r["Total Business Received From Cusomer In Last 3 Month"] if r["Status"] == "Active" else None,
             "totalBusinessTillDate": r["Total Business from 1.04.2024 till date"],
-            "parentId": r["parent_id"],
-            "parentName": r["parent_name"],
-            "groupTotalBusiness": r["group_total_business"],
-            "isBranchAlias": r["is_branch_alias"],
-            "branchAliasTag": r["branch_alias_tag"],
+            "groupTotalBusiness": r.get("group_total_business"),
         })
 
     all_ts_content = f"""// {len(all_ts_items):,} All JFLL Customer Records from Customer List From 1.04.2026 till Date (Unified Master Directory)
@@ -870,7 +967,7 @@ export const JFLL_ALL_CUSTOMERS_DATA: JfllCustomer[] = {json.dumps(all_ts_items,
 
     print("\n" + "=" * 80)
     print("ETL PIPELINE COMPLETED SUCCESSFULLY!")
-    print(f"• Total Processed Accounts: {len(processed_records)}")
+    print(f"• Total Processed Accounts: {len(final_processed)}")
     print(f"• Active Customers: {len(active_ts_items)}")
     print(f"• Inactive Customers: {len(inactive_ts_items)}")
     print("=" * 80)

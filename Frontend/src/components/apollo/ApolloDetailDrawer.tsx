@@ -14,7 +14,6 @@ import {
   MapPin,
   Sparkles,
   Layers,
-  Cpu,
   Briefcase,
   Share2,
   ArrowUpRight,
@@ -32,7 +31,6 @@ import {
   getContactInitials,
   getSeniorityBadge,
   formatRevenue,
-  parseTechnologies,
   parseJobFunctions,
   cleanLinkedinUrl,
 } from '@/utils/apolloUtils';
@@ -120,7 +118,6 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
     (v) => v.id.toLowerCase() === lead.industry.toLowerCase()
   );
 
-  const technologies = parseTechnologies(lead.technologies_raw);
   const jobFunctions = parseJobFunctions(lead.job_functions_json);
   const linkedinUrl = cleanLinkedinUrl(lead.linkedin_url);
 
@@ -496,8 +493,8 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                                   <span>Verified</span>
                                 </span>
                               ) : (
-                                <span className="text-[10px] text-slate-500 bg-slate-100 px-1 py-0.2 rounded shrink-0">
-                                  Confidence {Math.round((contact.email_confidence ?? 0.7) * 100)}%
+                                <span className="text-[10px] text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded font-medium shrink-0">
+                                  {contact.email_status || 'Direct'}
                                 </span>
                               )}
                             </div>
@@ -556,60 +553,23 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
               )}
             </div>
 
-            {/* 3. Product Specialties & Trade Keywords */}
-            {(lead.specialties || lead.keywords) && (
+            {/* 3. Product Specialties & Commodities */}
+            {lead.specialties && (
               <div className="space-y-3">
                 <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
                   <Layers className="w-3.5 h-3.5 text-slate-500" />
                   <span>Specialties & Commodities</span>
                 </h3>
-                {lead.specialties && (
-                  <div>
-                    <div className="text-[11px] font-medium text-slate-500 mb-1">Product Capabilities:</div>
-                    <div className="text-xs text-slate-800 bg-slate-50 p-2.5 rounded-lg border border-slate-100 leading-relaxed">
-                      {lead.specialties}
-                    </div>
+                <div>
+                  <div className="text-[11px] font-medium text-slate-500 mb-1">Product Capabilities:</div>
+                  <div className="text-xs text-slate-800 bg-slate-50 p-2.5 rounded-lg border border-slate-100 leading-relaxed">
+                    {lead.specialties}
                   </div>
-                )}
-                {lead.keywords && (
-                  <div>
-                    <div className="text-[11px] font-medium text-slate-500 mb-1">Search Keywords:</div>
-                    <div className="flex flex-wrap gap-1">
-                      {lead.keywords.split(',').map((kw, i) => (
-                        <span
-                          key={i}
-                          className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[11px]"
-                        >
-                          {kw.trim()}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* 4. Detected ERP, WMS, and Tech Stack */}
-            {technologies.length > 0 && (
-              <div>
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-1.5">
-                  <Cpu className="w-3.5 h-3.5 text-slate-500" />
-                  <span>Detected Technology Stack ({technologies.length})</span>
-                </h3>
-                <div className="flex flex-wrap gap-1.5">
-                  {technologies.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-0.5 bg-slate-50 text-slate-700 border border-slate-200 rounded text-[11px] font-mono capitalize"
-                    >
-                      {tech}
-                    </span>
-                  ))}
                 </div>
               </div>
             )}
 
-            {/* 5. Departmental Headcount Breakdown */}
+            {/* 4. Departmental Headcount Breakdown */}
             {jobFunctions.length > 0 && (
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-1.5">

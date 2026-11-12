@@ -69,8 +69,6 @@ def run_apollo_etl(source_tsv_path: str | Path | None = None, output_parquet_pat
                     TRY_CAST(organization_founded_year AS SMALLINT) AS founded_year,
                     trim(replace(replace(replace(organization_industries, chr(91)||chr(39), ''), chr(39)||chr(93), ''), chr(39), '')) AS industry,
                     trim(organization_linkedin_specialties) AS specialties,
-                    trim(organization_relevant_keywords_str) AS keywords,
-                    trim(organization_current_technologies) AS technologies_raw,
                     trim(job_functions) AS job_functions_json,
                     trim(organization_linkedin_numerical_urls) AS linkedin_url,
                     trim(organization_hq_location_city) AS hq_city,
@@ -111,7 +109,7 @@ def run_apollo_etl(source_tsv_path: str | Path | None = None, output_parquet_pat
                 SELECT 
                     organization_id, organization_name, domain, website_url, phone,
                     employee_count, revenue_usd, founded_year, industry, specialties,
-                    keywords, technologies_raw, job_functions_json, linkedin_url,
+                    job_functions_json, linkedin_url,
                     hq_city, hq_state, hq_country, hq_postal_code,
                     ROW_NUMBER() OVER (
                         PARTITION BY domain 
@@ -125,7 +123,7 @@ def run_apollo_etl(source_tsv_path: str | Path | None = None, output_parquet_pat
             SELECT 
                 organization_id, organization_name, domain, website_url, phone,
                 employee_count, revenue_usd, founded_year, industry, specialties,
-                keywords, technologies_raw, job_functions_json, linkedin_url,
+                job_functions_json, linkedin_url,
                 hq_city, hq_state, hq_country, hq_postal_code
             FROM deduplicated
             WHERE rn = 1

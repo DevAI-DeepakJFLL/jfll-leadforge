@@ -1,4 +1,4 @@
-// 1,637 Inactive Customer Records from Customer List From 1.04.2026 till Date (>3 Months Inactivity Window)
+// 1,611 Inactive Customer Records from Customer List From 1.04.2026 till Date (>3 Months Inactivity Window)
 import { JfllCustomer } from '@/types/jfllCustomer';
 
 export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
@@ -16,12 +16,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Doulatram Motiyani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 909.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 909.0
   },
   {
     "id": "jfll-0002",
@@ -37,12 +36,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SANDEEP DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1000.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1000.0
   },
   {
     "id": "jfll-0003",
@@ -58,12 +56,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1012.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1012.0
   },
   {
     "id": "jfll-0004",
@@ -76,15 +73,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2183.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2183.0
   },
   {
     "id": "jfll-0005",
@@ -97,15 +93,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2360.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2360.0
   },
   {
     "id": "jfll-0006",
@@ -121,12 +116,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2360.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2360.0
   },
   {
     "id": "jfll-0007",
@@ -142,12 +136,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2500.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2500.0
   },
   {
     "id": "jfll-0008",
@@ -163,12 +156,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2950.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2950.0
   },
   {
     "id": "jfll-0010",
@@ -181,15 +173,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3842.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3842.0
   },
   {
     "id": "jfll-0011",
@@ -205,12 +196,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "AKASH MISHRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3941.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3941.0
   },
   {
     "id": "jfll-0012",
@@ -226,33 +216,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shannon Dcunha",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4035.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4035.0
   },
   {
     "id": "jfll-0013",
     "fullName": "TASTEL FINE FOOD PVT.LTD.",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2265047572",
-    "email": "tastel@msn.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4130.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4130.0
   },
   {
     "id": "jfll-0014",
@@ -268,12 +256,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4130.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4130.0
   },
   {
     "id": "jfll-0015",
@@ -289,33 +276,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4130.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4130.0
   },
   {
     "id": "jfll-0016",
     "fullName": "ANISH PHARMA EQUIP PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "ANISH PHARMA",
-    "mobileNumber": "+91-3944362920",
+    "mobileNumber": null,
     "email": "accounts@anishpharma.com",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Syed Hashim Abbas Naqvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4230.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4230.0
   },
   {
     "id": "jfll-0017",
@@ -331,12 +316,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "B Thiagu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4239.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4239.0
   },
   {
     "id": "jfll-0018",
@@ -352,12 +336,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "B Thiagu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4832.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4832.0
   },
   {
     "id": "jfll-0019",
@@ -370,15 +353,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5059.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5059.0
   },
   {
     "id": "jfll-0020",
@@ -394,12 +376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5074.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5074.0
   },
   {
     "id": "jfll-0022",
@@ -415,12 +396,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5310.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5310.0
   },
   {
     "id": "jfll-0023",
@@ -436,12 +416,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Yogesh Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5310.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5310.0
   },
   {
     "id": "jfll-0024",
@@ -457,12 +436,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5900.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5900.0
   },
   {
     "id": "jfll-0025",
@@ -470,20 +448,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "vivek.norman@nti.netzsch.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shabbir Dalwai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5900.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5900.0
   },
   {
     "id": "jfll-0026",
@@ -496,15 +473,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5900.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5900.0
   },
   {
     "id": "jfll-0027",
@@ -517,15 +493,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Vinay Nilkanth",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5900.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5900.0
   },
   {
     "id": "jfll-0028",
@@ -541,12 +516,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6429.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6429.0
   },
   {
     "id": "jfll-0029",
@@ -559,15 +533,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6844.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6844.0
   },
   {
     "id": "jfll-0031",
@@ -583,12 +556,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6958.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6958.0
   },
   {
     "id": "jfll-0032",
@@ -604,12 +576,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6962.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6962.0
   },
   {
     "id": "jfll-0033",
@@ -625,12 +596,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7027.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7027.0
   },
   {
     "id": "jfll-0034",
@@ -646,12 +616,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7500.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7500.0
   },
   {
     "id": "jfll-0035",
@@ -667,12 +636,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7552.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7552.0
   },
   {
     "id": "jfll-0036",
@@ -688,12 +656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7670.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7670.0
   },
   {
     "id": "jfll-0037",
@@ -709,12 +676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7788.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7788.0
   },
   {
     "id": "jfll-0038",
@@ -730,12 +696,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8000.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8000.0
   },
   {
     "id": "jfll-0039",
@@ -751,12 +716,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8051.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8051.0
   },
   {
     "id": "jfll-0040",
@@ -769,15 +733,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Raghavendran Bhimarao",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8153.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8153.0
   },
   {
     "id": "jfll-0041",
@@ -793,12 +756,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8260.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8260.0
   },
   {
     "id": "jfll-0042",
@@ -811,15 +773,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8260.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8260.0
   },
   {
     "id": "jfll-0043",
@@ -835,12 +796,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8591.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8591.0
   },
   {
     "id": "jfll-0044",
@@ -856,12 +816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8655.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8655.0
   },
   {
     "id": "jfll-0046",
@@ -877,12 +836,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9000.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9000.0
   },
   {
     "id": "jfll-0047",
@@ -898,12 +856,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9027.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9027.0
   },
   {
     "id": "jfll-0048",
@@ -919,12 +876,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9200.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9200.0
   },
   {
     "id": "jfll-0049",
@@ -940,12 +896,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Venkata Ganesh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9346.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9346.0
   },
   {
     "id": "jfll-0050",
@@ -961,12 +916,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9440.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9440.0
   },
   {
     "id": "jfll-0051",
@@ -982,12 +936,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9440.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9440.0
   },
   {
     "id": "jfll-0052",
@@ -1003,12 +956,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9630.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9630.0
   },
   {
     "id": "jfll-0053",
@@ -1024,12 +976,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9667.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9667.0
   },
   {
     "id": "jfll-0054",
@@ -1045,12 +996,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9794.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9794.0
   },
   {
     "id": "jfll-0055",
@@ -1066,12 +1016,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9894.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9894.0
   },
   {
     "id": "jfll-0056",
@@ -1087,12 +1036,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9953.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9953.0
   },
   {
     "id": "jfll-0057",
@@ -1108,12 +1056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10001.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10001.0
   },
   {
     "id": "jfll-0059",
@@ -1129,12 +1076,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10091.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10091.0
   },
   {
     "id": "jfll-0061",
@@ -1150,12 +1096,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10195.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10195.0
   },
   {
     "id": "jfll-0062",
@@ -1171,12 +1116,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mourya Roy",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10196.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10196.0
   },
   {
     "id": "jfll-0063",
@@ -1192,12 +1136,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10464.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10464.0
   },
   {
     "id": "jfll-0064",
@@ -1213,33 +1156,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10583.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10583.0
   },
   {
     "id": "jfll-0065",
     "fullName": "ST.JOHN'S SEA FOODS",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-4652312333",
-    "email": "st.johnsseafoods@yahoo.co.in",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Venkata Ganesh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11210.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 11210.0
   },
   {
     "id": "jfll-0066",
@@ -1252,15 +1193,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11387.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 11387.0
   },
   {
     "id": "jfll-0067",
@@ -1276,12 +1216,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11387.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 11387.0
   },
   {
     "id": "jfll-0068",
@@ -1294,15 +1233,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Subagent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11503.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 11503.0
   },
   {
     "id": "jfll-0071",
@@ -1318,12 +1256,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11800.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 11800.0
   },
   {
     "id": "jfll-0072",
@@ -1339,33 +1276,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11800.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0073",
-    "fullName": "ALL ABOUT LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Waveney  Dmello",
-    "mobileNumber": "+91-8104610479",
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Narendra Gupta",
-    "totalBusinessTillDate": 11936.0,
-    "parentId": "jfll-0930",
-    "parentName": "ALL ABOUT LOGISTICS",
-    "groupTotalBusiness": 381108.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Pvt Ltd Alias"
+    "groupTotalBusiness": 11800.0
   },
   {
     "id": "jfll-0074",
@@ -1381,12 +1296,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12006.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12006.0
   },
   {
     "id": "jfll-0075",
@@ -1399,15 +1313,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12149.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12149.0
   },
   {
     "id": "jfll-0076",
@@ -1423,12 +1336,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12184.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12184.0
   },
   {
     "id": "jfll-0077",
@@ -1444,33 +1356,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12214.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0078",
-    "fullName": "FAIR EXPORTS (INDIA) PVT LTD. (DOMESTIC DIVISION)",
-    "territory": "All Territories",
-    "contactPersonName": "MOHAMMED SHAMEER",
-    "mobileNumber": "+91-9037363138",
-    "email": "fmcgmumbaidoc@fairexports.net",
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "no_credit",
-    "salesPerson": "Venkata Ganesh",
-    "totalBusinessTillDate": 12330.0,
-    "parentId": "jfll-2218",
-    "parentName": "FAIR EXPORTS (I) PVT LTD.",
-    "groupTotalBusiness": 306624395.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Domestic Division"
+    "groupTotalBusiness": 12214.0
   },
   {
     "id": "jfll-0079",
@@ -1486,12 +1376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12431.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12431.0
   },
   {
     "id": "jfll-0080",
@@ -1507,12 +1396,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rithika M.P",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12821.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12821.0
   },
   {
     "id": "jfll-0081",
@@ -1528,12 +1416,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12899.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12899.0
   },
   {
     "id": "jfll-0082",
@@ -1549,12 +1436,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13001.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13001.0
   },
   {
     "id": "jfll-0083",
@@ -1570,12 +1456,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13544.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13544.0
   },
   {
     "id": "jfll-0084",
@@ -1591,12 +1476,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13602.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13602.0
   },
   {
     "id": "jfll-0085",
@@ -1612,12 +1496,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13659.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13659.0
   },
   {
     "id": "jfll-0086",
@@ -1633,12 +1516,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13786.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13786.0
   },
   {
     "id": "jfll-0087",
@@ -1654,12 +1536,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13801.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13801.0
   },
   {
     "id": "jfll-0088",
@@ -1675,12 +1556,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14012.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14012.0
   },
   {
     "id": "jfll-0089",
@@ -1696,12 +1576,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14186.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14186.0
   },
   {
     "id": "jfll-0090",
@@ -1717,12 +1596,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHASHIKANT YADAV",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14210.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14210.0
   },
   {
     "id": "jfll-0091",
@@ -1738,12 +1616,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14455.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14455.0
   },
   {
     "id": "jfll-0092",
@@ -1759,12 +1636,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14495.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14495.0
   },
   {
     "id": "jfll-0093",
@@ -1780,12 +1656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14510.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14510.0
   },
   {
     "id": "jfll-0094",
@@ -1801,12 +1676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14750.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14750.0
   },
   {
     "id": "jfll-0095",
@@ -1822,12 +1696,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14839.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14839.0
   },
   {
     "id": "jfll-0096",
@@ -1843,12 +1716,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Yogesh Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 15000.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 15000.0
   },
   {
     "id": "jfll-0097",
@@ -1864,12 +1736,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sandeep Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 15083.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 15083.0
   },
   {
     "id": "jfll-0098",
@@ -1885,54 +1756,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sandeep Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 15307.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0099",
-    "fullName": "VASAI FROZEN FOOD CO",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "no_credit",
-    "salesPerson": "Mohnish Arora",
-    "totalBusinessTillDate": 15340.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0100",
-    "fullName": "N G PILLAI PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Rajeev  Nair",
-    "mobileNumber": "+91-9810604827",
-    "email": "rajeev.nair@ngpillai.com",
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "no_credit",
-    "salesPerson": "Edward Dsouza",
-    "totalBusinessTillDate": 15445.0,
-    "parentId": "jfll-0304",
-    "parentName": "N G PILLAI",
-    "groupTotalBusiness": 69492.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Pvt Ltd Alias"
+    "groupTotalBusiness": 15307.0
   },
   {
     "id": "jfll-0101",
@@ -1945,15 +1773,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 15757.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 15757.0
   },
   {
     "id": "jfll-0102",
@@ -1969,12 +1796,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sunil Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 15812.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 15812.0
   },
   {
     "id": "jfll-0103",
@@ -1990,12 +1816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Doulatram Motiyani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 16024.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 16024.0
   },
   {
     "id": "jfll-0104",
@@ -2011,12 +1836,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Venkata Ganesh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 16042.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 16042.0
   },
   {
     "id": "jfll-0105",
@@ -2032,12 +1856,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mourya Roy",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17034.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17034.0
   },
   {
     "id": "jfll-0106",
@@ -2053,12 +1876,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "B Thiagu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17073.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17073.0
   },
   {
     "id": "jfll-0107",
@@ -2074,12 +1896,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17328.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17328.0
   },
   {
     "id": "jfll-0108",
@@ -2095,12 +1916,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Abhishek Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17481.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17481.0
   },
   {
     "id": "jfll-0109",
@@ -2116,12 +1936,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17527.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17527.0
   },
   {
     "id": "jfll-0110",
@@ -2137,12 +1956,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17652.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17652.0
   },
   {
     "id": "jfll-0111",
@@ -2158,12 +1976,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17891.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17891.0
   },
   {
     "id": "jfll-0112",
@@ -2176,15 +1993,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17924.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17924.0
   },
   {
     "id": "jfll-0113",
@@ -2200,12 +2016,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17936.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17936.0
   },
   {
     "id": "jfll-0114",
@@ -2218,15 +2033,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18023.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18023.0
   },
   {
     "id": "jfll-0115",
@@ -2242,12 +2056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "B Thiagu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18135.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18135.0
   },
   {
     "id": "jfll-0116",
@@ -2260,15 +2073,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18305.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18305.0
   },
   {
     "id": "jfll-0117",
@@ -2284,12 +2096,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18469.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18469.0
   },
   {
     "id": "jfll-0118",
@@ -2305,12 +2116,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18654.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18654.0
   },
   {
     "id": "jfll-0119",
@@ -2326,12 +2136,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Arunendra Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18880.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18880.0
   },
   {
     "id": "jfll-0120",
@@ -2347,12 +2156,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Maqbool",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18880.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18880.0
   },
   {
     "id": "jfll-0121",
@@ -2368,12 +2176,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 19125.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 19125.0
   },
   {
     "id": "jfll-0122",
@@ -2389,12 +2196,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 19304.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 19304.0
   },
   {
     "id": "jfll-0123",
@@ -2410,12 +2216,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jithendra Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 19529.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 19529.0
   },
   {
     "id": "jfll-0124",
@@ -2431,12 +2236,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 20383.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 20383.0
   },
   {
     "id": "jfll-0125",
@@ -2452,12 +2256,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 20396.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 20396.0
   },
   {
     "id": "jfll-0126",
@@ -2470,15 +2273,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 20569.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 20569.0
   },
   {
     "id": "jfll-0127",
@@ -2494,12 +2296,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 20626.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 20626.0
   },
   {
     "id": "jfll-0128",
@@ -2515,12 +2316,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 20721.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 20721.0
   },
   {
     "id": "jfll-0129",
@@ -2536,12 +2336,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 20828.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 20828.0
   },
   {
     "id": "jfll-0130",
@@ -2557,12 +2356,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 20917.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 20917.0
   },
   {
     "id": "jfll-0131",
@@ -2578,12 +2376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 20946.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 20946.0
   },
   {
     "id": "jfll-0132",
@@ -2599,12 +2396,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 21316.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 21316.0
   },
   {
     "id": "jfll-0133",
@@ -2620,12 +2416,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 21395.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 21395.0
   },
   {
     "id": "jfll-0134",
@@ -2641,12 +2436,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 21417.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 21417.0
   },
   {
     "id": "jfll-0135",
@@ -2662,12 +2456,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 21785.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 21785.0
   },
   {
     "id": "jfll-0136",
@@ -2683,12 +2476,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Arunendra Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 21876.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 21876.0
   },
   {
     "id": "jfll-0137",
@@ -2704,12 +2496,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 22184.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 22184.0
   },
   {
     "id": "jfll-0138",
@@ -2717,20 +2508,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "ravisharma@richaglobal.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Overseas Agent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sunil Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 22513.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 22513.0
   },
   {
     "id": "jfll-0139",
@@ -2746,12 +2536,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 22604.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 22604.0
   },
   {
     "id": "jfll-0140",
@@ -2767,12 +2556,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harishma H R",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 22668.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 22668.0
   },
   {
     "id": "jfll-0141",
@@ -2788,12 +2576,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 23209.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 23209.0
   },
   {
     "id": "jfll-0142",
@@ -2809,12 +2596,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 23553.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 23553.0
   },
   {
     "id": "jfll-0143",
@@ -2830,12 +2616,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 23600.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 23600.0
   },
   {
     "id": "jfll-0145",
@@ -2851,33 +2636,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mukesh Patel",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 23638.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0146",
-    "fullName": "NAIK FROZEN FOODS PRIVATE LIMITED( DOMESTIC)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Venkata Ganesh",
-    "totalBusinessTillDate": 23661.0,
-    "parentId": "jfll-0623",
-    "parentName": "NAIK FROZEN FOODS PVT.LTD",
-    "groupTotalBusiness": 192355.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Domestic Division"
+    "groupTotalBusiness": 23638.0
   },
   {
     "id": "jfll-0147",
@@ -2893,12 +2656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 23873.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 23873.0
   },
   {
     "id": "jfll-0148",
@@ -2914,12 +2676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 24046.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 24046.0
   },
   {
     "id": "jfll-0149",
@@ -2935,12 +2696,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 24093.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 24093.0
   },
   {
     "id": "jfll-0150",
@@ -2956,12 +2716,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Doulatram Motiyani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 24111.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 24111.0
   },
   {
     "id": "jfll-0151",
@@ -2977,12 +2736,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "MAYANK DUBEY",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 24145.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 24145.0
   },
   {
     "id": "jfll-0152",
@@ -2998,12 +2756,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 24408.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 24408.0
   },
   {
     "id": "jfll-0153",
@@ -3019,12 +2776,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 24698.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 24698.0
   },
   {
     "id": "jfll-0154",
@@ -3040,12 +2796,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 25109.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 25109.0
   },
   {
     "id": "jfll-0155",
@@ -3061,12 +2816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mary Hanse",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 25382.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 25382.0
   },
   {
     "id": "jfll-0156",
@@ -3082,12 +2836,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 25444.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 25444.0
   },
   {
     "id": "jfll-0157",
@@ -3100,15 +2853,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 25860.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 25860.0
   },
   {
     "id": "jfll-0159",
@@ -3121,15 +2873,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jai Shankar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27120.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27120.0
   },
   {
     "id": "jfll-0160",
@@ -3142,15 +2893,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Syed Hashim Abbas Naqvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27158.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27158.0
   },
   {
     "id": "jfll-0161",
@@ -3163,36 +2913,34 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Satyajeet Pandey",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27246.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27246.0
   },
   {
     "id": "jfll-0162",
     "fullName": "RSWM LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2240073704",
-    "email": "pkd@lnjbhilwara.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27426.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27426.0
   },
   {
     "id": "jfll-0163",
@@ -3208,12 +2956,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27561.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27561.0
   },
   {
     "id": "jfll-0164",
@@ -3229,12 +2976,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27589.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27589.0
   },
   {
     "id": "jfll-0165",
@@ -3250,12 +2996,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27629.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27629.0
   },
   {
     "id": "jfll-0166",
@@ -3271,12 +3016,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sushmit Gharat",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27841.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27841.0
   },
   {
     "id": "jfll-0167",
@@ -3284,20 +3028,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "kingmt@vsnl.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28058.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28058.0
   },
   {
     "id": "jfll-0168",
@@ -3313,12 +3056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28110.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28110.0
   },
   {
     "id": "jfll-0169",
@@ -3334,12 +3076,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28350.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28350.0
   },
   {
     "id": "jfll-0170",
@@ -3355,12 +3096,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28405.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28405.0
   },
   {
     "id": "jfll-0171",
@@ -3376,12 +3116,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28497.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28497.0
   },
   {
     "id": "jfll-0172",
@@ -3394,15 +3133,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28615.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28615.0
   },
   {
     "id": "jfll-0173",
@@ -3410,20 +3148,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "exports@bhalariametal.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28786.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28786.0
   },
   {
     "id": "jfll-0174",
@@ -3439,12 +3176,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28910.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28910.0
   },
   {
     "id": "jfll-0175",
@@ -3460,12 +3196,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Venkata Ganesh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28961.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28961.0
   },
   {
     "id": "jfll-0176",
@@ -3481,12 +3216,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28969.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28969.0
   },
   {
     "id": "jfll-0177",
@@ -3502,12 +3236,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "MAYANK DUBEY",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28977.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28977.0
   },
   {
     "id": "jfll-0178",
@@ -3523,12 +3256,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 28996.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 28996.0
   },
   {
     "id": "jfll-0179",
@@ -3544,12 +3276,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Dhruv Thanvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 29185.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 29185.0
   },
   {
     "id": "jfll-0180",
@@ -3565,12 +3296,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 29363.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 29363.0
   },
   {
     "id": "jfll-0181",
@@ -3586,12 +3316,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 29613.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 29613.0
   },
   {
     "id": "jfll-0182",
@@ -3607,12 +3336,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Arunendra Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 29702.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 29702.0
   },
   {
     "id": "jfll-0183",
@@ -3625,15 +3353,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 29716.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 29716.0
   },
   {
     "id": "jfll-0184",
@@ -3649,12 +3376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 29991.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 29991.0
   },
   {
     "id": "jfll-0185",
@@ -3670,12 +3396,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mary Hanse",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 30090.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 30090.0
   },
   {
     "id": "jfll-0186",
@@ -3691,12 +3416,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 30191.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 30191.0
   },
   {
     "id": "jfll-0187",
@@ -3709,15 +3433,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dhruv Thanvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 30299.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 30299.0
   },
   {
     "id": "jfll-0188",
@@ -3733,12 +3456,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 30351.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 30351.0
   },
   {
     "id": "jfll-0189",
@@ -3754,12 +3476,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 30351.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 30351.0
   },
   {
     "id": "jfll-0190",
@@ -3775,12 +3496,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sunil Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 30408.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 30408.0
   },
   {
     "id": "jfll-0191",
@@ -3793,15 +3513,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 30676.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 30676.0
   },
   {
     "id": "jfll-0192",
@@ -3817,12 +3536,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 31351.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 31351.0
   },
   {
     "id": "jfll-0193",
@@ -3838,12 +3556,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 31637.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 31637.0
   },
   {
     "id": "jfll-0194",
@@ -3856,15 +3573,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 31840.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 31840.0
   },
   {
     "id": "jfll-0195",
@@ -3880,12 +3596,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 31980.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 31980.0
   },
   {
     "id": "jfll-0196",
@@ -3901,12 +3616,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "C S Prasanna",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 32403.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 32403.0
   },
   {
     "id": "jfll-0197",
@@ -3922,12 +3636,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ramya  N",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 32807.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 32807.0
   },
   {
     "id": "jfll-0198",
@@ -3943,12 +3656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 32861.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 32861.0
   },
   {
     "id": "jfll-0199",
@@ -3964,12 +3676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 32992.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 32992.0
   },
   {
     "id": "jfll-0200",
@@ -3985,12 +3696,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 33134.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 33134.0
   },
   {
     "id": "jfll-0201",
@@ -4006,12 +3716,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 33288.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 33288.0
   },
   {
     "id": "jfll-0203",
@@ -4027,33 +3736,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 33721.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 33721.0
   },
   {
     "id": "jfll-0204",
     "fullName": "INDUCTOTHERM (INDIA) PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "VIJAYAN",
-    "mobileNumber": "+91-0271731961",
+    "mobileNumber": null,
     "email": "vijayan@inductothermindia.com",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 34001.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 34001.0
   },
   {
     "id": "jfll-0206",
@@ -4069,12 +3776,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 34266.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 34266.0
   },
   {
     "id": "jfll-0207",
@@ -4087,15 +3793,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 34344.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 34344.0
   },
   {
     "id": "jfll-0208",
@@ -4111,12 +3816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 34494.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 34494.0
   },
   {
     "id": "jfll-0209",
@@ -4132,12 +3836,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Amit Pulekar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 34591.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 34591.0
   },
   {
     "id": "jfll-0210",
@@ -4153,12 +3856,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 34729.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 34729.0
   },
   {
     "id": "jfll-0211",
@@ -4174,12 +3876,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 34949.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 34949.0
   },
   {
     "id": "jfll-0212",
@@ -4195,12 +3896,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Himashu Bisht",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 35400.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 35400.0
   },
   {
     "id": "jfll-0213",
@@ -4216,12 +3916,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 35548.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 35548.0
   },
   {
     "id": "jfll-0214",
@@ -4237,12 +3936,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 35565.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 35565.0
   },
   {
     "id": "jfll-0215",
@@ -4258,12 +3956,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 35798.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 35798.0
   },
   {
     "id": "jfll-0216",
@@ -4276,15 +3973,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 36112.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 36112.0
   },
   {
     "id": "jfll-0218",
@@ -4300,12 +3996,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 36248.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 36248.0
   },
   {
     "id": "jfll-0219",
@@ -4321,33 +4016,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 36604.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 36604.0
   },
   {
     "id": "jfll-0221",
     "fullName": "ALIVIRA ANIMAL HEALTH LTD",
     "territory": "All Territories",
     "contactPersonName": "Vijay Hajare",
-    "mobileNumber": "+91-2241114777",
+    "mobileNumber": null,
     "email": "vijayvishnu.hajare@sequent.in",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 36906.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 36906.0
   },
   {
     "id": "jfll-0223",
@@ -4363,12 +4056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 37089.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 37089.0
   },
   {
     "id": "jfll-0224",
@@ -4384,12 +4076,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 37333.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 37333.0
   },
   {
     "id": "jfll-0225",
@@ -4405,12 +4096,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 37388.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 37388.0
   },
   {
     "id": "jfll-0226",
@@ -4426,12 +4116,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 37582.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 37582.0
   },
   {
     "id": "jfll-0227",
@@ -4447,12 +4136,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 37955.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 37955.0
   },
   {
     "id": "jfll-0228",
@@ -4468,33 +4156,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 37985.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0230",
-    "fullName": "DELUX LOGISTICS & PACKAGING PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Rupesh",
-    "mobileNumber": "+91-8369874525",
-    "email": "accounts@dlplines.com",
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Samuel Prabhu",
-    "totalBusinessTillDate": 38270.0,
-    "parentId": "jfll-1346",
-    "parentName": "DELUX LOGISTICS & PACKAGING",
-    "groupTotalBusiness": 1116103.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Pvt Ltd Alias"
+    "groupTotalBusiness": 37985.0
   },
   {
     "id": "jfll-0231",
@@ -4510,12 +4176,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 38616.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 38616.0
   },
   {
     "id": "jfll-0232",
@@ -4531,12 +4196,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohammed Iqbal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 38619.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 38619.0
   },
   {
     "id": "jfll-0233",
@@ -4549,15 +4213,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Prasad Ragaiah",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 38629.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 38629.0
   },
   {
     "id": "jfll-0234",
@@ -4570,15 +4233,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Himashu Bisht",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 38697.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 38697.0
   },
   {
     "id": "jfll-0236",
@@ -4594,12 +4256,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rafiq Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 39526.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 39526.0
   },
   {
     "id": "jfll-0237",
@@ -4615,12 +4276,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ratan Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 39652.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 39652.0
   },
   {
     "id": "jfll-0238",
@@ -4636,12 +4296,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 39655.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 39655.0
   },
   {
     "id": "jfll-0240",
@@ -4657,12 +4316,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 40094.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 40094.0
   },
   {
     "id": "jfll-0241",
@@ -4678,12 +4336,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 40271.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 40271.0
   },
   {
     "id": "jfll-0242",
@@ -4699,12 +4356,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "A L Aruldass",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 40899.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 40899.0
   },
   {
     "id": "jfll-0244",
@@ -4720,12 +4376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 41112.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 41112.0
   },
   {
     "id": "jfll-0246",
@@ -4741,12 +4396,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 41300.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 41300.0
   },
   {
     "id": "jfll-0247",
@@ -4762,12 +4416,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 41712.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 41712.0
   },
   {
     "id": "jfll-0248",
@@ -4783,12 +4436,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 41884.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 41884.0
   },
   {
     "id": "jfll-0249",
@@ -4804,12 +4456,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 41913.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 41913.0
   },
   {
     "id": "jfll-0250",
@@ -4825,12 +4476,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 42032.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 42032.0
   },
   {
     "id": "jfll-0251",
@@ -4846,12 +4496,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 42037.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 42037.0
   },
   {
     "id": "jfll-0252",
@@ -4867,12 +4516,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 42184.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 42184.0
   },
   {
     "id": "jfll-0253",
@@ -4888,12 +4536,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith K",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 42246.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 42246.0
   },
   {
     "id": "jfll-0254",
@@ -4909,12 +4556,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 42262.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 42262.0
   },
   {
     "id": "jfll-0255",
@@ -4930,12 +4576,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 42350.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 42350.0
   },
   {
     "id": "jfll-0256",
@@ -4951,12 +4596,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 42480.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 42480.0
   },
   {
     "id": "jfll-0257",
@@ -4969,15 +4613,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 43125.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 43125.0
   },
   {
     "id": "jfll-0258",
@@ -4993,12 +4636,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 43433.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 43433.0
   },
   {
     "id": "jfll-0259",
@@ -5014,12 +4656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 43465.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 43465.0
   },
   {
     "id": "jfll-0260",
@@ -5035,12 +4676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 43484.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 43484.0
   },
   {
     "id": "jfll-0261",
@@ -5056,33 +4696,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 43802.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0262",
-    "fullName": "MOL LOGISTICS INDIA PVT LTD",
-    "territory": "All Territories",
-    "contactPersonName": "Ms.Sonali  Patil",
-    "mobileNumber": "+91-9004601021",
-    "email": "sonali.patil@molgroup.com",
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Rafiq Shaikh",
-    "totalBusinessTillDate": 44068.0,
-    "parentId": "jfll-1793",
-    "parentName": "MOL LOGISTICS (INDIA) PRIVATE LIMITED",
-    "groupTotalBusiness": 4123598.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Pvt Ltd Alias"
+    "groupTotalBusiness": 43802.0
   },
   {
     "id": "jfll-0263",
@@ -5098,12 +4716,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 44235.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 44235.0
   },
   {
     "id": "jfll-0264",
@@ -5116,15 +4733,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 44356.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 44356.0
   },
   {
     "id": "jfll-0266",
@@ -5140,12 +4756,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Yogesh Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 44517.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 44517.0
   },
   {
     "id": "jfll-0267",
@@ -5161,12 +4776,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Doulatram Motiyani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 44828.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 44828.0
   },
   {
     "id": "jfll-0268",
@@ -5182,12 +4796,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Savita Mane",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 45347.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 45347.0
   },
   {
     "id": "jfll-0270",
@@ -5203,12 +4816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 45553.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 45553.0
   },
   {
     "id": "jfll-0271",
@@ -5224,12 +4836,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 45785.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 45785.0
   },
   {
     "id": "jfll-0272",
@@ -5245,12 +4856,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 46286.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 46286.0
   },
   {
     "id": "jfll-0273",
@@ -5266,12 +4876,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Maqbool",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 46572.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 46572.0
   },
   {
     "id": "jfll-0274",
@@ -5287,12 +4896,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 46681.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 46681.0
   },
   {
     "id": "jfll-0275",
@@ -5308,12 +4916,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 46725.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 46725.0
   },
   {
     "id": "jfll-0276",
@@ -5326,15 +4933,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ayush Johari",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 46800.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 46800.0
   },
   {
     "id": "jfll-0277",
@@ -5350,12 +4956,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mourya Roy",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 47348.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 47348.0
   },
   {
     "id": "jfll-0278",
@@ -5371,12 +4976,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 48575.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 48575.0
   },
   {
     "id": "jfll-0279",
@@ -5392,33 +4996,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 48764.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 48764.0
   },
   {
     "id": "jfll-0280",
     "fullName": "SONET SANITARY WARES",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9825213203",
-    "email": "sonetsanitarywares@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 48985.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 48985.0
   },
   {
     "id": "jfll-0282",
@@ -5434,12 +5036,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 49448.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 49448.0
   },
   {
     "id": "jfll-0283",
@@ -5455,12 +5056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 49533.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 49533.0
   },
   {
     "id": "jfll-0284",
@@ -5476,12 +5076,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 49560.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 49560.0
   },
   {
     "id": "jfll-0285",
@@ -5497,12 +5096,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 49755.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 49755.0
   },
   {
     "id": "jfll-0286",
@@ -5518,12 +5116,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "AKASH MISHRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 49809.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 49809.0
   },
   {
     "id": "jfll-0287",
@@ -5539,12 +5136,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 49985.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 49985.0
   },
   {
     "id": "jfll-0289",
@@ -5560,12 +5156,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 50348.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 50348.0
   },
   {
     "id": "jfll-0290",
@@ -5581,12 +5176,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 50368.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 50368.0
   },
   {
     "id": "jfll-0291",
@@ -5602,12 +5196,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 50399.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 50399.0
   },
   {
     "id": "jfll-0292",
@@ -5623,12 +5216,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 50740.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 50740.0
   },
   {
     "id": "jfll-0293",
@@ -5641,15 +5233,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith K",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 50837.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 50837.0
   },
   {
     "id": "jfll-0294",
@@ -5665,12 +5256,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 51088.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 51088.0
   },
   {
     "id": "jfll-0295",
@@ -5686,12 +5276,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 52095.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 52095.0
   },
   {
     "id": "jfll-0296",
@@ -5704,15 +5293,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Vikram Chilwal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 52209.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 52209.0
   },
   {
     "id": "jfll-0297",
@@ -5728,12 +5316,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 52663.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 52663.0
   },
   {
     "id": "jfll-0298",
@@ -5749,12 +5336,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 52686.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 52686.0
   },
   {
     "id": "jfll-0299",
@@ -5770,12 +5356,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 53082.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 53082.0
   },
   {
     "id": "jfll-0300",
@@ -5791,12 +5376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 53096.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 53096.0
   },
   {
     "id": "jfll-0301",
@@ -5812,12 +5396,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 53100.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 53100.0
   },
   {
     "id": "jfll-0303",
@@ -5833,12 +5416,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 53899.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 53899.0
   },
   {
     "id": "jfll-0304",
@@ -5854,12 +5436,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
-    "totalBusinessTillDate": 54047.0,
-    "parentId": "jfll-0304",
-    "parentName": "N G PILLAI",
-    "groupTotalBusiness": 69492.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0100",
+        "fullName": "N G PILLAI PRIVATE LIMITED",
+        "salesPerson": "Edward Dsouza",
+        "totalBusiness": 15445.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 69492.0,
+    "groupTotalBusiness": 69492.0
   },
   {
     "id": "jfll-0305",
@@ -5875,12 +5464,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 54325.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 54325.0
   },
   {
     "id": "jfll-0306",
@@ -5896,12 +5484,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 54697.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 54697.0
   },
   {
     "id": "jfll-0308",
@@ -5917,12 +5504,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 54784.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 54784.0
   },
   {
     "id": "jfll-0309",
@@ -5938,12 +5524,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 54832.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 54832.0
   },
   {
     "id": "jfll-0310",
@@ -5959,12 +5544,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 55277.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 55277.0
   },
   {
     "id": "jfll-0311",
@@ -5977,36 +5561,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
-    "creditStatus": "approved",
-    "salesPerson": "SHAHID ALI",
-    "totalBusinessTillDate": 55370.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0312",
-    "fullName": "CARGO WORLD LOGISTICS",
-    "territory": "All Territories",
-    "contactPersonName": "Sanjay Rana",
-    "mobileNumber": "+91-9891014467",
-    "email": "sanjay@cargonavigation.com",
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false,
     "inDataMyne": false,
     "creditStatus": "approved",
-    "salesPerson": "Rohit Sethi",
-    "totalBusinessTillDate": 55652.0,
-    "parentId": "jfll-1427",
-    "parentName": "CARGO WORLD LOGISTICS INDIA PRIVATE LIMITED",
-    "groupTotalBusiness": 1343615.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Branch / Entity Alias"
+    "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
+    "totalBusinessTillDate": 55370.0,
+    "groupTotalBusiness": 55370.0
   },
   {
     "id": "jfll-0313",
@@ -6022,33 +5584,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 55836.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0314",
-    "fullName": "JET FREIGHT EXPRESS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Corporate",
-    "totalBusinessTillDate": 55846.0,
-    "parentId": "jfll-0855",
-    "parentName": "JET FREIGHT EXPRESS PVT. LTD. (OTHERS)",
-    "groupTotalBusiness": 361466.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Pvt Ltd Alias"
+    "groupTotalBusiness": 55836.0
   },
   {
     "id": "jfll-0315",
@@ -6064,12 +5604,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 55867.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 55867.0
   },
   {
     "id": "jfll-0316",
@@ -6085,12 +5624,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 56088.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 56088.0
   },
   {
     "id": "jfll-0317",
@@ -6106,12 +5644,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 56198.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 56198.0
   },
   {
     "id": "jfll-0318",
@@ -6124,15 +5661,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 56458.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 56458.0
   },
   {
     "id": "jfll-0319",
@@ -6148,12 +5684,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 56483.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 56483.0
   },
   {
     "id": "jfll-0320",
@@ -6169,12 +5704,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 56634.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 56634.0
   },
   {
     "id": "jfll-0321",
@@ -6187,15 +5721,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 56729.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 56729.0
   },
   {
     "id": "jfll-0322",
@@ -6208,15 +5741,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 56991.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 56991.0
   },
   {
     "id": "jfll-0323",
@@ -6232,12 +5764,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 57167.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 57167.0
   },
   {
     "id": "jfll-0324",
@@ -6253,12 +5784,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 57186.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 57186.0
   },
   {
     "id": "jfll-0325",
@@ -6274,12 +5804,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "CHETNA MORYE",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 57285.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 57285.0
   },
   {
     "id": "jfll-0326",
@@ -6295,12 +5824,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 57298.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 57298.0
   },
   {
     "id": "jfll-0328",
@@ -6316,12 +5844,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 57822.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 57822.0
   },
   {
     "id": "jfll-0329",
@@ -6337,12 +5864,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 57987.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 57987.0
   },
   {
     "id": "jfll-0330",
@@ -6358,12 +5884,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith K",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 58044.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 58044.0
   },
   {
     "id": "jfll-0331",
@@ -6379,12 +5904,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 58076.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 58076.0
   },
   {
     "id": "jfll-0333",
@@ -6397,15 +5921,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 59388.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 59388.0
   },
   {
     "id": "jfll-0334",
@@ -6421,12 +5944,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 59702.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 59702.0
   },
   {
     "id": "jfll-0335",
@@ -6442,12 +5964,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 60180.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 60180.0
   },
   {
     "id": "jfll-0336",
@@ -6463,12 +5984,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith K",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 60322.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 60322.0
   },
   {
     "id": "jfll-0337",
@@ -6484,12 +6004,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 60333.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 60333.0
   },
   {
     "id": "jfll-0338",
@@ -6505,12 +6024,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 60364.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 60364.0
   },
   {
     "id": "jfll-0340",
@@ -6526,12 +6044,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Raghavendran Bhimarao",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 61029.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 61029.0
   },
   {
     "id": "jfll-0341",
@@ -6544,15 +6061,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "LLP",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 61033.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 61033.0
   },
   {
     "id": "jfll-0342",
@@ -6568,12 +6084,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 61211.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 61211.0
   },
   {
     "id": "jfll-0343",
@@ -6589,12 +6104,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 61428.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 61428.0
   },
   {
     "id": "jfll-0344",
@@ -6610,12 +6124,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 61600.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 61600.0
   },
   {
     "id": "jfll-0345",
@@ -6631,12 +6144,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 61620.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 61620.0
   },
   {
     "id": "jfll-0347",
@@ -6652,12 +6164,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 61682.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 61682.0
   },
   {
     "id": "jfll-0348",
@@ -6670,15 +6181,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 62181.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 62181.0
   },
   {
     "id": "jfll-0349",
@@ -6694,12 +6204,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 62279.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 62279.0
   },
   {
     "id": "jfll-0350",
@@ -6715,12 +6224,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Madhukar H. S",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 62295.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 62295.0
   },
   {
     "id": "jfll-0351",
@@ -6736,12 +6244,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 62689.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 62689.0
   },
   {
     "id": "jfll-0352",
@@ -6749,20 +6256,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "tpil@bom2.vsnl.net.in",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Overseas Agent",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 63463.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 63463.0
   },
   {
     "id": "jfll-0353",
@@ -6778,12 +6284,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 63596.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 63596.0
   },
   {
     "id": "jfll-0354",
@@ -6796,15 +6301,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Giny R",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 63934.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 63934.0
   },
   {
     "id": "jfll-0355",
@@ -6820,12 +6324,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 64541.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 64541.0
   },
   {
     "id": "jfll-0356",
@@ -6841,12 +6344,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 64875.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 64875.0
   },
   {
     "id": "jfll-0357",
@@ -6862,12 +6364,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 65238.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 65238.0
   },
   {
     "id": "jfll-0358",
@@ -6883,12 +6384,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 65471.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 65471.0
   },
   {
     "id": "jfll-0359",
@@ -6904,12 +6404,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rafiq Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 65589.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 65589.0
   },
   {
     "id": "jfll-0360",
@@ -6925,12 +6424,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "PRASAD KADAM",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 66331.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 66331.0
   },
   {
     "id": "jfll-0361",
@@ -6946,12 +6444,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 67305.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 67305.0
   },
   {
     "id": "jfll-0362",
@@ -6967,12 +6464,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "MAYANK DUBEY",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 67698.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 67698.0
   },
   {
     "id": "jfll-0363",
@@ -6985,15 +6481,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mary Hanse",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 68440.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 68440.0
   },
   {
     "id": "jfll-0364",
@@ -7009,12 +6504,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 68833.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 68833.0
   },
   {
     "id": "jfll-0365",
@@ -7030,12 +6524,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 69106.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 69106.0
   },
   {
     "id": "jfll-0366",
@@ -7051,12 +6544,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 69620.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 69620.0
   },
   {
     "id": "jfll-0367",
@@ -7072,12 +6564,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 69658.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 69658.0
   },
   {
     "id": "jfll-0368",
@@ -7090,15 +6581,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 69809.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 69809.0
   },
   {
     "id": "jfll-0369",
@@ -7111,15 +6601,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith K",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 70073.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 70073.0
   },
   {
     "id": "jfll-0370",
@@ -7135,12 +6624,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 70510.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 70510.0
   },
   {
     "id": "jfll-0371",
@@ -7156,12 +6644,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 70820.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 70820.0
   },
   {
     "id": "jfll-0373",
@@ -7177,12 +6664,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 71031.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 71031.0
   },
   {
     "id": "jfll-0375",
@@ -7198,12 +6684,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "B Thiagu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 71379.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 71379.0
   },
   {
     "id": "jfll-0376",
@@ -7219,12 +6704,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 71829.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 71829.0
   },
   {
     "id": "jfll-0377",
@@ -7240,12 +6724,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 71897.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 71897.0
   },
   {
     "id": "jfll-0379",
@@ -7261,12 +6744,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 72894.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 72894.0
   },
   {
     "id": "jfll-0380",
@@ -7282,12 +6764,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 73127.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 73127.0
   },
   {
     "id": "jfll-0381",
@@ -7303,12 +6784,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 74813.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 74813.0
   },
   {
     "id": "jfll-0382",
@@ -7324,12 +6804,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 74924.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 74924.0
   },
   {
     "id": "jfll-0383",
@@ -7345,12 +6824,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 75017.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 75017.0
   },
   {
     "id": "jfll-0385",
@@ -7366,12 +6844,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 75256.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 75256.0
   },
   {
     "id": "jfll-0386",
@@ -7387,12 +6864,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 75350.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 75350.0
   },
   {
     "id": "jfll-0387",
@@ -7408,12 +6884,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "SANDESH DHUMAL",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 75402.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 75402.0
   },
   {
     "id": "jfll-0388",
@@ -7429,12 +6904,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 75539.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 75539.0
   },
   {
     "id": "jfll-0389",
@@ -7447,15 +6921,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 75579.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 75579.0
   },
   {
     "id": "jfll-0390",
@@ -7471,12 +6944,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 76120.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 76120.0
   },
   {
     "id": "jfll-0393",
@@ -7492,12 +6964,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 76880.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 76880.0
   },
   {
     "id": "jfll-0395",
@@ -7513,12 +6984,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 77082.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 77082.0
   },
   {
     "id": "jfll-0396",
@@ -7534,12 +7004,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 77252.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 77252.0
   },
   {
     "id": "jfll-0397",
@@ -7555,12 +7024,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 77396.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 77396.0
   },
   {
     "id": "jfll-0398",
@@ -7576,12 +7044,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "ANCHITA MONI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 77506.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 77506.0
   },
   {
     "id": "jfll-0399",
@@ -7597,12 +7064,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 77517.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 77517.0
   },
   {
     "id": "jfll-0400",
@@ -7618,12 +7084,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rithika M.P",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 77811.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 77811.0
   },
   {
     "id": "jfll-0401",
@@ -7639,33 +7104,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 77828.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 77828.0
   },
   {
     "id": "jfll-0403",
     "fullName": "BRISKY TRADERS",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-4612333089",
-    "email": "briskytraders@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 78293.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 78293.0
   },
   {
     "id": "jfll-0404",
@@ -7681,12 +7144,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mourya Roy",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 78578.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 78578.0
   },
   {
     "id": "jfll-0405",
@@ -7702,12 +7164,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 79250.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 79250.0
   },
   {
     "id": "jfll-0406",
@@ -7723,12 +7184,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 80296.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 80296.0
   },
   {
     "id": "jfll-0407",
@@ -7744,12 +7204,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 80485.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 80485.0
   },
   {
     "id": "jfll-0408",
@@ -7765,12 +7224,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 80738.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 80738.0
   },
   {
     "id": "jfll-0409",
@@ -7786,12 +7244,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sunil Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 80963.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 80963.0
   },
   {
     "id": "jfll-0410",
@@ -7807,12 +7264,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 82074.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 82074.0
   },
   {
     "id": "jfll-0412",
@@ -7828,12 +7284,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 82486.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 82486.0
   },
   {
     "id": "jfll-0413",
@@ -7849,12 +7304,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ashrith Kumar Kovver",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 82606.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 82606.0
   },
   {
     "id": "jfll-0414",
@@ -7870,12 +7324,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 82866.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 82866.0
   },
   {
     "id": "jfll-0415",
@@ -7888,36 +7341,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
-    "creditStatus": "no_credit",
-    "salesPerson": "Narendra Gupta",
-    "totalBusinessTillDate": 83301.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0416",
-    "fullName": "CHAND EXPORTS (DOMESTICS)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false,
     "inDataMyne": false,
     "creditStatus": "no_credit",
-    "salesPerson": "Venkata Ganesh",
-    "totalBusinessTillDate": 83487.0,
-    "parentId": "jfll-2113",
-    "parentName": "CHAND EXPORTS",
-    "groupTotalBusiness": 23224491.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Domestic Division"
+    "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
+    "totalBusinessTillDate": 83301.0,
+    "groupTotalBusiness": 83301.0
   },
   {
     "id": "jfll-0417",
@@ -7933,12 +7364,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 84270.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 84270.0
   },
   {
     "id": "jfll-0418",
@@ -7954,12 +7384,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 84466.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 84466.0
   },
   {
     "id": "jfll-0419",
@@ -7972,15 +7401,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 85313.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 85313.0
   },
   {
     "id": "jfll-0420",
@@ -7996,33 +7424,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sunil Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 85458.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 85458.0
   },
   {
     "id": "jfll-0421",
     "fullName": "ACBEX GLOBAL PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9638111337",
-    "email": "acbectrading@hotmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Overseas Agent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 85560.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 85560.0
   },
   {
     "id": "jfll-0422",
@@ -8038,12 +7464,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Julius Pinto",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 85609.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 85609.0
   },
   {
     "id": "jfll-0423",
@@ -8056,15 +7481,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 85772.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 85772.0
   },
   {
     "id": "jfll-0424",
@@ -8080,12 +7504,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Syed Hashim Abbas Naqvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 85806.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 85806.0
   },
   {
     "id": "jfll-0425",
@@ -8101,12 +7524,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 87159.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 87159.0
   },
   {
     "id": "jfll-0426",
@@ -8122,12 +7544,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 87334.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 87334.0
   },
   {
     "id": "jfll-0427",
@@ -8143,12 +7564,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 87631.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 87631.0
   },
   {
     "id": "jfll-0429",
@@ -8161,15 +7581,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 87898.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 87898.0
   },
   {
     "id": "jfll-0430",
@@ -8185,12 +7604,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "VIMAL JHA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 88518.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 88518.0
   },
   {
     "id": "jfll-0431",
@@ -8206,12 +7624,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 88707.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 88707.0
   },
   {
     "id": "jfll-0433",
@@ -8227,12 +7644,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 89259.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 89259.0
   },
   {
     "id": "jfll-0434",
@@ -8248,12 +7664,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 89557.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 89557.0
   },
   {
     "id": "jfll-0435",
@@ -8266,15 +7681,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 90304.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 90304.0
   },
   {
     "id": "jfll-0436",
@@ -8290,12 +7704,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 90613.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 90613.0
   },
   {
     "id": "jfll-0437",
@@ -8311,12 +7724,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 91091.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 91091.0
   },
   {
     "id": "jfll-0438",
@@ -8332,12 +7744,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 91934.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 91934.0
   },
   {
     "id": "jfll-0439",
@@ -8353,12 +7764,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 92445.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 92445.0
   },
   {
     "id": "jfll-0440",
@@ -8374,12 +7784,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 92449.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 92449.0
   },
   {
     "id": "jfll-0441",
@@ -8395,12 +7804,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 92586.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 92586.0
   },
   {
     "id": "jfll-0442",
@@ -8416,12 +7824,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rafiq Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 92979.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 92979.0
   },
   {
     "id": "jfll-0443",
@@ -8437,12 +7844,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 93062.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 93062.0
   },
   {
     "id": "jfll-0444",
@@ -8458,12 +7864,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 93220.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 93220.0
   },
   {
     "id": "jfll-0445",
@@ -8479,12 +7884,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 94182.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 94182.0
   },
   {
     "id": "jfll-0446",
@@ -8500,12 +7904,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 94730.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 94730.0
   },
   {
     "id": "jfll-0447",
@@ -8521,12 +7924,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 94789.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 94789.0
   },
   {
     "id": "jfll-0448",
@@ -8542,12 +7944,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mukesh Patel",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 94896.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 94896.0
   },
   {
     "id": "jfll-0449",
@@ -8563,12 +7964,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 95340.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 95340.0
   },
   {
     "id": "jfll-0451",
@@ -8581,15 +7981,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 96378.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 96378.0
   },
   {
     "id": "jfll-0452",
@@ -8605,12 +8004,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 97484.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 97484.0
   },
   {
     "id": "jfll-0453",
@@ -8623,15 +8021,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 97599.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 97599.0
   },
   {
     "id": "jfll-0455",
@@ -8647,12 +8044,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 97801.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 97801.0
   },
   {
     "id": "jfll-0456",
@@ -8668,12 +8064,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 98758.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 98758.0
   },
   {
     "id": "jfll-0458",
@@ -8689,12 +8084,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 99057.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 99057.0
   },
   {
     "id": "jfll-0459",
@@ -8710,12 +8104,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Brijnandan Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 99192.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 99192.0
   },
   {
     "id": "jfll-0460",
@@ -8731,12 +8124,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 99563.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 99563.0
   },
   {
     "id": "jfll-0461",
@@ -8752,12 +8144,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 99721.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 99721.0
   },
   {
     "id": "jfll-0462",
@@ -8773,12 +8164,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mukesh Patel",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 99898.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 99898.0
   },
   {
     "id": "jfll-0463",
@@ -8794,12 +8184,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 100095.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 100095.0
   },
   {
     "id": "jfll-0464",
@@ -8815,12 +8204,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 101087.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 101087.0
   },
   {
     "id": "jfll-0465",
@@ -8836,12 +8224,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 101185.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 101185.0
   },
   {
     "id": "jfll-0466",
@@ -8857,12 +8244,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 101444.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 101444.0
   },
   {
     "id": "jfll-0467",
@@ -8878,12 +8264,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 101480.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 101480.0
   },
   {
     "id": "jfll-0468",
@@ -8899,12 +8284,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 101804.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 101804.0
   },
   {
     "id": "jfll-0469",
@@ -8920,12 +8304,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 102331.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 102331.0
   },
   {
     "id": "jfll-0470",
@@ -8941,12 +8324,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Doulatram Motiyani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 102361.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 102361.0
   },
   {
     "id": "jfll-0471",
@@ -8962,33 +8344,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 103367.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0474",
-    "fullName": "M/S KRISHNA ENTERPRISES",
-    "territory": "All Territories",
-    "contactPersonName": "Balkrishana  Roy",
-    "mobileNumber": "+91-9823276122",
-    "email": "balkrishnaroy@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Individual / Proprietorship",
-    "saved": false,
-    "inDataMyne": true,
-    "creditStatus": "no_credit",
-    "salesPerson": "Sweety Soni",
-    "totalBusinessTillDate": 105380.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 103367.0
   },
   {
     "id": "jfll-0475",
@@ -9004,12 +8364,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 105451.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 105451.0
   },
   {
     "id": "jfll-0478",
@@ -9025,12 +8384,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 106200.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 106200.0
   },
   {
     "id": "jfll-0479",
@@ -9046,12 +8404,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Vinay Nilkanth",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 106412.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 106412.0
   },
   {
     "id": "jfll-0480",
@@ -9067,12 +8424,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 106571.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 106571.0
   },
   {
     "id": "jfll-0481",
@@ -9088,12 +8444,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 107028.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 107028.0
   },
   {
     "id": "jfll-0482",
@@ -9109,12 +8464,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 107040.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 107040.0
   },
   {
     "id": "jfll-0483",
@@ -9130,12 +8484,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 108827.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 108827.0
   },
   {
     "id": "jfll-0484",
@@ -9151,12 +8504,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 108981.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 108981.0
   },
   {
     "id": "jfll-0485",
@@ -9169,15 +8521,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 109168.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 109168.0
   },
   {
     "id": "jfll-0486",
@@ -9193,12 +8544,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 109590.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 109590.0
   },
   {
     "id": "jfll-0487",
@@ -9214,12 +8564,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 109731.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 109731.0
   },
   {
     "id": "jfll-0488",
@@ -9235,12 +8584,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 109825.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 109825.0
   },
   {
     "id": "jfll-0489",
@@ -9256,12 +8604,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 111177.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 111177.0
   },
   {
     "id": "jfll-0490",
@@ -9277,12 +8624,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 111670.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 111670.0
   },
   {
     "id": "jfll-0491",
@@ -9295,15 +8641,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 111686.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 111686.0
   },
   {
     "id": "jfll-0492",
@@ -9319,12 +8664,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Maqbool",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 112037.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 112037.0
   },
   {
     "id": "jfll-0493",
@@ -9340,12 +8684,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 112100.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 112100.0
   },
   {
     "id": "jfll-0494",
@@ -9361,12 +8704,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 112506.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 112506.0
   },
   {
     "id": "jfll-0496",
@@ -9382,12 +8724,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 112839.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 112839.0
   },
   {
     "id": "jfll-0497",
@@ -9403,12 +8744,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 113581.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 113581.0
   },
   {
     "id": "jfll-0498",
@@ -9424,12 +8764,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rafiq Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 113753.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 113753.0
   },
   {
     "id": "jfll-0499",
@@ -9442,15 +8781,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 113884.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 113884.0
   },
   {
     "id": "jfll-0500",
@@ -9466,12 +8804,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 114737.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 114737.0
   },
   {
     "id": "jfll-0501",
@@ -9487,12 +8824,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 115017.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 115017.0
   },
   {
     "id": "jfll-0502",
@@ -9508,12 +8844,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 115548.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 115548.0
   },
   {
     "id": "jfll-0503",
@@ -9529,33 +8864,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 115926.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0504",
-    "fullName": "SNK WORLD",
-    "territory": "All Territories",
-    "contactPersonName": "\"Jaldeep Singh \"",
-    "mobileNumber": "+91-8826226688",
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "no_credit",
-    "salesPerson": "Rohit Sethi",
-    "totalBusinessTillDate": 116820.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 115926.0
   },
   {
     "id": "jfll-0505",
@@ -9571,12 +8884,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ayush Johari",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 116909.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 116909.0
   },
   {
     "id": "jfll-0506",
@@ -9592,12 +8904,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Venkata Ganesh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 116984.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 116984.0
   },
   {
     "id": "jfll-0507",
@@ -9613,12 +8924,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Caroline Cowen",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 117382.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 117382.0
   },
   {
     "id": "jfll-0508",
@@ -9634,12 +8944,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 117498.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 117498.0
   },
   {
     "id": "jfll-0509",
@@ -9652,15 +8961,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 118271.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 118271.0
   },
   {
     "id": "jfll-0510",
@@ -9676,12 +8984,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Shweta Parab",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 119148.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 119148.0
   },
   {
     "id": "jfll-0511",
@@ -9697,12 +9004,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "R Kumaran",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 119257.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 119257.0
   },
   {
     "id": "jfll-0514",
@@ -9718,12 +9024,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 120279.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 120279.0
   },
   {
     "id": "jfll-0515",
@@ -9739,33 +9044,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 120408.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 120408.0
   },
   {
     "id": "jfll-0516",
     "fullName": "M/S. SANGOTRA FASHIONS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2225957543",
-    "email": "sangotra@bom5.vsnl.net.in",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 122479.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 122479.0
   },
   {
     "id": "jfll-0518",
@@ -9781,12 +9084,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Arunendra Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 122676.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 122676.0
   },
   {
     "id": "jfll-0519",
@@ -9802,12 +9104,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sunil Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 122892.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 122892.0
   },
   {
     "id": "jfll-0520",
@@ -9823,12 +9124,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 123310.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 123310.0
   },
   {
     "id": "jfll-0521",
@@ -9844,12 +9144,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 123539.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 123539.0
   },
   {
     "id": "jfll-0522",
@@ -9862,15 +9161,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "LLP",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 123620.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 123620.0
   },
   {
     "id": "jfll-0523",
@@ -9886,12 +9184,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 123655.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 123655.0
   },
   {
     "id": "jfll-0524",
@@ -9907,12 +9204,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 124048.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 124048.0
   },
   {
     "id": "jfll-0525",
@@ -9928,12 +9224,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 125460.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 125460.0
   },
   {
     "id": "jfll-0526",
@@ -9949,12 +9244,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 126146.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 126146.0
   },
   {
     "id": "jfll-0527",
@@ -9970,12 +9264,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 126212.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 126212.0
   },
   {
     "id": "jfll-0528",
@@ -9991,12 +9284,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 126498.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 126498.0
   },
   {
     "id": "jfll-0529",
@@ -10009,15 +9301,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "A L Aruldass",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 127204.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 127204.0
   },
   {
     "id": "jfll-0530",
@@ -10033,12 +9324,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 127323.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 127323.0
   },
   {
     "id": "jfll-0531",
@@ -10054,12 +9344,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Doulatram Motiyani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 127552.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 127552.0
   },
   {
     "id": "jfll-0532",
@@ -10075,12 +9364,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ayush Johari",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 128025.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 128025.0
   },
   {
     "id": "jfll-0533",
@@ -10096,12 +9384,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 128791.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 128791.0
   },
   {
     "id": "jfll-0534",
@@ -10117,12 +9404,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 128805.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 128805.0
   },
   {
     "id": "jfll-0535",
@@ -10138,12 +9424,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 129572.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 129572.0
   },
   {
     "id": "jfll-0537",
@@ -10159,12 +9444,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 130175.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 130175.0
   },
   {
     "id": "jfll-0539",
@@ -10180,12 +9464,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 131022.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 131022.0
   },
   {
     "id": "jfll-0540",
@@ -10201,12 +9484,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 132051.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 132051.0
   },
   {
     "id": "jfll-0541",
@@ -10219,15 +9501,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 132082.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 132082.0
   },
   {
     "id": "jfll-0543",
@@ -10240,15 +9521,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "L S Srinivas",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 132212.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 132212.0
   },
   {
     "id": "jfll-0544",
@@ -10264,12 +9544,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Himashu Bisht",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 132305.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 132305.0
   },
   {
     "id": "jfll-0545",
@@ -10285,33 +9564,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 132447.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0546",
-    "fullName": "AIR INDIA LTD. (INDIAN AIRLINES)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Public Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": null,
-    "totalBusinessTillDate": 133062.0,
-    "parentId": "jfll-2204",
-    "parentName": "AIR INDIA LTD",
-    "groupTotalBusiness": 97510859.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Indian Airlines Division"
+    "groupTotalBusiness": 132447.0
   },
   {
     "id": "jfll-0547",
@@ -10327,12 +9584,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 133293.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 133293.0
   },
   {
     "id": "jfll-0548",
@@ -10348,12 +9604,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 133328.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 133328.0
   },
   {
     "id": "jfll-0550",
@@ -10369,12 +9624,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "MAYANK DUBEY",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 136036.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 136036.0
   },
   {
     "id": "jfll-0552",
@@ -10387,15 +9641,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 136490.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 136490.0
   },
   {
     "id": "jfll-0553",
@@ -10411,12 +9664,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "MAYANK DUBEY",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 136635.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 136635.0
   },
   {
     "id": "jfll-0554",
@@ -10429,15 +9681,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 136653.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 136653.0
   },
   {
     "id": "jfll-0555",
@@ -10453,12 +9704,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 136726.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 136726.0
   },
   {
     "id": "jfll-0557",
@@ -10466,20 +9716,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "info@pavits.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 137478.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 137478.0
   },
   {
     "id": "jfll-0558",
@@ -10495,12 +9744,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 138123.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 138123.0
   },
   {
     "id": "jfll-0559",
@@ -10513,15 +9761,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Hemal Bhayani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 138250.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 138250.0
   },
   {
     "id": "jfll-0560",
@@ -10537,12 +9784,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 138268.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 138268.0
   },
   {
     "id": "jfll-0561",
@@ -10555,15 +9801,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Himashu Bisht",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 138422.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 138422.0
   },
   {
     "id": "jfll-0562",
@@ -10579,12 +9824,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 139222.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 139222.0
   },
   {
     "id": "jfll-0563",
@@ -10600,12 +9844,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 139655.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 139655.0
   },
   {
     "id": "jfll-0564",
@@ -10621,12 +9864,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 139707.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 139707.0
   },
   {
     "id": "jfll-0566",
@@ -10642,12 +9884,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 141350.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 141350.0
   },
   {
     "id": "jfll-0567",
@@ -10663,12 +9904,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 141600.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 141600.0
   },
   {
     "id": "jfll-0568",
@@ -10684,33 +9924,39 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 141792.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 141792.0
   },
   {
     "id": "jfll-0569",
     "fullName": "KRISHNA ENTERPRISE",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2225235520",
-    "email": "krishnaent@yahoo.com",
+    "mobileNumber": "+91-9823276122",
+    "email": "balkrishnaroy@gmail.com",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
-    "totalBusinessTillDate": 141831.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0474",
+        "fullName": "M/S KRISHNA ENTERPRISES",
+        "salesPerson": "Sweety Soni",
+        "totalBusiness": 105380.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 247211.0,
+    "groupTotalBusiness": 247211.0
   },
   {
     "id": "jfll-0570",
@@ -10726,12 +9972,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Raghavendran Bhimarao",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 142093.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 142093.0
   },
   {
     "id": "jfll-0571",
@@ -10747,12 +9992,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 142903.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 142903.0
   },
   {
     "id": "jfll-0572",
@@ -10768,12 +10012,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 143176.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 143176.0
   },
   {
     "id": "jfll-0573",
@@ -10789,12 +10032,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 143259.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 143259.0
   },
   {
     "id": "jfll-0575",
@@ -10810,12 +10052,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 144765.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 144765.0
   },
   {
     "id": "jfll-0576",
@@ -10828,15 +10069,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 145234.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 145234.0
   },
   {
     "id": "jfll-0577",
@@ -10852,12 +10092,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 146933.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 146933.0
   },
   {
     "id": "jfll-0578",
@@ -10873,12 +10112,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 147303.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 147303.0
   },
   {
     "id": "jfll-0579",
@@ -10894,12 +10132,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohammed Iqbal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 147751.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 147751.0
   },
   {
     "id": "jfll-0580",
@@ -10915,12 +10152,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Yogesh Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 147995.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 147995.0
   },
   {
     "id": "jfll-0581",
@@ -10936,12 +10172,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 148025.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 148025.0
   },
   {
     "id": "jfll-0582",
@@ -10957,12 +10192,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mourya Roy",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 148458.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 148458.0
   },
   {
     "id": "jfll-0583",
@@ -10978,12 +10212,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 149074.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 149074.0
   },
   {
     "id": "jfll-0584",
@@ -10999,12 +10232,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 149091.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 149091.0
   },
   {
     "id": "jfll-0585",
@@ -11020,12 +10252,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 149250.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 149250.0
   },
   {
     "id": "jfll-0586",
@@ -11041,12 +10272,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 149506.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 149506.0
   },
   {
     "id": "jfll-0587",
@@ -11062,12 +10292,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 149586.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 149586.0
   },
   {
     "id": "jfll-0589",
@@ -11083,12 +10312,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 149935.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 149935.0
   },
   {
     "id": "jfll-0590",
@@ -11101,15 +10329,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 150108.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 150108.0
   },
   {
     "id": "jfll-0591",
@@ -11125,12 +10352,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sameer Sule",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 150392.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 150392.0
   },
   {
     "id": "jfll-0594",
@@ -11146,12 +10372,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 152011.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 152011.0
   },
   {
     "id": "jfll-0595",
@@ -11164,15 +10389,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 152189.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 152189.0
   },
   {
     "id": "jfll-0596",
@@ -11188,12 +10412,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "John Pal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 153881.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 153881.0
   },
   {
     "id": "jfll-0597",
@@ -11209,12 +10432,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Pushpendra Tiwari",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 153930.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 153930.0
   },
   {
     "id": "jfll-0598",
@@ -11230,12 +10452,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 154622.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 154622.0
   },
   {
     "id": "jfll-0599",
@@ -11248,15 +10469,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 155251.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 155251.0
   },
   {
     "id": "jfll-0600",
@@ -11272,12 +10492,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 155281.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 155281.0
   },
   {
     "id": "jfll-0601",
@@ -11293,33 +10512,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 155929.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 155929.0
   },
   {
     "id": "jfll-0602",
     "fullName": "LAXVEER CERAMIC LLP",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9825151058",
-    "email": "laxveerceramic@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "LLP",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 156136.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 156136.0
   },
   {
     "id": "jfll-0603",
@@ -11335,12 +10552,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 156380.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 156380.0
   },
   {
     "id": "jfll-0604",
@@ -11356,12 +10572,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Prasad Ragaiah",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 157079.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 157079.0
   },
   {
     "id": "jfll-0605",
@@ -11377,12 +10592,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 157493.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 157493.0
   },
   {
     "id": "jfll-0606",
@@ -11398,12 +10612,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Shweta Parab",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 157707.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 157707.0
   },
   {
     "id": "jfll-0607",
@@ -11419,12 +10632,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Richard Theknath",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 158560.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 158560.0
   },
   {
     "id": "jfll-0609",
@@ -11437,15 +10649,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "LLP",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 160247.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 160247.0
   },
   {
     "id": "jfll-0610",
@@ -11461,12 +10672,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sunil Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 160461.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 160461.0
   },
   {
     "id": "jfll-0611",
@@ -11482,12 +10692,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 161442.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 161442.0
   },
   {
     "id": "jfll-0612",
@@ -11503,12 +10712,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 161752.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 161752.0
   },
   {
     "id": "jfll-0613",
@@ -11516,20 +10724,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": "Ajinkya Tanawade",
     "mobileNumber": "+91-9594066387",
-    "email": "+11@rediffmail.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 162434.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 162434.0
   },
   {
     "id": "jfll-0614",
@@ -11545,12 +10752,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
-    "totalBusinessTillDate": 162840.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0504",
+        "fullName": "SNK WORLD",
+        "salesPerson": "Rohit Sethi",
+        "totalBusiness": 116820.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 279660.0,
+    "groupTotalBusiness": 279660.0
   },
   {
     "id": "jfll-0615",
@@ -11566,12 +10780,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 164425.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 164425.0
   },
   {
     "id": "jfll-0616",
@@ -11587,12 +10800,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 165085.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 165085.0
   },
   {
     "id": "jfll-0617",
@@ -11608,12 +10820,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 165150.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 165150.0
   },
   {
     "id": "jfll-0618",
@@ -11629,12 +10840,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ayush Johari",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 165391.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 165391.0
   },
   {
     "id": "jfll-0619",
@@ -11650,12 +10860,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 166965.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 166965.0
   },
   {
     "id": "jfll-0620",
@@ -11671,12 +10880,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 167376.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 167376.0
   },
   {
     "id": "jfll-0621",
@@ -11692,12 +10900,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 167764.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 167764.0
   },
   {
     "id": "jfll-0622",
@@ -11713,12 +10920,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 168412.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 168412.0
   },
   {
     "id": "jfll-0623",
@@ -11734,12 +10940,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
-    "totalBusinessTillDate": 168694.0,
-    "parentId": "jfll-0623",
-    "parentName": "NAIK FROZEN FOODS PVT.LTD",
-    "groupTotalBusiness": 192355.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": "Venkata Ganesh",
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0146",
+        "fullName": "NAIK FROZEN FOODS PRIVATE LIMITED( DOMESTIC)",
+        "salesPerson": "Venkata Ganesh",
+        "totalBusiness": 23661.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 192355.0,
+    "groupTotalBusiness": 192355.0
   },
   {
     "id": "jfll-0624",
@@ -11752,15 +10965,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 168698.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 168698.0
   },
   {
     "id": "jfll-0625",
@@ -11776,12 +10988,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 168917.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 168917.0
   },
   {
     "id": "jfll-0627",
@@ -11797,12 +11008,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 169434.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 169434.0
   },
   {
     "id": "jfll-0628",
@@ -11818,12 +11028,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sumit Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 169486.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 169486.0
   },
   {
     "id": "jfll-0629",
@@ -11839,12 +11048,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Maqbool",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 169711.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 169711.0
   },
   {
     "id": "jfll-0630",
@@ -11860,12 +11068,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 170085.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 170085.0
   },
   {
     "id": "jfll-0631",
@@ -11881,12 +11088,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "AKASH MISHRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 170549.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 170549.0
   },
   {
     "id": "jfll-0632",
@@ -11899,36 +11105,34 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 171366.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 171366.0
   },
   {
     "id": "jfll-0633",
     "fullName": "AL ZUBAIR EXPORTER",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-6397632532",
-    "email": "alzubairexporter@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 171427.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 171427.0
   },
   {
     "id": "jfll-0634",
@@ -11944,12 +11148,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 172241.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 172241.0
   },
   {
     "id": "jfll-0635",
@@ -11965,12 +11168,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 172599.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 172599.0
   },
   {
     "id": "jfll-0636",
@@ -11986,12 +11188,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mourya Roy",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 173277.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 173277.0
   },
   {
     "id": "jfll-0637",
@@ -12007,12 +11208,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 173817.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 173817.0
   },
   {
     "id": "jfll-0638",
@@ -12028,12 +11228,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Richard Theknath",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 174309.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 174309.0
   },
   {
     "id": "jfll-0639",
@@ -12049,12 +11248,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 174514.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 174514.0
   },
   {
     "id": "jfll-0640",
@@ -12070,12 +11268,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 175480.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 175480.0
   },
   {
     "id": "jfll-0641",
@@ -12091,12 +11288,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 175861.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 175861.0
   },
   {
     "id": "jfll-0643",
@@ -12112,12 +11308,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 176170.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 176170.0
   },
   {
     "id": "jfll-0644",
@@ -12133,12 +11328,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 176477.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 176477.0
   },
   {
     "id": "jfll-0645",
@@ -12154,12 +11348,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Maqbool",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 176962.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 176962.0
   },
   {
     "id": "jfll-0646",
@@ -12175,12 +11368,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 177414.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 177414.0
   },
   {
     "id": "jfll-0647",
@@ -12188,20 +11380,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "vaishali.ahd@rmx.sprintrpg.ems.vsnl.net",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Hemal Bhayani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 177432.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 177432.0
   },
   {
     "id": "jfll-0648",
@@ -12217,12 +11408,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 177499.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 177499.0
   },
   {
     "id": "jfll-0650",
@@ -12238,12 +11428,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "high_risk",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 179715.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 179715.0
   },
   {
     "id": "jfll-0651",
@@ -12259,12 +11448,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 180295.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 180295.0
   },
   {
     "id": "jfll-0652",
@@ -12280,12 +11468,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 181033.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 181033.0
   },
   {
     "id": "jfll-0653",
@@ -12298,15 +11485,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 181299.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 181299.0
   },
   {
     "id": "jfll-0654",
@@ -12322,12 +11508,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 181599.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 181599.0
   },
   {
     "id": "jfll-0655",
@@ -12343,12 +11528,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 183788.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 183788.0
   },
   {
     "id": "jfll-0656",
@@ -12364,12 +11548,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 184257.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 184257.0
   },
   {
     "id": "jfll-0657",
@@ -12385,12 +11568,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 184818.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 184818.0
   },
   {
     "id": "jfll-0658",
@@ -12403,15 +11585,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 185290.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 185290.0
   },
   {
     "id": "jfll-0659",
@@ -12427,12 +11608,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 186617.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 186617.0
   },
   {
     "id": "jfll-0660",
@@ -12448,12 +11628,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 187576.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 187576.0
   },
   {
     "id": "jfll-0661",
@@ -12469,12 +11648,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 187659.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 187659.0
   },
   {
     "id": "jfll-0662",
@@ -12490,12 +11668,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 187659.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 187659.0
   },
   {
     "id": "jfll-0663",
@@ -12511,12 +11688,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 188157.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 188157.0
   },
   {
     "id": "jfll-0664",
@@ -12532,12 +11708,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 188786.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 188786.0
   },
   {
     "id": "jfll-0665",
@@ -12553,12 +11728,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 189089.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 189089.0
   },
   {
     "id": "jfll-0666",
@@ -12574,12 +11748,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 190072.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 190072.0
   },
   {
     "id": "jfll-0667",
@@ -12595,12 +11768,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 190128.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 190128.0
   },
   {
     "id": "jfll-0668",
@@ -12616,12 +11788,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 190160.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 190160.0
   },
   {
     "id": "jfll-0669",
@@ -12637,12 +11808,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 191933.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 191933.0
   },
   {
     "id": "jfll-0670",
@@ -12658,12 +11828,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sunil Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 192324.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 192324.0
   },
   {
     "id": "jfll-0672",
@@ -12679,12 +11848,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Khalid Waheed",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 195155.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 195155.0
   },
   {
     "id": "jfll-0673",
@@ -12700,12 +11868,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 195774.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 195774.0
   },
   {
     "id": "jfll-0674",
@@ -12721,12 +11888,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 196326.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 196326.0
   },
   {
     "id": "jfll-0675",
@@ -12742,12 +11908,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 197321.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 197321.0
   },
   {
     "id": "jfll-0676",
@@ -12760,15 +11925,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 197656.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 197656.0
   },
   {
     "id": "jfll-0677",
@@ -12784,12 +11948,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 198185.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 198185.0
   },
   {
     "id": "jfll-0678",
@@ -12805,12 +11968,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "high_risk",
     "salesPerson": "Raghavendran Bhimarao",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 200510.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 200510.0
   },
   {
     "id": "jfll-0680",
@@ -12826,12 +11988,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 201613.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 201613.0
   },
   {
     "id": "jfll-0681",
@@ -12847,12 +12008,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fabian Paul",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 203171.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 203171.0
   },
   {
     "id": "jfll-0682",
@@ -12868,12 +12028,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 204936.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 204936.0
   },
   {
     "id": "jfll-0684",
@@ -12889,12 +12048,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 206514.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 206514.0
   },
   {
     "id": "jfll-0685",
@@ -12907,15 +12065,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 206947.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 206947.0
   },
   {
     "id": "jfll-0686",
@@ -12931,12 +12088,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 207220.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 207220.0
   },
   {
     "id": "jfll-0687",
@@ -12952,12 +12108,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 208010.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 208010.0
   },
   {
     "id": "jfll-0688",
@@ -12970,15 +12125,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 208569.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 208569.0
   },
   {
     "id": "jfll-0691",
@@ -12994,12 +12148,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rafiq Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 208990.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 208990.0
   },
   {
     "id": "jfll-0692",
@@ -13015,12 +12168,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mary Hanse",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 209234.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 209234.0
   },
   {
     "id": "jfll-0693",
@@ -13036,12 +12188,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 209607.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 209607.0
   },
   {
     "id": "jfll-0695",
@@ -13057,12 +12208,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 210396.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 210396.0
   },
   {
     "id": "jfll-0696",
@@ -13075,15 +12225,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Anup P",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 210954.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 210954.0
   },
   {
     "id": "jfll-0697",
@@ -13099,12 +12248,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ayush Johari",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 211640.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 211640.0
   },
   {
     "id": "jfll-0698",
@@ -13117,15 +12265,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 211743.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 211743.0
   },
   {
     "id": "jfll-0699",
@@ -13141,33 +12288,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 211842.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 211842.0
   },
   {
     "id": "jfll-0700",
     "fullName": "NOBEL HYGIENE PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2228201381",
-    "email": "accounts@nobelhygiene.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Kapil Dwivedi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 211946.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 211946.0
   },
   {
     "id": "jfll-0701",
@@ -13183,12 +12328,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 212731.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 212731.0
   },
   {
     "id": "jfll-0702",
@@ -13204,12 +12348,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 212968.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 212968.0
   },
   {
     "id": "jfll-0703",
@@ -13225,33 +12368,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 214025.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 214025.0
   },
   {
     "id": "jfll-0704",
     "fullName": "RANGE CERAMIC PVT LTD",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9825058010",
-    "email": "rangeceramic@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 215010.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 215010.0
   },
   {
     "id": "jfll-0705",
@@ -13267,12 +12408,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 215275.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 215275.0
   },
   {
     "id": "jfll-0706",
@@ -13288,12 +12428,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 215503.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 215503.0
   },
   {
     "id": "jfll-0707",
@@ -13306,15 +12445,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 215541.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 215541.0
   },
   {
     "id": "jfll-0708",
@@ -13330,54 +12468,51 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 215724.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 215724.0
   },
   {
     "id": "jfll-0709",
     "fullName": "AGROSYN IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Huzefa  Kagzi",
-    "mobileNumber": "+91-7878099172",
+    "mobileNumber": null,
     "email": "info@agrosyn.co.in",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 216768.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 216768.0
   },
   {
     "id": "jfll-0710",
     "fullName": "LAGUNA CLOTHING PVT. LTD.",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-8043588111",
-    "email": "ghose@laguna-clothing.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 217427.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 217427.0
   },
   {
     "id": "jfll-0711",
@@ -13393,12 +12528,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Syed Hashim Abbas Naqvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 217573.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 217573.0
   },
   {
     "id": "jfll-0712",
@@ -13414,12 +12548,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 217881.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 217881.0
   },
   {
     "id": "jfll-0713",
@@ -13435,33 +12568,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ayush Johari",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 218887.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0714",
-    "fullName": "PANTONE FREIGHT (IND)",
-    "territory": "All Territories",
-    "contactPersonName": "Jayakrishnan  Gopinath",
-    "mobileNumber": "+91-9995403838",
-    "email": "jk@pantonefreight.com",
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "no_credit",
-    "salesPerson": "Shabeer A",
-    "totalBusinessTillDate": 218935.0,
-    "parentId": "jfll-1161",
-    "parentName": "PANTONE FREIGHT",
-    "groupTotalBusiness": 892130.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Regional Entity"
+    "groupTotalBusiness": 218887.0
   },
   {
     "id": "jfll-0715",
@@ -13477,12 +12588,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 219268.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 219268.0
   },
   {
     "id": "jfll-0716",
@@ -13498,12 +12608,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 220294.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 220294.0
   },
   {
     "id": "jfll-0717",
@@ -13519,12 +12628,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 220471.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 220471.0
   },
   {
     "id": "jfll-0718",
@@ -13540,12 +12648,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 221052.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 221052.0
   },
   {
     "id": "jfll-0719",
@@ -13561,12 +12668,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 221743.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 221743.0
   },
   {
     "id": "jfll-0720",
@@ -13582,12 +12688,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 222445.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 222445.0
   },
   {
     "id": "jfll-0721",
@@ -13603,12 +12708,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 222539.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 222539.0
   },
   {
     "id": "jfll-0722",
@@ -13624,33 +12728,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 223084.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0723",
-    "fullName": "BOARD & PAPER LAMINATORS",
-    "territory": "All Territories",
-    "contactPersonName": "PUSHP  BANSAL",
-    "mobileNumber": "+91-9810087760",
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "no_credit",
-    "salesPerson": "Himashu Bisht",
-    "totalBusinessTillDate": 223125.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 223084.0
   },
   {
     "id": "jfll-0724",
@@ -13666,12 +12748,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 223165.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 223165.0
   },
   {
     "id": "jfll-0725",
@@ -13687,12 +12768,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 223227.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 223227.0
   },
   {
     "id": "jfll-0726",
@@ -13708,12 +12788,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 225046.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 225046.0
   },
   {
     "id": "jfll-0727",
@@ -13726,15 +12805,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 225238.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 225238.0
   },
   {
     "id": "jfll-0728",
@@ -13750,12 +12828,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 225327.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 225327.0
   },
   {
     "id": "jfll-0729",
@@ -13771,12 +12848,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 225870.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 225870.0
   },
   {
     "id": "jfll-0732",
@@ -13792,12 +12868,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 226067.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 226067.0
   },
   {
     "id": "jfll-0736",
@@ -13813,12 +12888,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 228387.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 228387.0
   },
   {
     "id": "jfll-0737",
@@ -13834,12 +12908,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 228682.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 228682.0
   },
   {
     "id": "jfll-0738",
@@ -13855,12 +12928,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 228737.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 228737.0
   },
   {
     "id": "jfll-0739",
@@ -13876,12 +12948,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 228848.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 228848.0
   },
   {
     "id": "jfll-0740",
@@ -13897,12 +12968,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 229092.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 229092.0
   },
   {
     "id": "jfll-0741",
@@ -13918,12 +12988,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 229414.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 229414.0
   },
   {
     "id": "jfll-0742",
@@ -13939,12 +13008,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 231453.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 231453.0
   },
   {
     "id": "jfll-0743",
@@ -13960,12 +13028,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 231668.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 231668.0
   },
   {
     "id": "jfll-0744",
@@ -13981,12 +13048,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "ANCHITA MONI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 231935.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 231935.0
   },
   {
     "id": "jfll-0745",
@@ -14002,12 +13068,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 232825.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 232825.0
   },
   {
     "id": "jfll-0746",
@@ -14023,12 +13088,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 232881.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 232881.0
   },
   {
     "id": "jfll-0749",
@@ -14041,15 +13105,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 237984.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 237984.0
   },
   {
     "id": "jfll-0750",
@@ -14065,12 +13128,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 237999.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 237999.0
   },
   {
     "id": "jfll-0751",
@@ -14086,12 +13148,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 238100.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 238100.0
   },
   {
     "id": "jfll-0752",
@@ -14107,12 +13168,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 238298.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 238298.0
   },
   {
     "id": "jfll-0753",
@@ -14128,12 +13188,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 239626.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 239626.0
   },
   {
     "id": "jfll-0754",
@@ -14149,12 +13208,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 239824.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 239824.0
   },
   {
     "id": "jfll-0755",
@@ -14170,12 +13228,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 240113.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 240113.0
   },
   {
     "id": "jfll-0756",
@@ -14191,12 +13248,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 240423.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 240423.0
   },
   {
     "id": "jfll-0757",
@@ -14212,12 +13268,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 240476.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 240476.0
   },
   {
     "id": "jfll-0758",
@@ -14230,15 +13285,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 240842.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 240842.0
   },
   {
     "id": "jfll-0759",
@@ -14246,20 +13300,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": "MR.YESHWANT",
     "mobileNumber": "+91-8326655200",
-    "email": "goa@gkbhitec.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shabbir Dalwai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 241492.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 241492.0
   },
   {
     "id": "jfll-0760",
@@ -14275,12 +13328,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 241664.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 241664.0
   },
   {
     "id": "jfll-0761",
@@ -14296,12 +13348,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "ANCHITA MONI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 242100.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 242100.0
   },
   {
     "id": "jfll-0762",
@@ -14317,12 +13368,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 242223.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 242223.0
   },
   {
     "id": "jfll-0763",
@@ -14338,12 +13388,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 242451.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 242451.0
   },
   {
     "id": "jfll-0764",
@@ -14359,12 +13408,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 242855.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 242855.0
   },
   {
     "id": "jfll-0766",
@@ -14380,12 +13428,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "ANCHITA MONI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 245381.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 245381.0
   },
   {
     "id": "jfll-0767",
@@ -14401,12 +13448,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 245605.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 245605.0
   },
   {
     "id": "jfll-0768",
@@ -14422,12 +13468,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 245648.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 245648.0
   },
   {
     "id": "jfll-0769",
@@ -14443,12 +13488,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 246396.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 246396.0
   },
   {
     "id": "jfll-0770",
@@ -14461,15 +13505,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 247787.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 247787.0
   },
   {
     "id": "jfll-0771",
@@ -14485,12 +13528,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 248355.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 248355.0
   },
   {
     "id": "jfll-0772",
@@ -14506,12 +13548,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Satyajeet Pandey",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 248516.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 248516.0
   },
   {
     "id": "jfll-0773",
@@ -14527,12 +13568,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 251357.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 251357.0
   },
   {
     "id": "jfll-0774",
@@ -14548,12 +13588,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 252500.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 252500.0
   },
   {
     "id": "jfll-0775",
@@ -14569,12 +13608,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Prasad Ragaiah",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 252880.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 252880.0
   },
   {
     "id": "jfll-0776",
@@ -14590,12 +13628,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 254281.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 254281.0
   },
   {
     "id": "jfll-0778",
@@ -14611,12 +13648,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 257516.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 257516.0
   },
   {
     "id": "jfll-0779",
@@ -14632,33 +13668,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 258450.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0780",
-    "fullName": "INTERJAS LOGISTICS LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "hemant",
-    "mobileNumber": null,
-    "email": "hemant.pol@interjaslog.com",
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Public Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Narendra Gupta",
-    "totalBusinessTillDate": 259106.0,
-    "parentId": "jfll-1892",
-    "parentName": "INTERJAS LOGISTICS PVT LTD",
-    "groupTotalBusiness": 6306775.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Ltd Suffix Alias"
+    "groupTotalBusiness": 258450.0
   },
   {
     "id": "jfll-0781",
@@ -14674,12 +13688,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 259967.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 259967.0
   },
   {
     "id": "jfll-0782",
@@ -14695,12 +13708,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Arunendra Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 260042.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 260042.0
   },
   {
     "id": "jfll-0784",
@@ -14716,12 +13728,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 260467.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 260467.0
   },
   {
     "id": "jfll-0785",
@@ -14737,12 +13748,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 261624.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 261624.0
   },
   {
     "id": "jfll-0786",
@@ -14758,12 +13768,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 261770.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 261770.0
   },
   {
     "id": "jfll-0788",
@@ -14779,12 +13788,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shiv Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 263292.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 263292.0
   },
   {
     "id": "jfll-0789",
@@ -14797,15 +13805,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Vinay Nilkanth",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 266150.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 266150.0
   },
   {
     "id": "jfll-0790",
@@ -14821,12 +13828,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 266326.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 266326.0
   },
   {
     "id": "jfll-0791",
@@ -14842,12 +13848,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mourya Roy",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 267173.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 267173.0
   },
   {
     "id": "jfll-0792",
@@ -14863,12 +13868,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sunil Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 267274.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 267274.0
   },
   {
     "id": "jfll-0793",
@@ -14884,12 +13888,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 267517.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 267517.0
   },
   {
     "id": "jfll-0794",
@@ -14902,15 +13905,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "A L Aruldass",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 267929.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 267929.0
   },
   {
     "id": "jfll-0795",
@@ -14926,12 +13928,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 268145.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 268145.0
   },
   {
     "id": "jfll-0796",
@@ -14947,12 +13948,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 269888.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 269888.0
   },
   {
     "id": "jfll-0798",
@@ -14968,12 +13968,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 272575.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 272575.0
   },
   {
     "id": "jfll-0799",
@@ -14989,12 +13988,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "PRASAD KADAM",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 272948.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 272948.0
   },
   {
     "id": "jfll-0800",
@@ -15010,12 +14008,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 273362.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 273362.0
   },
   {
     "id": "jfll-0801",
@@ -15031,33 +14028,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 273371.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 273371.0
   },
   {
     "id": "jfll-0802",
     "fullName": "SHILPA IMPEX",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9821017725",
+    "mobileNumber": null,
     "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 275988.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 275988.0
   },
   {
     "id": "jfll-0803",
@@ -15070,15 +14065,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Prasad Ragaiah",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 277557.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 277557.0
   },
   {
     "id": "jfll-0804",
@@ -15094,12 +14088,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mukesh Patel",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 278386.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 278386.0
   },
   {
     "id": "jfll-0805",
@@ -15115,12 +14108,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 278724.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 278724.0
   },
   {
     "id": "jfll-0806",
@@ -15136,33 +14128,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 279872.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0807",
-    "fullName": "GLOTTIS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "GLOTTIS LIMITED",
-    "mobileNumber": null,
-    "email": "gopal@glottislogistics.in",
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Sunil Kumar",
-    "totalBusinessTillDate": 281844.0,
-    "parentId": "jfll-1557",
-    "parentName": "GLOTTIS LIMITED",
-    "groupTotalBusiness": 2118633.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Pvt Ltd Alias"
+    "groupTotalBusiness": 279872.0
   },
   {
     "id": "jfll-0809",
@@ -15178,12 +14148,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 282187.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 282187.0
   },
   {
     "id": "jfll-0811",
@@ -15199,12 +14168,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sumit Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 283324.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 283324.0
   },
   {
     "id": "jfll-0812",
@@ -15220,12 +14188,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 283596.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 283596.0
   },
   {
     "id": "jfll-0813",
@@ -15238,15 +14205,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 284400.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 284400.0
   },
   {
     "id": "jfll-0814",
@@ -15262,12 +14228,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 286329.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 286329.0
   },
   {
     "id": "jfll-0816",
@@ -15283,12 +14248,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 286904.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 286904.0
   },
   {
     "id": "jfll-0817",
@@ -15301,15 +14265,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 287046.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 287046.0
   },
   {
     "id": "jfll-0818",
@@ -15325,12 +14288,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ayush Johari",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 287370.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 287370.0
   },
   {
     "id": "jfll-0819",
@@ -15346,12 +14308,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 287780.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 287780.0
   },
   {
     "id": "jfll-0821",
@@ -15367,12 +14328,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sushmit Gharat",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 289897.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 289897.0
   },
   {
     "id": "jfll-0822",
@@ -15388,12 +14348,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Vikram Chilwal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 291121.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 291121.0
   },
   {
     "id": "jfll-0823",
@@ -15409,12 +14368,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 291650.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 291650.0
   },
   {
     "id": "jfll-0824",
@@ -15427,15 +14385,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Hemal Bhayani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 292227.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 292227.0
   },
   {
     "id": "jfll-0825",
@@ -15448,15 +14405,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 292450.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 292450.0
   },
   {
     "id": "jfll-0826",
@@ -15464,20 +14420,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "vnvexporers5@gmail.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 292469.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 292469.0
   },
   {
     "id": "jfll-0827",
@@ -15490,15 +14445,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 292811.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 292811.0
   },
   {
     "id": "jfll-0828",
@@ -15514,12 +14468,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 293044.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 293044.0
   },
   {
     "id": "jfll-0829",
@@ -15532,15 +14485,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 293353.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 293353.0
   },
   {
     "id": "jfll-0830",
@@ -15556,12 +14508,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 293606.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 293606.0
   },
   {
     "id": "jfll-0831",
@@ -15577,12 +14528,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sumit Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 294105.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 294105.0
   },
   {
     "id": "jfll-0832",
@@ -15598,12 +14548,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 294274.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 294274.0
   },
   {
     "id": "jfll-0834",
@@ -15619,33 +14568,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 294705.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 294705.0
   },
   {
     "id": "jfll-0835",
     "fullName": "ESSEL AGRO EXPORTS",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2227841178",
-    "email": "esselagroexports@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 294817.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 294817.0
   },
   {
     "id": "jfll-0837",
@@ -15661,12 +14608,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 295333.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 295333.0
   },
   {
     "id": "jfll-0838",
@@ -15679,15 +14625,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 295675.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 295675.0
   },
   {
     "id": "jfll-0839",
@@ -15703,12 +14648,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 296376.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 296376.0
   },
   {
     "id": "jfll-0841",
@@ -15721,15 +14665,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Venkata Ganesh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 297155.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 297155.0
   },
   {
     "id": "jfll-0842",
@@ -15742,15 +14685,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shabbir Dalwai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 297215.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 297215.0
   },
   {
     "id": "jfll-0843",
@@ -15766,12 +14708,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Mahadik",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 297335.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 297335.0
   },
   {
     "id": "jfll-0844",
@@ -15787,12 +14728,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sunil Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 297551.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 297551.0
   },
   {
     "id": "jfll-0845",
@@ -15805,15 +14745,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 298579.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 298579.0
   },
   {
     "id": "jfll-0846",
@@ -15829,12 +14768,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 299278.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 299278.0
   },
   {
     "id": "jfll-0847",
@@ -15850,12 +14788,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 300288.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 300288.0
   },
   {
     "id": "jfll-0848",
@@ -15871,12 +14808,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 301027.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 301027.0
   },
   {
     "id": "jfll-0850",
@@ -15892,12 +14828,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 302419.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 302419.0
   },
   {
     "id": "jfll-0852",
@@ -15913,12 +14848,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 304195.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 304195.0
   },
   {
     "id": "jfll-0853",
@@ -15931,15 +14865,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "high_risk",
     "salesPerson": "Umesh Talbuge",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 304313.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 304313.0
   },
   {
     "id": "jfll-0854",
@@ -15952,15 +14885,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 304350.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 304350.0
   },
   {
     "id": "jfll-0858",
@@ -15976,12 +14908,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 306446.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 306446.0
   },
   {
     "id": "jfll-0859",
@@ -15997,12 +14928,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 308102.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 308102.0
   },
   {
     "id": "jfll-0860",
@@ -16018,12 +14948,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 310231.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 310231.0
   },
   {
     "id": "jfll-0861",
@@ -16039,12 +14968,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 310261.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 310261.0
   },
   {
     "id": "jfll-0862",
@@ -16057,15 +14985,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 310323.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 310323.0
   },
   {
     "id": "jfll-0863",
@@ -16081,12 +15008,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 310720.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 310720.0
   },
   {
     "id": "jfll-0864",
@@ -16102,12 +15028,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 311316.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 311316.0
   },
   {
     "id": "jfll-0865",
@@ -16120,15 +15045,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 313024.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 313024.0
   },
   {
     "id": "jfll-0866",
@@ -16144,12 +15068,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 313188.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 313188.0
   },
   {
     "id": "jfll-0867",
@@ -16165,12 +15088,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 313502.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 313502.0
   },
   {
     "id": "jfll-0869",
@@ -16186,12 +15108,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 314952.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 314952.0
   },
   {
     "id": "jfll-0870",
@@ -16207,12 +15128,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ritesh Ghosalkar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 316137.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 316137.0
   },
   {
     "id": "jfll-0871",
@@ -16225,15 +15145,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 317432.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 317432.0
   },
   {
     "id": "jfll-0872",
@@ -16249,12 +15168,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 318210.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 318210.0
   },
   {
     "id": "jfll-0873",
@@ -16270,33 +15188,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 320817.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0876",
-    "fullName": "JET LOGISTIX (OPC) PVT. LTD. (OTHERS)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": null,
-    "totalBusinessTillDate": 322140.0,
-    "parentId": "jfll-2107",
-    "parentName": "JET LOGISTIX (OPC) PRIVATE LIMITED (MUM)",
-    "groupTotalBusiness": 22327260.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Branch / Other Division"
+    "groupTotalBusiness": 320817.0
   },
   {
     "id": "jfll-0877",
@@ -16312,33 +15208,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 323079.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-0878",
-    "fullName": "FRIGORIFICO ALLANA PVT. LTD (DOMESTICS)",
-    "territory": "All Territories",
-    "contactPersonName": "JADHAV",
-    "mobileNumber": null,
-    "email": "rjadhav@allana.com",
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "no_credit",
-    "salesPerson": "Venkata Ganesh",
-    "totalBusinessTillDate": 324222.0,
-    "parentId": "jfll-1604",
-    "parentName": "FRIGORIFICO ALLANA PVT. LTD",
-    "groupTotalBusiness": 2476943.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Domestic Division"
+    "groupTotalBusiness": 323079.0
   },
   {
     "id": "jfll-0879",
@@ -16354,12 +15228,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 324431.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 324431.0
   },
   {
     "id": "jfll-0881",
@@ -16375,12 +15248,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 327450.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 327450.0
   },
   {
     "id": "jfll-0882",
@@ -16396,12 +15268,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 327981.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 327981.0
   },
   {
     "id": "jfll-0883",
@@ -16417,12 +15288,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 328127.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 328127.0
   },
   {
     "id": "jfll-0884",
@@ -16438,12 +15308,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 328287.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 328287.0
   },
   {
     "id": "jfll-0885",
@@ -16456,15 +15325,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 330424.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 330424.0
   },
   {
     "id": "jfll-0886",
@@ -16480,12 +15348,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 330668.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 330668.0
   },
   {
     "id": "jfll-0887",
@@ -16501,12 +15368,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 331348.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 331348.0
   },
   {
     "id": "jfll-0888",
@@ -16522,12 +15388,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 332597.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 332597.0
   },
   {
     "id": "jfll-0889",
@@ -16543,12 +15408,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 332718.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 332718.0
   },
   {
     "id": "jfll-0890",
@@ -16561,15 +15425,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 333433.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 333433.0
   },
   {
     "id": "jfll-0891",
@@ -16585,12 +15448,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 334406.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 334406.0
   },
   {
     "id": "jfll-0892",
@@ -16606,12 +15468,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 335247.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 335247.0
   },
   {
     "id": "jfll-0893",
@@ -16627,12 +15488,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 336771.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 336771.0
   },
   {
     "id": "jfll-0894",
@@ -16648,12 +15508,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 337303.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 337303.0
   },
   {
     "id": "jfll-0895",
@@ -16669,12 +15528,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fabian Paul",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 338648.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 338648.0
   },
   {
     "id": "jfll-0897",
@@ -16690,12 +15548,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 339855.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 339855.0
   },
   {
     "id": "jfll-0898",
@@ -16711,12 +15568,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 340136.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 340136.0
   },
   {
     "id": "jfll-0900",
@@ -16732,12 +15588,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 342585.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 342585.0
   },
   {
     "id": "jfll-0901",
@@ -16753,12 +15608,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 344053.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 344053.0
   },
   {
     "id": "jfll-0902",
@@ -16774,12 +15628,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Madhukar H. S",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 344300.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 344300.0
   },
   {
     "id": "jfll-0903",
@@ -16795,12 +15648,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "SANDESH DHUMAL",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 344793.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 344793.0
   },
   {
     "id": "jfll-0905",
@@ -16816,12 +15668,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Raghavendran Bhimarao",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 346921.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 346921.0
   },
   {
     "id": "jfll-0906",
@@ -16837,12 +15688,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 347088.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 347088.0
   },
   {
     "id": "jfll-0907",
@@ -16858,12 +15708,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 348678.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 348678.0
   },
   {
     "id": "jfll-0909",
@@ -16876,15 +15725,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 349758.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 349758.0
   },
   {
     "id": "jfll-0910",
@@ -16900,12 +15748,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 350808.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 350808.0
   },
   {
     "id": "jfll-0911",
@@ -16921,12 +15768,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 351725.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 351725.0
   },
   {
     "id": "jfll-0912",
@@ -16939,15 +15785,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 351757.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 351757.0
   },
   {
     "id": "jfll-0913",
@@ -16955,20 +15800,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "utmexports@gmail.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 352739.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 352739.0
   },
   {
     "id": "jfll-0914",
@@ -16981,36 +15825,34 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 353435.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 353435.0
   },
   {
     "id": "jfll-0915",
     "fullName": "MARINE PLAZA",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9820649001",
-    "email": "marineplazaindia@yahoo.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 353851.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 353851.0
   },
   {
     "id": "jfll-0916",
@@ -17026,12 +15868,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 353973.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 353973.0
   },
   {
     "id": "jfll-0917",
@@ -17047,12 +15888,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 354672.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 354672.0
   },
   {
     "id": "jfll-0918",
@@ -17068,12 +15908,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 354729.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 354729.0
   },
   {
     "id": "jfll-0919",
@@ -17089,12 +15928,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 355133.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 355133.0
   },
   {
     "id": "jfll-0920",
@@ -17110,12 +15948,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Nitesh Desai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 356213.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 356213.0
   },
   {
     "id": "jfll-0922",
@@ -17131,33 +15968,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Richard Theknath",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 358927.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 358927.0
   },
   {
     "id": "jfll-0924",
     "fullName": "M/S S.U. RUGS",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9450794210",
+    "mobileNumber": null,
     "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 362696.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 362696.0
   },
   {
     "id": "jfll-0925",
@@ -17173,12 +16008,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 365146.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 365146.0
   },
   {
     "id": "jfll-0926",
@@ -17194,12 +16028,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 366007.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 366007.0
   },
   {
     "id": "jfll-0927",
@@ -17215,12 +16048,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 366225.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 366225.0
   },
   {
     "id": "jfll-0928",
@@ -17236,12 +16068,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 367071.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 367071.0
   },
   {
     "id": "jfll-0929",
@@ -17257,12 +16088,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sneha Shaji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 368109.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 368109.0
   },
   {
     "id": "jfll-0930",
@@ -17278,12 +16108,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
-    "totalBusinessTillDate": 369172.0,
-    "parentId": "jfll-0930",
-    "parentName": "ALL ABOUT LOGISTICS",
-    "groupTotalBusiness": 381108.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0073",
+        "fullName": "ALL ABOUT LOGISTICS PRIVATE LIMITED",
+        "salesPerson": "Narendra Gupta",
+        "totalBusiness": 11936.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 381108.0,
+    "groupTotalBusiness": 381108.0
   },
   {
     "id": "jfll-0932",
@@ -17299,12 +16136,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 370500.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 370500.0
   },
   {
     "id": "jfll-0934",
@@ -17320,12 +16156,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Prasad Ragaiah",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 374673.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 374673.0
   },
   {
     "id": "jfll-0935",
@@ -17338,15 +16173,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 375527.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 375527.0
   },
   {
     "id": "jfll-0936",
@@ -17362,12 +16196,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 375685.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 375685.0
   },
   {
     "id": "jfll-0938",
@@ -17380,15 +16213,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Arunendra Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 377501.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 377501.0
   },
   {
     "id": "jfll-0939",
@@ -17404,12 +16236,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 378456.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 378456.0
   },
   {
     "id": "jfll-0940",
@@ -17425,12 +16256,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 378572.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 378572.0
   },
   {
     "id": "jfll-0941",
@@ -17446,33 +16276,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 379690.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 379690.0
   },
   {
     "id": "jfll-0942",
     "fullName": "CORAL FISHERIES",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9323617608",
-    "email": "coralfisheries@yahoo.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 384306.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 384306.0
   },
   {
     "id": "jfll-0944",
@@ -17488,12 +16316,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Himashu Bisht",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 388709.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 388709.0
   },
   {
     "id": "jfll-0946",
@@ -17509,12 +16336,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 393142.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 393142.0
   },
   {
     "id": "jfll-0947",
@@ -17530,12 +16356,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 394071.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 394071.0
   },
   {
     "id": "jfll-0948",
@@ -17551,12 +16376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dhruv Thanvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 394209.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 394209.0
   },
   {
     "id": "jfll-0950",
@@ -17572,12 +16396,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jithendra Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 399699.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 399699.0
   },
   {
     "id": "jfll-0951",
@@ -17593,12 +16416,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 400747.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 400747.0
   },
   {
     "id": "jfll-0952",
@@ -17614,12 +16436,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 402026.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 402026.0
   },
   {
     "id": "jfll-0955",
@@ -17635,12 +16456,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 403920.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 403920.0
   },
   {
     "id": "jfll-0956",
@@ -17653,15 +16473,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 404484.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 404484.0
   },
   {
     "id": "jfll-0959",
@@ -17677,12 +16496,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 407076.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 407076.0
   },
   {
     "id": "jfll-0960",
@@ -17698,12 +16516,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 408280.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 408280.0
   },
   {
     "id": "jfll-0961",
@@ -17719,12 +16536,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 408433.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 408433.0
   },
   {
     "id": "jfll-0962",
@@ -17737,15 +16553,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "high_risk",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 409347.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 409347.0
   },
   {
     "id": "jfll-0964",
@@ -17761,12 +16576,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 410553.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 410553.0
   },
   {
     "id": "jfll-0965",
@@ -17782,12 +16596,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 411543.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 411543.0
   },
   {
     "id": "jfll-0966",
@@ -17803,12 +16616,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Himashu Bisht",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 411852.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 411852.0
   },
   {
     "id": "jfll-0967",
@@ -17824,12 +16636,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 412041.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 412041.0
   },
   {
     "id": "jfll-0970",
@@ -17845,12 +16656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 417739.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 417739.0
   },
   {
     "id": "jfll-0972",
@@ -17866,12 +16676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 420610.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 420610.0
   },
   {
     "id": "jfll-0973",
@@ -17887,12 +16696,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 421850.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 421850.0
   },
   {
     "id": "jfll-0974",
@@ -17908,12 +16716,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 422913.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 422913.0
   },
   {
     "id": "jfll-0975",
@@ -17929,12 +16736,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 422924.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 422924.0
   },
   {
     "id": "jfll-0976",
@@ -17950,12 +16756,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Maqbool",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 423762.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 423762.0
   },
   {
     "id": "jfll-0977",
@@ -17971,12 +16776,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dhruv Thanvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 424087.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 424087.0
   },
   {
     "id": "jfll-0978",
@@ -17992,12 +16796,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 426149.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 426149.0
   },
   {
     "id": "jfll-0979",
@@ -18013,12 +16816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 426353.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 426353.0
   },
   {
     "id": "jfll-0980",
@@ -18026,41 +16828,39 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": "SUGAM  KARTA",
     "mobileNumber": "+91-9711219659",
-    "email": "sales@skgroup.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 427495.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 427495.0
   },
   {
     "id": "jfll-0981",
     "fullName": "HMA AGRO INDUSTRIES LIMITED.",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-5622523230",
-    "email": "hmaagro@rediffmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jet Clearing",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 429417.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 429417.0
   },
   {
     "id": "jfll-0982",
@@ -18076,33 +16876,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "moderate_risk",
     "salesPerson": "R Kumaran",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 429924.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 429924.0
   },
   {
     "id": "jfll-0985",
     "fullName": "KHUSH EXPORTS",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-7927476989",
-    "email": "bagban82645@yahoo.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "high_risk",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 430917.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 430917.0
   },
   {
     "id": "jfll-0986",
@@ -18118,12 +16916,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 431165.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 431165.0
   },
   {
     "id": "jfll-0988",
@@ -18139,12 +16936,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 434150.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 434150.0
   },
   {
     "id": "jfll-0990",
@@ -18160,12 +16956,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 435563.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 435563.0
   },
   {
     "id": "jfll-0991",
@@ -18181,12 +16976,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jithendra Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 435939.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 435939.0
   },
   {
     "id": "jfll-0993",
@@ -18202,12 +16996,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 439818.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 439818.0
   },
   {
     "id": "jfll-0994",
@@ -18223,12 +17016,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "B Thiagu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 440375.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 440375.0
   },
   {
     "id": "jfll-0995",
@@ -18236,20 +17028,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "rangeela@rangeelaexports.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "moderate_risk",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 440482.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 440482.0
   },
   {
     "id": "jfll-0996",
@@ -18265,12 +17056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 449527.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 449527.0
   },
   {
     "id": "jfll-0997",
@@ -18286,12 +17076,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sunil Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 451153.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 451153.0
   },
   {
     "id": "jfll-0998",
@@ -18307,12 +17096,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 452034.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 452034.0
   },
   {
     "id": "jfll-0999",
@@ -18328,12 +17116,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 452590.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 452590.0
   },
   {
     "id": "jfll-1000",
@@ -18346,15 +17133,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "ANCHITA MONI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 452790.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 452790.0
   },
   {
     "id": "jfll-1001",
@@ -18370,12 +17156,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 453191.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 453191.0
   },
   {
     "id": "jfll-1002",
@@ -18391,12 +17176,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 454309.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 454309.0
   },
   {
     "id": "jfll-1003",
@@ -18412,12 +17196,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 455244.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 455244.0
   },
   {
     "id": "jfll-1006",
@@ -18433,12 +17216,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 456471.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 456471.0
   },
   {
     "id": "jfll-1007",
@@ -18454,12 +17236,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shannon Dcunha",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 458326.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 458326.0
   },
   {
     "id": "jfll-1008",
@@ -18475,12 +17256,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 458343.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 458343.0
   },
   {
     "id": "jfll-1009",
@@ -18496,12 +17276,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 458402.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 458402.0
   },
   {
     "id": "jfll-1010",
@@ -18517,12 +17296,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohammed Iqbal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 458786.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 458786.0
   },
   {
     "id": "jfll-1011",
@@ -18538,12 +17316,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 459245.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 459245.0
   },
   {
     "id": "jfll-1012",
@@ -18556,15 +17333,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 459864.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 459864.0
   },
   {
     "id": "jfll-1014",
@@ -18580,12 +17356,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 463915.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 463915.0
   },
   {
     "id": "jfll-1016",
@@ -18601,12 +17376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 467255.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 467255.0
   },
   {
     "id": "jfll-1017",
@@ -18622,12 +17396,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 468441.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 468441.0
   },
   {
     "id": "jfll-1018",
@@ -18643,12 +17416,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 468616.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 468616.0
   },
   {
     "id": "jfll-1020",
@@ -18664,12 +17436,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 476065.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 476065.0
   },
   {
     "id": "jfll-1021",
@@ -18685,12 +17456,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 477198.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 477198.0
   },
   {
     "id": "jfll-1022",
@@ -18706,12 +17476,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 477850.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 477850.0
   },
   {
     "id": "jfll-1024",
@@ -18727,33 +17496,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 479555.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 479555.0
   },
   {
     "id": "jfll-1025",
     "fullName": "A.R EXPORTERS",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-4802802150",
-    "email": "vnvexporters@rediffmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 479955.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 479955.0
   },
   {
     "id": "jfll-1026",
@@ -18769,12 +17536,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 481340.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 481340.0
   },
   {
     "id": "jfll-1027",
@@ -18787,15 +17553,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 482901.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 482901.0
   },
   {
     "id": "jfll-1028",
@@ -18811,12 +17576,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Himashu Bisht",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 483604.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 483604.0
   },
   {
     "id": "jfll-1029",
@@ -18829,15 +17593,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 484317.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 484317.0
   },
   {
     "id": "jfll-1030",
@@ -18850,15 +17613,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 484552.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 484552.0
   },
   {
     "id": "jfll-1031",
@@ -18874,12 +17636,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 484587.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 484587.0
   },
   {
     "id": "jfll-1033",
@@ -18895,12 +17656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Savita Mane",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 485830.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 485830.0
   },
   {
     "id": "jfll-1034",
@@ -18916,12 +17676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 486389.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 486389.0
   },
   {
     "id": "jfll-1036",
@@ -18937,12 +17696,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mourya Roy",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 489459.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 489459.0
   },
   {
     "id": "jfll-1039",
@@ -18955,15 +17713,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 490659.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 490659.0
   },
   {
     "id": "jfll-1041",
@@ -18979,12 +17736,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 492302.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 492302.0
   },
   {
     "id": "jfll-1042",
@@ -19000,12 +17756,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 492326.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 492326.0
   },
   {
     "id": "jfll-1043",
@@ -19021,12 +17776,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 493146.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 493146.0
   },
   {
     "id": "jfll-1046",
@@ -19042,12 +17796,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 500215.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 500215.0
   },
   {
     "id": "jfll-1047",
@@ -19063,12 +17816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 501114.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 501114.0
   },
   {
     "id": "jfll-1048",
@@ -19084,12 +17836,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 501292.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 501292.0
   },
   {
     "id": "jfll-1049",
@@ -19105,12 +17856,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 502166.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 502166.0
   },
   {
     "id": "jfll-1050",
@@ -19123,15 +17873,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 505134.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 505134.0
   },
   {
     "id": "jfll-1052",
@@ -19144,15 +17893,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 511678.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 511678.0
   },
   {
     "id": "jfll-1053",
@@ -19168,12 +17916,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 512251.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 512251.0
   },
   {
     "id": "jfll-1054",
@@ -19189,12 +17936,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 512486.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 512486.0
   },
   {
     "id": "jfll-1055",
@@ -19210,12 +17956,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 513190.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 513190.0
   },
   {
     "id": "jfll-1056",
@@ -19228,15 +17973,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 517499.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 517499.0
   },
   {
     "id": "jfll-1059",
@@ -19252,12 +17996,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 518681.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 518681.0
   },
   {
     "id": "jfll-1060",
@@ -19273,12 +18016,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 519111.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 519111.0
   },
   {
     "id": "jfll-1061",
@@ -19294,12 +18036,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 521131.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 521131.0
   },
   {
     "id": "jfll-1062",
@@ -19315,12 +18056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SANDEEP DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 523330.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 523330.0
   },
   {
     "id": "jfll-1064",
@@ -19336,12 +18076,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 523900.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 523900.0
   },
   {
     "id": "jfll-1065",
@@ -19357,12 +18096,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Vinay Nilkanth",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 524416.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 524416.0
   },
   {
     "id": "jfll-1066",
@@ -19375,15 +18113,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 524578.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 524578.0
   },
   {
     "id": "jfll-1068",
@@ -19399,12 +18136,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 529392.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 529392.0
   },
   {
     "id": "jfll-1069",
@@ -19420,12 +18156,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 529959.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 529959.0
   },
   {
     "id": "jfll-1070",
@@ -19441,12 +18176,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 530226.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 530226.0
   },
   {
     "id": "jfll-1071",
@@ -19462,12 +18196,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 531707.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 531707.0
   },
   {
     "id": "jfll-1074",
@@ -19483,12 +18216,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 533652.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 533652.0
   },
   {
     "id": "jfll-1075",
@@ -19496,20 +18228,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "essarexport@hotmail.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 533880.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 533880.0
   },
   {
     "id": "jfll-1078",
@@ -19522,15 +18253,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 536678.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 536678.0
   },
   {
     "id": "jfll-1079",
@@ -19546,12 +18276,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Yogesh Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 539413.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 539413.0
   },
   {
     "id": "jfll-1081",
@@ -19567,12 +18296,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 542290.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 542290.0
   },
   {
     "id": "jfll-1082",
@@ -19588,12 +18316,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 542353.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 542353.0
   },
   {
     "id": "jfll-1084",
@@ -19609,12 +18336,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 543476.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 543476.0
   },
   {
     "id": "jfll-1085",
@@ -19630,12 +18356,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rithika M.P",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 544027.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 544027.0
   },
   {
     "id": "jfll-1089",
@@ -19651,12 +18376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Vinay Nilkanth",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 549150.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 549150.0
   },
   {
     "id": "jfll-1090",
@@ -19672,12 +18396,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HITESH LAD",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 549199.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 549199.0
   },
   {
     "id": "jfll-1091",
@@ -19693,12 +18416,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jithendra Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 549306.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 549306.0
   },
   {
     "id": "jfll-1092",
@@ -19714,12 +18436,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 550246.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 550246.0
   },
   {
     "id": "jfll-1093",
@@ -19735,12 +18456,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 552947.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 552947.0
   },
   {
     "id": "jfll-1095",
@@ -19756,12 +18476,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 556228.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 556228.0
   },
   {
     "id": "jfll-1096",
@@ -19777,12 +18496,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 558966.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 558966.0
   },
   {
     "id": "jfll-1097",
@@ -19798,12 +18516,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 560153.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 560153.0
   },
   {
     "id": "jfll-1098",
@@ -19819,12 +18536,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 560792.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 560792.0
   },
   {
     "id": "jfll-1100",
@@ -19837,15 +18553,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Maqbool",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 561496.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 561496.0
   },
   {
     "id": "jfll-1101",
@@ -19858,15 +18573,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 561714.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 561714.0
   },
   {
     "id": "jfll-1103",
@@ -19882,12 +18596,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 563487.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 563487.0
   },
   {
     "id": "jfll-1104",
@@ -19903,12 +18616,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 564588.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 564588.0
   },
   {
     "id": "jfll-1106",
@@ -19921,15 +18633,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Hemal Bhayani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 564870.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 564870.0
   },
   {
     "id": "jfll-1107",
@@ -19945,12 +18656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 566079.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 566079.0
   },
   {
     "id": "jfll-1108",
@@ -19966,12 +18676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 568082.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 568082.0
   },
   {
     "id": "jfll-1109",
@@ -19984,15 +18693,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 569920.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 569920.0
   },
   {
     "id": "jfll-1111",
@@ -20005,15 +18713,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 570370.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 570370.0
   },
   {
     "id": "jfll-1112",
@@ -20029,12 +18736,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 570956.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 570956.0
   },
   {
     "id": "jfll-1114",
@@ -20050,12 +18756,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 577456.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 577456.0
   },
   {
     "id": "jfll-1117",
@@ -20071,12 +18776,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 582639.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 582639.0
   },
   {
     "id": "jfll-1118",
@@ -20092,12 +18796,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Richard Theknath",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 583970.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 583970.0
   },
   {
     "id": "jfll-1119",
@@ -20113,12 +18816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 587387.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 587387.0
   },
   {
     "id": "jfll-1120",
@@ -20134,12 +18836,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 588289.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 588289.0
   },
   {
     "id": "jfll-1121",
@@ -20155,12 +18856,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "moderate_risk",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 589224.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 589224.0
   },
   {
     "id": "jfll-1122",
@@ -20176,12 +18876,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Jayesh Joshi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 593758.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 593758.0
   },
   {
     "id": "jfll-1123",
@@ -20197,12 +18896,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 595826.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 595826.0
   },
   {
     "id": "jfll-1124",
@@ -20218,12 +18916,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 597763.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 597763.0
   },
   {
     "id": "jfll-1125",
@@ -20239,12 +18936,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 599671.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 599671.0
   },
   {
     "id": "jfll-1126",
@@ -20260,12 +18956,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 600292.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 600292.0
   },
   {
     "id": "jfll-1127",
@@ -20281,12 +18976,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 602607.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 602607.0
   },
   {
     "id": "jfll-1128",
@@ -20302,12 +18996,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Syed Hashim Abbas Naqvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 603947.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 603947.0
   },
   {
     "id": "jfll-1129",
@@ -20323,12 +19016,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 604892.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 604892.0
   },
   {
     "id": "jfll-1130",
@@ -20344,12 +19036,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 604903.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 604903.0
   },
   {
     "id": "jfll-1132",
@@ -20365,12 +19056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 607455.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 607455.0
   },
   {
     "id": "jfll-1133",
@@ -20386,12 +19076,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 612894.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 612894.0
   },
   {
     "id": "jfll-1134",
@@ -20407,12 +19096,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 613095.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 613095.0
   },
   {
     "id": "jfll-1135",
@@ -20428,12 +19116,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 613411.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 613411.0
   },
   {
     "id": "jfll-1137",
@@ -20449,12 +19136,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 618228.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 618228.0
   },
   {
     "id": "jfll-1139",
@@ -20470,12 +19156,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 622416.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 622416.0
   },
   {
     "id": "jfll-1140",
@@ -20491,12 +19176,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 624465.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 624465.0
   },
   {
     "id": "jfll-1141",
@@ -20512,12 +19196,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 628177.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 628177.0
   },
   {
     "id": "jfll-1142",
@@ -20533,12 +19216,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 629933.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 629933.0
   },
   {
     "id": "jfll-1143",
@@ -20554,12 +19236,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 640138.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 640138.0
   },
   {
     "id": "jfll-1145",
@@ -20575,12 +19256,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 643612.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 643612.0
   },
   {
     "id": "jfll-1146",
@@ -20596,12 +19276,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 646834.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 646834.0
   },
   {
     "id": "jfll-1147",
@@ -20617,12 +19296,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 648311.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 648311.0
   },
   {
     "id": "jfll-1148",
@@ -20638,12 +19316,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 648724.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 648724.0
   },
   {
     "id": "jfll-1149",
@@ -20659,12 +19336,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 650762.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 650762.0
   },
   {
     "id": "jfll-1150",
@@ -20677,15 +19353,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 651950.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 651950.0
   },
   {
     "id": "jfll-1151",
@@ -20701,12 +19376,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 657010.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 657010.0
   },
   {
     "id": "jfll-1152",
@@ -20722,33 +19396,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 659422.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 659422.0
   },
   {
     "id": "jfll-1153",
     "fullName": "MARIA AQUACON PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-5715804652",
-    "email": "mariafact@yahoo.co.in",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 663118.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 663118.0
   },
   {
     "id": "jfll-1154",
@@ -20761,15 +19433,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 664417.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 664417.0
   },
   {
     "id": "jfll-1155",
@@ -20782,15 +19453,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 664564.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 664564.0
   },
   {
     "id": "jfll-1156",
@@ -20806,12 +19476,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SANDEEP DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 664930.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 664930.0
   },
   {
     "id": "jfll-1157",
@@ -20827,12 +19496,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 665132.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 665132.0
   },
   {
     "id": "jfll-1158",
@@ -20848,19 +19516,18 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 668653.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 668653.0
   },
   {
     "id": "jfll-1159",
     "fullName": "SALASAR BOARD & PAPER LAMINATORS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Pushp  Bansal",
-    "mobileNumber": "+91-9810087765",
+    "mobileNumber": "+91-9810087760 / +91-9810087765",
     "email": "pushpbansal@boardandpaperlaminators.com",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
@@ -20869,12 +19536,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Himashu Bisht",
-    "totalBusinessTillDate": 670098.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0723",
+        "fullName": "BOARD & PAPER LAMINATORS",
+        "salesPerson": "Himashu Bisht",
+        "totalBusiness": 223125.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 893223.0,
+    "groupTotalBusiness": 893223.0
   },
   {
     "id": "jfll-1160",
@@ -20890,20 +19564,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Shrivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 672198.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 672198.0
   },
   {
     "id": "jfll-1161",
     "fullName": "PANTONE FREIGHT",
     "territory": "All Territories",
     "contactPersonName": "ANSIF KA",
-    "mobileNumber": "+91-7440014332",
-    "email": "accounts.qa@pantonefreight.com",
+    "mobileNumber": "+91-9995403838 / +91-7440014332",
+    "email": "jk@pantonefreight.com, accounts.qa@pantonefreight.com",
     "status": "Not Active",
     "customerGroup": "Subagent",
     "type": "Company",
@@ -20911,12 +19584,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shabeer A",
-    "totalBusinessTillDate": 673195.0,
-    "parentId": "jfll-1161",
-    "parentName": "PANTONE FREIGHT",
-    "groupTotalBusiness": 892130.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0714",
+        "fullName": "PANTONE FREIGHT (IND)",
+        "salesPerson": "Shabeer A",
+        "totalBusiness": 218935.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 892130.0,
+    "groupTotalBusiness": 892130.0
   },
   {
     "id": "jfll-1162",
@@ -20932,12 +19612,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 674985.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 674985.0
   },
   {
     "id": "jfll-1163",
@@ -20950,15 +19629,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "ANCHITA MONI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 675822.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 675822.0
   },
   {
     "id": "jfll-1164",
@@ -20971,15 +19649,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 676738.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 676738.0
   },
   {
     "id": "jfll-1165",
@@ -20995,12 +19672,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 677158.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 677158.0
   },
   {
     "id": "jfll-1166",
@@ -21016,12 +19692,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 677357.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 677357.0
   },
   {
     "id": "jfll-1167",
@@ -21034,15 +19709,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 678709.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 678709.0
   },
   {
     "id": "jfll-1168",
@@ -21058,12 +19732,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 680213.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 680213.0
   },
   {
     "id": "jfll-1169",
@@ -21079,12 +19752,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Yogesh Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 680893.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 680893.0
   },
   {
     "id": "jfll-1170",
@@ -21100,12 +19772,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 680941.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 680941.0
   },
   {
     "id": "jfll-1172",
@@ -21121,12 +19792,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 681318.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 681318.0
   },
   {
     "id": "jfll-1173",
@@ -21142,12 +19812,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sunil Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 682316.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 682316.0
   },
   {
     "id": "jfll-1174",
@@ -21163,12 +19832,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 684467.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 684467.0
   },
   {
     "id": "jfll-1175",
@@ -21184,12 +19852,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 688505.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 688505.0
   },
   {
     "id": "jfll-1176",
@@ -21205,12 +19872,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 690752.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 690752.0
   },
   {
     "id": "jfll-1177",
@@ -21218,41 +19884,39 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "tawakkal02@vsnl.net",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 693113.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 693113.0
   },
   {
     "id": "jfll-1178",
     "fullName": "FRESH EXOTICS",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9029093009",
-    "email": "khushiinternationalexpo@rediffmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 696861.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 696861.0
   },
   {
     "id": "jfll-1179",
@@ -21268,12 +19932,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 699504.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 699504.0
   },
   {
     "id": "jfll-1180",
@@ -21289,12 +19952,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 700826.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 700826.0
   },
   {
     "id": "jfll-1181",
@@ -21310,12 +19972,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 701268.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 701268.0
   },
   {
     "id": "jfll-1183",
@@ -21331,12 +19992,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 703372.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 703372.0
   },
   {
     "id": "jfll-1184",
@@ -21352,12 +20012,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "V VENKATAPATHI RAJU",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 704394.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 704394.0
   },
   {
     "id": "jfll-1185",
@@ -21370,15 +20029,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 707162.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 707162.0
   },
   {
     "id": "jfll-1186",
@@ -21394,12 +20052,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "moderate_risk",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 708033.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 708033.0
   },
   {
     "id": "jfll-1188",
@@ -21415,12 +20072,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 708694.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 708694.0
   },
   {
     "id": "jfll-1189",
@@ -21436,12 +20092,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 708879.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 708879.0
   },
   {
     "id": "jfll-1190",
@@ -21457,12 +20112,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 710310.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 710310.0
   },
   {
     "id": "jfll-1191",
@@ -21478,12 +20132,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHASHIKANT YADAV",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 710865.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 710865.0
   },
   {
     "id": "jfll-1193",
@@ -21499,12 +20152,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 714418.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 714418.0
   },
   {
     "id": "jfll-1194",
@@ -21520,12 +20172,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 715958.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 715958.0
   },
   {
     "id": "jfll-1196",
@@ -21538,15 +20189,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 718947.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 718947.0
   },
   {
     "id": "jfll-1197",
@@ -21562,12 +20212,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 721555.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 721555.0
   },
   {
     "id": "jfll-1199",
@@ -21583,12 +20232,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 727849.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 727849.0
   },
   {
     "id": "jfll-1200",
@@ -21604,12 +20252,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 730372.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 730372.0
   },
   {
     "id": "jfll-1204",
@@ -21625,12 +20272,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 739283.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 739283.0
   },
   {
     "id": "jfll-1205",
@@ -21646,12 +20292,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 741334.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 741334.0
   },
   {
     "id": "jfll-1206",
@@ -21667,12 +20312,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 745594.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 745594.0
   },
   {
     "id": "jfll-1210",
@@ -21688,12 +20332,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 758880.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 758880.0
   },
   {
     "id": "jfll-1212",
@@ -21709,12 +20352,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 759824.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 759824.0
   },
   {
     "id": "jfll-1213",
@@ -21730,12 +20372,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 763524.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 763524.0
   },
   {
     "id": "jfll-1214",
@@ -21751,12 +20392,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 765210.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 765210.0
   },
   {
     "id": "jfll-1216",
@@ -21772,12 +20412,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 765458.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 765458.0
   },
   {
     "id": "jfll-1217",
@@ -21793,12 +20432,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "ANCHITA MONI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 765968.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 765968.0
   },
   {
     "id": "jfll-1218",
@@ -21814,12 +20452,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 767453.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 767453.0
   },
   {
     "id": "jfll-1220",
@@ -21835,12 +20472,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 769042.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 769042.0
   },
   {
     "id": "jfll-1221",
@@ -21856,12 +20492,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 770113.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 770113.0
   },
   {
     "id": "jfll-1222",
@@ -21877,12 +20512,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 770882.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 770882.0
   },
   {
     "id": "jfll-1223",
@@ -21898,12 +20532,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 771056.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 771056.0
   },
   {
     "id": "jfll-1227",
@@ -21919,12 +20552,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 774734.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 774734.0
   },
   {
     "id": "jfll-1228",
@@ -21940,12 +20572,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 776272.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 776272.0
   },
   {
     "id": "jfll-1230",
@@ -21961,12 +20592,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 780653.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 780653.0
   },
   {
     "id": "jfll-1231",
@@ -21982,12 +20612,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 781863.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 781863.0
   },
   {
     "id": "jfll-1232",
@@ -22003,12 +20632,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 782386.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 782386.0
   },
   {
     "id": "jfll-1233",
@@ -22024,12 +20652,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 782996.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 782996.0
   },
   {
     "id": "jfll-1234",
@@ -22037,20 +20664,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "jvpingle@gmail.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 791271.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 791271.0
   },
   {
     "id": "jfll-1235",
@@ -22063,15 +20689,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Syed Hashim Abbas Naqvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 791275.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 791275.0
   },
   {
     "id": "jfll-1236",
@@ -22087,12 +20712,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 792389.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 792389.0
   },
   {
     "id": "jfll-1237",
@@ -22108,12 +20732,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 795250.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 795250.0
   },
   {
     "id": "jfll-1238",
@@ -22129,12 +20752,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 795452.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 795452.0
   },
   {
     "id": "jfll-1239",
@@ -22150,12 +20772,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 795459.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 795459.0
   },
   {
     "id": "jfll-1240",
@@ -22171,12 +20792,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate- Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 797246.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 797246.0
   },
   {
     "id": "jfll-1241",
@@ -22192,12 +20812,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Yogesh Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 799683.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 799683.0
   },
   {
     "id": "jfll-1243",
@@ -22213,12 +20832,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 807264.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 807264.0
   },
   {
     "id": "jfll-1244",
@@ -22234,12 +20852,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 812100.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 812100.0
   },
   {
     "id": "jfll-1245",
@@ -22255,12 +20872,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 815626.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 815626.0
   },
   {
     "id": "jfll-1246",
@@ -22276,12 +20892,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 819181.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 819181.0
   },
   {
     "id": "jfll-1247",
@@ -22294,15 +20909,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 820023.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 820023.0
   },
   {
     "id": "jfll-1248",
@@ -22315,15 +20929,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "LLP",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 821193.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 821193.0
   },
   {
     "id": "jfll-1249",
@@ -22339,12 +20952,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 822422.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 822422.0
   },
   {
     "id": "jfll-1251",
@@ -22360,12 +20972,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 826741.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 826741.0
   },
   {
     "id": "jfll-1252",
@@ -22381,12 +20992,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 828668.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 828668.0
   },
   {
     "id": "jfll-1253",
@@ -22402,12 +21012,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 834746.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 834746.0
   },
   {
     "id": "jfll-1254",
@@ -22423,12 +21032,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 836231.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 836231.0
   },
   {
     "id": "jfll-1257",
@@ -22444,12 +21052,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 840987.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 840987.0
   },
   {
     "id": "jfll-1258",
@@ -22465,12 +21072,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 846148.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 846148.0
   },
   {
     "id": "jfll-1259",
@@ -22486,12 +21092,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 855465.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 855465.0
   },
   {
     "id": "jfll-1260",
@@ -22507,12 +21112,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 858439.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 858439.0
   },
   {
     "id": "jfll-1261",
@@ -22528,12 +21132,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Doulatram Motiyani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 859994.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 859994.0
   },
   {
     "id": "jfll-1262",
@@ -22549,12 +21152,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 860572.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 860572.0
   },
   {
     "id": "jfll-1263",
@@ -22570,12 +21172,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 865266.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 865266.0
   },
   {
     "id": "jfll-1264",
@@ -22591,12 +21192,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 866436.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 866436.0
   },
   {
     "id": "jfll-1266",
@@ -22612,12 +21212,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 878660.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 878660.0
   },
   {
     "id": "jfll-1267",
@@ -22633,12 +21232,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 879546.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 879546.0
   },
   {
     "id": "jfll-1268",
@@ -22654,12 +21252,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 879865.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 879865.0
   },
   {
     "id": "jfll-1270",
@@ -22675,12 +21272,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "MAYANK DUBEY",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 882926.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 882926.0
   },
   {
     "id": "jfll-1271",
@@ -22693,15 +21289,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "LLP",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 884910.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 884910.0
   },
   {
     "id": "jfll-1272",
@@ -22717,12 +21312,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 886514.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 886514.0
   },
   {
     "id": "jfll-1273",
@@ -22730,20 +21324,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "gathani@bom5.vsnl.net.in",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 889308.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 889308.0
   },
   {
     "id": "jfll-1274",
@@ -22759,12 +21352,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 891739.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 891739.0
   },
   {
     "id": "jfll-1275",
@@ -22780,12 +21372,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mukesh Patel",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 896118.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 896118.0
   },
   {
     "id": "jfll-1277",
@@ -22801,12 +21392,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 900683.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 900683.0
   },
   {
     "id": "jfll-1278",
@@ -22819,15 +21409,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 903722.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 903722.0
   },
   {
     "id": "jfll-1280",
@@ -22843,12 +21432,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Nitesh Desai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 906064.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 906064.0
   },
   {
     "id": "jfll-1281",
@@ -22864,12 +21452,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 910608.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 910608.0
   },
   {
     "id": "jfll-1282",
@@ -22885,12 +21472,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sumit Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 911054.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 911054.0
   },
   {
     "id": "jfll-1283",
@@ -22906,12 +21492,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 915338.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 915338.0
   },
   {
     "id": "jfll-1284",
@@ -22927,12 +21512,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 916261.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 916261.0
   },
   {
     "id": "jfll-1287",
@@ -22948,12 +21532,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 923155.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 923155.0
   },
   {
     "id": "jfll-1288",
@@ -22969,12 +21552,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 923462.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 923462.0
   },
   {
     "id": "jfll-1290",
@@ -22990,12 +21572,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 926990.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 926990.0
   },
   {
     "id": "jfll-1291",
@@ -23011,12 +21592,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 930745.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 930745.0
   },
   {
     "id": "jfll-1292",
@@ -23032,12 +21612,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 931086.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 931086.0
   },
   {
     "id": "jfll-1293",
@@ -23053,12 +21632,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 935641.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 935641.0
   },
   {
     "id": "jfll-1295",
@@ -23074,12 +21652,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 944066.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 944066.0
   },
   {
     "id": "jfll-1296",
@@ -23095,12 +21672,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Himashu Bisht",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 945097.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 945097.0
   },
   {
     "id": "jfll-1297",
@@ -23116,12 +21692,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 948062.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 948062.0
   },
   {
     "id": "jfll-1298",
@@ -23137,33 +21712,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 948974.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 948974.0
   },
   {
     "id": "jfll-1299",
     "fullName": "Z S ENTERPRISES",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-8657635234",
-    "email": "zahid8657@rediffmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 951051.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 951051.0
   },
   {
     "id": "jfll-1300",
@@ -23171,20 +21744,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": null,
     "mobileNumber": null,
-    "email": "amindia@in.qatarairways.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Subagent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 952095.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 952095.0
   },
   {
     "id": "jfll-1302",
@@ -23200,12 +21772,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 956454.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 956454.0
   },
   {
     "id": "jfll-1303",
@@ -23218,36 +21789,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Subagent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 958041.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-1305",
-    "fullName": "GNG ELECTRONICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "Chandan  paprunia",
-    "mobileNumber": "+91-1523187009",
-    "email": "chandan.p@electronicsbazaar.com",
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": true,
-    "creditStatus": "approved",
-    "salesPerson": "Sweety Soni",
-    "totalBusinessTillDate": 961334.0,
-    "parentId": "jfll-1883",
-    "parentName": "GNG ELECTRONICS LIMITED.",
-    "groupTotalBusiness": 6819815.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Pvt Ltd Alias"
+    "groupTotalBusiness": 958041.0
   },
   {
     "id": "jfll-1306",
@@ -23263,12 +21812,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 965599.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 965599.0
   },
   {
     "id": "jfll-1307",
@@ -23284,12 +21832,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 969907.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 969907.0
   },
   {
     "id": "jfll-1308",
@@ -23305,12 +21852,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shawn Pereira",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 971441.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 971441.0
   },
   {
     "id": "jfll-1309",
@@ -23323,15 +21869,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 972273.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 972273.0
   },
   {
     "id": "jfll-1310",
@@ -23347,12 +21892,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 972497.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 972497.0
   },
   {
     "id": "jfll-1311",
@@ -23368,12 +21912,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jet Clearing",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 972785.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 972785.0
   },
   {
     "id": "jfll-1312",
@@ -23386,15 +21929,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Subagent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 973398.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 973398.0
   },
   {
     "id": "jfll-1314",
@@ -23410,33 +21952,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 980610.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-1315",
-    "fullName": "VELOGIC INDIA PRIVATE LIMITED (BOM)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "blocked",
-    "salesPerson": "Swapnil Mukherjee",
-    "totalBusinessTillDate": 984584.0,
-    "parentId": "jfll-1988",
-    "parentName": "VELOGIC INDIA PRIVATE LIMITED",
-    "groupTotalBusiness": 10307388.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Mumbai Branch"
+    "groupTotalBusiness": 980610.0
   },
   {
     "id": "jfll-1316",
@@ -23452,33 +21972,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 991695.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 991695.0
   },
   {
     "id": "jfll-1317",
     "fullName": "POLOGRES TILES",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-7016954030",
-    "email": "ca.sagarmehta@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 993540.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 993540.0
   },
   {
     "id": "jfll-1318",
@@ -23491,36 +22009,34 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 995446.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 995446.0
   },
   {
     "id": "jfll-1320",
     "fullName": "SANGLE AGRO PROCESSING PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-5532592040",
-    "email": "alcomp@rediffmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1009845.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1009845.0
   },
   {
     "id": "jfll-1322",
@@ -23536,12 +22052,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Himashu Bisht",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1011561.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1011561.0
   },
   {
     "id": "jfll-1323",
@@ -23554,15 +22069,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1012908.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1012908.0
   },
   {
     "id": "jfll-1324",
@@ -23578,12 +22092,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1013894.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1013894.0
   },
   {
     "id": "jfll-1325",
@@ -23596,15 +22109,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1014316.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1014316.0
   },
   {
     "id": "jfll-1326",
@@ -23620,12 +22132,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1020685.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1020685.0
   },
   {
     "id": "jfll-1327",
@@ -23638,15 +22149,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1023327.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1023327.0
   },
   {
     "id": "jfll-1328",
@@ -23662,12 +22172,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": true,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1027447.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1027447.0
   },
   {
     "id": "jfll-1329",
@@ -23683,12 +22192,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1029580.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1029580.0
   },
   {
     "id": "jfll-1330",
@@ -23704,12 +22212,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1034659.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1034659.0
   },
   {
     "id": "jfll-1332",
@@ -23725,12 +22232,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1037450.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1037450.0
   },
   {
     "id": "jfll-1335",
@@ -23746,12 +22252,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1053565.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1053565.0
   },
   {
     "id": "jfll-1336",
@@ -23767,12 +22272,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1056373.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1056373.0
   },
   {
     "id": "jfll-1337",
@@ -23788,12 +22292,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1057530.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1057530.0
   },
   {
     "id": "jfll-1338",
@@ -23806,15 +22309,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1062175.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1062175.0
   },
   {
     "id": "jfll-1339",
@@ -23830,12 +22332,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1064134.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1064134.0
   },
   {
     "id": "jfll-1340",
@@ -23851,12 +22352,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1065180.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1065180.0
   },
   {
     "id": "jfll-1341",
@@ -23872,12 +22372,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1065496.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1065496.0
   },
   {
     "id": "jfll-1342",
@@ -23890,15 +22389,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1066644.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1066644.0
   },
   {
     "id": "jfll-1344",
@@ -23914,12 +22412,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1070418.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1070418.0
   },
   {
     "id": "jfll-1345",
@@ -23935,12 +22432,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Karthik G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1073518.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1073518.0
   },
   {
     "id": "jfll-1346",
@@ -23956,12 +22452,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
-    "totalBusinessTillDate": 1077833.0,
-    "parentId": "jfll-1346",
-    "parentName": "DELUX LOGISTICS & PACKAGING",
-    "groupTotalBusiness": 1116103.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": "Samuel Prabhu",
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0230",
+        "fullName": "DELUX LOGISTICS & PACKAGING PRIVATE LIMITED",
+        "salesPerson": "Samuel Prabhu",
+        "totalBusiness": 38270.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 1116103.0,
+    "groupTotalBusiness": 1116103.0
   },
   {
     "id": "jfll-1349",
@@ -23977,12 +22480,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1086688.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1086688.0
   },
   {
     "id": "jfll-1350",
@@ -23998,12 +22500,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Dhruv Thanvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1092351.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1092351.0
   },
   {
     "id": "jfll-1351",
@@ -24016,15 +22517,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1093983.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1093983.0
   },
   {
     "id": "jfll-1352",
@@ -24040,12 +22540,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1096210.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1096210.0
   },
   {
     "id": "jfll-1353",
@@ -24061,12 +22560,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Syed Hashim Abbas Naqvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1099763.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1099763.0
   },
   {
     "id": "jfll-1354",
@@ -24082,12 +22580,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jayesh Joshi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1104638.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1104638.0
   },
   {
     "id": "jfll-1355",
@@ -24103,33 +22600,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Prasad Ragaiah",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1104724.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1104724.0
   },
   {
     "id": "jfll-1356",
     "fullName": "NISHANT INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9427312576",
-    "email": "admin@lasontiles.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1107525.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1107525.0
   },
   {
     "id": "jfll-1357",
@@ -24145,12 +22640,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1108347.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1108347.0
   },
   {
     "id": "jfll-1358",
@@ -24166,12 +22660,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1109423.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1109423.0
   },
   {
     "id": "jfll-1360",
@@ -24187,12 +22680,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1116774.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1116774.0
   },
   {
     "id": "jfll-1361",
@@ -24208,12 +22700,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1120195.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1120195.0
   },
   {
     "id": "jfll-1366",
@@ -24226,15 +22717,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "LLP",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1129116.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1129116.0
   },
   {
     "id": "jfll-1368",
@@ -24250,12 +22740,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1133864.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1133864.0
   },
   {
     "id": "jfll-1369",
@@ -24271,12 +22760,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shannon Dcunha",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1138333.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1138333.0
   },
   {
     "id": "jfll-1370",
@@ -24292,12 +22780,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1139144.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1139144.0
   },
   {
     "id": "jfll-1371",
@@ -24313,12 +22800,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1143198.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1143198.0
   },
   {
     "id": "jfll-1373",
@@ -24334,12 +22820,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1159306.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1159306.0
   },
   {
     "id": "jfll-1374",
@@ -24347,20 +22832,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": "Jignesh  Dave",
     "mobileNumber": "+91-9920414886",
-    "email": "gfb@bom5.vsml.net.in",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1161130.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1161130.0
   },
   {
     "id": "jfll-1375",
@@ -24376,12 +22860,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1161999.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1161999.0
   },
   {
     "id": "jfll-1377",
@@ -24397,12 +22880,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ashrith Kumar Kovver",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1165514.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1165514.0
   },
   {
     "id": "jfll-1378",
@@ -24418,12 +22900,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1166306.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1166306.0
   },
   {
     "id": "jfll-1379",
@@ -24439,12 +22920,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1171620.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1171620.0
   },
   {
     "id": "jfll-1381",
@@ -24457,15 +22937,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1175323.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1175323.0
   },
   {
     "id": "jfll-1382",
@@ -24481,12 +22960,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1176333.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1176333.0
   },
   {
     "id": "jfll-1383",
@@ -24499,15 +22977,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1178557.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1178557.0
   },
   {
     "id": "jfll-1384",
@@ -24523,12 +23000,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1182241.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1182241.0
   },
   {
     "id": "jfll-1385",
@@ -24544,12 +23020,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1182447.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1182447.0
   },
   {
     "id": "jfll-1386",
@@ -24565,12 +23040,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1182642.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1182642.0
   },
   {
     "id": "jfll-1387",
@@ -24586,12 +23060,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1187974.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1187974.0
   },
   {
     "id": "jfll-1388",
@@ -24607,12 +23080,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1195920.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1195920.0
   },
   {
     "id": "jfll-1390",
@@ -24628,12 +23100,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1196775.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1196775.0
   },
   {
     "id": "jfll-1391",
@@ -24649,12 +23120,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1204839.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1204839.0
   },
   {
     "id": "jfll-1393",
@@ -24670,12 +23140,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1207613.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1207613.0
   },
   {
     "id": "jfll-1394",
@@ -24691,12 +23160,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1209930.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1209930.0
   },
   {
     "id": "jfll-1395",
@@ -24712,12 +23180,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1212631.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1212631.0
   },
   {
     "id": "jfll-1396",
@@ -24733,12 +23200,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mr. P  Gowthamaraju",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1214132.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1214132.0
   },
   {
     "id": "jfll-1398",
@@ -24754,12 +23220,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1221323.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1221323.0
   },
   {
     "id": "jfll-1400",
@@ -24775,12 +23240,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1229046.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1229046.0
   },
   {
     "id": "jfll-1401",
@@ -24793,15 +23257,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1233367.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1233367.0
   },
   {
     "id": "jfll-1404",
@@ -24817,12 +23280,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1251390.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1251390.0
   },
   {
     "id": "jfll-1405",
@@ -24838,12 +23300,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1251768.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1251768.0
   },
   {
     "id": "jfll-1407",
@@ -24859,12 +23320,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1253703.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1253703.0
   },
   {
     "id": "jfll-1409",
@@ -24880,12 +23340,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1254597.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1254597.0
   },
   {
     "id": "jfll-1410",
@@ -24901,12 +23360,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1255324.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1255324.0
   },
   {
     "id": "jfll-1414",
@@ -24922,12 +23380,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1264459.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1264459.0
   },
   {
     "id": "jfll-1415",
@@ -24943,12 +23400,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1264540.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1264540.0
   },
   {
     "id": "jfll-1416",
@@ -24964,12 +23420,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "C S Prasanna",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1268694.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1268694.0
   },
   {
     "id": "jfll-1417",
@@ -24985,12 +23440,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Syed Hashim Abbas Naqvi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1269123.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1269123.0
   },
   {
     "id": "jfll-1419",
@@ -25003,15 +23457,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1273894.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1273894.0
   },
   {
     "id": "jfll-1420",
@@ -25027,12 +23480,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1274400.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1274400.0
   },
   {
     "id": "jfll-1421",
@@ -25048,12 +23500,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHASHIKANT YADAV",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1277264.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1277264.0
   },
   {
     "id": "jfll-1422",
@@ -25066,15 +23517,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1278666.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1278666.0
   },
   {
     "id": "jfll-1423",
@@ -25087,15 +23537,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1279980.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1279980.0
   },
   {
     "id": "jfll-1424",
@@ -25111,12 +23560,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1280947.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1280947.0
   },
   {
     "id": "jfll-1425",
@@ -25132,20 +23580,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1284255.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1284255.0
   },
   {
     "id": "jfll-1427",
     "fullName": "CARGO WORLD LOGISTICS INDIA PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "AJAY  HANDA",
-    "mobileNumber": null,
-    "email": "ajay.handa@cargoworldlogistics.in",
+    "mobileNumber": "+91-9891014467",
+    "email": "sanjay@cargonavigation.com, ajay.handa@cargoworldlogistics.in",
     "status": "Not Active",
     "customerGroup": "Subagent",
     "type": "Private Limited",
@@ -25153,12 +23600,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
-    "totalBusinessTillDate": 1287963.0,
-    "parentId": "jfll-1427",
-    "parentName": "CARGO WORLD LOGISTICS INDIA PRIVATE LIMITED",
-    "groupTotalBusiness": 1343615.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": "Rohit Sethi",
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0312",
+        "fullName": "CARGO WORLD LOGISTICS",
+        "salesPerson": "Rohit Sethi",
+        "totalBusiness": 55652.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 1343615.0,
+    "groupTotalBusiness": 1343615.0
   },
   {
     "id": "jfll-1428",
@@ -25174,12 +23628,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "moderate_risk",
     "salesPerson": "MAYANK DUBEY",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1295721.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1295721.0
   },
   {
     "id": "jfll-1429",
@@ -25195,12 +23648,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "high_risk",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1296977.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1296977.0
   },
   {
     "id": "jfll-1430",
@@ -25216,12 +23668,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1299794.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1299794.0
   },
   {
     "id": "jfll-1433",
@@ -25237,12 +23688,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1313607.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1313607.0
   },
   {
     "id": "jfll-1434",
@@ -25258,12 +23708,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1314959.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1314959.0
   },
   {
     "id": "jfll-1436",
@@ -25279,12 +23728,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1319804.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1319804.0
   },
   {
     "id": "jfll-1437",
@@ -25300,12 +23748,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1322248.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1322248.0
   },
   {
     "id": "jfll-1438",
@@ -25321,12 +23768,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1325611.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1325611.0
   },
   {
     "id": "jfll-1439",
@@ -25342,12 +23788,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1329244.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1329244.0
   },
   {
     "id": "jfll-1440",
@@ -25363,12 +23808,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ratan Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1335677.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1335677.0
   },
   {
     "id": "jfll-1441",
@@ -25384,12 +23828,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Maqbool",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1338396.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1338396.0
   },
   {
     "id": "jfll-1442",
@@ -25405,12 +23848,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ritesh Ghosalkar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1342185.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1342185.0
   },
   {
     "id": "jfll-1443",
@@ -25426,12 +23868,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1344743.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1344743.0
   },
   {
     "id": "jfll-1444",
@@ -25447,33 +23888,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1345314.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-1445",
-    "fullName": "HEJAZI FOODSTUFFS",
-    "territory": "All Territories",
-    "contactPersonName": "HANIF",
-    "mobileNumber": "+91-9324670099",
-    "email": "hanimemon@gmail.com",
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Jet Clearing",
-    "totalBusinessTillDate": 1346148.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1345314.0
   },
   {
     "id": "jfll-1447",
@@ -25486,15 +23905,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1348675.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1348675.0
   },
   {
     "id": "jfll-1448",
@@ -25510,12 +23928,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mukesh Patel",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1352331.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1352331.0
   },
   {
     "id": "jfll-1449",
@@ -25531,12 +23948,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1358074.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1358074.0
   },
   {
     "id": "jfll-1451",
@@ -25552,12 +23968,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1366571.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1366571.0
   },
   {
     "id": "jfll-1452",
@@ -25573,12 +23988,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHASHIKANT YADAV",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1375192.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1375192.0
   },
   {
     "id": "jfll-1454",
@@ -25591,15 +24005,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1416124.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1416124.0
   },
   {
     "id": "jfll-1455",
@@ -25615,12 +24028,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1425343.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1425343.0
   },
   {
     "id": "jfll-1456",
@@ -25636,12 +24048,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1436886.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1436886.0
   },
   {
     "id": "jfll-1457",
@@ -25657,12 +24068,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "R Kumaran",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1437409.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1437409.0
   },
   {
     "id": "jfll-1458",
@@ -25678,12 +24088,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1439236.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1439236.0
   },
   {
     "id": "jfll-1460",
@@ -25699,12 +24108,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1439534.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1439534.0
   },
   {
     "id": "jfll-1461",
@@ -25720,12 +24128,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1443514.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1443514.0
   },
   {
     "id": "jfll-1463",
@@ -25741,12 +24148,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1444474.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1444474.0
   },
   {
     "id": "jfll-1465",
@@ -25762,12 +24168,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1459428.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1459428.0
   },
   {
     "id": "jfll-1468",
@@ -25783,12 +24188,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1461094.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1461094.0
   },
   {
     "id": "jfll-1469",
@@ -25804,12 +24208,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1466122.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1466122.0
   },
   {
     "id": "jfll-1470",
@@ -25825,12 +24228,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1466229.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1466229.0
   },
   {
     "id": "jfll-1471",
@@ -25846,12 +24248,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1468601.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1468601.0
   },
   {
     "id": "jfll-1472",
@@ -25867,12 +24268,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1470138.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1470138.0
   },
   {
     "id": "jfll-1473",
@@ -25888,12 +24288,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1470893.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1470893.0
   },
   {
     "id": "jfll-1474",
@@ -25909,12 +24308,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Dheeraj Chanigalla",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1472531.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1472531.0
   },
   {
     "id": "jfll-1475",
@@ -25927,15 +24325,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1484993.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1484993.0
   },
   {
     "id": "jfll-1477",
@@ -25951,12 +24348,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith K",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1491672.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1491672.0
   },
   {
     "id": "jfll-1478",
@@ -25972,12 +24368,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1518301.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1518301.0
   },
   {
     "id": "jfll-1479",
@@ -25993,12 +24388,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1527202.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1527202.0
   },
   {
     "id": "jfll-1480",
@@ -26014,12 +24408,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1533142.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1533142.0
   },
   {
     "id": "jfll-1481",
@@ -26035,12 +24428,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1535770.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1535770.0
   },
   {
     "id": "jfll-1482",
@@ -26056,12 +24448,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1539348.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1539348.0
   },
   {
     "id": "jfll-1484",
@@ -26077,12 +24468,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1551223.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1551223.0
   },
   {
     "id": "jfll-1485",
@@ -26095,15 +24485,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1556297.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1556297.0
   },
   {
     "id": "jfll-1486",
@@ -26119,12 +24508,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1558089.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1558089.0
   },
   {
     "id": "jfll-1487",
@@ -26137,15 +24525,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1563259.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1563259.0
   },
   {
     "id": "jfll-1488",
@@ -26161,12 +24548,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1567142.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1567142.0
   },
   {
     "id": "jfll-1489",
@@ -26182,12 +24568,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1567558.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1567558.0
   },
   {
     "id": "jfll-1490",
@@ -26200,36 +24585,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1573683.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-1491",
-    "fullName": "BLUE WATER LOGISTICS PRIVATE LIMITED",
-    "territory": "All Territories",
-    "contactPersonName": "PRANAY",
-    "mobileNumber": "+91-9959912293",
-    "email": "accounts1@bwl.co.in",
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Harvind Kumar",
-    "totalBusinessTillDate": 1576068.0,
-    "parentId": "jfll-1607",
-    "parentName": "BLUE WATER LOGISTICS LIMITED",
-    "groupTotalBusiness": 3748997.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Pvt Ltd Alias"
+    "groupTotalBusiness": 1573683.0
   },
   {
     "id": "jfll-1492",
@@ -26245,33 +24608,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Udit Sharda",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1588368.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1588368.0
   },
   {
     "id": "jfll-1494",
     "fullName": "ANSH AGRONOMY PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9440137571",
-    "email": "anshagronomy@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1606302.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1606302.0
   },
   {
     "id": "jfll-1495",
@@ -26287,12 +24648,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1610582.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1610582.0
   },
   {
     "id": "jfll-1496",
@@ -26305,15 +24665,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Subagent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SANDESH DHUMAL",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1615015.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1615015.0
   },
   {
     "id": "jfll-1498",
@@ -26329,12 +24688,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1619692.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1619692.0
   },
   {
     "id": "jfll-1500",
@@ -26350,12 +24708,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1622896.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1622896.0
   },
   {
     "id": "jfll-1501",
@@ -26371,12 +24728,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "high_risk",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1625307.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1625307.0
   },
   {
     "id": "jfll-1502",
@@ -26392,12 +24748,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1627447.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1627447.0
   },
   {
     "id": "jfll-1504",
@@ -26413,12 +24768,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1633263.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1633263.0
   },
   {
     "id": "jfll-1506",
@@ -26434,12 +24788,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1636517.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1636517.0
   },
   {
     "id": "jfll-1507",
@@ -26455,12 +24808,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1639638.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1639638.0
   },
   {
     "id": "jfll-1508",
@@ -26476,12 +24828,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1642851.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1642851.0
   },
   {
     "id": "jfll-1510",
@@ -26497,12 +24848,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1655063.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1655063.0
   },
   {
     "id": "jfll-1511",
@@ -26515,15 +24865,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1656201.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1656201.0
   },
   {
     "id": "jfll-1512",
@@ -26539,12 +24888,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1658775.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1658775.0
   },
   {
     "id": "jfll-1513",
@@ -26560,12 +24908,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHASHIKANT YADAV",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1664528.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1664528.0
   },
   {
     "id": "jfll-1514",
@@ -26581,12 +24928,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1665517.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1665517.0
   },
   {
     "id": "jfll-1515",
@@ -26599,15 +24945,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith K",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1666312.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1666312.0
   },
   {
     "id": "jfll-1517",
@@ -26623,12 +24968,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1669801.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1669801.0
   },
   {
     "id": "jfll-1518",
@@ -26641,15 +24985,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1673325.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1673325.0
   },
   {
     "id": "jfll-1519",
@@ -26665,12 +25008,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1682690.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1682690.0
   },
   {
     "id": "jfll-1520",
@@ -26683,15 +25025,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1685278.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1685278.0
   },
   {
     "id": "jfll-1521",
@@ -26707,12 +25048,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1685563.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1685563.0
   },
   {
     "id": "jfll-1524",
@@ -26728,12 +25068,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1704001.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1704001.0
   },
   {
     "id": "jfll-1525",
@@ -26749,12 +25088,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1705781.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1705781.0
   },
   {
     "id": "jfll-1531",
@@ -26770,12 +25108,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1746632.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1746632.0
   },
   {
     "id": "jfll-1532",
@@ -26791,12 +25128,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1749298.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1749298.0
   },
   {
     "id": "jfll-1535",
@@ -26812,12 +25148,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1756579.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1756579.0
   },
   {
     "id": "jfll-1536",
@@ -26833,12 +25168,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1757142.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1757142.0
   },
   {
     "id": "jfll-1539",
@@ -26854,12 +25188,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1766298.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1766298.0
   },
   {
     "id": "jfll-1541",
@@ -26875,12 +25208,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1777744.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1777744.0
   },
   {
     "id": "jfll-1542",
@@ -26896,12 +25228,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Yogesh Yadav",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1777786.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1777786.0
   },
   {
     "id": "jfll-1543",
@@ -26917,12 +25248,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1781891.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1781891.0
   },
   {
     "id": "jfll-1544",
@@ -26938,12 +25268,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sandeep Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1783951.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1783951.0
   },
   {
     "id": "jfll-1547",
@@ -26956,15 +25285,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1794559.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1794559.0
   },
   {
     "id": "jfll-1548",
@@ -26980,12 +25308,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1794926.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1794926.0
   },
   {
     "id": "jfll-1550",
@@ -26998,15 +25325,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1812188.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1812188.0
   },
   {
     "id": "jfll-1551",
@@ -27022,12 +25348,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1812237.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1812237.0
   },
   {
     "id": "jfll-1552",
@@ -27043,12 +25368,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1813602.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1813602.0
   },
   {
     "id": "jfll-1553",
@@ -27064,12 +25388,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1813749.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1813749.0
   },
   {
     "id": "jfll-1554",
@@ -27085,12 +25408,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1813891.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1813891.0
   },
   {
     "id": "jfll-1556",
@@ -27106,12 +25428,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1818829.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1818829.0
   },
   {
     "id": "jfll-1557",
@@ -27127,12 +25448,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sunil Kumar",
-    "totalBusinessTillDate": 1836789.0,
-    "parentId": "jfll-1557",
-    "parentName": "GLOTTIS LIMITED",
-    "groupTotalBusiness": 2118633.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0807",
+        "fullName": "GLOTTIS PRIVATE LIMITED",
+        "salesPerson": "Sunil Kumar",
+        "totalBusiness": 281844.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 2118633.0,
+    "groupTotalBusiness": 2118633.0
   },
   {
     "id": "jfll-1558",
@@ -27148,12 +25476,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1838273.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1838273.0
   },
   {
     "id": "jfll-1559",
@@ -27166,15 +25493,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1846108.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1846108.0
   },
   {
     "id": "jfll-1560",
@@ -27190,12 +25516,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1854827.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1854827.0
   },
   {
     "id": "jfll-1561",
@@ -27211,12 +25536,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1857819.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1857819.0
   },
   {
     "id": "jfll-1563",
@@ -27232,12 +25556,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1875496.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1875496.0
   },
   {
     "id": "jfll-1566",
@@ -27253,12 +25576,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1892737.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1892737.0
   },
   {
     "id": "jfll-1568",
@@ -27274,12 +25596,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1901456.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1901456.0
   },
   {
     "id": "jfll-1570",
@@ -27292,15 +25613,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1906114.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1906114.0
   },
   {
     "id": "jfll-1572",
@@ -27316,12 +25636,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1912587.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1912587.0
   },
   {
     "id": "jfll-1574",
@@ -27337,12 +25656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1940750.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1940750.0
   },
   {
     "id": "jfll-1575",
@@ -27358,12 +25676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1941177.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1941177.0
   },
   {
     "id": "jfll-1576",
@@ -27379,12 +25696,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1948479.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1948479.0
   },
   {
     "id": "jfll-1577",
@@ -27400,12 +25716,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1953750.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1953750.0
   },
   {
     "id": "jfll-1578",
@@ -27421,12 +25736,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1961943.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1961943.0
   },
   {
     "id": "jfll-1579",
@@ -27442,12 +25756,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1962138.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1962138.0
   },
   {
     "id": "jfll-1580",
@@ -27463,12 +25776,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ashrith Kumar Kovver",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1965655.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1965655.0
   },
   {
     "id": "jfll-1581",
@@ -27481,15 +25793,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 1978386.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 1978386.0
   },
   {
     "id": "jfll-1584",
@@ -27505,12 +25816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2006763.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2006763.0
   },
   {
     "id": "jfll-1585",
@@ -27526,12 +25836,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2014943.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2014943.0
   },
   {
     "id": "jfll-1586",
@@ -27547,12 +25856,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2015843.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2015843.0
   },
   {
     "id": "jfll-1587",
@@ -27568,12 +25876,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2031758.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2031758.0
   },
   {
     "id": "jfll-1591",
@@ -27589,12 +25896,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2045111.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2045111.0
   },
   {
     "id": "jfll-1593",
@@ -27607,15 +25913,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2059901.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2059901.0
   },
   {
     "id": "jfll-1594",
@@ -27631,12 +25936,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2079029.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2079029.0
   },
   {
     "id": "jfll-1596",
@@ -27652,12 +25956,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2084054.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2084054.0
   },
   {
     "id": "jfll-1597",
@@ -27673,12 +25976,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2086535.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2086535.0
   },
   {
     "id": "jfll-1598",
@@ -27694,12 +25996,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2087591.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2087591.0
   },
   {
     "id": "jfll-1599",
@@ -27715,12 +26016,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "A L Aruldass",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2089301.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2089301.0
   },
   {
     "id": "jfll-1600",
@@ -27736,12 +26036,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2117551.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2117551.0
   },
   {
     "id": "jfll-1601",
@@ -27757,12 +26056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2120389.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2120389.0
   },
   {
     "id": "jfll-1602",
@@ -27775,15 +26073,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2126174.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2126174.0
   },
   {
     "id": "jfll-1603",
@@ -27799,12 +26096,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jet Clearing",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2139443.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2139443.0
   },
   {
     "id": "jfll-1604",
@@ -27817,15 +26113,22 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
-    "totalBusinessTillDate": 2152721.0,
-    "parentId": "jfll-1604",
-    "parentName": "FRIGORIFICO ALLANA PVT. LTD",
-    "groupTotalBusiness": 2476943.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": "Venkata Ganesh",
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0878",
+        "fullName": "FRIGORIFICO ALLANA PVT. LTD (DOMESTICS)",
+        "salesPerson": "Venkata Ganesh",
+        "totalBusiness": 324222.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 2476943.0,
+    "groupTotalBusiness": 2476943.0
   },
   {
     "id": "jfll-1605",
@@ -27841,20 +26144,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ratan Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2153140.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2153140.0
   },
   {
     "id": "jfll-1607",
     "fullName": "BLUE WATER LOGISTICS LIMITED",
     "territory": "All Territories",
     "contactPersonName": "Jagat",
-    "mobileNumber": "+91-9000478685",
-    "email": "jagat@bwl.co.in",
+    "mobileNumber": "+91-9959912293 / +91-9000478685",
+    "email": "accounts1@bwl.co.in, jagat@bwl.co.in",
     "status": "Not Active",
     "customerGroup": "Subagent",
     "type": "Public Limited",
@@ -27862,12 +26164,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
-    "totalBusinessTillDate": 2172929.0,
-    "parentId": "jfll-1607",
-    "parentName": "BLUE WATER LOGISTICS LIMITED",
-    "groupTotalBusiness": 3748997.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": "Harvind Kumar",
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-1491",
+        "fullName": "BLUE WATER LOGISTICS PRIVATE LIMITED",
+        "salesPerson": "Harvind Kumar",
+        "totalBusiness": 1576068.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 3748997.0,
+    "groupTotalBusiness": 3748997.0
   },
   {
     "id": "jfll-1609",
@@ -27883,12 +26192,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2187846.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2187846.0
   },
   {
     "id": "jfll-1610",
@@ -27904,12 +26212,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2188515.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2188515.0
   },
   {
     "id": "jfll-1612",
@@ -27925,12 +26232,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2205231.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2205231.0
   },
   {
     "id": "jfll-1613",
@@ -27946,12 +26252,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2206970.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2206970.0
   },
   {
     "id": "jfll-1615",
@@ -27967,12 +26272,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2216622.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2216622.0
   },
   {
     "id": "jfll-1616",
@@ -27988,12 +26292,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2217392.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2217392.0
   },
   {
     "id": "jfll-1617",
@@ -28009,12 +26312,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2217503.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2217503.0
   },
   {
     "id": "jfll-1618",
@@ -28030,12 +26332,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2227872.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2227872.0
   },
   {
     "id": "jfll-1619",
@@ -28051,12 +26352,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2228594.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2228594.0
   },
   {
     "id": "jfll-1621",
@@ -28072,12 +26372,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2251901.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2251901.0
   },
   {
     "id": "jfll-1622",
@@ -28093,33 +26392,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2252519.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2252519.0
   },
   {
     "id": "jfll-1623",
     "fullName": "BHARAT AGRO INDUSTRIES",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-7716455303",
-    "email": "deepak@bharatagro.net",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2253599.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2253599.0
   },
   {
     "id": "jfll-1624",
@@ -28135,12 +26432,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2256257.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2256257.0
   },
   {
     "id": "jfll-1625",
@@ -28156,12 +26452,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2261495.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2261495.0
   },
   {
     "id": "jfll-1626",
@@ -28177,12 +26472,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2268090.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2268090.0
   },
   {
     "id": "jfll-1627",
@@ -28198,12 +26492,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2277322.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2277322.0
   },
   {
     "id": "jfll-1628",
@@ -28219,12 +26512,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2292157.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2292157.0
   },
   {
     "id": "jfll-1630",
@@ -28240,12 +26532,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate- Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2311044.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2311044.0
   },
   {
     "id": "jfll-1631",
@@ -28261,12 +26552,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "R Kumaran",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2322803.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2322803.0
   },
   {
     "id": "jfll-1633",
@@ -28279,15 +26569,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2372666.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2372666.0
   },
   {
     "id": "jfll-1634",
@@ -28300,15 +26589,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2389573.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2389573.0
   },
   {
     "id": "jfll-1635",
@@ -28321,15 +26609,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "LLP",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2423679.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2423679.0
   },
   {
     "id": "jfll-1636",
@@ -28345,12 +26632,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2428490.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2428490.0
   },
   {
     "id": "jfll-1638",
@@ -28366,33 +26652,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2452563.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2452563.0
   },
   {
     "id": "jfll-1639",
     "fullName": "EMIL PHARMACEUTICAL INDUSTRIES PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2228868224",
-    "email": "tushar@emilpharma.in",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2454524.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2454524.0
   },
   {
     "id": "jfll-1640",
@@ -28408,12 +26692,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2465845.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2465845.0
   },
   {
     "id": "jfll-1641",
@@ -28429,12 +26712,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2467347.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2467347.0
   },
   {
     "id": "jfll-1642",
@@ -28450,12 +26732,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2479740.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2479740.0
   },
   {
     "id": "jfll-1643",
@@ -28471,12 +26752,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jet Clearing",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2487339.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2487339.0
   },
   {
     "id": "jfll-1644",
@@ -28492,12 +26772,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2496373.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2496373.0
   },
   {
     "id": "jfll-1646",
@@ -28513,12 +26792,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2501490.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2501490.0
   },
   {
     "id": "jfll-1647",
@@ -28531,15 +26809,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2503157.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2503157.0
   },
   {
     "id": "jfll-1649",
@@ -28552,15 +26829,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2517400.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2517400.0
   },
   {
     "id": "jfll-1651",
@@ -28573,36 +26849,34 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Hemal Bhayani",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2525412.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2525412.0
   },
   {
     "id": "jfll-1652",
     "fullName": "KATHIJA IMPEX",
     "territory": "All Territories",
     "contactPersonName": "Muniaraj",
-    "mobileNumber": "+91-7401999666",
+    "mobileNumber": null,
     "email": "mkvseafoods@gmail.com",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "A L Aruldass",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2530414.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2530414.0
   },
   {
     "id": "jfll-1654",
@@ -28618,12 +26892,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHASHIKANT YADAV",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2541672.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2541672.0
   },
   {
     "id": "jfll-1655",
@@ -28639,12 +26912,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2543565.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2543565.0
   },
   {
     "id": "jfll-1656",
@@ -28657,15 +26929,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2545907.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2545907.0
   },
   {
     "id": "jfll-1657",
@@ -28681,12 +26952,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2547882.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2547882.0
   },
   {
     "id": "jfll-1658",
@@ -28702,33 +26972,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2566531.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2566531.0
   },
   {
     "id": "jfll-1659",
     "fullName": "SR MULTI TRADE",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9422243044",
-    "email": "ranjansrudrawar@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2567827.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2567827.0
   },
   {
     "id": "jfll-1660",
@@ -28744,12 +27012,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2576549.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2576549.0
   },
   {
     "id": "jfll-1661",
@@ -28765,12 +27032,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2584858.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2584858.0
   },
   {
     "id": "jfll-1663",
@@ -28786,12 +27052,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2608761.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2608761.0
   },
   {
     "id": "jfll-1665",
@@ -28807,12 +27072,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2623085.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2623085.0
   },
   {
     "id": "jfll-1668",
@@ -28825,15 +27089,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2654166.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2654166.0
   },
   {
     "id": "jfll-1669",
@@ -28846,15 +27109,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2658391.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2658391.0
   },
   {
     "id": "jfll-1670",
@@ -28870,12 +27132,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2670200.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2670200.0
   },
   {
     "id": "jfll-1671",
@@ -28891,12 +27152,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2673872.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2673872.0
   },
   {
     "id": "jfll-1672",
@@ -28912,12 +27172,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2700018.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2700018.0
   },
   {
     "id": "jfll-1676",
@@ -28933,12 +27192,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2740104.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2740104.0
   },
   {
     "id": "jfll-1677",
@@ -28954,12 +27212,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2743778.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2743778.0
   },
   {
     "id": "jfll-1678",
@@ -28972,15 +27229,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2752230.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2752230.0
   },
   {
     "id": "jfll-1680",
@@ -28996,12 +27252,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2778427.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2778427.0
   },
   {
     "id": "jfll-1681",
@@ -29017,12 +27272,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2797190.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2797190.0
   },
   {
     "id": "jfll-1683",
@@ -29038,12 +27292,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2803652.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2803652.0
   },
   {
     "id": "jfll-1684",
@@ -29059,33 +27312,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2828688.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2828688.0
   },
   {
     "id": "jfll-1685",
     "fullName": "LARSEN & TOUBRO LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2267051049",
-    "email": "gaitonde@intenc.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Vinay Nilkanth",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2828716.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2828716.0
   },
   {
     "id": "jfll-1686",
@@ -29101,12 +27352,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "KAPIL GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2829271.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2829271.0
   },
   {
     "id": "jfll-1687",
@@ -29122,12 +27372,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2830170.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2830170.0
   },
   {
     "id": "jfll-1688",
@@ -29143,12 +27392,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Shrivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2831453.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2831453.0
   },
   {
     "id": "jfll-1689",
@@ -29164,12 +27412,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ratan Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2833774.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2833774.0
   },
   {
     "id": "jfll-1690",
@@ -29185,12 +27432,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "high_risk",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2839471.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2839471.0
   },
   {
     "id": "jfll-1692",
@@ -29206,12 +27452,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2847018.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2847018.0
   },
   {
     "id": "jfll-1693",
@@ -29227,12 +27472,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2855555.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2855555.0
   },
   {
     "id": "jfll-1696",
@@ -29248,12 +27492,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2893500.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2893500.0
   },
   {
     "id": "jfll-1697",
@@ -29269,12 +27512,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2896977.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2896977.0
   },
   {
     "id": "jfll-1698",
@@ -29287,15 +27529,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2910546.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2910546.0
   },
   {
     "id": "jfll-1699",
@@ -29308,15 +27549,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2920542.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2920542.0
   },
   {
     "id": "jfll-1700",
@@ -29332,12 +27572,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 2921902.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 2921902.0
   },
   {
     "id": "jfll-1708",
@@ -29353,12 +27592,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3048607.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3048607.0
   },
   {
     "id": "jfll-1713",
@@ -29374,12 +27612,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3083335.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3083335.0
   },
   {
     "id": "jfll-1714",
@@ -29395,12 +27632,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3090243.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3090243.0
   },
   {
     "id": "jfll-1717",
@@ -29408,20 +27644,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": "Meet",
     "mobileNumber": "+91-7069600018",
-    "email": "rajkot@chetandethariya.com",
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "LLP",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Abhishek Agarwal",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3108724.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3108724.0
   },
   {
     "id": "jfll-1719",
@@ -29434,15 +27669,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3121468.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3121468.0
   },
   {
     "id": "jfll-1722",
@@ -29458,12 +27692,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3154539.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3154539.0
   },
   {
     "id": "jfll-1724",
@@ -29479,12 +27712,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3180925.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3180925.0
   },
   {
     "id": "jfll-1730",
@@ -29500,12 +27732,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3259070.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3259070.0
   },
   {
     "id": "jfll-1734",
@@ -29521,12 +27752,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3318811.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3318811.0
   },
   {
     "id": "jfll-1737",
@@ -29542,12 +27772,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3328092.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3328092.0
   },
   {
     "id": "jfll-1738",
@@ -29563,12 +27792,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3329420.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3329420.0
   },
   {
     "id": "jfll-1739",
@@ -29584,12 +27812,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3345475.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3345475.0
   },
   {
     "id": "jfll-1740",
@@ -29602,15 +27829,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3384095.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3384095.0
   },
   {
     "id": "jfll-1742",
@@ -29626,12 +27852,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3405024.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3405024.0
   },
   {
     "id": "jfll-1743",
@@ -29644,15 +27869,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3418856.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3418856.0
   },
   {
     "id": "jfll-1745",
@@ -29668,12 +27892,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3432522.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3432522.0
   },
   {
     "id": "jfll-1746",
@@ -29689,12 +27912,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rafiq Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3435856.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3435856.0
   },
   {
     "id": "jfll-1747",
@@ -29710,12 +27932,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3439509.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3439509.0
   },
   {
     "id": "jfll-1748",
@@ -29731,12 +27952,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3492639.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3492639.0
   },
   {
     "id": "jfll-1749",
@@ -29749,15 +27969,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3506204.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3506204.0
   },
   {
     "id": "jfll-1753",
@@ -29773,12 +27992,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3520060.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3520060.0
   },
   {
     "id": "jfll-1755",
@@ -29794,12 +28012,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Vinay Nilkanth",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3544790.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3544790.0
   },
   {
     "id": "jfll-1756",
@@ -29815,12 +28032,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3559798.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3559798.0
   },
   {
     "id": "jfll-1758",
@@ -29836,12 +28052,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3568867.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3568867.0
   },
   {
     "id": "jfll-1760",
@@ -29857,12 +28072,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rushabh Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3607149.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3607149.0
   },
   {
     "id": "jfll-1762",
@@ -29878,12 +28092,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3634758.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3634758.0
   },
   {
     "id": "jfll-1764",
@@ -29896,15 +28109,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3672132.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3672132.0
   },
   {
     "id": "jfll-1765",
@@ -29920,12 +28132,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3697392.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3697392.0
   },
   {
     "id": "jfll-1766",
@@ -29938,15 +28149,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3698617.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3698617.0
   },
   {
     "id": "jfll-1768",
@@ -29962,12 +28172,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3728666.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3728666.0
   },
   {
     "id": "jfll-1769",
@@ -29983,12 +28192,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3734532.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3734532.0
   },
   {
     "id": "jfll-1770",
@@ -30004,12 +28212,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3748719.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3748719.0
   },
   {
     "id": "jfll-1774",
@@ -30022,15 +28229,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3801256.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3801256.0
   },
   {
     "id": "jfll-1775",
@@ -30046,12 +28252,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3819934.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3819934.0
   },
   {
     "id": "jfll-1776",
@@ -30067,12 +28272,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3832357.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3832357.0
   },
   {
     "id": "jfll-1777",
@@ -30085,15 +28289,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3835284.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3835284.0
   },
   {
     "id": "jfll-1779",
@@ -30109,12 +28312,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Shrivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3868582.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3868582.0
   },
   {
     "id": "jfll-1780",
@@ -30130,12 +28332,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3896107.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3896107.0
   },
   {
     "id": "jfll-1782",
@@ -30151,33 +28352,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3951920.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3951920.0
   },
   {
     "id": "jfll-1783",
     "fullName": "KRISULA GLOBEXIM PVT LTD",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-8655560033",
-    "email": "krisulaglobexim@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3952516.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3952516.0
   },
   {
     "id": "jfll-1784",
@@ -30193,12 +28392,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3953375.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3953375.0
   },
   {
     "id": "jfll-1785",
@@ -30214,12 +28412,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 3956560.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 3956560.0
   },
   {
     "id": "jfll-1788",
@@ -30235,12 +28432,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sheela Dashauni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4018635.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4018635.0
   },
   {
     "id": "jfll-1789",
@@ -30256,12 +28452,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4037903.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4037903.0
   },
   {
     "id": "jfll-1790",
@@ -30277,12 +28472,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ankit Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4049063.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4049063.0
   },
   {
     "id": "jfll-1791",
@@ -30298,12 +28492,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4050129.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4050129.0
   },
   {
     "id": "jfll-1793",
@@ -30319,12 +28512,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rafiq Shaikh",
-    "totalBusinessTillDate": 4079530.0,
-    "parentId": "jfll-1793",
-    "parentName": "MOL LOGISTICS (INDIA) PRIVATE LIMITED",
-    "groupTotalBusiness": 4123598.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0262",
+        "fullName": "MOL LOGISTICS INDIA PVT LTD",
+        "salesPerson": "Rafiq Shaikh",
+        "totalBusiness": 44068.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 4123598.0,
+    "groupTotalBusiness": 4123598.0
   },
   {
     "id": "jfll-1795",
@@ -30340,12 +28540,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4091740.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4091740.0
   },
   {
     "id": "jfll-1796",
@@ -30361,12 +28560,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4119953.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4119953.0
   },
   {
     "id": "jfll-1797",
@@ -30382,12 +28580,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4164281.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4164281.0
   },
   {
     "id": "jfll-1798",
@@ -30403,12 +28600,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "RANJEET KUMAR",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4168934.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4168934.0
   },
   {
     "id": "jfll-1801",
@@ -30424,12 +28620,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4197174.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4197174.0
   },
   {
     "id": "jfll-1802",
@@ -30445,12 +28640,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rahul Vasawa",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4211404.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4211404.0
   },
   {
     "id": "jfll-1803",
@@ -30466,12 +28660,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4211835.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4211835.0
   },
   {
     "id": "jfll-1804",
@@ -30487,12 +28680,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4227653.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4227653.0
   },
   {
     "id": "jfll-1805",
@@ -30508,12 +28700,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4230154.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4230154.0
   },
   {
     "id": "jfll-1806",
@@ -30529,12 +28720,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4238678.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4238678.0
   },
   {
     "id": "jfll-1809",
@@ -30550,12 +28740,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4297855.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4297855.0
   },
   {
     "id": "jfll-1810",
@@ -30571,12 +28760,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4323466.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4323466.0
   },
   {
     "id": "jfll-1812",
@@ -30592,12 +28780,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4383130.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4383130.0
   },
   {
     "id": "jfll-1816",
@@ -30610,15 +28797,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4442521.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4442521.0
   },
   {
     "id": "jfll-1817",
@@ -30634,12 +28820,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4456359.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4456359.0
   },
   {
     "id": "jfll-1820",
@@ -30655,12 +28840,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4462041.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4462041.0
   },
   {
     "id": "jfll-1821",
@@ -30676,12 +28860,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4477599.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4477599.0
   },
   {
     "id": "jfll-1822",
@@ -30697,12 +28880,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anil Kotnala",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4483202.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4483202.0
   },
   {
     "id": "jfll-1824",
@@ -30715,15 +28897,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4549139.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4549139.0
   },
   {
     "id": "jfll-1825",
@@ -30739,12 +28920,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4554907.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4554907.0
   },
   {
     "id": "jfll-1826",
@@ -30760,12 +28940,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4580491.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4580491.0
   },
   {
     "id": "jfll-1833",
@@ -30778,15 +28957,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4682578.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4682578.0
   },
   {
     "id": "jfll-1836",
@@ -30799,15 +28977,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4742629.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4742629.0
   },
   {
     "id": "jfll-1837",
@@ -30823,12 +29000,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4775065.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4775065.0
   },
   {
     "id": "jfll-1838",
@@ -30844,12 +29020,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4791687.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4791687.0
   },
   {
     "id": "jfll-1839",
@@ -30865,12 +29040,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4796152.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4796152.0
   },
   {
     "id": "jfll-1842",
@@ -30886,12 +29060,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4846960.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4846960.0
   },
   {
     "id": "jfll-1843",
@@ -30907,12 +29080,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4850177.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4850177.0
   },
   {
     "id": "jfll-1845",
@@ -30928,12 +29100,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4882747.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4882747.0
   },
   {
     "id": "jfll-1847",
@@ -30946,15 +29117,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 4906652.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 4906652.0
   },
   {
     "id": "jfll-1853",
@@ -30970,12 +29140,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5074760.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5074760.0
   },
   {
     "id": "jfll-1856",
@@ -30991,12 +29160,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5101946.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5101946.0
   },
   {
     "id": "jfll-1857",
@@ -31012,12 +29180,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5106764.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5106764.0
   },
   {
     "id": "jfll-1859",
@@ -31033,12 +29200,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Hyderabad",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5137481.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5137481.0
   },
   {
     "id": "jfll-1860",
@@ -31051,15 +29217,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Maqbool",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5149077.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5149077.0
   },
   {
     "id": "jfll-1861",
@@ -31072,15 +29237,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5149130.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5149130.0
   },
   {
     "id": "jfll-1863",
@@ -31096,12 +29260,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5234376.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5234376.0
   },
   {
     "id": "jfll-1864",
@@ -31117,12 +29280,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5264271.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5264271.0
   },
   {
     "id": "jfll-1865",
@@ -31138,12 +29300,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5275024.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5275024.0
   },
   {
     "id": "jfll-1868",
@@ -31159,12 +29320,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5363233.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5363233.0
   },
   {
     "id": "jfll-1871",
@@ -31180,12 +29340,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHASHIKANT YADAV",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5523492.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5523492.0
   },
   {
     "id": "jfll-1872",
@@ -31198,15 +29357,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5551765.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5551765.0
   },
   {
     "id": "jfll-1874",
@@ -31222,33 +29380,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Anup P",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5647703.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-1877",
-    "fullName": "SKY CONNECT LOGISTICS",
-    "territory": "All Territories",
-    "contactPersonName": "Bhagesh Palekar",
-    "mobileNumber": "+91-7208666397",
-    "email": "sales@skyconnectlogistics.com",
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Company",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Rafiq Shaikh",
-    "totalBusinessTillDate": 5712414.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5647703.0
   },
   {
     "id": "jfll-1881",
@@ -31264,12 +29400,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jet Clearing",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5842251.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5842251.0
   },
   {
     "id": "jfll-1883",
@@ -31282,15 +29417,22 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
-    "totalBusinessTillDate": 5858481.0,
-    "parentId": "jfll-1883",
-    "parentName": "GNG ELECTRONICS LIMITED.",
-    "groupTotalBusiness": 6819815.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-1305",
+        "fullName": "GNG ELECTRONICS PRIVATE LIMITED",
+        "salesPerson": "Sweety Soni",
+        "totalBusiness": 961334.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 6819815.0,
+    "groupTotalBusiness": 6819815.0
   },
   {
     "id": "jfll-1885",
@@ -31306,12 +29448,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5888712.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5888712.0
   },
   {
     "id": "jfll-1886",
@@ -31327,12 +29468,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5900920.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5900920.0
   },
   {
     "id": "jfll-1889",
@@ -31348,12 +29488,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5935157.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5935157.0
   },
   {
     "id": "jfll-1890",
@@ -31366,15 +29505,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 5949828.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 5949828.0
   },
   {
     "id": "jfll-1892",
@@ -31390,12 +29528,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
-    "totalBusinessTillDate": 6047669.0,
-    "parentId": "jfll-1892",
-    "parentName": "INTERJAS LOGISTICS PVT LTD",
-    "groupTotalBusiness": 6306775.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0780",
+        "fullName": "INTERJAS LOGISTICS LIMITED",
+        "salesPerson": "Narendra Gupta",
+        "totalBusiness": 259106.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 6306775.0,
+    "groupTotalBusiness": 6306775.0
   },
   {
     "id": "jfll-1894",
@@ -31408,15 +29553,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6071728.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6071728.0
   },
   {
     "id": "jfll-1896",
@@ -31432,12 +29576,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "VIMAL JHA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6105524.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6105524.0
   },
   {
     "id": "jfll-1897",
@@ -31450,15 +29593,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith K",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6137829.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6137829.0
   },
   {
     "id": "jfll-1899",
@@ -31471,15 +29613,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6157128.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6157128.0
   },
   {
     "id": "jfll-1900",
@@ -31495,12 +29636,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6158381.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6158381.0
   },
   {
     "id": "jfll-1902",
@@ -31516,12 +29656,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "SHASHIKANT YADAV",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6184793.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6184793.0
   },
   {
     "id": "jfll-1903",
@@ -31537,12 +29676,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6227421.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6227421.0
   },
   {
     "id": "jfll-1906",
@@ -31558,12 +29696,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sitesh Singh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6342849.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6342849.0
   },
   {
     "id": "jfll-1908",
@@ -31579,12 +29716,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6550076.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6550076.0
   },
   {
     "id": "jfll-1909",
@@ -31597,15 +29733,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Subagent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6573442.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6573442.0
   },
   {
     "id": "jfll-1910",
@@ -31621,12 +29756,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "moderate_risk",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6575132.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6575132.0
   },
   {
     "id": "jfll-1912",
@@ -31639,15 +29773,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6587044.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6587044.0
   },
   {
     "id": "jfll-1913",
@@ -31663,12 +29796,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6617194.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6617194.0
   },
   {
     "id": "jfll-1916",
@@ -31684,12 +29816,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6709723.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6709723.0
   },
   {
     "id": "jfll-1918",
@@ -31705,12 +29836,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6738510.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6738510.0
   },
   {
     "id": "jfll-1921",
@@ -31726,12 +29856,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6790514.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6790514.0
   },
   {
     "id": "jfll-1924",
@@ -31747,33 +29876,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6865225.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-1925",
-    "fullName": "VISHAL SHIPPING AGENCIES PVT LTD",
-    "territory": "All Territories",
-    "contactPersonName": "Ms. Nutan  Ganatra",
-    "mobileNumber": "+91-9930363501",
-    "email": "admin@vishalshipping.com",
-    "status": "Not Active",
-    "customerGroup": "Subagent",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Jayesh Joshi",
-    "totalBusinessTillDate": 6904182.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6865225.0
   },
   {
     "id": "jfll-1926",
@@ -31789,12 +29896,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 6918906.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 6918906.0
   },
   {
     "id": "jfll-1930",
@@ -31810,12 +29916,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7098773.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7098773.0
   },
   {
     "id": "jfll-1931",
@@ -31828,15 +29933,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7217469.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7217469.0
   },
   {
     "id": "jfll-1932",
@@ -31849,15 +29953,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7218589.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7218589.0
   },
   {
     "id": "jfll-1933",
@@ -31873,12 +29976,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7284947.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7284947.0
   },
   {
     "id": "jfll-1934",
@@ -31894,12 +29996,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7319086.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7319086.0
   },
   {
     "id": "jfll-1940",
@@ -31915,12 +30016,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mukesh Patel",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7578977.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7578977.0
   },
   {
     "id": "jfll-1942",
@@ -31936,12 +30036,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7625383.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7625383.0
   },
   {
     "id": "jfll-1944",
@@ -31957,12 +30056,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7665377.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7665377.0
   },
   {
     "id": "jfll-1945",
@@ -31978,12 +30076,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7719200.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7719200.0
   },
   {
     "id": "jfll-1947",
@@ -31996,15 +30093,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7760613.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7760613.0
   },
   {
     "id": "jfll-1952",
@@ -32020,12 +30116,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7949718.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7949718.0
   },
   {
     "id": "jfll-1953",
@@ -32033,7 +30128,7 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "territory": "All Territories",
     "contactPersonName": "BHAGESH  PALEKAR",
     "mobileNumber": "+91-7208666397",
-    "email": "ops@borjanlogistics.com",
+    "email": "sales@skyconnectlogistics.com, ops@borjanlogistics.com",
     "status": "Not Active",
     "customerGroup": "Subagent",
     "type": "Company",
@@ -32041,12 +30136,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rafiq Shaikh",
-    "totalBusinessTillDate": 7971128.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-1877",
+        "fullName": "SKY CONNECT LOGISTICS",
+        "salesPerson": "Rafiq Shaikh",
+        "totalBusiness": 5712414.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 13683542.0,
+    "groupTotalBusiness": 13683542.0
   },
   {
     "id": "jfll-1954",
@@ -32062,12 +30164,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 7993216.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 7993216.0
   },
   {
     "id": "jfll-1955",
@@ -32083,12 +30184,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8002794.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8002794.0
   },
   {
     "id": "jfll-1956",
@@ -32104,12 +30204,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHASHIKANT YADAV",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8016148.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8016148.0
   },
   {
     "id": "jfll-1957",
@@ -32122,15 +30221,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8031435.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8031435.0
   },
   {
     "id": "jfll-1958",
@@ -32146,12 +30244,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8063648.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8063648.0
   },
   {
     "id": "jfll-1959",
@@ -32167,33 +30264,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8107360.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8107360.0
   },
   {
     "id": "jfll-1963",
     "fullName": "JGB AGROFRESH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9433372210",
-    "email": "info@jgbagrofresh.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "ANCHITA MONI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8293251.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8293251.0
   },
   {
     "id": "jfll-1967",
@@ -32209,12 +30304,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8411252.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8411252.0
   },
   {
     "id": "jfll-1971",
@@ -32230,12 +30324,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "UJJAL SANTRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8593039.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8593039.0
   },
   {
     "id": "jfll-1974",
@@ -32251,12 +30344,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shivam Chauhan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8684398.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8684398.0
   },
   {
     "id": "jfll-1977",
@@ -32272,12 +30364,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8806049.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8806049.0
   },
   {
     "id": "jfll-1979",
@@ -32293,12 +30384,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sudhir Sharma",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 8938125.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 8938125.0
   },
   {
     "id": "jfll-1982",
@@ -32314,12 +30404,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Narendra Gupta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9069294.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9069294.0
   },
   {
     "id": "jfll-1985",
@@ -32335,12 +30424,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9243459.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9243459.0
   },
   {
     "id": "jfll-1986",
@@ -32356,12 +30444,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Sardesai",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9270043.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9270043.0
   },
   {
     "id": "jfll-1988",
@@ -32377,12 +30464,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Samuel Prabhu",
-    "totalBusinessTillDate": 9322804.0,
-    "parentId": "jfll-1988",
-    "parentName": "VELOGIC INDIA PRIVATE LIMITED",
-    "groupTotalBusiness": 10307388.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": "Swapnil Mukherjee",
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-1315",
+        "fullName": "VELOGIC INDIA PRIVATE LIMITED (BOM)",
+        "salesPerson": "Swapnil Mukherjee",
+        "totalBusiness": 984584.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 10307388.0,
+    "groupTotalBusiness": 10307388.0
   },
   {
     "id": "jfll-1989",
@@ -32398,12 +30492,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9325638.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9325638.0
   },
   {
     "id": "jfll-1993",
@@ -32419,12 +30512,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9509106.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9509106.0
   },
   {
     "id": "jfll-1994",
@@ -32440,12 +30532,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Joe Xavier",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9513286.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9513286.0
   },
   {
     "id": "jfll-1995",
@@ -32461,12 +30552,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9696838.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9696838.0
   },
   {
     "id": "jfll-1997",
@@ -32482,12 +30572,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9933974.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9933974.0
   },
   {
     "id": "jfll-1999",
@@ -32500,15 +30589,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9957109.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9957109.0
   },
   {
     "id": "jfll-2000",
@@ -32521,15 +30609,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 9966889.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 9966889.0
   },
   {
     "id": "jfll-2002",
@@ -32545,12 +30632,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10011519.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10011519.0
   },
   {
     "id": "jfll-2004",
@@ -32566,12 +30652,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10140073.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10140073.0
   },
   {
     "id": "jfll-2005",
@@ -32587,12 +30672,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10155519.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10155519.0
   },
   {
     "id": "jfll-2007",
@@ -32608,12 +30692,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Jet Clearing",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10208113.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10208113.0
   },
   {
     "id": "jfll-2013",
@@ -32629,12 +30712,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10385589.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10385589.0
   },
   {
     "id": "jfll-2015",
@@ -32650,12 +30732,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10432174.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10432174.0
   },
   {
     "id": "jfll-2016",
@@ -32671,12 +30752,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10507663.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10507663.0
   },
   {
     "id": "jfll-2017",
@@ -32689,15 +30769,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Priyanka Gawali",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10612718.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10612718.0
   },
   {
     "id": "jfll-2021",
@@ -32713,12 +30792,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 10992592.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 10992592.0
   },
   {
     "id": "jfll-2027",
@@ -32734,12 +30812,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11524858.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 11524858.0
   },
   {
     "id": "jfll-2028",
@@ -32752,15 +30829,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11692109.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 11692109.0
   },
   {
     "id": "jfll-2029",
@@ -32776,12 +30852,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11717129.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 11717129.0
   },
   {
     "id": "jfll-2031",
@@ -32797,12 +30872,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 11965469.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 11965469.0
   },
   {
     "id": "jfll-2033",
@@ -32818,12 +30892,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Udit Sharda",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12083359.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12083359.0
   },
   {
     "id": "jfll-2035",
@@ -32839,12 +30912,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12391126.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12391126.0
   },
   {
     "id": "jfll-2036",
@@ -32860,12 +30932,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12393154.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12393154.0
   },
   {
     "id": "jfll-2038",
@@ -32881,33 +30952,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12669097.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12669097.0
   },
   {
     "id": "jfll-2039",
     "fullName": "ULINK AGRITECH PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": "ULINK AGRITECH PRIVATE LIMITED",
-    "mobileNumber": "+91-2223666930",
+    "mobileNumber": null,
     "email": "accountspayable@inifarms.com",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12873533.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12873533.0
   },
   {
     "id": "jfll-2041",
@@ -32920,15 +30989,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12936215.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12936215.0
   },
   {
     "id": "jfll-2042",
@@ -32944,12 +31012,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 12975885.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 12975885.0
   },
   {
     "id": "jfll-2045",
@@ -32962,36 +31029,34 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13436862.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13436862.0
   },
   {
     "id": "jfll-2046",
     "fullName": "AL.SALAM EXPORT & IMPORT",
     "territory": "All Territories",
     "contactPersonName": "A ABDULSALAM",
-    "mobileNumber": "+91-4326275599",
+    "mobileNumber": null,
     "email": "alsalamexports2005@gamil.com",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13532775.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13532775.0
   },
   {
     "id": "jfll-2049",
@@ -33007,12 +31072,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "A L Aruldass",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13658942.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13658942.0
   },
   {
     "id": "jfll-2051",
@@ -33028,12 +31092,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13781258.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13781258.0
   },
   {
     "id": "jfll-2054",
@@ -33049,12 +31112,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Anju Srivastava",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13965765.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13965765.0
   },
   {
     "id": "jfll-2055",
@@ -33070,12 +31132,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Harvind Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 13992944.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 13992944.0
   },
   {
     "id": "jfll-2057",
@@ -33091,12 +31152,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14252444.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14252444.0
   },
   {
     "id": "jfll-2058",
@@ -33112,12 +31172,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 14382148.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 14382148.0
   },
   {
     "id": "jfll-2065",
@@ -33130,15 +31189,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 15116107.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 15116107.0
   },
   {
     "id": "jfll-2070",
@@ -33154,12 +31212,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 15945306.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 15945306.0
   },
   {
     "id": "jfll-2074",
@@ -33175,12 +31232,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 16619324.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 16619324.0
   },
   {
     "id": "jfll-2075",
@@ -33193,15 +31249,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 16693751.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 16693751.0
   },
   {
     "id": "jfll-2076",
@@ -33217,12 +31272,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 16962986.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 16962986.0
   },
   {
     "id": "jfll-2079",
@@ -33238,12 +31292,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17484465.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17484465.0
   },
   {
     "id": "jfll-2083",
@@ -33259,12 +31312,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 17766583.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 17766583.0
   },
   {
     "id": "jfll-2091",
@@ -33280,12 +31332,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18382372.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18382372.0
   },
   {
     "id": "jfll-2092",
@@ -33301,12 +31352,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Richard Theknath",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18423311.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18423311.0
   },
   {
     "id": "jfll-2094",
@@ -33319,15 +31369,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 18741918.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 18741918.0
   },
   {
     "id": "jfll-2096",
@@ -33343,12 +31392,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 19023520.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 19023520.0
   },
   {
     "id": "jfll-2098",
@@ -33364,12 +31412,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "PARVESH GUPTA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 19613016.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 19613016.0
   },
   {
     "id": "jfll-2101",
@@ -33385,12 +31432,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 19873016.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 19873016.0
   },
   {
     "id": "jfll-2103",
@@ -33406,12 +31452,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 20883664.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 20883664.0
   },
   {
     "id": "jfll-2107",
@@ -33427,12 +31472,19 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": null,
-    "totalBusinessTillDate": 22005120.0,
-    "parentId": "jfll-2107",
-    "parentName": "JET LOGISTIX (OPC) PRIVATE LIMITED (MUM)",
-    "groupTotalBusiness": 22327260.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": null,
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0876",
+        "fullName": "JET LOGISTIX (OPC) PVT. LTD. (OTHERS)",
+        "salesPerson": null,
+        "totalBusiness": 322140.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 22327260.0,
+    "groupTotalBusiness": 22327260.0
   },
   {
     "id": "jfll-2109",
@@ -33448,12 +31500,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Edward Dsouza",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 22439811.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 22439811.0
   },
   {
     "id": "jfll-2110",
@@ -33466,15 +31517,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shabeer A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 22698522.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 22698522.0
   },
   {
     "id": "jfll-2113",
@@ -33487,15 +31537,22 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Irfan Shaikh",
-    "totalBusinessTillDate": 23141004.0,
-    "parentId": "jfll-2113",
-    "parentName": "CHAND EXPORTS",
-    "groupTotalBusiness": 23224491.0,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "coReps": "Venkata Ganesh",
+    "mergedCount": 2,
+    "mergedAliases": [
+      {
+        "id": "jfll-0416",
+        "fullName": "CHAND EXPORTS (DOMESTICS)",
+        "salesPerson": "Venkata Ganesh",
+        "totalBusiness": 83487.0,
+        "status": "Not Active"
+      }
+    ],
+    "totalBusinessTillDate": 23224491.0,
+    "groupTotalBusiness": 23224491.0
   },
   {
     "id": "jfll-2114",
@@ -33508,15 +31565,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Overseas Agent",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 23597370.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 23597370.0
   },
   {
     "id": "jfll-2115",
@@ -33532,33 +31588,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 23668377.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 23668377.0
   },
   {
     "id": "jfll-2117",
     "fullName": "RAINBOW INTERNATIONAL",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2024213093",
-    "email": "abhi_cpu@yahoo.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Overseas Agent",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 24215257.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 24215257.0
   },
   {
     "id": "jfll-2118",
@@ -33571,15 +31625,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Public Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Tasneem Haji",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 24299753.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 24299753.0
   },
   {
     "id": "jfll-2119",
@@ -33592,15 +31645,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 25025434.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 25025434.0
   },
   {
     "id": "jfll-2123",
@@ -33616,12 +31668,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 25367097.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 25367097.0
   },
   {
     "id": "jfll-2124",
@@ -33637,12 +31688,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "SHAHID ALI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 25645485.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 25645485.0
   },
   {
     "id": "jfll-2127",
@@ -33658,12 +31708,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Samuel Prabhu",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 26339030.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 26339030.0
   },
   {
     "id": "jfll-2128",
@@ -33679,12 +31728,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 26430404.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 26430404.0
   },
   {
     "id": "jfll-2129",
@@ -33700,33 +31748,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "VISHAL LACHHIRAMANI",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 26727358.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 26727358.0
   },
   {
     "id": "jfll-2130",
     "fullName": "CARITAS HEALTHCARE PVT LTD",
     "territory": "All Territories",
     "contactPersonName": "CARITAS",
-    "mobileNumber": "+91-7926932257",
+    "mobileNumber": null,
     "email": "finance@caritashealthcare.in",
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 26833908.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 26833908.0
   },
   {
     "id": "jfll-2131",
@@ -33742,12 +31788,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 26875695.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 26875695.0
   },
   {
     "id": "jfll-2132",
@@ -33763,12 +31808,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Fasaludheen C A",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27643918.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27643918.0
   },
   {
     "id": "jfll-2133",
@@ -33784,33 +31828,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27977727.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27977727.0
   },
   {
     "id": "jfll-2134",
     "fullName": "RAY SUN TECHNOLOGIES",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-2024213093",
-    "email": "raysuntech@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 27979982.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 27979982.0
   },
   {
     "id": "jfll-2139",
@@ -33823,15 +31865,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 29878380.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 29878380.0
   },
   {
     "id": "jfll-2142",
@@ -33847,12 +31888,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 30418016.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 30418016.0
   },
   {
     "id": "jfll-2144",
@@ -33868,12 +31908,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 30760439.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 30760439.0
   },
   {
     "id": "jfll-2148",
@@ -33889,12 +31928,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 32156928.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 32156928.0
   },
   {
     "id": "jfll-2149",
@@ -33910,12 +31948,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 32520160.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 32520160.0
   },
   {
     "id": "jfll-2150",
@@ -33931,33 +31968,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Parag Mehta",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 32734681.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
-  },
-  {
-    "id": "jfll-2155",
-    "fullName": "ALLANASONS PRIVATE LIMITED (DELHI)",
-    "territory": "All Territories",
-    "contactPersonName": null,
-    "mobileNumber": null,
-    "email": null,
-    "status": "Not Active",
-    "customerGroup": "Shipper / Consignee",
-    "type": "Private Limited",
-    "saved": false,
-    "inDataMyne": false,
-    "creditStatus": "approved",
-    "salesPerson": "Mohnish Arora",
-    "totalBusinessTillDate": 34814117.0,
-    "parentId": "jfll-2220",
-    "parentName": "ALLANASONS PRIVATE LIMITED",
-    "groupTotalBusiness": 359430358.0,
-    "isBranchAlias": true,
-    "branchAliasTag": "Delhi Branch"
+    "groupTotalBusiness": 32734681.0
   },
   {
     "id": "jfll-2158",
@@ -33973,12 +31988,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Moeen Khan",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 38586453.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 38586453.0
   },
   {
     "id": "jfll-2159",
@@ -33994,12 +32008,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "no_credit",
     "salesPerson": "Rohit Sethi",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 39407854.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 39407854.0
   },
   {
     "id": "jfll-2163",
@@ -34015,33 +32028,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Corporate Hyderabad",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 39809597.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 39809597.0
   },
   {
     "id": "jfll-2164",
     "fullName": "RUSHIKA FOOD PRODUCTS PRIVATE LIMITED",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-9898033364",
-    "email": "ankit2103@gmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Private Limited",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sanjay Rajpurohit",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 40877864.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 40877864.0
   },
   {
     "id": "jfll-2168",
@@ -34054,15 +32065,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 42979826.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 42979826.0
   },
   {
     "id": "jfll-2171",
@@ -34078,12 +32088,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "TANMOY DAS",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 45724194.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 45724194.0
   },
   {
     "id": "jfll-2173",
@@ -34099,12 +32108,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Mohnish Arora",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 46337011.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 46337011.0
   },
   {
     "id": "jfll-2176",
@@ -34117,15 +32125,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 49751437.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 49751437.0
   },
   {
     "id": "jfll-2182",
@@ -34138,15 +32145,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 54629390.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 54629390.0
   },
   {
     "id": "jfll-2184",
@@ -34162,12 +32168,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 55631829.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 55631829.0
   },
   {
     "id": "jfll-2185",
@@ -34183,12 +32188,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "AKASH MISHRA",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 56536847.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 56536847.0
   },
   {
     "id": "jfll-2187",
@@ -34204,12 +32208,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Shashi Kumar",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 58655620.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 58655620.0
   },
   {
     "id": "jfll-2188",
@@ -34225,12 +32228,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "HETAL SHAH",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 58837998.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 58837998.0
   },
   {
     "id": "jfll-2189",
@@ -34246,12 +32248,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 60281786.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 60281786.0
   },
   {
     "id": "jfll-2192",
@@ -34267,12 +32268,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 62409985.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 62409985.0
   },
   {
     "id": "jfll-2201",
@@ -34288,12 +32288,11 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Jayatheertha L G",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 83620613.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 83620613.0
   },
   {
     "id": "jfll-2205",
@@ -34306,15 +32305,14 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "customerGroup": "Shipper / Consignee",
     "type": "Individual / Proprietorship",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Ranjith Kuniyil",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 99943804.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 99943804.0
   },
   {
     "id": "jfll-2210",
@@ -34330,33 +32328,31 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 166487928.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 166487928.0
   },
   {
     "id": "jfll-2215",
     "fullName": "GURUKRUPA CORPORATION",
     "territory": "All Territories",
     "contactPersonName": null,
-    "mobileNumber": "+91-8108498444",
-    "email": "ma.havir@rediffmail.com",
+    "mobileNumber": null,
+    "email": null,
     "status": "Not Active",
     "customerGroup": "Shipper / Consignee",
     "type": "Company",
     "saved": false,
-    "inDataMyne": true,
+    "inDataMyne": false,
     "creditStatus": "approved",
     "salesPerson": "Irfan Shaikh",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 218961865.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 218961865.0
   },
   {
     "id": "jfll-2219",
@@ -34372,11 +32368,10 @@ export const JFLL_INACTIVE_CUSTOMERS_DATA: JfllCustomer[] = [
     "inDataMyne": false,
     "creditStatus": "blocked",
     "salesPerson": "Sweety Soni",
+    "coReps": null,
+    "mergedCount": 1,
+    "mergedAliases": null,
     "totalBusinessTillDate": 317171560.0,
-    "parentId": null,
-    "parentName": null,
-    "groupTotalBusiness": null,
-    "isBranchAlias": false,
-    "branchAliasTag": null
+    "groupTotalBusiness": 317171560.0
   }
 ];
