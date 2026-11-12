@@ -149,3 +149,15 @@ def test_docx_executive_layout_alignment():
     assert "Kunal Shah" in kunal_cell.text
     assert any(run.bold for run in kunal_cell.paragraphs[0].runs)
 
+
+def test_docx_generator_omits_zero_shipment_metrics_badge():
+    report = _create_sample_report_for_docx()
+    report.section_2_trade_lane.total_shipments = 0
+    report.section_2_trade_lane.total_value_usd = 0.0
+
+    stream = generate_docx_stream(report)
+    doc = docx.Document(stream)
+    doc_text = " ".join(p.text for p in doc.paragraphs) + " " + " ".join(c.text for t in doc.tables for r in t.rows for c in r.cells)
+    assert "0 shipments · $0.00 USD" not in doc_text
+
+

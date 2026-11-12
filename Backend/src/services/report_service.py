@@ -264,6 +264,7 @@ def _build_unlisted_sme_report(
         ),
         section_1_background=CompanyBackground(
             what_they_do="Commercial exporter / merchant trader of general commodities and industrial goods",
+            address="Mumbai Metropolitan Region, Maharashtra, India",
             hq_facilities="Mumbai Metropolitan Region → Gateways: BOM Air / JNPT Sea",
             export_markets="Global emerging and regulated markets",
             scale_credibility="SME Exporter (Customs records unlisted in local primary sample)",
@@ -321,6 +322,13 @@ def _synthesize_company_background(lead: dict[str, Any]) -> CompanyBackground:
     what_they_do = f"Manufacturer-exporter of {subcat} & fine materials{hs_snippet}"
 
     clean_addr = lead["address"].replace("*", " ").strip(", ")
+    addr_tokens = [clean_addr] if clean_addr else []
+    if lead["city"] and (not clean_addr or lead["city"].lower() not in clean_addr.lower()):
+        addr_tokens.append(lead["city"])
+    if lead["pin_code"]:
+        addr_tokens.append(f"PIN: {lead['pin_code']}")
+    full_address = ", ".join(addr_tokens) if addr_tokens else (f"{lead['city']}, India" if lead["city"] else "Registered Corporate Office")
+
     hq_facilities = f"HQ: {lead['city']} · Address: {clean_addr}"
     if lead["pin_code"]:
         hq_facilities += f" (PIN: {lead['pin_code']})"
@@ -338,6 +346,7 @@ def _synthesize_company_background(lead: dict[str, Any]) -> CompanyBackground:
 
     return CompanyBackground(
         what_they_do=what_they_do,
+        address=full_address,
         hq_facilities=hq_facilities,
         export_markets=export_markets,
         scale_credibility=scale_cred,

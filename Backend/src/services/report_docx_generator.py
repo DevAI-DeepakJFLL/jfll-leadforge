@@ -331,6 +331,7 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
         "1 · Company Background",
         [
             ("What they do / product lines", b.what_they_do),
+            ("Corporate / Registered Address", b.address or "Registered Corporate Office"),
             ("HQ & key facilities", b.hq_facilities),
             ("Export markets", b.export_markets),
             ("Scale / credibility", b.scale_credibility),
@@ -339,7 +340,8 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
 
     # 3. Section 2: Trade Lane & Commodity
     t = report.section_2_trade_lane
-    stat_badge = f"{t.total_shipments:,} shipments · ${t.total_value_usd:,.2f} USD"
+    has_metrics = (t.total_shipments or 0) > 0 or (t.total_value_usd or 0) > 0
+    stat_badge = f"{t.total_shipments:,} shipments · ${t.total_value_usd:,.2f} USD" if has_metrics else None
     mode_text = f"{t.primary_mode} · Gateway: {t.lading_port}" if t.lading_port else t.primary_mode
     _add_section_table(
         "2 · Trade Lane & Commodity",

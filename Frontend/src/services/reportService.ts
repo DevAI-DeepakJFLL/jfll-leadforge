@@ -59,6 +59,7 @@ export function createEmptyReportDraft(
     },
     section_1_background: {
       what_they_do: 'Commercial exporter / merchant trader of general commodities and industrial goods',
+      address: 'Mumbai Metropolitan Region, Maharashtra, India',
       hq_facilities: 'Mumbai Metropolitan Region → Gateways: BOM Air / JNPT Sea',
       export_markets: 'Global emerging and regulated markets',
       scale_credibility: 'SME Exporter (Customs records unlisted in local primary sample)',
@@ -105,6 +106,10 @@ export function createEmptyReportDraft(
 export function normalizeReportResponse(report: any): ClientReportData {
   return {
     ...report,
+    section_1_background: {
+      ...report.section_1_background,
+      address: report.section_1_background?.address || '',
+    },
     section_5_feedback: report.section_5_feedback || {
       meeting_takeaways: '',
       preferred_carriers: '',

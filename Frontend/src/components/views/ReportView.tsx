@@ -706,6 +706,13 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 rows={2}
               />
               <ReportFieldRow
+                id="sec1-address"
+                label="Corporate / Registered Address"
+                value={report.section_1_background.address || ''}
+                onChange={(val) => updateSection1('address', val)}
+                rows={2}
+              />
+              <ReportFieldRow
                 id="sec1-hq-facilities"
                 label="HQ & key facilities"
                 value={report.section_1_background.hq_facilities}
@@ -733,9 +740,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
           <section className="mb-8">
             <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider mb-2 flex items-center justify-between">
               <span>2 · Trade Lane & Commodity</span>
-              <div className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                {report.section_2_trade_lane.total_shipments} shipments · ${report.section_2_trade_lane.total_value_usd.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
-              </div>
+              {(report.section_2_trade_lane.total_shipments > 0 || report.section_2_trade_lane.total_value_usd > 0) && (
+                <div className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  {report.section_2_trade_lane.total_shipments} shipments · ${report.section_2_trade_lane.total_value_usd.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
+                </div>
+              )}
             </h2>
             <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
               <ReportFieldRow

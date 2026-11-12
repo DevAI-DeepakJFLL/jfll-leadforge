@@ -15,6 +15,7 @@ export interface ReportHeader {
 
 export interface CompanyBackground {
   what_they_do: string;
+  address?: string;
   hq_facilities: string;
   export_markets: string;
   scale_credibility: string;

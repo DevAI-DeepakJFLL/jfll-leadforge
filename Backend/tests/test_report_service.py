@@ -27,6 +27,7 @@ def test_generate_client_report_megafine():
     # Section 1
     assert "Organic Chemicals & APIs" in report.section_1_background.what_they_do or "29420090" in report.section_1_background.what_they_do
     assert "MUMBAI" in report.section_1_background.hq_facilities
+    assert "SETHNA BUILDING" in report.section_1_background.address or "MUMBAI" in report.section_1_background.address
     
     # Section 2
     assert report.section_2_trade_lane.total_shipments == 237

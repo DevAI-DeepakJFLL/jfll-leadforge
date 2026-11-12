@@ -31,6 +31,7 @@ describe('ReportView Component Suite', () => {
 
     // 4 sections
     expect(html).toContain('1 · Company Background');
+    expect(html).toContain('Corporate / Registered Address');
     expect(html).toContain('2 · Trade Lane');
     expect(html).toContain('Commodity');
     expect(html).toContain('3 · JFLL Fit');
@@ -63,6 +64,15 @@ describe('ReportView Component Suite', () => {
     const html = renderToString(<ReportView initialReport={draft} />);
     expect(html).toContain('4 · Decision-Makers / Logistics Contacts');
     expect(html).toMatch(/<section class="[^"]*mb-8[^"]*">\s*<div[^>]*>\s*<h2[^>]*>4 · Decision-Makers/);
+  });
+
+  it('omits 0 shipments · $0.00 USD badge in Section 2 when trade metrics are zero or unlisted', () => {
+    const draft = createEmptyReportDraft('Unpublished SME Target');
+    draft.section_2_trade_lane.total_shipments = 0;
+    draft.section_2_trade_lane.total_value_usd = 0.0;
+
+    const html = renderToString(<ReportView initialReport={draft} />);
+    expect(html).not.toContain('0 shipments · $0.00 USD');
   });
 
   it('renders official Jet Freight branding, accessible form linkages, and excludes internal sprint labels', () => {

@@ -125,6 +125,7 @@ Return ONLY a valid JSON object matching this exact schema without any markdown 
   "company_name": {json.dumps(company_name)},
   "subtitle": "Concise industry positioning (e.g. API & advanced-intermediate manufacturer–exporter)",
   "what_they_do": "Detailed summary of manufactured or traded product lines and commercial offerings",
+  "address": "Corporate registered office address in India",
   "hq_facilities": "Corporate headquarters address, plus specific factory, processing unit, or R&D plant locations in India",
   "export_markets": "Key global export destination countries and trade corridors",
   "scale_credibility": "Accreditations, certifications (e.g. Star Export House, USFDA, ISO, FSSAI), and operational scale",
@@ -232,6 +233,8 @@ def enrich_report_with_gemini_search(
         # Background section
         if parsed_json.get("what_they_do"):
             enriched.section_1_background.what_they_do = str(parsed_json["what_they_do"])[:2000]
+        if parsed_json.get("address"):
+            enriched.section_1_background.address = str(parsed_json["address"])[:1000]
         if parsed_json.get("hq_facilities"):
             enriched.section_1_background.hq_facilities = str(parsed_json["hq_facilities"])[:1000]
         if parsed_json.get("export_markets"):

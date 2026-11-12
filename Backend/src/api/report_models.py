@@ -16,6 +16,7 @@ class ReportHeader(BaseModel):
 
 class CompanyBackground(BaseModel):
     what_they_do: str = Field(..., max_length=2000)
+    address: str = Field(default="", max_length=1000)
     hq_facilities: str = Field(..., max_length=1000)
     export_markets: str = Field(..., max_length=1000)
     scale_credibility: str = Field(..., max_length=1000)
