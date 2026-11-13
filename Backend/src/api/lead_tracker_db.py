@@ -11,15 +11,15 @@ Sales Feedback, Follow-up Cadence, Rate Validity Horizon) and DSA-conscious desi
 - S3 backup & restore integration for serverless cloud durability.
 """
 
-from datetime import date, datetime, timezone
 import json
 import logging
 import os
-from pathlib import Path
 import sqlite3
 import threading
-from typing import Any
 import uuid
+from datetime import UTC, date, datetime
+from pathlib import Path
+from typing import Any
 
 from src.api.config import settings
 from src.api.lead_tracker_models import (
@@ -282,7 +282,7 @@ def get_lead_by_id(lead_id: str, db_path: Path | str | None = None) -> dict[str,
 
 def create_lead(lead_data: dict[str, Any], db_path: Path | str | None = None) -> dict[str, Any]:
     """Inserts a new tracked lead and creates its initial audit log entry."""
-    now_iso = datetime.now(timezone.utc).isoformat()
+    now_iso = datetime.now(UTC).isoformat()
     lead_id = lead_data.get("id") or f"trk_{uuid.uuid4().hex[:12]}"
     assigned_date = lead_data.get("assigned_date") or date.today().isoformat()
     created_at = lead_data.get("created_at") or now_iso
@@ -395,7 +395,7 @@ def create_lead(lead_data: dict[str, Any], db_path: Path | str | None = None) ->
 
 def update_lead(lead_id: str, update_data: dict[str, Any], db_path: Path | str | None = None) -> dict[str, Any] | None:
     """Updates specific columns of an existing lead."""
-    now_iso = datetime.now(timezone.utc).isoformat()
+    now_iso = datetime.now(UTC).isoformat()
     allowed_columns = {
         "company_name", "contact_person", "contact_phone", "contact_email",
         "branch", "assigned_to", "assigned_to_email", "assigned_by", "assigned_date",
@@ -450,7 +450,7 @@ def delete_lead(lead_id: str, hard_delete: bool = False, db_path: Path | str | N
                 else:
                     cur = conn.execute(
                         "UPDATE lead_tracker_items SET is_archived = 1, updated_at = ? WHERE id = ?",
-                        (datetime.now(timezone.utc).isoformat(), lead_id),
+                        (datetime.now(UTC).isoformat(), lead_id),
                     )
                 return cur.rowcount > 0
         finally:
@@ -459,7 +459,7 @@ def delete_lead(lead_id: str, hard_delete: bool = False, db_path: Path | str | N
 
 def add_activity(lead_id: str, activity_data: dict[str, Any], db_path: Path | str | None = None) -> dict[str, Any] | None:
     """Appends an activity/touchpoint and conditionally updates parent lead status & followup."""
-    now_iso = datetime.now(timezone.utc).isoformat()
+    now_iso = datetime.now(UTC).isoformat()
     act_id = activity_data.get("id") or f"act_{uuid.uuid4().hex[:10]}"
     timestamp = activity_data.get("timestamp") or now_iso
     author_name = activity_data.get("author_name") or "Sales Coordinator"
@@ -638,7 +638,7 @@ def backup_db_to_s3(db_path: Path | str | None = None) -> bool:
     with _DB_LOCK:
         conn = get_db_connection(target_path)
         try:
-            conn.execute(f"VACUUM INTO '{str(temp_backup)}';")
+            conn.execute(f"VACUUM INTO '{temp_backup!s}';")
         finally:
             conn.close()
 

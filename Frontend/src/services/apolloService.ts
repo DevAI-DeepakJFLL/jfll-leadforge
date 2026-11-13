@@ -15,22 +15,9 @@ import { logger } from '@/utils/logger';
 import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
 import { API_BASE_URL } from '@/config/api';
 import { isValidEmailAddress } from '@/utils/apolloUtils';
-import { isOfflineSession } from '@/services/authService';
+import { getAuthHeaders } from '@/services/authService';
 
-function getAuthHeader(): Record<string, string> {
-  try {
-    const raw = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('apollo_leads_session') : null;
-    if (raw) {
-      const session = JSON.parse(raw);
-      if (session?.token && !isOfflineSession(session)) {
-        return { Authorization: `Bearer ${session.token}` };
-      }
-    }
-  } catch {
-    // Ignore storage parse errors
-  }
-  return {};
-}
+const getAuthHeader = () => getAuthHeaders({ json: false });
 
 /**
  * Filter and query Apollo leads from local in-memory starter data.

@@ -9,21 +9,17 @@ Sales Feedback, Follow-up Cadence, Rate Validity Horizon) and DSA-conscious desi
 - S3 backup & restore integration for serverless cloud durability.
 """
 
-from datetime import date, datetime, timezone
-import json
-import logging
 import os
-from pathlib import Path
 import threading
-import time
+from datetime import date
+from pathlib import Path
 from typing import Any
-import uuid
 
 from fastapi import APIRouter, Header, HTTPException, Query, status
 
 from src.api.access_control import (
-    Permission,
     ROOT_ADMIN_EMAILS,
+    Permission,
     has_permission,
     is_email_active,
 )
@@ -46,16 +42,11 @@ from src.api.lead_tracker_db import (
 from src.api.lead_tracker_models import (
     LeadTrackerCreate,
     LeadTrackerItem,
-    LeadTrackerLogEntry,
     LeadTrackerUpdate,
-    RoutingType,
     TrackerActivityCreate,
     TrackerKPIs,
     TrackerStatus,
-    TransportMode,
 )
-from src.api.lead_tracker_seeder import SALES_REP_EMAILS, seed_leads_from_excel
-from src.api.logger import logger
 
 lead_tracker_router = APIRouter(prefix="/api/v1/lead-tracker", tags=["Lead Status Tracker"])
 

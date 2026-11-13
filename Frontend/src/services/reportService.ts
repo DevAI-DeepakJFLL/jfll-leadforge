@@ -6,27 +6,13 @@ import {
   GenerateReportRequest,
   ReportCompanySuggestion,
 } from '../types/report';
-import { getStoredSession, isOfflineSession, notifySessionSuperseded } from '@/services/authService';
-import { getDeviceFingerprint } from '@/utils/antiBotGuard';
+import { getStoredSession, isOfflineSession, notifySessionSuperseded, getAuthHeaders } from '@/services/authService';
 import { API_BASE_URL } from '@/config/api';
 
 /**
  * Assemble security headers (Bearer token & device fingerprint) for report API calls
  */
-function getReportAuthHeaders(): Record<string, string> {
-  const headers: Record<string, string> = {
-    'X-Device-Fingerprint': getDeviceFingerprint(),
-  };
-  try {
-    const session = getStoredSession();
-    if (session?.token && !isOfflineSession(session)) {
-      headers['Authorization'] = `Bearer ${session.token}`;
-    }
-  } catch {
-    // Graceful handling of storage access exceptions
-  }
-  return headers;
-}
+const getReportAuthHeaders = () => getAuthHeaders({ json: false });
 
 /**
  * Format current date in DD-MM-YYYY format

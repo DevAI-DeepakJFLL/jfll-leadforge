@@ -11,10 +11,10 @@ DSA Features:
 - Graceful deterministic fallback to 14 real companies when the file is absent.
 """
 
-from datetime import date, datetime, timezone
 import logging
-from pathlib import Path
 import re
+from datetime import UTC, date, datetime
+from pathlib import Path
 from typing import Any
 
 from src.api.lead_tracker_models import (
@@ -415,7 +415,7 @@ def get_deterministic_fallback_leads() -> list[LeadTrackerItem]:
     for d in raw_leads:
         rep_clean = d["assigned_to"].strip().lower()
         rep_email = SALES_REP_EMAILS.get(rep_clean)
-        created_iso = datetime.now(timezone.utc).isoformat()
+        created_iso = datetime.now(UTC).isoformat()
         initial_history = [
             LeadTrackerLogEntry(
                 author_name="Tyra Theknath",
@@ -598,7 +598,7 @@ def seed_leads_from_excel(excel_path: Path | None = None) -> list[LeadTrackerIte
         transport_mode = infer_transport_mode(d["company_name"], notes, next_act)
         routing_type = infer_routing_type(notes, next_act)
 
-        created_iso = datetime.now(timezone.utc).isoformat()
+        created_iso = datetime.now(UTC).isoformat()
         initial_history = [
             LeadTrackerLogEntry(
                 author_name="Tyra Theknath",

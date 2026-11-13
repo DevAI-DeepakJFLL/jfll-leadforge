@@ -1,7 +1,6 @@
 import { API_BASE_URL } from '@/config/api';
-import { getStoredSession } from '@/services/authService';
+import { getStoredSession, getAuthHeaders } from '@/services/authService';
 import { logger } from '@/utils/logger';
-import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 import {
   ApproachLogCreatePayload,
   ApproachLogEntry,
@@ -527,18 +526,6 @@ function saveLocalStore(store: Record<string, LocalStorageRecord>): void {
   } catch (err) {
     logger.warn('APPROACH_SERVICE', 'Failed to write local approach store', { error: String(err) });
   }
-}
-
-function getAuthHeaders(): Record<string, string> {
-  const session = getStoredSession();
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    'X-Device-Fingerprint': getDeviceFingerprint(),
-  };
-  if (session?.token) {
-    headers['Authorization'] = `Bearer ${session.token}`;
-  }
-  return headers;
 }
 
 function notifyApproachStatusUpdated(

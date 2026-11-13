@@ -4,10 +4,10 @@ Follows freight-forwarding domain concepts (Transport Mode, Routing Control,
 Sales Feedback, Follow-up Cadence) and DSA-conscious design principles.
 """
 
-from datetime import date, datetime, timezone
-from enum import Enum
 import re
 import uuid
+from datetime import UTC, date, datetime
+from enum import Enum
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -62,7 +62,7 @@ class LeadTrackerLogEntry(BaseModel):
     """Audit trail activity log entry for a tracked lead."""
     id: str = Field(default_factory=lambda: f"log_{uuid.uuid4().hex[:8]}")
     timestamp: str = Field(
-        default_factory=lambda: datetime.now(timezone.utc).isoformat(),
+        default_factory=lambda: datetime.now(UTC).isoformat(),
         description="ISO 8601 UTC timestamp of activity",
     )
     author_name: str = Field(..., description="Name of the person logging activity")
@@ -96,11 +96,11 @@ class LeadTrackerItem(BaseModel):
     linked_entity_id: str | None = Field(default=None, description="Source entity ID in Datamyne or Apollo")
     history: list[LeadTrackerLogEntry] = Field(default_factory=list, description="Chronological log history")
     created_at: str = Field(
-        default_factory=lambda: datetime.now(timezone.utc).isoformat(),
+        default_factory=lambda: datetime.now(UTC).isoformat(),
         description="ISO 8601 UTC creation timestamp",
     )
     updated_at: str = Field(
-        default_factory=lambda: datetime.now(timezone.utc).isoformat(),
+        default_factory=lambda: datetime.now(UTC).isoformat(),
         description="ISO 8601 UTC last update timestamp",
     )
 

@@ -2,11 +2,11 @@
 In-memory LRU caching layer for corporate name and entity resolution in DuckDB.
 Prevents repeated full-table or S3 range scans for frequent company queries.
 """
-from collections import OrderedDict
-from functools import lru_cache
 import threading
 import time
-from typing import Any, Optional
+from collections import OrderedDict
+from functools import lru_cache
+from typing import Any
 
 from src.api.database import get_db_connection
 from src.api.helpers import build_company_search_sql
@@ -54,7 +54,7 @@ _QUERY_CACHE_TTL_SECONDS = 600  # 10 minutes
 _QUERY_CACHE_LOCK = threading.Lock()
 
 
-def get_cached_complex_query(signature: str) -> Optional[dict[str, Any]]:
+def get_cached_complex_query(signature: str) -> dict[str, Any] | None:
     """Retrieve memoized query results if within 10-minute TTL (O(1) lookup & touch)."""
     now = time.time()
     with _QUERY_CACHE_LOCK:

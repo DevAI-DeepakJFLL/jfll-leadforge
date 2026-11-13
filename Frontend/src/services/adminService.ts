@@ -1,7 +1,6 @@
 import { API_BASE_URL } from '@/config/api';
-import { getStoredSession } from '@/services/authService';
+import { getStoredSession, getAuthHeaders } from '@/services/authService';
 import { logger } from '@/utils/logger';
-import { getDeviceFingerprint } from '@/utils/antiBotGuard';
 import {
   AccessRequest,
   AdminStats,
@@ -51,18 +50,6 @@ const INITIAL_FALLBACK_ALLOWLIST: AllowlistEntry[] = [
     added_by: 'system_bootstrap',
   },
 ];
-
-function getAuthHeaders(): HeadersInit {
-  const session = getStoredSession();
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    'X-Device-Fingerprint': getDeviceFingerprint(),
-  };
-  if (session?.token) {
-    headers['Authorization'] = `Bearer ${session.token}`;
-  }
-  return headers;
-}
 
 // ==========================================
 // Offline Storage Helpers (for Vitest/Mock)
@@ -120,10 +107,7 @@ export async function submitAccessRequest(
   try {
     const res = await fetch(endpoint, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Device-Fingerprint': getDeviceFingerprint(),
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(payload),
     });
 

@@ -13,7 +13,6 @@ from src.api.cache import (
 from src.api.config import settings
 from src.api.database import get_data_source, get_db_connection
 from src.api.helpers import (
-    EMPLOYEE_TIER_RANGES,
     FREE_WEBMAIL_DOMAINS,
     SQL_EXTRACT_EMPLOYER_NAME,
     build_company_search_sql,
@@ -292,117 +291,76 @@ def list_leads(
         else:
             status_sql = '"Status" as status'
 
+        # Determine sorting column
+        sort_map = {
+            "fullname": '"Full Name"',
+            "full_name": '"Full Name"',
+            "name": '"Full Name"',
+            "customergroup": '"Customer Group"',
+            "customer_group": '"Customer Group"',
+            "creditstatus": '"Credit Status"',
+            "credit_status": '"Credit Status"',
+            "contactpersonname": '"Contact Person Name"',
+            "contact_person_name": '"Contact Person Name"',
+            "status": '"Status"',
+            "salesperson": '"Sales Person"',
+            "sales_person": '"Sales Person"',
+            "totalbusinesstilldate": '"Total Business from 1.04.2024 till date"',
+            "total_business_till_date": '"Total Business from 1.04.2024 till date"',
+            "totalbusiness": '"Total Business from 1.04.2024 till date"',
+            "total_business": '"Total Business from 1.04.2024 till date"',
+        }
         if is_active_source:
-            active_sort_map = {
-                "fullname": '"Full Name"',
-                "full_name": '"Full Name"',
-                "name": '"Full Name"',
-                "businesslast3m": '"Total Business Received From Cusomer In Last 3 Month"',
-                "business_last_3m": '"Total Business Received From Cusomer In Last 3 Month"',
-                "totalbusinesstilldate": '"Total Business from 1.04.2024 till date"',
-                "total_business_till_date": '"Total Business from 1.04.2024 till date"',
-                "totalbusiness": '"Total Business from 1.04.2024 till date"',
-                "total_business": '"Total Business from 1.04.2024 till date"',
-                "customergroup": '"Customer Group"',
-                "customer_group": '"Customer Group"',
-                "creditstatus": '"Credit Status"',
-                "credit_status": '"Credit Status"',
-                "contactpersonname": '"Contact Person Name"',
-                "contact_person_name": '"Contact Person Name"',
-                "status": '"Status"',
-                "salesperson": '"Sales Person"',
-                "sales_person": '"Sales Person"',
-            }
-            sort_key = sort_by.lower().replace("-", "_") if sort_by else "fullname"
-            if sort_key == "revenue":
-                if status and status.lower() in ("all",):
-                    sort_col = '"Total Business from 1.04.2024 till date"'
-                else:
-                    sort_col = '"Total Business Received From Cusomer In Last 3 Month"'
-            else:
-                sort_col = active_sort_map.get(sort_key, '"Full Name"')
-            if "Total Business" in sort_col:
-                order_by_sql = f"{sort_col} {order_direction} NULLS LAST, \"Full Name\" ASC"
-            else:
-                order_by_sql = f"{sort_col} {order_direction} NULLS LAST"
-
-            data_query = f"""
-                SELECT 
-                    "id" as id,
-                    "Full Name" as full_name,
-                    "Territory" as territory,
-                    "Contact Person Name" as contact_person_name,
-                    "Mobile Number" as mobile_number,
-                    "Email" as email,
-                    {status_sql},
-                    "Customer Group" as customer_group,
-                    "Type" as type,
-                    "Credit Status" as credit_status,
-                    "Sales Person" as sales_person,
-                    "Total Business Received From Cusomer In Last 3 Month" as business_last_3m,
-                    "Total Business from 1.04.2024 till date" as total_business_till_date,
-                    "group_total_business" as group_total_business,
-                    "co_reps" as co_reps,
-                    "merged_count" as merged_count,
-                    "merged_aliases" as merged_aliases
-                FROM '{data_source}'
-                WHERE {where_sql}
-                ORDER BY {order_by_sql}
-                LIMIT ? OFFSET ?
-            """
+            sort_map["businesslast3m"] = '"Total Business Received From Cusomer In Last 3 Month"'
+            sort_map["business_last_3m"] = '"Total Business Received From Cusomer In Last 3 Month"'
         else:
-            inactive_sort_map = {
-                "fullname": '"Full Name"',
-                "full_name": '"Full Name"',
-                "name": '"Full Name"',
-                "customergroup": '"Customer Group"',
-                "customer_group": '"Customer Group"',
-                "creditstatus": '"Credit Status"',
-                "credit_status": '"Credit Status"',
-                "salesperson": '"Sales Person"',
-                "sales_person": '"Sales Person"',
-                "totalbusinesstilldate": '"Total Business from 1.04.2024 till date"',
-                "total_business_till_date": '"Total Business from 1.04.2024 till date"',
-                "totalbusiness": '"Total Business from 1.04.2024 till date"',
-                "total_business": '"Total Business from 1.04.2024 till date"',
-                "businesslast3m": '"Total Business from 1.04.2024 till date"',
-                "business_last_3m": '"Total Business from 1.04.2024 till date"',
-                "revenue": '"Total Business from 1.04.2024 till date"',
-                "contactpersonname": '"Contact Person Name"',
-                "contact_person_name": '"Contact Person Name"',
-                "status": '"Status"',
-            }
-            sort_key = sort_by.lower().replace("-", "_") if sort_by else "fullname"
-            sort_col = inactive_sort_map.get(sort_key, '"Full Name"')
-            if "Total Business" in sort_col:
-                order_by_sql = f"{sort_col} {order_direction} NULLS LAST, \"Full Name\" ASC"
-            else:
-                order_by_sql = f"{sort_col} {order_direction} NULLS LAST"
+            sort_map["businesslast3m"] = '"Total Business from 1.04.2024 till date"'
+            sort_map["business_last_3m"] = '"Total Business from 1.04.2024 till date"'
 
-            data_query = f"""
-                SELECT 
-                    "id" as id,
-                    "Full Name" as full_name,
-                    "Territory" as territory,
-                    "Contact Person Name" as contact_person_name,
-                    "Mobile Number" as mobile_number,
-                    "Email" as email,
-                    {status_sql},
-                    "Customer Group" as customer_group,
-                    "Type" as type,
-                    "Credit Status" as credit_status,
-                    "Sales Person" as sales_person,
-                    NULL as business_last_3m,
-                    "Total Business from 1.04.2024 till date" as total_business_till_date,
-                    "group_total_business" as group_total_business,
-                    "co_reps" as co_reps,
-                    "merged_count" as merged_count,
-                    "merged_aliases" as merged_aliases
-                FROM '{data_source}'
-                WHERE {where_sql}
-                ORDER BY {order_by_sql}
-                LIMIT ? OFFSET ?
-            """
+        sort_key = sort_by.lower().replace("-", "_") if sort_by else "fullname"
+        if sort_key == "revenue":
+            if is_active_source and (not status or status.lower() not in ("all",)):
+                sort_col = '"Total Business Received From Cusomer In Last 3 Month"'
+            else:
+                sort_col = '"Total Business from 1.04.2024 till date"'
+        else:
+            sort_col = sort_map.get(sort_key, '"Full Name"')
+
+        if "Total Business" in sort_col:
+            order_by_sql = f"{sort_col} {order_direction} NULLS LAST, \"Full Name\" ASC"
+        else:
+            order_by_sql = f"{sort_col} {order_direction} NULLS LAST"
+
+        business_last_3m_expr = (
+            '"Total Business Received From Cusomer In Last 3 Month" as business_last_3m'
+            if is_active_source
+            else "NULL as business_last_3m"
+        )
+
+        data_query = f"""
+            SELECT 
+                "id" as id,
+                "Full Name" as full_name,
+                "Territory" as territory,
+                "Contact Person Name" as contact_person_name,
+                "Mobile Number" as mobile_number,
+                "Email" as email,
+                {status_sql},
+                "Customer Group" as customer_group,
+                "Type" as type,
+                "Credit Status" as credit_status,
+                "Sales Person" as sales_person,
+                {business_last_3m_expr},
+                "Total Business from 1.04.2024 till date" as total_business_till_date,
+                "group_total_business" as group_total_business,
+                "co_reps" as co_reps,
+                "merged_count" as merged_count,
+                "merged_aliases" as merged_aliases
+            FROM '{data_source}'
+            WHERE {where_sql}
+            ORDER BY {order_by_sql}
+            LIMIT ? OFFSET ?
+        """
         query_params = params + [page_size, offset]
         result_cursor = con.execute(data_query, query_params)
         columns = [desc[0] for desc in result_cursor.description]

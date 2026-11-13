@@ -6,8 +6,8 @@
  */
 
 import { API_BASE_URL } from '@/config/api';
-import { getStoredSession, isOfflineSession } from '@/services/authService';
-import { getDeviceFingerprint } from '@/utils/antiBotGuard';
+import { getStoredSession, getAuthHeaders } from '@/services/authService';
+export { getAuthHeaders };
 import { logger } from '@/utils/logger';
 import {
   CLOSED_TRACKER_STATUSES,
@@ -154,36 +154,6 @@ export function setTrackerCachedItems(items: LeadTrackerItem[]): void {
   }
   _cacheInitialized = true;
   persistCache();
-}
-
-/**
- * Builds HTTP headers including bearer auth token and device fingerprint.
- */
-export function getAuthHeaders(): Record<string, string> {
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'X-Device-Fingerprint': getDeviceFingerprint(),
-  };
-
-  try {
-    const session = getStoredSession();
-    if (session?.token && !isOfflineSession(session)) {
-      headers['Authorization'] = `Bearer ${session.token}`;
-    } else if (typeof window !== 'undefined') {
-      const token =
-        window.localStorage?.getItem('token') ||
-        window.sessionStorage?.getItem('token') ||
-        null;
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-      }
-    }
-  } catch {
-    // Graceful handling of storage exceptions
-  }
-
-  return headers;
 }
 
 /**

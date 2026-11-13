@@ -41,6 +41,12 @@ vi.mock('@/services/authService', () => ({
     token: 'mock-token',
   })),
   isOfflineSession: vi.fn(() => true),
+  getAuthHeaders: vi.fn(() => ({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'X-Device-Fingerprint': 'mock-fingerprint',
+    'Authorization': 'Bearer mock-token',
+  })),
 }));
 
 vi.mock('@/components/ui', () => ({

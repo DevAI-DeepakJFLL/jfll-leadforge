@@ -316,8 +316,8 @@ def get_bulk_statuses(
                         company_notes[norm_c] = f_notes
         finally:
             conn.close()
-    except Exception:
-        pass
+    except Exception as err:
+        logger.debug(f"Failed to query local lead tracker DB for bulk statuses: {err}")
 
     return BulkStatusesResponse(
         entity_type=entity_type,
@@ -423,8 +423,8 @@ def get_entity_approach_history(
                             )
                 finally:
                     conn.close()
-            except Exception:
-                pass
+            except Exception as err:
+                logger.debug(f"Failed to query fallback approach history: {err}")
 
         return EntityApproachHistory(
             entity_type=entity_type,
@@ -489,13 +489,13 @@ def _sync_to_lead_tracker(
     """
     try:
         from src.api.lead_tracker_db import (
-            get_db_connection,
-            create_lead,
             add_activity,
-            update_lead,
-            init_db,
             backup_db_to_s3,
+            create_lead,
+            get_db_connection,
             get_storage_path,
+            init_db,
+            update_lead,
         )
 
         db_path = get_storage_path()
@@ -504,7 +504,7 @@ def _sync_to_lead_tracker(
         sales_act = SalesAction.CALLED_CUSTOMER
         try:
             sales_act = SalesAction(action)
-        except Exception:
+        except ValueError:
             pass
 
         mapped_status = _map_approach_to_tracker_status(status, sales_act)

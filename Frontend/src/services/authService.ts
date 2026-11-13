@@ -69,6 +69,44 @@ export function clearStoredSession(): void {
   }
 }
 
+/**
+ * Assembles unified API security headers including Bearer token and anti-bot device fingerprint.
+ */
+export function getAuthHeaders(options?: {
+  json?: boolean;
+  includeFingerprint?: boolean;
+}): Record<string, string> {
+  const headers: Record<string, string> = {};
+
+  if (options?.json !== false) {
+    headers['Content-Type'] = 'application/json';
+    headers['Accept'] = 'application/json';
+  }
+
+  if (options?.includeFingerprint !== false) {
+    headers['X-Device-Fingerprint'] = getDeviceFingerprint();
+  }
+
+  try {
+    const session = getStoredSession();
+    if (session?.token && !isOfflineSession(session)) {
+      headers['Authorization'] = `Bearer ${session.token}`;
+    } else if (typeof window !== 'undefined') {
+      const fallbackToken =
+        window.localStorage?.getItem('token') ||
+        window.sessionStorage?.getItem('token') ||
+        null;
+      if (fallbackToken && !fallbackToken.startsWith('offline_session_')) {
+        headers['Authorization'] = `Bearer ${fallbackToken}`;
+      }
+    }
+  } catch {
+    // Graceful handling of storage access exceptions
+  }
+
+  return headers;
+}
+
 export interface BackendAuthResponse {
   email: string;
   name: string;

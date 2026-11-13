@@ -24,8 +24,6 @@ from src.api.models import (
     UserSessionResponse,
 )
 from src.api.session_store import (
-    ACTIVE_USER_SESSIONS,
-    clear_active_session,
     get_active_session,
     set_active_session,
 )

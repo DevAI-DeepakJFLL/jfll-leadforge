@@ -11,7 +11,7 @@ from typing import Any
 
 from src.api.config import settings
 from src.api.logger import logger
-from src.api.session_store import ACTIVE_USER_SESSIONS, clear_active_session
+from src.api.session_store import clear_active_session
 
 # Thread lock for thread-safe concurrent in-memory reads and atomic disk operations
 _ACCESS_LOCK = threading.Lock()
