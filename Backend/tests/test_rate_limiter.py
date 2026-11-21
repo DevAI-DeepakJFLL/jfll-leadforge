@@ -1,8 +1,9 @@
 import time
-from collections import defaultdict
+
 import pytest
 from starlette.requests import Request
 from starlette.responses import Response
+
 from src.api.main import RateLimitingMiddleware
 
 

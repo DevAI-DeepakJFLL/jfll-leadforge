@@ -34,6 +34,7 @@ export const TRACKER_UPDATED_EVENT = 'jfll-tracker-lead-updated';
  * Standard sales rep email mappings for automatic rep notification and assignment.
  */
 export const SALES_REP_EMAILS: Record<string, string> = {
+  'tester': 'tester@jfll.com',
   'edward': 'edward@jfll.com',
   'tasneem': 'tasneem@jfll.com',
   'priyanka sardesai': 'priyanka.sardesai@jfll.com',

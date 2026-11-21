@@ -14,7 +14,7 @@ Tests:
 """
 
 from datetime import date
-from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -22,10 +22,7 @@ from src.api.access_control import add_to_allowlist
 from src.api.auth import create_token
 from src.api.lead_tracker_db import seed_from_excel_if_empty
 from src.api.lead_tracker_routes import (
-    compute_tracker_kpis,
-    load_tracker_data,
     reset_tracker_cache,
-    save_tracker_data,
 )
 from src.api.main import app
 
@@ -442,7 +439,7 @@ def test_unauthorized_role_rejected():
     # Seed viewer user to allowlist so session/email active check passes
     try:
         add_to_allowlist(email="test.viewer@jfll.com", name="Test Viewer", role="Viewer", added_by="system_test")
-    except Exception:
+    except ValueError:
         pass
 
     h_viewer = _auth_header(email="test.viewer@jfll.com", name="Test Viewer", role="Viewer")

@@ -6,7 +6,6 @@ from src.api.helpers import (
     COMPANY_STOP_WORDS,
     CUSTOMS_PREFIX_REGEX,
     ENTERPRISE_ALIASES,
-    FREE_WEBMAIL_DOMAINS,
     build_company_search_sql,
     clean_corporate_term,
     extract_company_search_keywords,
@@ -135,11 +134,11 @@ def test_enterprise_aliases_bidirectional():
 def test_build_company_search_sql_aliases():
     """Verify build_company_search_sql integrates enterprise aliases and word boundaries."""
     # Querying BHEL should include condition for Bharat Heavy Electricals
-    sql_bhel, params_bhel = build_company_search_sql("BHEL")
+    _sql_bhel, params_bhel = build_company_search_sql("BHEL")
     assert any("bharat" in str(p) for p in params_bhel)
 
     # Querying Bharat Heavy Electricals should include condition for BHEL
-    sql_bharat, params_bharat = build_company_search_sql("Bharat Heavy Electricals Limited")
+    _sql_bharat, params_bharat = build_company_search_sql("Bharat Heavy Electricals Limited")
     assert any("bhel" in str(p) for p in params_bharat)
 
     # Querying Larsen & Toubro should include L&T pattern

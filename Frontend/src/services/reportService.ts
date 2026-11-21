@@ -186,6 +186,8 @@ export async function generateClientReport(
       },
       body: JSON.stringify({
         company_name_or_id: company,
+        lead_id: request.lead_id || null,
+        source: request.source || null,
         prepared_for: request.prepared_for || 'Mumbai Sales Branch',
         prepared_by: request.prepared_by || 'Tyra Theknath',
       }),

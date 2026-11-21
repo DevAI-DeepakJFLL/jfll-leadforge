@@ -63,8 +63,12 @@ class ReportCompanySuggestion(BaseModel):
     total_shipments: int = Field(default=0, ge=0)
     total_value_usd: float = Field(default=0.0, ge=0.0)
     category: str | None = Field(default=None, max_length=200)
+    source: str | None = Field(default="datamyne", max_length=50)
+    employee_count: int | None = Field(default=None, ge=0)
 
 class GenerateReportRequest(BaseModel):
     company_name_or_id: str = Field(..., min_length=1, max_length=250)
+    lead_id: str | None = Field(default=None, max_length=100)
+    source: str | None = Field(default=None, max_length=50)
     prepared_for: str | None = Field(default="Mumbai Sales Branch", max_length=150)
     prepared_by: str | None = Field(default="Tyra Theknath", max_length=150)

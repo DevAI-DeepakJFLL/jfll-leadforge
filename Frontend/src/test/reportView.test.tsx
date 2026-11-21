@@ -140,4 +140,17 @@ describe('ReportView Component Suite', () => {
     expect(html).toContain('Export Word (.docx)');
     expect(html).toContain('cursor-not-allowed');
   });
+
+  it('renders ReportView with initial company, lead id, and source correctly', () => {
+    const html = renderToString(
+      <ReportView
+        initialCompany="Baumer s.r.l."
+        initialLeadId="556997827369642521126300"
+        initialSource="apollo"
+      />
+    );
+
+    expect(html).toContain('Client Report Generator');
+    expect(html).toContain('Baumer s.r.l.');
+  });
 });

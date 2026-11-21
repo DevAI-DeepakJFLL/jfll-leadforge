@@ -156,6 +156,11 @@ DEFAULT_AUTHORIZED_DIGESTS: dict[str, dict[str, str]] = {
         "role": "Commercial",
         "name": "Snehal Birje",
     },
+    # Tester (tester@jfll.com)
+    "e1cfb13de6e28bf72369602106df0e89bb52e2a5560b92c34176f1272ed161b9": {
+        "role": "Commercial",
+        "name": "Tester",
+    },
 }
 
 DEFAULT_INITIAL_PASSWORD = "Jet@123"
@@ -232,6 +237,14 @@ DEFAULT_SEEDED_USERS = [
         "role": "Commercial",
         "status": "active",
         "added_at": "2026-10-20T00:00:00Z",
+        "added_by": "system_bootstrap",
+    },
+    {
+        "email": "tester@jfll.com",
+        "name": "Tester",
+        "role": "Commercial",
+        "status": "active",
+        "added_at": "2026-11-15T00:00:00Z",
         "added_by": "system_bootstrap",
     },
 ]
@@ -356,8 +369,7 @@ def load_access_data() -> dict[str, Any]:
             if "blocked_entities" not in data:
                 data["blocked_entities"] = []
 
-            # Normalize entries to support password_hash, salt, is_password_set
-            needs_save = False
+            # Normalize entries in-memory to support password_hash, salt, is_password_set
             default_pwd_hash: str | None = None
             default_pwd_salt: str | None = None
             seeded_emails = {u["email"].lower() for u in DEFAULT_SEEDED_USERS} | ROOT_ADMIN_EMAILS
@@ -378,21 +390,25 @@ def load_access_data() -> dict[str, Any]:
                     entry["password_hash"] = default_pwd_hash
                     entry["salt"] = default_pwd_salt
                     entry["is_password_set"] = True
-                    needs_save = True
                 elif "is_password_set" not in entry:
                     entry.setdefault("password_hash", None)
                     entry.setdefault("salt", None)
                     entry.setdefault("is_password_set", False)
-                    needs_save = True
+
+            existing_emails = {entry.get("email", "").strip().lower() for entry in data.get("allowlist", [])}
+            for u in DEFAULT_SEEDED_USERS:
+                u_email = u["email"].strip().lower()
+                if u_email not in existing_emails:
+                    if default_pwd_hash is None:
+                        default_pwd_hash, default_pwd_salt = hash_password(DEFAULT_INITIAL_PASSWORD)
+                    new_entry = dict(u)
+                    new_entry["password_hash"] = default_pwd_hash
+                    new_entry["salt"] = default_pwd_salt
+                    new_entry["is_password_set"] = True
+                    data["allowlist"].append(new_entry)
+                    existing_emails.add(u_email)
 
             _rebuild_cache(data, storage_path, current_mtime)
-
-            if needs_save:
-                try:
-                    save_access_data(data)
-                except Exception as save_err:
-                    logger.debug("Non-critical notice saving normalized access data: %s", save_err)
-
             return data
     except Exception as err:
         logger.warning(

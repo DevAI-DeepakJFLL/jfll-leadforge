@@ -68,10 +68,14 @@ export interface ReportCompanySuggestion {
   total_shipments: number;
   total_value_usd: number;
   category?: string | null;
+  source?: 'datamyne' | 'datamyne_brazil' | 'apollo' | string | null;
+  employee_count?: number | null;
 }
 
 export interface GenerateReportRequest {
   company_name_or_id: string;
+  lead_id?: string | null;
+  source?: string | null;
   prepared_for?: string;
   prepared_by?: string;
 }

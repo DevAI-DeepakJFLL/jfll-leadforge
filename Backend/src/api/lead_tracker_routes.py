@@ -425,8 +425,22 @@ def append_tracker_activity(
             detail=f"Tracked lead with ID '{id}' not found",
         )
 
-    author_name = payload.author_name or user.get("name") or "Sales Coordinator"
-    author_email = payload.author_email or user.get("sub") or "sales@jfll.com"
+    user_email = (user.get("sub") or "").strip().lower()
+    user_role = (user.get("role") or "").strip().lower()
+    is_privileged = (
+        user_email in TRACKER_ADMIN_EMAILS
+        or user_email in ROOT_ADMIN_EMAILS
+        or user_role in TRACKER_ADMIN_ROLES
+    )
+
+    # Prevent audit log author spoofing: bind attribution to verified JWT identity
+    # Privileged admins may override author attribution; standard callers are locked to session
+    if is_privileged and payload.author_email:
+        author_email = payload.author_email.strip().lower()
+        author_name = payload.author_name or author_email.split("@")[0].replace(".", " ").title()
+    else:
+        author_email = user_email or "sales@jfll.com"
+        author_name = user.get("name") or author_email.split("@")[0].replace(".", " ").title()
 
     activity_data = {
         "action": payload.action,

@@ -1,12 +1,9 @@
 """Unit tests for SQLite Persistence Layer (lead_tracker_db.py)."""
 
-from datetime import date, datetime, timedelta, timezone
 import json
-from pathlib import Path
-import sqlite3
-import tempfile
 import threading
-from typing import Any
+from datetime import date, timedelta
+from pathlib import Path
 
 import pytest
 

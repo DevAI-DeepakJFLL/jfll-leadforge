@@ -144,6 +144,7 @@ class RateLimitingMiddleware(BaseHTTPMiddleware):
                 "/api/v1/auth/access-request",
                 "/api/v1/auth/report-bot",
                 "/api/v1/reports/enrich-web",
+                "/api/v1/reports/generate",
             )
         ):
             ip = get_client_ip(request)

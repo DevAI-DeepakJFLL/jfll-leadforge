@@ -46,6 +46,7 @@ export interface DatamyneDetailDrawerProps {
   onLogApproach?: (lead: DatamyneLead) => void;
   onConvertToActive?: (lead: DatamyneLead) => void;
   onAssignToTracker?: (lead: DatamyneLead) => void;
+  onGenerateReport?: (companyName: string, id?: string, source?: string) => void;
   className?: string;
 }
 
@@ -56,6 +57,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   onFindDecisionMakers,
   onLogApproach,
   onConvertToActive,
+  onGenerateReport,
   className = '',
 }) => {
   const { showToast } = useToast();
@@ -260,6 +262,23 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
+              {onGenerateReport && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    onGenerateReport(
+                      lead.company_name,
+                      lead.id,
+                      lead.country === 'Brazil' || lead.id.startsWith('dm-bra-') ? 'datamyne_brazil' : 'datamyne'
+                    )
+                  }
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[36px] cursor-pointer"
+                  title={`Generate Client Briefing Report for ${lead.company_name}`}
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Client Report</span>
+                </button>
+              )}
               <button
                 onClick={onClose}
                 className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"

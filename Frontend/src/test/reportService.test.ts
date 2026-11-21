@@ -182,4 +182,47 @@ describe('Report Service Suite', () => {
     expect(loaded?.section_5_feedback.preferred_carriers).toBe('Emirates');
     vi.unstubAllGlobals();
   });
+
+  it('generateClientReport passes lead_id and source to disambiguate accounts', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        lead_id: '556997827369642521126300',
+        header: {
+          title: 'CLIENT REPORT · PROSPECT BRIEF',
+          company_name: 'Baumer s.r.l.',
+          subtitle: 'Commercial · Verified International Account',
+          prepared_for: 'Global Sales',
+          prepared_by: 'Tester',
+          date: '21-11-2026',
+        },
+        section_1_background: { what_they_do: '', hq_facilities: '', export_markets: '', scale_credibility: '' },
+        section_2_trade_lane: { origin_destination: '', commodity: '', primary_mode: '', special_handling: '', total_shipments: 5, total_value_usd: 0, lading_port: '' },
+        section_3_jfll_fit: { cargo_strength: '', pitch_angle: '' },
+        section_4_contacts: [],
+        section_5_feedback: { meeting_takeaways: '', preferred_carriers: '', target_pricing: '', next_action_followup: '' },
+      }),
+    } as Response);
+
+    await generateClientReport({
+      company_name_or_id: 'Baumer',
+      lead_id: '556997827369642521126300',
+      source: 'apollo',
+      prepared_for: 'Global Sales',
+      prepared_by: 'Tester',
+    });
+
+    expect(globalThis.fetch).toHaveBeenCalledWith(
+      `${API_BASE_URL}/api/v1/reports/generate`,
+      expect.objectContaining({
+        body: JSON.stringify({
+          company_name_or_id: 'Baumer',
+          lead_id: '556997827369642521126300',
+          source: 'apollo',
+          prepared_for: 'Global Sales',
+          prepared_by: 'Tester',
+        }),
+      })
+    );
+  });
 });

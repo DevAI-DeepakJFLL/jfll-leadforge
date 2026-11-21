@@ -283,11 +283,12 @@ def test_set_password_requires_auth_or_current_password_if_already_set():
 def test_thread_safe_session_store_concurrency():
     """Verify thread-safe session store accessors handle high-concurrency access without race conditions."""
     import concurrent.futures
+
     from src.api.session_store import (
-        get_active_session,
-        set_active_session,
         clear_active_session,
         clear_all_sessions,
+        get_active_session,
+        set_active_session,
     )
 
     clear_all_sessions()

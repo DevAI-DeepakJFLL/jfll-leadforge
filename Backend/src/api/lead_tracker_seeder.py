@@ -29,6 +29,7 @@ logger = logging.getLogger(__name__)
 
 # Standard rep emails mapping
 SALES_REP_EMAILS: dict[str, str] = {
+    "tester": "tester@jfll.com",
     "edward": "edward@jfll.com",
     "tasneem": "tasneem@jfll.com",
     "priyanka sardesai": "priyanka.sardesai@jfll.com",

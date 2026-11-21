@@ -2,6 +2,7 @@
 
 from datetime import date, datetime
 from pathlib import Path
+
 import pytest
 from pydantic import ValidationError
 
@@ -17,17 +18,12 @@ from src.api.lead_tracker_models import (
     TransportMode,
 )
 from src.api.lead_tracker_seeder import (
-    find_default_excel_path,
-    get_deterministic_fallback_leads,
-    infer_routing_type,
-    infer_transport_mode,
     map_excel_status_to_tracker_status,
     normalize_branch,
     normalize_rep,
     parse_flexible_date,
     seed_leads_from_excel,
 )
-
 
 # ============================================================================
 # Model Validation Tests

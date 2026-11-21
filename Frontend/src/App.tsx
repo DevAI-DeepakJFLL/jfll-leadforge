@@ -115,20 +115,50 @@ function getInitialSavedSearches(): SavedSearchPreset[] {
 
 function getInitialTopTab(): string {
   try {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab');
       if (
-        saved &&
-        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(saved)
+        tabParam &&
+        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(tabParam)
       ) {
-        if (saved === 'companies' || saved === 'people') return 'apollo';
-        return saved;
+        if (tabParam === 'companies' || tabParam === 'people') return 'apollo';
+        return tabParam;
+      }
+      if (window.localStorage) {
+        const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
+        if (
+          saved &&
+          ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(saved)
+        ) {
+          if (saved === 'companies' || saved === 'people') return 'apollo';
+          return saved;
+        }
       }
     }
   } catch {
     // Ignore storage errors
   }
   return DEFAULT_TOP_TAB;
+}
+
+function getInitialReportTarget(): { name: string; id?: string; source?: string } | null {
+  try {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const company = urlParams.get('company') || urlParams.get('report_company');
+      if (company) {
+        return {
+          name: company,
+          id: urlParams.get('id') || urlParams.get('report_id') || undefined,
+          source: urlParams.get('source') || urlParams.get('report_source') || undefined,
+        };
+      }
+    }
+  } catch {
+    // Ignore URL errors
+  }
+  return null;
 }
 
 function getInitialActiveNav(tab: string): string {
@@ -160,8 +190,29 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     return 'companies';
   });
   const [activeNav, setActiveNav] = useState<string>(() => getInitialActiveNav(getInitialTopTab()));
-  const [selectedReportCompany, _setSelectedReportCompany] = useState<string | null>(null);
-  void _setSelectedReportCompany;
+  const [selectedReportTarget, setSelectedReportTarget] = useState<{
+    name: string;
+    id?: string;
+    source?: string;
+  } | null>(getInitialReportTarget);
+
+  const handleNavigateToReport = (companyName: string, id?: string, source?: string) => {
+    setSelectedReportTarget({ name: companyName, id, source });
+    setTopTab('report');
+    setActiveNav('report');
+    try {
+      if (typeof window !== 'undefined' && window.history?.pushState) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('tab', 'report');
+        url.searchParams.set('company', companyName);
+        if (id) url.searchParams.set('id', id); else url.searchParams.delete('id');
+        if (source) url.searchParams.set('source', source); else url.searchParams.delete('source');
+        window.history.pushState({}, '', url.toString());
+      }
+    } catch {
+      // Ignore navigation history errors
+    }
+  };
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAdminPortalOpen, setIsAdminPortalOpen] = useState(false);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
@@ -1073,8 +1124,20 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     setIsMobileFilterOpen(false);
 
     try {
-      if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem(STORAGE_TAB_KEY, normalizedTab);
+      if (typeof window !== 'undefined') {
+        if (window.localStorage) {
+          window.localStorage.setItem(STORAGE_TAB_KEY, normalizedTab);
+        }
+        if (window.history?.replaceState) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('tab', normalizedTab);
+          if (normalizedTab !== 'report') {
+            url.searchParams.delete('company');
+            url.searchParams.delete('id');
+            url.searchParams.delete('source');
+          }
+          window.history.replaceState({}, '', url.toString());
+        }
       }
     } catch {
       // Ignore storage errors
@@ -1339,7 +1402,9 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         />
       ) : isReportCategory ? (
         <ReportView
-          initialCompany={selectedReportCompany}
+          initialCompany={selectedReportTarget?.name}
+          initialLeadId={selectedReportTarget?.id}
+          initialSource={selectedReportTarget?.source}
           currentUser={currentUser}
         />
       ) : isApolloCategory && apolloSubTab === 'companies' ? (
@@ -1496,6 +1561,10 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           }
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
+          onGenerateReport={(name, id, source) => {
+            setSelectedDatamyneLead(null);
+            handleNavigateToReport(name, id, source);
+          }}
         />
       </ErrorBoundary>
 
@@ -1510,6 +1579,10 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onClose={() => setSelectedApolloDbLead(null)}
           onFindDecisionMakers={handleFindDecisionMakersInPeople}
           onAssignToTracker={handleAssignToTracker}
+          onGenerateReport={(name, id, source) => {
+            setSelectedApolloDbLead(null);
+            handleNavigateToReport(name, id, source);
+          }}
         />
       </ErrorBoundary>
 

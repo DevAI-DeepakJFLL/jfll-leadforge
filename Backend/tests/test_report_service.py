@@ -163,3 +163,68 @@ def test_generate_client_report_pulls_all_decision_makers_and_directors():
     assert len(apollo_contacts) >= 2, f"Expected at least 2 Apollo contacts, got {len(apollo_contacts)}"
 
 
+def test_search_report_companies_multi_source_baumer():
+    """Verify that searching 'Baumer' returns both DataMyne and Apollo suggestions with source tags."""
+    results = search_report_companies("Baumer", limit=10)
+    assert len(results) >= 2
+    sources = {r.get("source") for r in results}
+    assert "datamyne" in sources
+    assert "apollo" in sources
+
+    # Ensure DataMyne record is present
+    dm_names = [r["company_name"] for r in results if r.get("source") == "datamyne"]
+    assert any("BAUMER" in n.upper() for n in dm_names)
+
+    # Ensure Apollo record is present
+    apollo_names = [r["company_name"] for r in results if r.get("source") == "apollo"]
+    assert any("BAUMER" in n.upper() for n in apollo_names)
+
+
+def test_generate_client_report_apollo_baumer_disambiguation():
+    """Verify that passing Apollo organization_id resolves Baumer s.r.l. and not DataMyne India."""
+    report = generate_client_report_data(
+        company_query="Baumer s.r.l.",
+        lead_id="556997827369642521126300",
+        source="apollo",
+        prepared_for="International Trade Desk",
+        prepared_by="Deepak Naidu",
+    )
+    assert isinstance(report, ClientReportData)
+    assert report.lead_id == "556997827369642521126300"
+    assert "Baumer s.r.l." in report.header.company_name
+    assert "Verified International Account" in report.header.subtitle
+    assert "MULTIMODAL" in report.section_2_trade_lane.primary_mode
+    # Total customs shipments must be 0 for enterprise profiles, preserving metrics integrity
+    assert report.section_2_trade_lane.total_shipments == 0
+    assert any("Apollo Verified" in c.notes for c in report.section_4_contacts)
+
+
+def test_generate_client_report_datamyne_baumer_disambiguation():
+    """Verify that passing DataMyne lead_id resolves Indian customs Baumer."""
+    report = generate_client_report_data(
+        company_query="BAUMER TECHNOLOGIES INDIA PRIVATE LIMITED",
+        lead_id="dm-val-00715",
+        source="datamyne",
+    )
+    assert isinstance(report, ClientReportData)
+    assert report.lead_id == "dm-val-00715"
+    assert "BAUMER TECHNOLOGIES INDIA" in report.header.company_name
+    assert report.section_2_trade_lane.total_shipments == 293
+    assert report.section_2_trade_lane.total_value_usd > 200000
+
+
+def test_generate_client_report_brazil_customs():
+    """Verify that Brazil DataMyne manifests generate Brazil-specific gateways and trade lanes."""
+    report = generate_client_report_data(
+        company_query="PETROBRAS",
+        lead_id="dm-bra-00002",
+        source="datamyne_brazil",
+    )
+    assert isinstance(report, ClientReportData)
+    assert report.lead_id == "dm-bra-00002"
+    assert "Brazil Customs Verified Account" in report.header.subtitle
+    assert "Santos (SSZ) Sea" in report.section_1_background.hq_facilities
+    assert "BRSSZ" in report.section_2_trade_lane.lading_port
+
+
+

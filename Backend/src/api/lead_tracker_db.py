@@ -40,6 +40,9 @@ def get_storage_path() -> Path:
     custom_path = os.getenv("LEAD_TRACKER_DB_PATH")
     if custom_path:
         return Path(custom_path)
+    custom_json = os.getenv("LEAD_TRACKER_PATH")
+    if custom_json:
+        return Path(custom_json).with_suffix(".db")
     if os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
         return Path("/tmp/data/lead_tracker.db")
     base_dir = Path(__file__).resolve().parent.parent.parent

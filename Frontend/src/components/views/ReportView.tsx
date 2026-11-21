@@ -28,6 +28,8 @@ import { UserSession } from '@/types/auth';
 
 export interface ReportViewProps {
   initialCompany?: string | null;
+  initialLeadId?: string | null;
+  initialSource?: string | null;
   initialReport?: ClientReportData | null;
   currentUser?: UserSession | null;
 }
@@ -107,12 +109,16 @@ const ReportFieldRow: React.FC<ReportFieldRowProps> = ({
 
 export const ReportView: React.FC<ReportViewProps> = ({
   initialCompany = '',
+  initialLeadId = null,
+  initialSource = null,
   initialReport = null,
   currentUser = null,
 }) => {
   const defaultPreparedBy = currentUser?.name || 'Tyra Theknath';
   const isViewer = currentUser?.role === 'Viewer';
   const [searchQuery, setSearchQuery] = useState(initialCompany || '');
+  const [selectedLeadId, setSelectedLeadId] = useState<string | null>(initialLeadId);
+  const [selectedSource, setSelectedSource] = useState<string | null>(initialSource);
   const [preparedFor, setPreparedFor] = useState('Mumbai Sales Branch');
   const [preparedBy, setPreparedBy] = useState(defaultPreparedBy);
   const [isLoading, setIsLoading] = useState(false);
@@ -124,6 +130,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const [successNotice, setSuccessNotice] = useState<string | null>(null);
   const [suggestions, setSuggestions] = useState<ReportCompanySuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
   const [report, setReport] = useState<ClientReportData>(() => {
@@ -146,20 +153,22 @@ export const ReportView: React.FC<ReportViewProps> = ({
   // Fetch initial report if company was pre-selected from drawer
   useEffect(() => {
     if (initialCompany && !initialReport) {
-      handleGenerate(initialCompany);
+      handleGenerate(initialCompany, initialLeadId || undefined, initialSource || undefined);
     }
-  }, [initialCompany]);
+  }, [initialCompany, initialLeadId, initialSource]);
 
   // Autocomplete search suggestions debounce
   useEffect(() => {
     if (!searchQuery || searchQuery.trim().length < 2) {
       setSuggestions([]);
+      setHighlightedIndex(-1);
       return;
     }
 
     const timer = setTimeout(async () => {
       const items = await fetchReportCompanySuggestions(searchQuery, 8);
       setSuggestions(items);
+      setHighlightedIndex(-1);
     }, 250);
 
     return () => clearTimeout(timer);
@@ -173,6 +182,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
         !searchContainerRef.current.contains(event.target as Node)
       ) {
         setShowSuggestions(false);
+        setHighlightedIndex(-1);
       }
     };
     document.addEventListener('mousedown', handleOutsideClick);
@@ -181,9 +191,16 @@ export const ReportView: React.FC<ReportViewProps> = ({
     };
   }, []);
 
-  const handleGenerate = async (companyNameOverride?: string) => {
+  const handleGenerate = async (
+    companyNameOverride?: string,
+    leadIdOverride?: string | null,
+    sourceOverride?: string | null,
+  ) => {
     const target = companyNameOverride || searchQuery;
     if (!target || !target.trim()) return;
+
+    const leadIdToSend = leadIdOverride !== undefined ? leadIdOverride : selectedLeadId;
+    const sourceToSend = sourceOverride !== undefined ? sourceOverride : selectedSource;
 
     setIsLoading(true);
     setShowSuggestions(false);
@@ -191,11 +208,16 @@ export const ReportView: React.FC<ReportViewProps> = ({
     try {
       const data = await generateClientReport({
         company_name_or_id: target.trim(),
+        lead_id: leadIdToSend || null,
+        source: sourceToSend || null,
         prepared_for: preparedFor,
         prepared_by: preparedBy,
       });
       setReport(data);
       setSearchQuery(data.header.company_name);
+      if (data.lead_id) {
+        setSelectedLeadId(data.lead_id);
+      }
     } catch (err) {
       console.error('[REPORT VIEW] Generation error:', err);
       setReport(createEmptyReportDraft(target.trim(), preparedFor, preparedBy));
@@ -414,7 +436,11 @@ export const ReportView: React.FC<ReportViewProps> = ({
               } rounded-lg text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
               title={isViewer ? 'Viewing Mode · Contact Admin for Export Privileges' : undefined}
             >
-              <Download className={`w-4 h-4 ${isExporting ? 'animate-bounce' : ''}`} />
+              {isExporting ? (
+                <RefreshCw className="w-4 h-4 text-white animate-spin" />
+              ) : (
+                <Download className="w-4 h-4" />
+              )}
               <span>{isExporting ? 'Exporting...' : 'Export Word (.docx)'}</span>
             </button>
           </div>
@@ -437,17 +463,57 @@ export const ReportView: React.FC<ReportViewProps> = ({
               <input
                 id="company-search-input"
                 type="text"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded={showSuggestions && suggestions.length > 0}
+                aria-controls="company-suggestions-list"
+                aria-activedescendant={
+                  highlightedIndex >= 0 && suggestions[highlightedIndex]
+                    ? `suggestion-option-${suggestions[highlightedIndex].source || 'dm'}-${suggestions[highlightedIndex].id}`
+                    : undefined
+                }
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
+                  setSelectedLeadId(null);
+                  setSelectedSource(null);
                   setShowSuggestions(true);
+                  setHighlightedIndex(-1);
                 }}
                 onFocus={() => setShowSuggestions(true)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
+                  if (showSuggestions && suggestions.length > 0) {
+                    if (e.key === 'ArrowDown') {
+                      e.preventDefault();
+                      setHighlightedIndex((prev) => (prev < suggestions.length - 1 ? prev + 1 : 0));
+                      return;
+                    }
+                    if (e.key === 'ArrowUp') {
+                      e.preventDefault();
+                      setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : suggestions.length - 1));
+                      return;
+                    }
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
+                        const selected = suggestions[highlightedIndex];
+                        setSearchQuery(selected.company_name);
+                        setSelectedLeadId(selected.id);
+                        setSelectedSource(selected.source || null);
+                        handleGenerate(selected.company_name, selected.id, selected.source || null);
+                        return;
+                      }
+                      handleGenerate();
+                      return;
+                    }
+                    if (e.key === 'Escape') {
+                      e.preventDefault();
+                      setShowSuggestions(false);
+                      setHighlightedIndex(-1);
+                      return;
+                    }
+                  } else if (e.key === 'Enter') {
                     handleGenerate();
-                  } else if (e.key === 'Escape') {
-                    setShowSuggestions(false);
                   }
                 }}
                 placeholder="Search company name (e.g. Titan Laboratories)..."
@@ -467,36 +533,80 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 aria-label="Company Suggestions"
                 className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-xl shadow-xl z-50 max-h-64 overflow-y-auto divide-y divide-slate-100"
               >
-                {suggestions.map((item) => (
-                  <button
-                    key={item.id}
-                    role="option"
-                    aria-selected={searchQuery === item.company_name}
-                    onClick={() => {
-                      setSearchQuery(item.company_name);
-                      handleGenerate(item.company_name);
-                    }}
-                    className="w-full px-3.5 py-2.5 text-left hover:bg-blue-50/70 transition-colors flex items-center justify-between group cursor-pointer focus:bg-blue-50/80 focus:outline-none"
-                  >
-                    <div className="min-w-0 pr-3">
-                      <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700 truncate">
-                        {item.company_name}
+                {suggestions.map((item, idx) => {
+                  const isHighlighted = idx === highlightedIndex;
+                  const optionId = `suggestion-option-${item.source || 'dm'}-${item.id}`;
+                  return (
+                    <button
+                      key={`${item.source || 'dm'}-${item.id}`}
+                      id={optionId}
+                      role="option"
+                      type="button"
+                      aria-selected={isHighlighted || searchQuery === item.company_name}
+                      onMouseEnter={() => setHighlightedIndex(idx)}
+                      onClick={() => {
+                        setSearchQuery(item.company_name);
+                        setSelectedLeadId(item.id);
+                        setSelectedSource(item.source || null);
+                        handleGenerate(item.company_name, item.id, item.source || null);
+                      }}
+                      className={`w-full px-3.5 py-2.5 text-left transition-colors flex items-center justify-between group cursor-pointer focus:outline-none ${
+                        isHighlighted
+                          ? 'bg-blue-50 text-blue-900 ring-1 ring-inset ring-blue-300'
+                          : 'hover:bg-slate-50 text-slate-900'
+                      }`}
+                    >
+                      <div className="min-w-0 pr-3">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className={`text-xs font-bold truncate ${isHighlighted ? 'text-blue-900' : 'text-slate-900 group-hover:text-blue-700'}`}>
+                            {item.company_name}
+                          </span>
+                          {item.source === 'datamyne_brazil' ? (
+                            <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-300">
+                              Brazil Customs
+                            </span>
+                          ) : item.source === 'apollo' ? (
+                            <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-300">
+                              Apollo Verified
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-300">
+                              DataMyne · India
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-[11px] text-slate-500 flex items-center gap-2 mt-0.5">
+                          <span>{item.city || item.country || 'Global'}</span>
+                          {item.country && item.city && <span>({item.country})</span>}
+                          {item.category && <span>· {item.category}</span>}
+                        </div>
                       </div>
-                      <div className="text-[11px] text-slate-500 flex items-center gap-2 mt-0.5">
-                        <span>{item.city || 'India'}</span>
-                        {item.category && <span>· {item.category}</span>}
+                      <div className="text-right shrink-0">
+                        {item.source === 'apollo' ? (
+                          <>
+                            <div className="text-xs font-semibold text-slate-900">
+                              {item.employee_count ? `${item.employee_count.toLocaleString()} emp` : 'Global Account'}
+                            </div>
+                            {item.total_value_usd > 0 && (
+                              <div className="text-[10px] text-emerald-700 font-medium">
+                                ${item.total_value_usd.toLocaleString('en-US', { maximumFractionDigits: 0 })} USD
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <div className="text-xs font-semibold text-slate-900">
+                              {item.total_shipments} shipments
+                            </div>
+                            <div className="text-[10px] text-emerald-700 font-medium">
+                              ${item.total_value_usd.toLocaleString('en-US', { maximumFractionDigits: 0 })} USD
+                            </div>
+                          </>
+                        )}
                       </div>
-                    </div>
-                    <div className="text-right shrink-0">
-                      <div className="text-xs font-semibold text-slate-900">
-                        {item.total_shipments} shipments
-                      </div>
-                      <div className="text-[10px] text-emerald-700 font-medium">
-                        ${item.total_value_usd.toLocaleString('en-US', { maximumFractionDigits: 0 })} USD
-                      </div>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>

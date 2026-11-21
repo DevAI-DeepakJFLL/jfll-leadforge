@@ -408,7 +408,7 @@ def test_log_approach_auto_syncs_to_lead_tracker(tmp_path, monkeypatch):
     """Verifies logging outreach auto-creates/syncs lead in lead_tracker_items."""
     test_db = tmp_path / "test_tracker.db"
     monkeypatch.setenv("LEAD_TRACKER_DB_PATH", str(test_db))
-    from src.api.lead_tracker_db import init_db, get_all_leads
+    from src.api.lead_tracker_db import get_all_leads, init_db
     init_db(test_db)
 
     headers = _auth_header(email="snehal.birje@jfll.com", name="Snehal Birje")

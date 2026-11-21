@@ -117,3 +117,23 @@ def test_report_contacts_max_length_validation():
     ]
     doc_resp = client.post("/api/v1/reports/export-docx", json=report_data)
     assert doc_resp.status_code == 422
+
+
+def test_post_generate_report_with_lead_id_and_source_disambiguation():
+    """Verify endpoint correctly uses lead_id and source to disambiguate Apollo accounts."""
+    resp = client.post(
+        "/api/v1/reports/generate",
+        json={
+            "company_name_or_id": "Baumer",
+            "lead_id": "556997827369642521126300",
+            "source": "apollo",
+            "prepared_for": "Global Accounts",
+            "prepared_by": "Tester",
+        },
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["lead_id"] == "556997827369642521126300"
+    assert "Baumer s.r.l." in data["header"]["company_name"]
+    assert "Verified International Account" in data["header"]["subtitle"]
+

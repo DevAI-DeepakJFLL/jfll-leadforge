@@ -286,8 +286,14 @@ def list_leads(
         order_direction = "DESC" if sort_order == "desc" else "ASC"
 
         if converted_active_ids:
-            cid_escaped = ", ".join([repr(cid) for cid in converted_active_ids])
-            status_sql = f'CASE WHEN "id" IN ({cid_escaped}) THEN \'Active\' ELSE "Status" END as status'
+            # Strict regex sanitization to ensure pure alphanumeric ID tokens in dynamic SQL projection
+            safe_cids = [re.sub(r"[^a-zA-Z0-9_\-\.]", "", str(cid)) for cid in converted_active_ids]
+            safe_cids = [cid for cid in safe_cids if cid]
+            if safe_cids:
+                cid_escaped = ", ".join([f"'{cid}'" for cid in safe_cids])
+                status_sql = f'CASE WHEN "id" IN ({cid_escaped}) THEN \'Active\' ELSE "Status" END as status'
+            else:
+                status_sql = '"Status" as status'
         else:
             status_sql = '"Status" as status'
 

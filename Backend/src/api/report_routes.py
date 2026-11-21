@@ -62,6 +62,8 @@ def post_generate_report(
     try:
         return generate_client_report_data(
             company_query=payload.company_name_or_id,
+            lead_id=payload.lead_id,
+            source=payload.source,
             prepared_for=prep_for,
             prepared_by=prep_by,
         )

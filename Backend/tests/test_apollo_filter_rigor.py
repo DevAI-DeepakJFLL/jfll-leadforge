@@ -1,7 +1,9 @@
 import pytest
 from fastapi.testclient import TestClient
-from src.api.main import app
+
 from src.api.auth import create_token, set_active_session
+from src.api.main import app
+
 
 @pytest.fixture(scope="module")
 def client():

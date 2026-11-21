@@ -52,6 +52,7 @@ export interface LeadTrackerDrawerProps {
 }
 
 export const STANDARD_SALES_REPS = [
+  { name: 'Tester', branch: 'Mumbai', email: 'tester@jfll.com' },
   { name: 'Edward', branch: 'Mumbai', email: 'edward@jfll.com' },
   { name: 'Tasneem', branch: 'Mumbai', email: 'tasneem@jfll.com' },
   { name: 'Priyanka Sardesai', branch: 'Mumbai', email: 'priyanka.sardesai@jfll.com' },

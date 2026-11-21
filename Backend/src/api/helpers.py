@@ -26,6 +26,22 @@ def _clean_ip_header(val: str | None) -> str | None:
     return None
 
 
+def _is_private_or_loopback_ip(host: str) -> bool:
+    """Detects loopback, internal test client, and RFC 1918 private subnet IP addresses."""
+    clean = host.strip()
+    if clean in ("127.0.0.1", "localhost", "testclient", "::1", "unknown"):
+        return True
+    if clean.startswith(("10.", "192.168.", "127.")):
+        return True
+    if clean.startswith("172."):
+        parts = clean.split(".")
+        if len(parts) >= 2 and parts[1].isdigit():
+            second_octet = int(parts[1])
+            if 16 <= second_octet <= 31:
+                return True
+    return False
+
+
 def get_client_ip(request: Request) -> str:
     """Safely extracts client public IP address considering trusted proxies, CloudFront, and Lambda URL."""
     # 1. AWS CloudFront edge viewer IP (trusted edge header set by AWS CloudFront)
@@ -42,10 +58,10 @@ def get_client_ip(request: Request) -> str:
         return cf_connecting_ip
 
     # 3. Direct socket connection for genuine public clients
-    if request.client and request.client.host and request.client.host not in ("127.0.0.1", "testclient"):
+    if request.client and request.client.host and not _is_private_or_loopback_ip(request.client.host):
         return request.client.host.strip()
 
-    # 4. Reverse proxy / TestClient forwarding fallback
+    # 4. Reverse proxy / Load Balancer forwarding fallback (ALB, Nginx, Docker)
     x_forwarded_for = _clean_ip_header(request.headers.get("x-forwarded-for"))
     if x_forwarded_for:
         return x_forwarded_for

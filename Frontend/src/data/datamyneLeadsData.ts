@@ -3,6 +3,29 @@ import { DatamyneLead } from "@/types/datamyneLead";
 
 export const DATAMYNE_STARTER_DATA: DatamyneLead[] = [
   {
+    "id": "dm-test-77001",
+    "company_name": "TESTER FREIGHT WORLDWIDE PVT LTD",
+    "country": "India",
+    "role": "Exporter",
+    "transport_mode": "Air",
+    "category": "Engineering & Machinery",
+    "subcategory": "Industrial Machinery & Boilers",
+    "contact_type": "Both Phone & Email",
+    "phone": "+91 98200 88888",
+    "email": "contact@testerfreight.com",
+    "tax_id": "27AABCT9999T1Z1",
+    "city": "Mumbai",
+    "address": "Andheri East, Cargo Complex, Mumbai 400099",
+    "pin_code": "400099",
+    "directors": "Tester Director (Managing Director)",
+    "trade_lanes": "India-Europe/Air, India-USA/Air",
+    "top_hs_codes": "84713010, 84733020",
+    "total_shipments": 25,
+    "total_value_usd": 750000.0,
+    "latest_activity_date": "2026-11-15",
+    "dataset_type": "valid"
+  },
+  {
     "id": "dm-bra-00046",
     "company_name": "EUROFARMA LABORATORIOS",
     "country": "Brazil",

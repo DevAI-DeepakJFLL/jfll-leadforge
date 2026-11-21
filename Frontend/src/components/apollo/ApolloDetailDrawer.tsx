@@ -23,6 +23,7 @@ import {
   Loader2,
   ShieldCheck,
   ClipboardList,
+  FileText,
 } from 'lucide-react';
 import { ApolloVerticalBadge } from './ApolloVerticalBadge';
 import {
@@ -41,6 +42,7 @@ export interface ApolloDetailDrawerProps {
   onClose: () => void;
   onFindDecisionMakers?: (companyName: string, organizationId?: string) => void;
   onAssignToTracker?: (lead: ApolloLead) => void;
+  onGenerateReport?: (companyName: string, id?: string, source?: string) => void;
   className?: string;
 }
 
@@ -50,6 +52,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
   onClose,
   onFindDecisionMakers,
   onAssignToTracker,
+  onGenerateReport,
   className = '',
 }) => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -233,6 +236,18 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                 >
                   <ClipboardList className="w-3.5 h-3.5" />
                   <span>Assign & Track</span>
+                </button>
+              )}
+
+              {onGenerateReport && (
+                <button
+                  type="button"
+                  onClick={() => onGenerateReport(lead.organization_name, lead.organization_id, 'apollo')}
+                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[36px] cursor-pointer"
+                  title={`Generate Client Briefing Report for ${lead.organization_name}`}
+                >
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>Client Report</span>
                 </button>
               )}
             </div>
