@@ -153,4 +153,17 @@ describe('ReportView Component Suite', () => {
     expect(html).toContain('Client Report Generator');
     expect(html).toContain('Baumer s.r.l.');
   });
+
+  it('renders "Checking from Apollo…" loader in Section 4 while decision makers are fetching', () => {
+    const html = renderToString(
+      <ReportView
+        initialCompany="Titan Laboratories Pvt Ltd"
+        initialIsLoading={true}
+      />
+    );
+
+    expect(html).toContain('Checking from Apollo…');
+    expect(html).toContain('Cross-referencing verified CXOs, Directors, and Logistics Decision-Makers');
+    expect(html).not.toContain('+ Add Contact');
+  });
 });

@@ -19,6 +19,8 @@ import {
   Mail,
   Sparkles,
   Loader2,
+  ArrowUpRight,
+  Check,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { Lead } from '@/types/lead';
@@ -47,6 +49,7 @@ export interface DatamyneDetailDrawerProps {
   onConvertToActive?: (lead: DatamyneLead) => void;
   onAssignToTracker?: (lead: DatamyneLead) => void;
   onGenerateReport?: (companyName: string, id?: string, source?: string) => void;
+  initialIsLoadingContacts?: boolean;
   className?: string;
 }
 
@@ -58,13 +61,14 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   onLogApproach,
   onConvertToActive,
   onGenerateReport,
+  initialIsLoadingContacts = false,
   className = '',
 }) => {
   const { showToast } = useToast();
   const [isTierModalOpen, setIsTierModalOpen] = useState(false);
   const [contacts, setContacts] = useState<Lead[]>([]);
   const [totalContacts, setTotalContacts] = useState<number>(0);
-  const [isLoadingContacts, setIsLoadingContacts] = useState<boolean>(false);
+  const [isLoadingContacts, setIsLoadingContacts] = useState<boolean>(initialIsLoadingContacts);
   const [hasSearched, setHasSearched] = useState<boolean>(false);
 
   // Reset search state when a new lead is selected or drawer reopens
@@ -261,7 +265,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0">
               {onGenerateReport && (
                 <button
                   type="button"
@@ -272,22 +276,59 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                       lead.country === 'Brazil' || lead.id.startsWith('dm-bra-') ? 'datamyne_brazil' : 'datamyne'
                     )
                   }
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[36px] cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-blue-50/80 text-blue-700 hover:text-blue-800 border border-blue-200 hover:border-blue-300 rounded-lg text-xs font-semibold shadow-2xs hover:shadow-xs transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
                   title={`Generate Client Briefing Report for ${lead.company_name}`}
                 >
-                  <FileText className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Client Report</span>
+                  <FileText className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Client Report</span>
                 </button>
               )}
+              <div className="h-5 w-px bg-slate-200" aria-hidden="true" />
               <button
                 onClick={onClose}
-                className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer"
+                className="p-1.5 min-h-[38px] min-w-[38px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-400"
                 aria-label="Close lead details"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
           </div>
+
+          {/* Dedicated Quick Action Toolbar Strip */}
+          {onGenerateReport && (
+            <div className="bg-gradient-to-r from-blue-50/80 via-indigo-50/40 to-slate-50 border-b border-blue-100/90 px-5 py-2.5 flex items-center justify-between gap-3 shrink-0 shadow-2xs">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-7 h-7 rounded-lg bg-blue-600/10 text-blue-700 border border-blue-200/60 flex items-center justify-center shrink-0">
+                  <FileText className="w-4 h-4 text-blue-600" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs font-bold text-slate-900 leading-tight">
+                    Client Report & Briefing
+                  </div>
+                  <div className="text-[10px] text-slate-500 font-medium truncate">
+                    Customs trade intelligence, Apollo decision-makers & fit pitch
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() =>
+                  onGenerateReport(
+                    lead.company_name,
+                    lead.id,
+                    lead.country === 'Brazil' || lead.id.startsWith('dm-bra-') ? 'datamyne_brazil' : 'datamyne'
+                  )
+                }
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] text-white rounded-lg text-xs font-bold shadow-xs hover:shadow transition-all cursor-pointer shrink-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                title={`Generate Client Briefing Report for ${lead.company_name}`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                <span>Generate Client Report</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-blue-200" />
+              </button>
+            </div>
+          )}
 
           {/* Body Content */}
           <div className="flex-1 overflow-y-auto p-5 space-y-5 text-xs">
@@ -390,38 +431,51 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                   </div>
                 </div>
               ) : isLoadingContacts ? (
-                <div className="space-y-3 py-2">
-                  <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
-                    <Loader2 className="w-4 h-4 text-apollo animate-spin shrink-0" />
-                    <span>Cross-referencing Apollo executive directory...</span>
+                <div className="p-6 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-slate-50 rounded-xl border border-indigo-100/90 flex flex-col items-center justify-center text-center space-y-3 py-7 animate-fade-in shadow-2xs">
+                  <div className="relative">
+                    <div className="w-11 h-11 rounded-full bg-apollo/10 text-apollo border border-apollo/20 flex items-center justify-center shadow-2xs">
+                      <Loader2 className="w-5 h-5 text-apollo animate-spin" />
+                    </div>
+                    <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-apollo opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-apollo"></span>
+                    </span>
                   </div>
-                  <div className="space-y-2.5">
-                    {[1, 2].map((i) => (
-                      <div
-                        key={i}
-                        className="flex items-center justify-between p-2.5 bg-slate-50/70 rounded-lg animate-pulse"
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-full bg-slate-200" />
-                          <div className="space-y-1">
-                            <div className="w-28 h-3 bg-slate-200 rounded" />
-                            <div className="w-36 h-2.5 bg-slate-100 rounded" />
-                          </div>
-                        </div>
-                        <div className="w-16 h-4 bg-slate-100 rounded" />
-                      </div>
-                    ))}
+                  <div className="space-y-1 max-w-xs">
+                    <div className="text-xs font-bold text-slate-900 tracking-tight flex items-center justify-center gap-1.5">
+                      <span>Checking from Apollo…</span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 leading-relaxed">
+                      Cross-referencing 15.5M executive database for verified CXOs, Directors, and Procurement decision makers...
+                    </p>
+                  </div>
+                  <div className="w-40 bg-slate-200/80 rounded-full h-1 overflow-hidden mt-1">
+                    <div className="bg-apollo h-full rounded-full w-3/4 animate-pulse" />
                   </div>
                 </div>
               ) : contacts.length > 0 ? (
-                <div className="space-y-2">
-                  <div className="divide-y divide-slate-100">
+                <div className="space-y-3 animate-fade-in">
+                  <div className="p-2.5 bg-emerald-50/70 border border-emerald-200/80 rounded-lg flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span className="text-xs font-bold text-emerald-900">
+                        {contacts.length} Verified Contact{contacts.length === 1 ? '' : 's'} Retrieved from Apollo
+                      </span>
+                    </div>
+                    {totalContacts > contacts.length && (
+                      <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-full">
+                        {totalContacts} total indexed
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="divide-y divide-slate-100 bg-slate-50/50 border border-slate-200/80 rounded-xl px-3 py-1 shadow-2xs">
                     {contacts.map((contact) => {
                       const badge = getSeniorityBadge(contact.seniority);
                       return (
                         <div
                           key={contact.id}
-                          className="py-2.5 first:pt-0 last:pb-0 flex items-center justify-between gap-3"
+                          className="py-2.5 first:pt-1.5 last:pb-1.5 flex items-center justify-between gap-3"
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
                             <div className="w-8 h-8 rounded-full bg-apollo/10 text-apollo border border-apollo/20 flex items-center justify-center font-bold text-xs shrink-0">
@@ -469,6 +523,25 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                       );
                     })}
                   </div>
+
+                  {onGenerateReport && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        onGenerateReport(
+                          lead.company_name,
+                          lead.id,
+                          lead.country === 'Brazil' || lead.id.startsWith('dm-bra-') ? 'datamyne_brazil' : 'datamyne'
+                        )
+                      }
+                      className="w-full py-2 px-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.99] text-white rounded-lg text-xs font-semibold shadow-xs hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      title="Open Client Report pre-populated with these verified Apollo decision makers"
+                    >
+                      <FileText className="w-3.5 h-3.5 text-blue-200" />
+                      <span>Generate Client Report with Apollo Contacts</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-blue-200" />
+                    </button>
+                  )}
 
                   {onFindDecisionMakers && (
                     <div className="pt-2 border-t border-slate-100 flex items-center justify-between">

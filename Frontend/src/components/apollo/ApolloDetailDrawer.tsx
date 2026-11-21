@@ -243,10 +243,10 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                 <button
                   type="button"
                   onClick={() => onGenerateReport(lead.organization_name, lead.organization_id, 'apollo')}
-                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[36px] cursor-pointer"
+                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] text-white rounded-lg text-xs font-semibold shadow-xs hover:shadow transition-all min-h-[36px] cursor-pointer"
                   title={`Generate Client Briefing Report for ${lead.organization_name}`}
                 >
-                  <FileText className="w-3.5 h-3.5" />
+                  <FileText className="w-3.5 h-3.5 text-blue-100" />
                   <span>Client Report</span>
                 </button>
               )}

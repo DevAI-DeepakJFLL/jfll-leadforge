@@ -559,5 +559,41 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
       expect(html).toContain('View');
       expect(html).not.toContain('<span>Decision Makers</span>');
     });
+
+    it('renders redesigned Client Report direct button layout with header trigger and quick action toolbar', () => {
+      const html = renderToString(
+        <ToastProvider>
+          <DatamyneDetailDrawer
+            isOpen={true}
+            lead={sampleValidLead}
+            onClose={() => {}}
+            onGenerateReport={() => {}}
+          />
+        </ToastProvider>
+      );
+
+      // Header action button
+      expect(html).toContain('Client Report');
+      // Dedicated quick action toolbar strip
+      expect(html).toContain('Client Report &amp; Briefing');
+      expect(html).toContain('Generate Client Report');
+    });
+
+    it('renders "Checking from Apollo…" loader while Apollo decision makers are fetching', () => {
+      const html = renderToString(
+        <ToastProvider>
+          <DatamyneDetailDrawer
+            isOpen={true}
+            lead={sampleValidLead}
+            onClose={() => {}}
+            onGenerateReport={() => {}}
+            initialIsLoadingContacts={true}
+          />
+        </ToastProvider>
+      );
+
+      expect(html).toContain('Checking from Apollo…');
+      expect(html).toContain('Cross-referencing 15.5M executive database');
+    });
   });
 });
