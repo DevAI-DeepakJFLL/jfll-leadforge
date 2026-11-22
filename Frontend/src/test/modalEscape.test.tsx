@@ -4,9 +4,13 @@ import { TierScoreBreakdownModal } from '@/components/tiers/TierScoreBreakdownMo
 import { DatamyneDetailDrawer } from '@/components/datamyne/DatamyneDetailDrawer';
 import { DatamyneLeadDetailDrawer } from '@/components/datamyne/DatamyneLeadDetailDrawer';
 import { JfllCustomerDetailDrawer } from '@/components/jfll/JfllCustomerDetailDrawer';
+import { ApolloDetailDrawer } from '@/components/apollo/ApolloDetailDrawer';
+import { LeadDetailDrawer } from '@/components/leads/LeadDetailDrawer';
 import { TieredLead } from '@/types/tierSegmentation';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { JfllCustomer } from '@/types/jfllCustomer';
+import { ApolloLead } from '@/types/apolloLead';
+import { Lead } from '@/types/lead';
 
 /**
  * EventTarget mock with standard W3C capture & bubble phase execution semantics.
@@ -552,6 +556,78 @@ describe('Drawer Body Scroll Lock Suite', () => {
     // Restores original overflow
     expect(document.body.style.overflow).toBe('auto');
 
+    unmount();
+  });
+
+  it('locks body scroll in ApolloDetailDrawer when open and restores original overflow on unmount', () => {
+    expect(document.body.style.overflow).toBe('auto');
+
+    const mockApolloLead: ApolloLead = {
+      organization_id: 'org_test_123',
+      organization_name: 'Boeing Defense',
+      domain: 'boeing.com',
+      industry: 'aerospace',
+      phone: '+1 703 465 3000',
+      hq_city: 'Arlington',
+      hq_state: 'VA',
+      hq_country: 'United States',
+      employee_count: 156000,
+      revenue_usd: 77000000000,
+    };
+
+    const { rerender, unmount } = renderComponent(ApolloDetailDrawer, {
+      isOpen: true,
+      lead: mockApolloLead,
+      onClose: () => {},
+    });
+
+    expect(document.body.style.overflow).toBe('hidden');
+
+    rerender({
+      isOpen: false,
+      lead: mockApolloLead,
+      onClose: () => {},
+    });
+
+    expect(document.body.style.overflow).toBe('auto');
+    unmount();
+  });
+
+  it('locks body scroll in LeadDetailDrawer when open and restores original overflow on unmount', () => {
+    expect(document.body.style.overflow).toBe('auto');
+
+    const mockStandardLead: Lead = {
+      id: 'lead-test-1',
+      name: 'Sarah Connor',
+      title: 'VP of Global Logistics',
+      company: 'Cyberdyne Systems',
+      companyLogo: '',
+      industry: 'Aviation & Aerospace',
+      location: 'Los Angeles, California, United States',
+      email: 's.connor@cyberdyne.com',
+      phone: '+1 310-555-0199',
+      employees: '1000+',
+      revenue: '$50M-$100M',
+      funding: 'Series B',
+      status: 'NET NEW',
+      saved: false,
+    };
+
+    const { rerender, unmount } = renderComponent(LeadDetailDrawer, {
+      isOpen: true,
+      lead: mockStandardLead,
+      onClose: () => {},
+    });
+
+    expect(document.body.style.overflow).toBe('hidden');
+
+    rerender({
+      isOpen: false,
+      lead: mockStandardLead,
+      onClose: () => {},
+    });
+
+    expect(document.body.style.overflow).toBe('auto');
     unmount();
   });
 });

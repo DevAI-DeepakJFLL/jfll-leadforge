@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Lead } from '@/types/lead';
 import { CompanyAvatar } from './CompanyAvatar';
 import {
@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { useModalDismiss } from '@/hooks/useModalDismiss';
 import { useClipboard } from '@/hooks/useClipboard';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import { formatDate } from '@/utils/formatters';
 import { isValidEmailAddress, isValidPhoneNumber } from '@/utils/apolloUtils';
 import { toSafeExternalUrl } from '@/types/apolloLead';
@@ -58,8 +59,31 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
   const [isListMenuOpen, setIsListMenuOpen] = useState(false);
   const [isCreatingList, setIsCreatingList] = useState(false);
   const [newListName, setNewListName] = useState('');
+  const listMenuRef = useRef<HTMLDivElement>(null);
 
   useModalDismiss({ isOpen, onClose });
+
+  // Lock background scroll when drawer is open
+  useEffect(() => {
+    if (isOpen && typeof document !== 'undefined') {
+      const originalOverflow = document.body.style.overflow === 'hidden' ? 'auto' : (document.body.style.overflow || 'auto');
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow === 'hidden' ? 'auto' : originalOverflow;
+      };
+    }
+  }, [isOpen]);
+
+  // Click outside and Escape listener to close Add-to-List dropdown
+  useClickOutside(
+    listMenuRef,
+    () => {
+      setIsListMenuOpen(false);
+      setIsCreatingList(false);
+      setNewListName('');
+    },
+    isListMenuOpen
+  );
 
   const { copy: copyToClipboard, isCopied } = useClipboard({
     onSuccess: (text, field) => {
@@ -72,15 +96,23 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
     if (lead) {
       setActiveTab('overview');
       setIsListMenuOpen(false);
+      setIsCreatingList(false);
+      setNewListName('');
     }
   }, [lead?.id]);
 
   if (!isOpen || !lead) return null;
 
-  const formattedDate = formatDate(lead.createdAt);
-  const hasValidEmail = isValidEmailAddress(lead.email);
-  const hasValidPhone = isValidPhoneNumber(lead.phone) || isValidPhoneNumber(lead.workPhone);
-  const primaryPhone = isValidPhoneNumber(lead.phone) ? lead.phone : lead.workPhone;
+  const formattedDate = useMemo(() => formatDate(lead.createdAt), [lead.createdAt]);
+  const hasValidEmail = useMemo(() => isValidEmailAddress(lead.email), [lead.email]);
+  const hasValidPhone = useMemo(
+    () => isValidPhoneNumber(lead.phone) || isValidPhoneNumber(lead.workPhone),
+    [lead.phone, lead.workPhone]
+  );
+  const primaryPhone = useMemo(
+    () => (isValidPhoneNumber(lead.phone) ? lead.phone : lead.workPhone),
+    [lead.phone, lead.workPhone]
+  );
 
   return (
     <div
@@ -500,7 +532,7 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
 
             <div className="flex items-center gap-1.5 shrink-0">
               {/* Add to List Dropdown */}
-              <div className="relative">
+              <div className="relative" ref={listMenuRef}>
                 <button
                   type="button"
                   onClick={() => setIsListMenuOpen((prev) => !prev)}

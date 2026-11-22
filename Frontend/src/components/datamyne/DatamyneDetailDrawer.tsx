@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
+import { useClickOutside } from '@/hooks/useClickOutside';
 import {
   X,
   Building2,
@@ -69,6 +70,8 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   const [activeTab, setActiveTab] = useState<'trade' | 'contacts' | 'funnel'>('trade');
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const moreMenuRef = useRef<HTMLDivElement>(null);
+  const leadRef = useRef(lead);
+  leadRef.current = lead;
 
   // Reset search and tab state when a new lead is selected or drawer reopens
   useEffect(() => {
@@ -80,27 +83,15 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
     setIsMoreMenuOpen(false);
   }, [lead?.id, isOpen]);
 
-  // Click outside to close More menu
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) {
-        setIsMoreMenuOpen(false);
-      }
-    };
-    if (isMoreMenuOpen && typeof window !== 'undefined') {
-      window.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('mousedown', handleClickOutside);
-      }
-    };
-  }, [isMoreMenuOpen]);
+  // Click outside and Escape listener to close More menu
+  useClickOutside(moreMenuRef, () => setIsMoreMenuOpen(false), isMoreMenuOpen);
 
   const handleFetchDecisionMakers = () => {
     if (!lead?.company_name) return;
+    const currentLeadId = lead.id;
     setHasSearched(true);
     setIsLoadingContacts(true);
+    setActiveTab('contacts');
     const domain = extractDomainFromEmail(lead.email);
     const cleaned = cleanCustomsCompanyName(lead.company_name);
 
@@ -110,11 +101,13 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
       limit: 10,
     })
       .then((res) => {
+        if (leadRef.current?.id !== currentLeadId) return;
         setContacts(res.items);
         setTotalContacts(res.totalEstimate);
         setIsLoadingContacts(false);
       })
       .catch(() => {
+        if (leadRef.current?.id !== currentLeadId) return;
         setContacts([]);
         setTotalContacts(0);
         setIsLoadingContacts(false);
@@ -148,32 +141,43 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
     showToast(`Copied ${label} to clipboard`);
   };
 
-  const initials = lead.company_name
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join('')
-    .toUpperCase();
+  const initials = useMemo(
+    () =>
+      lead.company_name
+        .split(' ')
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((word) => word[0])
+        .join('')
+        .toUpperCase(),
+    [lead.company_name]
+  );
 
-  const corporateDomain = extractDomainFromEmail(lead.email);
-  const directorName = extractFirstDirectorName(lead.directors);
-  const cleanedCompany = cleanCustomsCompanyName(lead.company_name);
+  const corporateDomain = useMemo(() => extractDomainFromEmail(lead.email), [lead.email]);
+  const directorName = useMemo(() => extractFirstDirectorName(lead.directors), [lead.directors]);
+  const cleanedCompany = useMemo(() => cleanCustomsCompanyName(lead.company_name), [lead.company_name]);
 
   const isMissingContact = lead.dataset_type === 'missing';
   const tieredLead = (lead as any).segment_status ? (lead as unknown as TieredLead) : null;
 
-  // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD)
-  const contactNumbers = parseAndFormatContactNumbers(lead.phone, lead.city);
+  // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD) - memoized
+  const contactNumbers = useMemo(
+    () => parseAndFormatContactNumbers(lead.phone, lead.city),
+    [lead.phone, lead.city]
+  );
   const primaryCallNumber = contactNumbers.length > 0 ? contactNumbers[0].dialValue : null;
 
   // Clean split for multiple email addresses
-  const emailList = lead.email
-    ? lead.email
-        .split(/[,;]/)
-        .map((e) => e.trim())
-        .filter(Boolean)
-    : [];
+  const emailList = useMemo(
+    () =>
+      lead.email
+        ? lead.email
+            .split(/[,;]/)
+            .map((e) => e.trim())
+            .filter(Boolean)
+        : [],
+    [lead.email]
+  );
 
   const reportSource = lead.country === 'Brazil' || lead.id.startsWith('dm-bra-') ? 'datamyne_brazil' : 'datamyne';
 
@@ -480,112 +484,23 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                         Cross-referencing 15.5M executive database for verified CXOs, Directors, and Procurement decision makers...
                       </p>
                     </div>
-                  ) : contacts.length > 0 ? (
-                    <div className="space-y-3 animate-fade-in">
-                      <div className="divide-y divide-slate-100 bg-slate-50/50 border border-slate-200/80 rounded-xl px-3 py-1 shadow-2xs">
-                        {contacts.map((contact) => {
-                          const badge = getSeniorityBadge(contact.seniority);
-                          return (
-                            <div
-                              key={contact.id}
-                              className="py-2.5 first:pt-1.5 last:pb-1.5 flex items-center justify-between gap-3"
-                            >
-                              <div className="flex items-center gap-2.5 min-w-0">
-                                <div className="w-8 h-8 rounded-full bg-apollo/10 text-apollo border border-apollo/20 flex items-center justify-center font-bold text-xs shrink-0">
-                                  {getContactInitials(contact.name)}
-                                </div>
-                                <div className="min-w-0">
-                                  <div className="font-bold text-slate-900 text-xs truncate">
-                                    {contact.name}
-                                  </div>
-                                  <div className="text-[11px] text-slate-500 truncate" title={contact.title}>
-                                    {contact.title}
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="flex items-center gap-1.5 shrink-0">
-                                {badge && (
-                                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${badge.bg}`}>
-                                    {badge.label}
-                                  </span>
-                                )}
-                                {contact.email && (
-                                  <a
-                                    href={`mailto:${contact.email}`}
-                                    className="p-1 rounded text-emerald-600 bg-emerald-50 border border-emerald-200"
-                                    title={`Email ${contact.email}`}
-                                  >
-                                    <Mail className="w-3 h-3" />
-                                  </a>
-                                )}
-                                {contact.phone && (
-                                  <a
-                                    href={`tel:${contact.phone}`}
-                                    className="p-1 rounded text-blue-600 bg-blue-50 border border-blue-200"
-                                    title={`Call ${contact.phone}`}
-                                  >
-                                    <Phone className="w-3 h-3" />
-                                  </a>
-                                )}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-
-                      {onFindDecisionMakers && (
-                        <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-                          <span className="text-[11px] text-slate-500 font-medium">
-                            {totalContacts > contacts.length
-                              ? `Top ${contacts.length} of ${totalContacts} indexed contacts`
-                              : `${contacts.length} direct contact${contacts.length === 1 ? '' : 's'}`}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              onFindDecisionMakers(
-                                cleanedCompany || lead.company_name,
-                                corporateDomain || undefined,
-                                directorName || undefined
-                              )
-                            }
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-apollo hover:underline cursor-pointer"
-                          >
-                            <span>View all in Apollo People →</span>
-                          </button>
-                        </div>
-                      )}
-                    </div>
                   ) : (
-                    <div className="space-y-3 py-1">
-                      <p className="text-[11px] text-slate-600 leading-relaxed">
-                        No contacts found under exact legal customs title. Search Apollo People directory using extracted attributes:
-                      </p>
-
-                      <div className="flex flex-wrap gap-1.5">
-                        <button
-                          type="button"
-                          onClick={() => onFindDecisionMakers?.(cleanedCompany || lead.company_name)}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-apollo hover:text-white rounded-lg border border-slate-200 transition-colors cursor-pointer"
-                        >
-                          <Building2 className="w-3 h-3" />
-                          <span>{cleanedCompany || lead.company_name}</span>
-                        </button>
-
-                        {corporateDomain && (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              onFindDecisionMakers?.(cleanedCompany || lead.company_name, corporateDomain)
-                            }
-                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-600 hover:text-white rounded-lg border border-blue-200 transition-colors cursor-pointer"
-                          >
-                            <Globe className="w-3 h-3" />
-                            <span>@{corporateDomain}</span>
-                          </button>
-                        )}
+                    <div className="p-3 bg-blue-50/80 border border-blue-200/90 rounded-xl flex items-center justify-between gap-3 shadow-2xs">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <UserCheck className="w-4 h-4 text-apollo shrink-0" />
+                        <span className="font-bold text-xs text-slate-900 truncate">
+                          {totalContacts > 0
+                            ? `${totalContacts} Apollo Verified Decision Makers Available`
+                            : 'Search complete in Apollo directory'}
+                        </span>
                       </div>
+                      <button
+                        type="button"
+                        onClick={() => setActiveTab('contacts')}
+                        className="text-xs font-semibold text-apollo hover:underline shrink-0 cursor-pointer"
+                      >
+                        View in Contacts Tab →
+                      </button>
                     </div>
                   )}
                 </div>
@@ -835,7 +750,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                           className="inline-flex items-center gap-2 px-3.5 py-2 bg-apollo hover:bg-apollo-hover text-white rounded-lg text-xs font-semibold shadow-2xs transition-all cursor-pointer"
                         >
                           <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                          <span>Get Verified Decision Makers</span>
+                          <span>Get Apollo Verified Decision Maker</span>
                         </button>
 
                         {onFindDecisionMakers && (

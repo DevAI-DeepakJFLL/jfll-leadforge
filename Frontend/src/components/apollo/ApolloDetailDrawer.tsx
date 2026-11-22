@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { ApolloLead, ApolloContact, TOP_APOLLO_CARGO_VERTICALS, toSafeExternalUrl } from '@/types/apolloLead';
 import { fetchCompanyContacts } from '@/services/apolloService';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import { useDebounce } from '@/hooks/useDebounce';
 import {
   X,
   ExternalLink,
@@ -60,11 +62,12 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
   const [isLoadingContacts, setIsLoadingContacts] = useState<boolean>(false);
   const [contactsFilter, setContactsFilter] = useState<'all' | 'logistics' | 'email'>('all');
   const [contactsSearch, setContactsSearch] = useState<string>('');
+  const debouncedContactsSearch = useDebounce(contactsSearch, 250);
   const [activeTab, setActiveTab] = useState<'contacts' | 'cargo' | 'organization'>('contacts');
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState<boolean>(false);
   const moreMenuRef = useRef<HTMLDivElement>(null);
 
-  // Fetch company contacts from API with starter data fallback
+  // Fetch company contacts from API with starter data fallback (debounced to avoid network churn on keystrokes)
   useEffect(() => {
     if (!lead?.organization_id) {
       setContacts([]);
@@ -78,7 +81,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
     fetchCompanyContacts(lead.organization_id, lead.organization_name, {
       logisticsOnly: contactsFilter === 'logistics' ? true : undefined,
       hasEmailOnly: contactsFilter === 'email' ? true : undefined,
-      search: contactsSearch.trim() || undefined,
+      search: debouncedContactsSearch.trim() || undefined,
       limit: 20,
     })
       .then((res) => {
@@ -97,7 +100,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [lead?.organization_id, lead?.organization_name, contactsFilter, contactsSearch]);
+  }, [lead?.organization_id, lead?.organization_name, contactsFilter, debouncedContactsSearch]);
 
   // Close on Escape key
   useEffect(() => {
@@ -110,22 +113,19 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Click outside to close More menu
+  // Lock background scroll when drawer is open
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) {
-        setIsMoreMenuOpen(false);
-      }
-    };
-    if (isMoreMenuOpen && typeof window !== 'undefined') {
-      window.addEventListener('mousedown', handleClickOutside);
+    if (isOpen && typeof document !== 'undefined') {
+      const originalOverflow = document.body.style.overflow === 'hidden' ? 'auto' : (document.body.style.overflow || 'auto');
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow === 'hidden' ? 'auto' : originalOverflow;
+      };
     }
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('mousedown', handleClickOutside);
-      }
-    };
-  }, [isMoreMenuOpen]);
+  }, [isOpen]);
+
+  // Click outside and Escape listener to close More menu
+  useClickOutside(moreMenuRef, () => setIsMoreMenuOpen(false), isMoreMenuOpen);
 
   // Reset tab and menu when lead changes
   useEffect(() => {
@@ -143,15 +143,23 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  // Find cargo vertical logistics fit
-  const verticalMeta = TOP_APOLLO_CARGO_VERTICALS.find(
-    (v) => v.id.toLowerCase() === lead.industry.toLowerCase()
+  // Find cargo vertical logistics fit (O(1) memoized by industry key)
+  const verticalMeta = useMemo(
+    () =>
+      TOP_APOLLO_CARGO_VERTICALS.find(
+        (v) => v.id.toLowerCase() === lead.industry.toLowerCase()
+      ),
+    [lead.industry]
   );
 
-  const jobFunctions = parseJobFunctions(lead.job_functions_json);
-  const linkedinUrl = cleanLinkedinUrl(lead.linkedin_url);
-  const websiteUrl = toSafeExternalUrl(lead.website_url);
-  const safeLinkedinUrl = toSafeExternalUrl(linkedinUrl);
+  // Memoize JSON parsing & sorting for department breakdown (avoids re-parsing O(m log m) on every keystroke)
+  const jobFunctions = useMemo(
+    () => parseJobFunctions(lead.job_functions_json),
+    [lead.job_functions_json]
+  );
+  const linkedinUrl = useMemo(() => cleanLinkedinUrl(lead.linkedin_url), [lead.linkedin_url]);
+  const websiteUrl = useMemo(() => toSafeExternalUrl(lead.website_url), [lead.website_url]);
+  const safeLinkedinUrl = useMemo(() => toSafeExternalUrl(linkedinUrl), [linkedinUrl]);
 
   return (
     <div className={`fixed inset-0 z-50 overflow-hidden ${className}`} role="dialog" aria-modal="true" aria-labelledby="apollo-drawer-title">
