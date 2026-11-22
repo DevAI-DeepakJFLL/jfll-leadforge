@@ -186,19 +186,19 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <aside
-          className={`w-screen max-w-full sm:max-w-2xl lg:max-w-3xl bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-slate-200 ${className}`}
+          className={`w-screen max-w-full sm:max-w-md bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-slate-200 ${className}`}
         >
           {/* Header */}
-          <div className="px-5 py-4 border-b border-slate-200 bg-slate-50/80 shrink-0">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex items-start gap-3 min-w-0 flex-1">
-                <div className="w-10 h-10 rounded-xl bg-apollo/10 text-apollo border border-apollo/20 flex items-center justify-center font-bold text-sm shrink-0 shadow-2xs mt-0.5">
+          <div className="px-4 py-3.5 border-b border-slate-200 bg-slate-50/80 shrink-0">
+            <div className="flex items-start justify-between gap-2.5">
+              <div className="flex items-start gap-2.5 min-w-0 flex-1">
+                <div className="w-9 h-9 rounded-xl bg-apollo/10 text-apollo border border-apollo/20 flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs mt-0.5">
                   {initials || <Building2 className="w-4 h-4" />}
                 </div>
                 <div className="min-w-0 flex-1">
                   <h2
                     id="datamyne-details-title"
-                    className="text-base sm:text-lg font-bold text-slate-900 truncate leading-tight tracking-tight"
+                    className="text-base font-bold text-slate-900 truncate leading-tight tracking-tight"
                     title={lead.company_name}
                   >
                     {lead.company_name}
@@ -215,7 +215,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                       </div>
                     )}
                     <span
-                      className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
+                      className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
                         lead.role === 'Exporter'
                           ? 'bg-blue-50 text-blue-700 border-blue-200'
                           : lead.role === 'Importer'
@@ -230,7 +230,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 
                     {lead.transport_mode && (
                       <span
-                        className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
+                        className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
                           lead.transport_mode === 'Air'
                             ? 'bg-sky-50 text-sky-700 border-sky-200'
                             : lead.transport_mode === 'Ocean'
@@ -267,41 +267,41 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 shrink-0 ml-2">
+              <div className="flex items-center gap-1 shrink-0 ml-1">
                 <button
                   onClick={onClose}
-                  className="p-1.5 min-h-[38px] min-w-[38px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors cursor-pointer"
+                  className="p-1.5 min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors cursor-pointer"
                   aria-label="Close lead details"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
             {/* Bento Trade Metric Strip */}
-            <div className="grid grid-cols-4 gap-2 mt-3.5 pt-3 border-t border-slate-200/70">
-              <div className="bg-white p-2 rounded-lg border border-slate-200/80 text-center shadow-2xs">
-                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Shipments</div>
+            <div className="grid grid-cols-4 gap-1.5 mt-3 pt-2.5 border-t border-slate-200/70">
+              <div className="bg-white p-1.5 rounded-lg border border-slate-200/80 text-center shadow-2xs">
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider truncate">Shipments</div>
                 <div className="font-mono font-bold text-slate-900 text-xs mt-0.5 truncate">
                   {lead.total_shipments != null ? lead.total_shipments.toLocaleString('en-US') : '—'}
                 </div>
               </div>
-              <div className="bg-white p-2 rounded-lg border border-slate-200/80 text-center shadow-2xs">
-                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Traded USD</div>
+              <div className="bg-white p-1.5 rounded-lg border border-slate-200/80 text-center shadow-2xs">
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider truncate">Traded USD</div>
                 <div className="font-mono font-bold text-emerald-700 text-xs mt-0.5 truncate">
                   {lead.total_value_usd != null
                     ? `$${lead.total_value_usd.toLocaleString('en-US', { minimumFractionDigits: 0 })}`
                     : '—'}
                 </div>
               </div>
-              <div className="bg-white p-2 rounded-lg border border-slate-200/80 text-center shadow-2xs">
-                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Customs Tax ID</div>
+              <div className="bg-white p-1.5 rounded-lg border border-slate-200/80 text-center shadow-2xs">
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider truncate" title="Customs Tax ID / IEC">Tax ID (IEC)</div>
                 <div className="font-mono font-bold text-slate-900 text-xs mt-0.5 truncate" title={lead.tax_id || ''}>
                   {lead.tax_id || '—'}
                 </div>
               </div>
-              <div className="bg-white p-2 rounded-lg border border-slate-200/80 text-center shadow-2xs">
-                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Last Activity</div>
+              <div className="bg-white p-1.5 rounded-lg border border-slate-200/80 text-center shadow-2xs">
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider truncate">Last Active</div>
                 <div className="font-mono font-semibold text-slate-800 text-xs mt-0.5 truncate" title={lead.latest_activity_date || ''}>
                   {lead.latest_activity_date || '—'}
                 </div>
@@ -309,19 +309,19 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
             </div>
 
             {/* Apple HIG Segmented Navigation */}
-            <div className="mt-3.5 bg-slate-200/70 p-1 rounded-xl flex items-center gap-1" role="tablist" aria-label="DataMyne details navigation">
+            <div className="mt-3 bg-slate-200/70 p-1 rounded-xl flex items-center gap-1" role="tablist" aria-label="DataMyne details navigation">
               <button
                 type="button"
                 role="tab"
                 aria-selected={activeTab === 'trade'}
                 onClick={() => setActiveTab('trade')}
-                className={`flex-1 py-1.5 px-2 text-xs font-semibold rounded-lg transition-all text-center ${
+                className={`flex-1 py-1 px-1.5 text-xs font-semibold rounded-lg transition-all text-center truncate ${
                   activeTab === 'trade'
                     ? 'bg-white text-slate-900 shadow-2xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                Trade & Channels
+                Trade Profile
               </button>
 
               <button
@@ -329,15 +329,15 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 role="tab"
                 aria-selected={activeTab === 'contacts'}
                 onClick={() => setActiveTab('contacts')}
-                className={`flex-1 py-1.5 px-2 text-xs font-semibold rounded-lg transition-all text-center ${
+                className={`flex-1 py-1 px-1.5 text-xs font-semibold rounded-lg transition-all text-center truncate flex items-center justify-center gap-1 ${
                   activeTab === 'contacts'
                     ? 'bg-white text-slate-900 shadow-2xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <span>Apollo Contacts</span>
+                <span>Contacts</span>
                 {totalContacts > 0 && (
-                  <span className="ml-1.5 px-1.5 py-0.2 rounded-full text-[10px] bg-blue-100 text-apollo font-bold">
+                  <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-100 text-apollo font-bold">
                     {totalContacts}
                   </span>
                 )}
@@ -348,7 +348,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 role="tab"
                 aria-selected={activeTab === 'funnel'}
                 onClick={() => setActiveTab('funnel')}
-                className={`flex-1 py-1.5 px-2 text-xs font-semibold rounded-lg transition-all text-center ${
+                className={`flex-1 py-1 px-1.5 text-xs font-semibold rounded-lg transition-all text-center truncate ${
                   activeTab === 'funnel'
                     ? 'bg-white text-slate-900 shadow-2xs'
                     : 'text-slate-600 hover:text-slate-900'
