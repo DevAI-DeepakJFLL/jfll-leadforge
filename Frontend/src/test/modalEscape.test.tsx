@@ -6,11 +6,13 @@ import { DatamyneLeadDetailDrawer } from '@/components/datamyne/DatamyneLeadDeta
 import { JfllCustomerDetailDrawer } from '@/components/jfll/JfllCustomerDetailDrawer';
 import { ApolloDetailDrawer } from '@/components/apollo/ApolloDetailDrawer';
 import { LeadDetailDrawer } from '@/components/leads/LeadDetailDrawer';
+import { LeadTrackerDrawer } from '@/components/tracker/LeadTrackerDrawer';
 import { TieredLead } from '@/types/tierSegmentation';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { JfllCustomer } from '@/types/jfllCustomer';
 import { ApolloLead } from '@/types/apolloLead';
 import { Lead } from '@/types/lead';
+import { LeadTrackerItem } from '@/types/leadTracker';
 
 /**
  * EventTarget mock with standard W3C capture & bubble phase execution semantics.
@@ -790,5 +792,54 @@ describe('Drawer Body Scroll Lock Suite', () => {
       });
     }).not.toThrow();
     leadDrawer.unmount();
+
+    // 5. LeadTrackerDrawer
+    const mockTrackerLead: LeadTrackerItem = {
+      id: 'trk-001',
+      company_name: 'Tata Steel Corp',
+      assigned_to: 'Edward',
+      assigned_to_email: 'edward@jfll.com',
+      assigned_by: 'Tyra Theknath',
+      assigned_date: '2024-05-01',
+      branch: 'Mumbai',
+      status: 'Assigned',
+      transport_mode: 'Air Freight',
+      routing_type: 'Freehand',
+      contact_person: 'Ramesh Kumar',
+      contact_phone: '+91 99341 00000',
+      contact_email: 'shipping@tatasteel.com',
+      quote_date: '2024-05-01',
+      rate_validity_date: '2024-05-30',
+      target_shipment_date: '2024-06-15',
+      next_followup_date: '2024-05-10',
+      next_action: 'Send updated air freight quote',
+      feedback_notes: 'Initial contact established',
+      linked_entity_type: 'datamyne',
+      linked_entity_id: 'dm-val-00001',
+      history: [],
+      created_at: '2024-05-01T10:00:00Z',
+      updated_at: '2024-05-01T10:00:00Z',
+    };
+
+    const trackerDrawer = renderComponent(LeadTrackerDrawer, {
+      isOpen: false,
+      lead: null as any,
+      onClose: () => {},
+    });
+    expect(() => {
+      trackerDrawer.rerender({
+        isOpen: true,
+        lead: mockTrackerLead,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    expect(() => {
+      trackerDrawer.rerender({
+        isOpen: false,
+        lead: null as any,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    trackerDrawer.unmount();
   });
 });

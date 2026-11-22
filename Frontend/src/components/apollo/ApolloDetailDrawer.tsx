@@ -144,9 +144,11 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
   };
 
   // Find cargo vertical logistics fit
-  const verticalMeta = TOP_APOLLO_CARGO_VERTICALS.find(
-    (v) => v.id.toLowerCase() === lead.industry.toLowerCase()
-  );
+  const verticalMeta = lead.industry
+    ? TOP_APOLLO_CARGO_VERTICALS.find(
+        (v) => v.id.toLowerCase() === lead.industry.toLowerCase()
+      )
+    : undefined;
 
   const jobFunctions = parseJobFunctions(lead.job_functions_json);
   const linkedinUrl = cleanLinkedinUrl(lead.linkedin_url);
@@ -564,7 +566,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                         <div key={idx} className="bg-slate-50 p-2.5 rounded-lg border border-slate-200/80">
                           <div className="text-[11px] text-slate-500 capitalize truncate font-medium">{fn.name}</div>
                           <div className="font-bold text-slate-900 font-mono text-xs mt-0.5">
-                            {fn.count.toLocaleString()} staff
+                            {(fn.count ?? 0).toLocaleString()} staff
                           </div>
                         </div>
                       ))}

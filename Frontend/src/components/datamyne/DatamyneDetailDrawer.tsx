@@ -141,7 +141,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
     showToast(`Copied ${label} to clipboard`);
   };
 
-  const initials = lead.company_name
+  const initials = (lead.company_name || '')
     .split(' ')
     .filter(Boolean)
     .slice(0, 2)

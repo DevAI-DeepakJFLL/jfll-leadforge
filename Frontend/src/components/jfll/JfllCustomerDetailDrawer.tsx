@@ -86,7 +86,7 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
   };
 
   // Generate company initials
-  const initials = customer.fullName
+  const initials = (customer.fullName || '')
     .split(' ')
     .filter(Boolean)
     .slice(0, 2)
