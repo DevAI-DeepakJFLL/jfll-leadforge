@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import {
   X,
@@ -85,24 +85,17 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
     showToast(`Copied ${label} to clipboard`);
   };
 
-  // Generate company initials (memoized)
-  const initials = useMemo(
-    () =>
-      customer.fullName
-        .split(' ')
-        .filter(Boolean)
-        .slice(0, 2)
-        .map((word) => word[0])
-        .join('')
-        .toUpperCase(),
-    [customer.fullName]
-  );
+  // Generate company initials
+  const initials = customer.fullName
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join('')
+    .toUpperCase();
 
-  // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD) - memoized
-  const contactNumbers = useMemo(
-    () => parseAndFormatContactNumbers(customer.mobileNumber, customer.territory),
-    [customer.mobileNumber, customer.territory]
-  );
+  // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD)
+  const contactNumbers = parseAndFormatContactNumbers(customer.mobileNumber, customer.territory);
   const primaryCallNumber = contactNumbers.length > 0 ? contactNumbers[0].dialValue : customer.mobileNumber;
   const hasMergedEntities = Boolean(customer.mergedCount && customer.mergedCount > 1);
 

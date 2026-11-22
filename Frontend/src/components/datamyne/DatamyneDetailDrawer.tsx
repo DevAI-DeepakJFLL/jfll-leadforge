@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import {
   X,
@@ -141,43 +141,32 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
     showToast(`Copied ${label} to clipboard`);
   };
 
-  const initials = useMemo(
-    () =>
-      lead.company_name
-        .split(' ')
-        .filter(Boolean)
-        .slice(0, 2)
-        .map((word) => word[0])
-        .join('')
-        .toUpperCase(),
-    [lead.company_name]
-  );
+  const initials = lead.company_name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join('')
+    .toUpperCase();
 
-  const corporateDomain = useMemo(() => extractDomainFromEmail(lead.email), [lead.email]);
-  const directorName = useMemo(() => extractFirstDirectorName(lead.directors), [lead.directors]);
-  const cleanedCompany = useMemo(() => cleanCustomsCompanyName(lead.company_name), [lead.company_name]);
+  const corporateDomain = extractDomainFromEmail(lead.email);
+  const directorName = extractFirstDirectorName(lead.directors);
+  const cleanedCompany = cleanCustomsCompanyName(lead.company_name);
 
   const isMissingContact = lead.dataset_type === 'missing';
   const tieredLead = (lead as any).segment_status ? (lead as unknown as TieredLead) : null;
 
-  // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD) - memoized
-  const contactNumbers = useMemo(
-    () => parseAndFormatContactNumbers(lead.phone, lead.city),
-    [lead.phone, lead.city]
-  );
+  // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD)
+  const contactNumbers = parseAndFormatContactNumbers(lead.phone, lead.city);
   const primaryCallNumber = contactNumbers.length > 0 ? contactNumbers[0].dialValue : null;
 
   // Clean split for multiple email addresses
-  const emailList = useMemo(
-    () =>
-      lead.email
-        ? lead.email
-            .split(/[,;]/)
-            .map((e) => e.trim())
-            .filter(Boolean)
-        : [],
-    [lead.email]
-  );
+  const emailList = lead.email
+    ? lead.email
+        .split(/[,;]/)
+        .map((e) => e.trim())
+        .filter(Boolean)
+    : [];
 
   const reportSource = lead.country === 'Brazil' || lead.id.startsWith('dm-bra-') ? 'datamyne_brazil' : 'datamyne';
 
@@ -301,13 +290,15 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
               <div className="bg-white p-2 rounded-lg border border-slate-200/80 text-center shadow-2xs">
                 <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Shipments</div>
                 <div className="font-mono font-bold text-slate-900 text-xs mt-0.5 truncate">
-                  {lead.total_shipments.toLocaleString('en-US')}
+                  {lead.total_shipments != null ? lead.total_shipments.toLocaleString('en-US') : '—'}
                 </div>
               </div>
               <div className="bg-white p-2 rounded-lg border border-slate-200/80 text-center shadow-2xs">
                 <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Traded USD</div>
                 <div className="font-mono font-bold text-emerald-700 text-xs mt-0.5 truncate">
-                  ${lead.total_value_usd.toLocaleString('en-US', { minimumFractionDigits: 0 })}
+                  {lead.total_value_usd != null
+                    ? `$${lead.total_value_usd.toLocaleString('en-US', { minimumFractionDigits: 0 })}`
+                    : '—'}
                 </div>
               </div>
               <div className="bg-white p-2 rounded-lg border border-slate-200/80 text-center shadow-2xs">

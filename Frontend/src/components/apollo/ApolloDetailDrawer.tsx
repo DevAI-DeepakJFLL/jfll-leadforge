@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ApolloLead, ApolloContact, TOP_APOLLO_CARGO_VERTICALS, toSafeExternalUrl } from '@/types/apolloLead';
 import { fetchCompanyContacts } from '@/services/apolloService';
 import { useClickOutside } from '@/hooks/useClickOutside';
@@ -143,23 +143,15 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
     setTimeout(() => setCopiedField(null), 2000);
   };
 
-  // Find cargo vertical logistics fit (O(1) memoized by industry key)
-  const verticalMeta = useMemo(
-    () =>
-      TOP_APOLLO_CARGO_VERTICALS.find(
-        (v) => v.id.toLowerCase() === lead.industry.toLowerCase()
-      ),
-    [lead.industry]
+  // Find cargo vertical logistics fit
+  const verticalMeta = TOP_APOLLO_CARGO_VERTICALS.find(
+    (v) => v.id.toLowerCase() === lead.industry.toLowerCase()
   );
 
-  // Memoize JSON parsing & sorting for department breakdown (avoids re-parsing O(m log m) on every keystroke)
-  const jobFunctions = useMemo(
-    () => parseJobFunctions(lead.job_functions_json),
-    [lead.job_functions_json]
-  );
-  const linkedinUrl = useMemo(() => cleanLinkedinUrl(lead.linkedin_url), [lead.linkedin_url]);
-  const websiteUrl = useMemo(() => toSafeExternalUrl(lead.website_url), [lead.website_url]);
-  const safeLinkedinUrl = useMemo(() => toSafeExternalUrl(linkedinUrl), [linkedinUrl]);
+  const jobFunctions = parseJobFunctions(lead.job_functions_json);
+  const linkedinUrl = cleanLinkedinUrl(lead.linkedin_url);
+  const websiteUrl = toSafeExternalUrl(lead.website_url);
+  const safeLinkedinUrl = toSafeExternalUrl(linkedinUrl);
 
   return (
     <div className={`fixed inset-0 z-50 overflow-hidden ${className}`} role="dialog" aria-modal="true" aria-labelledby="apollo-drawer-title">

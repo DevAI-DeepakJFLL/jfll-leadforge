@@ -630,4 +630,165 @@ describe('Drawer Body Scroll Lock Suite', () => {
     expect(document.body.style.overflow).toBe('auto');
     unmount();
   });
+
+  it('renders all drawers stably from closed (null state) to open and back without hook count violations', () => {
+    // 1. DatamyneDetailDrawer
+    const mockDatamyneLead: DatamyneLead = {
+      id: 'dm-val-00001',
+      company_name: 'Acme Logistics Ltd',
+      country: 'India',
+      city: 'Mumbai',
+      phone: '+91 98200 12345',
+      email: 'contact@acme.com',
+      directors: 'John Doe, Jane Smith',
+      total_shipments: 120,
+      dataset_type: 'valid',
+      role: 'Exporter',
+      transport_mode: 'Air',
+      category: 'Perishables',
+      subcategory: 'Fresh Produce',
+      contact_type: 'Both Phone & Email',
+      tax_id: '0310001234',
+      address: 'Plot 12, SEZ, Andheri East',
+      pin_code: '400069',
+      trade_lanes: 'IN-AE, IN-US',
+      top_hs_codes: '08045020',
+      total_value_usd: 150000,
+      latest_activity_date: '2024-05-15',
+    };
+
+    const datamyne = renderComponent(DatamyneDetailDrawer, {
+      isOpen: false,
+      lead: null as any,
+      onClose: () => {},
+    });
+    // Open drawer with lead
+    expect(() => {
+      datamyne.rerender({
+        isOpen: true,
+        lead: mockDatamyneLead,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    // Close drawer
+    expect(() => {
+      datamyne.rerender({
+        isOpen: false,
+        lead: null as any,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    datamyne.unmount();
+
+    // 2. ApolloDetailDrawer
+    const mockApolloLead: ApolloLead = {
+      organization_id: 'org_test_123',
+      organization_name: 'Boeing Defense',
+      domain: 'boeing.com',
+      industry: 'aerospace',
+      phone: '+1 703 465 3000',
+      hq_city: 'Arlington',
+      hq_state: 'VA',
+      hq_country: 'United States',
+      employee_count: 156000,
+      revenue_usd: 77000000000,
+    };
+
+    const apollo = renderComponent(ApolloDetailDrawer, {
+      isOpen: false,
+      lead: null as any,
+      onClose: () => {},
+    });
+    expect(() => {
+      apollo.rerender({
+        isOpen: true,
+        lead: mockApolloLead,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    expect(() => {
+      apollo.rerender({
+        isOpen: false,
+        lead: null as any,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    apollo.unmount();
+
+    // 3. JfllCustomerDetailDrawer
+    const mockJfllCustomer: JfllCustomer = {
+      id: 'CUST-001',
+      fullName: 'Tata Steel Corp',
+      territory: 'East',
+      customerGroup: 'Tata Group',
+      type: 'Direct Client',
+      contactPersonName: 'Ramesh Kumar',
+      mobileNumber: '+91 99341 00000',
+      email: 'shipping@tatasteel.com',
+      totalBusinessTillDate: 5000000,
+      businessLast3m: 120000,
+      status: 'Active',
+      saved: false,
+    };
+
+    const jfll = renderComponent(JfllCustomerDetailDrawer, {
+      isOpen: false,
+      customer: null as any,
+      onClose: () => {},
+    });
+    expect(() => {
+      jfll.rerender({
+        isOpen: true,
+        customer: mockJfllCustomer,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    expect(() => {
+      jfll.rerender({
+        isOpen: false,
+        customer: null as any,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    jfll.unmount();
+
+    // 4. LeadDetailDrawer
+    const mockStandardLead: Lead = {
+      id: 'lead-test-1',
+      name: 'Sarah Connor',
+      title: 'VP of Global Logistics',
+      company: 'Cyberdyne Systems',
+      companyLogo: '',
+      industry: 'Aviation & Aerospace',
+      location: 'Los Angeles, California, United States',
+      email: 's.connor@cyberdyne.com',
+      phone: '+1 310-555-0199',
+      employees: '1000+',
+      revenue: '$50M-$100M',
+      funding: 'Series B',
+      status: 'NET NEW',
+      saved: false,
+    };
+
+    const leadDrawer = renderComponent(LeadDetailDrawer, {
+      isOpen: false,
+      lead: null as any,
+      onClose: () => {},
+    });
+    expect(() => {
+      leadDrawer.rerender({
+        isOpen: true,
+        lead: mockStandardLead,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    expect(() => {
+      leadDrawer.rerender({
+        isOpen: false,
+        lead: null as any,
+        onClose: () => {},
+      });
+    }).not.toThrow();
+    leadDrawer.unmount();
+  });
 });

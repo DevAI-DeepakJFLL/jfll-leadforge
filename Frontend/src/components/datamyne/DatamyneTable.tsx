@@ -433,10 +433,10 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                   <td className="py-2 px-2.5 align-middle">
                     <div>
                       <div className="font-semibold text-xs text-slate-900 leading-tight">
-                        {l.total_shipments.toLocaleString('en-US')} shipments
+                        {(l.total_shipments ?? 0).toLocaleString('en-US')} shipments
                       </div>
                       <div className="text-[11px] font-semibold text-emerald-700 mt-0.5 leading-tight">
-                        {l.total_value_usd > 0
+                        {l.total_value_usd != null && l.total_value_usd > 0
                           ? `$${l.total_value_usd >= 1_000_000
                               ? (l.total_value_usd / 1_000_000).toFixed(2) + 'M'
                               : l.total_value_usd >= 1_000

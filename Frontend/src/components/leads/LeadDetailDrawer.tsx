@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Lead } from '@/types/lead';
 import { CompanyAvatar } from './CompanyAvatar';
 import {
@@ -103,16 +103,10 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
 
   if (!isOpen || !lead) return null;
 
-  const formattedDate = useMemo(() => formatDate(lead.createdAt), [lead.createdAt]);
-  const hasValidEmail = useMemo(() => isValidEmailAddress(lead.email), [lead.email]);
-  const hasValidPhone = useMemo(
-    () => isValidPhoneNumber(lead.phone) || isValidPhoneNumber(lead.workPhone),
-    [lead.phone, lead.workPhone]
-  );
-  const primaryPhone = useMemo(
-    () => (isValidPhoneNumber(lead.phone) ? lead.phone : lead.workPhone),
-    [lead.phone, lead.workPhone]
-  );
+  const formattedDate = formatDate(lead.createdAt);
+  const hasValidEmail = isValidEmailAddress(lead.email);
+  const hasValidPhone = isValidPhoneNumber(lead.phone) || isValidPhoneNumber(lead.workPhone);
+  const primaryPhone = isValidPhoneNumber(lead.phone) ? lead.phone : lead.workPhone;
 
   return (
     <div
