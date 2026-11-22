@@ -186,31 +186,33 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <aside
-          className={`w-screen max-w-full sm:max-w-lg lg:max-w-xl bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-slate-200 ${className}`}
+          className={`w-screen max-w-full sm:max-w-2xl lg:max-w-3xl bg-white shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-l border-slate-200 ${className}`}
         >
           {/* Header */}
-          <div className="p-4 sm:p-5 border-b border-slate-200 bg-slate-50/80 shrink-0">
+          <div className="px-5 py-4 border-b border-slate-200 bg-slate-50/80 shrink-0">
             <div className="flex items-start justify-between gap-3">
-              <div className="flex items-start gap-3 min-w-0">
-                <div className="w-12 h-12 rounded-xl bg-apollo/10 text-apollo border border-apollo/20 flex items-center justify-center font-bold text-base shrink-0 shadow-2xs">
-                  {initials || <Building2 className="w-5 h-5" />}
+              <div className="flex items-start gap-3 min-w-0 flex-1">
+                <div className="w-10 h-10 rounded-xl bg-apollo/10 text-apollo border border-apollo/20 flex items-center justify-center font-bold text-sm shrink-0 shadow-2xs mt-0.5">
+                  {initials || <Building2 className="w-4 h-4" />}
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <h2
                     id="datamyne-details-title"
-                    className="text-base sm:text-lg font-bold text-slate-900 truncate leading-snug"
+                    className="text-base sm:text-lg font-bold text-slate-900 truncate leading-tight tracking-tight"
                     title={lead.company_name}
                   >
                     {lead.company_name}
                   </h2>
-                  <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                  <div className="flex items-center flex-nowrap overflow-x-auto no-scrollbar gap-1.5 mt-1.5 py-0.5 text-[11px]">
                     {tieredLead && (
-                      <TierScoreBadge
-                        status={tieredLead.segment_status}
-                        score={tieredLead.total_score}
-                        breakdown={tieredLead.score_breakdown}
-                        onClick={() => setIsTierModalOpen(true)}
-                      />
+                      <div className="shrink-0">
+                        <TierScoreBadge
+                          status={tieredLead.segment_status}
+                          score={tieredLead.total_score}
+                          breakdown={tieredLead.score_breakdown}
+                          onClick={() => setIsTierModalOpen(true)}
+                        />
+                      </div>
                     )}
                     <span
                       className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
@@ -258,32 +260,23 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                       </span>
                     )}
 
-                    <DatamyneCategoryBadge category={lead.category} />
+                    <div className="shrink-0">
+                      <DatamyneCategoryBadge category={lead.category} />
+                    </div>
                   </div>
                 </div>
               </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              {onGenerateReport && (
+              <div className="flex items-center gap-1.5 shrink-0 ml-2">
                 <button
-                  type="button"
-                  onClick={() => onGenerateReport(lead.company_name, lead.id, reportSource)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-blue-50/80 text-blue-700 hover:text-blue-800 border border-blue-200 hover:border-blue-300 rounded-lg text-xs font-semibold shadow-2xs hover:shadow-xs transition-all cursor-pointer"
-                  title={`Generate Client Briefing Report for ${lead.company_name}`}
+                  onClick={onClose}
+                  className="p-1.5 min-h-[38px] min-w-[38px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors cursor-pointer"
+                  aria-label="Close lead details"
                 >
-                  <FileText className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Client Report</span>
+                  <X className="w-5 h-5" />
                 </button>
-              )}
-              <button
-                onClick={onClose}
-                className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors cursor-pointer"
-                aria-label="Close lead details"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              </div>
             </div>
-          </div>
 
             {/* Bento Trade Metric Strip */}
             <div className="grid grid-cols-4 gap-2 mt-3.5 pt-3 border-t border-slate-200/70">
@@ -645,18 +638,19 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                     </div>
                   </div>
 
-                  {/* Top HS Codes list */}
+                  {/* Top HS Codes inline */}
                   {lead.top_hs_codes && (
-                    <div className="pt-2 border-t border-slate-100">
-                      <span className="text-[11px] font-bold text-slate-700 block mb-1 flex items-center gap-1">
-                        <FileText className="w-3 h-3 text-slate-400" />
-                        <span>Top Declared HS Codes:</span>
+                    <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between gap-3 text-xs">
+                      <span className="text-slate-500 font-medium shrink-0 flex items-center gap-1.5">
+                        <FileText className="w-3.5 h-3.5 text-slate-400" />
+                        <span>Top HS Codes:</span>
                       </span>
-                      <div className="flex flex-wrap gap-1.5 mt-1">
+                      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 justify-end min-w-0">
                         {lead.top_hs_codes.split(',').map((code, idx) => (
                           <span
                             key={idx}
-                            className="px-2 py-0.5 text-[11px] font-mono bg-slate-100 border border-slate-200 rounded text-slate-800 font-medium"
+                            className="px-2 py-0.5 text-[11px] font-mono bg-slate-100 hover:bg-slate-200/80 border border-slate-200/90 rounded text-slate-800 font-semibold whitespace-nowrap transition-colors"
+                            title={`Declared HS Code: ${code.trim()}`}
                           >
                             {code.trim()}
                           </span>
@@ -668,14 +662,29 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 
                 {/* Executive Directors Card */}
                 {lead.directors && (
-                  <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-3.5 space-y-2 shadow-2xs">
-                    <span className="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                      <UserCheck className="w-3.5 h-3.5 text-slate-600" />
-                      <span>Registered Directors & Partners</span>
-                    </span>
-                    <p className="text-[11px] text-slate-700 leading-relaxed font-mono bg-white p-2.5 rounded-lg border border-slate-200 max-h-28 overflow-y-auto">
-                      {lead.directors}
-                    </p>
+                  <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-3.5 space-y-2.5 shadow-2xs">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <UserCheck className="w-3.5 h-3.5 text-slate-600" />
+                        <span>Registered Directors &amp; Partners</span>
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-medium">Customs Record</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {lead.directors
+                        .split(/[,;\n]/)
+                        .map((d) => d.trim())
+                        .filter(Boolean)
+                        .map((director, idx) => (
+                          <span
+                            key={idx}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white border border-slate-200/90 rounded-lg text-xs font-medium text-slate-800 shadow-2xs hover:border-slate-300 transition-colors"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                            <span>{director}</span>
+                          </span>
+                        ))}
+                    </div>
                   </div>
                 )}
               </div>

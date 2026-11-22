@@ -166,7 +166,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
 
       {/* Slide-over Container */}
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
-        <div className="w-screen max-w-full sm:max-w-lg lg:max-w-xl bg-white shadow-2xl flex flex-col h-full border-l border-slate-200 animate-in slide-in-from-right duration-250 ease-out">
+        <div className="w-screen max-w-full sm:max-w-2xl lg:max-w-3xl bg-white shadow-2xl flex flex-col h-full border-l border-slate-200 animate-in slide-in-from-right duration-250 ease-out">
           
           {/* Header */}
           <div className="p-4 sm:p-5 border-b border-slate-200 bg-slate-50/80 shrink-0">
