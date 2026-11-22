@@ -1521,17 +1521,22 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       )}
 
       {/* Slide-over Lead Detail Drawer */}
-      <LeadDetailDrawer
-        isOpen={!!selectedDrawerLead}
-        lead={activeDrawerLead}
-        onClose={() => setSelectedDrawerLead(null)}
-        onSaveToggle={handleToggleSaveLead}
-        onCopy={(_text, _type) => {}}
-        onAddToSequence={(_l) => {}}
-        onAddToList={handleAddDrawerLeadToList}
-        savedLists={savedLists}
-        onComposeEmail={(_l) => {}}
-      />
+      <ErrorBoundary
+        fallbackTitle="Unable to display lead details"
+        onReset={() => setSelectedDrawerLead(null)}
+      >
+        <LeadDetailDrawer
+          isOpen={!!selectedDrawerLead}
+          lead={activeDrawerLead}
+          onClose={() => setSelectedDrawerLead(null)}
+          onSaveToggle={handleToggleSaveLead}
+          onCopy={(_text, _type) => {}}
+          onAddToSequence={(_l) => {}}
+          onAddToList={handleAddDrawerLeadToList}
+          savedLists={savedLists}
+          onComposeEmail={(_l) => {}}
+        />
+      </ErrorBoundary>
 
       {/* Slide-over JFLL Customer Details Drawer */}
       <ErrorBoundary
