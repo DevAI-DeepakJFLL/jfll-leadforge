@@ -14,8 +14,6 @@ import {
   Copy,
   Check,
   Bookmark,
-  Sparkles,
-  Send,
   ShieldCheck,
   Briefcase,
   Linkedin,
@@ -50,9 +48,9 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
   onClose,
   onSaveToggle,
   onCopy,
-  onAddToSequence,
+  onAddToSequence: _onAddToSequence,
   onAddToList,
-  onComposeEmail,
+  onComposeEmail: _onComposeEmail,
   savedLists = [],
 }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'company' | 'activity'>('overview');
@@ -105,8 +103,6 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
 
   const formattedDate = formatDate(lead.createdAt);
   const hasValidEmail = isValidEmailAddress(lead.email);
-  const hasValidPhone = isValidPhoneNumber(lead.phone) || isValidPhoneNumber(lead.workPhone);
-  const primaryPhone = isValidPhoneNumber(lead.phone) ? lead.phone : lead.workPhone;
 
   return (
     <div
@@ -485,59 +481,32 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
             <div className="flex items-center gap-2 flex-1 min-w-0">
               <button
                 type="button"
-                onClick={() => {
-                  if (onComposeEmail) {
-                    onComposeEmail(lead);
-                  } else if (lead.email) {
-                    window.location.href = `mailto:${lead.email}`;
-                  }
-                }}
-                disabled={!hasValidEmail}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-apollo hover:bg-apollo-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg shadow-2xs transition-colors min-h-[40px] truncate"
-                title={hasValidEmail ? `Email ${lead.name}` : 'No valid email available'}
+                onClick={() => onSaveToggle?.(lead)}
+                className={`flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-lg shadow-2xs transition-colors min-h-[40px] truncate cursor-pointer ${
+                  lead.saved
+                    ? 'bg-blue-50 border border-blue-300 text-apollo hover:bg-blue-100'
+                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] text-white'
+                }`}
+                title={lead.saved ? 'Saved in pipeline' : 'Save lead to pipeline'}
               >
-                <Send className="w-3.5 h-3.5 shrink-0" />
-                <span className="truncate">Send Email</span>
+                <Bookmark className={`w-3.5 h-3.5 shrink-0 ${lead.saved ? 'fill-apollo text-apollo' : ''}`} />
+                <span className="truncate">{lead.saved ? 'Saved in Pipeline' : 'Save to Pipeline'}</span>
               </button>
 
-              {hasValidPhone && (
-                <a
-                  href={`tel:${primaryPhone!.replace(/[^0-9+]/g, '')}`}
-                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors min-h-[40px] shrink-0"
-                  title={`Call ${primaryPhone}`}
-                >
-                  <Phone className="w-3.5 h-3.5 text-slate-600" />
-                  <span className="hidden sm:inline">Call</span>
-                </a>
-              )}
-
-              {onAddToSequence && (
-                <button
-                  type="button"
-                  onClick={() => onAddToSequence(lead)}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg shadow-2xs transition-colors min-h-[40px]"
-                  title="Enroll in sequence"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                  <span className="hidden sm:inline">Sequence</span>
-                </button>
-              )}
-            </div>
-
-            <div className="flex items-center gap-1.5 shrink-0">
               {/* Add to List Dropdown */}
-              <div className="relative" ref={listMenuRef}>
+              <div className="relative shrink-0" ref={listMenuRef}>
                 <button
                   type="button"
                   onClick={() => setIsListMenuOpen((prev) => !prev)}
-                  className="w-10 h-10 flex items-center justify-center text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg transition-colors"
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg shadow-2xs transition-colors min-h-[40px] cursor-pointer"
                   title="Add to prospect list"
                 >
-                  <ListPlus className="w-4 h-4" />
+                  <ListPlus className="w-4 h-4 text-slate-500" />
+                  <span className="hidden sm:inline">Add to List</span>
                 </button>
 
                 {isListMenuOpen && (
-                  <div className="absolute right-0 bottom-full mb-2 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50 text-xs animate-in fade-in zoom-in-95 duration-100">
+                  <div className="absolute right-0 sm:left-0 bottom-full mb-2 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50 text-xs animate-in fade-in zoom-in-95 duration-100">
                     <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                       Add to List
                     </div>
@@ -564,7 +533,7 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                       <button
                         type="button"
                         onClick={() => setIsCreatingList(true)}
-                        className="w-full text-left px-3 py-1.5 text-apollo font-semibold hover:bg-blue-50 flex items-center gap-1"
+                        className="w-full text-left px-3 py-1.5 text-apollo font-semibold hover:bg-blue-50 flex items-center gap-1 cursor-pointer"
                       >
                         <Plus className="w-3.5 h-3.5" />
                         <span>Create New List</span>
@@ -595,14 +564,14 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                           <button
                             type="submit"
                             disabled={!newListName.trim()}
-                            className="px-2 py-1 bg-apollo text-white text-[11px] font-medium rounded hover:bg-apollo-600 disabled:opacity-50"
+                            className="px-2 py-1 bg-apollo text-white text-[11px] font-medium rounded hover:bg-apollo-600 disabled:opacity-50 cursor-pointer"
                           >
                             Save
                           </button>
                           <button
                             type="button"
                             onClick={() => setIsCreatingList(false)}
-                            className="px-2 py-1 text-slate-500 hover:text-slate-700 text-[11px]"
+                            className="px-2 py-1 text-slate-500 hover:text-slate-700 text-[11px] cursor-pointer"
                           >
                             Cancel
                           </button>
@@ -612,22 +581,28 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                   </div>
                 )}
               </div>
+            </div>
 
-              {/* Bookmark / Pipeline button */}
+            {hasValidEmail && (
               <button
                 type="button"
-                onClick={() => onSaveToggle?.(lead)}
-                className={`w-10 h-10 flex items-center justify-center rounded-lg border transition-colors ${
-                  lead.saved
-                    ? 'bg-blue-50 border-blue-200 text-apollo hover:bg-blue-100'
-                    : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200'
-                }`}
-                title={lead.saved ? 'Saved in pipeline' : 'Save lead to pipeline'}
-                aria-label={lead.saved ? 'Unsave lead' : 'Save lead'}
+                onClick={() => copyToClipboard(lead.email, 'email')}
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg transition-colors min-h-[40px] shrink-0 cursor-pointer"
+                title="Copy email address"
               >
-                <Bookmark className={`w-4 h-4 ${lead.saved ? 'fill-apollo text-apollo' : ''}`} />
+                {isCopied('email') ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Copy Email</span>
+                  </>
+                )}
               </button>
-            </div>
+            )}
           </div>
         </div>
       </div>

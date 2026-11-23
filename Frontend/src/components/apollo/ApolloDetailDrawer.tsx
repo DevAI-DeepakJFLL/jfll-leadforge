@@ -6,7 +6,6 @@ import { useDebounce } from '@/hooks/useDebounce';
 import {
   X,
   ExternalLink,
-  Phone,
   Copy,
   Check,
   Users,
@@ -22,7 +21,6 @@ import {
   Loader2,
   ShieldCheck,
   ClipboardList,
-  FileText,
   MoreHorizontal,
   Globe,
 } from 'lucide-react';
@@ -459,14 +457,13 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                             <div className="flex flex-wrap items-center justify-between gap-2 pt-1.5 border-t border-slate-100 text-[11px]">
                               {cleanEmail ? (
                                 <div className="flex items-center space-x-1.5 min-w-0">
-                                  <a
-                                    href={`mailto:${cleanEmail}`}
-                                    className="inline-flex items-center space-x-1 text-apollo hover:underline font-mono text-xs truncate"
-                                    title={`Email ${contact.person_name}`}
+                                  <div
+                                    className="inline-flex items-center space-x-1 font-mono text-xs text-slate-800 truncate select-all"
+                                    title={cleanEmail}
                                   >
-                                    <Mail className="w-3 h-3 shrink-0" />
+                                    <Mail className="w-3 h-3 shrink-0 text-slate-400" />
                                     <span className="truncate">{cleanEmail}</span>
-                                  </a>
+                                  </div>
                                   <button
                                     onClick={() => handleCopy(cleanEmail, `email-${contact.person_id}`)}
                                     className="w-6 h-6 flex items-center justify-center rounded text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors shrink-0"
@@ -588,21 +585,15 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
           {/* Frosted Glass Sticky Bottom Action Dock */}
           <div className="p-3.5 bg-white/95 backdrop-blur-md border-t border-slate-200 flex items-center justify-between gap-2 shrink-0 shadow-lg relative">
             <div className="flex items-center gap-2 flex-1 min-w-0">
-              {lead.phone ? (
-                <a
-                  href={`tel:${lead.phone.replace(/[^0-9+]/g, '')}`}
-                  className="inline-flex items-center justify-center space-x-1.5 px-3.5 py-2 bg-apollo text-white rounded-lg text-xs font-semibold hover:bg-apollo-hover transition-colors shadow-2xs min-h-[40px] truncate"
-                >
-                  <Phone className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">Call {lead.phone}</span>
-                </a>
-              ) : (
+              {onGenerateReport && (
                 <button
-                  onClick={() => handleCopy(lead.domain, 'domain')}
-                  className="inline-flex items-center justify-center space-x-1.5 px-3 py-2 bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold hover:bg-slate-200 transition-colors min-h-[40px]"
+                  type="button"
+                  onClick={() => onGenerateReport(lead.organization_name, lead.organization_id, 'apollo')}
+                  className="flex-1 inline-flex items-center justify-center space-x-1.5 px-3.5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] text-white rounded-lg text-xs font-bold shadow-xs transition-all cursor-pointer min-h-[40px] truncate"
+                  title={`Generate Client Briefing Report for ${lead.organization_name}`}
                 >
-                  <Copy className="w-3.5 h-3.5" />
-                  <span>Copy Domain</span>
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+                  <span className="truncate">Generate Client Report</span>
                 </button>
               )}
 
@@ -610,11 +601,12 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                 <button
                   type="button"
                   onClick={() => onFindDecisionMakers(lead.organization_name, lead.organization_id)}
-                  className="inline-flex items-center justify-center space-x-1.5 px-3 py-2 bg-blue-50 border border-blue-200 text-apollo rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors shadow-2xs min-h-[40px] truncate"
+                  className="inline-flex items-center justify-center space-x-1.5 px-3 py-2 bg-blue-50 border border-blue-200 text-apollo rounded-lg text-xs font-semibold hover:bg-blue-100 transition-colors shadow-2xs min-h-[40px] shrink-0 cursor-pointer"
                   title={`Find decision-makers at ${lead.organization_name}`}
                 >
                   <Users className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">Find Decision-Makers</span>
+                  <span className="hidden sm:inline">Find Decision-Makers</span>
+                  <span className="sm:hidden">People</span>
                 </button>
               )}
 
@@ -622,7 +614,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                 <button
                   type="button"
                   onClick={() => onAssignToTracker(lead)}
-                  className="inline-flex items-center space-x-1.5 px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[40px] shrink-0"
+                  className="inline-flex items-center space-x-1.5 px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[40px] shrink-0 cursor-pointer"
                   title={`Assign ${lead.organization_name} to freight sales coordinator`}
                 >
                   <ClipboardList className="w-3.5 h-3.5" />
@@ -636,7 +628,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
               <button
                 type="button"
                 onClick={() => setIsMoreMenuOpen((prev) => !prev)}
-                className="w-10 h-10 flex items-center justify-center text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors border border-slate-200"
+                className="w-10 h-10 flex items-center justify-center text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors border border-slate-200 cursor-pointer"
                 aria-label="More actions"
                 title="More actions"
               >
@@ -648,34 +640,6 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                   <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                     Account Actions
                   </div>
-
-                  {onGenerateReport && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onGenerateReport(lead.organization_name, lead.organization_id, 'apollo');
-                        setIsMoreMenuOpen(false);
-                      }}
-                      className="w-full text-left px-3 py-2 hover:bg-blue-50 text-slate-700 hover:text-apollo flex items-center gap-2"
-                    >
-                      <FileText className="w-3.5 h-3.5 text-blue-600" />
-                      <span>Generate Client Report</span>
-                    </button>
-                  )}
-
-                  {onAssignToTracker && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onAssignToTracker(lead);
-                        setIsMoreMenuOpen(false);
-                      }}
-                      className="w-full text-left px-3 py-2 hover:bg-amber-50 text-slate-700 hover:text-amber-800 flex items-center gap-2"
-                    >
-                      <ClipboardList className="w-3.5 h-3.5 text-amber-500" />
-                      <span>Assign to Sales Rep</span>
-                    </button>
-                  )}
 
                   {websiteUrl && (
                     <a
@@ -703,6 +667,20 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                     </a>
                   )}
 
+                  {lead.domain && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        handleCopy(lead.domain, 'domain');
+                        setIsMoreMenuOpen(false);
+                      }}
+                      className="w-full text-left px-3 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2 border-t border-slate-100 cursor-pointer"
+                    >
+                      <Copy className="w-3.5 h-3.5 text-slate-400" />
+                      <span>Copy Domain</span>
+                    </button>
+                  )}
+
                   {lead.phone && (
                     <button
                       type="button"
@@ -710,7 +688,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                         handleCopy(lead.phone, 'phone');
                         setIsMoreMenuOpen(false);
                       }}
-                      className="w-full text-left px-3 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2 border-t border-slate-100"
+                      className="w-full text-left px-3 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2 border-t border-slate-100 cursor-pointer"
                     >
                       <Copy className="w-3.5 h-3.5 text-slate-400" />
                       <span>Copy Phone Number</span>

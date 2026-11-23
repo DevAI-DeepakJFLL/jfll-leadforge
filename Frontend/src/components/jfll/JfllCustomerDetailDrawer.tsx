@@ -3,7 +3,6 @@ import { useClickOutside } from '@/hooks/useClickOutside';
 import {
   X,
   Building2,
-  Mail,
   Phone,
   Smartphone,
   User,
@@ -96,7 +95,6 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
 
   // Parse and categorize phone numbers into Mobile Numbers (+91) vs Landlines (022 / STD)
   const contactNumbers = parseAndFormatContactNumbers(customer.mobileNumber, customer.territory);
-  const primaryCallNumber = contactNumbers.length > 0 ? contactNumbers[0].dialValue : customer.mobileNumber;
   const hasMergedEntities = Boolean(customer.mergedCount && customer.mergedCount > 1);
 
   return (
@@ -349,14 +347,11 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                         </div>
 
                         <div className="flex items-center gap-1.5 shrink-0">
-                          <a
-                            href={`tel:${num.dialValue}`}
-                            className="font-mono text-apollo hover:underline font-semibold text-xs"
-                            title={`Call ${num.display}`}
-                          >
+                          <span className="font-mono text-slate-800 font-semibold text-xs select-all">
                             {num.display}
-                          </a>
+                          </span>
                           <button
+                            type="button"
                             onClick={() => handleCopyText(num.dialValue, num.label)}
                             className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded cursor-pointer transition-colors"
                             title={`Copy ${num.label}`}
@@ -381,14 +376,14 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
                     <span className="text-slate-600 font-medium text-[11px]">Email:</span>
                     {customer.email ? (
                       <div className="flex items-center gap-1.5">
-                        <a
-                          href={`mailto:${customer.email}`}
-                          className="text-apollo hover:underline truncate max-w-[200px] font-mono text-xs"
+                        <span
+                          className="text-slate-800 truncate max-w-[200px] font-mono text-xs select-all"
                           title={customer.email}
                         >
                           {customer.email}
-                        </a>
+                        </span>
                         <button
+                          type="button"
                           onClick={() => handleCopyText(customer.email!, 'Email')}
                           className="w-6 h-6 flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded cursor-pointer transition-colors"
                           title="Copy email"
@@ -579,49 +574,45 @@ export const JfllCustomerDetailDrawer: React.FC<JfllCustomerDetailDrawerProps> =
           {/* Frosted Glass Sticky Bottom Action Dock */}
           <div className="p-3.5 bg-white/95 backdrop-blur-md border-t border-slate-200 flex items-center justify-between gap-2 shrink-0 shadow-lg relative">
             <div className="flex items-center gap-2 flex-1 min-w-0">
-              {primaryCallNumber ? (
-                <a
-                  href={`tel:${primaryCallNumber.replace(/[^0-9+]/g, '')}`}
-                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-apollo hover:bg-apollo-hover text-white rounded-lg text-xs font-semibold shadow-2xs transition-colors min-h-[40px] truncate"
-                  title={`Call ${primaryCallNumber}`}
+              {!isActive && onConvertToActive && (
+                <button
+                  type="button"
+                  onClick={() => onConvertToActive(customer)}
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white rounded-lg text-xs font-bold shadow-xs transition-all min-h-[40px] truncate cursor-pointer"
+                  title="Re-activate account to active booking status"
                 >
-                  <Phone className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">Call {primaryCallNumber}</span>
-                </a>
-              ) : null}
-
-              {customer.email && (
-                <a
-                  href={`mailto:${customer.email}`}
-                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-semibold transition-colors min-h-[40px] truncate"
-                  title={`Email ${customer.email}`}
-                >
-                  <Mail className="w-3.5 h-3.5 text-slate-600 shrink-0" />
-                  <span className="truncate">Send Email</span>
-                </a>
+                  <Check className="w-3.5 h-3.5 shrink-0" />
+                  <span className="truncate">Re-Activate Account</span>
+                </button>
               )}
 
               {!isActive && onLogApproach && (
                 <button
                   type="button"
                   onClick={() => onLogApproach(customer)}
-                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-lg text-xs font-semibold shadow-2xs transition-colors min-h-[40px] shrink-0"
+                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-lg text-xs font-semibold shadow-2xs transition-colors min-h-[40px] shrink-0 cursor-pointer"
                   title="Log sales re-activation approach"
                 >
                   <span>Log Outreach</span>
                 </button>
               )}
 
-              {!isActive && onConvertToActive && (
-                <button
-                  type="button"
-                  onClick={() => onConvertToActive(customer)}
-                  className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shadow-2xs transition-colors min-h-[40px] shrink-0"
-                  title="Re-activate account to active booking status"
-                >
-                  <Check className="w-3.5 h-3.5" />
-                  <span>Re-Activate</span>
-                </button>
+              {isActive && (
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>Active Account</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleCopyText(customer.id, 'Customer ID')}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition-colors min-h-[40px] cursor-pointer"
+                    title="Copy Customer ID"
+                  >
+                    <Building2 className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Copy ID: {customer.id}</span>
+                  </button>
+                </div>
               )}
             </div>
 
