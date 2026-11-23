@@ -65,4 +65,16 @@ describe('TopHeader Navigation & Landing Tab', () => {
     expect(htmlPeople).toContain('Apollo');
     expect(htmlPeople).toContain('aria-current="page"');
   });
+
+  it('renders Commodity Radar tab with Nov Peak badge and handles active tab state', () => {
+    const html = renderToString(
+      <TopHeader
+        activeTab="commodity-radar"
+        onTabChange={() => {}}
+      />
+    );
+    expect(html).toContain('Commodity Radar');
+    expect(html).toContain('Nov Peak');
+    expect(html).toContain('aria-current="page"');
+  });
 });

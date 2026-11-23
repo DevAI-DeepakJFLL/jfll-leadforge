@@ -11,6 +11,7 @@ import {
   DatamyneView,
   JfllCustomersView,
   ReportView,
+  CommodityRadarView,
 } from '@/components/views';
 import {
   LeadDetailDrawer,
@@ -84,6 +85,7 @@ import {
 import { LeadStatusTrackerView } from '@/components/tracker';
 import { createTrackedLead } from '@/services/leadTrackerService';
 import { LeadTrackerCreatePayload } from '@/types/leadTracker';
+import { GatewayHubId } from '@/types/freightCommodities';
 
 
 interface SavedSearchPreset {
@@ -120,7 +122,7 @@ function getInitialTopTab(): string {
       const tabParam = urlParams.get('tab');
       if (
         tabParam &&
-        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(tabParam)
+        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(tabParam)
       ) {
         if (tabParam === 'companies' || tabParam === 'people') return 'apollo';
         return tabParam;
@@ -129,7 +131,7 @@ function getInitialTopTab(): string {
         const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
         if (
           saved &&
-          ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(saved)
+          ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(saved)
         ) {
           if (saved === 'companies' || saved === 'people') return 'apollo';
           return saved;
@@ -161,9 +163,40 @@ function getInitialReportTarget(): { name: string; id?: string; source?: string 
   return null;
 }
 
+const VALID_COMMODITY_HUBS: Set<string> = new Set(['ALL', 'DEL', 'BOM', 'BLR', 'MAA', 'HYD', 'CCU', 'AMD', 'COK']);
+
+function getInitialCommodityParams(): { month: number; hub: GatewayHubId } {
+  try {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const monthParam = urlParams.get('month');
+      const hubParam = urlParams.get('hub')?.toUpperCase();
+
+      let month = 11;
+      if (monthParam) {
+        const parsed = parseInt(monthParam, 10);
+        if (!isNaN(parsed) && parsed >= 1 && parsed <= 12) {
+          month = parsed;
+        }
+      }
+
+      let hub: GatewayHubId = 'ALL';
+      if (hubParam && VALID_COMMODITY_HUBS.has(hubParam)) {
+        hub = hubParam as GatewayHubId;
+      }
+
+      return { month, hub };
+    }
+  } catch {
+    // Ignore URL errors
+  }
+  return { month: 11, hub: 'ALL' };
+}
+
 function getInitialActiveNav(tab: string): string {
   if (tab === 'tracker') return 'tracker';
   if (tab === 'datamyne') return 'datamyne';
+  if (tab === 'commodity-radar') return 'commodity-radar';
   if (tab === 'jfll-customers') return 'jfll-customers';
   if (tab === 'report') return 'report';
   if (tab === 'apollo' || tab === 'companies') return 'companies';
@@ -195,6 +228,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     id?: string;
     source?: string;
   } | null>(getInitialReportTarget);
+  const [commodityMonth, setCommodityMonth] = useState<number>(() => getInitialCommodityParams().month);
+  const [commodityHub, setCommodityHub] = useState<GatewayHubId>(() => getInitialCommodityParams().hub);
 
   const handleNavigateToReport = (companyName: string, id?: string, source?: string) => {
     setSelectedReportTarget({ name: companyName, id, source });
@@ -207,6 +242,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         url.searchParams.set('company', companyName);
         if (id) url.searchParams.set('id', id); else url.searchParams.delete('id');
         if (source) url.searchParams.set('source', source); else url.searchParams.delete('source');
+        url.searchParams.delete('month');
+        url.searchParams.delete('hub');
         window.history.pushState({}, '', url.toString());
       }
     } catch {
@@ -1075,6 +1112,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
 
   const isJfllCategory = topTab === 'jfll-customers';
   const isDatamyneCategory = topTab === 'datamyne';
+  const isCommodityRadarCategory = topTab === 'commodity-radar' || activeNav === 'commodity-radar';
   const isReportCategory = topTab === 'report' || activeNav === 'report';
   const isTrackerCategory = topTab === 'tracker' || activeNav === 'tracker';
   const isApolloCategory = topTab === 'apollo' || topTab === 'companies' || topTab === 'people';
@@ -1136,6 +1174,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
             url.searchParams.delete('id');
             url.searchParams.delete('source');
           }
+          if (normalizedTab === 'commodity-radar') {
+            url.searchParams.set('month', String(commodityMonth));
+            url.searchParams.set('hub', commodityHub);
+          } else {
+            url.searchParams.delete('month');
+            url.searchParams.delete('hub');
+          }
           window.history.replaceState({}, '', url.toString());
         }
       }
@@ -1149,6 +1194,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       setActiveNav('tracker');
     } else if (normalizedTab === 'datamyne') {
       setActiveNav('datamyne');
+    } else if (normalizedTab === 'commodity-radar') {
+      setActiveNav('commodity-radar');
     } else if (normalizedTab === 'jfll-customers') {
       setActiveNav('jfll-customers');
     } else if (normalizedTab === 'report') {
@@ -1406,6 +1453,38 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           initialLeadId={selectedReportTarget?.id}
           initialSource={selectedReportTarget?.source}
           currentUser={currentUser}
+        />
+      ) : isCommodityRadarCategory ? (
+        <CommodityRadarView
+          initialMonth={commodityMonth}
+          initialHub={commodityHub}
+          onFilterChange={(m, h) => {
+            setCommodityMonth(m);
+            setCommodityHub(h);
+            try {
+              if (typeof window !== 'undefined' && window.history?.replaceState) {
+                const url = new URL(window.location.href);
+                url.searchParams.set('tab', 'commodity-radar');
+                url.searchParams.set('month', String(m));
+                url.searchParams.set('hub', h);
+                window.history.replaceState({}, '', url.toString());
+              }
+            } catch {
+              // Ignore navigation history errors
+            }
+          }}
+          onFindInDatamyne={(query) => {
+            handleAudienceTabChange('datamyne');
+            setDatamyneSearch(query);
+          }}
+          onFindInApollo={(query) => {
+            handleAudienceTabChange('apollo');
+            setApolloSubTab('people');
+            setSearch(query);
+          }}
+          onNavigateToReport={(companyName) => {
+            handleNavigateToReport(companyName, undefined, 'Commodity Radar');
+          }}
         />
       ) : isApolloCategory && apolloSubTab === 'companies' ? (
         <ApolloCompaniesView
