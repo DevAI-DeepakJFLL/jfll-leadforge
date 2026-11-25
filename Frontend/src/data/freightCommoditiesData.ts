@@ -2452,22 +2452,29 @@ export function getMonthlyRecordsByMonth(month: number): MonthlyRecord[] {
 /**
  * Filters commodity records across month, hub, mode, and query strings.
  * Executes a single-pass composite filter over candidates indexed by month.
+ * When a search query is active and allMonthsIfQuery is true (or month is outside 1-12),
+ * searches across the full 96-record national calendar so sales reps can find commodities in any month.
  */
 export function filterCommodityRecords(
   month: number,
   hub: GatewayHubId,
   mode?: string,
-  query?: string
+  query?: string,
+  allMonthsIfQuery: boolean = false
 ): MonthlyRecord[] {
+  const trimmedQuery = typeof query === 'string' ? query.trim().toLowerCase() : '';
+  const checkQuery = trimmedQuery.length > 0;
+
+  // When a query is entered and allMonthsIfQuery is enabled (or month is outside 1-12),
+  // candidate pool expands to all 96 records so searching "Grapes" or "Mango" matches across all months.
+  const useAllMonths = (allMonthsIfQuery && checkQuery) || month < 1 || month > 12;
   const candidates =
-    (month >= 1 && month <= 12 ? MONTH_INDEX.get(month) : null) ||
+    (!useAllMonths ? MONTH_INDEX.get(month) : null) ||
     MONTHLY_COMMODITY_RECORDS;
 
   const checkHub = Boolean(hub && hub !== 'ALL');
   const checkMode = Boolean(mode && mode !== 'All' && mode !== 'All Modes');
   const lowerMode = checkMode ? mode!.toLowerCase() : '';
-  const trimmedQuery = typeof query === 'string' ? query.trim().toLowerCase() : '';
-  const checkQuery = trimmedQuery.length > 0;
 
   // Single-pass composite filtering
   return candidates.filter(r => {
@@ -2497,10 +2504,30 @@ export function filterCommodityRecords(
       }
     }
 
-    // 3. Query check against pre-compiled searchHaystack
+    // 3. Query check against pre-compiled searchHaystack with smart plural & token matching
     if (checkQuery) {
       const haystack = r.searchHaystack ?? compileSearchHaystack(r);
-      if (!haystack.includes(trimmedQuery)) {
+      const q = trimmedQuery;
+      let matched = haystack.includes(q);
+      if (!matched && q.endsWith('es')) {
+        matched = haystack.includes(q.slice(0, -2));
+      }
+      if (!matched && q.endsWith('s')) {
+        matched = haystack.includes(q.slice(0, -1));
+      }
+      if (!matched && q.includes('automob')) {
+        matched = haystack.includes('auto');
+      }
+      if (!matched) {
+        const words = q.split(/\s+/).filter(w => w.length > 2);
+        if (words.length > 1) {
+          matched = words.every(w =>
+            haystack.includes(w) ||
+            (w.endsWith('s') && haystack.includes(w.slice(0, -1)))
+          );
+        }
+      }
+      if (!matched) {
         return false;
       }
     }
@@ -2515,4 +2542,24 @@ export function filterCommodityRecords(
  */
 export function getColdChainSpecsByHub(hub: GatewayHubId): ColdChainSpec[] {
   return HUB_COLD_CHAIN_MAP[hub] || [];
+}
+
+/**
+ * Extracts a clean primary commercial commodity name from a monthly record.
+ * Strips equipment parentheticals e.g. "(40' High Cube Reefer)" and returns
+ * high-converting freight search keywords (e.g. "Nashik Table Grapes", "Vaccines", "Pomegranates")
+ * for seamless DataMyne and Apollo integration.
+ */
+export function getPrimaryCommodity(record: MonthlyRecord): string {
+  const cleanTerm = (raw: string) => {
+    if (!raw) return '';
+    const first = raw.split(',')[0] || '';
+    return first.replace(/\([^)]*\)/g, '').trim();
+  };
+
+  const airPrimary = cleanTerm(record.airExport);
+  const seaPrimary = cleanTerm(record.seaExport);
+  const seasonPrimary = cleanTerm(record.season);
+
+  return airPrimary || seaPrimary || seasonPrimary || record.hubName;
 }

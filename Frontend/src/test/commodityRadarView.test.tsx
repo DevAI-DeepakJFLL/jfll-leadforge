@@ -408,6 +408,76 @@ describe('CommodityRadarView Component Suite', () => {
     expect(html).toContain('flex-1 overflow-y-auto min-h-0');
     expect(html).toContain('overscroll-y-contain');
   });
+
+  it('searching a commodity across months returns results and instant search banner', () => {
+    const html = renderToString(<CommodityRadarView initialSearchQuery="Grapes" />);
+
+    // Search Results Banner appears at top with match count across all 12 months
+    expect(html).toContain('Search Results for');
+    expect(html).toContain('Grapes');
+    expect(html).toContain('Across All 12 Months');
+    expect(html).toContain('Clear Search (Esc)');
+
+    // Returns matching grape records from February/March even though default month is November
+    expect(html).toContain('Nashik Table Grape Export Start');
+    expect(html).toContain('Peak Europe Grape &amp; Onion Reefer');
+    expect(html).toContain('BOM');
+  });
+
+  it('renders clean freight surge indicator badges in heatmap without repetitive text clutter', () => {
+    const html = renderToString(<CommodityRadarView />);
+
+    // Renders clean indicators
+    expect(html).toContain('PEAK');
+    expect(html).toContain('LEAD');
+    expect(html).toContain('FLOW');
+  });
+
+  it('triggers onFindInDatamyne and onFindInApollo with clean primary commodity keywords', () => {
+    let datamyneTarget = '';
+    let apolloTarget = '';
+
+    const runner = renderRunner(CommodityRadarView, {
+      initialMonth: 1,
+      initialHub: 'BOM',
+      onFindInDatamyne: (term: string) => { datamyneTarget = term; },
+      onFindInApollo: (term: string) => { apolloTarget = term; },
+    });
+
+    // Find and click the DataMyne button on the BOM card
+    function findButtons(node: any): any[] {
+      const results: any[] = [];
+      function traverse(n: any) {
+        if (!n) return;
+        if (Array.isArray(n)) {
+          n.forEach(traverse);
+          return;
+        }
+        if (typeof n !== 'object') return;
+        if (n.type === 'button' && typeof n.props?.onClick === 'function') {
+          results.push(n);
+        }
+        if (n.props?.children) {
+          traverse(n.props.children);
+        }
+      }
+      traverse(node);
+      return results;
+    }
+
+    const buttons = findButtons(runner.getVNode());
+    const dmBtn = buttons.find((b) => b.props.title?.includes('Find in DataMyne'));
+    const apBtn = buttons.find((b) => b.props.title?.includes('Find in Apollo'));
+
+    expect(dmBtn).toBeDefined();
+    expect(apBtn).toBeDefined();
+
+    dmBtn.props.onClick();
+    expect(datamyneTarget).toContain('Table Grapes');
+
+    apBtn.props.onClick();
+    expect(apolloTarget).toContain('Table Grapes');
+  });
 });
 
 describe('CommodityDetailDrawer Component Suite', () => {

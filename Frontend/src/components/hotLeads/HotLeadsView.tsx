@@ -6,13 +6,15 @@ import {
   Building2,
   UserCheck,
   RotateCcw,
-  ChevronRight,
   TrendingUp,
   FileText,
   Ship,
   Sparkles,
   ArrowUpDown,
   CheckCircle2,
+  Mail,
+  Copy,
+  Eye,
 } from 'lucide-react';
 import {
   HotLead,
@@ -29,6 +31,7 @@ import {
   getHotLeadCategory,
 } from '@/services/hotLeadsService';
 import { HotLeadDetailDrawer } from './HotLeadDetailDrawer';
+import { IndiaFlagIcon, formatPhoneNumber } from '../jfll/JfllCustomerTable';
 
 export interface HotLeadsViewProps {
   initialSearchQuery?: string;
@@ -70,6 +73,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [records, setRecords] = useState<HotLead[]>(() => HOT_LEADS_DATA);
   const [metrics, setMetrics] = useState(() => computeHotLeadsMetrics(HOT_LEADS_DATA));
+  const [, setCopiedKey] = useState<string | null>(null);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -132,6 +136,17 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
     setIsDrawerOpen(true);
   };
 
+  const handleCopy = (text: string, key: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+    }
+    setCopiedKey(key);
+    setTimeout(() => {
+      setCopiedKey((prev) => (prev === key ? null : prev));
+    }, 1500);
+  };
+
   // Dynamic counts for contact sub-tabs based on current category
   const contactSubCounts = useMemo(() => {
     if (category === 'active') {
@@ -174,14 +189,14 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                   <Flame className="w-5 h-5 fill-amber-500/20" />
                 </div>
                 <h1 className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-                  Hot Leads &amp; Tax Invoice Intelligence
+                  Hot High-Turnover Leads
                   <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                    60 Audited Accounts
+                    60 Enterprise Accounts
                   </span>
                 </h1>
               </div>
               <p className="text-xs text-slate-500 mt-1.5 max-w-3xl leading-relaxed">
-                60 verified enterprise freight accounts cross-referenced from audited client tax invoices (₹47.66 Cr taxable billing). Segmented into JFLL Active, JFLL Inactive, and Fresh Data with direct contact coverage.
+                60 verified enterprise freight accounts with high commercial turnover (₹47.66 Cr billing). Segmented into JFLL Active, JFLL Inactive, and Fresh Data with direct decision-maker contact details.
               </p>
             </div>
           </div>
@@ -196,7 +211,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
             <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col hover:border-slate-300 transition-colors shadow-2xs">
               <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
                 <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-                Verified Tax Billing
+                Verified Annual Turnover
               </span>
               <span className="text-lg font-extrabold text-emerald-700 mt-1 font-mono tracking-tight">
                 {formatInrCurrency(metrics.totalTurnover)}
@@ -405,7 +420,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleKeyDownSearch}
-              placeholder="Search company, GSTIN, rep, or DM..."
+              placeholder="Search company, sales rep, decision maker..."
               maxLength={100}
               className="w-full pl-9 pr-8 py-1.5 rounded-lg bg-white border border-slate-300 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-2xs"
             />
@@ -413,7 +428,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
               <button
                 type="button"
                 onClick={handleClearSearch}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded cursor-pointer"
                 aria-label="Clear search"
               >
                 <X className="w-3.5 h-3.5" />
@@ -427,38 +442,42 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
           <div className="overflow-x-auto flex-1">
             <table className="w-full text-left border-collapse text-xs">
               <thead className="bg-slate-50/90 border-b border-slate-200 text-slate-600 sticky top-0 z-10 select-none">
-                <tr>
-                  <th className="py-3 px-4 font-semibold w-12 text-center text-slate-500">#</th>
+                <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+                  <th scope="col" className="py-2.5 px-3 w-10 text-center font-semibold text-slate-500">#</th>
                   <th
-                    className="py-3 px-4 font-semibold cursor-pointer hover:text-blue-700 transition-colors"
+                    scope="col"
+                    className="py-2.5 px-4 min-w-[220px] font-semibold cursor-pointer hover:text-blue-700 transition-colors"
                     onClick={() => handleSortToggle('name')}
                   >
                     <div className="flex items-center gap-1.5">
-                      <span>Company Name &amp; GSTIN</span>
+                      <span>Company Name</span>
                       <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
                     </div>
                   </th>
                   <th
-                    className="py-3 px-4 font-semibold cursor-pointer hover:text-blue-700 transition-colors text-right"
+                    scope="col"
+                    className="py-2.5 px-3.5 min-w-[125px] text-right font-semibold cursor-pointer hover:text-blue-700 transition-colors"
                     onClick={() => handleSortToggle('turnover')}
                   >
                     <div className="flex items-center justify-end gap-1.5">
-                      <span>Taxable Turnover</span>
+                      <span>Annual Turnover</span>
                       <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
                     </div>
                   </th>
                   <th
-                    className="py-3 px-4 font-semibold cursor-pointer hover:text-blue-700 transition-colors"
+                    scope="col"
+                    className="py-2.5 px-3.5 min-w-[120px] font-semibold cursor-pointer hover:text-blue-700 transition-colors"
                     onClick={() => handleSortToggle('status')}
                   >
                     <div className="flex items-center gap-1.5">
-                      <span>Status &amp; Contacts</span>
+                      <span>Status</span>
                       <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
                     </div>
                   </th>
-                  <th className="py-3 px-4 font-semibold text-slate-600">Apollo Decision Maker</th>
-                  <th className="py-3 px-4 font-semibold text-slate-600">JFLL Sales Rep</th>
-                  <th className="py-3 px-4 font-semibold text-right text-slate-600">Actions</th>
+                  <th scope="col" className="py-2.5 px-3.5 min-w-[150px] font-semibold text-slate-600">Contact Person</th>
+                  <th scope="col" className="py-2.5 px-3.5 min-w-[155px] font-semibold text-slate-600">Phone Number</th>
+                  <th scope="col" className="py-2.5 px-3.5 min-w-[180px] font-semibold text-slate-600">Email</th>
+                  <th scope="col" className="py-2.5 px-4 min-w-[150px] font-semibold text-center text-slate-600">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 bg-white">
@@ -466,6 +485,34 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                   records.map((lead) => {
                     const cat = getHotLeadCategory(lead.crmStatus);
                     const hasContact = hasHotLeadContact(lead);
+                    const initials = lead.customerName
+                      .split(' ')
+                      .filter(Boolean)
+                      .slice(0, 2)
+                      .map((w) => w[0])
+                      .join('')
+                      .toUpperCase();
+                    const phoneData = formatPhoneNumber(lead.phone);
+                    const contactName =
+                      lead.apolloDecisionMaker && lead.apolloDecisionMaker !== '-'
+                        ? lead.apolloDecisionMaker
+                        : lead.contactPerson && lead.contactPerson !== '-'
+                        ? lead.contactPerson
+                        : null;
+                    const contactTitle =
+                      lead.apolloDecisionMaker && lead.apolloDecisionMaker !== '-'
+                        ? lead.decisionMakerTitle && lead.decisionMakerTitle !== '-'
+                          ? lead.decisionMakerTitle
+                          : 'Decision Maker'
+                        : lead.contactPerson && lead.contactPerson !== '-'
+                        ? 'JFLL Contact'
+                        : null;
+                    const leadEmail =
+                      lead.decisionMakerEmail && lead.decisionMakerEmail !== '-'
+                        ? lead.decisionMakerEmail
+                        : lead.email && lead.email !== '-'
+                        ? lead.email
+                        : null;
 
                     return (
                       <tr
@@ -473,41 +520,62 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                         onClick={() => handleRowClick(lead)}
                         className="hover:bg-slate-50/80 cursor-pointer transition-colors group"
                       >
-                        <td className="py-3 px-4 text-center font-mono text-slate-500 text-xs">
+                        <td className="py-3 px-3 text-center font-mono text-slate-500 text-xs">
                           {lead.srNo}
                         </td>
-                        <td className="py-3 px-4">
-                          <div className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
-                            {lead.customerName}
-                          </div>
-                          <div className="text-[11px] text-slate-500 font-mono mt-0.5">
-                            {lead.gstin}
+                        <td className="min-w-[220px] py-3 px-4 align-middle">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shrink-0 shadow-2xs">
+                              {initials || <Building2 className="w-4 h-4 text-slate-400" />}
+                            </div>
+                            <div className="min-w-0">
+                              <div className="font-semibold text-xs text-slate-900 group-hover:text-blue-700 transition-colors truncate max-w-[220px] lg:max-w-[320px]">
+                                {lead.customerName}
+                              </div>
+                              <div className="text-[11px] text-slate-500 font-normal truncate mt-0.5 flex items-center gap-1.5 flex-wrap">
+                                {lead.salesRep && lead.salesRep !== '-' ? (
+                                  <span className="text-indigo-600 font-medium">Rep: {lead.salesRep}</span>
+                                ) : (
+                                  <span className="text-slate-400">Unassigned</span>
+                                )}
+                                {lead.datamyneTradeActivity && lead.datamyneTradeActivity !== '-' && (
+                                  <>
+                                    <span className="text-slate-300">•</span>
+                                    <span className="text-slate-500 truncate max-w-[140px]" title={lead.datamyneTradeActivity}>
+                                      {lead.datamyneTradeActivity}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+                            </div>
                           </div>
                         </td>
-                        <td className="py-3 px-4 text-right">
-                          <div className="font-bold text-emerald-700 text-sm font-mono">
-                            {formatInrCurrency(lead.taxableTurnover)}
-                          </div>
-                          <div className="text-[10px] text-slate-500 font-mono">
-                            ₹{lead.taxableTurnover.toLocaleString('en-IN')}
+                        <td className="py-3 px-3.5 align-middle whitespace-nowrap text-right font-mono tabular-nums">
+                          <div className="flex flex-col items-end">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                              {formatInrCurrency(lead.taxableTurnover)}
+                            </span>
+                            <span className="text-[10px] text-slate-500 font-mono mt-0.5 text-right">
+                              ₹{lead.taxableTurnover.toLocaleString('en-IN')}
+                            </span>
                           </div>
                         </td>
-                        <td className="py-3 px-4">
+                        <td className="py-3 px-3.5 align-middle">
                           <div className="flex flex-col gap-1 items-start">
                             {cat === 'active' && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 whitespace-nowrap">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                 JFLL Active
                               </span>
                             )}
                             {cat === 'inactive' && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 whitespace-nowrap">
                                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                                 JFLL Inactive
                               </span>
                             )}
                             {cat === 'fresh' && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap">
                                 <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                                 Fresh Data
                               </span>
@@ -525,59 +593,113 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                             )}
                           </div>
                         </td>
-                        <td className="py-3 px-4">
-                          {lead.apolloDecisionMaker && lead.apolloDecisionMaker !== '-' ? (
+                        <td className="py-3 px-3.5 align-middle">
+                          {contactName ? (
                             <div>
-                              <span className="font-medium text-slate-900 block">
-                                {lead.apolloDecisionMaker}
+                              <span className="text-xs text-slate-900 font-semibold truncate max-w-[150px] block leading-tight">
+                                {contactName}
                               </span>
-                              <span className="text-[11px] text-slate-500 line-clamp-1">
-                                {lead.decisionMakerTitle}
-                              </span>
+                              {contactTitle && (
+                                <span className="text-[11px] text-slate-500 truncate max-w-[150px] block leading-tight mt-0.5" title={contactTitle}>
+                                  {contactTitle}
+                                </span>
+                              )}
                             </div>
                           ) : (
-                            <span className="text-slate-400">—</span>
+                            <span className="text-slate-400 italic text-xs">—</span>
                           )}
                         </td>
-                        <td className="py-3 px-4 text-slate-700">
-                          {lead.salesRep !== '-' ? lead.salesRep : <span className="text-slate-400">—</span>}
+                        <td className="py-3 px-3.5 align-middle whitespace-nowrap">
+                          {phoneData ? (
+                            <div className="flex items-center gap-1.5 text-slate-800">
+                              <IndiaFlagIcon className="w-4 h-3 shrink-0" />
+                              <a
+                                href={`tel:${phoneData.raw}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="font-mono text-xs text-slate-800 hover:text-blue-700 hover:underline font-medium leading-tight"
+                              >
+                                {phoneData.number}
+                              </a>
+                              <button
+                                type="button"
+                                onClick={(e) => handleCopy(phoneData.raw, `phone-${lead.srNo}`, e)}
+                                className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
+                                title="Copy phone"
+                                aria-label={`Copy phone number ${phoneData.number}`}
+                              >
+                                <Copy className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ) : (
+                            <span className="text-slate-400 italic text-xs">—</span>
+                          )}
                         </td>
-                        <td className="py-3 px-4 text-right" onClick={(e) => e.stopPropagation()}>
-                          <div className="flex items-center justify-end gap-1.5">
+                        <td className="py-3 px-3.5 align-middle">
+                          {leadEmail ? (
+                            <div className="flex items-center gap-1.5 text-slate-700">
+                              <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                              <a
+                                href={`mailto:${leadEmail}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="truncate max-w-[170px] text-xs text-slate-700 font-normal hover:text-blue-700 hover:underline leading-tight"
+                                title={leadEmail}
+                              >
+                                {leadEmail}
+                              </a>
+                              <button
+                                type="button"
+                                onClick={(e) => handleCopy(leadEmail, `email-${lead.srNo}`, e)}
+                                className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
+                                title="Copy email"
+                                aria-label={`Copy email ${leadEmail}`}
+                              >
+                                <Copy className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ) : (
+                            <span className="text-slate-400 italic text-xs">—</span>
+                          )}
+                        </td>
+                        <td className="min-w-[150px] py-3 px-4 text-center align-middle" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex items-center justify-center gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => handleRowClick(lead)}
+                              className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-blue-600 hover:text-white border border-slate-200 hover:border-blue-600 rounded-md transition-all shadow-2xs group/btn cursor-pointer"
+                              title={`View details for ${lead.customerName}`}
+                            >
+                              <Eye className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-white transition-colors" />
+                              <span>View</span>
+                            </button>
                             <button
                               type="button"
                               onClick={() => onNavigateToReport?.(lead.customerName)}
-                              className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 shadow-2xs transition-colors"
+                              className="p-1.5 rounded-md border border-slate-200 bg-white text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 shadow-2xs transition-colors cursor-pointer"
                               title="Generate Client Report"
+                              aria-label={`Generate report for ${lead.customerName}`}
                             >
                               <FileText className="w-3.5 h-3.5 text-emerald-600" />
                             </button>
                             <button
                               type="button"
                               onClick={() => onFindInApollo?.(lead.customerName)}
-                              className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-purple-700 hover:bg-purple-50 shadow-2xs transition-colors"
+                              className="p-1.5 rounded-md border border-slate-200 bg-white text-slate-600 hover:text-purple-700 hover:bg-purple-50 shadow-2xs transition-colors cursor-pointer"
                               title="Search in Apollo"
+                              aria-label={`Search ${lead.customerName} in Apollo`}
                             >
                               <UserCheck className="w-3.5 h-3.5 text-purple-600" />
                             </button>
-                            {lead.datamyneTradeActivity !== '-' && (
+                            {lead.datamyneTradeActivity && lead.datamyneTradeActivity !== '-' && (
                               <button
                                 type="button"
                                 onClick={() => onFindInDatamyne?.(lead.customerName)}
-                                className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-blue-700 hover:bg-blue-50 shadow-2xs transition-colors"
+                                className="p-1.5 rounded-md border border-slate-200 bg-white text-slate-600 hover:text-blue-700 hover:bg-blue-50 shadow-2xs transition-colors cursor-pointer"
                                 title="DataMyne Shipments"
+                                aria-label={`View DataMyne shipments for ${lead.customerName}`}
                               >
                                 <Ship className="w-3.5 h-3.5 text-blue-600" />
                               </button>
                             )}
-                            <button
-                              type="button"
-                              onClick={() => handleRowClick(lead)}
-                              className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 shadow-2xs transition-colors"
-                              title="View Full Audit"
-                            >
-                              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-                            </button>
                           </div>
                         </td>
                       </tr>
@@ -585,7 +707,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                   })
                 ) : (
                   <tr>
-                    <td colSpan={7} className="py-12 text-center">
+                    <td colSpan={8} className="py-12 text-center">
                       <div className="max-w-md mx-auto space-y-3">
                         <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 text-slate-500 flex items-center justify-center mx-auto">
                           <Search className="w-5 h-5" />
@@ -594,12 +716,12 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                           No matching accounts found for &ldquo;{searchQuery}&rdquo;
                         </p>
                         <p className="text-xs text-slate-500">
-                          Try searching by company name, GSTIN, sales rep, or clear the search filter.
+                          Try searching by company name, sales rep, decision maker, or clear the search filter.
                         </p>
                         <button
                           type="button"
                           onClick={handleClearSearch}
-                          className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-colors shadow-2xs"
+                          className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-colors shadow-2xs cursor-pointer"
                         >
                           Clear Search Filter
                         </button>

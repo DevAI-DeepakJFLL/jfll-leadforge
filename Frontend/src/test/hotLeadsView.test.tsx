@@ -114,14 +114,14 @@ describe('HotLeads Data & Service Suite', () => {
 });
 
 describe('HotLeadsView & HotLeadDetailDrawer UI Components', () => {
-  it('renders HotLeadsView with updated labels: JFLL Active | JFLL Inactive | Fresh Data split by Contacts', () => {
+  it('renders HotLeadsView with updated labels: JFLL Active | JFLL Inactive | Fresh Data split by Contacts and JLL table format', () => {
     const html = renderToString(
       <HotLeadsView />
     );
 
-    expect(html).toContain('Hot Leads &amp; Tax Invoice Intelligence');
-    expect(html).toContain('60 Audited Accounts');
-    expect(html).toContain('Verified Tax Billing');
+    expect(html).toContain('Hot High-Turnover Leads');
+    expect(html).toContain('60 Enterprise Accounts');
+    expect(html).toContain('Verified Annual Turnover');
 
     // Updated Category Metrics
     expect(html).toContain('JFLL Active');
@@ -137,17 +137,26 @@ describe('HotLeadsView & HotLeadDetailDrawer UI Components', () => {
     expect(html).toContain('With Contacts (32)');
     expect(html).toContain('Without Contacts (28)');
 
-    // Table headers
-    expect(html).toContain('Company Name &amp; GSTIN');
-    expect(html).toContain('Taxable Turnover');
-    expect(html).toContain('Status &amp; Contacts');
-    expect(html).toContain('Apollo Decision Maker');
-    expect(html).toContain('JFLL Sales Rep');
+    // Table headers adopting JLL format (stripped non-salesperson tax clutter like GSTIN)
+    expect(html).toContain('Company Name');
+    expect(html).toContain('Annual Turnover');
+    expect(html).toContain('Status');
+    expect(html).toContain('Contact Person');
+    expect(html).toContain('Phone Number');
+    expect(html).toContain('Email');
+    expect(html).toContain('Action');
 
-    // Sample company rendered
+    // Sample company rendered with decision maker and direct contact
     expect(html).toContain('EMO TRANS LOGISTICS INDIA PRIVATE LIMITED)');
-    expect(html).toContain('07AAHCE5990P1ZT');
     expect(html).toContain('₹6.12 Cr');
+    expect(html).toContain('Sven Frigger');
+    expect(html).toContain('Director - Export Compliance');
+    expect(html).toContain('sven.frigger@emotrans.com');
+
+    // Active customer with phone and email rendered
+    expect(html).toContain('BROWN BULL LOGISTICS PRIVATE LIMITED');
+    expect(html).toContain('8657554591');
+    expect(html).toContain('kambroggio@brownintegratedlogistics.com');
   });
 
   it('renders HotLeadDetailDrawer with updated labels and contact badges when open', () => {
