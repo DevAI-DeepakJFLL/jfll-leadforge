@@ -242,13 +242,26 @@ def test_generate_client_report_manifest_multi_channel_phone_parsing():
     assert "022-56657391" in phones
     assert "022-66657391" in phones
 
-    # Decision makers without personal phone must inherit corporate switchboard or retain employer phone
+    # Individual decision makers without personal mobile must not duplicate corporate switchboard across every row
     apollo_contacts = [c for c in report.section_4_contacts if "Apollo Verified" in c.notes]
     for ac in apollo_contacts:
-        assert ac.phone != "", f"Expected decision maker {ac.name} to have switchboard or org phone"
-        assert ac.phone.startswith("022-") or ac.phone.startswith("+") or ac.phone.startswith("(")
-        if ac.phone.startswith("022-"):
-            assert "Switchboard" in ac.notes
+        assert ac.phone != "022-56657391", f"Decision maker {ac.name} should not falsely inherit corporate manifest phone"
+        assert ac.phone != "022-66657391", f"Decision maker {ac.name} should not falsely inherit corporate manifest phone"
+
+
+def test_generate_client_report_does_not_stamp_identical_phone_on_all_rows():
+    """Verify bug fix: individual decision makers do not inherit corporate switchboard phone on every row."""
+    report = generate_client_report_data(company_query="Rico Auto Industries")
+    assert len(report.section_4_contacts) >= 2
+
+    # Collect non-empty phones
+    phones = [c.phone for c in report.section_4_contacts if c.phone]
+    # Distinct phone count or empty individual phones ensures no identical duplication across all rows
+    if phones:
+        # Not every row has the exact same non-empty phone
+        unique_phones = set(phones)
+        assert len(phones) != len(report.section_4_contacts) or len(unique_phones) > 1
+
 
 
 

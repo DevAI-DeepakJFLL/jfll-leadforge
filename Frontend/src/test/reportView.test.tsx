@@ -196,4 +196,44 @@ describe('ReportView Component Suite', () => {
     expect(html).toContain('Cross-referencing verified CXOs, Directors, and Logistics Decision-Makers');
     expect(html).not.toContain('+ Add Contact');
   });
+
+  it('renders Actionable Executive Outreach callout banner and flags sales-verified contacts', () => {
+    const draft = createEmptyReportDraft('Titan Laboratories Pvt Ltd');
+    draft.section_4_contacts = [
+      {
+        name: 'Sweety Theknath',
+        designation: 'Logistics Manager',
+        phone: '+91 98200 54321',
+        email: 'sweety@titanlab.com',
+        notes: 'Sales verified direct contact',
+        is_manually_edited: true,
+      },
+      {
+        name: 'Customs Filing Desk',
+        designation: 'Corporate Agent',
+        phone: '',
+        email: 'info@titanlab.com',
+        notes: 'Filing entry',
+      },
+    ];
+
+    const html = renderToString(<ReportView initialReport={draft} />);
+
+    // Top Actionable Executive Outreach Callout Banner renders above Section 1
+    expect(html).toContain('Actionable Executive Outreach');
+    expect(html).toContain('1 Verified Contact');
+    expect(html).toContain('Direct contact details prioritized for immediate sales outreach');
+    expect(html).toContain('Sweety Theknath');
+    expect(html).toContain('Logistics Manager');
+    expect(html).toContain('+91 98200 54321');
+    expect(html).toContain('sweety@titanlab.com');
+    expect(html).toContain('Sales Verified');
+
+    // Section 4 header has Sales Verified count badge
+    expect(html).toContain('1 Sales Verified');
+
+    // Contact row has Verified badge and highlight class
+    expect(html).toContain('title="Verified by sales team"');
+    expect(html).toContain('border-l-emerald-500');
+  });
 });

@@ -124,6 +124,7 @@ export function normalizeReportResponse(report: any): ClientReportData {
           email,
           contact_info: contactInfo || (phone && email ? `${phone} | ${email}` : phone || email || ''),
           notes: str(c.notes || ''),
+          is_manually_edited: Boolean(c.is_manually_edited),
         };
       })
     : report.section_4_contacts;

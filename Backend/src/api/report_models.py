@@ -41,6 +41,7 @@ class ContactItem(BaseModel):
     email: str = Field(default="", max_length=200)
     contact_info: str = Field(default="", max_length=300)
     notes: str = Field(default="", max_length=500)
+    is_manually_edited: bool = Field(default=False)
 
 class SalesFeedback(BaseModel):
     meeting_takeaways: str = Field(default="", max_length=4000)

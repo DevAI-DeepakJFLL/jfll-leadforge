@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   FileText,
   Download,
@@ -14,6 +14,9 @@ import {
   X,
   Globe,
   Loader2,
+  UserCheck,
+  Phone,
+  Mail,
 } from 'lucide-react';
 import { ClientReportData, ClientReportExportPayload, ContactItem, ReportCompanySuggestion } from '@/types/report';
 import {
@@ -336,7 +339,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
     setReport((prev) => {
       const nextContacts = [...(prev.section_4_contacts || [])];
       const current = nextContacts[idx] || { name: '', designation: '', notes: '' };
-      const updated = { ...current, [key]: val };
+      const updated: ContactItem = { ...current, [key]: val, is_manually_edited: true };
       const phone = key === 'phone' ? val : (updated.phone || '');
       const email = key === 'email' ? val : (updated.email || '');
       updated.contact_info = (phone && email ? `${phone} | ${email}` : (phone || email || ''));
@@ -349,7 +352,6 @@ export const ReportView: React.FC<ReportViewProps> = ({
     setReport((prev) => ({
       ...prev,
       section_4_contacts: [
-        ...(prev.section_4_contacts || []),
         {
           name: '',
           designation: 'Supply Chain / Logistics',
@@ -357,7 +359,9 @@ export const ReportView: React.FC<ReportViewProps> = ({
           email: '',
           contact_info: '',
           notes: 'Logistics Decision-Maker',
+          is_manually_edited: true,
         },
+        ...(prev.section_4_contacts || []),
       ],
     }));
   };
@@ -396,6 +400,17 @@ export const ReportView: React.FC<ReportViewProps> = ({
       // Ignore clipboard write exceptions
     }
   };
+
+  const verifiedContacts = useMemo(() => {
+    return (report.section_4_contacts || []).filter(
+      (c) =>
+        Boolean(c.is_manually_edited) ||
+        (Boolean(c.phone && c.phone.trim() !== '') &&
+          !c.name.includes('Customs Filing') &&
+          !c.name.includes('Corporate Office') &&
+          !c.name.includes('Switchboard'))
+    );
+  }, [report.section_4_contacts]);
 
   return (
     <div className="flex-1 flex flex-col h-full bg-slate-100/70 overflow-y-auto">
@@ -892,6 +907,72 @@ export const ReportView: React.FC<ReportViewProps> = ({
             </div>
           )}
 
+          {/* Actionable Executive Outreach Callout (Sales-Verified Contacts) */}
+          {verifiedContacts.length > 0 && !removedSections.has(4) && (
+            <div className="mb-8 p-4 rounded-xl bg-gradient-to-r from-emerald-50/90 via-teal-50/50 to-slate-50 border border-emerald-200/90 shadow-2xs">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 pb-2.5 border-b border-emerald-200/60">
+                <div className="flex items-center gap-2.5">
+                  <span className="p-1.5 rounded-lg bg-emerald-600 text-white shadow-2xs">
+                    <UserCheck className="w-4 h-4" />
+                  </span>
+                  <div>
+                    <h3 className="text-xs font-bold text-emerald-950 uppercase tracking-wider flex items-center gap-2">
+                      <span>Actionable Executive Outreach</span>
+                      <span className="bg-emerald-100 text-emerald-800 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-emerald-300">
+                        {`${verifiedContacts.length} Verified Contact${verifiedContacts.length > 1 ? 's' : ''}`}
+                      </span>
+                    </h3>
+                    <p className="text-[11px] text-emerald-800/80">
+                      Direct contact details prioritized for immediate sales outreach and executive engagement.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                {verifiedContacts.map((contact, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3 rounded-lg bg-white/95 border border-emerald-200 shadow-2xs flex flex-col justify-between"
+                  >
+                    <div className="mb-2">
+                      <div className="flex items-start justify-between gap-1">
+                        <div className="font-bold text-xs text-slate-900 truncate">
+                          {contact.name || 'Unnamed Contact'}
+                        </div>
+                        {contact.is_manually_edited && (
+                          <span className="shrink-0 text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
+                            Sales Verified
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[11px] text-slate-600 truncate">
+                        {contact.designation || 'Decision-Maker'}
+                      </div>
+                    </div>
+                    <div className="space-y-1 text-[11px]">
+                      {contact.phone && (
+                        <div className="flex items-center gap-1.5 text-slate-800 font-mono font-medium">
+                          <Phone className="w-3 h-3 text-emerald-600 shrink-0" />
+                          <a href={`tel:${contact.phone}`} className="hover:underline hover:text-emerald-700">
+                            {contact.phone}
+                          </a>
+                        </div>
+                      )}
+                      {contact.email && (
+                        <div className="flex items-center gap-1.5 text-slate-700 truncate">
+                          <Mail className="w-3 h-3 text-blue-600 shrink-0" />
+                          <a href={`mailto:${contact.email}`} className="hover:underline hover:text-blue-700 truncate">
+                            {contact.email}
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Section 1: Company Background */}
           {!removedSections.has(1) && report.section_1_background && (
             <section className="mb-8">
@@ -1062,8 +1143,14 @@ export const ReportView: React.FC<ReportViewProps> = ({
           {!removedSections.has(4) && report.section_4_contacts && (
             <section className="mb-8">
               <div className="flex items-center justify-between mb-2">
-                <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider flex items-center gap-2.5">
+                <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider flex items-center gap-2.5 flex-wrap">
                   <span>4 · Decision-Makers / Logistics Contacts</span>
+                  {verifiedContacts.length > 0 && (
+                    <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded-full border border-emerald-300 flex items-center gap-1 normal-case tracking-normal">
+                      <UserCheck className="w-3 h-3 text-emerald-700" />
+                      <span>{`${verifiedContacts.length} Sales Verified`}</span>
+                    </span>
+                  )}
                   {isLoading && (
                     <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 flex items-center gap-1.5 normal-case tracking-normal animate-pulse">
                       <Loader2 className="w-3 h-3 text-blue-600 animate-spin shrink-0" />
@@ -1133,18 +1220,36 @@ export const ReportView: React.FC<ReportViewProps> = ({
                     </thead>
                     <tbody className="divide-y divide-slate-200 bg-white">
                       {(report.section_4_contacts || []).map((contact, idx) => (
-                        <tr key={idx} className="hover:bg-slate-50/60 even:bg-slate-50/50">
+                        <tr
+                          key={idx}
+                          className={`transition-colors ${
+                            contact.is_manually_edited
+                              ? 'bg-emerald-50/50 hover:bg-emerald-50/80 border-l-4 border-l-emerald-500'
+                              : 'hover:bg-slate-50/60 even:bg-slate-50/50'
+                          }`}
+                        >
                           <td className="p-1.5">
-                            <input
-                              type="text"
-                              value={contact.name}
-                              onChange={(e) => updateContact(idx, 'name', e.target.value)}
-                              placeholder="Contact Name..."
-                              aria-label={`Contact ${idx + 1} Name`}
-                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-900 font-semibold transition-colors print:hidden"
-                            />
+                            <div className="flex items-center gap-1.5">
+                              <input
+                                type="text"
+                                value={contact.name}
+                                onChange={(e) => updateContact(idx, 'name', e.target.value)}
+                                placeholder="Contact Name..."
+                                aria-label={`Contact ${idx + 1} Name`}
+                                className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-900 font-semibold transition-colors print:hidden"
+                              />
+                              {contact.is_manually_edited && (
+                                <span
+                                  className="shrink-0 text-[9px] font-bold text-emerald-700 bg-emerald-100/80 border border-emerald-300 px-1.5 py-0.5 rounded print:hidden"
+                                  title="Verified by sales team"
+                                >
+                                  Verified
+                                </span>
+                              )}
+                            </div>
                             <div className="hidden print:block p-1 text-slate-900 font-semibold">
                               {contact.name || '—'}
+                              {contact.is_manually_edited ? ' [Sales Verified]' : ''}
                             </div>
                           </td>
                           <td className="p-1.5">

@@ -355,6 +355,53 @@ describe('CommodityRadarView Component Suite', () => {
     expect(html).toContain('Basmati Rice');
   });
 
+  it('renders Annual Gateway Surge Heatmap Matrix and Global Trade Corridors visualisations', () => {
+    const html = renderToString(<CommodityRadarView />);
+
+    // Annual Gateway Surge Heatmap Matrix
+    expect(html).toContain('Annual Gateway Surge Heatmap Matrix');
+    expect(html).toContain('Active Peak Surge');
+    expect(html).toContain('Upcoming Lead Window');
+    expect(html).toContain('High Volume Flow');
+
+    // Global Trade Corridors & Multi-Modal Flow Radar
+    expect(html).toContain('Global Trade Corridors &amp; Multi-Modal Flow Radar');
+    expect(html).toContain('Europe &amp; UK Gateway');
+    expect(html).toContain('GCC &amp; Middle East');
+    expect(html).toContain('North America');
+    expect(html).toContain('Far East &amp; Asia-Pacific');
+  });
+
+  it('clicking a heatmap cell invokes onFilterChange with cell month and hub', () => {
+    const onFilterChange = vi.fn();
+    const runner = renderRunner(CommodityRadarView, { onFilterChange });
+
+    // Find heatmap button for BOM in March (M03)
+    let bomMarchBtn: any = null;
+    function traverse(n: any) {
+      if (!n || bomMarchBtn) return;
+      if (Array.isArray(n)) {
+        n.forEach(traverse);
+        return;
+      }
+      if (typeof n !== 'object') return;
+      if (n.type === 'button' && typeof n.props?.title === 'string' && n.props.title.includes('BOM · M03 · March')) {
+        bomMarchBtn = n;
+        return;
+      }
+      if (n.props?.children) {
+        traverse(n.props.children);
+      }
+    }
+
+    traverse(runner.getVNode());
+    expect(bomMarchBtn).toBeDefined();
+    expect(bomMarchBtn).not.toBeNull();
+
+    bomMarchBtn.props.onClick();
+    expect(onFilterChange).toHaveBeenCalledWith(3, 'BOM');
+  });
+
   it('scroll container uses flex-1 overflow-y-auto min-h-0 overscroll-y-contain to fix scroll issue', () => {
     const html = renderToString(<CommodityRadarView />);
 

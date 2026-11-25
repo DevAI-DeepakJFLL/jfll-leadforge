@@ -162,6 +162,36 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
     };
   }, [category, metrics]);
 
+  // Top accounts by audited taxable turnover for the visual leaderboard
+  const topAccounts = useMemo(() => {
+    return [...HOT_LEADS_DATA]
+      .sort((a, b) => b.taxableTurnover - a.taxableTurnover)
+      .slice(0, 4);
+  }, []);
+
+  // Category revenue split for the visual stacked proportion bar
+  const segmentTurnover = useMemo(() => {
+    let fresh = 0;
+    let active = 0;
+    let inactive = 0;
+    for (const lead of HOT_LEADS_DATA) {
+      const cat = getHotLeadCategory(lead.crmStatus);
+      if (cat === 'fresh') fresh += lead.taxableTurnover;
+      else if (cat === 'active') active += lead.taxableTurnover;
+      else if (cat === 'inactive') inactive += lead.taxableTurnover;
+    }
+    const total = fresh + active + inactive;
+    return {
+      fresh,
+      active,
+      inactive,
+      total,
+      freshPct: total ? Math.round((fresh / total) * 100) : 0,
+      activePct: total ? Math.round((active / total) * 100) : 0,
+      inactivePct: total ? Math.round((inactive / total) * 100) : 0,
+    };
+  }, []);
+
   return (
     <div className="flex-1 overflow-y-auto bg-slate-50 text-slate-900 flex flex-col min-h-0">
       {/* Top Banner / Header */}
@@ -305,6 +335,163 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
 
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto w-full px-6 py-6 flex-1 flex flex-col min-h-0 space-y-4">
+        {/* Enterprise Revenue & Contact Coverage Visualisation Suite */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* Chart 1: Audited Billing Distribution by Category (2 cols) */}
+          <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <div className="flex items-center gap-2">
+                <div className="p-1 rounded bg-emerald-50 text-emerald-600">
+                  <TrendingUp className="w-4 h-4" />
+                </div>
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                    Tax Billing &amp; Account Distribution by Category
+                  </h2>
+                  <p className="text-[11px] text-slate-500">
+                    Verified revenue share across {metrics.totalCount} audited enterprise freight accounts ({formatInrCurrency(metrics.totalTurnover)})
+                  </p>
+                </div>
+              </div>
+              <span className="text-[11px] font-mono font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                ₹47.66 Cr Audited
+              </span>
+            </div>
+
+            {/* Visual Stacked Proportion Bar */}
+            <div className="space-y-1.5 pt-1">
+              <div className="w-full bg-slate-100 rounded-lg h-3 flex overflow-hidden border border-slate-200">
+                <div
+                  style={{ width: `${segmentTurnover.freshPct}%` }}
+                  className="bg-blue-600 h-full transition-all"
+                  title={`Fresh Data: ${formatInrCurrency(segmentTurnover.fresh)} (${segmentTurnover.freshPct}%)`}
+                />
+                <div
+                  style={{ width: `${segmentTurnover.activePct}%` }}
+                  className="bg-emerald-600 h-full transition-all"
+                  title={`JFLL Active: ${formatInrCurrency(segmentTurnover.active)} (${segmentTurnover.activePct}%)`}
+                />
+                <div
+                  style={{ width: `${segmentTurnover.inactivePct}%` }}
+                  className="bg-amber-500 h-full transition-all"
+                  title={`JFLL Inactive: ${formatInrCurrency(segmentTurnover.inactive)} (${segmentTurnover.inactivePct}%)`}
+                />
+              </div>
+
+              {/* Legend & Stats */}
+              <div className="grid grid-cols-3 gap-2 pt-1 text-xs">
+                <div
+                  onClick={() => { setCategory('fresh'); setContactFilter('all'); }}
+                  className="p-2 rounded-lg bg-blue-50/50 border border-blue-100 cursor-pointer hover:bg-blue-50 transition-colors"
+                >
+                  <div className="flex items-center gap-1.5 text-blue-900 font-semibold text-[11px]">
+                    <span className="w-2 h-2 rounded-full bg-blue-600" />
+                    Fresh Data ({segmentTurnover.freshPct}%)
+                  </div>
+                  <div className="text-xs font-bold text-slate-900 mt-0.5">
+                    {formatInrCurrency(segmentTurnover.fresh)}
+                  </div>
+                  <div className="text-[10px] text-slate-500">
+                    {metrics.freshCount} Accounts · {metrics.freshWithContactsCount} with Contacts
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => { setCategory('active'); setContactFilter('all'); }}
+                  className="p-2 rounded-lg bg-emerald-50/50 border border-emerald-100 cursor-pointer hover:bg-emerald-50 transition-colors"
+                >
+                  <div className="flex items-center gap-1.5 text-emerald-900 font-semibold text-[11px]">
+                    <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                    JFLL Active ({segmentTurnover.activePct}%)
+                  </div>
+                  <div className="text-xs font-bold text-slate-900 mt-0.5">
+                    {formatInrCurrency(segmentTurnover.active)}
+                  </div>
+                  <div className="text-[10px] text-slate-500">
+                    {metrics.activeCount} Accounts · {metrics.activeWithContactsCount} with Contacts
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => { setCategory('inactive'); setContactFilter('all'); }}
+                  className="p-2 rounded-lg bg-amber-50/50 border border-amber-100 cursor-pointer hover:bg-amber-50 transition-colors"
+                >
+                  <div className="flex items-center gap-1.5 text-amber-900 font-semibold text-[11px]">
+                    <span className="w-2 h-2 rounded-full bg-amber-500" />
+                    JFLL Inactive ({segmentTurnover.inactivePct}%)
+                  </div>
+                  <div className="text-xs font-bold text-slate-900 mt-0.5">
+                    {formatInrCurrency(segmentTurnover.inactive)}
+                  </div>
+                  <div className="text-[10px] text-slate-500">
+                    {metrics.inactiveCount} Accounts · {metrics.inactiveWithContactsCount} with Contacts
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Chart 2: Top Revenue Accounts Leaderboard (1 col) */}
+          <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3 flex flex-col justify-between">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <div className="flex items-center gap-2">
+                <div className="p-1 rounded bg-purple-50 text-purple-600">
+                  <Flame className="w-4 h-4 fill-purple-500/20 text-purple-600" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                    Top Audited Accounts
+                  </h3>
+                  <p className="text-[11px] text-slate-500">
+                    Highest taxable billing targets
+                  </p>
+                </div>
+              </div>
+              <span className="text-[10px] font-mono text-purple-700 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
+                Top Billing
+              </span>
+            </div>
+
+            <div className="space-y-2 flex-1 pt-1">
+              {topAccounts.map((lead, idx) => {
+                const maxTurnover = topAccounts[0].taxableTurnover || 1;
+                const barWidth = Math.round((lead.taxableTurnover / maxTurnover) * 100);
+                const hasContact = hasHotLeadContact(lead);
+
+                return (
+                  <div
+                    key={`${lead.gstin || lead.srNo}-${idx}`}
+                    onClick={() => handleRowClick(lead)}
+                    className="p-2 rounded-lg border border-slate-200/80 hover:border-blue-300 hover:bg-slate-50/80 transition-all cursor-pointer group space-y-1"
+                  >
+                    <div className="flex items-center justify-between gap-2 text-xs">
+                      <span className="font-bold text-slate-900 group-hover:text-blue-700 truncate max-w-[170px]">
+                        {lead.customerName.replace(/\s*\(INDIA\)\s*PRIVATE\s*LIMITED/i, '').replace(/\s*PRIVATE\s*LIMITED/i, ' Pvt Ltd')}
+                      </span>
+                      <span className="font-mono font-extrabold text-emerald-700 shrink-0 text-xs">
+                        {formatInrCurrency(lead.taxableTurnover)}
+                      </span>
+                    </div>
+
+                    {/* Mini Visual Bar */}
+                    <div className="w-full bg-slate-100 rounded-full h-1 overflow-hidden">
+                      <div
+                        className="bg-emerald-500 h-1 rounded-full transition-all duration-500"
+                        style={{ width: `${barWidth}%` }}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between text-[10px] text-slate-500">
+                      <span>{hasContact ? lead.apolloDecisionMaker : 'No direct contact'}</span>
+                      <span className="text-blue-600 font-semibold group-hover:underline">Drawer →</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
         {/* Controls Bar: 2-Tier Segment Tabs (Category + With/Without Contacts) + Search */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           {/* Tier 1 & Tier 2 Segment Controls */}

@@ -20,6 +20,9 @@ import {
   Flame,
   ArrowRight,
   Thermometer,
+  Calendar,
+  Globe,
+  Zap,
 } from 'lucide-react';
 import {
   MonthlyRecord,
@@ -44,18 +47,18 @@ export interface CommodityRadarViewProps {
 }
 
 const MONTHS = [
-  { value: 1, label: 'M01 · January' },
-  { value: 2, label: 'M02 · February' },
-  { value: 3, label: 'M03 · March' },
-  { value: 4, label: 'M04 · April' },
-  { value: 5, label: 'M05 · May' },
-  { value: 6, label: 'M06 · June' },
-  { value: 7, label: 'M07 · July' },
-  { value: 8, label: 'M08 · August' },
-  { value: 9, label: 'M09 · September' },
-  { value: 10, label: 'M10 · October' },
-  { value: 11, label: 'M11 · November (Active Peak)' },
-  { value: 12, label: 'M12 · December' },
+  { value: 1, label: 'M01 · January', short: 'Jan' },
+  { value: 2, label: 'M02 · February', short: 'Feb' },
+  { value: 3, label: 'M03 · March', short: 'Mar' },
+  { value: 4, label: 'M04 · April', short: 'Apr' },
+  { value: 5, label: 'M05 · May', short: 'May' },
+  { value: 6, label: 'M06 · June', short: 'Jun' },
+  { value: 7, label: 'M07 · July', short: 'Jul' },
+  { value: 8, label: 'M08 · August', short: 'Aug' },
+  { value: 9, label: 'M09 · September', short: 'Sep' },
+  { value: 10, label: 'M10 · October', short: 'Oct' },
+  { value: 11, label: 'M11 · November (Active Peak)', short: 'Nov' },
+  { value: 12, label: 'M12 · December', short: 'Dec' },
 ];
 
 const HUBS: { id: GatewayHubId; label: string; code: string; region: 'North' | 'West' | 'South' | 'East' | 'All' }[] = [
@@ -112,6 +115,13 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   const [viewMode, setViewMode] = useState<'cards' | 'matrix'>('cards');
   const [urgencyFilter, setUrgencyFilter] = useState<'all' | 'active' | 'upcoming'>('all');
 
+  // Heatmap interactive hover inspection cell
+  const [hoveredCell, setHoveredCell] = useState<{
+    hubId: GatewayHubId;
+    month: number;
+    record: MonthlyRecord;
+  } | null>(null);
+
   // Selected record for the right-side detail drawer
   const [drawerRecord, setDrawerRecord] = useState<MonthlyRecord | null>(null);
 
@@ -123,6 +133,12 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   const handleHubChange = (hub: GatewayHubId) => {
     setSelectedHub(hub);
     onFilterChange?.(selectedMonth, hub);
+  };
+
+  const handleMonthAndHubChange = (month: number, hub: GatewayHubId) => {
+    setSelectedMonth(month);
+    setSelectedHub(hub);
+    onFilterChange?.(month, hub);
   };
 
   // In-memory filtered dataset
@@ -176,6 +192,15 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   const allMonthRecords = useMemo(() => {
     return MONTHLY_COMMODITY_RECORDS.filter((r) => r.month === selectedMonth);
   }, [selectedMonth]);
+
+  // Pre-indexed map for instant Heatmap lookups: key = `${hubId}-${month}`
+  const heatmapLookup = useMemo(() => {
+    const map = new Map<string, MonthlyRecord>();
+    for (const r of MONTHLY_COMMODITY_RECORDS) {
+      map.set(`${r.hubId}-${r.month}`, r);
+    }
+    return map;
+  }, []);
 
   // Regional breakdown chart data
   const regionalBreakdown = useMemo(() => {
@@ -327,6 +352,48 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
     return list.slice(0, 6);
   }, [allMonthRecords]);
 
+  // Major Global Freight Corridors for Multi-Modal Flow Map
+  const globalCorridors = useMemo(() => {
+    return [
+      {
+        id: 'corridor-eu',
+        name: 'Europe & UK Gateway',
+        hubs: 'BOM, DEL, BLR',
+        topCommodities: 'Table Grapes, Basmati Rice, Cut Roses, Pharma APIs',
+        equipment: "40' CA Reefer (0°C to +1°C), Air LD3/LD7",
+        volumeShare: 34,
+        color: 'blue',
+      },
+      {
+        id: 'corridor-gcc',
+        name: 'GCC & Middle East',
+        hubs: 'DEL, BOM, COK, MAA',
+        topCommodities: 'Basmati Rice, Buffalo Meat, Fresh Vegetables, Spices',
+        equipment: "20' Heavy FCL, 40' Reefer (-18°C), Air LD3",
+        volumeShare: 31,
+        color: 'emerald',
+      },
+      {
+        id: 'corridor-usa',
+        name: 'North America (Transatlantic/Pacific)',
+        hubs: 'HYD, MAA, BLR, BOM',
+        topCommodities: 'Pharma Vaccines, Vannamei Shrimp, Precision Auto Parts',
+        equipment: 'Active Pharma ULDs (+2°C to +8°C), Super-Freezers (-25°C)',
+        volumeShare: 23,
+        color: 'purple',
+      },
+      {
+        id: 'corridor-apac',
+        name: 'Far East & Asia-Pacific',
+        hubs: 'MAA, CCU, BOM',
+        topCommodities: 'Frozen Marine Shrimp, Mud Crabs, Castor Oil, Cotton Yarn',
+        equipment: "40' Marine Reefers, 20' ISO Tank Containers",
+        volumeShare: 12,
+        color: 'amber',
+      },
+    ];
+  }, []);
+
   const handleResetFilters = () => {
     const defaultMonth = initialMonth || 11;
     const defaultHub = initialHub || 'ALL';
@@ -349,8 +416,8 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
 
   return (
     <div className={`flex-1 overflow-y-auto min-h-0 bg-slate-50 text-slate-900 flex flex-col overscroll-y-contain ${className}`}>
-      {/* View Header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-5 shrink-0 shadow-2xs">
+      {/* 1. View Header & Quick Filter Bar */}
+      <div className="bg-white border-b border-slate-200 px-6 py-4 shrink-0 shadow-2xs">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
@@ -365,7 +432,7 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
                   </span>
                 </h1>
               </div>
-              <p className="text-xs text-slate-500 mt-1.5 max-w-3xl leading-relaxed">
+              <p className="text-xs text-slate-500 mt-1 max-w-3xl leading-relaxed">
                 Real-time multi-modal commodity target playbooks across India&apos;s top 8 commercial gateways. Lock Block Space Agreements (BSAs) and reefer allocations 4–8 weeks ahead of seasonal harvest surges.
               </p>
             </div>
@@ -377,9 +444,9 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
             </div>
           </div>
 
-          {/* Quick Control Bar */}
-          <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-2.5">
+          {/* Streamlined Visual Filter Strip */}
+          <div className="mt-3 pt-3 border-t border-slate-100 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-2">
               {/* Month Dropdown */}
               <div className="relative">
                 <select
@@ -449,11 +516,11 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
 
             {/* Search Input, View Mode & Reset */}
             <div className="flex items-center gap-2">
-              <div className="relative w-full sm:w-64">
+              <div className="relative w-full sm:w-60">
                 <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
-                  placeholder="Search commodity, cluster, HS..."
+                  placeholder="Search commodity, cluster..."
                   maxLength={100}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -520,12 +587,12 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
         </div>
       </div>
 
-      {/* Executive Metrics Strip */}
-      <div className="bg-white border-b border-slate-200 px-6 py-3 shrink-0">
+      {/* 2. Executive Metric Strip */}
+      <div className="bg-white border-b border-slate-200 px-6 py-2.5 shrink-0">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
             {/* Tile 1: Seasonal Driver */}
-            <div className="p-2.5 rounded-lg bg-blue-50/60 border border-blue-100/80 flex items-center justify-between">
+            <div className="p-2 rounded-lg bg-blue-50/60 border border-blue-100/80 flex items-center justify-between">
               <div className="truncate pr-2">
                 <span className="text-[10px] font-semibold text-blue-700 uppercase tracking-wide block truncate">
                   Active Season ({currentMonthName})
@@ -538,7 +605,7 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
             </div>
 
             {/* Tile 2: Active Targets */}
-            <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
+            <div className="p-2 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wide block">
                   Active Gateways
@@ -551,7 +618,7 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
             </div>
 
             {/* Tile 3: Booking Radar */}
-            <div className="p-2.5 rounded-lg bg-emerald-50/60 border border-emerald-100 flex items-center justify-between">
+            <div className="p-2 rounded-lg bg-emerald-50/60 border border-emerald-100 flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-semibold text-emerald-800 uppercase tracking-wide block">
                   Booking Lead Windows
@@ -564,7 +631,7 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
             </div>
 
             {/* Tile 4: Cold-Chain Profiles */}
-            <div className="p-2.5 rounded-lg bg-indigo-50/60 border border-indigo-100 flex items-center justify-between">
+            <div className="p-2 rounded-lg bg-indigo-50/60 border border-indigo-100 flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-semibold text-indigo-800 uppercase tracking-wide block">
                   Cold-Chain Regimes
@@ -579,175 +646,390 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto pb-16">
-        {/* INSIDE SALES VISUALISATION SUITE: Regional Matrix + Trending Commodities */}
-        <div className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {/* Chart 1: Regional Demand & Gateway Surge Matrix (2 Cols) */}
-            <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                <div className="flex items-center gap-2">
-                  <div className="p-1 rounded bg-blue-50 text-blue-600">
-                    <TrendingUp className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800">
-                      Regional Export Demand Matrix ({currentMonthName})
-                    </h2>
-                    <p className="text-[11px] text-slate-500">
-                      Surge intensity and key outbound commodities across India&apos;s commercial freight zones
-                    </p>
-                  </div>
-                </div>
-                <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                  National Radar
-                </span>
+      {/* 3. HERO VISUALISATION SUITE: Takes Majority of Space */}
+      <div className="p-6 space-y-6 max-w-7xl w-full mx-auto pb-16">
+        {/* VISUALISATION 1: Full-Year 12-Month × 8-Hub Freight Surge Heatmap Calendar */}
+        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700">
+                <Calendar className="w-4 h-4 text-emerald-600" />
               </div>
-
-              {/* Regional Progress & Details Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                {regionalBreakdown.map((reg) => (
-                  <div
-                    key={reg.name}
-                    className={`p-3 rounded-lg border transition-all hover:shadow-xs cursor-pointer ${
-                      reg.hubs.includes(selectedHub)
-                        ? 'bg-blue-50/70 border-blue-300 ring-1 ring-blue-400'
-                        : 'bg-slate-50/70 border-slate-200 hover:border-slate-300'
-                    }`}
-                    onClick={() => {
-                      if (reg.hubs.length === 1) {
-                        handleHubChange(reg.hubs[0]);
-                      } else if (reg.hubs.includes(selectedHub)) {
-                        handleHubChange('ALL');
-                      } else {
-                        handleHubChange(reg.hubs[0]);
-                      }
-                    }}
-                  >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-bold text-slate-900">{reg.name}</span>
-                      <span className="text-[11px] font-mono font-semibold text-slate-500">
-                        {reg.gatewayLabel}
-                      </span>
-                    </div>
-
-                    {/* Progress Bar Gauge */}
-                    <div className="w-full bg-slate-200 rounded-full h-1.5 mb-2 overflow-hidden">
-                      <div
-                        className={`${reg.barColor} h-1.5 rounded-full transition-all duration-500`}
-                        style={{ width: `${reg.intensity}%` }}
-                      />
-                    </div>
-
-                    <p className="text-[11px] text-slate-700 font-medium line-clamp-1">
-                      {reg.focus}
-                    </p>
-                    <div className="mt-1.5 flex items-center justify-between text-[10px] text-slate-500">
-                      <span>Equip: {reg.equipment.split(',')[0]}</span>
-                      <span className="text-blue-600 font-semibold hover:underline flex items-center gap-0.5">
-                        Filter Hub →
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Multi-Modal & Equipment Split Bar */}
-              <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-600">
-                <span className="font-semibold text-slate-700 flex items-center gap-1">
-                  <Boxes className="w-3.5 h-3.5 text-indigo-600" />
-                  Seasonal Capacity Mix:
-                </span>
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    Ocean Reefers: 42%
+              <div>
+                <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                  Annual Gateway Surge Heatmap Matrix
+                  <span className="text-[10px] font-normal lowercase font-sans text-slate-400">
+                    (Click any cell to inspect month &amp; hub)
                   </span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-sky-50 text-sky-800 border border-sky-200 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
-                    Air Perishables: 38%
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-500" />
-                    Dry Heavy FCL: 20%
-                  </span>
-                </div>
+                </h2>
+                <p className="text-[11px] text-slate-500">
+                  96-cycle national freight calendar mapping peak harvest surges, booking lead windows, and equipment demand across all 8 hubs
+                </p>
               </div>
             </div>
 
-            {/* Chart 2: Top Trending Commodities Leaderboard (Inside Sales Quick-Picks) */}
-            <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3 flex flex-col">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 shrink-0">
-                <div className="flex items-center gap-2">
-                  <div className="p-1 rounded bg-amber-50 text-amber-600">
-                    <Flame className="w-4 h-4 fill-amber-500/20" />
-                  </div>
-                  <div>
-                    <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800">
-                      Top Trending Commodities
-                    </h2>
-                    <p className="text-[11px] text-slate-500">
-                      Highest sales conversion targets this month
-                    </p>
-                  </div>
-                </div>
-                <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">
-                  {topTrendingCommodities.length} Targets
-                </span>
-              </div>
+            {/* Heatmap Legend */}
+            <div className="flex items-center gap-3 text-[10px] font-medium text-slate-600">
+              <span className="flex items-center gap-1">
+                <span className="w-2.5 h-2.5 rounded bg-emerald-600 inline-block shadow-2xs" />
+                Active Peak Surge
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="w-2.5 h-2.5 rounded bg-amber-400 inline-block shadow-2xs" />
+                Upcoming Lead Window
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="w-2.5 h-2.5 rounded bg-sky-200 inline-block" />
+                High Volume Flow
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="w-2.5 h-2.5 rounded bg-slate-100 border border-slate-200 inline-block" />
+                Baseline
+              </span>
+            </div>
+          </div>
 
-              <div className="space-y-2 flex-1 overflow-y-auto max-h-[260px] pr-1">
-                {topTrendingCommodities.map((item, idx) => (
-                  <div
-                    key={`${item.hubId}-${item.name}-${idx}`}
-                    onClick={() => setSearchQuery(item.name.split(' ')[0])}
-                    className="p-2.5 rounded-lg border border-slate-200/90 hover:border-blue-300 hover:bg-slate-50/80 transition-all cursor-pointer group flex items-start justify-between gap-2"
-                  >
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-1.5">
-                        <span className="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-blue-100 text-blue-800">
-                          {item.hubId}
+          {/* Interactive Heatmap Matrix Grid */}
+          <div className="overflow-x-auto">
+            <table className="w-full text-center border-collapse text-xs select-none">
+              <thead>
+                <tr>
+                  <th className="py-1 px-2 text-left font-bold text-slate-500 text-[10px] uppercase w-20">
+                    Gateway
+                  </th>
+                  {MONTHS.map((m) => (
+                    <th
+                      key={m.value}
+                      onClick={() => handleMonthChange(m.value)}
+                      className={`py-1 px-1 font-bold text-[11px] cursor-pointer rounded transition-colors ${
+                        selectedMonth === m.value
+                          ? 'bg-blue-100 text-blue-900 font-extrabold'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                      }`}
+                    >
+                      {m.short}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {HUBS.filter((h) => h.id !== 'ALL').map((hub) => (
+                  <tr key={hub.id} className="hover:bg-slate-50/60 transition-colors">
+                    <td
+                      onClick={() => handleHubChange(hub.id)}
+                      className={`py-1.5 px-2 text-left cursor-pointer transition-colors ${
+                        selectedHub === hub.id
+                          ? 'font-bold text-blue-700 bg-blue-50/70 rounded-l'
+                          : 'font-semibold text-slate-700 hover:text-blue-600'
+                      }`}
+                    >
+                      <div className="flex items-center gap-1">
+                        <span className="font-mono text-[11px] px-1 py-0.5 rounded bg-slate-100 text-slate-800 font-bold">
+                          {hub.code}
                         </span>
-                        <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-700 truncate">
-                          {item.name}
-                        </h4>
+                        <span className="text-[10px] text-slate-500 hidden xl:inline truncate max-w-[70px]">
+                          {hub.label.split(' ')[0]}
+                        </span>
                       </div>
-                      <div className="mt-1 flex items-center gap-1.5 text-[10px] text-slate-500">
-                        <span className="font-medium text-slate-700">{item.equipment}</span>
-                        {item.temp && (
-                          <>
-                            <span>•</span>
-                            <span className="text-emerald-700 font-semibold">{item.temp}</span>
-                          </>
-                        )}
-                        <span>•</span>
-                        <span className="truncate">{item.corridor}</span>
-                      </div>
-                    </div>
+                    </td>
 
-                    <div className="shrink-0 flex flex-col items-end gap-1">
-                      <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 whitespace-nowrap">
-                        {item.urgency}
-                      </span>
-                      <span className="text-[10px] text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
-                        Filter <ArrowRight className="w-2.5 h-2.5" />
-                      </span>
-                    </div>
-                  </div>
+                    {MONTHS.map((m) => {
+                      const rec = heatmapLookup.get(`${hub.id}-${m.value}`);
+                      const isActivePeak = rec?.bookingStatus === 'active';
+                      const isUpcoming = rec?.bookingStatus === 'upcoming';
+                      const isHighPriority = rec?.priority === 'HIGH';
+                      const isSelected = selectedMonth === m.value && (selectedHub === hub.id || selectedHub === 'ALL');
+
+                      let cellColor = 'bg-slate-100/90 text-slate-600 hover:bg-slate-200';
+                      if (isActivePeak) {
+                        cellColor = 'bg-emerald-600 text-white font-bold hover:bg-emerald-700 shadow-2xs';
+                      } else if (isUpcoming) {
+                        cellColor = 'bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200 font-semibold';
+                      } else if (isHighPriority) {
+                        cellColor = 'bg-sky-100 text-sky-800 border border-sky-200 hover:bg-sky-200';
+                      }
+
+                      return (
+                        <td key={m.value} className="p-0.5">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              handleMonthAndHubChange(m.value, hub.id);
+                            }}
+                            onMouseEnter={() => {
+                              if (rec) setHoveredCell({ hubId: hub.id, month: m.value, record: rec });
+                            }}
+                            className={`w-full py-1.5 px-0.5 rounded text-[10px] font-mono transition-all flex items-center justify-center gap-0.5 ${cellColor} ${
+                              isSelected
+                                ? 'ring-2 ring-blue-600 ring-offset-1 z-10 scale-105'
+                                : 'opacity-90 hover:opacity-100 hover:scale-102'
+                            }`}
+                            title={`${hub.code} · ${m.label}: ${rec?.season || ''}`}
+                          >
+                            {isActivePeak && <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />}
+                            {hub.code}
+                          </button>
+                        </td>
+                      );
+                    })}
+                  </tr>
                 ))}
-              </div>
+              </tbody>
+            </table>
+          </div>
 
-              <div className="pt-2 border-t border-slate-100 shrink-0 text-center">
-                <span className="text-[11px] text-slate-500">
-                  Click any trending commodity to filter active leads
+          {/* Dynamic Heatmap Tooltip & Inspection Strip */}
+          <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs bg-slate-50/70 p-2.5 rounded-lg border border-slate-200/70">
+            {hoveredCell ? (
+              <div className="flex items-center gap-2 truncate">
+                <span className="font-mono font-bold px-1.5 py-0.5 rounded bg-blue-600 text-white text-[11px]">
+                  {hoveredCell.hubId} · M{String(hoveredCell.month).padStart(2, '0')}
+                </span>
+                <span className="font-semibold text-slate-900 truncate">
+                  {hoveredCell.record.season}
+                </span>
+                <span className="text-slate-400 hidden md:inline">•</span>
+                <span className="text-[11px] text-slate-600 truncate hidden md:inline">
+                  {hoveredCell.record.equipment.split(';')[0]}
                 </span>
               </div>
+            ) : (
+              <div className="flex items-center gap-2 text-slate-500 text-[11px]">
+                <Zap className="w-3.5 h-3.5 text-amber-500" />
+                <span>Hover over any month cell to preview freight surge details, or click to lock filters.</span>
+              </div>
+            )}
+
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                Selected: {currentMonthName} · {selectedHub === 'ALL' ? 'All 8 Hubs' : selectedHub}
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Operational Commodity Grid or Quick Sales Matrix View */}
+        {/* VISUALISATION 2 & 3: Regional Demand Matrix + Global Trade Corridor Radar */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {/* Regional Export Demand Matrix (2 Cols) */}
+          <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <div className="flex items-center gap-2">
+                <div className="p-1 rounded bg-blue-50 text-blue-600">
+                  <TrendingUp className="w-4 h-4" />
+                </div>
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                    Regional Export Demand Matrix ({currentMonthName})
+                  </h2>
+                  <p className="text-[11px] text-slate-500">
+                    Surge intensity and key outbound commodities across India&apos;s commercial freight zones
+                  </p>
+                </div>
+              </div>
+              <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                National Radar
+              </span>
+            </div>
+
+            {/* Regional Progress & Details Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              {regionalBreakdown.map((reg) => (
+                <div
+                  key={reg.name}
+                  className={`p-3 rounded-lg border transition-all hover:shadow-xs cursor-pointer ${
+                    reg.hubs.includes(selectedHub)
+                      ? 'bg-blue-50/70 border-blue-300 ring-1 ring-blue-400'
+                      : 'bg-slate-50/70 border-slate-200 hover:border-slate-300'
+                  }`}
+                  onClick={() => {
+                    if (reg.hubs.length === 1) {
+                      handleHubChange(reg.hubs[0]);
+                    } else if (reg.hubs.includes(selectedHub)) {
+                      handleHubChange('ALL');
+                    } else {
+                      handleHubChange(reg.hubs[0]);
+                    }
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-bold text-slate-900">{reg.name}</span>
+                    <span className="text-[11px] font-mono font-semibold text-slate-500">
+                      {reg.gatewayLabel}
+                    </span>
+                  </div>
+
+                  {/* Progress Bar Gauge */}
+                  <div className="w-full bg-slate-200 rounded-full h-1.5 mb-2 overflow-hidden">
+                    <div
+                      className={`${reg.barColor} h-1.5 rounded-full transition-all duration-500`}
+                      style={{ width: `${reg.intensity}%` }}
+                    />
+                  </div>
+
+                  <p className="text-[11px] text-slate-700 font-medium line-clamp-1">
+                    {reg.focus}
+                  </p>
+                  <div className="mt-1.5 flex items-center justify-between text-[10px] text-slate-500">
+                    <span>Equip: {reg.equipment.split(',')[0]}</span>
+                    <span className="text-blue-600 font-semibold hover:underline flex items-center gap-0.5">
+                      Filter Hub →
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Multi-Modal & Equipment Split Bar */}
+            <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-600">
+              <span className="font-semibold text-slate-700 flex items-center gap-1">
+                <Boxes className="w-3.5 h-3.5 text-indigo-600" />
+                Seasonal Capacity Mix:
+              </span>
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Ocean Reefers: 42%
+                </span>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-sky-50 text-sky-800 border border-sky-200 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
+                  Air Perishables: 38%
+                </span>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-500" />
+                  Dry Heavy FCL: 20%
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Top Trending Commodities Leaderboard (Inside Sales Quick-Picks) */}
+          <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3 flex flex-col">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 shrink-0">
+              <div className="flex items-center gap-2">
+                <div className="p-1 rounded bg-amber-50 text-amber-600">
+                  <Flame className="w-4 h-4 fill-amber-500/20" />
+                </div>
+                <div>
+                  <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                    Top Trending Commodities
+                  </h2>
+                  <p className="text-[11px] text-slate-500">
+                    Highest sales conversion targets this month
+                  </p>
+                </div>
+              </div>
+              <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">
+                {topTrendingCommodities.length} Targets
+              </span>
+            </div>
+
+            <div className="space-y-2 flex-1 overflow-y-auto max-h-[260px] pr-1">
+              {topTrendingCommodities.map((item, idx) => (
+                <div
+                  key={`${item.hubId}-${item.name}-${idx}`}
+                  onClick={() => setSearchQuery(item.name.split(' ')[0])}
+                  className="p-2.5 rounded-lg border border-slate-200/90 hover:border-blue-300 hover:bg-slate-50/80 transition-all cursor-pointer group flex items-start justify-between gap-2"
+                >
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <span className="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-blue-100 text-blue-800">
+                        {item.hubId}
+                      </span>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-700 truncate">
+                        {item.name}
+                      </h4>
+                    </div>
+                    <div className="mt-1 flex items-center gap-1.5 text-[10px] text-slate-500">
+                      <span className="font-medium text-slate-700">{item.equipment}</span>
+                      {item.temp && (
+                        <>
+                          <span>•</span>
+                          <span className="text-emerald-700 font-semibold">{item.temp}</span>
+                        </>
+                      )}
+                      <span>•</span>
+                      <span className="truncate">{item.corridor}</span>
+                    </div>
+                  </div>
+
+                  <div className="shrink-0 flex flex-col items-end gap-1">
+                    <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 whitespace-nowrap">
+                      {item.urgency}
+                    </span>
+                    <span className="text-[10px] text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
+                      Filter <ArrowRight className="w-2.5 h-2.5" />
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2 border-t border-slate-100 shrink-0 text-center">
+              <span className="text-[11px] text-slate-500">
+                Click any trending commodity to filter active leads
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* VISUALISATION 4: Global Trade Corridors & Temperature Cold-Chain Flow Radar */}
+        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+            <div className="flex items-center gap-2">
+              <div className="p-1 rounded bg-indigo-50 text-indigo-600">
+                <Globe className="w-4 h-4 text-indigo-600" />
+              </div>
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                  Global Trade Corridors &amp; Multi-Modal Flow Radar
+                </h3>
+                <p className="text-[11px] text-slate-500">
+                  Outbound flow distribution from Indian gateways to key overseas consumption hubs
+                </p>
+              </div>
+            </div>
+            <span className="text-[11px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+              Corridor Flow
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {globalCorridors.map((c) => (
+              <div
+                key={c.id}
+                onClick={() => setSearchQuery(c.topCommodities.split(',')[0].trim())}
+                className="p-3 rounded-lg border border-slate-200 bg-slate-50/60 hover:bg-white hover:border-blue-300 transition-all cursor-pointer group shadow-2xs"
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-700">
+                    {c.name}
+                  </h4>
+                  <span className="font-mono text-xs font-extrabold text-blue-700">
+                    {c.volumeShare}%
+                  </span>
+                </div>
+
+                <div className="w-full bg-slate-200 rounded-full h-1 mb-2 overflow-hidden">
+                  <div
+                    className="bg-blue-600 h-1 rounded-full transition-all duration-500"
+                    style={{ width: `${c.volumeShare * 2.5}%` }}
+                  />
+                </div>
+
+                <div className="text-[11px] text-slate-700 font-medium line-clamp-1 mb-1">
+                  {c.topCommodities}
+                </div>
+
+                <div className="text-[10px] text-slate-500 flex items-center justify-between">
+                  <span className="font-mono">{c.hubs}</span>
+                  <span className="text-blue-600 group-hover:underline">Explore →</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 4. Operational Commodity Targets (Visual Playbook Cards vs Quick Sales Matrix) */}
         {filteredRecords.length === 0 ? (
           <div className="bg-white rounded-xl border border-slate-200 p-12 text-center shadow-xs">
             <Compass className="w-8 h-8 text-slate-400 mx-auto mb-3" />
@@ -802,9 +1084,9 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
                 <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 sticky top-0 select-none">
                   <tr>
                     <th className="py-3 px-4 font-semibold w-16">Hub</th>
-                    <th className="py-3 px-4 font-semibold">Gateway & Cycle</th>
-                    <th className="py-3 px-4 font-semibold">Outbound Air & Ocean Targets</th>
-                    <th className="py-3 px-4 font-semibold">Equipment & Temperature</th>
+                    <th className="py-3 px-4 font-semibold">Gateway &amp; Cycle</th>
+                    <th className="py-3 px-4 font-semibold">Outbound Air &amp; Ocean Targets</th>
+                    <th className="py-3 px-4 font-semibold">Equipment &amp; Temperature</th>
                     <th className="py-3 px-4 font-semibold">Target Clusters</th>
                     <th className="py-3 px-4 font-semibold text-right">Actions</th>
                   </tr>
@@ -914,8 +1196,8 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
             </div>
           </div>
         ) : (
-          /* PLAYBOOK CARDS VIEW: Rich, actionable, tagged */
-          <div className="grid grid-cols-1 gap-4">
+          /* PLAYBOOK CARDS VIEW: High-density visual micro-dashboards */
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filteredRecords.map((record) => {
               const isBookingActive = record.bookingStatus === 'active';
               const isBookingUpcoming = record.bookingStatus === 'upcoming';
@@ -926,159 +1208,148 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
               return (
                 <div
                   key={record.id}
-                  className="bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition-all shadow-2xs hover:shadow-xs p-5 space-y-4"
+                  className="bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition-all shadow-2xs hover:shadow-xs p-4 flex flex-col justify-between space-y-3"
                 >
                   {/* Card Header Row */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-3 border-b border-slate-100">
-                    <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-100">
+                    <div className="flex items-center gap-2.5">
                       <span className="px-2.5 py-1 rounded bg-blue-600 text-white font-mono font-bold text-xs tracking-wider">
                         {record.hubId}
                       </span>
                       <div>
                         <div className="flex items-center gap-2">
-                          <h3 className="text-base font-bold text-slate-900">
+                          <h3 className="text-sm font-bold text-slate-900">
                             {record.hubName}
                           </h3>
-                          <span className="text-xs font-medium text-slate-400">
-                            • {record.monthName} ({record.quarter})
+                          <span className="text-xs text-slate-400">
+                            • {record.monthName}
                           </span>
                         </div>
-                        <p className="text-xs font-medium text-blue-700 mt-0.5">
+                        <p className="text-[11px] font-semibold text-blue-700 mt-0.5 truncate max-w-xs">
                           {record.season}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                       {isBookingActive && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                           Lock Booking Now
                         </span>
                       )}
                       {isBookingUpcoming && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] font-semibold rounded-full bg-amber-50 text-amber-800 border border-amber-200">
                           <Clock className="w-3 h-3 text-amber-600" />
-                          Lead Window: {record.bookingWindow}
+                          {record.bookingWindow.split(' ')[0]}
                         </span>
                       )}
                       {tempBadge && (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
                           <Thermometer className="w-3 h-3 text-emerald-600" />
                           {tempBadge}
                         </span>
                       )}
-                      <span
-                        className={`px-2 py-0.5 text-[11px] font-semibold rounded border ${
-                          record.priority === 'HIGH'
-                            ? 'bg-rose-50 text-rose-700 border-rose-200'
-                            : 'bg-slate-100 text-slate-700 border-slate-200'
-                        }`}
-                      >
-                        Priority: {record.priority}
-                      </span>
                     </div>
                   </div>
 
-                  {/* Four Modal Flow Columns */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                  {/* 4 Modal Quadrant Flow Grid */}
+                  <div className="grid grid-cols-2 gap-2 text-xs">
                     {/* Air Export */}
-                    <div className="p-3 rounded-lg bg-sky-50/50 border border-sky-100 space-y-2">
-                      <div className="flex items-center gap-1.5 text-sky-900 font-bold">
-                        <Plane className="w-3.5 h-3.5 text-sky-600" />
-                        <span>Air Export Lots</span>
+                    <div className="p-2.5 rounded-lg bg-sky-50/60 border border-sky-100 space-y-1.5">
+                      <div className="flex items-center justify-between text-sky-950 font-bold text-[11px]">
+                        <span className="flex items-center gap-1">
+                          <Plane className="w-3 h-3 text-sky-600" />
+                          Air Export Lots
+                        </span>
+                        <span className="text-[10px] text-sky-700 font-mono">Air Perishables</span>
                       </div>
                       <div className="flex flex-wrap gap-1">
-                        {airChips.slice(0, 3).map((chip, i) => (
+                        {airChips.slice(0, 2).map((chip, i) => (
                           <span
                             key={i}
                             onClick={() => setSearchQuery(chip.split(' ')[0])}
-                            className="px-2 py-0.5 rounded text-[11px] bg-white border border-sky-200 text-sky-800 font-medium cursor-pointer hover:bg-sky-100/60 transition-colors shadow-2xs"
+                            className="px-1.5 py-0.5 rounded text-[10px] bg-white border border-sky-200 text-sky-800 font-medium cursor-pointer hover:bg-sky-100/60 transition-colors"
                           >
                             {chip}
                           </span>
                         ))}
                       </div>
-                      <p className="text-slate-600 leading-relaxed text-[11px] line-clamp-2">
-                        {record.airExport || 'Standard air consolidation.'}
+                      <p className="text-slate-600 text-[10px] line-clamp-1">
+                        {record.airExport || 'Air consolidation shipments.'}
                       </p>
                     </div>
 
                     {/* Sea Export */}
-                    <div className="p-3 rounded-lg bg-emerald-50/50 border border-emerald-100 space-y-2">
-                      <div className="flex items-center gap-1.5 text-emerald-900 font-bold">
-                        <Ship className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>Sea Export Reefers/FCL</span>
+                    <div className="p-2.5 rounded-lg bg-emerald-50/60 border border-emerald-100 space-y-1.5">
+                      <div className="flex items-center justify-between text-emerald-950 font-bold text-[11px]">
+                        <span className="flex items-center gap-1">
+                          <Ship className="w-3 h-3 text-emerald-600" />
+                          Sea Export Reefers/FCL
+                        </span>
+                        <span className="text-[10px] text-emerald-700 font-mono">Ocean Freight</span>
                       </div>
                       <div className="flex flex-wrap gap-1">
-                        {seaChips.slice(0, 3).map((chip, i) => (
+                        {seaChips.slice(0, 2).map((chip, i) => (
                           <span
                             key={i}
                             onClick={() => setSearchQuery(chip.split(' ')[0])}
-                            className="px-2 py-0.5 rounded text-[11px] bg-white border border-emerald-200 text-emerald-800 font-medium cursor-pointer hover:bg-emerald-100/60 transition-colors shadow-2xs"
+                            className="px-1.5 py-0.5 rounded text-[10px] bg-white border border-emerald-200 text-emerald-800 font-medium cursor-pointer hover:bg-emerald-100/60 transition-colors"
                           >
                             {chip}
                           </span>
                         ))}
                       </div>
-                      <p className="text-slate-600 leading-relaxed text-[11px] line-clamp-2">
+                      <p className="text-slate-600 text-[10px] line-clamp-1">
                         {record.seaExport || 'Dry containerized ocean freight.'}
                       </p>
                     </div>
 
                     {/* Air Import */}
-                    <div className="p-3 rounded-lg bg-amber-50/40 border border-amber-100 space-y-1">
-                      <div className="flex items-center gap-1.5 text-amber-950 font-bold">
-                        <ArrowDownLeft className="w-3.5 h-3.5 text-amber-700" />
-                        <span>Air Inbound Inputs</span>
+                    <div className="p-2 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                      <div className="flex items-center gap-1 text-slate-800 font-bold text-[10px]">
+                        <ArrowDownLeft className="w-3 h-3 text-amber-600" />
+                        Air Inbound Inputs
                       </div>
-                      <p className="text-slate-700 leading-relaxed line-clamp-3">
-                        {record.airImport || 'High-value tech inputs.'}
+                      <p className="text-slate-600 text-[10px] line-clamp-1">
+                        {record.airImport || 'High-value inputs & spares.'}
                       </p>
                     </div>
 
                     {/* Sea Import */}
-                    <div className="p-3 rounded-lg bg-indigo-50/40 border border-indigo-100 space-y-1">
-                      <div className="flex items-center gap-1.5 text-indigo-950 font-bold">
-                        <Boxes className="w-3.5 h-3.5 text-indigo-600" />
-                        <span>Sea Raw Materials</span>
+                    <div className="p-2 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                      <div className="flex items-center gap-1 text-slate-800 font-bold text-[10px]">
+                        <Boxes className="w-3 h-3 text-indigo-600" />
+                        Sea Raw Materials
                       </div>
-                      <p className="text-slate-700 leading-relaxed line-clamp-3">
-                        {record.seaImport || 'Industrial capital inputs.'}
+                      <p className="text-slate-600 text-[10px] line-clamp-1">
+                        {record.seaImport || 'Raw materials & capital goods.'}
                       </p>
                     </div>
                   </div>
 
-                  {/* Operational Context Specs Strip */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs text-slate-600 border-t border-slate-100">
-                    <div>
-                      <span className="font-semibold text-slate-800">Target Clusters:</span>{' '}
-                      <span className="text-slate-600">{record.clusters}</span>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-slate-800">Recommended Equipment:</span>{' '}
-                      <span className="text-slate-600 font-mono text-[11px]">{record.equipment}</span>
-                    </div>
-                    <div>
-                      <span className="font-semibold text-slate-800">Primary Trade Corridors:</span>{' '}
-                      <span className="text-slate-600">{record.tradeLanes}</span>
-                    </div>
+                  {/* Corridor Route & Equipment Strip */}
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-600">
+                    <span className="truncate max-w-[220px]">
+                      <span className="font-semibold text-slate-800">Lanes:</span> {record.tradeLanes}
+                    </span>
+                    <span className="font-mono text-[10px] text-slate-500 shrink-0">
+                      {record.equipment.split(';')[0]}
+                    </span>
                   </div>
 
-                  {/* 1-Click Action Bar */}
-                  <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setDrawerRecord(record)}
-                        className="px-3.5 py-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
-                      >
-                        <FileText className="w-3.5 h-3.5" />
-                        <span>View Playbook & Pitch Script</span>
-                      </button>
-                    </div>
+                  {/* Action Bar */}
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setDrawerRecord(record)}
+                      className="px-3 py-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span>View Playbook &amp; Pitch Script</span>
+                    </button>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                       {onFindInDatamyne && (
                         <button
                           type="button"
@@ -1086,10 +1357,11 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
                             const firstCluster = (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
                             onFindInDatamyne(firstCluster);
                           }}
-                          className="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
+                          className="px-2.5 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors flex items-center gap-1 shadow-2xs"
+                          title="Find in DataMyne"
                         >
-                          <Ship className="w-3.5 h-3.5 text-slate-500" />
-                          <span>Find in DataMyne</span>
+                          <Ship className="w-3.5 h-3.5 text-blue-600" />
+                          <span className="hidden sm:inline">Find in DataMyne</span>
                         </button>
                       )}
 
@@ -1100,10 +1372,11 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
                             const firstCluster = (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
                             onFindInApollo(firstCluster);
                           }}
-                          className="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
+                          className="px-2.5 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors flex items-center gap-1 shadow-2xs"
+                          title="Find in Apollo"
                         >
-                          <Users className="w-3.5 h-3.5 text-slate-500" />
-                          <span>Find in Apollo</span>
+                          <Users className="w-3.5 h-3.5 text-purple-600" />
+                          <span className="hidden sm:inline">Find in Apollo</span>
                         </button>
                       )}
                     </div>

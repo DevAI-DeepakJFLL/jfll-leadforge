@@ -43,6 +43,7 @@ export interface ContactItem {
   email?: string;
   contact_info?: string;
   notes: string;
+  is_manually_edited?: boolean;
 }
 
 export interface SalesFeedback {

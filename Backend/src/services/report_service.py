@@ -752,8 +752,8 @@ def _find_apollo_contacts(
                         continue
                     seen_names.add(norm_name)
                     c_email = str(email or "").strip()
-                    c_phone = str(org_phone or "").strip()
-                    c_info = f"{c_email} | {c_phone}".strip(" |") if (c_email or c_phone) else (linkedin if linkedin else "Apollo Verified")
+                    c_phone = ""
+                    c_info = c_email or (linkedin if linkedin else "Apollo Verified")
                     sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
                     notes = f"Apollo Verified ({sen_tag})"
                     if linkedin and linkedin != c_info:
@@ -797,8 +797,8 @@ def _find_apollo_contacts(
                             continue
                         seen_names.add(norm_name)
                         c_email = str(email or "").strip()
-                        c_phone = str(org_phone or "").strip()
-                        c_info = f"{c_email} | {c_phone}".strip(" |") if (c_email or c_phone) else (linkedin if linkedin else "Apollo Verified")
+                        c_phone = ""
+                        c_info = c_email or (linkedin if linkedin else "Apollo Verified")
                         sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
                         notes = f"Apollo Verified ({sen_tag})"
                         if linkedin and linkedin != c_info:
@@ -981,11 +981,6 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
             norm_ac_name = ac.name.strip().lower()
             if norm_ac_name not in seen_names:
                 seen_names.add(norm_ac_name)
-                if not ac.phone and corp_phone:
-                    ac.phone = corp_phone
-                    ac.contact_info = f"{ac.email} | {corp_phone}".strip(" |")
-                    if "Switchboard" not in ac.notes:
-                        ac.notes = f"{ac.notes} (Switchboard)".strip()
                 contacts.append(ac)
 
         if len(contacts) < 2:
@@ -1075,7 +1070,7 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
                             d_parsed = _parse_and_format_phones(raw_dp, city)
                             d_phone = d_parsed[0][0] if d_parsed else raw_dp
                     if not d_phone:
-                        d_phone = primary_manifest_phone
+                        d_phone = ""
                     d_email = dm_email
                     d_info = f"{d_email} | {d_phone}".strip(" |") if (d_email or d_phone) else "MCA Directory"
                     contacts.append(
@@ -1095,12 +1090,6 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
         norm_ac_name = ac.name.strip().lower()
         if norm_ac_name not in seen_names:
             seen_names.add(norm_ac_name)
-            # If Apollo contact has no direct personal phone, supply corporate manifest phone
-            if not ac.phone and primary_manifest_phone:
-                ac.phone = primary_manifest_phone
-                ac.contact_info = f"{ac.email} | {primary_manifest_phone}".strip(" |")
-                if "Switchboard" not in ac.notes:
-                    ac.notes = f"{ac.notes} (Switchboard)".strip()
             contacts.append(ac)
 
     # If only 1 contact, append an editable row for the sales rep to fill

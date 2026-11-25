@@ -393,7 +393,26 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
         run_sec4.font.bold = True
         run_sec4.font.color.rgb = COLOR_NAVY_RGB
 
-        contacts = report.section_4_contacts or []
+        raw_contacts = report.section_4_contacts or []
+        has_verified_contacts = any(getattr(c, "is_manually_edited", False) for c in raw_contacts)
+
+        # Flag section if salesperson has verified direct contacts
+        if has_verified_contacts:
+            p_badge = doc.add_paragraph()
+            p_badge.paragraph_format.space_before = Pt(0)
+            p_badge.paragraph_format.space_after = Pt(4)
+            r_badge = p_badge.add_run("● Contains Sales-Verified Direct Outreach Contacts (Elevated to Top)")
+            r_badge.font.name = "Calibri"
+            r_badge.font.size = Pt(8.5)
+            r_badge.font.bold = True
+            r_badge.font.color.rgb = RGBColor(0x06, 0x5F, 0x46) # Emerald 800
+
+        # Sort contacts: verified/edited contacts float to the top
+        contacts = sorted(
+            raw_contacts,
+            key=lambda c: 0 if getattr(c, "is_manually_edited", False) else 1
+        )
+
         tbl_contacts = doc.add_table(rows=len(contacts) + 1, cols=4)
         tbl_contacts.alignment = WD_TABLE_ALIGNMENT.CENTER
         tbl_contacts.autofit = False
@@ -432,6 +451,7 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
 
             phone_val = str(getattr(c, "phone", "") or "").strip()
             email_val = str(getattr(c, "email", "") or "").strip()
+            is_verified = bool(getattr(c, "is_manually_edited", False))
 
             # Robust fallback: extract separate phone and email from contact_info if not explicitly set
             if not phone_val or not email_val:
@@ -449,12 +469,18 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
                         else:
                             phone_val = raw_info
 
-            fields = [c.name, c.designation, phone_val or "—", email_val or "—"]
+            designation_text = c.designation
+            if is_verified:
+                designation_text = f"{designation_text} [Sales Verified]"
+
+            fields = [c.name, designation_text, phone_val or "—", email_val or "—"]
             for c_idx, val in enumerate(fields):
                 cell = row.cells[c_idx]
                 _set_cell_width(cell, col_widths_c[c_idx])
                 _set_cell_margins(cell, top=80, bottom=80, left=100, right=100)
-                if r_idx % 2 == 1:
+                if is_verified:
+                    _set_cell_background(cell, "E6F4EA") # Soft Emerald highlight for sales-verified contact
+                elif r_idx % 2 == 1:
                     _set_cell_background(cell, COLOR_ZEBRA_BG_HEX)
                 p = cell.paragraphs[0]
                 p.paragraph_format.space_before = Pt(0)
