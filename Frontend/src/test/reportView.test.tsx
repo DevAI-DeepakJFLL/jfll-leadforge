@@ -55,7 +55,7 @@ describe('ReportView Component Suite', () => {
     expect(html).toContain('Phone');
     expect(html).toContain('Email ID');
     expect(html).toContain('Notes / Provenance');
-    expect(html).toContain('+ Add Contact');
+    expect(html).toContain('Add Contact');
     // Accessible table actions header
     expect(html).toContain('Actions</span>');
   });
@@ -194,7 +194,7 @@ describe('ReportView Component Suite', () => {
 
     expect(html).toContain('Checking from Apollo…');
     expect(html).toContain('Cross-referencing verified CXOs, Directors, and Logistics Decision-Makers');
-    expect(html).not.toContain('+ Add Contact');
+    expect(html).not.toContain('Add Contact');
   });
 
   it('renders Actionable Executive Outreach callout banner and flags sales-verified contacts', () => {

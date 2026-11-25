@@ -136,16 +136,7 @@ export const ApolloAudienceTabs: React.FC<ApolloAudienceTabsProps> = ({
                   }`}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  <CategoryInfoTooltip
-                    title={tab.label}
-                    description={tab.description}
-                    criteria={tab.criteria}
-                    actionTip={tab.actionTip}
-                    badge={tab.badge}
-                    align={idx === 0 ? 'left' : idx === tabs.length - 1 ? 'right' : 'center'}
-                  >
-                    <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-slate-400'}`} />
-                  </CategoryInfoTooltip>
+                  <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive ? 'text-white' : 'text-slate-400'}`} />
                   <span>{tab.label}</span>
                   <span
                     className={`ml-1 text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${

@@ -1165,7 +1165,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
                       className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md px-2.5 py-1 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
                     >
                       <Plus className="w-3.5 h-3.5" />
-                      <span>+ Add Contact</span>
+                      <span>Add Contact</span>
                     </button>
                   )}
                   <button
