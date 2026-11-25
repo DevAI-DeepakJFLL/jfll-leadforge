@@ -3,9 +3,34 @@
  * Source: Phase2/Client_Tax_Invoice_Data.xlsx (Database Cross-Reference Audit)
  */
 
-export type HotLeadCrmStatus = 'Prospect (Not in JFLL)' | 'Active Customer' | 'Not Active Customer';
+export type HotLeadCrmStatus =
+  | 'Prospect (Not in JFLL)'
+  | 'Active Customer'
+  | 'Not Active Customer'
+  | 'Fresh Data'
+  | 'JFLL Active'
+  | 'JFLL Inactive';
 
-export type HotLeadSegment = 'all' | 'prospects' | 'reactivations' | 'active' | 'with-decision-makers';
+export type HotLeadCategory = 'all' | 'active' | 'inactive' | 'fresh';
+export type HotLeadContactFilter = 'all' | 'with-contacts' | 'without-contacts';
+
+export type HotLeadSegment =
+  | 'all'
+  | 'active'
+  | 'active-with-contacts'
+  | 'active-without-contacts'
+  | 'inactive'
+  | 'inactive-with-contacts'
+  | 'inactive-without-contacts'
+  | 'fresh'
+  | 'fresh-with-contacts'
+  | 'fresh-without-contacts'
+  | 'with-contacts'
+  | 'without-contacts'
+  // Legacy aliases for backward compatibility
+  | 'prospects'
+  | 'reactivations'
+  | 'with-decision-makers';
 
 export interface HotLead {
   srNo: number;
@@ -31,15 +56,29 @@ export interface HotLead {
 export interface HotLeadsMetrics {
   totalTurnover: number;
   totalCount: number;
+  // New taxonomy labels
+  activeCount: number;
+  activeWithContactsCount: number;
+  activeWithoutContactsCount: number;
+  inactiveCount: number;
+  inactiveWithContactsCount: number;
+  inactiveWithoutContactsCount: number;
+  freshCount: number;
+  freshWithContactsCount: number;
+  freshWithoutContactsCount: number;
+  withContactsCount: number;
+  withoutContactsCount: number;
+  // Backward compatibility aliases
   prospectsCount: number;
   reactivationsCount: number;
-  activeCount: number;
   decisionMakersCount: number;
 }
 
 export interface HotLeadsFilterParams {
   q?: string;
   segment?: HotLeadSegment;
+  category?: HotLeadCategory;
+  contactFilter?: HotLeadContactFilter;
   sortBy?: 'turnover' | 'name' | 'status';
   sortOrder?: 'asc' | 'desc';
 }

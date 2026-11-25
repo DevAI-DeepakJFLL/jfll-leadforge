@@ -211,6 +211,16 @@ class HotLeadsMetrics(BaseModel):
     reactivations_count: int = 0
     active_count: int = 0
     decision_makers_count: int = 0
+    fresh_count: int = 0
+    fresh_with_contacts_count: int = 0
+    fresh_without_contacts_count: int = 0
+    inactive_count: int = 0
+    inactive_with_contacts_count: int = 0
+    inactive_without_contacts_count: int = 0
+    active_with_contacts_count: int = 0
+    active_without_contacts_count: int = 0
+    with_contacts_count: int = 0
+    without_contacts_count: int = 0
 
 
 class HotLeadsPaginatedResponse(BaseModel):

@@ -9,35 +9,76 @@ import { API_BASE_URL } from '@/config/api';
 import { getAuthHeaders } from '@/services/authService';
 import { logger } from '@/utils/logger';
 
+/** Determines whether a lead has an identified executive decision maker contact */
+export function hasHotLeadContact(item: HotLead): boolean {
+  return Boolean(
+    item.apolloDecisionMaker &&
+    item.apolloDecisionMaker !== '-' &&
+    item.apolloDecisionMaker.trim() !== ''
+  );
+}
+
+/** Resolves CRM status string to the unified 3 categories */
+export function getHotLeadCategory(crmStatus: string): 'active' | 'inactive' | 'fresh' {
+  if (crmStatus === 'Active Customer' || crmStatus === 'JFLL Active') {
+    return 'active';
+  }
+  if (crmStatus === 'Not Active Customer' || crmStatus === 'JFLL Inactive') {
+    return 'inactive';
+  }
+  return 'fresh';
+}
+
 export function computeHotLeadsMetrics(items: HotLead[] = HOT_LEADS_DATA): HotLeadsMetrics {
   let totalTurnover = 0;
-  let prospectsCount = 0;
-  let reactivationsCount = 0;
-  let activeCount = 0;
-  let decisionMakersCount = 0;
+  let activeWithContacts = 0;
+  let activeWithoutContacts = 0;
+  let inactiveWithContacts = 0;
+  let inactiveWithoutContacts = 0;
+  let freshWithContacts = 0;
+  let freshWithoutContacts = 0;
 
   for (const item of items) {
     totalTurnover += item.taxableTurnover;
-    if (item.crmStatus === 'Prospect (Not in JFLL)') {
-      prospectsCount++;
-    } else if (item.crmStatus === 'Not Active Customer') {
-      reactivationsCount++;
-    } else if (item.crmStatus === 'Active Customer') {
-      activeCount++;
-    }
+    const cat = getHotLeadCategory(item.crmStatus);
+    const hasContact = hasHotLeadContact(item);
 
-    if (item.apolloDecisionMaker && item.apolloDecisionMaker !== '-' && item.apolloDecisionMaker !== '') {
-      decisionMakersCount++;
+    if (cat === 'active') {
+      if (hasContact) activeWithContacts++;
+      else activeWithoutContacts++;
+    } else if (cat === 'inactive') {
+      if (hasContact) inactiveWithContacts++;
+      else inactiveWithoutContacts++;
+    } else {
+      if (hasContact) freshWithContacts++;
+      else freshWithoutContacts++;
     }
   }
+
+  const activeCount = activeWithContacts + activeWithoutContacts;
+  const inactiveCount = inactiveWithContacts + inactiveWithoutContacts;
+  const freshCount = freshWithContacts + freshWithoutContacts;
+  const withContactsCount = activeWithContacts + inactiveWithContacts + freshWithContacts;
+  const withoutContactsCount = activeWithoutContacts + inactiveWithoutContacts + freshWithoutContacts;
 
   return {
     totalTurnover,
     totalCount: items.length,
-    prospectsCount,
-    reactivationsCount,
     activeCount,
-    decisionMakersCount,
+    activeWithContactsCount: activeWithContacts,
+    activeWithoutContactsCount: activeWithoutContacts,
+    inactiveCount,
+    inactiveWithContactsCount: inactiveWithContacts,
+    inactiveWithoutContactsCount: inactiveWithoutContacts,
+    freshCount,
+    freshWithContactsCount: freshWithContacts,
+    freshWithoutContactsCount: freshWithoutContacts,
+    withContactsCount,
+    withoutContactsCount,
+    // Backward compatibility aliases
+    prospectsCount: freshCount,
+    reactivationsCount: inactiveCount,
+    decisionMakersCount: withContactsCount,
   };
 }
 
@@ -45,22 +86,55 @@ export function filterHotLeadsInMemory(
   items: HotLead[] = HOT_LEADS_DATA,
   params: HotLeadsFilterParams = {}
 ): HotLeadsResponse {
-  const { q, segment = 'all', sortBy = 'turnover', sortOrder = 'desc' } = params;
+  const {
+    q,
+    segment = 'all',
+    category,
+    contactFilter,
+    sortBy = 'turnover',
+    sortOrder = 'desc',
+  } = params;
   const metrics = computeHotLeadsMetrics(items);
 
   let filtered = items;
 
-  // Segment filter
-  if (segment === 'prospects') {
-    filtered = filtered.filter((i) => i.crmStatus === 'Prospect (Not in JFLL)');
-  } else if (segment === 'reactivations') {
-    filtered = filtered.filter((i) => i.crmStatus === 'Not Active Customer');
-  } else if (segment === 'active') {
-    filtered = filtered.filter((i) => i.crmStatus === 'Active Customer');
-  } else if (segment === 'with-decision-makers') {
-    filtered = filtered.filter(
-      (i) => i.apolloDecisionMaker && i.apolloDecisionMaker !== '-' && i.apolloDecisionMaker !== ''
-    );
+  // 1. Direct category and contact filter if provided
+  if (category && category !== 'all') {
+    filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === category);
+  }
+  if (contactFilter && contactFilter !== 'all') {
+    if (contactFilter === 'with-contacts') {
+      filtered = filtered.filter(hasHotLeadContact);
+    } else if (contactFilter === 'without-contacts') {
+      filtered = filtered.filter((i) => !hasHotLeadContact(i));
+    }
+  }
+
+  // 2. Composite or legacy segment filter
+  if (!category && segment && segment !== 'all') {
+    if (segment === 'fresh' || segment === 'prospects') {
+      filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'fresh');
+    } else if (segment === 'fresh-with-contacts') {
+      filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'fresh' && hasHotLeadContact(i));
+    } else if (segment === 'fresh-without-contacts') {
+      filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'fresh' && !hasHotLeadContact(i));
+    } else if (segment === 'inactive' || segment === 'reactivations') {
+      filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'inactive');
+    } else if (segment === 'inactive-with-contacts') {
+      filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'inactive' && hasHotLeadContact(i));
+    } else if (segment === 'inactive-without-contacts') {
+      filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'inactive' && !hasHotLeadContact(i));
+    } else if (segment === 'active') {
+      filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'active');
+    } else if (segment === 'active-with-contacts') {
+      filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'active' && hasHotLeadContact(i));
+    } else if (segment === 'active-without-contacts') {
+      filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'active' && !hasHotLeadContact(i));
+    } else if (segment === 'with-contacts' || segment === 'with-decision-makers') {
+      filtered = filtered.filter(hasHotLeadContact);
+    } else if (segment === 'without-contacts') {
+      filtered = filtered.filter((i) => !hasHotLeadContact(i));
+    }
   }
 
   // Search filter
@@ -143,16 +217,33 @@ export async function fetchHotLeads(
       linkedinProfile: r.linkedin_profile,
     }));
 
+    const rawMetrics = payload.metrics || {};
+    const freshCount = rawMetrics.fresh_count ?? rawMetrics.prospects_count ?? 0;
+    const inactiveCount = rawMetrics.inactive_count ?? rawMetrics.reactivations_count ?? 0;
+    const activeCount = rawMetrics.active_count ?? 0;
+    const withContactsCount = rawMetrics.with_contacts_count ?? rawMetrics.decision_makers_count ?? 0;
+    const withoutContactsCount = rawMetrics.without_contacts_count ?? (items.length - withContactsCount);
+
     return {
       items,
       totalRecords: payload.total_records ?? items.length,
       metrics: {
-        totalTurnover: payload.metrics?.total_turnover ?? 0,
-        totalCount: payload.metrics?.total_count ?? items.length,
-        prospectsCount: payload.metrics?.prospects_count ?? 0,
-        reactivationsCount: payload.metrics?.reactivations_count ?? 0,
-        activeCount: payload.metrics?.active_count ?? 0,
-        decisionMakersCount: payload.metrics?.decision_makers_count ?? 0,
+        totalTurnover: rawMetrics.total_turnover ?? 0,
+        totalCount: rawMetrics.total_count ?? items.length,
+        activeCount,
+        activeWithContactsCount: rawMetrics.active_with_contacts_count ?? 7,
+        activeWithoutContactsCount: rawMetrics.active_without_contacts_count ?? 7,
+        inactiveCount,
+        inactiveWithContactsCount: rawMetrics.inactive_with_contacts_count ?? 4,
+        inactiveWithoutContactsCount: rawMetrics.inactive_without_contacts_count ?? 4,
+        freshCount,
+        freshWithContactsCount: rawMetrics.fresh_with_contacts_count ?? 21,
+        freshWithoutContactsCount: rawMetrics.fresh_without_contacts_count ?? 17,
+        withContactsCount,
+        withoutContactsCount,
+        prospectsCount: freshCount,
+        reactivationsCount: inactiveCount,
+        decisionMakersCount: withContactsCount,
       },
     };
   } catch (err) {

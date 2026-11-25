@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import {
   Flame,
   Search,
@@ -12,10 +12,22 @@ import {
   Ship,
   Sparkles,
   ArrowUpDown,
+  CheckCircle2,
 } from 'lucide-react';
-import { HotLead, HotLeadSegment } from '@/types/hotLeads';
+import {
+  HotLead,
+  HotLeadSegment,
+  HotLeadCategory,
+  HotLeadContactFilter,
+} from '@/types/hotLeads';
 import { HOT_LEADS_DATA } from '@/data/hotLeadsData';
-import { fetchHotLeads, formatInrCurrency, computeHotLeadsMetrics } from '@/services/hotLeadsService';
+import {
+  fetchHotLeads,
+  formatInrCurrency,
+  computeHotLeadsMetrics,
+  hasHotLeadContact,
+  getHotLeadCategory,
+} from '@/services/hotLeadsService';
 import { HotLeadDetailDrawer } from './HotLeadDetailDrawer';
 
 export interface HotLeadsViewProps {
@@ -35,7 +47,22 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
   onFindInApollo,
   onNavigateToReport,
 }) => {
-  const [segment, setSegment] = useState<HotLeadSegment>(initialSegment);
+  // Parse initial segment into category and contact filter
+  const initialCat: HotLeadCategory = useMemo(() => {
+    if (initialSegment === 'active' || initialSegment === 'active-with-contacts' || initialSegment === 'active-without-contacts') return 'active';
+    if (initialSegment === 'inactive' || initialSegment === 'reactivations' || initialSegment === 'inactive-with-contacts' || initialSegment === 'inactive-without-contacts') return 'inactive';
+    if (initialSegment === 'fresh' || initialSegment === 'prospects' || initialSegment === 'fresh-with-contacts' || initialSegment === 'fresh-without-contacts') return 'fresh';
+    return 'all';
+  }, [initialSegment]);
+
+  const initialContact: HotLeadContactFilter = useMemo(() => {
+    if (initialSegment.includes('with-contacts') || initialSegment === 'with-decision-makers') return 'with-contacts';
+    if (initialSegment.includes('without-contacts')) return 'without-contacts';
+    return 'all';
+  }, [initialSegment]);
+
+  const [category, setCategory] = useState<HotLeadCategory>(initialCat);
+  const [contactFilter, setContactFilter] = useState<HotLeadContactFilter>(initialContact);
   const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
   const [sortBy, setSortBy] = useState<'turnover' | 'name' | 'status'>('turnover');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
@@ -46,11 +73,25 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  // Compute composite segment string
+  const currentSegment: HotLeadSegment = useMemo(() => {
+    if (category === 'all') {
+      if (contactFilter === 'with-contacts') return 'with-contacts';
+      if (contactFilter === 'without-contacts') return 'without-contacts';
+      return 'all';
+    }
+    if (contactFilter === 'with-contacts') return `${category}-with-contacts` as HotLeadSegment;
+    if (contactFilter === 'without-contacts') return `${category}-without-contacts` as HotLeadSegment;
+    return category;
+  }, [category, contactFilter]);
+
   const loadData = useCallback(async () => {
     try {
       const res = await fetchHotLeads({
         q: searchQuery,
-        segment,
+        category,
+        contactFilter,
+        segment: currentSegment,
         sortBy,
         sortOrder,
       });
@@ -59,12 +100,12 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
     } catch {
       // Handled in service fallback
     }
-  }, [searchQuery, segment, sortBy, sortOrder]);
+  }, [searchQuery, category, contactFilter, currentSegment, sortBy, sortOrder]);
 
   useEffect(() => {
     loadData();
-    onFilterChange?.(segment, searchQuery);
-  }, [loadData, segment, searchQuery, onFilterChange]);
+    onFilterChange?.(currentSegment, searchQuery);
+  }, [loadData, currentSegment, searchQuery, onFilterChange]);
 
   const handleClearSearch = () => {
     setSearchQuery('');
@@ -91,6 +132,36 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
     setIsDrawerOpen(true);
   };
 
+  // Dynamic counts for contact sub-tabs based on current category
+  const contactSubCounts = useMemo(() => {
+    if (category === 'active') {
+      return {
+        all: metrics.activeCount,
+        withContacts: metrics.activeWithContactsCount,
+        withoutContacts: metrics.activeWithoutContactsCount,
+      };
+    }
+    if (category === 'inactive') {
+      return {
+        all: metrics.inactiveCount,
+        withContacts: metrics.inactiveWithContactsCount,
+        withoutContacts: metrics.inactiveWithoutContactsCount,
+      };
+    }
+    if (category === 'fresh') {
+      return {
+        all: metrics.freshCount,
+        withContacts: metrics.freshWithContactsCount,
+        withoutContacts: metrics.freshWithoutContactsCount,
+      };
+    }
+    return {
+      all: metrics.totalCount,
+      withContacts: metrics.withContactsCount,
+      withoutContacts: metrics.withoutContactsCount,
+    };
+  }, [category, metrics]);
+
   return (
     <div className="flex-1 overflow-y-auto bg-slate-50 text-slate-900 flex flex-col min-h-0">
       {/* Top Banner / Header */}
@@ -110,7 +181,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                 </h1>
               </div>
               <p className="text-xs text-slate-500 mt-1.5 max-w-3xl leading-relaxed">
-                60 verified enterprise freight accounts cross-referenced from audited client tax invoices (₹47.66 Cr taxable billing). Matched across the JFLL CRM, Apollo executive intelligence, and Datamyne customs trade records.
+                60 verified enterprise freight accounts cross-referenced from audited client tax invoices (₹47.66 Cr taxable billing). Segmented into JFLL Active, JFLL Inactive, and Fresh Data with direct contact coverage.
               </p>
             </div>
           </div>
@@ -121,6 +192,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
       <div className="bg-white border-b border-slate-200 px-6 py-3 shrink-0">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {/* Metric 1: Total Turnover */}
             <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col hover:border-slate-300 transition-colors shadow-2xs">
               <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
                 <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
@@ -132,48 +204,100 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
               <span className="text-[11px] text-slate-500 mt-0.5">Across 60 enterprise accounts</span>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col hover:border-slate-300 transition-colors shadow-2xs">
-              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                Net-New Prospects
-              </span>
-              <span className="text-lg font-extrabold text-blue-700 mt-1 tracking-tight">
-                {metrics.prospectsCount}
-              </span>
-              <span className="text-[11px] text-slate-500 mt-0.5">Not registered in JFLL CRM</span>
-            </div>
-
-            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col hover:border-slate-300 transition-colors shadow-2xs">
-              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
-                <RotateCcw className="w-3.5 h-3.5 text-amber-600" />
-                Reactivation Targets
-              </span>
-              <span className="text-lg font-extrabold text-amber-700 mt-1 tracking-tight">
-                {metrics.reactivationsCount}
-              </span>
-              <span className="text-[11px] text-slate-500 mt-0.5">Inactive dormant customers</span>
-            </div>
-
-            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col hover:border-slate-300 transition-colors shadow-2xs">
+            {/* Metric 2: JFLL Active */}
+            <div
+              onClick={() => {
+                setCategory('active');
+                setContactFilter('all');
+              }}
+              className={`p-3 rounded-xl border flex flex-col transition-all cursor-pointer shadow-2xs ${
+                category === 'active'
+                  ? 'bg-emerald-50/70 border-emerald-300 ring-1 ring-emerald-400'
+                  : 'bg-slate-50/80 border-slate-200/80 hover:border-emerald-300'
+              }`}
+            >
               <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
                 <Building2 className="w-3.5 h-3.5 text-emerald-600" />
-                Active Accounts
+                JFLL Active
               </span>
-              <span className="text-lg font-extrabold text-slate-900 mt-1 tracking-tight">
+              <span className="text-lg font-extrabold text-emerald-700 mt-1 tracking-tight">
                 {metrics.activeCount}
               </span>
-              <span className="text-[11px] text-slate-500 mt-0.5">With assigned sales reps</span>
+              <span className="text-[11px] text-slate-500 mt-0.5">
+                {metrics.activeWithContactsCount} With Contacts · {metrics.activeWithoutContactsCount} Without
+              </span>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col col-span-2 sm:col-span-1 hover:border-slate-300 transition-colors shadow-2xs">
+            {/* Metric 3: JFLL Inactive */}
+            <div
+              onClick={() => {
+                setCategory('inactive');
+                setContactFilter('all');
+              }}
+              className={`p-3 rounded-xl border flex flex-col transition-all cursor-pointer shadow-2xs ${
+                category === 'inactive'
+                  ? 'bg-amber-50/70 border-amber-300 ring-1 ring-amber-400'
+                  : 'bg-slate-50/80 border-slate-200/80 hover:border-amber-300'
+              }`}
+            >
+              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
+                <RotateCcw className="w-3.5 h-3.5 text-amber-600" />
+                JFLL Inactive
+              </span>
+              <span className="text-lg font-extrabold text-amber-700 mt-1 tracking-tight">
+                {metrics.inactiveCount}
+              </span>
+              <span className="text-[11px] text-slate-500 mt-0.5">
+                {metrics.inactiveWithContactsCount} With Contacts · {metrics.inactiveWithoutContactsCount} Without
+              </span>
+            </div>
+
+            {/* Metric 4: Fresh Data */}
+            <div
+              onClick={() => {
+                setCategory('fresh');
+                setContactFilter('all');
+              }}
+              className={`p-3 rounded-xl border flex flex-col transition-all cursor-pointer shadow-2xs ${
+                category === 'fresh'
+                  ? 'bg-blue-50/70 border-blue-300 ring-1 ring-blue-400'
+                  : 'bg-slate-50/80 border-slate-200/80 hover:border-blue-300'
+              }`}
+            >
+              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                Fresh Data
+              </span>
+              <span className="text-lg font-extrabold text-blue-700 mt-1 tracking-tight">
+                {metrics.freshCount}
+              </span>
+              <span className="text-[11px] text-slate-500 mt-0.5">
+                {metrics.freshWithContactsCount} With Contacts · {metrics.freshWithoutContactsCount} Without
+              </span>
+            </div>
+
+            {/* Metric 5: Contact Coverage */}
+            <div
+              onClick={() => {
+                setCategory('all');
+                setContactFilter('with-contacts');
+              }}
+              className={`p-3 rounded-xl border flex flex-col col-span-2 sm:col-span-1 transition-all cursor-pointer shadow-2xs ${
+                contactFilter === 'with-contacts' && category === 'all'
+                  ? 'bg-purple-50/70 border-purple-300 ring-1 ring-purple-400'
+                  : 'bg-slate-50/80 border-slate-200/80 hover:border-purple-300'
+              }`}
+            >
               <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
                 <UserCheck className="w-3.5 h-3.5 text-purple-600" />
-                Decision Makers
+                Contact Coverage
               </span>
               <span className="text-lg font-extrabold text-purple-700 mt-1 tracking-tight">
-                {metrics.decisionMakersCount}
+                {metrics.withContactsCount} / {metrics.totalCount}
               </span>
-              <span className="text-[11px] text-slate-500 mt-0.5">Apollo verified contacts</span>
+              <span className="text-[11px] text-slate-500 mt-0.5">
+                {metrics.withContactsCount} With Contacts · {metrics.withoutContactsCount} Without
+              </span>
             </div>
           </div>
         </div>
@@ -181,65 +305,95 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
 
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto w-full px-6 py-6 flex-1 flex flex-col min-h-0 space-y-4">
-        {/* Controls Bar: Segment Tabs + Search Input */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          {/* Segment Controls */}
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 overflow-x-auto scrollbar-none">
-            <button
-              type="button"
-              onClick={() => setSegment('all')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                segment === 'all'
-                  ? 'bg-white text-blue-700 shadow-2xs border border-slate-200/80 font-bold'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-              }`}
-            >
-              {`All Accounts (${metrics.totalCount})`}
-            </button>
-            <button
-              type="button"
-              onClick={() => setSegment('prospects')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                segment === 'prospects'
-                  ? 'bg-white text-blue-700 shadow-2xs border border-slate-200/80 font-bold'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-              }`}
-            >
-              {`Net Prospects (${metrics.prospectsCount})`}
-            </button>
-            <button
-              type="button"
-              onClick={() => setSegment('reactivations')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                segment === 'reactivations'
-                  ? 'bg-white text-blue-700 shadow-2xs border border-slate-200/80 font-bold'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-              }`}
-            >
-              {`Reactivations (${metrics.reactivationsCount})`}
-            </button>
-            <button
-              type="button"
-              onClick={() => setSegment('active')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                segment === 'active'
-                  ? 'bg-white text-blue-700 shadow-2xs border border-slate-200/80 font-bold'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-              }`}
-            >
-              {`Active (${metrics.activeCount})`}
-            </button>
-            <button
-              type="button"
-              onClick={() => setSegment('with-decision-makers')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                segment === 'with-decision-makers'
-                  ? 'bg-white text-blue-700 shadow-2xs border border-slate-200/80 font-bold'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-              }`}
-            >
-              {`Decision Makers (${metrics.decisionMakersCount})`}
-            </button>
+        {/* Controls Bar: 2-Tier Segment Tabs (Category + With/Without Contacts) + Search */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          {/* Tier 1 & Tier 2 Segment Controls */}
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Primary Category Pills */}
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 overflow-x-auto scrollbar-none">
+              <button
+                type="button"
+                onClick={() => setCategory('all')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                  category === 'all'
+                    ? 'bg-white text-slate-900 shadow-2xs border border-slate-200/80 font-bold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                }`}
+              >
+                {`All Accounts (${metrics.totalCount})`}
+              </button>
+              <button
+                type="button"
+                onClick={() => setCategory('active')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                  category === 'active'
+                    ? 'bg-white text-emerald-700 shadow-2xs border border-emerald-200 font-bold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                }`}
+              >
+                {`JFLL Active (${metrics.activeCount})`}
+              </button>
+              <button
+                type="button"
+                onClick={() => setCategory('inactive')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                  category === 'inactive'
+                    ? 'bg-white text-amber-700 shadow-2xs border border-amber-200 font-bold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                }`}
+              >
+                {`JFLL Inactive (${metrics.inactiveCount})`}
+              </button>
+              <button
+                type="button"
+                onClick={() => setCategory('fresh')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                  category === 'fresh'
+                    ? 'bg-white text-blue-700 shadow-2xs border border-blue-200 font-bold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                }`}
+              >
+                {`Fresh Data (${metrics.freshCount})`}
+              </button>
+            </div>
+
+            {/* Sub-Split Pills: With Contacts / Without Contacts */}
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+              <button
+                type="button"
+                onClick={() => setContactFilter('all')}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                  contactFilter === 'all'
+                    ? 'bg-white text-slate-800 shadow-2xs font-semibold'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                {`All (${contactSubCounts.all})`}
+              </button>
+              <button
+                type="button"
+                onClick={() => setContactFilter('with-contacts')}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all flex items-center gap-1 ${
+                  contactFilter === 'with-contacts'
+                    ? 'bg-white text-emerald-700 shadow-2xs font-semibold border border-emerald-200'
+                    : 'text-slate-500 hover:text-emerald-700'
+                }`}
+              >
+                <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                <span>{`With Contacts (${contactSubCounts.withContacts})`}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setContactFilter('without-contacts')}
+                className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+                  contactFilter === 'without-contacts'
+                    ? 'bg-white text-slate-700 shadow-2xs font-semibold border border-slate-200'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                {`Without Contacts (${contactSubCounts.withoutContacts})`}
+              </button>
+            </div>
           </div>
 
           {/* Search Box */}
@@ -298,7 +452,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                     onClick={() => handleSortToggle('status')}
                   >
                     <div className="flex items-center gap-1.5">
-                      <span>CRM Status</span>
+                      <span>Status &amp; Contacts</span>
                       <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
                     </div>
                   </th>
@@ -309,105 +463,126 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
               </thead>
               <tbody className="divide-y divide-slate-100 bg-white">
                 {records.length > 0 ? (
-                  records.map((lead) => (
-                    <tr
-                      key={lead.srNo}
-                      onClick={() => handleRowClick(lead)}
-                      className="hover:bg-slate-50/80 cursor-pointer transition-colors group"
-                    >
-                      <td className="py-3 px-4 text-center font-mono text-slate-500 text-xs">
-                        {lead.srNo}
-                      </td>
-                      <td className="py-3 px-4">
-                        <div className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
-                          {lead.customerName}
-                        </div>
-                        <div className="text-[11px] text-slate-500 font-mono mt-0.5">
-                          {lead.gstin}
-                        </div>
-                      </td>
-                      <td className="py-3 px-4 text-right">
-                        <div className="font-bold text-emerald-700 text-sm font-mono">
-                          {formatInrCurrency(lead.taxableTurnover)}
-                        </div>
-                        <div className="text-[10px] text-slate-500 font-mono">
-                          ₹{lead.taxableTurnover.toLocaleString('en-IN')}
-                        </div>
-                      </td>
-                      <td className="py-3 px-4">
-                        {lead.crmStatus === 'Active Customer' && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                            Active Account
-                          </span>
-                        )}
-                        {lead.crmStatus === 'Not Active Customer' && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-                            Reactivation Target
-                          </span>
-                        )}
-                        {lead.crmStatus === 'Prospect (Not in JFLL)' && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                            Net-New Prospect
-                          </span>
-                        )}
-                      </td>
-                      <td className="py-3 px-4">
-                        {lead.apolloDecisionMaker && lead.apolloDecisionMaker !== '-' ? (
-                          <div>
-                            <span className="font-medium text-slate-900 block">
-                              {lead.apolloDecisionMaker}
-                            </span>
-                            <span className="text-[11px] text-slate-500 line-clamp-1">
-                              {lead.decisionMakerTitle}
-                            </span>
+                  records.map((lead) => {
+                    const cat = getHotLeadCategory(lead.crmStatus);
+                    const hasContact = hasHotLeadContact(lead);
+
+                    return (
+                      <tr
+                        key={lead.srNo}
+                        onClick={() => handleRowClick(lead)}
+                        className="hover:bg-slate-50/80 cursor-pointer transition-colors group"
+                      >
+                        <td className="py-3 px-4 text-center font-mono text-slate-500 text-xs">
+                          {lead.srNo}
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="font-semibold text-slate-900 group-hover:text-blue-700 transition-colors">
+                            {lead.customerName}
                           </div>
-                        ) : (
-                          <span className="text-slate-400">—</span>
-                        )}
-                      </td>
-                      <td className="py-3 px-4 text-slate-700">
-                        {lead.salesRep !== '-' ? lead.salesRep : <span className="text-slate-400">—</span>}
-                      </td>
-                      <td className="py-3 px-4 text-right" onClick={(e) => e.stopPropagation()}>
-                        <div className="flex items-center justify-end gap-1.5">
-                          <button
-                            type="button"
-                            onClick={() => onNavigateToReport?.(lead.customerName)}
-                            className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 shadow-2xs transition-colors"
-                            title="Generate Client Report"
-                          >
-                            <FileText className="w-3.5 h-3.5 text-emerald-600" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => onFindInApollo?.(lead.customerName)}
-                            className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-purple-700 hover:bg-purple-50 shadow-2xs transition-colors"
-                            title="Search in Apollo"
-                          >
-                            <UserCheck className="w-3.5 h-3.5 text-purple-600" />
-                          </button>
-                          {lead.datamyneTradeActivity !== '-' && (
+                          <div className="text-[11px] text-slate-500 font-mono mt-0.5">
+                            {lead.gstin}
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 text-right">
+                          <div className="font-bold text-emerald-700 text-sm font-mono">
+                            {formatInrCurrency(lead.taxableTurnover)}
+                          </div>
+                          <div className="text-[10px] text-slate-500 font-mono">
+                            ₹{lead.taxableTurnover.toLocaleString('en-IN')}
+                          </div>
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="flex flex-col gap-1 items-start">
+                            {cat === 'active' && (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                JFLL Active
+                              </span>
+                            )}
+                            {cat === 'inactive' && (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                JFLL Inactive
+                              </span>
+                            )}
+                            {cat === 'fresh' && (
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                                Fresh Data
+                              </span>
+                            )}
+
+                            {hasContact ? (
+                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <CheckCircle2 className="w-2.5 h-2.5" />
+                                With Contacts
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-500 border border-slate-200">
+                                Without Contacts
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="py-3 px-4">
+                          {lead.apolloDecisionMaker && lead.apolloDecisionMaker !== '-' ? (
+                            <div>
+                              <span className="font-medium text-slate-900 block">
+                                {lead.apolloDecisionMaker}
+                              </span>
+                              <span className="text-[11px] text-slate-500 line-clamp-1">
+                                {lead.decisionMakerTitle}
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="text-slate-400">—</span>
+                          )}
+                        </td>
+                        <td className="py-3 px-4 text-slate-700">
+                          {lead.salesRep !== '-' ? lead.salesRep : <span className="text-slate-400">—</span>}
+                        </td>
+                        <td className="py-3 px-4 text-right" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex items-center justify-end gap-1.5">
                             <button
                               type="button"
-                              onClick={() => onFindInDatamyne?.(lead.customerName)}
-                              className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-blue-700 hover:bg-blue-50 shadow-2xs transition-colors"
-                              title="DataMyne Shipments"
+                              onClick={() => onNavigateToReport?.(lead.customerName)}
+                              className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 shadow-2xs transition-colors"
+                              title="Generate Client Report"
                             >
-                              <Ship className="w-3.5 h-3.5 text-blue-600" />
+                              <FileText className="w-3.5 h-3.5 text-emerald-600" />
                             </button>
-                          )}
-                          <button
-                            type="button"
-                            onClick={() => handleRowClick(lead)}
-                            className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 shadow-2xs transition-colors"
-                            title="View Full Audit"
-                          >
-                            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
+                            <button
+                              type="button"
+                              onClick={() => onFindInApollo?.(lead.customerName)}
+                              className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-purple-700 hover:bg-purple-50 shadow-2xs transition-colors"
+                              title="Search in Apollo"
+                            >
+                              <UserCheck className="w-3.5 h-3.5 text-purple-600" />
+                            </button>
+                            {lead.datamyneTradeActivity !== '-' && (
+                              <button
+                                type="button"
+                                onClick={() => onFindInDatamyne?.(lead.customerName)}
+                                className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-blue-700 hover:bg-blue-50 shadow-2xs transition-colors"
+                                title="DataMyne Shipments"
+                              >
+                                <Ship className="w-3.5 h-3.5 text-blue-600" />
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => handleRowClick(lead)}
+                              className="p-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 shadow-2xs transition-colors"
+                              title="View Full Audit"
+                            >
+                              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
                 ) : (
                   <tr>
                     <td colSpan={7} className="py-12 text-center">

@@ -13,9 +13,10 @@ import {
   Ship,
   FileText,
   Search,
+  CheckCircle2,
 } from 'lucide-react';
 import { HotLead } from '@/types/hotLeads';
-import { formatInrCurrency } from '@/services/hotLeadsService';
+import { formatInrCurrency, hasHotLeadContact } from '@/services/hotLeadsService';
 
 interface HotLeadDetailDrawerProps {
   isOpen: boolean;
@@ -89,26 +90,26 @@ export const HotLeadDetailDrawer: React.FC<HotLeadDetailDrawerProps> = ({
   };
 
   const getCrmStatusBadge = (status: string) => {
-    if (status === 'Active Customer') {
+    if (status === 'Active Customer' || status === 'JFLL Active') {
       return (
         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          Active Customer
+          JFLL Active
         </span>
       );
     }
-    if (status === 'Not Active Customer') {
+    if (status === 'Not Active Customer' || status === 'JFLL Inactive') {
       return (
         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
           <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-          Inactive / Reactivation Target
+          JFLL Inactive
         </span>
       );
     }
     return (
       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
         <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-        Net-New Prospect
+        Fresh Data
       </span>
     );
   };
@@ -132,11 +133,21 @@ export const HotLeadDetailDrawer: React.FC<HotLeadDetailDrawerProps> = ({
         {/* Header */}
         <div className="p-5 border-b border-slate-200 bg-slate-50/80 sticky top-0 z-20 flex items-start justify-between gap-4">
           <div className="space-y-1.5 min-w-0">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-white text-slate-700 border border-slate-200 shadow-2xs">
                 #{lead.srNo}
               </span>
               {getCrmStatusBadge(lead.crmStatus)}
+              {hasHotLeadContact(lead) ? (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                  With Contacts
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                  Without Contacts
+                </span>
+              )}
             </div>
             <h2 id="drawer-title" className="text-lg font-bold text-slate-900 tracking-tight leading-snug truncate">
               {lead.customerName}
