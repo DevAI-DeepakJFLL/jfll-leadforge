@@ -335,6 +335,32 @@ describe('CommodityRadarView Component Suite', () => {
     bomButton.props.onClick();
     expect(onFilterChange).toHaveBeenCalledWith(5, 'BOM');
   });
+
+  it('renders inside sales visualisations including Regional Demand Matrix and Top Trending Commodities', () => {
+    const html = renderToString(<CommodityRadarView />);
+
+    // Regional Demand Matrix
+    expect(html).toContain('Regional Export Demand Matrix');
+    expect(html).toContain('North Region');
+    expect(html).toContain('West Region');
+    expect(html).toContain('South Region');
+    expect(html).toContain('East Region');
+    expect(html).toContain('Seasonal Capacity Mix:');
+    expect(html).toContain('Ocean Reefers: 42%');
+    expect(html).toContain('Air Perishables: 38%');
+
+    // Top Trending Commodities Leaderboard
+    expect(html).toContain('Top Trending Commodities');
+    expect(html).toContain('Highest sales conversion targets this month');
+    expect(html).toContain('Basmati Rice');
+  });
+
+  it('scroll container uses flex-1 overflow-y-auto min-h-0 overscroll-y-contain to fix scroll issue', () => {
+    const html = renderToString(<CommodityRadarView />);
+
+    expect(html).toContain('flex-1 overflow-y-auto min-h-0');
+    expect(html).toContain('overscroll-y-contain');
+  });
 });
 
 describe('CommodityDetailDrawer Component Suite', () => {

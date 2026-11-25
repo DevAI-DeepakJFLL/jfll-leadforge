@@ -14,6 +14,12 @@ import {
   Users,
   Sparkles,
   RotateCcw,
+  TrendingUp,
+  LayoutGrid,
+  Table as TableIcon,
+  Flame,
+  ArrowRight,
+  Thermometer,
 } from 'lucide-react';
 import {
   MonthlyRecord,
@@ -52,16 +58,16 @@ const MONTHS = [
   { value: 12, label: 'M12 · December' },
 ];
 
-const HUBS: { id: GatewayHubId; label: string; code: string }[] = [
-  { id: 'ALL', label: 'All 8 Hubs', code: 'ALL' },
-  { id: 'DEL', label: 'Delhi NCR', code: 'DEL' },
-  { id: 'BOM', label: 'Mumbai', code: 'BOM' },
-  { id: 'BLR', label: 'Bengaluru', code: 'BLR' },
-  { id: 'MAA', label: 'Chennai', code: 'MAA' },
-  { id: 'HYD', label: 'Hyderabad', code: 'HYD' },
-  { id: 'CCU', label: 'Kolkata', code: 'CCU' },
-  { id: 'AMD', label: 'Ahmedabad', code: 'AMD' },
-  { id: 'COK', label: 'Kerala', code: 'COK' },
+const HUBS: { id: GatewayHubId; label: string; code: string; region: 'North' | 'West' | 'South' | 'East' | 'All' }[] = [
+  { id: 'ALL', label: 'All 8 Hubs', code: 'ALL', region: 'All' },
+  { id: 'DEL', label: 'Delhi NCR', code: 'DEL', region: 'North' },
+  { id: 'BOM', label: 'Mumbai', code: 'BOM', region: 'West' },
+  { id: 'BLR', label: 'Bengaluru', code: 'BLR', region: 'South' },
+  { id: 'MAA', label: 'Chennai', code: 'MAA', region: 'South' },
+  { id: 'HYD', label: 'Hyderabad', code: 'HYD', region: 'South' },
+  { id: 'CCU', label: 'Kolkata', code: 'CCU', region: 'East' },
+  { id: 'AMD', label: 'Ahmedabad', code: 'AMD', region: 'West' },
+  { id: 'COK', label: 'Kerala', code: 'COK', region: 'South' },
 ];
 
 const MODES = [
@@ -71,6 +77,21 @@ const MODES = [
   'Air Import',
   'Sea Import',
 ];
+
+/** Helper to cleanly split comma-separated items into readable badges */
+function parseCommodityChips(text: string): string[] {
+  if (!text) return [];
+  return text
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+/** Detects temperature and cold-chain indicators from equipment or description */
+function extractTempBadge(text: string): string | null {
+  const match = text.match(/([+-]?\d+°?C(?:\s*to\s*[+-]?\d+°?C)?)/i);
+  return match ? match[1] : null;
+}
 
 export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   initialMonth,
@@ -88,6 +109,8 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   const [selectedMode, setSelectedMode] = useState<string>('All Modes');
   const [priorityFilter, setPriorityFilter] = useState<'ALL' | 'HIGH'>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery || '');
+  const [viewMode, setViewMode] = useState<'cards' | 'matrix'>('cards');
+  const [urgencyFilter, setUrgencyFilter] = useState<'all' | 'active' | 'upcoming'>('all');
 
   // Selected record for the right-side detail drawer
   const [drawerRecord, setDrawerRecord] = useState<MonthlyRecord | null>(null);
@@ -113,8 +136,13 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
     if (priorityFilter === 'HIGH') {
       records = records.filter((r) => r.priority === 'HIGH');
     }
+    if (urgencyFilter === 'active') {
+      records = records.filter((r) => r.bookingStatus === 'active');
+    } else if (urgencyFilter === 'upcoming') {
+      records = records.filter((r) => r.bookingStatus === 'upcoming');
+    }
     return records;
-  }, [selectedMonth, selectedHub, selectedMode, searchQuery, priorityFilter]);
+  }, [selectedMonth, selectedHub, selectedMode, searchQuery, priorityFilter, urgencyFilter]);
 
   // Executive Metric Strip computations
   const currentMonthName = useMemo(() => {
@@ -144,6 +172,161 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
     return activeMonthRecord ? activeMonthRecord.season : 'Seasonal Commodity Cycles';
   }, [selectedMonth, selectedHub]);
 
+  // All 8 records for the active month (unfiltered by hub) to drive the charts
+  const allMonthRecords = useMemo(() => {
+    return MONTHLY_COMMODITY_RECORDS.filter((r) => r.month === selectedMonth);
+  }, [selectedMonth]);
+
+  // Regional breakdown chart data
+  const regionalBreakdown = useMemo(() => {
+    const regions = [
+      {
+        name: 'North Region',
+        hubs: ['DEL' as GatewayHubId],
+        color: 'sky',
+        accentBg: 'bg-sky-50 border-sky-200 text-sky-800',
+        barColor: 'bg-sky-500',
+        focus: 'Basmati Rice, Kinnow Citrus, Chilled Meat, Winter Apparel',
+        equipment: "20' Heavy FCL, 40' HC Reefer, Air LD3/LD7",
+        gatewayLabel: 'DEL (IGI / Tughlakabad)',
+        intensity: 88,
+      },
+      {
+        name: 'West Region',
+        hubs: ['BOM' as GatewayHubId, 'AMD' as GatewayHubId],
+        color: 'blue',
+        accentBg: 'bg-blue-50 border-blue-200 text-blue-800',
+        barColor: 'bg-blue-600',
+        focus: 'Table Grapes, Pomegranates, Bulk Chemicals, Castor Oil',
+        equipment: "40' CA Reefer (0°C to +1°C), 20' ISO Tanks",
+        gatewayLabel: 'BOM & AMD (JNPA / CSMIA)',
+        intensity: 94,
+      },
+      {
+        name: 'South Region',
+        hubs: ['BLR' as GatewayHubId, 'MAA' as GatewayHubId, 'HYD' as GatewayHubId, 'COK' as GatewayHubId],
+        color: 'emerald',
+        accentBg: 'bg-emerald-50 border-emerald-200 text-emerald-800',
+        barColor: 'bg-emerald-500',
+        focus: 'Vannamei Shrimp, Floriculture/Roses, Vaccines, Spices',
+        equipment: "Super-Freezers (-25°C), Active ULDs (+2°C to +8°C)",
+        gatewayLabel: 'BLR, MAA, HYD, COK',
+        intensity: 92,
+      },
+      {
+        name: 'East Region',
+        hubs: ['CCU' as GatewayHubId],
+        color: 'amber',
+        accentBg: 'bg-amber-50 border-amber-200 text-amber-800',
+        barColor: 'bg-amber-500',
+        focus: 'Black Tiger Shrimp, Jute Hessian, Tea, Iron Castings',
+        equipment: "40' Reefer, 20'/40' Dry FCL",
+        gatewayLabel: 'CCU (Syama Prasad / NSCBIA)',
+        intensity: 76,
+      },
+    ];
+
+    return regions;
+  }, []);
+
+  // Top Trending Flagship Commodities This Month for Inside Sales Leaderboard
+  const topTrendingCommodities = useMemo(() => {
+    const list: {
+      name: string;
+      hubId: GatewayHubId;
+      hubName: string;
+      mode: 'Air' | 'Ocean' | 'Multi-Modal';
+      equipment: string;
+      temp?: string;
+      corridor: string;
+      urgency: 'Lock Booking Now' | 'Lead Window Active';
+      cluster: string;
+    }[] = [];
+
+    allMonthRecords.forEach((r) => {
+      const airChips = parseCommodityChips(r.airExport);
+      const seaChips = parseCommodityChips(r.seaExport);
+      const topCluster = (r.clusters || '').split(',')[0] || r.hubName;
+
+      if (r.hubId === 'DEL') {
+        list.push({
+          name: seaChips[0] || 'Basmati Rice',
+          hubId: 'DEL',
+          hubName: 'Delhi NCR',
+          mode: 'Ocean',
+          equipment: "20' Heavy FCL",
+          temp: undefined,
+          corridor: 'GCC, UK, EU',
+          urgency: r.bookingStatus === 'active' ? 'Lock Booking Now' : 'Lead Window Active',
+          cluster: topCluster,
+        });
+        if (airChips[0]) {
+          list.push({
+            name: airChips[0],
+            hubId: 'DEL',
+            hubName: 'Delhi NCR',
+            mode: 'Air',
+            equipment: 'Air LD3/LD7 Perishable',
+            temp: extractTempBadge(airChips[0]) || '-18°C / +2°C',
+            corridor: 'Middle East, EU, CIS',
+            urgency: 'Lead Window Active',
+            cluster: 'Aligarh / Sahibabad',
+          });
+        }
+      } else if (r.hubId === 'BOM') {
+        list.push({
+          name: seaChips[0] || 'Nashik Table Grapes & Pomegranates',
+          hubId: 'BOM',
+          hubName: 'Mumbai',
+          mode: 'Ocean',
+          equipment: "40' CA Reefer",
+          temp: '0°C to +1°C',
+          corridor: 'Rotterdam, UK, GCC',
+          urgency: 'Lock Booking Now',
+          cluster: 'Nashik / Sangli',
+        });
+      } else if (r.hubId === 'MAA') {
+        list.push({
+          name: seaChips[0] || 'Vannamei Shrimp & Seafood',
+          hubId: 'MAA',
+          hubName: 'Chennai',
+          mode: 'Ocean',
+          equipment: "40' Super-Freezer",
+          temp: '-25°C Frozen',
+          corridor: 'USA, Japan, EU',
+          urgency: 'Lock Booking Now',
+          cluster: 'Nellore / Cuddalore',
+        });
+      } else if (r.hubId === 'HYD') {
+        list.push({
+          name: airChips[0] || 'Pharma Vaccines & APIs',
+          hubId: 'HYD',
+          hubName: 'Hyderabad',
+          mode: 'Air',
+          equipment: 'Active Envirotainer / CSafe',
+          temp: '+2°C to +8°C',
+          corridor: 'USA, EU, Dubai Corridor',
+          urgency: 'Lock Booking Now',
+          cluster: 'Genome Valley / Pashamylaram',
+        });
+      } else if (r.hubId === 'BLR') {
+        list.push({
+          name: airChips[0] || 'Cut Roses & Floriculture',
+          hubId: 'BLR',
+          hubName: 'Bengaluru',
+          mode: 'Air',
+          equipment: 'Air Cool Dolly & Vacuum Boxes',
+          temp: '+2°C to +4°C',
+          corridor: 'Amsterdam, UK, Middle East',
+          urgency: 'Lead Window Active',
+          cluster: 'Doddaballapur / Hosur',
+        });
+      }
+    });
+
+    return list.slice(0, 6);
+  }, [allMonthRecords]);
+
   const handleResetFilters = () => {
     const defaultMonth = initialMonth || 11;
     const defaultHub = initialHub || 'ALL';
@@ -151,6 +334,7 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
     setSelectedHub(defaultHub);
     setSelectedMode('All Modes');
     setPriorityFilter('ALL');
+    setUrgencyFilter('all');
     setSearchQuery('');
     onFilterChange?.(defaultMonth, defaultHub);
   };
@@ -160,208 +344,410 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
     selectedHub !== (initialHub || 'ALL') ||
     selectedMode !== 'All Modes' ||
     priorityFilter !== 'ALL' ||
+    urgencyFilter !== 'all' ||
     searchQuery.trim() !== '';
 
   return (
-    <div className={`flex flex-col min-h-screen bg-slate-50/70 text-slate-900 ${className}`}>
+    <div className={`flex-1 overflow-y-auto min-h-0 bg-slate-50 text-slate-900 flex flex-col overscroll-y-contain ${className}`}>
       {/* View Header */}
       <div className="bg-white border-b border-slate-200 px-6 py-5 shrink-0 shadow-2xs">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-                <Compass className="w-5 h-5 text-blue-600" />
-                Commodity Targeting Radar
-              </h1>
-              <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                National Seasonal Intelligence
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-600">
+                  <Compass className="w-5 h-5 text-blue-600" />
+                </div>
+                <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                  Commodity Targeting Radar
+                  <span className="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                    National Seasonal Intelligence
+                  </span>
+                </h1>
+              </div>
+              <p className="text-xs text-slate-500 mt-1.5 max-w-3xl leading-relaxed">
+                Real-time multi-modal commodity target playbooks across India&apos;s top 8 commercial gateways. Lock Block Space Agreements (BSAs) and reefer allocations 4–8 weeks ahead of seasonal harvest surges.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-mono text-slate-500 bg-slate-100 px-2.5 py-1 rounded border border-slate-200 hidden md:inline-block">
+                3.96M MT Air · $8.46B Marine · $4.43B Spices
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-1 max-w-3xl leading-relaxed">
-              Real-time multi-modal commodity target playbooks across India's top 8 commercial gateways. Lock Block Space Agreements (BSAs) and reefer allocations 4–8 weeks ahead of seasonal harvest surges.
-            </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono text-slate-500 bg-slate-100 px-2.5 py-1 rounded border border-slate-200 hidden md:inline-block">
-              3.96M MT Air · $8.46B Marine · $4.43B Spices
-            </span>
-          </div>
-        </div>
+          {/* Quick Control Bar */}
+          <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-2.5">
+              {/* Month Dropdown */}
+              <div className="relative">
+                <select
+                  value={selectedMonth}
+                  onChange={(e) => handleMonthChange(Number(e.target.value))}
+                  aria-label="Select Target Month"
+                  className="appearance-none bg-white border border-slate-300 text-slate-900 text-xs font-semibold rounded-lg pl-3 pr-8 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs cursor-pointer"
+                >
+                  {MONTHS.map((m) => (
+                    <option key={m.value} value={m.value}>
+                      {m.label}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="w-3.5 h-3.5 text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
 
-        {/* Quick Control Bar */}
-        <div className="mt-5 pt-4 border-t border-slate-100 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-2.5">
-            {/* Month Dropdown */}
-            <div className="relative">
-              <select
-                value={selectedMonth}
-                onChange={(e) => handleMonthChange(Number(e.target.value))}
-                aria-label="Select Target Month"
-                className="appearance-none pl-3 pr-8 py-1.5 text-xs font-semibold bg-white border border-slate-300 rounded-lg text-slate-800 hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer shadow-2xs"
-              >
-                {MONTHS.map((m) => (
-                  <option key={m.value} value={m.value}>
-                    {m.label}
-                  </option>
+              {/* Hub Segmented Buttons */}
+              <div className="flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200 overflow-x-auto scrollbar-none max-w-full">
+                {HUBS.map((hub) => (
+                  <button
+                    key={hub.id}
+                    type="button"
+                    onClick={() => handleHubChange(hub.id)}
+                    className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all whitespace-nowrap ${
+                      selectedHub === hub.id
+                        ? 'bg-white text-blue-700 shadow-2xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    {hub.code}
+                  </button>
                 ))}
-              </select>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
+
+              {/* Mode Segmented Buttons */}
+              <div className="hidden sm:flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200">
+                {MODES.map((mode) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    onClick={() => setSelectedMode(mode)}
+                    className={`px-2 py-1 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
+                      selectedMode === mode
+                        ? 'bg-white text-blue-700 font-semibold shadow-2xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    {mode}
+                  </button>
+                ))}
+              </div>
+
+              {/* Priority Toggle */}
+              <button
+                type="button"
+                onClick={() => setPriorityFilter(priorityFilter === 'HIGH' ? 'ALL' : 'HIGH')}
+                className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-colors ${
+                  priorityFilter === 'HIGH'
+                    ? 'bg-rose-50 text-rose-700 border-rose-300'
+                    : 'bg-white text-slate-600 border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                High Priority Only
+              </button>
             </div>
 
-            {/* Hub Segmented Buttons */}
-            <div className="flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200 overflow-x-auto scrollbar-none max-w-full">
-              {HUBS.map((hub) => (
+            {/* Search Input, View Mode & Reset */}
+            <div className="flex items-center gap-2">
+              <div className="relative w-full sm:w-64">
+                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search commodity, cluster, HS..."
+                  maxLength={100}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape' && searchQuery) {
+                      setSearchQuery('');
+                    }
+                  }}
+                  className="w-full pl-8 pr-7 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                    aria-label="Clear search"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* View Switcher: Cards vs Sales Matrix */}
+              <div className="flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200">
                 <button
-                  key={hub.id}
                   type="button"
-                  onClick={() => handleHubChange(hub.id)}
-                  className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all whitespace-nowrap ${
-                    selectedHub === hub.id
+                  onClick={() => setViewMode('cards')}
+                  className={`p-1.5 rounded-md transition-all ${
+                    viewMode === 'cards'
                       ? 'bg-white text-blue-700 shadow-2xs'
-                      : 'text-slate-600 hover:text-slate-900'
+                      : 'text-slate-500 hover:text-slate-800'
                   }`}
+                  title="Card View"
                 >
-                  {hub.code}
+                  <LayoutGrid className="w-3.5 h-3.5" />
                 </button>
-              ))}
-            </div>
-
-            {/* Mode Segmented Buttons */}
-            <div className="hidden sm:flex items-center p-0.5 bg-slate-100 rounded-lg border border-slate-200">
-              {MODES.map((mode) => (
-                <button
-                  key={mode}
-                  type="button"
-                  onClick={() => setSelectedMode(mode)}
-                  className={`px-2 py-1 text-xs font-medium rounded-md transition-all whitespace-nowrap ${
-                    selectedMode === mode
-                      ? 'bg-white text-blue-700 font-semibold shadow-2xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  {mode}
-                </button>
-              ))}
-            </div>
-
-            {/* Priority Toggle */}
-            <button
-              type="button"
-              onClick={() => setPriorityFilter(priorityFilter === 'HIGH' ? 'ALL' : 'HIGH')}
-              className={`px-2.5 py-1 text-xs font-semibold rounded-lg border transition-colors ${
-                priorityFilter === 'HIGH'
-                  ? 'bg-rose-50 text-rose-700 border-rose-300'
-                  : 'bg-white text-slate-600 border-slate-300 hover:bg-slate-50'
-              }`}
-            >
-              High Priority Only
-            </button>
-          </div>
-
-          {/* Search Input & Reset */}
-          <div className="flex items-center gap-2">
-            <div className="relative w-full sm:w-64">
-              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search commodity, cluster, HS..."
-                maxLength={100}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Escape' && searchQuery) {
-                    setSearchQuery('');
-                  }
-                }}
-                className="w-full pl-8 pr-7 py-1.5 text-xs bg-white border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
-              />
-              {searchQuery && (
                 <button
                   type="button"
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                  aria-label="Clear search"
+                  onClick={() => setViewMode('matrix')}
+                  className={`p-1.5 rounded-md transition-all ${
+                    viewMode === 'matrix'
+                      ? 'bg-white text-blue-700 shadow-2xs'
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                  title="Quick Sales Matrix (Table View)"
                 >
-                  <X className="w-3.5 h-3.5" />
+                  <TableIcon className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              {isFiltered && (
+                <button
+                  type="button"
+                  onClick={handleResetFilters}
+                  className="p-1.5 text-slate-500 hover:text-slate-800 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors shadow-2xs"
+                  title="Reset filters to default (November / All Hubs)"
+                  aria-label="Reset filters"
+                >
+                  <RotateCcw className="w-4 h-4" />
                 </button>
               )}
             </div>
-
-            {isFiltered && (
-              <button
-                type="button"
-                onClick={handleResetFilters}
-                className="p-1.5 text-slate-500 hover:text-slate-800 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors shadow-2xs"
-                title="Reset filters to default (November / All Hubs)"
-                aria-label="Reset filters"
-              >
-                <RotateCcw className="w-4 h-4" />
-              </button>
-            )}
           </div>
         </div>
       </div>
 
-      {/* Executive Metrics Strip (Compact single row) */}
-      <div className="bg-white border-b border-slate-200 px-6 py-3">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-          {/* Tile 1: Seasonal Driver */}
-          <div className="p-2.5 rounded-lg bg-blue-50/60 border border-blue-100/80 flex items-center justify-between">
-            <div className="truncate pr-2">
-              <span className="text-[10px] font-semibold text-blue-700 uppercase tracking-wide block truncate">
-                Active Season ({currentMonthName})
-              </span>
-              <p className="font-bold text-slate-900 truncate mt-0.5">
-                {monthlyDriverHeadline}
-              </p>
+      {/* Executive Metrics Strip */}
+      <div className="bg-white border-b border-slate-200 px-6 py-3 shrink-0">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+            {/* Tile 1: Seasonal Driver */}
+            <div className="p-2.5 rounded-lg bg-blue-50/60 border border-blue-100/80 flex items-center justify-between">
+              <div className="truncate pr-2">
+                <span className="text-[10px] font-semibold text-blue-700 uppercase tracking-wide block truncate">
+                  Active Season ({currentMonthName})
+                </span>
+                <p className="font-bold text-slate-900 truncate mt-0.5">
+                  {monthlyDriverHeadline}
+                </p>
+              </div>
+              <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
             </div>
-            <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
-          </div>
 
-          {/* Tile 2: Active Targets */}
-          <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wide block">
-                Active Gateways
-              </span>
-              <p className="font-bold text-slate-900 tabular-nums mt-0.5">
-                {filteredRecords.length} Hub Records
-              </p>
+            {/* Tile 2: Active Targets */}
+            <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-wide block">
+                  Active Gateways
+                </span>
+                <p className="font-bold text-slate-900 tabular-nums mt-0.5">
+                  {filteredRecords.length} Hub Records
+                </p>
+              </div>
+              <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
             </div>
-            <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-          </div>
 
-          {/* Tile 3: Booking Radar */}
-          <div className="p-2.5 rounded-lg bg-emerald-50/60 border border-emerald-100 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] font-semibold text-emerald-800 uppercase tracking-wide block">
-                Booking Lead Windows
-              </span>
-              <p className="font-bold text-emerald-900 tabular-nums mt-0.5">
-                {activeBookingWindowsCount} Active · {approachingWindowsCount} Upcoming
-              </p>
+            {/* Tile 3: Booking Radar */}
+            <div className="p-2.5 rounded-lg bg-emerald-50/60 border border-emerald-100 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-semibold text-emerald-800 uppercase tracking-wide block">
+                  Booking Lead Windows
+                </span>
+                <p className="font-bold text-emerald-900 tabular-nums mt-0.5">
+                  {activeBookingWindowsCount} Active · {approachingWindowsCount} Upcoming
+                </p>
+              </div>
+              <Clock className="w-4 h-4 text-emerald-600 shrink-0" />
             </div>
-            <Clock className="w-4 h-4 text-emerald-600 shrink-0" />
-          </div>
 
-          {/* Tile 4: Cold-Chain Profiles */}
-          <div className="p-2.5 rounded-lg bg-indigo-50/60 border border-indigo-100 flex items-center justify-between">
-            <div>
-              <span className="text-[10px] font-semibold text-indigo-800 uppercase tracking-wide block">
-                Cold-Chain Regimes
-              </span>
-              <p className="font-bold text-indigo-900 tabular-nums mt-0.5">
-                {activeColdChainCount} Verified Regimes
-              </p>
+            {/* Tile 4: Cold-Chain Profiles */}
+            <div className="p-2.5 rounded-lg bg-indigo-50/60 border border-indigo-100 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-semibold text-indigo-800 uppercase tracking-wide block">
+                  Cold-Chain Regimes
+                </span>
+                <p className="font-bold text-indigo-900 tabular-nums mt-0.5">
+                  {activeColdChainCount} Verified Regimes
+                </p>
+              </div>
+              <Boxes className="w-4 h-4 text-indigo-600 shrink-0" />
             </div>
-            <Boxes className="w-4 h-4 text-indigo-600 shrink-0" />
           </div>
         </div>
       </div>
 
-      {/* Main Content Area - Operational Commodity Grid */}
-      <div className="flex-1 p-6 space-y-4 max-w-7xl w-full mx-auto">
+      {/* Main Content Area */}
+      <div className="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto pb-16">
+        {/* INSIDE SALES VISUALISATION SUITE: Regional Matrix + Trending Commodities */}
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {/* Chart 1: Regional Demand & Gateway Surge Matrix (2 Cols) */}
+            <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <div className="p-1 rounded bg-blue-50 text-blue-600">
+                    <TrendingUp className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                      Regional Export Demand Matrix ({currentMonthName})
+                    </h2>
+                    <p className="text-[11px] text-slate-500">
+                      Surge intensity and key outbound commodities across India&apos;s commercial freight zones
+                    </p>
+                  </div>
+                </div>
+                <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                  National Radar
+                </span>
+              </div>
+
+              {/* Regional Progress & Details Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                {regionalBreakdown.map((reg) => (
+                  <div
+                    key={reg.name}
+                    className={`p-3 rounded-lg border transition-all hover:shadow-xs cursor-pointer ${
+                      reg.hubs.includes(selectedHub)
+                        ? 'bg-blue-50/70 border-blue-300 ring-1 ring-blue-400'
+                        : 'bg-slate-50/70 border-slate-200 hover:border-slate-300'
+                    }`}
+                    onClick={() => {
+                      if (reg.hubs.length === 1) {
+                        handleHubChange(reg.hubs[0]);
+                      } else if (reg.hubs.includes(selectedHub)) {
+                        handleHubChange('ALL');
+                      } else {
+                        handleHubChange(reg.hubs[0]);
+                      }
+                    }}
+                  >
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-bold text-slate-900">{reg.name}</span>
+                      <span className="text-[11px] font-mono font-semibold text-slate-500">
+                        {reg.gatewayLabel}
+                      </span>
+                    </div>
+
+                    {/* Progress Bar Gauge */}
+                    <div className="w-full bg-slate-200 rounded-full h-1.5 mb-2 overflow-hidden">
+                      <div
+                        className={`${reg.barColor} h-1.5 rounded-full transition-all duration-500`}
+                        style={{ width: `${reg.intensity}%` }}
+                      />
+                    </div>
+
+                    <p className="text-[11px] text-slate-700 font-medium line-clamp-1">
+                      {reg.focus}
+                    </p>
+                    <div className="mt-1.5 flex items-center justify-between text-[10px] text-slate-500">
+                      <span>Equip: {reg.equipment.split(',')[0]}</span>
+                      <span className="text-blue-600 font-semibold hover:underline flex items-center gap-0.5">
+                        Filter Hub →
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Multi-Modal & Equipment Split Bar */}
+              <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-600">
+                <span className="font-semibold text-slate-700 flex items-center gap-1">
+                  <Boxes className="w-3.5 h-3.5 text-indigo-600" />
+                  Seasonal Capacity Mix:
+                </span>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    Ocean Reefers: 42%
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-sky-50 text-sky-800 border border-sky-200 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
+                    Air Perishables: 38%
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-medium">
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-500" />
+                    Dry Heavy FCL: 20%
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Chart 2: Top Trending Commodities Leaderboard (Inside Sales Quick-Picks) */}
+            <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3 flex flex-col">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 shrink-0">
+                <div className="flex items-center gap-2">
+                  <div className="p-1 rounded bg-amber-50 text-amber-600">
+                    <Flame className="w-4 h-4 fill-amber-500/20" />
+                  </div>
+                  <div>
+                    <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                      Top Trending Commodities
+                    </h2>
+                    <p className="text-[11px] text-slate-500">
+                      Highest sales conversion targets this month
+                    </p>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">
+                  {topTrendingCommodities.length} Targets
+                </span>
+              </div>
+
+              <div className="space-y-2 flex-1 overflow-y-auto max-h-[260px] pr-1">
+                {topTrendingCommodities.map((item, idx) => (
+                  <div
+                    key={`${item.hubId}-${item.name}-${idx}`}
+                    onClick={() => setSearchQuery(item.name.split(' ')[0])}
+                    className="p-2.5 rounded-lg border border-slate-200/90 hover:border-blue-300 hover:bg-slate-50/80 transition-all cursor-pointer group flex items-start justify-between gap-2"
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-blue-100 text-blue-800">
+                          {item.hubId}
+                        </span>
+                        <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-700 truncate">
+                          {item.name}
+                        </h4>
+                      </div>
+                      <div className="mt-1 flex items-center gap-1.5 text-[10px] text-slate-500">
+                        <span className="font-medium text-slate-700">{item.equipment}</span>
+                        {item.temp && (
+                          <>
+                            <span>•</span>
+                            <span className="text-emerald-700 font-semibold">{item.temp}</span>
+                          </>
+                        )}
+                        <span>•</span>
+                        <span className="truncate">{item.corridor}</span>
+                      </div>
+                    </div>
+
+                    <div className="shrink-0 flex flex-col items-end gap-1">
+                      <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 whitespace-nowrap">
+                        {item.urgency}
+                      </span>
+                      <span className="text-[10px] text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5">
+                        Filter <ArrowRight className="w-2.5 h-2.5" />
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-2 border-t border-slate-100 shrink-0 text-center">
+                <span className="text-[11px] text-slate-500">
+                  Click any trending commodity to filter active leads
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Operational Commodity Grid or Quick Sales Matrix View */}
         {filteredRecords.length === 0 ? (
           <div className="bg-white rounded-xl border border-slate-200 p-12 text-center shadow-xs">
             <Compass className="w-8 h-8 text-slate-400 mx-auto mb-3" />
@@ -396,11 +782,146 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
               Reset Filters to Default
             </button>
           </div>
+        ) : viewMode === 'matrix' ? (
+          /* QUICK SALES MATRIX TABLE VIEW: Fast, dense, highly scannable */
+          <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-2xs">
+            <div className="px-5 py-3.5 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <TableIcon className="w-4 h-4 text-blue-600" />
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                  Quick Sales Matrix — {currentMonthName} National Gateways
+                </h3>
+              </div>
+              <span className="text-xs text-slate-500 font-medium">
+                Showing {filteredRecords.length} gateway targets
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 sticky top-0 select-none">
+                  <tr>
+                    <th className="py-3 px-4 font-semibold w-16">Hub</th>
+                    <th className="py-3 px-4 font-semibold">Gateway & Cycle</th>
+                    <th className="py-3 px-4 font-semibold">Outbound Air & Ocean Targets</th>
+                    <th className="py-3 px-4 font-semibold">Equipment & Temperature</th>
+                    <th className="py-3 px-4 font-semibold">Target Clusters</th>
+                    <th className="py-3 px-4 font-semibold text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 bg-white">
+                  {filteredRecords.map((record) => {
+                    const temp = extractTempBadge(record.equipment) || extractTempBadge(record.seaExport);
+                    const isBookingActive = record.bookingStatus === 'active';
+
+                    return (
+                      <tr
+                        key={record.id}
+                        onClick={() => setDrawerRecord(record)}
+                        className="hover:bg-slate-50/80 cursor-pointer transition-colors group"
+                      >
+                        <td className="py-3 px-4">
+                          <span className="px-2 py-1 rounded bg-blue-600 text-white font-mono font-bold text-xs tracking-wider">
+                            {record.hubId}
+                          </span>
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="font-bold text-slate-900 group-hover:text-blue-700">
+                            {record.hubName}
+                          </div>
+                          <div className="text-[11px] text-blue-700 font-medium mt-0.5">
+                            {record.season}
+                          </div>
+                          <div className="text-[10px] text-slate-500 mt-0.5">
+                            {isBookingActive ? (
+                              <span className="text-emerald-700 font-semibold">Lock Booking Now</span>
+                            ) : (
+                              <span>Window: {record.bookingWindow}</span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 max-w-xs">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-1 text-[11px] text-slate-800">
+                              <Plane className="w-3 h-3 text-sky-600 shrink-0" />
+                              <span className="truncate">{record.airExport || 'General air cargo'}</span>
+                            </div>
+                            <div className="flex items-center gap-1 text-[11px] text-slate-800">
+                              <Ship className="w-3 h-3 text-emerald-600 shrink-0" />
+                              <span className="truncate">{record.seaExport || 'Dry containerized'}</span>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="font-mono text-[11px] text-slate-700">
+                            {record.equipment.split(';')[0]}
+                          </div>
+                          {temp && (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 mt-1">
+                              <Thermometer className="w-2.5 h-2.5 text-emerald-600" />
+                              {temp}
+                            </span>
+                          )}
+                        </td>
+                        <td className="py-3 px-4 max-w-xs">
+                          <p className="text-[11px] text-slate-600 line-clamp-2">
+                            {record.clusters}
+                          </p>
+                        </td>
+                        <td className="py-3 px-4 text-right" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex items-center justify-end gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => setDrawerRecord(record)}
+                              className="px-2.5 py-1 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors shadow-2xs"
+                              title="View Playbook & Pitch Script"
+                            >
+                              Playbook
+                            </button>
+                            {onFindInDatamyne && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const firstCluster = (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
+                                  onFindInDatamyne(firstCluster);
+                                }}
+                                className="p-1.5 text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg transition-colors shadow-2xs"
+                                title="Find in DataMyne"
+                              >
+                                <Ship className="w-3.5 h-3.5 text-blue-600" />
+                              </button>
+                            )}
+                            {onFindInApollo && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const firstCluster = (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
+                                  onFindInApollo(firstCluster);
+                                }}
+                                className="p-1.5 text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg transition-colors shadow-2xs"
+                                title="Find in Apollo"
+                              >
+                                <Users className="w-3.5 h-3.5 text-purple-600" />
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         ) : (
+          /* PLAYBOOK CARDS VIEW: Rich, actionable, tagged */
           <div className="grid grid-cols-1 gap-4">
             {filteredRecords.map((record) => {
               const isBookingActive = record.bookingStatus === 'active';
               const isBookingUpcoming = record.bookingStatus === 'upcoming';
+              const airChips = parseCommodityChips(record.airExport);
+              const seaChips = parseCommodityChips(record.seaExport);
+              const tempBadge = extractTempBadge(record.equipment) || extractTempBadge(record.seaExport);
 
               return (
                 <div
@@ -441,6 +962,12 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
                           Lead Window: {record.bookingWindow}
                         </span>
                       )}
+                      {tempBadge && (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+                          <Thermometer className="w-3 h-3 text-emerald-600" />
+                          {tempBadge}
+                        </span>
+                      )}
                       <span
                         className={`px-2 py-0.5 text-[11px] font-semibold rounded border ${
                           record.priority === 'HIGH'
@@ -456,23 +983,45 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
                   {/* Four Modal Flow Columns */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
                     {/* Air Export */}
-                    <div className="p-3 rounded-lg bg-sky-50/50 border border-sky-100 space-y-1">
+                    <div className="p-3 rounded-lg bg-sky-50/50 border border-sky-100 space-y-2">
                       <div className="flex items-center gap-1.5 text-sky-900 font-bold">
                         <Plane className="w-3.5 h-3.5 text-sky-600" />
                         <span>Air Export Lots</span>
                       </div>
-                      <p className="text-slate-700 leading-relaxed line-clamp-3">
+                      <div className="flex flex-wrap gap-1">
+                        {airChips.slice(0, 3).map((chip, i) => (
+                          <span
+                            key={i}
+                            onClick={() => setSearchQuery(chip.split(' ')[0])}
+                            className="px-2 py-0.5 rounded text-[11px] bg-white border border-sky-200 text-sky-800 font-medium cursor-pointer hover:bg-sky-100/60 transition-colors shadow-2xs"
+                          >
+                            {chip}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-slate-600 leading-relaxed text-[11px] line-clamp-2">
                         {record.airExport || 'Standard air consolidation.'}
                       </p>
                     </div>
 
                     {/* Sea Export */}
-                    <div className="p-3 rounded-lg bg-emerald-50/50 border border-emerald-100 space-y-1">
+                    <div className="p-3 rounded-lg bg-emerald-50/50 border border-emerald-100 space-y-2">
                       <div className="flex items-center gap-1.5 text-emerald-900 font-bold">
                         <Ship className="w-3.5 h-3.5 text-emerald-600" />
                         <span>Sea Export Reefers/FCL</span>
                       </div>
-                      <p className="text-slate-700 leading-relaxed line-clamp-3">
+                      <div className="flex flex-wrap gap-1">
+                        {seaChips.slice(0, 3).map((chip, i) => (
+                          <span
+                            key={i}
+                            onClick={() => setSearchQuery(chip.split(' ')[0])}
+                            className="px-2 py-0.5 rounded text-[11px] bg-white border border-emerald-200 text-emerald-800 font-medium cursor-pointer hover:bg-emerald-100/60 transition-colors shadow-2xs"
+                          >
+                            {chip}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-slate-600 leading-relaxed text-[11px] line-clamp-2">
                         {record.seaExport || 'Dry containerized ocean freight.'}
                       </p>
                     </div>
