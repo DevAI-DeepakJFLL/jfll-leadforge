@@ -44,8 +44,10 @@ def _create_sample_report_for_docx() -> ClientReportData:
             ContactItem(
                 name="Kunal Shah",
                 designation="GM Sales",
-                contact_info="kunal@titan.com",
-                notes="Primary contact",
+                phone="+91 98200 12345",
+                email="kunal@titan.com",
+                contact_info="kunal@titan.com | +91 98200 12345",
+                notes="Primary contact (Apollo Verified)",
             )
         ],
         section_5_feedback=SalesFeedback(
@@ -139,15 +141,23 @@ def test_docx_executive_layout_alignment():
     # Does not repeat "Shipments: 50" twice in the same cell
     assert row3_val.count("Shipments: 50") <= 1
 
-    # 4. Contacts Table has 4 columns and bold name
-    contact_tables = [t for t in doc.tables if any("Notes / Context" in c.text for r in t.rows for c in r.cells)]
+    # 4. Contacts Table has 4 columns: Name, Designation / Role, Phone, Email ID (Notes excluded from docx)
+    contact_tables = [t for t in doc.tables if any("Email ID" in c.text for r in t.rows for c in r.cells)]
     assert len(contact_tables) == 1
     c_tbl = contact_tables[0]
     assert len(c_tbl.columns) == 4
+    # Ensure Notes / Context provenance column is excluded from docx table
+    table_headers = [c.text.strip() for c in c_tbl.rows[0].cells]
+    assert "Notes / Context" not in table_headers
+    assert "Phone" in table_headers
+    assert "Email ID" in table_headers
     # First data row, first cell (Kunal Shah) must have bold run
     kunal_cell = c_tbl.rows[1].cells[0]
     assert "Kunal Shah" in kunal_cell.text
     assert any(run.bold for run in kunal_cell.paragraphs[0].runs)
+    # Phone number is preserved without truncation
+    phone_cell = c_tbl.rows[1].cells[2]
+    assert "+91 98200 12345" in phone_cell.text
 
 
 def test_docx_generator_omits_zero_shipment_metrics_badge():
@@ -159,5 +169,22 @@ def test_docx_generator_omits_zero_shipment_metrics_badge():
     doc = docx.Document(stream)
     doc_text = " ".join(p.text for p in doc.paragraphs) + " " + " ".join(c.text for t in doc.tables for r in t.rows for c in r.cells)
     assert "0 shipments · $0.00 USD" not in doc_text
+
+
+def test_docx_generator_omits_removed_sections():
+    report = _create_sample_report_for_docx()
+    # User removed Section 1 and Section 5
+    report.section_1_background = None
+    report.section_5_feedback = None
+
+    stream = generate_docx_stream(report)
+    doc = docx.Document(stream)
+    doc_text = " ".join(p.text for p in doc.paragraphs) + " " + " ".join(c.text for t in doc.tables for r in t.rows for c in r.cells)
+    assert "1 · Company Background" not in doc_text
+    assert "5 · Sales Executive Feedback" not in doc_text
+    # Remaining sections are intact
+    assert "2 · Trade Lane & Commodity" in doc_text
+    assert "3 · JFLL Fit — Why Us" in doc_text
+    assert "4 · Decision-Makers / Logistics Contacts" in doc_text
 
 

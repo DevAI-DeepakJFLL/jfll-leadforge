@@ -52,8 +52,9 @@ describe('ReportView Component Suite', () => {
 
     expect(html).toContain('Name');
     expect(html).toContain('Designation / Role');
-    expect(html).toContain('Contact Information');
-    expect(html).toContain('Notes / Context');
+    expect(html).toContain('Phone');
+    expect(html).toContain('Email ID');
+    expect(html).toContain('Notes / Provenance');
     expect(html).toContain('+ Add Contact');
     // Accessible table actions header
     expect(html).toContain('Actions</span>');
@@ -63,7 +64,36 @@ describe('ReportView Component Suite', () => {
     const draft = createEmptyReportDraft('Titan Laboratories');
     const html = renderToString(<ReportView initialReport={draft} />);
     expect(html).toContain('4 · Decision-Makers / Logistics Contacts');
-    expect(html).toMatch(/<section class="[^"]*mb-8[^"]*">\s*<div[^>]*>\s*<h2[^>]*>4 · Decision-Makers/);
+    expect(html).toMatch(/<section class="[^"]*mb-8[^"]*"[^>]*>[\s\S]*?4 · Decision-Makers/);
+  });
+
+  it('renders remove section buttons and keeps notes column visible in UI', () => {
+    const draft = createEmptyReportDraft('Titan Laboratories Pvt Ltd');
+    draft.section_4_contacts = [
+      {
+        name: 'John Doe',
+        designation: 'VP Supply Chain',
+        phone: '+91 98200 12345',
+        email: 'john.doe@titanlab.com',
+        notes: 'Apollo verified director',
+      },
+    ];
+
+    const html = renderToString(<ReportView initialReport={draft} />);
+
+    // Section removal trash buttons exist for sections
+    expect(html).toContain('aria-label="Remove section 1 · Company Background"');
+    expect(html).toContain('aria-label="Remove section 2 · Trade Lane &amp; Commodity"');
+    expect(html).toContain('aria-label="Remove section 3 · JFLL Fit — Why Us"');
+    expect(html).toContain('aria-label="Remove section 4 · Decision-Makers / Logistics Contacts"');
+    expect(html).toContain('aria-label="Remove section 5 · Sales Executive Feedback &amp; Action Plan"');
+
+    // UI maintains Notes / Provenance column and value
+    expect(html).toContain('Notes / Provenance');
+    expect(html).toContain('Apollo verified director');
+    // Dedicated phone and email values rendered
+    expect(html).toContain('+91 98200 12345');
+    expect(html).toContain('john.doe@titanlab.com');
   });
 
   it('omits 0 shipments · $0.00 USD badge in Section 2 when trade metrics are zero or unlisted', () => {

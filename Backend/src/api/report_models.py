@@ -37,8 +37,10 @@ class JfllFit(BaseModel):
 class ContactItem(BaseModel):
     name: str = Field(..., max_length=150)
     designation: str = Field(..., max_length=200)
-    contact_info: str = Field(..., max_length=300)
-    notes: str = Field(..., max_length=500)
+    phone: str = Field(default="", max_length=100)
+    email: str = Field(default="", max_length=200)
+    contact_info: str = Field(default="", max_length=300)
+    notes: str = Field(default="", max_length=500)
 
 class SalesFeedback(BaseModel):
     meeting_takeaways: str = Field(default="", max_length=4000)
@@ -49,11 +51,11 @@ class SalesFeedback(BaseModel):
 class ClientReportData(BaseModel):
     lead_id: str | None = Field(default=None, max_length=100)
     header: ReportHeader
-    section_1_background: CompanyBackground
-    section_2_trade_lane: TradeLaneCommodity
-    section_3_jfll_fit: JfllFit
-    section_4_contacts: list[ContactItem] = Field(default_factory=list, max_length=100)
-    section_5_feedback: SalesFeedback = Field(default_factory=SalesFeedback)
+    section_1_background: CompanyBackground | None = None
+    section_2_trade_lane: TradeLaneCommodity | None = None
+    section_3_jfll_fit: JfllFit | None = None
+    section_4_contacts: list[ContactItem] | None = Field(default_factory=list, max_length=100)
+    section_5_feedback: SalesFeedback | None = Field(default_factory=SalesFeedback)
 
 class ReportCompanySuggestion(BaseModel):
     id: str = Field(..., max_length=100)

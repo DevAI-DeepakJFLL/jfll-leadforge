@@ -15,7 +15,7 @@ import {
   Globe,
   Loader2,
 } from 'lucide-react';
-import { ClientReportData, ContactItem, ReportCompanySuggestion } from '@/types/report';
+import { ClientReportData, ClientReportExportPayload, ContactItem, ReportCompanySuggestion } from '@/types/report';
 import {
   fetchReportCompanySuggestions,
   generateClientReport,
@@ -134,6 +134,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const [suggestions, setSuggestions] = useState<ReportCompanySuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
+  const [removedSections, setRemovedSections] = useState<Set<number>>(new Set());
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
   const [report, setReport] = useState<ClientReportData>(() => {
@@ -208,6 +209,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
     setIsLoading(true);
     setShowSuggestions(false);
     setErrorMessage(null);
+    setRemovedSections(new Set());
     try {
       const data = await generateClientReport({
         company_name_or_id: target.trim(),
@@ -231,12 +233,33 @@ export const ReportView: React.FC<ReportViewProps> = ({
     }
   };
 
+  const handleRemoveSection = (secNum: number) => {
+    setRemovedSections((prev) => new Set([...prev, secNum]));
+  };
+
+  const handleRestoreSection = (secNum: number) => {
+    setRemovedSections((prev) => {
+      const next = new Set(prev);
+      next.delete(secNum);
+      return next;
+    });
+  };
+
   const handleExportDocx = async () => {
     if (!report) return;
     setIsExporting(true);
     setErrorMessage(null);
     try {
-      await downloadClientReportDocx(report);
+      // Exclude user-deleted sections from exported Word document
+      const exportPayload: ClientReportExportPayload = {
+        ...report,
+        section_1_background: removedSections.has(1) ? null : report.section_1_background,
+        section_2_trade_lane: removedSections.has(2) ? null : report.section_2_trade_lane,
+        section_3_jfll_fit: removedSections.has(3) ? null : report.section_3_jfll_fit,
+        section_4_contacts: removedSections.has(4) ? null : report.section_4_contacts,
+        section_5_feedback: removedSections.has(5) ? null : report.section_5_feedback,
+      };
+      await downloadClientReportDocx(exportPayload);
     } catch (err) {
       console.error('[REPORT VIEW] Export error:', err);
       const message = err instanceof Error ? err.message : 'Failed to export Word document.';
@@ -277,8 +300,8 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
   const handleCopyPitch = () => {
     const text = `JFLL FIT & PITCH ANGLE FOR ${report.header.company_name.toUpperCase()}:\n\n` +
-      `Cargo Fit: ${report.section_3_jfll_fit.cargo_strength}\n\n` +
-      `Lead Pitch With: ${report.section_3_jfll_fit.pitch_angle}`;
+      `Cargo Fit: ${report.section_3_jfll_fit?.cargo_strength || 'N/A'}\n\n` +
+      `Lead Pitch With: ${report.section_3_jfll_fit?.pitch_angle || 'N/A'}`;
     
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
       navigator.clipboard.writeText(text);
@@ -311,8 +334,13 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
   const updateContact = (idx: number, key: keyof ContactItem, val: string) => {
     setReport((prev) => {
-      const nextContacts = [...prev.section_4_contacts];
-      nextContacts[idx] = { ...nextContacts[idx], [key]: val };
+      const nextContacts = [...(prev.section_4_contacts || [])];
+      const current = nextContacts[idx] || { name: '', designation: '', notes: '' };
+      const updated = { ...current, [key]: val };
+      const phone = key === 'phone' ? val : (updated.phone || '');
+      const email = key === 'email' ? val : (updated.email || '');
+      updated.contact_info = (phone && email ? `${phone} | ${email}` : (phone || email || ''));
+      nextContacts[idx] = updated;
       return { ...prev, section_4_contacts: nextContacts };
     });
   };
@@ -321,10 +349,12 @@ export const ReportView: React.FC<ReportViewProps> = ({
     setReport((prev) => ({
       ...prev,
       section_4_contacts: [
-        ...prev.section_4_contacts,
+        ...(prev.section_4_contacts || []),
         {
           name: '',
           designation: 'Supply Chain / Logistics',
+          phone: '',
+          email: '',
           contact_info: '',
           notes: 'Logistics Decision-Maker',
         },
@@ -334,12 +364,12 @@ export const ReportView: React.FC<ReportViewProps> = ({
 
   const removeContactRow = (idx: number) => {
     setReport((prev) => {
-      const nextContacts = prev.section_4_contacts.filter((_, i) => i !== idx);
+      const nextContacts = (prev.section_4_contacts || []).filter((_, i) => i !== idx);
       return { ...prev, section_4_contacts: nextContacts };
     });
   };
 
-  const updateFeedback = (field: keyof typeof report.section_5_feedback, val: string) => {
+  const updateFeedback = (field: keyof ClientReportData['section_5_feedback'], val: string) => {
     setReport((prev) => ({
       ...prev,
       section_5_feedback: {
@@ -353,10 +383,10 @@ export const ReportView: React.FC<ReportViewProps> = ({
     const f = report.section_5_feedback;
     const text = [
       `Sales Feedback for ${report.header.company_name}:`,
-      `• Meeting Takeaways: ${f.meeting_takeaways || 'N/A'}`,
-      `• Preferred Carriers: ${f.preferred_carriers || 'N/A'}`,
-      `• Target Rates / Pricing: ${f.target_pricing || 'N/A'}`,
-      `• Next Action & Follow-up: ${f.next_action_followup || 'N/A'}`,
+      `• Meeting Takeaways: ${f?.meeting_takeaways || 'N/A'}`,
+      `• Preferred Carriers: ${f?.preferred_carriers || 'N/A'}`,
+      `• Target Rates / Pricing: ${f?.target_pricing || 'N/A'}`,
+      `• Next Action & Follow-up: ${f?.next_action_followup || 'N/A'}`,
     ].join('\n');
     try {
       await navigator.clipboard.writeText(text);
@@ -805,307 +835,457 @@ export const ReportView: React.FC<ReportViewProps> = ({
             </div>
           </div>
 
-          {/* Section 1: Company Background */}
-          <section className="mb-8">
-            <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-              <span>1 · Company Background</span>
-            </h2>
-            <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
-              <ReportFieldRow
-                id="sec1-what-they-do"
-                label="What they do / product lines"
-                value={report.section_1_background.what_they_do}
-                onChange={(val) => updateSection1('what_they_do', val)}
-                rows={2}
-              />
-              <ReportFieldRow
-                id="sec1-address"
-                label="Corporate / Registered Address"
-                value={report.section_1_background.address || ''}
-                onChange={(val) => updateSection1('address', val)}
-                rows={2}
-              />
-              <ReportFieldRow
-                id="sec1-hq-facilities"
-                label="HQ & key facilities"
-                value={report.section_1_background.hq_facilities}
-                onChange={(val) => updateSection1('hq_facilities', val)}
-                rows={2}
-              />
-              <ReportFieldRow
-                id="sec1-export-markets"
-                label="Export markets"
-                value={report.section_1_background.export_markets}
-                onChange={(val) => updateSection1('export_markets', val)}
-                rows={1}
-              />
-              <ReportFieldRow
-                id="sec1-scale-credibility"
-                label="Scale / credibility"
-                value={report.section_1_background.scale_credibility}
-                onChange={(val) => updateSection1('scale_credibility', val)}
-                rows={2}
-              />
-            </div>
-          </section>
-
-          {/* Section 2: Trade Lane & Commodity */}
-          <section className="mb-8">
-            <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider mb-2 flex items-center justify-between">
-              <span>2 · Trade Lane & Commodity</span>
-              {(report.section_2_trade_lane.total_shipments > 0 || report.section_2_trade_lane.total_value_usd > 0) && (
-                <div className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  {report.section_2_trade_lane.total_shipments} shipments · ${report.section_2_trade_lane.total_value_usd.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
-                </div>
-              )}
-            </h2>
-            <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
-              <ReportFieldRow
-                id="sec2-origin-dest"
-                label="Origin → Destination"
-                value={report.section_2_trade_lane.origin_destination}
-                onChange={(val) => updateSection2('origin_destination', val)}
-                multiline={false}
-              />
-              <ReportFieldRow
-                id="sec2-commodity"
-                label="Commodity / cargo type"
-                value={report.section_2_trade_lane.commodity}
-                onChange={(val) => updateSection2('commodity', val)}
-                multiline={false}
-              />
-              <ReportFieldRow
-                id="sec2-primary-mode"
-                label="Primary mode: Ocean / Air"
-                value={report.section_2_trade_lane.primary_mode}
-                onChange={(val) => updateSection2('primary_mode', val)}
-                multiline={false}
-                subnote={report.section_2_trade_lane.lading_port ? `Gateway: ${report.section_2_trade_lane.lading_port}` : undefined}
-              />
-              <ReportFieldRow
-                id="sec2-special-handling"
-                label="Special handling"
-                value={report.section_2_trade_lane.special_handling}
-                onChange={(val) => updateSection2('special_handling', val)}
-                rows={2}
-              />
-            </div>
-          </section>
-
-          {/* Section 3: JFLL Fit — Why Us */}
-          <section className="mb-8">
-            <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider mb-2">
-              3 · JFLL Fit — Why Us
-            </h2>
-            <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
-              <ReportFieldRow
-                id="sec3-cargo-strength"
-                label="Cargo → JFLL strength"
-                value={report.section_3_jfll_fit.cargo_strength}
-                onChange={(val) => updateSection3('cargo_strength', val)}
-                rows={3}
-                highlightLabel
-                valueFontMedium
-              />
-              <ReportFieldRow
-                id="sec3-pitch-angle"
-                label="Lead the pitch with"
-                value={report.section_3_jfll_fit.pitch_angle}
-                onChange={(val) => updateSection3('pitch_angle', val)}
-                rows={3}
-                highlightLabel
-              />
-            </div>
-          </section>
-
-          {/* Section 4: Decision-Makers / Logistics Contacts */}
-          <section className="mb-8">
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider flex items-center gap-2.5">
-                4 · Decision-Makers / Logistics Contacts
-                {isLoading && (
-                  <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 flex items-center gap-1.5 normal-case tracking-normal animate-pulse">
-                    <Loader2 className="w-3 h-3 text-blue-600 animate-spin shrink-0" />
-                    <span>Checking from Apollo…</span>
-                  </span>
-                )}
-              </h2>
-              {!isLoading && (
+          {/* Removed Sections Restore Toolbar */}
+          {removedSections.size > 0 && (
+            <div className="mb-6 p-2.5 bg-slate-100/90 border border-slate-200 rounded-lg text-xs text-slate-600 flex items-center flex-wrap gap-2 print:hidden animate-fade-in">
+              <span className="font-semibold text-slate-700">Removed from report:</span>
+              {removedSections.has(1) && (
                 <button
-                  onClick={addContactRow}
-                  className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md px-2.5 py-1 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  type="button"
+                  onClick={() => handleRestoreSection(1)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-slate-50 border border-slate-300 rounded-md text-[11px] font-medium text-blue-700 hover:text-blue-800 transition-colors cursor-pointer shadow-2xs"
                 >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>+ Add Contact</span>
+                  <Plus className="w-3 h-3" />
+                  <span>Restore 1 · Company Background</span>
+                </button>
+              )}
+              {removedSections.has(2) && (
+                <button
+                  type="button"
+                  onClick={() => handleRestoreSection(2)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-slate-50 border border-slate-300 rounded-md text-[11px] font-medium text-blue-700 hover:text-blue-800 transition-colors cursor-pointer shadow-2xs"
+                >
+                  <Plus className="w-3 h-3" />
+                  <span>Restore 2 · Trade Lane &amp; Commodity</span>
+                </button>
+              )}
+              {removedSections.has(3) && (
+                <button
+                  type="button"
+                  onClick={() => handleRestoreSection(3)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-slate-50 border border-slate-300 rounded-md text-[11px] font-medium text-blue-700 hover:text-blue-800 transition-colors cursor-pointer shadow-2xs"
+                >
+                  <Plus className="w-3 h-3" />
+                  <span>Restore 3 · JFLL Fit — Why Us</span>
+                </button>
+              )}
+              {removedSections.has(4) && (
+                <button
+                  type="button"
+                  onClick={() => handleRestoreSection(4)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-slate-50 border border-slate-300 rounded-md text-[11px] font-medium text-blue-700 hover:text-blue-800 transition-colors cursor-pointer shadow-2xs"
+                >
+                  <Plus className="w-3 h-3" />
+                  <span>Restore 4 · Decision-Makers</span>
+                </button>
+              )}
+              {removedSections.has(5) && (
+                <button
+                  type="button"
+                  onClick={() => handleRestoreSection(5)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-slate-50 border border-slate-300 rounded-md text-[11px] font-medium text-blue-700 hover:text-blue-800 transition-colors cursor-pointer shadow-2xs"
+                >
+                  <Plus className="w-3 h-3" />
+                  <span>Restore 5 · Sales Feedback</span>
                 </button>
               )}
             </div>
+          )}
 
-            {isLoading ? (
-              <div className="p-8 bg-gradient-to-br from-blue-50/40 via-indigo-50/20 to-slate-50 border border-blue-200/80 rounded-lg flex flex-col items-center justify-center text-center space-y-2.5 py-10 animate-fade-in shadow-2xs">
-                <div className="relative">
-                  <div className="w-11 h-11 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center shadow-2xs border border-blue-200">
-                    <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />
-                  </div>
-                  <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-600"></span>
-                  </span>
-                </div>
-                <div className="space-y-1 max-w-sm">
-                  <div className="text-xs font-bold text-slate-900 tracking-tight">
-                    Checking from Apollo…
-                  </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed">
-                    Cross-referencing verified CXOs, Directors, and Logistics Decision-Makers from Apollo and customs filings...
-                  </p>
-                </div>
-                <div className="w-36 bg-slate-200/80 rounded-full h-1 overflow-hidden mt-1">
-                  <div className="bg-blue-600 h-full rounded-full w-2/3 animate-pulse" />
+          {/* Section 1: Company Background */}
+          {!removedSections.has(1) && report.section_1_background && (
+            <section className="mb-8">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <span>1 · Company Background</span>
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSection(1)}
+                  className="print:hidden p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-400"
+                  aria-label="Remove section 1 · Company Background"
+                  title="Remove section from report"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
+                <ReportFieldRow
+                  id="sec1-what-they-do"
+                  label="What they do / product lines"
+                  value={report.section_1_background.what_they_do}
+                  onChange={(val) => updateSection1('what_they_do', val)}
+                  rows={2}
+                />
+                <ReportFieldRow
+                  id="sec1-address"
+                  label="Corporate / Registered Address"
+                  value={report.section_1_background.address || ''}
+                  onChange={(val) => updateSection1('address', val)}
+                  rows={2}
+                />
+                <ReportFieldRow
+                  id="sec1-hq-facilities"
+                  label="HQ & key facilities"
+                  value={report.section_1_background.hq_facilities}
+                  onChange={(val) => updateSection1('hq_facilities', val)}
+                  rows={2}
+                />
+                <ReportFieldRow
+                  id="sec1-export-markets"
+                  label="Export markets"
+                  value={report.section_1_background.export_markets}
+                  onChange={(val) => updateSection1('export_markets', val)}
+                  rows={1}
+                />
+                <ReportFieldRow
+                  id="sec1-scale-credibility"
+                  label="Scale / credibility"
+                  value={report.section_1_background.scale_credibility}
+                  onChange={(val) => updateSection1('scale_credibility', val)}
+                  rows={2}
+                />
+              </div>
+            </section>
+          )}
+
+          {/* Section 2: Trade Lane & Commodity */}
+          {!removedSections.has(2) && report.section_2_trade_lane && (
+            <section className="mb-8">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider flex items-center gap-2">
+                  <span>2 · Trade Lane &amp; Commodity</span>
+                  {(report.section_2_trade_lane.total_shipments > 0 || report.section_2_trade_lane.total_value_usd > 0) && (
+                    <div className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      {report.section_2_trade_lane.total_shipments} shipments · ${report.section_2_trade_lane.total_value_usd.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
+                    </div>
+                  )}
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSection(2)}
+                  className="print:hidden p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-400"
+                  aria-label="Remove section 2 · Trade Lane & Commodity"
+                  title="Remove section from report"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
+                <ReportFieldRow
+                  id="sec2-origin-dest"
+                  label="Origin → Destination"
+                  value={report.section_2_trade_lane.origin_destination}
+                  onChange={(val) => updateSection2('origin_destination', val)}
+                  multiline={false}
+                />
+                <ReportFieldRow
+                  id="sec2-commodity"
+                  label="Commodity / cargo type"
+                  value={report.section_2_trade_lane.commodity}
+                  onChange={(val) => updateSection2('commodity', val)}
+                  multiline={false}
+                />
+                <ReportFieldRow
+                  id="sec2-primary-mode"
+                  label="Primary mode: Ocean / Air"
+                  value={report.section_2_trade_lane.primary_mode}
+                  onChange={(val) => updateSection2('primary_mode', val)}
+                  multiline={false}
+                  subnote={report.section_2_trade_lane.lading_port ? `Gateway: ${report.section_2_trade_lane.lading_port}` : undefined}
+                />
+                <ReportFieldRow
+                  id="sec2-special-handling"
+                  label="Special handling"
+                  value={report.section_2_trade_lane.special_handling}
+                  onChange={(val) => updateSection2('special_handling', val)}
+                  rows={2}
+                />
+              </div>
+            </section>
+          )}
+
+          {/* Section 3: JFLL Fit — Why Us */}
+          {!removedSections.has(3) && report.section_3_jfll_fit && (
+            <section className="mb-8">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider">
+                  3 · JFLL Fit — Why Us
+                </h2>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleCopyPitch}
+                    className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md px-2.5 py-1 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    title="Copy pitch angle to clipboard"
+                  >
+                    {copiedPitch ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5 text-blue-600" />
+                    )}
+                    <span>{copiedPitch ? 'Copied Pitch!' : 'Copy Pitch'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveSection(3)}
+                    className="print:hidden p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-400"
+                    aria-label="Remove section 3 · JFLL Fit — Why Us"
+                    title="Remove section from report"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
-            ) : (
-              <div className="border border-slate-300 rounded-lg overflow-hidden text-xs animate-fade-in">
-                <table className="w-full border-collapse">
-                  <thead>
-                    <tr className="bg-slate-100/90 border-b border-slate-300 text-slate-700">
-                      <th className="p-2.5 text-left font-bold w-1/4">Name</th>
-                      <th className="p-2.5 text-left font-bold w-1/4">Designation / Role</th>
-                      <th className="p-2.5 text-left font-bold w-1/4">Contact Information</th>
-                      <th className="p-2.5 text-left font-bold w-1/4">Notes / Context</th>
-                      <th className="p-2.5 text-center font-bold w-10 print:hidden">
-                        <span className="sr-only">Actions</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-200 bg-white">
-                    {report.section_4_contacts.map((contact, idx) => (
-                      <tr key={idx} className="hover:bg-slate-50/60 even:bg-slate-50/50">
-                        <td className="p-1.5">
-                          <input
-                            type="text"
-                            value={contact.name}
-                            onChange={(e) => updateContact(idx, 'name', e.target.value)}
-                            placeholder="Contact Name..."
-                            aria-label={`Contact ${idx + 1} Name`}
-                            className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-900 font-semibold transition-colors print:hidden"
-                          />
-                          <div className="hidden print:block p-1 text-slate-900 font-semibold">
-                            {contact.name || '—'}
-                          </div>
-                        </td>
-                        <td className="p-1.5">
-                          <input
-                            type="text"
-                            value={contact.designation}
-                            onChange={(e) => updateContact(idx, 'designation', e.target.value)}
-                            placeholder="Role (e.g. Logistics Head)"
-                            aria-label={`Contact ${idx + 1} Designation`}
-                            className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
-                          />
-                          <div className="hidden print:block p-1 text-slate-800">
-                            {contact.designation || '—'}
-                          </div>
-                        </td>
-                        <td className="p-1.5">
-                          <input
-                            type="text"
-                            value={contact.contact_info}
-                            onChange={(e) => updateContact(idx, 'contact_info', e.target.value)}
-                            placeholder="email@company.com / +91..."
-                            aria-label={`Contact ${idx + 1} Contact Information`}
-                            className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
-                          />
-                          <div className="hidden print:block p-1 text-slate-800">
-                            {contact.contact_info || '—'}
-                          </div>
-                        </td>
-                        <td className="p-1.5">
-                          <input
-                            type="text"
-                            value={contact.notes}
-                            onChange={(e) => updateContact(idx, 'notes', e.target.value)}
-                            placeholder="Context or phone..."
-                            aria-label={`Contact ${idx + 1} Notes`}
-                            className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-600 transition-colors print:hidden"
-                          />
-                          <div className="hidden print:block p-1 text-slate-600">
-                            {contact.notes || '—'}
-                          </div>
-                        </td>
-                        <td className="p-1.5 text-center print:hidden">
-                          {report.section_4_contacts.length > 1 && (
-                            <button
-                              onClick={() => removeContactRow(idx)}
-                              className="p-1 text-slate-500 hover:text-red-600 rounded cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-red-400"
-                              aria-label={`Remove contact ${contact.name || idx + 1}`}
-                              title="Remove contact"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                          )}
-                        </td>
+              <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
+                <ReportFieldRow
+                  id="sec3-cargo-strength"
+                  label="Cargo → JFLL strength"
+                  value={report.section_3_jfll_fit.cargo_strength}
+                  onChange={(val) => updateSection3('cargo_strength', val)}
+                  rows={3}
+                  highlightLabel
+                  valueFontMedium
+                />
+                <ReportFieldRow
+                  id="sec3-pitch-angle"
+                  label="Lead the pitch with"
+                  value={report.section_3_jfll_fit.pitch_angle}
+                  onChange={(val) => updateSection3('pitch_angle', val)}
+                  rows={3}
+                  highlightLabel
+                />
+              </div>
+            </section>
+          )}
+
+          {/* Section 4: Decision-Makers / Logistics Contacts */}
+          {!removedSections.has(4) && report.section_4_contacts && (
+            <section className="mb-8">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider flex items-center gap-2.5">
+                  <span>4 · Decision-Makers / Logistics Contacts</span>
+                  {isLoading && (
+                    <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 flex items-center gap-1.5 normal-case tracking-normal animate-pulse">
+                      <Loader2 className="w-3 h-3 text-blue-600 animate-spin shrink-0" />
+                      <span>Checking from Apollo…</span>
+                    </span>
+                  )}
+                </h2>
+                <div className="flex items-center gap-2">
+                  {!isLoading && (
+                    <button
+                      onClick={addContactRow}
+                      className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md px-2.5 py-1 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>+ Add Contact</span>
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveSection(4)}
+                    className="print:hidden p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-400"
+                    aria-label="Remove section 4 · Decision-Makers / Logistics Contacts"
+                    title="Remove section from report"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              {isLoading ? (
+                <div className="p-8 bg-gradient-to-br from-blue-50/40 via-indigo-50/20 to-slate-50 border border-blue-200/80 rounded-lg flex flex-col items-center justify-center text-center space-y-2.5 py-10 animate-fade-in shadow-2xs">
+                  <div className="relative">
+                    <div className="w-11 h-11 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center shadow-2xs border border-blue-200">
+                      <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />
+                    </div>
+                    <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-600"></span>
+                    </span>
+                  </div>
+                  <div className="space-y-1 max-w-sm">
+                    <div className="text-xs font-bold text-slate-900 tracking-tight">
+                      Checking from Apollo…
+                    </div>
+                    <p className="text-[11px] text-slate-500 leading-relaxed">
+                      Cross-referencing verified CXOs, Directors, and Logistics Decision-Makers from Apollo and customs filings...
+                    </p>
+                  </div>
+                  <div className="w-36 bg-slate-200/80 rounded-full h-1 overflow-hidden mt-1">
+                    <div className="bg-blue-600 h-full rounded-full w-2/3 animate-pulse" />
+                  </div>
+                </div>
+              ) : (
+                <div className="border border-slate-300 rounded-lg overflow-hidden text-xs animate-fade-in">
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr className="bg-slate-100/90 border-b border-slate-300 text-slate-700">
+                        <th className="p-2.5 text-left font-bold w-[22%]">Name</th>
+                        <th className="p-2.5 text-left font-bold w-[22%]">Designation / Role</th>
+                        <th className="p-2.5 text-left font-bold w-[18%]">Phone</th>
+                        <th className="p-2.5 text-left font-bold w-[20%]">Email ID</th>
+                        <th className="p-2.5 text-left font-bold w-[18%]">Notes / Provenance</th>
+                        <th className="p-2.5 text-center font-bold w-10 print:hidden">
+                          <span className="sr-only">Actions</span>
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </section>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200 bg-white">
+                      {(report.section_4_contacts || []).map((contact, idx) => (
+                        <tr key={idx} className="hover:bg-slate-50/60 even:bg-slate-50/50">
+                          <td className="p-1.5">
+                            <input
+                              type="text"
+                              value={contact.name}
+                              onChange={(e) => updateContact(idx, 'name', e.target.value)}
+                              placeholder="Contact Name..."
+                              aria-label={`Contact ${idx + 1} Name`}
+                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-900 font-semibold transition-colors print:hidden"
+                            />
+                            <div className="hidden print:block p-1 text-slate-900 font-semibold">
+                              {contact.name || '—'}
+                            </div>
+                          </td>
+                          <td className="p-1.5">
+                            <input
+                              type="text"
+                              value={contact.designation}
+                              onChange={(e) => updateContact(idx, 'designation', e.target.value)}
+                              placeholder="Role (e.g. Logistics Head)"
+                              aria-label={`Contact ${idx + 1} Designation`}
+                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
+                            />
+                            <div className="hidden print:block p-1 text-slate-800">
+                              {contact.designation || '—'}
+                            </div>
+                          </td>
+                          <td className="p-1.5">
+                            <input
+                              type="text"
+                              value={contact.phone || ''}
+                              onChange={(e) => updateContact(idx, 'phone', e.target.value)}
+                              placeholder="+91..."
+                              aria-label={`Contact ${idx + 1} Phone`}
+                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 font-mono text-[11px] transition-colors print:hidden"
+                            />
+                            <div className="hidden print:block p-1 text-slate-800 font-mono text-[11px]">
+                              {contact.phone || '—'}
+                            </div>
+                          </td>
+                          <td className="p-1.5">
+                            <input
+                              type="text"
+                              value={contact.email || ''}
+                              onChange={(e) => updateContact(idx, 'email', e.target.value)}
+                              placeholder="email@company.com"
+                              aria-label={`Contact ${idx + 1} Email ID`}
+                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
+                            />
+                            <div className="hidden print:block p-1 text-slate-800 truncate">
+                              {contact.email || '—'}
+                            </div>
+                          </td>
+                          <td className="p-1.5">
+                            <input
+                              type="text"
+                              value={contact.notes || ''}
+                              onChange={(e) => updateContact(idx, 'notes', e.target.value)}
+                              placeholder="Provenance (Customs / Apollo)"
+                              aria-label={`Contact ${idx + 1} Notes / Provenance`}
+                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-600 transition-colors print:hidden"
+                            />
+                            <div className="hidden print:block p-1 text-slate-600">
+                              {contact.notes || '—'}
+                            </div>
+                          </td>
+                          <td className="p-1.5 text-center print:hidden">
+                            {(report.section_4_contacts || []).length > 1 && (
+                              <button
+                                onClick={() => removeContactRow(idx)}
+                                className="p-1 text-slate-500 hover:text-red-600 rounded cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-red-400"
+                                aria-label={`Remove contact ${contact.name || idx + 1}`}
+                                title="Remove contact"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </section>
+          )}
 
           {/* Section 5: Sales Executive Feedback & Action Plan */}
-          <section>
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider">
-                5 · Sales Executive Feedback & Action Plan
-              </h2>
-              <button
-                onClick={handleCopyFeedback}
-                className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-md px-2.5 py-1 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
-                title="Copy feedback summary to clipboard"
-              >
-                {copiedFeedback ? (
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                ) : (
-                  <Copy className="w-3.5 h-3.5 text-slate-500" />
-                )}
-                <span>{copiedFeedback ? 'Copied Feedback!' : 'Copy Feedback'}</span>
-              </button>
-            </div>
+          {!removedSections.has(5) && report.section_5_feedback && (
+            <section>
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-sm font-bold text-blue-900 uppercase tracking-wider">
+                  5 · Sales Executive Feedback &amp; Action Plan
+                </h2>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleCopyFeedback}
+                    className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-md px-2.5 py-1 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    title="Copy feedback summary to clipboard"
+                  >
+                    {copiedFeedback ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5 text-slate-500" />
+                    )}
+                    <span>{copiedFeedback ? 'Copied Feedback!' : 'Copy Feedback'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveSection(5)}
+                    className="print:hidden p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-400"
+                    aria-label="Remove section 5 · Sales Executive Feedback & Action Plan"
+                    title="Remove section from report"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
 
-            <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
-              <ReportFieldRow
-                id="sec5-takeaways"
-                label="Meeting Takeaways & Client Needs"
-                value={report.section_5_feedback.meeting_takeaways}
-                onChange={(val) => updateFeedback('meeting_takeaways', val)}
-                rows={3}
-                multiline={true}
-                highlightLabel={true}
-              />
-              <ReportFieldRow
-                id="sec5-carriers"
-                label="Preferred Carriers / Lines"
-                value={report.section_5_feedback.preferred_carriers}
-                onChange={(val) => updateFeedback('preferred_carriers', val)}
-                multiline={false}
-              />
-              <ReportFieldRow
-                id="sec5-pricing"
-                label="Target Rates / Pricing Notes"
-                value={report.section_5_feedback.target_pricing}
-                onChange={(val) => updateFeedback('target_pricing', val)}
-                multiline={false}
-              />
-              <ReportFieldRow
-                id="sec5-followup"
-                label="Next Action & Follow-up Date"
-                value={report.section_5_feedback.next_action_followup}
-                onChange={(val) => updateFeedback('next_action_followup', val)}
-                multiline={false}
-              />
-            </div>
-          </section>
+              <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
+                <ReportFieldRow
+                  id="sec5-takeaways"
+                  label="Meeting Takeaways & Client Needs"
+                  value={report.section_5_feedback.meeting_takeaways}
+                  onChange={(val) => updateFeedback('meeting_takeaways', val)}
+                  rows={3}
+                  multiline={true}
+                  highlightLabel={true}
+                />
+                <ReportFieldRow
+                  id="sec5-carriers"
+                  label="Preferred Carriers / Lines"
+                  value={report.section_5_feedback.preferred_carriers}
+                  onChange={(val) => updateFeedback('preferred_carriers', val)}
+                  multiline={false}
+                />
+                <ReportFieldRow
+                  id="sec5-pricing"
+                  label="Target Rates / Pricing Notes"
+                  value={report.section_5_feedback.target_pricing}
+                  onChange={(val) => updateFeedback('target_pricing', val)}
+                  multiline={false}
+                />
+                <ReportFieldRow
+                  id="sec5-followup"
+                  label="Next Action & Follow-up Date"
+                  value={report.section_5_feedback.next_action_followup}
+                  onChange={(val) => updateFeedback('next_action_followup', val)}
+                  multiline={false}
+                />
+              </div>
+            </section>
+          )}
         </div>
       </main>
     </div>

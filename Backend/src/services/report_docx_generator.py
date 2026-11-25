@@ -5,6 +5,7 @@ Generates purely in-memory using io.BytesIO() to eliminate disk I/O and temporar
 import io
 import logging
 import os
+import re
 
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
@@ -50,6 +51,18 @@ def _set_cell_background(cell, hex_color: str):
     tc_pr = cell._tc.get_or_add_tcPr()
     shd = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{hex_color}"/>')
     tc_pr.append(shd)
+
+
+def _set_cell_width(cell, inches: float):
+    """Set explicit cell width via both python-docx property and low-level w:tcW XML element to prevent table compression."""
+    width_dxa = int(inches * 1440)
+    tc_pr = cell._tc.get_or_add_tcPr()
+    for child in list(tc_pr):
+        if child.tag.endswith('tcW'):
+            tc_pr.remove(child)
+    tc_w = parse_xml(f'<w:tcW {nsdecls("w")} w:w="{width_dxa}" w:type="dxa"/>')
+    tc_pr.append(tc_w)
+    cell.width = Inches(inches)
 
 
 def _set_cell_margins(cell, top=100, bottom=100, left=150, right=150):
@@ -325,133 +338,170 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
 
         doc.add_paragraph().paragraph_format.space_after = Pt(2)
 
-    # 2. Section 1: Company Background
-    b = report.section_1_background
-    _add_section_table(
-        "1 · Company Background",
-        [
-            ("What they do / product lines", b.what_they_do),
-            ("Corporate / Registered Address", b.address or "Registered Corporate Office"),
-            ("HQ & key facilities", b.hq_facilities),
-            ("Export markets", b.export_markets),
-            ("Scale / credibility", b.scale_credibility),
-        ],
-    )
+    # 2. Section 1: Company Background (omitted if removed by user)
+    if report.section_1_background:
+        b = report.section_1_background
+        _add_section_table(
+            "1 · Company Background",
+            [
+                ("What they do / product lines", b.what_they_do),
+                ("Corporate / Registered Address", b.address or "Registered Corporate Office"),
+                ("HQ & key facilities", b.hq_facilities),
+                ("Export markets", b.export_markets),
+                ("Scale / credibility", b.scale_credibility),
+            ],
+        )
 
-    # 3. Section 2: Trade Lane & Commodity
-    t = report.section_2_trade_lane
-    has_metrics = (t.total_shipments or 0) > 0 or (t.total_value_usd or 0) > 0
-    stat_badge = f"{t.total_shipments:,} shipments · ${t.total_value_usd:,.2f} USD" if has_metrics else None
-    mode_text = f"{t.primary_mode} · Gateway: {t.lading_port}" if t.lading_port else t.primary_mode
-    _add_section_table(
-        "2 · Trade Lane & Commodity",
-        [
-            ("Origin → Destination", t.origin_destination),
-            ("Commodity / cargo type", t.commodity),
-            ("Primary mode: Ocean / Air", mode_text),
-            ("Special handling", t.special_handling),
-        ],
-        subtitle_right=stat_badge,
-    )
+    # 3. Section 2: Trade Lane & Commodity (omitted if removed by user)
+    if report.section_2_trade_lane:
+        t = report.section_2_trade_lane
+        has_metrics = (t.total_shipments or 0) > 0 or (t.total_value_usd or 0) > 0
+        stat_badge = f"{t.total_shipments:,} shipments · ${t.total_value_usd:,.2f} USD" if has_metrics else None
+        mode_text = f"{t.primary_mode} · Gateway: {t.lading_port}" if t.lading_port else t.primary_mode
+        _add_section_table(
+            "2 · Trade Lane & Commodity",
+            [
+                ("Origin → Destination", t.origin_destination),
+                ("Commodity / cargo type", t.commodity),
+                ("Primary mode: Ocean / Air", mode_text),
+                ("Special handling", t.special_handling),
+            ],
+            subtitle_right=stat_badge,
+        )
 
-    # 4. Section 3: JFLL Fit — Why Us (Soft Blue Highlight)
-    j = report.section_3_jfll_fit
-    _add_section_table(
-        "3 · JFLL Fit — Why Us",
-        [
-            ("Cargo → JFLL strength", j.cargo_strength),
-            ("Lead the pitch with", j.pitch_angle),
-        ],
-        highlight_all=True,
-    )
+    # 4. Section 3: JFLL Fit — Why Us (omitted if removed by user)
+    if report.section_3_jfll_fit:
+        j = report.section_3_jfll_fit
+        _add_section_table(
+            "3 · JFLL Fit — Why Us",
+            [
+                ("Cargo → JFLL strength", j.cargo_strength),
+                ("Lead the pitch with", j.pitch_angle),
+            ],
+            highlight_all=True,
+        )
 
-    # 5. Section 4: Decision-Makers / Logistics Contacts Table
-    p_sec4 = doc.add_paragraph()
-    p_sec4.paragraph_format.space_before = Pt(10)
-    p_sec4.paragraph_format.space_after = Pt(3)
-    run_sec4 = p_sec4.add_run("4 · Decision-Makers / Logistics Contacts")
-    run_sec4.font.name = "Calibri"
-    run_sec4.font.size = Pt(11)
-    run_sec4.font.bold = True
-    run_sec4.font.color.rgb = COLOR_NAVY_RGB
+    # 5. Section 4: Decision-Makers / Logistics Contacts Table (omitted if removed by user)
+    # Excludes internal provenance notes column from downloaded docx; dedicates ample column width to Phone (1.5in) & Email ID (2.0in)
+    if report.section_4_contacts is not None:
+        p_sec4 = doc.add_paragraph()
+        p_sec4.paragraph_format.space_before = Pt(10)
+        p_sec4.paragraph_format.space_after = Pt(3)
+        run_sec4 = p_sec4.add_run("4 · Decision-Makers / Logistics Contacts")
+        run_sec4.font.name = "Calibri"
+        run_sec4.font.size = Pt(11)
+        run_sec4.font.bold = True
+        run_sec4.font.color.rgb = COLOR_NAVY_RGB
 
-    contacts = report.section_4_contacts or []
-    tbl_contacts = doc.add_table(rows=len(contacts) + 1, cols=4)
-    tbl_contacts.alignment = WD_TABLE_ALIGNMENT.CENTER
-    tbl_contacts.autofit = False
-    _set_table_borders(tbl_contacts, color=COLOR_BORDER_HEX)
+        contacts = report.section_4_contacts or []
+        tbl_contacts = doc.add_table(rows=len(contacts) + 1, cols=4)
+        tbl_contacts.alignment = WD_TABLE_ALIGNMENT.CENTER
+        tbl_contacts.autofit = False
+        _set_table_borders(tbl_contacts, color=COLOR_BORDER_HEX)
 
-    # Header Row (4 equal 1.75 in columns)
-    col_widths_c = [Inches(1.75), Inches(1.75), Inches(1.75), Inches(1.75)]
-    c_headers = ["Name", "Designation / Role", "Contact Information", "Notes / Context"]
-    hdr_row = tbl_contacts.rows[0]
-    for idx, h_text in enumerate(c_headers):
-        cell = hdr_row.cells[idx]
-        cell.width = col_widths_c[idx]
-        _set_cell_background(cell, "E2E8F0")
-        _set_cell_margins(cell, top=80, bottom=80, left=100, right=100)
-        p = cell.paragraphs[0]
-        p.paragraph_format.space_before = Pt(0)
-        p.paragraph_format.space_after = Pt(0)
-        r = p.add_run(h_text)
-        r.font.name = "Calibri"
-        r.font.size = Pt(9)
-        r.font.bold = True
-        r.font.color.rgb = COLOR_SLATE_DARK_RGB
+        # 4 distinct columns totaling 7.00 inches printable width
+        col_widths_c = [1.65, 1.85, 1.50, 2.00]
+        c_headers = ["Name", "Designation / Role", "Phone", "Email ID"]
+        hdr_row = tbl_contacts.rows[0]
+        tr_pr_hdr = hdr_row._tr.get_or_add_trPr()
+        tr_pr_hdr.append(parse_xml(f'<w:tblHeader {nsdecls("w")}/>'))
+        tr_pr_hdr.append(parse_xml(f'<w:cantSplit {nsdecls("w")}/>'))
 
-    # Contact Rows
-    for r_idx, c in enumerate(contacts):
-        row = tbl_contacts.rows[r_idx + 1]
-        fields = [c.name, c.designation, c.contact_info, c.notes]
-        for c_idx, val in enumerate(fields):
-            cell = row.cells[c_idx]
-            cell.width = col_widths_c[c_idx]
+        for idx, h_text in enumerate(c_headers):
+            cell = hdr_row.cells[idx]
+            _set_cell_width(cell, col_widths_c[idx])
+            _set_cell_background(cell, "E2E8F0")
             _set_cell_margins(cell, top=80, bottom=80, left=100, right=100)
-            if r_idx % 2 == 1:
-                _set_cell_background(cell, COLOR_ZEBRA_BG_HEX)
             p = cell.paragraphs[0]
             p.paragraph_format.space_before = Pt(0)
             p.paragraph_format.space_after = Pt(0)
-            r = p.add_run(val)
+            r = p.add_run(h_text)
             r.font.name = "Calibri"
-            r.font.size = Pt(8.5)
+            r.font.size = Pt(9)
+            r.font.bold = True
             r.font.color.rgb = COLOR_SLATE_DARK_RGB
-            if c_idx == 0:
-                r.font.bold = True  # Bold contact name to match in-app font-semibold
 
-    # 6. Section 5: Sales Executive Feedback & Action Plan
-    f = report.section_5_feedback
-    takeaway_val = f.meeting_takeaways.strip() if (f.meeting_takeaways and f.meeting_takeaways.strip()) else ""
-    carriers_val = f.preferred_carriers.strip() if (f.preferred_carriers and f.preferred_carriers.strip()) else ""
-    pricing_val = f.target_pricing.strip() if (f.target_pricing and f.target_pricing.strip()) else ""
-    followup_val = f.next_action_followup.strip() if (f.next_action_followup and f.next_action_followup.strip()) else ""
+        for c_idx, w_in in enumerate(col_widths_c):
+            tbl_contacts.columns[c_idx].width = Inches(w_in)
 
-    _add_section_table(
-        "5 · Sales Executive Feedback & Action Plan",
-        [
-            (
-                "Meeting Takeaways & Client Needs",
-                takeaway_val or "[ Pending customer meeting / discovery notes ]",
-                takeaway_val == "",
-            ),
-            (
-                "Preferred Carriers / Lines",
-                carriers_val or "[ None specified ]",
-                carriers_val == "",
-            ),
-            (
-                "Target Rates / Pricing Notes",
-                pricing_val or "[ Pending quotation ]",
-                pricing_val == "",
-            ),
-            (
-                "Next Action & Follow-up Date",
-                followup_val or "[ Follow-up pending ]",
-                followup_val == "",
-            ),
-        ],
-        highlight_first_row=True,
-    )
+        # Contact Rows
+        for r_idx, c in enumerate(contacts):
+            row = tbl_contacts.rows[r_idx + 1]
+            tr_pr = row._tr.get_or_add_trPr()
+            tr_pr.append(parse_xml(f'<w:cantSplit {nsdecls("w")}/>'))
+
+            phone_val = str(getattr(c, "phone", "") or "").strip()
+            email_val = str(getattr(c, "email", "") or "").strip()
+
+            # Robust fallback: extract separate phone and email from contact_info if not explicitly set
+            if not phone_val or not email_val:
+                raw_info = str(getattr(c, "contact_info", "") or "").strip()
+                if raw_info:
+                    parts = [p.strip() for p in re.split(r"[|/]", raw_info) if p.strip()]
+                    for p_part in parts:
+                        if not email_val and "@" in p_part:
+                            email_val = p_part
+                        elif not phone_val and re.search(r"\d{4,}", p_part):
+                            phone_val = p_part
+                    if not phone_val and not email_val:
+                        if "@" in raw_info:
+                            email_val = raw_info
+                        else:
+                            phone_val = raw_info
+
+            fields = [c.name, c.designation, phone_val or "—", email_val or "—"]
+            for c_idx, val in enumerate(fields):
+                cell = row.cells[c_idx]
+                _set_cell_width(cell, col_widths_c[c_idx])
+                _set_cell_margins(cell, top=80, bottom=80, left=100, right=100)
+                if r_idx % 2 == 1:
+                    _set_cell_background(cell, COLOR_ZEBRA_BG_HEX)
+                p = cell.paragraphs[0]
+                p.paragraph_format.space_before = Pt(0)
+                p.paragraph_format.space_after = Pt(0)
+                r = p.add_run(val)
+                r.font.name = "Calibri"
+                r.font.size = Pt(8.5)
+                r.font.color.rgb = COLOR_SLATE_DARK_RGB
+                if c_idx == 0:
+                    r.font.bold = True
+
+        doc.add_paragraph().paragraph_format.space_after = Pt(2)
+
+    # 6. Section 5: Sales Executive Feedback & Action Plan (omitted if removed by user)
+    if report.section_5_feedback:
+        f = report.section_5_feedback
+        takeaway_val = f.meeting_takeaways.strip() if (f.meeting_takeaways and f.meeting_takeaways.strip()) else ""
+        carriers_val = f.preferred_carriers.strip() if (f.preferred_carriers and f.preferred_carriers.strip()) else ""
+        pricing_val = f.target_pricing.strip() if (f.target_pricing and f.target_pricing.strip()) else ""
+        followup_val = f.next_action_followup.strip() if (f.next_action_followup and f.next_action_followup.strip()) else ""
+
+        _add_section_table(
+            "5 · Sales Executive Feedback & Action Plan",
+            [
+                (
+                    "Meeting Takeaways & Client Needs",
+                    takeaway_val or "[ Pending customer meeting / discovery notes ]",
+                    takeaway_val == "",
+                ),
+                (
+                    "Preferred Carriers / Lines",
+                    carriers_val or "[ None specified ]",
+                    carriers_val == "",
+                ),
+                (
+                    "Target Rates / Pricing Notes",
+                    pricing_val or "[ Pending quotation ]",
+                    pricing_val == "",
+                ),
+                (
+                    "Next Action & Follow-up Date",
+                    followup_val or "[ Follow-up pending ]",
+                    followup_val == "",
+                ),
+            ],
+            highlight_first_row=True,
+        )
 
     # Save to in-memory BytesIO
     buffer = io.BytesIO()

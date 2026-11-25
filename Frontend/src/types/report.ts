@@ -39,7 +39,9 @@ export interface JfllFit {
 export interface ContactItem {
   name: string;
   designation: string;
-  contact_info: string;
+  phone?: string;
+  email?: string;
+  contact_info?: string;
   notes: string;
 }
 
@@ -58,6 +60,16 @@ export interface ClientReportData {
   section_3_jfll_fit: JfllFit;
   section_4_contacts: ContactItem[];
   section_5_feedback: SalesFeedback;
+}
+
+export interface ClientReportExportPayload {
+  lead_id?: string | null;
+  header: ReportHeader;
+  section_1_background?: CompanyBackground | null;
+  section_2_trade_lane?: TradeLaneCommodity | null;
+  section_3_jfll_fit?: JfllFit | null;
+  section_4_contacts?: ContactItem[] | null;
+  section_5_feedback?: SalesFeedback | null;
 }
 
 export interface ReportCompanySuggestion {

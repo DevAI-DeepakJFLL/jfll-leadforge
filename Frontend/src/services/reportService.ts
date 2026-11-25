@@ -3,6 +3,7 @@
  */
 import {
   ClientReportData,
+  ClientReportExportPayload,
   GenerateReportRequest,
   ReportCompanySuggestion,
 } from '../types/report';
@@ -67,12 +68,16 @@ export function createEmptyReportDraft(
       {
         name: 'General / Switchboard',
         designation: 'Corporate Inquiries',
+        phone: '+91 22 2830 7400',
+        email: 'info@company.com',
         contact_info: 'info@company.com',
         notes: 'Primary Corporate Contact',
       },
       {
         name: 'Logistics Head',
         designation: 'Supply Chain / Logistics Manager',
+        phone: '+91 98200 12345',
+        email: 'logistics@company.com',
         contact_info: 'logistics@company.com',
         notes: 'Key Freight Decision-Maker',
       },
@@ -87,15 +92,49 @@ export function createEmptyReportDraft(
 }
 
 /**
- * Normalizes incoming report payloads ensuring backward compatibility for Section 5
+ * Normalizes incoming report payloads ensuring backward compatibility for Section 4 and Section 5
  */
 export function normalizeReportResponse(report: any): ClientReportData {
+  const contacts = Array.isArray(report.section_4_contacts)
+    ? report.section_4_contacts.map((c: any) => {
+        let phone = str(c.phone || '').trim();
+        let email = str(c.email || '').trim();
+        const contactInfo = str(c.contact_info || '').trim();
+
+        if ((!phone || !email) && contactInfo) {
+          const parts = contactInfo.split(/[|/]/).map((p: string) => p.trim());
+          for (const p of parts) {
+            if (!email && p.includes('@')) {
+              email = p;
+            } else if (!phone && /\d{4,}/.test(p)) {
+              phone = p;
+            }
+          }
+          if (!phone && !email) {
+            if (contactInfo.includes('@')) email = contactInfo;
+            else phone = contactInfo;
+          }
+        }
+
+        return {
+          ...c,
+          phone,
+          email,
+          contact_info: contactInfo || (phone && email ? `${phone} | ${email}` : phone || email || ''),
+          notes: str(c.notes || ''),
+        };
+      })
+    : report.section_4_contacts;
+
   return {
     ...report,
-    section_1_background: {
-      ...report.section_1_background,
-      address: report.section_1_background?.address || '',
-    },
+    section_1_background: report.section_1_background
+      ? {
+          ...report.section_1_background,
+          address: report.section_1_background?.address || '',
+        }
+      : report.section_1_background,
+    section_4_contacts: contacts,
     section_5_feedback: report.section_5_feedback || {
       meeting_takeaways: '',
       preferred_carriers: '',
@@ -103,6 +142,10 @@ export function normalizeReportResponse(report: any): ClientReportData {
       next_action_followup: '',
     },
   };
+}
+
+function str(val: any): string {
+  return typeof val === 'string' ? val : (val != null ? String(val) : '');
 }
 
 const DRAFT_STORAGE_PREFIX = 'jfll_report_draft_';
@@ -278,7 +321,7 @@ export async function enrichClientReportWithWeb(
 /**
  * Download client report as formatted Word (.docx) file
  */
-export async function downloadClientReportDocx(report: ClientReportData): Promise<void> {
+export async function downloadClientReportDocx(report: ClientReportData | ClientReportExportPayload): Promise<void> {
   const session = getStoredSession();
   if (isOfflineSession(session)) {
     throw new Error('You are currently running in an offline session. Please log out and sign in with an authorized work email to export Word documents.');

@@ -481,12 +481,16 @@ def _build_unlisted_sme_report(
             ContactItem(
                 name="General / Switchboard",
                 designation="Corporate Inquiries",
+                phone="+91 22 2830 7400",
+                email="info@company.com",
                 contact_info="info@company.com",
                 notes="Primary Corporate Contact",
             ),
             ContactItem(
                 name="Logistics Head",
                 designation="Supply Chain / Logistics Manager",
+                phone="+91 98200 12345",
+                email="logistics@company.com",
                 contact_info="logistics@company.com",
                 notes="Key Freight Decision-Maker",
             ),
@@ -733,20 +737,23 @@ def _find_apollo_contacts(
         if org_id:
             try:
                 sql_direct = f"""
-                    SELECT person_name, job_title, email, linkedin_url, seniority, is_logistics_role
-                    FROM '{apollo_contacts_src}'
-                    WHERE organization_id = ?
-                    ORDER BY is_logistics_role DESC, is_decision_maker DESC, has_email DESC
+                    SELECT c.person_name, c.job_title, c.email, c.linkedin_url, c.seniority, c.is_logistics_role, l.phone
+                    FROM '{apollo_contacts_src}' c
+                    LEFT JOIN '{apollo_leads_src}' l ON c.organization_id = l.organization_id
+                    WHERE c.organization_id = ?
+                    ORDER BY c.is_logistics_role DESC, c.is_decision_maker DESC, c.has_email DESC
                     LIMIT ?
                 """
                 rows = conn.execute(sql_direct, [org_id, limit]).fetchall()
                 for r in rows:
-                    p_name, title, email, linkedin, sen, is_log = r
+                    p_name, title, email, linkedin, sen, is_log, org_phone = r
                     norm_name = p_name.strip().lower()
                     if norm_name in seen_names:
                         continue
                     seen_names.add(norm_name)
-                    c_info = email or (linkedin if linkedin else "Apollo Verified")
+                    c_email = str(email or "").strip()
+                    c_phone = str(org_phone or "").strip()
+                    c_info = f"{c_email} | {c_phone}".strip(" |") if (c_email or c_phone) else (linkedin if linkedin else "Apollo Verified")
                     sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
                     notes = f"Apollo Verified ({sen_tag})"
                     if linkedin and linkedin != c_info:
@@ -755,6 +762,8 @@ def _find_apollo_contacts(
                         ContactItem(
                             name=p_name,
                             designation=title or "Logistics Decision-Maker",
+                            phone=c_phone,
+                            email=c_email,
                             contact_info=c_info,
                             notes=notes,
                         )
@@ -772,7 +781,7 @@ def _find_apollo_contacts(
                 if org_ids:
                     placeholders = ", ".join(["?"] * len(org_ids[:15]))
                     sql = f"""
-                        SELECT c.person_name, c.job_title, c.email, c.linkedin_url, c.seniority, c.is_logistics_role
+                        SELECT c.person_name, c.job_title, c.email, c.linkedin_url, c.seniority, c.is_logistics_role, l.phone
                         FROM '{apollo_contacts_src}' c
                         JOIN '{apollo_leads_src}' l ON c.organization_id = l.organization_id
                         WHERE c.organization_id IN ({placeholders})
@@ -782,12 +791,14 @@ def _find_apollo_contacts(
                     """
                     rows = conn.execute(sql, list(org_ids[:15]) + [limit - len(contacts)]).fetchall()
                     for r in rows:
-                        p_name, title, email, linkedin, sen, is_log = r
+                        p_name, title, email, linkedin, sen, is_log, org_phone = r
                         norm_name = p_name.strip().lower()
                         if norm_name in seen_names:
                             continue
                         seen_names.add(norm_name)
-                        c_info = email or (linkedin if linkedin else "Apollo Verified")
+                        c_email = str(email or "").strip()
+                        c_phone = str(org_phone or "").strip()
+                        c_info = f"{c_email} | {c_phone}".strip(" |") if (c_email or c_phone) else (linkedin if linkedin else "Apollo Verified")
                         sen_tag = sen.title() if sen else ("Logistics Lead" if is_log else "Executive")
                         notes = f"Apollo Verified ({sen_tag})"
                         if linkedin and linkedin != c_info:
@@ -796,6 +807,8 @@ def _find_apollo_contacts(
                             ContactItem(
                                 name=p_name,
                                 designation=title or "Logistics Decision-Maker",
+                                phone=c_phone,
+                                email=c_email,
                                 contact_info=c_info,
                                 notes=notes,
                             )
@@ -825,7 +838,8 @@ def _find_apollo_contacts(
                         if norm_name in seen_names:
                             continue
                         seen_names.add(norm_name)
-                        c_info = email or (linkedin if linkedin else "Apollo Verified")
+                        c_email = str(email or "").strip()
+                        c_info = c_email or (linkedin if linkedin else "Apollo Verified")
                         sen_tag = sen.title() if sen else "Logistics Lead"
                         notes = f"Apollo Verified ({sen_tag})"
                         if linkedin and linkedin != c_info:
@@ -834,6 +848,8 @@ def _find_apollo_contacts(
                             ContactItem(
                                 name=p_name,
                                 designation=title or "Logistics Decision-Maker",
+                                phone="",
+                                email=c_email,
                                 contact_info=c_info,
                                 notes=notes,
                             )
@@ -852,11 +868,15 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
 
     # Special handling for Apollo leads: prioritize verified executive contacts
     if lead.get("source") == "apollo":
-        corp_info = f"{lead.get('email', '')} | {lead.get('phone', '')}".strip(" |")
+        corp_phone = str(lead.get("phone", "") or "").strip()
+        corp_email = str(lead.get("email", "") or (f"info@{lead.get('domain')}" if lead.get("domain") else "")).strip()
+        corp_info = f"{corp_email} | {corp_phone}".strip(" |")
         contacts.append(
             ContactItem(
                 name="Headquarters / Corporate Office",
                 designation="Global Headquarters",
+                phone=corp_phone,
+                email=corp_email,
                 contact_info=corp_info or (f"domain: {lead.get('domain')}" if lead.get("domain") else "Apollo Verified Account"),
                 notes=f"Org ID: {lead['id']} (Apollo Verified)",
             )
@@ -873,6 +893,8 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
                 ContactItem(
                     name="Logistics / SCM Head",
                     designation="Supply Chain Manager",
+                    phone="",
+                    email="",
                     contact_info="[Enter email / phone]",
                     notes="Primary Logistics Decision-Maker",
                 )
@@ -880,13 +902,18 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
         return contacts
 
     clean_addr = lead["address"].replace("*", " ").strip(", ")
+    dm_phone = str(lead.get("phone", "") or "").strip()
+    dm_email = str(lead.get("email", "") or "").strip()
+    dm_info = f"{dm_email} | {dm_phone}".strip(" |")
 
     # Row 1: Customs registered corporate office (DataMyne)
     contacts.append(
         ContactItem(
             name="General / Customs Filing",
             designation=clean_addr[:50] if clean_addr else "Registered Corporate Office",
-            contact_info=f"{lead['email']} | {lead['phone']}".strip(" |"),
+            phone=dm_phone,
+            email=dm_email,
+            contact_info=dm_info or "Customs Manifest Record",
             notes=f"IEC: {lead['tax_id']} (Customs Record)",
         )
     )
@@ -905,11 +932,24 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
                 norm_dname = director_name.lower()
                 if norm_dname not in seen_names:
                     seen_names.add(norm_dname)
+                    # Extract director phone if present in PHONE/EMAIL: chunk, otherwise fallback to company phone
+                    d_phone = ""
+                    if "PHONE/EMAIL:" in chunk:
+                        pe_part = chunk.split("PHONE/EMAIL:")[1].strip()
+                        m_phone = re.search(r"(\+?\d[\d\s\-\/\(\)]{5,}\d)", pe_part)
+                        if m_phone:
+                            d_phone = m_phone.group(1).strip()
+                    if not d_phone:
+                        d_phone = dm_phone
+                    d_email = dm_email
+                    d_info = f"{d_email} | {d_phone}".strip(" |") if (d_email or d_phone) else "MCA Directory"
                     contacts.append(
                         ContactItem(
                             name=director_name,
                             designation="Director / Board Member",
-                            contact_info=lead["email"] or "MCA Directory",
+                            phone=d_phone,
+                            email=d_email,
+                            contact_info=d_info,
                             notes="Corporate Director (Ministry of Corporate Affairs)",
                         )
                     )
@@ -928,6 +968,8 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
             ContactItem(
                 name="Logistics / SCM Head",
                 designation="Supply Chain Manager",
+                phone="",
+                email="",
                 contact_info="[Enter email / phone]",
                 notes="Primary Logistics Decision-Maker",
             )
