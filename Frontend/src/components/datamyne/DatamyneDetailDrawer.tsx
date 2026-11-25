@@ -28,6 +28,8 @@ import { parseAndFormatContactNumbers } from '@/utils/phoneUtils';
 import { SalesApproachTimeline, SalesStatusBadge } from '@/components/approach';
 import { getCachedApproachStatus } from '@/services/approachLogService';
 import { fetchApolloPeopleLeads } from '@/services/apolloService';
+import { createEmptyReportDraft, saveDraftToSession } from '@/services/reportService';
+import { ContactItem } from '@/types/report';
 import {
   getContactInitials,
   getSeniorityBadge,
@@ -167,6 +169,39 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
     : [];
 
   const reportSource = lead.country === 'Brazil' || lead.id.startsWith('dm-bra-') ? 'datamyne_brazil' : 'datamyne';
+
+  const handleGenerateReportClick = () => {
+    if (!onGenerateReport) return;
+    try {
+      const manifestContacts: ContactItem[] = contactNumbers.map((num, idx) => ({
+        name: idx === 0 ? 'General / Customs Filing' : 'Customs Operations / Dispatch',
+        designation: idx === 0
+          ? (lead.address ? lead.address.replace(/\*/g, ' ').slice(0, 50).trim() : 'Registered Corporate Office')
+          : (num.type === 'mobile' ? 'Logistics & Dispatch Desk' : 'Corporate Switchboard'),
+        phone: num.display,
+        email: lead.email ? lead.email.split(/[,;]/)[0].trim() : '',
+        contact_info: `${lead.email ? lead.email.split(/[,;]/)[0].trim() : ''} | ${num.display}`.trim().replace(/^\|\s*|\s*\|$/g, ''),
+        notes: `Customs Record (${num.label})`,
+      }));
+
+      const preseeded = createEmptyReportDraft(
+        lead.company_name,
+        'Mumbai Sales Branch',
+        'Tyra Theknath',
+        manifestContacts.length > 0 ? manifestContacts : undefined
+      );
+      preseeded.lead_id = lead.id;
+      if (lead.address) preseeded.section_1_background.address = lead.address.replace(/\*/g, ' ').trim();
+      if (lead.category) preseeded.section_2_trade_lane.commodity = lead.category;
+      if (lead.transport_mode) preseeded.section_2_trade_lane.primary_mode = lead.transport_mode.toUpperCase();
+      if (lead.total_shipments) preseeded.section_2_trade_lane.total_shipments = lead.total_shipments;
+      if (lead.total_value_usd) preseeded.section_2_trade_lane.total_value_usd = lead.total_value_usd;
+      saveDraftToSession(preseeded);
+    } catch {
+      // Non-blocking draft pre-seed
+    }
+    onGenerateReport(lead.company_name, lead.id, reportSource);
+  };
 
   return (
     <div
@@ -921,7 +956,7 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
               {onGenerateReport && (
                 <button
                   type="button"
-                  onClick={() => onGenerateReport(lead.company_name, lead.id, reportSource)}
+                  onClick={handleGenerateReportClick}
                   className="flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] text-white rounded-lg text-xs font-bold shadow-xs transition-all cursor-pointer min-h-[40px] truncate"
                   title={`Generate Client Briefing Report for ${lead.company_name}`}
                 >

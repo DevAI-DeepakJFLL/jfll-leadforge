@@ -227,4 +227,29 @@ def test_generate_client_report_brazil_customs():
     assert "BRSSZ" in report.section_2_trade_lane.lading_port
 
 
+def test_generate_client_report_manifest_multi_channel_phone_parsing():
+    """Verify DataMyne raw phone strings are parsed into discrete formatted channels matching the drawer."""
+    report = generate_client_report_data(
+        company_query="TRENT LIMITED",
+        lead_id="dm-val-00001",
+        source="datamyne",
+    )
+    assert isinstance(report, ClientReportData)
+    assert len(report.section_4_contacts) >= 2
+
+    # Manifest phone '56657391 / 66657391' with Fort Mumbai city should parse with 022 STD prefix
+    phones = [c.phone for c in report.section_4_contacts if c.phone]
+    assert "022-56657391" in phones
+    assert "022-66657391" in phones
+
+    # Decision makers without personal phone must inherit corporate switchboard or retain employer phone
+    apollo_contacts = [c for c in report.section_4_contacts if "Apollo Verified" in c.notes]
+    for ac in apollo_contacts:
+        assert ac.phone != "", f"Expected decision maker {ac.name} to have switchboard or org phone"
+        assert ac.phone.startswith("022-") or ac.phone.startswith("+") or ac.phone.startswith("(")
+        if ac.phone.startswith("022-"):
+            assert "Switchboard" in ac.notes
+
+
+
 

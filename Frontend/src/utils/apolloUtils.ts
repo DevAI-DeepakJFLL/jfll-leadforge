@@ -288,7 +288,7 @@ const CUTOFF_DELIMITERS_RE = new RegExp(
   '(?:' +
   '\\s+(?:shri|shree|smt|late|mr|mrs|dr|sh|lt)\\b|' +
   '\\b(?:s\\/o|d\\/o|w\\/o|son\\s+of|daughter\\s+of|wife\\s+of)\\b|' +
-  '\\bpin[-:\\s]*\\d+|' +
+  '\\bpin[\\s:-]*\\d+|' +
   '\\b(?:phone|email|tel|mob|mobile|fax|web)\\b|' +
   '(?:\\b[a-zA-Z0-9.\'-]+\\s+)?' + ADDRESS_KEYWORDS + '\\b|' +
   '\\b[a-z]-\\d+\\b|\\b[a-z]\\/\\d+\\b|\\b\\d+[-/]\\d+\\b|\\b\\d+\\b|\\bdin\\b' +

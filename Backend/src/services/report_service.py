@@ -862,6 +862,101 @@ def _find_apollo_contacts(
     return contacts
 
 
+# City STD Code mappings matching frontend phoneUtils.ts
+_CITY_STD_CODES: dict[str, str] = {
+    "MUMBAI": "022", "BOMBAY": "022", "NAVI MUMBAI": "022", "THANE": "022",
+    "KHAR": "022", "BANDRA": "022", "ANDHERI": "022", "WORLI": "022", "FORT": "022",
+    "DELHI": "011", "NEW DELHI": "011", "GURGAON": "0124", "GURUGRAM": "0124",
+    "NOIDA": "0120", "FARIDABAD": "0129", "PUNE": "020", "BENGALURU": "080",
+    "BANGALORE": "080", "HYDERABAD": "040", "SECUNDERABAD": "040", "CHENNAI": "044",
+    "MADRAS": "044", "KOLKATA": "033", "CALCUTTA": "033", "AHMEDABAD": "079",
+    "VADODARA": "0265", "BARODA": "0265", "SURAT": "0261", "VAPI": "0260",
+    "JAIPUR": "0141", "LUCKNOW": "0522", "KANPUR": "0512", "NAGPUR": "0712",
+    "INDORE": "0731", "COIMBATORE": "0422", "KOCHI": "0484", "COCHIN": "0484",
+    "ERNAKULAM": "0484", "CHANDIGARH": "0172", "AURANGABAD": "0240", "NASHIK": "0253",
+    "VISAKHAPATNAM": "0891", "VIZAG": "0891", "BHOPAL": "0755", "LUDHIANA": "0161",
+    "AMRITSAR": "0183", "RAJKOT": "0281",
+}
+_MAJOR_3DIGIT_STD = {"022", "020", "011", "040", "080", "044", "033", "079"}
+
+
+def _get_std_code_for_city(city: str) -> str:
+    upper = (city or "").upper()
+    for k, v in _CITY_STD_CODES.items():
+        if k in upper:
+            return v
+    return "022"
+
+
+def _parse_and_format_phones(raw_phone: str, city: str = "") -> list[tuple[str, str, str]]:
+    """Parses raw manifest phone string into [(formatted_display, label, type)]. Matches frontend parseAndFormatContactNumbers."""
+    if not raw_phone or not str(raw_phone).strip():
+        return []
+
+    context_std = _get_std_code_for_city(city)
+    segments = re.split(r"[/,;]|\s+-\s+", str(raw_phone))
+    results: list[tuple[str, str, str]] = []
+
+    for seg in segments:
+        trimmed = seg.strip()
+        if not trimmed:
+            continue
+
+        if trimmed.startswith("+"):
+            is_brazil = trimmed.startswith("+55")
+            label = "Brazil Line" if is_brazil else "International Line"
+            results.append((trimmed, label, "landline"))
+            continue
+
+        digits = re.sub(r"\D", "", trimmed)
+        if len(digits) < 5 or digits == "91":
+            continue
+
+        is_mobile = False
+        mobile_core = ""
+        if len(digits) == 10 and digits[0] in "6789":
+            is_mobile = True
+            mobile_core = digits
+        elif len(digits) == 12 and digits.startswith("91") and digits[2] in "6789":
+            is_mobile = True
+            mobile_core = digits[2:]
+        elif len(digits) == 11 and digits.startswith("0") and digits[1] in "6789":
+            is_mobile = True
+            mobile_core = digits[1:]
+
+        if is_mobile:
+            display = f"+91 {mobile_core[:5]} {mobile_core[5:]}"
+            results.append((display, "Mobile Number", "mobile"))
+            continue
+
+        if digits.startswith("91") and len(digits) > 10:
+            digits = "0" + digits[2:]
+
+        std_code = context_std
+        local_digits = digits
+
+        if digits.startswith("0"):
+            cand3 = digits[:3]
+            if cand3 in _MAJOR_3DIGIT_STD and len(digits) >= 8:
+                std_code = cand3
+                local_digits = digits[3:]
+            elif len(digits) >= 9:
+                std_code = digits[:4]
+                local_digits = digits[4:]
+            else:
+                std_code = digits[:3]
+                local_digits = digits[3:]
+            context_std = std_code
+        else:
+            std_code = context_std
+            local_digits = digits
+
+        display = f"{std_code}-{local_digits}"
+        results.append((display, "Landline / Telephone", "landline"))
+
+    return results
+
+
 def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[ContactItem]:
     contacts: list[ContactItem] = []
     seen_names: set[str] = set()
@@ -886,6 +981,11 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
             norm_ac_name = ac.name.strip().lower()
             if norm_ac_name not in seen_names:
                 seen_names.add(norm_ac_name)
+                if not ac.phone and corp_phone:
+                    ac.phone = corp_phone
+                    ac.contact_info = f"{ac.email} | {corp_phone}".strip(" |")
+                    if "Switchboard" not in ac.notes:
+                        ac.notes = f"{ac.notes} (Switchboard)".strip()
                 contacts.append(ac)
 
         if len(contacts) < 2:
@@ -904,19 +1004,52 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
     clean_addr = lead["address"].replace("*", " ").strip(", ")
     dm_phone = str(lead.get("phone", "") or "").strip()
     dm_email = str(lead.get("email", "") or "").strip()
-    dm_info = f"{dm_email} | {dm_phone}".strip(" |")
+    city = str(lead.get("city", "") or "").strip()
 
-    # Row 1: Customs registered corporate office (DataMyne)
-    contacts.append(
-        ContactItem(
-            name="General / Customs Filing",
-            designation=clean_addr[:50] if clean_addr else "Registered Corporate Office",
-            phone=dm_phone,
-            email=dm_email,
-            contact_info=dm_info or "Customs Manifest Record",
-            notes=f"IEC: {lead['tax_id']} (Customs Record)",
+    parsed_phones = _parse_and_format_phones(dm_phone, city)
+    primary_manifest_phone = parsed_phones[0][0] if parsed_phones else dm_phone
+
+    # Customs Manifest Channels (Row 1 and optional Row 2 when multiple numbers exist)
+    if not parsed_phones:
+        dm_info = f"{dm_email} | {dm_phone}".strip(" |")
+        contacts.append(
+            ContactItem(
+                name="General / Customs Filing",
+                designation=clean_addr[:50] if clean_addr else "Registered Corporate Office",
+                phone=dm_phone,
+                email=dm_email,
+                contact_info=dm_info or "Customs Manifest Record",
+                notes=f"IEC: {lead['tax_id']} (Customs Record)",
+            )
         )
-    )
+    elif len(parsed_phones) == 1:
+        phone_val, label, _ = parsed_phones[0]
+        dm_info = f"{dm_email} | {phone_val}".strip(" |")
+        contacts.append(
+            ContactItem(
+                name="General / Customs Filing",
+                designation=clean_addr[:50] if clean_addr else "Registered Corporate Office",
+                phone=phone_val,
+                email=dm_email,
+                contact_info=dm_info or "Customs Manifest Record",
+                notes=f"IEC: {lead['tax_id']} (Customs Record)",
+            )
+        )
+    else:
+        for idx, (phone_val, label, p_type) in enumerate(parsed_phones[:2]):
+            channel_name = "General / Customs Filing" if idx == 0 else "Customs Operations / Dispatch"
+            channel_role = clean_addr[:50] if (idx == 0 and clean_addr) else ("Logistics & Dispatch Desk" if p_type == "mobile" else "Corporate Office")
+            channel_info = f"{dm_email} | {phone_val}".strip(" |") if idx == 0 else phone_val
+            contacts.append(
+                ContactItem(
+                    name=channel_name,
+                    designation=channel_role,
+                    phone=phone_val,
+                    email=dm_email if idx == 0 else "",
+                    contact_info=channel_info or "Customs Manifest Record",
+                    notes=f"IEC: {lead['tax_id']} (Customs Record)" if idx == 0 else f"IEC: {lead['tax_id']} (Manifest {label})",
+                )
+            )
 
     # Statutory Directors if available (DataMyne MCA Registry)
     if lead.get("directors"):
@@ -932,15 +1065,17 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
                 norm_dname = director_name.lower()
                 if norm_dname not in seen_names:
                     seen_names.add(norm_dname)
-                    # Extract director phone if present in PHONE/EMAIL: chunk, otherwise fallback to company phone
+                    # Extract director phone if present in PHONE/EMAIL: chunk, otherwise fallback to primary company phone
                     d_phone = ""
                     if "PHONE/EMAIL:" in chunk:
                         pe_part = chunk.split("PHONE/EMAIL:")[1].strip()
                         m_phone = re.search(r"(\+?\d[\d\s\-\/\(\)]{5,}\d)", pe_part)
                         if m_phone:
-                            d_phone = m_phone.group(1).strip()
+                            raw_dp = m_phone.group(1).strip()
+                            d_parsed = _parse_and_format_phones(raw_dp, city)
+                            d_phone = d_parsed[0][0] if d_parsed else raw_dp
                     if not d_phone:
-                        d_phone = dm_phone
+                        d_phone = primary_manifest_phone
                     d_email = dm_email
                     d_info = f"{d_email} | {d_phone}".strip(" |") if (d_email or d_phone) else "MCA Directory"
                     contacts.append(
@@ -960,6 +1095,12 @@ def _synthesize_contacts(lead: dict[str, Any], apollo_limit: int = 10) -> list[C
         norm_ac_name = ac.name.strip().lower()
         if norm_ac_name not in seen_names:
             seen_names.add(norm_ac_name)
+            # If Apollo contact has no direct personal phone, supply corporate manifest phone
+            if not ac.phone and primary_manifest_phone:
+                ac.phone = primary_manifest_phone
+                ac.contact_info = f"{ac.email} | {primary_manifest_phone}".strip(" |")
+                if "Switchboard" not in ac.notes:
+                    ac.notes = f"{ac.notes} (Switchboard)".strip()
             contacts.append(ac)
 
     # If only 1 contact, append an editable row for the sales rep to fill

@@ -9,6 +9,8 @@ from src.api.report_models import (
     TradeLaneCommodity,
 )
 from src.services.gemini_report_enricher import (
+    MAX_ENRICHMENT_CACHE_SIZE,
+    _ENRICHMENT_CACHE,
     clear_enrichment_cache,
     enrich_report_with_gemini_search,
     get_cached_enrichment,
@@ -215,4 +217,49 @@ def test_enrich_report_preserves_caller_section_5_feedback_on_cache_hit():
     assert result.section_5_feedback.preferred_carriers == "Qatar Airways"
     assert result.section_5_feedback.target_pricing == "$2.90/kg"
     assert result.section_5_feedback.next_action_followup == "Quote by Monday 10 AM"
+
+
+def test_set_cached_enrichment_capacity_and_eviction():
+    """Verify that set_cached_enrichment respects MAX_ENRICHMENT_CACHE_SIZE and evicts the oldest entry."""
+    clear_enrichment_cache()
+    draft = _create_sample_draft("Base Company")
+
+    # 1. Fill cache up to MAX_ENRICHMENT_CACHE_SIZE
+    for i in range(MAX_ENRICHMENT_CACHE_SIZE):
+        # Stagger ttl_seconds so timestamps are strictly ordered
+        set_cached_enrichment(f"Company_{i:04d}", draft, ttl_seconds=1000 + i)
+
+    assert len(_ENRICHMENT_CACHE) == MAX_ENRICHMENT_CACHE_SIZE
+    # Earliest timestamp is Company_0000 (ttl_seconds=1000)
+    assert get_cached_enrichment("Company_0000") is not None
+
+    # 2. Add an entry exceeding MAX_ENRICHMENT_CACHE_SIZE
+    new_draft = _create_sample_draft("New Company")
+    set_cached_enrichment("Company_New", new_draft, ttl_seconds=3600)
+
+    # Cache size must not exceed MAX_ENRICHMENT_CACHE_SIZE
+    assert len(_ENRICHMENT_CACHE) == MAX_ENRICHMENT_CACHE_SIZE
+    # Oldest entry (Company_0000) must have been evicted
+    assert get_cached_enrichment("Company_0000") is None
+    # Next oldest (Company_0001) must still be present
+    assert get_cached_enrichment("Company_0001") is not None
+    # New entry must be present
+    assert get_cached_enrichment("Company_New") is not None
+
+    # 3. Verify that expired entries are pruned before evicting valid oldest entries
+    set_cached_enrichment("Company_Expired", draft, ttl_seconds=-10)
+    assert len(_ENRICHMENT_CACHE) == MAX_ENRICHMENT_CACHE_SIZE
+
+    # Inserting another new entry should prune Company_Expired first
+    another_draft = _create_sample_draft("Another Company")
+    set_cached_enrichment("Company_Another", another_draft, ttl_seconds=3600)
+    assert len(_ENRICHMENT_CACHE) == MAX_ENRICHMENT_CACHE_SIZE
+    assert get_cached_enrichment("Company_Expired") is None
+    assert get_cached_enrichment("Company_0002") is not None
+    assert get_cached_enrichment("Company_Another") is not None
+
+    # 4. Updating an existing entry should not evict anything or exceed max size
+    set_cached_enrichment("Company_New", new_draft, ttl_seconds=3600)
+    assert len(_ENRICHMENT_CACHE) == MAX_ENRICHMENT_CACHE_SIZE
+
 

@@ -24,6 +24,7 @@ logger = logging.getLogger("gemini_enricher")
 # In-memory TTL cache for web search grounding: normalized_name -> (timestamp, ClientReportData)
 _ENRICHMENT_CACHE: dict[str, tuple[float, ClientReportData]] = {}
 CACHE_DEFAULT_TTL_SECONDS = 3600  # 1 hour
+MAX_ENRICHMENT_CACHE_SIZE: int = 250
 GEMINI_TIMEOUT_SECONDS = 10.0
 
 
@@ -56,8 +57,26 @@ def set_cached_enrichment(
 ) -> None:
     """Save enriched report to in-memory TTL cache."""
     key = _normalize_company_key(company_name)
+    now = time.time()
+
+    if len(_ENRICHMENT_CACHE) >= MAX_ENRICHMENT_CACHE_SIZE:
+        # Prune any expired entries if cache is at capacity
+        expired_keys = [
+            k for k, (ts, _) in _ENRICHMENT_CACHE.items()
+            if now - ts >= CACHE_DEFAULT_TTL_SECONDS
+        ]
+        for k in expired_keys:
+            _ENRICHMENT_CACHE.pop(k, None)
+
+        # If still at capacity and adding a new key, evict the oldest entry (earliest timestamp)
+        while key not in _ENRICHMENT_CACHE and len(_ENRICHMENT_CACHE) >= MAX_ENRICHMENT_CACHE_SIZE:
+            if not _ENRICHMENT_CACHE:
+                break
+            oldest_key = min(_ENRICHMENT_CACHE, key=lambda k: _ENRICHMENT_CACHE[k][0])
+            _ENRICHMENT_CACHE.pop(oldest_key, None)
+
     # Store timestamp adjusted for requested TTL
-    stored_timestamp = time.time() - (CACHE_DEFAULT_TTL_SECONDS - ttl_seconds)
+    stored_timestamp = now - (CACHE_DEFAULT_TTL_SECONDS - ttl_seconds)
     _ENRICHMENT_CACHE[key] = (stored_timestamp, report.model_copy(deep=True))
 
 

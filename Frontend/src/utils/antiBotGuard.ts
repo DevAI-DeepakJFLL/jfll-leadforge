@@ -5,6 +5,8 @@
  * Features persistent multi-storage machine banning and hardware fingerprinting.
  */
 
+import { API_BASE_URL } from '@/config/api';
+
 export interface BotDetectionResult {
   isBot: boolean;
   reason?: string;
@@ -144,7 +146,7 @@ export async function reportBotToBackend(reason: string, artifacts: string[] = [
   if (typeof window === 'undefined' || typeof fetch === 'undefined') return;
   try {
     const fingerprint = getDeviceFingerprint();
-    const endpoint = '/api/v1/auth/report-bot';
+    const endpoint = `${API_BASE_URL}/api/v1/auth/report-bot`;
     await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -175,7 +177,7 @@ export async function checkDeviceStatusOnline(
     return { blocked: false };
   }
   try {
-    const res = await fetch(`/api/v1/auth/device-status?fingerprint=${encodeURIComponent(cleanFp)}`, {
+    const res = await fetch(`${API_BASE_URL}/api/v1/auth/device-status?fingerprint=${encodeURIComponent(cleanFp)}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

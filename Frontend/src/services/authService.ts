@@ -67,6 +67,15 @@ export function clearStoredSession(): void {
   } catch {
     // Graceful handling of storage access exceptions
   }
+
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.removeItem('jfll_lead_tracker_cache_v2');
+      window.localStorage.removeItem('jfll_lead_tracker_cache_v1');
+    }
+  } catch {
+    // Graceful handling of storage access exceptions
+  }
 }
 
 /**

@@ -225,4 +225,33 @@ describe('Report Service Suite', () => {
       })
     );
   });
+
+  it('createEmptyReportDraft accepts initial manifest contacts and avoids generic placeholders', () => {
+    const customContacts = [
+      { name: 'Customs Manifest / Switchboard', designation: 'Corporate Office', phone: '022-56657391', notes: 'Manifest Landline' },
+      { name: 'Customs Operations / Dispatch', designation: 'Dispatch Desk', phone: '+91 98200 12345', notes: 'Manifest Mobile' },
+    ];
+    const draft = createEmptyReportDraft('Trent Limited', 'Mumbai', 'Tester', customContacts);
+    expect(draft.section_4_contacts).toEqual(customContacts);
+    expect(draft.section_4_contacts[0].phone).toBe('022-56657391');
+    expect(draft.section_4_contacts[1].phone).toBe('+91 98200 12345');
+  });
+
+  it('normalizeReportResponse preserves slash-formatted phone numbers and emails without truncation', () => {
+    const raw = {
+      section_4_contacts: [
+        {
+          name: 'General',
+          designation: 'HQ',
+          phone: '',
+          email: '',
+          contact_info: 'info@trent.com | 022-56657391 / 022-66657391',
+          notes: 'Manifest',
+        },
+      ],
+    };
+    const normalized = normalizeReportResponse(raw);
+    expect(normalized.section_4_contacts[0].email).toBe('info@trent.com');
+    expect(normalized.section_4_contacts[0].phone).toBe('022-56657391 / 022-66657391');
+  });
 });

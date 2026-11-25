@@ -420,6 +420,38 @@ describe('Lead Tracker Service Suite', () => {
       expect(getTrackerCachedItem('trk_live_001')?.company_name).toBe('Live Air Shipper Ltd');
     });
 
+    it('fetchTrackedLeads with filters upserts results and does NOT wipe previously cached leads from other branches', async () => {
+      seedTrackerLocalCacheForTesting(MOCK_TRACKER_STARTER_LEADS);
+      const preCount = getAllTrackerCachedItems().length;
+      expect(preCount).toBeGreaterThan(0);
+
+      const mumbaiLead: LeadTrackerItem = {
+        ...MOCK_TRACKER_STARTER_LEADS[0],
+        id: 'trk_mumbai_filter_test',
+        branch: 'Mumbai',
+        company_name: 'Mumbai Customs Brokerage',
+      };
+
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: true,
+        status: 200,
+        json: async () => [mumbaiLead],
+      });
+
+      const res = await fetchTrackedLeads({ branch: 'Mumbai' });
+      expect(res).toHaveLength(1);
+      expect(res[0].id).toBe('trk_mumbai_filter_test');
+
+      // Verify new lead was upserted into cache
+      expect(getTrackerCachedItem('trk_mumbai_filter_test')?.company_name).toBe('Mumbai Customs Brokerage');
+
+      // Verify leads from other branches (e.g. Gujarat) were NOT wiped
+      const allCached = getAllTrackerCachedItems();
+      expect(allCached.length).toBe(preCount + 1);
+      const gujaratLeads = allCached.filter((l) => l.branch === 'Gujarat');
+      expect(gujaratLeads.length).toBeGreaterThan(0);
+    });
+
     it('fetchTrackedLeads falls back gracefully to in-memory starter leads on API failure', async () => {
       global.fetch = vi.fn().mockRejectedValue(new Error('Network offline or backend down'));
 

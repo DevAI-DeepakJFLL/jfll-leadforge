@@ -437,7 +437,7 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
             if not phone_val or not email_val:
                 raw_info = str(getattr(c, "contact_info", "") or "").strip()
                 if raw_info:
-                    parts = [p.strip() for p in re.split(r"[|/]", raw_info) if p.strip()]
+                    parts = [p.strip() for p in re.split(r"[|]", raw_info) if p.strip()]
                     for p_part in parts:
                         if not email_val and "@" in p_part:
                             email_val = p_part

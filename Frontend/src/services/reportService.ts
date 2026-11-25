@@ -4,6 +4,7 @@
 import {
   ClientReportData,
   ClientReportExportPayload,
+  ContactItem,
   GenerateReportRequest,
   ReportCompanySuggestion,
 } from '../types/report';
@@ -32,7 +33,8 @@ function getFormattedToday(): string {
 export function createEmptyReportDraft(
   companyName: string,
   preparedFor: string = 'Mumbai Sales Branch',
-  preparedBy: string = 'Tyra Theknath'
+  preparedBy: string = 'Tyra Theknath',
+  initialContacts?: ContactItem[]
 ): ClientReportData {
   return {
     lead_id: null,
@@ -64,7 +66,7 @@ export function createEmptyReportDraft(
       cargo_strength: 'Multimodal air + ocean network covers their global trade lanes; licensed CHA for fast Mumbai customs clearance; 150+ country partner network.',
       pitch_angle: 'Multimodal sea + express air · Licensed CHA customs broker · ISO 9001:2015 · Listed since 1986 (NSE/BSE: JETFREIGHT) · Mumbai-local dedicated account team',
     },
-    section_4_contacts: [
+    section_4_contacts: (initialContacts && initialContacts.length > 0) ? initialContacts : [
       {
         name: 'General / Switchboard',
         designation: 'Corporate Inquiries',
@@ -102,7 +104,7 @@ export function normalizeReportResponse(report: any): ClientReportData {
         const contactInfo = str(c.contact_info || '').trim();
 
         if ((!phone || !email) && contactInfo) {
-          const parts = contactInfo.split(/[|/]/).map((p: string) => p.trim());
+          const parts = contactInfo.split(/[|]/).map((p: string) => p.trim());
           for (const p of parts) {
             if (!email && p.includes('@')) {
               email = p;

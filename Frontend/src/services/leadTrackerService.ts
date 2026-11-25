@@ -432,7 +432,17 @@ export async function fetchTrackedLeads(
     const data: LeadTrackerItem[] = await response.json();
 
     // Refresh in-memory cache with fresh items
-    leadTrackerCache.clear();
+    const noFilters =
+      !filters ||
+      (!filters.branch &&
+        !filters.assigned_to &&
+        !filters.status &&
+        !filters.search &&
+        !filters.overdue_only);
+
+    if (noFilters) {
+      leadTrackerCache.clear();
+    }
     for (const item of data) {
       leadTrackerCache.set(item.id, item);
     }

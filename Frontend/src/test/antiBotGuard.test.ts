@@ -6,9 +6,11 @@ import {
   clearMachinePoisonPill,
   isMachineLocallyPoisoned,
   checkDeviceStatusOnline,
+  reportBotToBackend,
   renderBotBlockScreen,
   BAN_STORAGE_KEY,
 } from '@/utils/antiBotGuard';
+import { API_BASE_URL } from '@/config/api';
 
 describe('Anti-Bot & Headless Browser Detection Guard', () => {
   const mockLocalStorage: Record<string, string> = {};
@@ -151,7 +153,31 @@ describe('Anti-Bot & Headless Browser Detection Guard', () => {
 
     const res = await checkDeviceStatusOnline('fp_123');
     expect(res.blocked).toBe(false);
-    expect(mockFetch).toHaveBeenCalledWith(expect.stringContaining('/api/v1/auth/device-status?fingerprint=fp_123'), expect.any(Object));
+    expect(mockFetch).toHaveBeenCalledWith(
+      `${API_BASE_URL}/api/v1/auth/device-status?fingerprint=fp_123`,
+      expect.any(Object)
+    );
+  });
+
+  it('reports detected bot to backend using API_BASE_URL', async () => {
+    const mockFetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ status: 'reported' }),
+    });
+    (globalThis as unknown as { fetch: unknown }).fetch = mockFetch;
+
+    await reportBotToBackend('automated test', ['__playwright__']);
+    expect(mockFetch).toHaveBeenCalledWith(
+      `${API_BASE_URL}/api/v1/auth/report-bot`,
+      expect.objectContaining({
+        method: 'POST',
+        headers: expect.objectContaining({
+          'Content-Type': 'application/json',
+          'X-Device-Fingerprint': expect.any(String),
+        }),
+        body: expect.stringContaining('automated test'),
+      })
+    );
   });
 
   it('renders enterprise block screen with Device Reference ID and Verify button', () => {

@@ -257,9 +257,11 @@ describe('authService', () => {
     };
 
     let storageMap: Record<string, string> = {};
+    let localStorageMap: Record<string, string> = {};
 
     beforeEach(() => {
       storageMap = {};
+      localStorageMap = {};
       const mockStorage = {
         getItem: (key: string) => storageMap[key] || null,
         setItem: (key: string, value: string) => {
@@ -272,8 +274,21 @@ describe('authService', () => {
           storageMap = {};
         },
       };
-      (globalThis as unknown as { window?: { sessionStorage: typeof mockStorage } }).window = {
+      const mockLocalStorage = {
+        getItem: (key: string) => localStorageMap[key] || null,
+        setItem: (key: string, value: string) => {
+          localStorageMap[key] = value;
+        },
+        removeItem: (key: string) => {
+          delete localStorageMap[key];
+        },
+        clear: () => {
+          localStorageMap = {};
+        },
+      };
+      (globalThis as unknown as { window?: { sessionStorage: typeof mockStorage; localStorage: typeof mockLocalStorage } }).window = {
         sessionStorage: mockStorage,
+        localStorage: mockLocalStorage,
       };
     });
 
@@ -289,12 +304,21 @@ describe('authService', () => {
       expect(storageMap[AUTH_STORAGE_KEY]).toBe(JSON.stringify(mockSession));
     });
 
-    it('clears stored session on logout', () => {
+    it('clears stored session and purges lead tracker cache on logout', () => {
       setStoredSession(mockSession);
+      localStorageMap['jfll_lead_tracker_cache_v2'] = JSON.stringify([{ id: 'trk_001' }]);
+      localStorageMap['jfll_lead_tracker_cache_v1'] = JSON.stringify([{ id: 'trk_v1' }]);
+
       expect(getStoredSession()).not.toBeNull();
+      expect(localStorageMap['jfll_lead_tracker_cache_v2']).toBeDefined();
+      expect(localStorageMap['jfll_lead_tracker_cache_v1']).toBeDefined();
+
       clearStoredSession();
+
       expect(getStoredSession()).toBeNull();
       expect(storageMap[AUTH_STORAGE_KEY]).toBeUndefined();
+      expect(localStorageMap['jfll_lead_tracker_cache_v2']).toBeUndefined();
+      expect(localStorageMap['jfll_lead_tracker_cache_v1']).toBeUndefined();
     });
 
     it('gracefully handles corrupted sessionStorage JSON', () => {
