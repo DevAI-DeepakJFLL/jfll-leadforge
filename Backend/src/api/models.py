@@ -183,3 +183,44 @@ class AllowlistEntryResponse(BaseModel):
     is_password_set: bool = False
 
 
+class HotLeadItem(BaseModel):
+    sr_no: int
+    gstin: str
+    customer_name: str
+    taxable_turnover_inr: int
+    jfll_crm_status: str
+    jfll_sales_rep: str
+    jfll_contact_person: str
+    jfll_direct_phone: str
+    jfll_direct_email: str
+    datamyne_trade_activity: str
+    apollo_matched_entity: str
+    apollo_corporate_domain: str
+    apollo_employees: str
+    apollo_decision_maker: str
+    decision_maker_title: str
+    decision_maker_direct_email: str
+    email_status: str
+    linkedin_profile: str
+
+
+class HotLeadsMetrics(BaseModel):
+    total_turnover: int = 0
+    total_count: int = 0
+    prospects_count: int = 0
+    reactivations_count: int = 0
+    active_count: int = 0
+    decision_makers_count: int = 0
+
+
+class HotLeadsPaginatedResponse(BaseModel):
+    page: int = 1
+    page_size: int = 50
+    total_records: int
+    total_pages: int
+    has_next: bool = False
+    data: list[HotLeadItem]
+    metrics: HotLeadsMetrics
+
+
+

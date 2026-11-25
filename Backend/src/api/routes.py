@@ -34,6 +34,9 @@ from src.api.models import (
     ApolloPaginatedResponse,
     AudienceCounts,
     PaginatedResponse,
+    HotLeadItem,
+    HotLeadsMetrics,
+    HotLeadsPaginatedResponse,
 )
 
 router = APIRouter(prefix="/api/v1", tags=["Leads"])
@@ -1218,6 +1221,136 @@ def export_apollo_leads_csv(
         media_type="text/csv",
         headers={"Content-Disposition": 'attachment; filename="apollo_leads_export.csv"'},
     )
+
+
+@router.get("/hot-leads", response_model=HotLeadsPaginatedResponse, summary="Retrieve tax audit cross-referenced hot leads")
+def list_hot_leads(
+    page: int = Query(default=1, ge=1, description="Page number"),
+    page_size: int = Query(default=50, ge=1, le=100, description="Records per page"),
+    segment: str | None = Query(default="all", description="Segment filter: all, prospects, reactivations, active, with-decision-makers"),
+    search: str | None = Query(default=None, max_length=100, description="Search query"),
+    sort_by: str | None = Query(default="turnover", description="Sort field: turnover, name, status"),
+    sort_order: str | None = Query(default="desc", description="Sort order: asc or desc"),
+    authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
+):
+    """
+    Queries the 60 high-turnover tax audit cross-referenced client accounts from Parquet via DuckDB.
+    """
+    require_auth(authorization)
+    con = get_db_connection()
+    data_source = get_data_source(con, "client_tax_cross_reference")
+
+    where_clauses = ["1=1"]
+    params = []
+
+    if segment == "prospects":
+        where_clauses.append("jfll_crm_status = 'Prospect (Not in JFLL)'")
+    elif segment == "reactivations":
+        where_clauses.append("jfll_crm_status = 'Not Active Customer'")
+    elif segment == "active":
+        where_clauses.append("jfll_crm_status = 'Active Customer'")
+    elif segment == "with-decision-makers":
+        where_clauses.append("apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != ''")
+
+    if search:
+        search_pattern = f"%{search.strip().lower()}%"
+        where_clauses.append("""(
+            lower(customer_name) LIKE ? OR
+            lower(gstin) LIKE ? OR
+            lower(jfll_sales_rep) LIKE ? OR
+            lower(apollo_decision_maker) LIKE ? OR
+            lower(apollo_corporate_domain) LIKE ?
+        )""")
+        params.extend([search_pattern] * 5)
+
+    where_sql = " AND ".join(where_clauses)
+
+    try:
+        # Metrics query across dataset
+        metrics_query = f"""
+            SELECT
+                coalesce(sum(taxable_turnover_inr), 0) as total_turnover,
+                count(*) as total_count,
+                count(CASE WHEN jfll_crm_status = 'Prospect (Not in JFLL)' THEN 1 END) as prospects_count,
+                count(CASE WHEN jfll_crm_status = 'Not Active Customer' THEN 1 END) as reactivations_count,
+                count(CASE WHEN jfll_crm_status = 'Active Customer' THEN 1 END) as active_count,
+                count(CASE WHEN apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != '' THEN 1 END) as dm_count
+            FROM '{data_source}'
+        """
+        m_row = con.execute(metrics_query).fetchone()
+        metrics = HotLeadsMetrics(
+            total_turnover=int(m_row[0]),
+            total_count=int(m_row[1]),
+            prospects_count=int(m_row[2]),
+            reactivations_count=int(m_row[3]),
+            active_count=int(m_row[4]),
+            decision_makers_count=int(m_row[5]),
+        )
+
+        # Count matching
+        count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
+        total_matching = con.execute(count_query, params).fetchone()[0]
+
+        order_direction = "DESC" if sort_order and sort_order.lower() == "desc" else "ASC"
+        sort_column = "taxable_turnover_inr"
+        if sort_by == "name":
+            sort_column = "customer_name"
+        elif sort_by == "status":
+            sort_column = "jfll_crm_status"
+
+        offset = (page - 1) * page_size
+        data_query = f"""
+            SELECT
+                sr_no, gstin, customer_name, taxable_turnover_inr, jfll_crm_status,
+                jfll_sales_rep, jfll_contact_person, jfll_direct_phone, jfll_direct_email,
+                datamyne_trade_activity, apollo_matched_entity, apollo_corporate_domain,
+                apollo_employees, apollo_decision_maker, decision_maker_title,
+                decision_maker_direct_email, email_status, linkedin_profile
+            FROM '{data_source}'
+            WHERE {where_sql}
+            ORDER BY {sort_column} {order_direction}
+            LIMIT ? OFFSET ?
+        """
+        rows = con.execute(data_query, params + [page_size, offset]).fetchall()
+
+        items = [
+            HotLeadItem(
+                sr_no=r[0],
+                gstin=r[1],
+                customer_name=r[2],
+                taxable_turnover_inr=r[3],
+                jfll_crm_status=r[4],
+                jfll_sales_rep=r[5],
+                jfll_contact_person=r[6],
+                jfll_direct_phone=r[7],
+                jfll_direct_email=r[8],
+                datamyne_trade_activity=r[9],
+                apollo_matched_entity=r[10],
+                apollo_corporate_domain=r[11],
+                apollo_employees=r[12],
+                apollo_decision_maker=r[13],
+                decision_maker_title=r[14],
+                decision_maker_direct_email=r[15],
+                email_status=r[16],
+                linkedin_profile=r[17],
+            )
+            for r in rows
+        ]
+
+        total_pages = max(1, (total_matching + page_size - 1) // page_size)
+
+        return HotLeadsPaginatedResponse(
+            page=page,
+            page_size=page_size,
+            total_records=total_matching,
+            total_pages=total_pages,
+            has_next=page < total_pages,
+            data=items,
+            metrics=metrics,
+        )
+    except Exception as e:
+        raise _handle_db_exception("Hot leads database query failure", e, data_source)
+
 
 
 

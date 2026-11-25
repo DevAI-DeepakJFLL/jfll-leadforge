@@ -30,6 +30,7 @@ const TOP_NAV_TABS: TopNavTab[] = [
   { id: 'apollo', label: 'Apollo', badge: '15.5M' },
   { id: 'datamyne', label: 'DataMyne', badge: '37.3k' },
   { id: 'commodity-radar', label: 'Commodity Radar', badge: 'Nov Peak' },
+  { id: 'hot-leads', label: 'Hot Leads', badge: '₹47.6Cr' },
   { id: 'report', label: 'Client Reports' },
   { id: 'saved-searches', label: 'Saved Searches' },
   { id: 'saved-lists', label: 'Saved Lists' },

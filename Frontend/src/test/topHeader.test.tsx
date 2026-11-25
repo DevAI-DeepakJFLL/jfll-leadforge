@@ -77,4 +77,16 @@ describe('TopHeader Navigation & Landing Tab', () => {
     expect(html).toContain('Nov Peak');
     expect(html).toContain('aria-current="page"');
   });
+
+  it('renders Hot Leads tab with ₹47.6Cr badge and handles active tab state', () => {
+    const html = renderToString(
+      <TopHeader
+        activeTab="hot-leads"
+        onTabChange={() => {}}
+      />
+    );
+    expect(html).toContain('Hot Leads');
+    expect(html).toContain('₹47.6Cr');
+    expect(html).toContain('aria-current="page"');
+  });
 });

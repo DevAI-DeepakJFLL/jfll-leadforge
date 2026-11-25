@@ -106,6 +106,7 @@ class Settings(BaseModel):
         "apollo": "apollo_freight_leads_zstd.parquet",
         "apollo_contacts_profile": "apollo_freight_contacts_with_company_profile.parquet",
         "apollo_contacts_unprofiled": "apollo_freight_contacts_without_company_profile.parquet",
+        "client_tax_cross_reference": "client_tax_cross_reference_zstd.parquet",
     }
 
     @property

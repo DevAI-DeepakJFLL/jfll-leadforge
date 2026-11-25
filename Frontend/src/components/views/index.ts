@@ -4,4 +4,5 @@ export * from './DatamyneView';
 export * from './JfllCustomersView';
 export * from './ReportView';
 export * from '../commodities/CommodityRadarView';
+export * from '../hotLeads/HotLeadsView';
 

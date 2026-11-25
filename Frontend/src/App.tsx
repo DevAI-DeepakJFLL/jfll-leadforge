@@ -12,6 +12,7 @@ import {
   JfllCustomersView,
   ReportView,
   CommodityRadarView,
+  HotLeadsView,
 } from '@/components/views';
 import {
   LeadDetailDrawer,
@@ -122,7 +123,7 @@ function getInitialTopTab(): string {
       const tabParam = urlParams.get('tab');
       if (
         tabParam &&
-        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(tabParam)
+        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'hot-leads', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(tabParam)
       ) {
         if (tabParam === 'companies' || tabParam === 'people') return 'apollo';
         return tabParam;
@@ -131,7 +132,7 @@ function getInitialTopTab(): string {
         const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
         if (
           saved &&
-          ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(saved)
+          ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'hot-leads', 'report', 'tracker', 'saved-searches', 'saved-lists'].includes(saved)
         ) {
           if (saved === 'companies' || saved === 'people') return 'apollo';
           return saved;
@@ -197,6 +198,7 @@ function getInitialActiveNav(tab: string): string {
   if (tab === 'tracker') return 'tracker';
   if (tab === 'datamyne') return 'datamyne';
   if (tab === 'commodity-radar') return 'commodity-radar';
+  if (tab === 'hot-leads') return 'hot-leads';
   if (tab === 'jfll-customers') return 'jfll-customers';
   if (tab === 'report') return 'report';
   if (tab === 'apollo' || tab === 'companies') return 'companies';
@@ -1113,6 +1115,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const isJfllCategory = topTab === 'jfll-customers';
   const isDatamyneCategory = topTab === 'datamyne';
   const isCommodityRadarCategory = topTab === 'commodity-radar' || activeNav === 'commodity-radar';
+  const isHotLeadsCategory = topTab === 'hot-leads' || activeNav === 'hot-leads';
   const isReportCategory = topTab === 'report' || activeNav === 'report';
   const isTrackerCategory = topTab === 'tracker' || activeNav === 'tracker';
   const isApolloCategory = topTab === 'apollo' || topTab === 'companies' || topTab === 'people';
@@ -1196,6 +1199,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       setActiveNav('datamyne');
     } else if (normalizedTab === 'commodity-radar') {
       setActiveNav('commodity-radar');
+    } else if (normalizedTab === 'hot-leads') {
+      setActiveNav('hot-leads');
     } else if (normalizedTab === 'jfll-customers') {
       setActiveNav('jfll-customers');
     } else if (normalizedTab === 'report') {
@@ -1484,6 +1489,21 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           }}
           onNavigateToReport={(companyName) => {
             handleNavigateToReport(companyName, undefined, 'Commodity Radar');
+          }}
+        />
+      ) : isHotLeadsCategory ? (
+        <HotLeadsView
+          onFindInDatamyne={(query) => {
+            handleAudienceTabChange('datamyne');
+            setDatamyneSearch(query);
+          }}
+          onFindInApollo={(query) => {
+            handleAudienceTabChange('apollo');
+            setApolloSubTab('people');
+            setSearch(query);
+          }}
+          onNavigateToReport={(companyName) => {
+            handleNavigateToReport(companyName, undefined, 'Hot Leads');
           }}
         />
       ) : isApolloCategory && apolloSubTab === 'companies' ? (
