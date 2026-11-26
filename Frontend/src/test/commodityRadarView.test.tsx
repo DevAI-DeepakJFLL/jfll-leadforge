@@ -355,14 +355,15 @@ describe('CommodityRadarView Component Suite', () => {
     expect(html).toContain('Basmati Rice');
   });
 
-  it('renders Annual Gateway Surge Heatmap Matrix and Global Trade Corridors visualisations', () => {
+  it('renders Annual Freight Commodity Swimlane, Trade Flow Sankey switcher, and Global Corridors', () => {
     const html = renderToString(<CommodityRadarView />);
 
-    // Annual Gateway Surge Heatmap Matrix
-    expect(html).toContain('Annual Gateway Surge Heatmap Matrix');
+    // Hybrid Visual Radar controls
+    expect(html).toContain('Seasonal Timeline (Swimlane)');
+    expect(html).toContain('Trade Flow (Sankey)');
+    expect(html).toContain('Annual Freight Commodity Swimlane');
     expect(html).toContain('Active Peak Surge');
-    expect(html).toContain('Upcoming Lead Window');
-    expect(html).toContain('High Volume Flow');
+    expect(html).toContain('Lead Booking Window');
 
     // Global Trade Corridors & Multi-Modal Flow Radar
     expect(html).toContain('Global Trade Corridors &amp; Multi-Modal Flow Radar');
@@ -372,21 +373,20 @@ describe('CommodityRadarView Component Suite', () => {
     expect(html).toContain('Far East &amp; Asia-Pacific');
   });
 
-  it('clicking a heatmap cell invokes onFilterChange with cell month and hub', () => {
+  it('invoking onMonthChange from child timeline invokes onFilterChange with selected month', () => {
     const onFilterChange = vi.fn();
     const runner = renderRunner(CommodityRadarView, { onFilterChange });
 
-    // Find heatmap button for BOM in March (M03)
-    let bomMarchBtn: any = null;
+    let timelineNode: any = null;
     function traverse(n: any) {
-      if (!n || bomMarchBtn) return;
+      if (!n || timelineNode) return;
       if (Array.isArray(n)) {
         n.forEach(traverse);
         return;
       }
       if (typeof n !== 'object') return;
-      if (n.type === 'button' && typeof n.props?.title === 'string' && n.props.title.includes('BOM · M03 · March')) {
-        bomMarchBtn = n;
+      if (typeof n.props?.onMonthChange === 'function' && typeof n.props?.onHubChange === 'function') {
+        timelineNode = n;
         return;
       }
       if (n.props?.children) {
@@ -395,11 +395,11 @@ describe('CommodityRadarView Component Suite', () => {
     }
 
     traverse(runner.getVNode());
-    expect(bomMarchBtn).toBeDefined();
-    expect(bomMarchBtn).not.toBeNull();
+    expect(timelineNode).toBeDefined();
+    expect(timelineNode).not.toBeNull();
 
-    bomMarchBtn.props.onClick();
-    expect(onFilterChange).toHaveBeenCalledWith(3, 'BOM');
+    timelineNode.props.onMonthChange(3);
+    expect(onFilterChange).toHaveBeenCalledWith(3, 'ALL');
   });
 
   it('scroll container uses flex-1 overflow-y-auto min-h-0 overscroll-y-contain to fix scroll issue', () => {

@@ -22,7 +22,7 @@ import {
   Thermometer,
   Calendar,
   Globe,
-  Zap,
+  GitFork,
 } from 'lucide-react';
 import {
   MonthlyRecord,
@@ -35,6 +35,8 @@ import {
   getPrimaryCommodity,
 } from '@/data/freightCommoditiesData';
 import { CommodityDetailDrawer } from './CommodityDetailDrawer';
+import { CommoditySwimlaneTimeline } from './CommoditySwimlaneTimeline';
+import { CommodityCorridorSankey } from './CommodityCorridorSankey';
 
 export interface CommodityRadarViewProps {
   initialMonth?: number;
@@ -116,12 +118,8 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   const [viewMode, setViewMode] = useState<'cards' | 'matrix'>('cards');
   const [urgencyFilter, setUrgencyFilter] = useState<'all' | 'active' | 'upcoming'>('all');
 
-  // Heatmap interactive hover inspection cell
-  const [hoveredCell, setHoveredCell] = useState<{
-    hubId: GatewayHubId;
-    month: number;
-    record: MonthlyRecord;
-  } | null>(null);
+  // Interactive visual presentation: 'timeline' (Seasonal Swimlane) or 'sankey' (Trade Flow)
+  const [visualMode, setVisualMode] = useState<'timeline' | 'sankey'>('timeline');
 
   // Selected record for the right-side detail drawer
   const [drawerRecord, setDrawerRecord] = useState<MonthlyRecord | null>(null);
@@ -134,12 +132,6 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   const handleHubChange = (hub: GatewayHubId) => {
     setSelectedHub(hub);
     onFilterChange?.(selectedMonth, hub);
-  };
-
-  const handleMonthAndHubChange = (month: number, hub: GatewayHubId) => {
-    setSelectedMonth(month);
-    setSelectedHub(hub);
-    onFilterChange?.(month, hub);
   };
 
   // In-memory filtered dataset: when searching, searches across all 12 months & gateways!
@@ -195,15 +187,6 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   const allMonthRecords = useMemo(() => {
     return MONTHLY_COMMODITY_RECORDS.filter((r) => r.month === selectedMonth);
   }, [selectedMonth]);
-
-  // Pre-indexed map for instant Heatmap lookups: key = `${hubId}-${month}`
-  const heatmapLookup = useMemo(() => {
-    const map = new Map<string, MonthlyRecord>();
-    for (const r of MONTHLY_COMMODITY_RECORDS) {
-      map.set(`${r.hubId}-${r.month}`, r);
-    }
-    return map;
-  }, []);
 
   // Regional breakdown chart data
   const regionalBreakdown = useMemo(() => {
@@ -681,177 +664,64 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
           </div>
         )}
 
-        {/* VISUALISATION 1: Full-Year 12-Month × 8-Hub Freight Surge Heatmap Calendar */}
-        <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-2xs space-y-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
-            <div className="flex items-center gap-2">
-              <div className="p-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700">
-                <Calendar className="w-4 h-4 text-emerald-600" />
-              </div>
-              <div>
-                <h2 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                  Annual Gateway Surge Heatmap Matrix
-                  <span className="text-[10px] font-normal lowercase font-sans text-slate-400">
-                    (Click any cell to inspect month &amp; hub)
-                  </span>
-                </h2>
-                <p className="text-[11px] text-slate-500">
-                  96-cycle national freight calendar mapping peak harvest surges, booking lead windows, and equipment demand across all 8 hubs
-                </p>
-              </div>
+        {/* HYBRID VISUAL RADAR: Interactive Seasonal Swimlane Timeline & Trade Flow Sankey */}
+        <div className="space-y-2">
+          {/* View Switcher Controls */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => setVisualMode('timeline')}
+                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+                  visualMode === 'timeline'
+                    ? 'bg-white text-blue-700 shadow-2xs font-bold border border-slate-200/80'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                }`}
+              >
+                <Calendar className="w-3.5 h-3.5 text-blue-600" />
+                <span>Seasonal Timeline (Swimlane)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setVisualMode('sankey')}
+                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+                  visualMode === 'sankey'
+                    ? 'bg-white text-indigo-700 shadow-2xs font-bold border border-slate-200/80'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                }`}
+              >
+                <GitFork className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Trade Flow (Sankey)</span>
+              </button>
             </div>
 
-            {/* Heatmap Legend */}
-            <div className="flex items-center gap-3 text-[10px] font-medium text-slate-600">
-              <span className="flex items-center gap-1">
-                <span className="w-2.5 h-2.5 rounded bg-emerald-600 inline-block shadow-2xs" />
-                Active Peak Surge
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="w-2.5 h-2.5 rounded bg-amber-400 inline-block shadow-2xs" />
-                Upcoming Lead Window
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="w-2.5 h-2.5 rounded bg-sky-200 inline-block" />
-                High Volume Flow
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="w-2.5 h-2.5 rounded bg-slate-100 border border-slate-200 inline-block" />
-                Baseline
-              </span>
+            <div className="text-[11px] font-medium text-slate-500 px-2 hidden md:inline">
+              {visualMode === 'timeline'
+                ? 'Chronological 12-month harvest surges, booking lead windows & cold-chain regimes'
+                : 'End-to-end multi-tier logistics pathways from Indian Gateways to Global Corridors'}
             </div>
           </div>
 
-          {/* Interactive Heatmap Matrix Grid */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-center border-collapse text-xs select-none">
-              <thead>
-                <tr>
-                  <th className="py-1 px-2 text-left font-bold text-slate-500 text-[10px] uppercase w-20">
-                    Gateway
-                  </th>
-                  {MONTHS.map((m) => (
-                    <th
-                      key={m.value}
-                      onClick={() => handleMonthChange(m.value)}
-                      className={`py-1 px-1 font-bold text-[11px] cursor-pointer rounded transition-colors ${
-                        selectedMonth === m.value
-                          ? 'bg-blue-100 text-blue-900 font-extrabold'
-                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                      }`}
-                    >
-                      {m.short}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {HUBS.filter((h) => h.id !== 'ALL').map((hub) => (
-                  <tr key={hub.id} className="hover:bg-slate-50/60 transition-colors">
-                    <td
-                      onClick={() => handleHubChange(hub.id)}
-                      className={`py-1.5 px-2 text-left cursor-pointer transition-colors ${
-                        selectedHub === hub.id
-                          ? 'font-bold text-blue-700 bg-blue-50/70 rounded-l'
-                          : 'font-semibold text-slate-700 hover:text-blue-600'
-                      }`}
-                    >
-                      <div className="flex items-center gap-1">
-                        <span className="font-mono text-[11px] px-1 py-0.5 rounded bg-slate-100 text-slate-800 font-bold">
-                          {hub.code}
-                        </span>
-                        <span className="text-[10px] text-slate-500 hidden xl:inline truncate max-w-[70px]">
-                          {hub.label.split(' ')[0]}
-                        </span>
-                      </div>
-                    </td>
-
-                    {MONTHS.map((m) => {
-                      const rec = heatmapLookup.get(`${hub.id}-${m.value}`);
-                      const isActivePeak = rec?.bookingStatus === 'active';
-                      const isUpcoming = rec?.bookingStatus === 'upcoming';
-                      const isHighPriority = rec?.priority === 'HIGH';
-                      const isExactCell = selectedMonth === m.value && selectedHub === hub.id;
-                      const isColumnSelected = selectedMonth === m.value && selectedHub === 'ALL';
-
-                      let cellColor = 'bg-slate-100/90 text-slate-500 hover:bg-slate-200';
-                      if (isActivePeak) {
-                        cellColor = 'bg-emerald-600 text-white font-bold hover:bg-emerald-700 shadow-2xs';
-                      } else if (isUpcoming) {
-                        cellColor = 'bg-amber-100 text-amber-950 border border-amber-300 hover:bg-amber-200 font-semibold';
-                      } else if (isHighPriority) {
-                        cellColor = 'bg-sky-100 text-sky-900 border border-sky-200 hover:bg-sky-200 font-medium';
-                      }
-
-                      return (
-                        <td key={m.value} className="p-0.5">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              handleMonthAndHubChange(m.value, hub.id);
-                            }}
-                            onMouseEnter={() => {
-                              if (rec) setHoveredCell({ hubId: hub.id, month: m.value, record: rec });
-                            }}
-                            className={`w-full py-2 px-0.5 rounded text-[10px] font-mono transition-all flex items-center justify-center gap-1 ${cellColor} ${
-                              isExactCell
-                                ? 'ring-2 ring-blue-600 ring-offset-1 z-10 font-bold scale-105 shadow-xs'
-                                : isColumnSelected
-                                ? 'ring-1 ring-blue-400 font-semibold'
-                                : 'opacity-90 hover:opacity-100 hover:scale-102'
-                            }`}
-                            title={`${hub.code} · ${m.label}: ${rec?.season || ''}`}
-                          >
-                            {isActivePeak ? (
-                              <span className="flex items-center gap-1 font-bold">
-                                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse shrink-0" />
-                                <span className="hidden sm:inline text-[9px] tracking-tight">PEAK</span>
-                              </span>
-                            ) : isUpcoming ? (
-                              <span className="text-[9px] font-bold text-amber-950 hidden sm:inline">LEAD</span>
-                            ) : isHighPriority ? (
-                              <span className="text-[9px] font-semibold text-sky-900 hidden sm:inline">FLOW</span>
-                            ) : (
-                              <span className="text-[9px] text-slate-400 font-bold">·</span>
-                            )}
-                          </button>
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Dynamic Heatmap Tooltip & Inspection Strip */}
-          <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs bg-slate-50/70 p-2.5 rounded-lg border border-slate-200/70">
-            {hoveredCell ? (
-              <div className="flex items-center gap-2 truncate">
-                <span className="font-mono font-bold px-1.5 py-0.5 rounded bg-blue-600 text-white text-[11px]">
-                  {hoveredCell.hubId} · M{String(hoveredCell.month).padStart(2, '0')}
-                </span>
-                <span className="font-semibold text-slate-900 truncate">
-                  {hoveredCell.record.season}
-                </span>
-                <span className="text-slate-400 hidden md:inline">•</span>
-                <span className="text-[11px] text-slate-600 truncate hidden md:inline">
-                  {hoveredCell.record.equipment.split(';')[0]}
-                </span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2 text-slate-500 text-[11px]">
-                <Zap className="w-3.5 h-3.5 text-amber-500" />
-                <span>Hover over any month cell to preview freight surge details, or click to lock filters.</span>
-              </div>
-            )}
-
-            <div className="flex items-center gap-2 shrink-0">
-              <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                Selected: {currentMonthName} · {selectedHub === 'ALL' ? 'All 8 Hubs' : selectedHub}
-              </span>
-            </div>
-          </div>
+          {/* Active Visualization Mode */}
+          {visualMode === 'timeline' ? (
+            <CommoditySwimlaneTimeline
+              selectedMonth={selectedMonth}
+              selectedHub={selectedHub}
+              onMonthChange={handleMonthChange}
+              onHubChange={handleHubChange}
+              onSelectRecord={(rec) => setDrawerRecord(rec)}
+              urgencyFilter={urgencyFilter}
+              searchQuery={searchQuery}
+            />
+          ) : (
+            <CommodityCorridorSankey
+              selectedMonth={selectedMonth}
+              selectedHub={selectedHub}
+              onMonthChange={handleMonthChange}
+              onHubChange={handleHubChange}
+              onSelectCommodity={(comm) => setSearchQuery(comm.split(' ')[0])}
+            />
+          )}
         </div>
 
         {/* VISUALISATION 2 & 3: Regional Demand Matrix + Global Trade Corridor Radar */}
