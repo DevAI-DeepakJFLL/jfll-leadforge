@@ -364,5 +364,24 @@ describe('Audience Context & Subcategory Explanations Suite', () => {
     expect(html).toContain('Perishables &amp; Cold Chain Shippers');
     expect(html).toContain('Time-critical cold-chain cargo: fresh fruits, vegetables, seafood, meat, and floriculture.');
     expect(html).toContain('Details &amp; Guidance');
+    // Verify Maximize Table toggle is present in DataMyne header
+    expect(html).toContain('aria-label="Maximize table vertical space"');
+    expect(html).toContain('Maximize Table');
+  });
+
+  it('renders SegmentContextBanner in minimized mode when isDismissed is true', () => {
+    const html = renderToString(
+      <SegmentContextBanner
+        title="Perishables & Cold Chain Shippers"
+        count={589}
+        description="Time-critical cold-chain cargo."
+        isDismissed={true}
+        onDismissChange={() => {}}
+      />
+    );
+
+    expect(html).toContain('Info bar minimized');
+    expect(html).toContain('Show info');
+    expect(html).not.toContain('Details &amp; Guidance');
   });
 });

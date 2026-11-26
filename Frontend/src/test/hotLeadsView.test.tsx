@@ -207,4 +207,17 @@ describe('HotLeadsView & HotLeadDetailDrawer UI Components', () => {
     );
     expect(htmlNull).toBe('');
   });
+
+  it('renders flexible layout controls with Maximize Table toggle and sticky headers', () => {
+    const html = renderToString(<HotLeadsView />);
+
+    // Maximize Table toggle button
+    expect(html).toContain('aria-label="Maximize table vertical space"');
+    expect(html).toContain('Maximize Table');
+
+    // Flexible layout and sticky headers
+    expect(html).toContain('overflow-hidden');
+    expect(html).toContain('overflow-auto flex-1 min-h-0');
+    expect(html).toContain('sticky top-0 z-10');
+  });
 });

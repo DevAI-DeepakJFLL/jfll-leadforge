@@ -11,6 +11,8 @@ export interface SegmentContextBannerProps {
   variant?: 'amber' | 'emerald' | 'blue' | 'purple' | 'slate';
   storageKey?: string;
   className?: string;
+  isDismissed?: boolean;
+  onDismissChange?: (dismissed: boolean) => void;
 }
 
 export const SegmentContextBanner: React.FC<SegmentContextBannerProps> = ({
@@ -23,24 +25,34 @@ export const SegmentContextBanner: React.FC<SegmentContextBannerProps> = ({
   variant = 'blue',
   storageKey,
   className = '',
+  isDismissed: controlledDismissed,
+  onDismissChange,
 }) => {
-  const [isDismissed, setIsDismissed] = useState(false);
+  const [internalDismissed, setInternalDismissed] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const isDismissed = controlledDismissed !== undefined ? controlledDismissed : internalDismissed;
+
   useEffect(() => {
-    // Reset dismissed state whenever tab/title changes so the active category info is always presented
-    setIsDismissed(false);
-    if (storageKey) {
-      try {
-        sessionStorage.removeItem(`banner_dismissed_${storageKey}`);
-      } catch {
-        // Ignored
+    // Reset internal dismissed state when title changes only if uncontrolled
+    if (controlledDismissed === undefined) {
+      setInternalDismissed(false);
+      if (storageKey) {
+        try {
+          sessionStorage.removeItem(`banner_dismissed_${storageKey}`);
+        } catch {
+          // Ignored
+        }
       }
     }
-  }, [storageKey, title]);
+  }, [storageKey, title, controlledDismissed]);
 
-  const handleDismiss = () => {
-    setIsDismissed(true);
+  const handleDismiss = (dismiss: boolean) => {
+    if (onDismissChange) {
+      onDismissChange(dismiss);
+    } else {
+      setInternalDismissed(dismiss);
+    }
   };
 
   const styles = {
@@ -92,7 +104,7 @@ export const SegmentContextBanner: React.FC<SegmentContextBannerProps> = ({
         </div>
         <button
           type="button"
-          onClick={() => setIsDismissed(false)}
+          onClick={() => handleDismiss(false)}
           className="text-xs font-semibold text-apollo hover:text-apollo-700 hover:underline inline-flex items-center gap-1 cursor-pointer shrink-0"
         >
           <span>Show info</span>
@@ -153,7 +165,7 @@ export const SegmentContextBanner: React.FC<SegmentContextBannerProps> = ({
         {/* Right: Dismiss button */}
         <button
           type="button"
-          onClick={handleDismiss}
+          onClick={() => handleDismiss(true)}
           className="text-slate-400 hover:text-slate-600 rounded p-1 shrink-0 cursor-pointer focus:outline-none"
           aria-label="Dismiss banner"
           title="Dismiss banner"

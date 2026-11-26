@@ -15,6 +15,8 @@ import {
   Mail,
   Copy,
   Eye,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 import {
   HotLead,
@@ -74,6 +76,27 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
   const [records, setRecords] = useState<HotLead[]>(() => HOT_LEADS_DATA);
   const [metrics, setMetrics] = useState(() => computeHotLeadsMetrics(HOT_LEADS_DATA));
   const [, setCopiedKey] = useState<string | null>(null);
+  const [isOverviewCollapsed, setIsOverviewCollapsed] = useState<boolean>(() => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        return window.localStorage.getItem('jfll_hotleads_overview_collapsed') === 'true';
+      }
+    } catch {
+      // Ignored
+    }
+    return false;
+  });
+
+  const handleToggleOverviewCollapse = (collapsed: boolean) => {
+    setIsOverviewCollapsed(collapsed);
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem('jfll_hotleads_overview_collapsed', String(collapsed));
+      }
+    } catch {
+      // Ignored
+    }
+  };
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -178,150 +201,202 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
   }, [category, metrics]);
 
   return (
-    <div className="flex-1 overflow-y-auto bg-slate-50 text-slate-900 flex flex-col min-h-0">
+    <div className="flex-1 bg-slate-50 text-slate-900 flex flex-col min-h-0 overflow-hidden">
       {/* Top Banner / Header */}
-      <div className="bg-white border-b border-slate-200 px-6 py-5 shrink-0 shadow-2xs">
+      <div
+        className={`bg-white border-b border-slate-200 px-4 sm:px-6 shrink-0 shadow-2xs transition-all ${
+          isOverviewCollapsed ? 'py-2.5' : 'py-4 sm:py-5'
+        }`}
+      >
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-600">
-                  <Flame className="w-5 h-5 fill-amber-500/20" />
+          <div className="flex flex-row items-center justify-between gap-4">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <div className="p-1.5 sm:p-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 shrink-0">
+                  <Flame className="w-4 h-4 sm:w-5 sm:h-5 fill-amber-500/20" />
                 </div>
-                <h1 className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-                  Hot High-Turnover Leads
-                  <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+                <h1 className="text-base sm:text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2 shrink-0">
+                  <span>Hot High-Turnover Leads</span>
+                  <span className="px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
                     60 Enterprise Accounts
                   </span>
                 </h1>
+
+                {/* Compact inline summary shown when overview is collapsed */}
+                {isOverviewCollapsed && (
+                  <div className="hidden lg:flex items-center gap-2 text-xs text-slate-500 font-normal pl-1">
+                    <span className="text-slate-300">·</span>
+                    <span className="font-semibold text-emerald-700 font-mono">
+                      {formatInrCurrency(metrics.totalTurnover)}
+                    </span>
+                    <span className="text-slate-400">turnover</span>
+                    <span className="text-slate-300">·</span>
+                    <span className="text-emerald-700 font-medium">{metrics.activeCount} Active</span>
+                    <span className="text-slate-300">·</span>
+                    <span className="text-amber-700 font-medium">{metrics.inactiveCount} Inactive</span>
+                    <span className="text-slate-300">·</span>
+                    <span className="text-blue-700 font-medium">{metrics.freshCount} Fresh</span>
+                    <span className="text-slate-300">·</span>
+                    <span className="text-purple-700 font-medium">{metrics.withContactsCount} With Contacts</span>
+                  </div>
+                )}
               </div>
-              <p className="text-xs text-slate-500 mt-1.5 max-w-3xl leading-relaxed">
-                60 verified enterprise freight accounts with high commercial turnover (₹47.66 Cr billing). Segmented into JFLL Active, JFLL Inactive, and Fresh Data with direct decision-maker contact details.
-              </p>
+
+              {!isOverviewCollapsed && (
+                <p className="text-xs text-slate-500 mt-1.5 max-w-3xl leading-relaxed">
+                  60 verified enterprise freight accounts with high commercial turnover (₹47.66 Cr billing). Segmented into JFLL Active, JFLL Inactive, and Fresh Data with direct decision-maker contact details.
+                </p>
+              )}
             </div>
+
+            {/* Maximize Table / Show Overview Toggle Button */}
+            <button
+              type="button"
+              onClick={() => handleToggleOverviewCollapse(!isOverviewCollapsed)}
+              aria-expanded={!isOverviewCollapsed}
+              aria-label={isOverviewCollapsed ? 'Show overview metrics and summary' : 'Maximize table vertical space'}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition-colors shadow-2xs cursor-pointer shrink-0"
+              title={isOverviewCollapsed ? 'Show overview metrics and summary' : 'Maximize table vertical space'}
+            >
+              {isOverviewCollapsed ? (
+                <>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="hidden sm:inline">Show Overview</span>
+                  <span className="sm:hidden">Overview</span>
+                </>
+              ) : (
+                <>
+                  <ChevronUp className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="hidden sm:inline">Maximize Table</span>
+                  <span className="sm:hidden">Maximize</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
       </div>
 
       {/* Quick Metrics Strip */}
-      <div className="bg-white border-b border-slate-200 px-6 py-3 shrink-0">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-            {/* Metric 1: Total Turnover */}
-            <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col hover:border-slate-300 transition-colors shadow-2xs">
-              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
-                <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
-                Verified Annual Turnover
-              </span>
-              <span className="text-lg font-extrabold text-emerald-700 mt-1 font-mono tracking-tight">
-                {formatInrCurrency(metrics.totalTurnover)}
-              </span>
-              <span className="text-[11px] text-slate-500 mt-0.5">Across 60 enterprise accounts</span>
-            </div>
+      {!isOverviewCollapsed && (
+        <div className="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 shrink-0">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+              {/* Metric 1: Total Turnover */}
+              <div className="p-3 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col hover:border-slate-300 transition-colors shadow-2xs">
+                <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
+                  <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+                  Verified Annual Turnover
+                </span>
+                <span className="text-lg font-extrabold text-emerald-700 mt-1 font-mono tracking-tight">
+                  {formatInrCurrency(metrics.totalTurnover)}
+                </span>
+                <span className="text-[11px] text-slate-500 mt-0.5">Across 60 enterprise accounts</span>
+              </div>
 
-            {/* Metric 2: JFLL Active */}
-            <div
-              onClick={() => {
-                setCategory('active');
-                setContactFilter('all');
-              }}
-              className={`p-3 rounded-xl border flex flex-col transition-all cursor-pointer shadow-2xs ${
-                category === 'active'
-                  ? 'bg-emerald-50/70 border-emerald-300 ring-1 ring-emerald-400'
-                  : 'bg-slate-50/80 border-slate-200/80 hover:border-emerald-300'
-              }`}
-            >
-              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
-                <Building2 className="w-3.5 h-3.5 text-emerald-600" />
-                JFLL Active
-              </span>
-              <span className="text-lg font-extrabold text-emerald-700 mt-1 tracking-tight">
-                {metrics.activeCount}
-              </span>
-              <span className="text-[11px] text-slate-500 mt-0.5">
-                {metrics.activeWithContactsCount} With Contacts · {metrics.activeWithoutContactsCount} Without
-              </span>
-            </div>
+              {/* Metric 2: JFLL Active */}
+              <div
+                onClick={() => {
+                  setCategory('active');
+                  setContactFilter('all');
+                }}
+                className={`p-3 rounded-xl border flex flex-col transition-all cursor-pointer shadow-2xs ${
+                  category === 'active'
+                    ? 'bg-emerald-50/70 border-emerald-300 ring-1 ring-emerald-400'
+                    : 'bg-slate-50/80 border-slate-200/80 hover:border-emerald-300'
+                }`}
+              >
+                <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
+                  <Building2 className="w-3.5 h-3.5 text-emerald-600" />
+                  JFLL Active
+                </span>
+                <span className="text-lg font-extrabold text-emerald-700 mt-1 tracking-tight">
+                  {metrics.activeCount}
+                </span>
+                <span className="text-[11px] text-slate-500 mt-0.5">
+                  {metrics.activeWithContactsCount} With Contacts · {metrics.activeWithoutContactsCount} Without
+                </span>
+              </div>
 
-            {/* Metric 3: JFLL Inactive */}
-            <div
-              onClick={() => {
-                setCategory('inactive');
-                setContactFilter('all');
-              }}
-              className={`p-3 rounded-xl border flex flex-col transition-all cursor-pointer shadow-2xs ${
-                category === 'inactive'
-                  ? 'bg-amber-50/70 border-amber-300 ring-1 ring-amber-400'
-                  : 'bg-slate-50/80 border-slate-200/80 hover:border-amber-300'
-              }`}
-            >
-              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
-                <RotateCcw className="w-3.5 h-3.5 text-amber-600" />
-                JFLL Inactive
-              </span>
-              <span className="text-lg font-extrabold text-amber-700 mt-1 tracking-tight">
-                {metrics.inactiveCount}
-              </span>
-              <span className="text-[11px] text-slate-500 mt-0.5">
-                {metrics.inactiveWithContactsCount} With Contacts · {metrics.inactiveWithoutContactsCount} Without
-              </span>
-            </div>
+              {/* Metric 3: JFLL Inactive */}
+              <div
+                onClick={() => {
+                  setCategory('inactive');
+                  setContactFilter('all');
+                }}
+                className={`p-3 rounded-xl border flex flex-col transition-all cursor-pointer shadow-2xs ${
+                  category === 'inactive'
+                    ? 'bg-amber-50/70 border-amber-300 ring-1 ring-amber-400'
+                    : 'bg-slate-50/80 border-slate-200/80 hover:border-amber-300'
+                }`}
+              >
+                <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
+                  <RotateCcw className="w-3.5 h-3.5 text-amber-600" />
+                  JFLL Inactive
+                </span>
+                <span className="text-lg font-extrabold text-amber-700 mt-1 tracking-tight">
+                  {metrics.inactiveCount}
+                </span>
+                <span className="text-[11px] text-slate-500 mt-0.5">
+                  {metrics.inactiveWithContactsCount} With Contacts · {metrics.inactiveWithoutContactsCount} Without
+                </span>
+              </div>
 
-            {/* Metric 4: Fresh Data */}
-            <div
-              onClick={() => {
-                setCategory('fresh');
-                setContactFilter('all');
-              }}
-              className={`p-3 rounded-xl border flex flex-col transition-all cursor-pointer shadow-2xs ${
-                category === 'fresh'
-                  ? 'bg-blue-50/70 border-blue-300 ring-1 ring-blue-400'
-                  : 'bg-slate-50/80 border-slate-200/80 hover:border-blue-300'
-              }`}
-            >
-              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                Fresh Data
-              </span>
-              <span className="text-lg font-extrabold text-blue-700 mt-1 tracking-tight">
-                {metrics.freshCount}
-              </span>
-              <span className="text-[11px] text-slate-500 mt-0.5">
-                {metrics.freshWithContactsCount} With Contacts · {metrics.freshWithoutContactsCount} Without
-              </span>
-            </div>
+              {/* Metric 4: Fresh Data */}
+              <div
+                onClick={() => {
+                  setCategory('fresh');
+                  setContactFilter('all');
+                }}
+                className={`p-3 rounded-xl border flex flex-col transition-all cursor-pointer shadow-2xs ${
+                  category === 'fresh'
+                    ? 'bg-blue-50/70 border-blue-300 ring-1 ring-blue-400'
+                    : 'bg-slate-50/80 border-slate-200/80 hover:border-blue-300'
+                }`}
+              >
+                <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                  Fresh Data
+                </span>
+                <span className="text-lg font-extrabold text-blue-700 mt-1 tracking-tight">
+                  {metrics.freshCount}
+                </span>
+                <span className="text-[11px] text-slate-500 mt-0.5">
+                  {metrics.freshWithContactsCount} With Contacts · {metrics.freshWithoutContactsCount} Without
+                </span>
+              </div>
 
-            {/* Metric 5: Contact Coverage */}
-            <div
-              onClick={() => {
-                setCategory('all');
-                setContactFilter('with-contacts');
-              }}
-              className={`p-3 rounded-xl border flex flex-col col-span-2 sm:col-span-1 transition-all cursor-pointer shadow-2xs ${
-                contactFilter === 'with-contacts' && category === 'all'
-                  ? 'bg-purple-50/70 border-purple-300 ring-1 ring-purple-400'
-                  : 'bg-slate-50/80 border-slate-200/80 hover:border-purple-300'
-              }`}
-            >
-              <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
-                <UserCheck className="w-3.5 h-3.5 text-purple-600" />
-                Contact Coverage
-              </span>
-              <span className="text-lg font-extrabold text-purple-700 mt-1 tracking-tight">
-                {metrics.withContactsCount} / {metrics.totalCount}
-              </span>
-              <span className="text-[11px] text-slate-500 mt-0.5">
-                {metrics.withContactsCount} With Contacts · {metrics.withoutContactsCount} Without
-              </span>
+              {/* Metric 5: Contact Coverage */}
+              <div
+                onClick={() => {
+                  setCategory('all');
+                  setContactFilter('with-contacts');
+                }}
+                className={`p-3 rounded-xl border flex flex-col col-span-2 sm:col-span-1 transition-all cursor-pointer shadow-2xs ${
+                  contactFilter === 'with-contacts' && category === 'all'
+                    ? 'bg-purple-50/70 border-purple-300 ring-1 ring-purple-400'
+                    : 'bg-slate-50/80 border-slate-200/80 hover:border-purple-300'
+                }`}
+              >
+                <span className="text-xs text-slate-600 font-medium flex items-center gap-1.5">
+                  <UserCheck className="w-3.5 h-3.5 text-purple-600" />
+                  Contact Coverage
+                </span>
+                <span className="text-lg font-extrabold text-purple-700 mt-1 tracking-tight">
+                  {metrics.withContactsCount} / {metrics.totalCount}
+                </span>
+                <span className="text-[11px] text-slate-500 mt-0.5">
+                  {metrics.withContactsCount} With Contacts · {metrics.withoutContactsCount} Without
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto w-full px-6 py-6 flex-1 flex flex-col min-h-0 space-y-4">
+      <div className="max-w-7xl mx-auto w-full px-3 sm:px-6 py-3 flex-1 flex flex-col min-h-0 gap-3 overflow-hidden">
         {/* Controls Bar: 2-Tier Segment Tabs (Category + With/Without Contacts) + Search */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
           {/* Tier 1 & Tier 2 Segment Controls */}
           <div className="flex flex-wrap items-center gap-2">
             {/* Primary Category Pills */}
@@ -439,9 +514,9 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
 
         {/* Data Table */}
         <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-2xs flex-1 flex flex-col min-h-0">
-          <div className="overflow-x-auto flex-1">
+          <div className="overflow-auto flex-1 min-h-0">
             <table className="w-full text-left border-collapse text-xs">
-              <thead className="bg-slate-50/90 border-b border-slate-200 text-slate-600 sticky top-0 z-10 select-none">
+              <thead className="bg-slate-50/95 backdrop-blur-xs border-b border-slate-200 text-slate-600 sticky top-0 z-10 select-none">
                 <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
                   <th scope="col" className="py-2.5 px-3 w-10 text-center font-semibold text-slate-500">#</th>
                   <th

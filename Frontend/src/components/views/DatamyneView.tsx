@@ -7,7 +7,7 @@ import {
   DatamyneActiveFilterChips,
   DatamyneTable,
 } from '@/components/datamyne';
-import { Sparkles, Layers } from 'lucide-react';
+import { Sparkles, Layers, ChevronDown, ChevronUp } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { useToast, SegmentContextBanner } from '@/components/ui';
 import { TierAudienceTabs } from '@/components/tiers';
@@ -129,6 +129,28 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
   isLoading,
 }) => {
   const [perspective, setPerspective] = React.useState<'verticals' | 'tiers'>('verticals');
+  const [isBannerCollapsed, setIsBannerCollapsed] = React.useState<boolean>(() => {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        return window.localStorage.getItem('jfll_datamyne_banner_collapsed') === 'true';
+      }
+    } catch {
+      // Ignored
+    }
+    return false;
+  });
+
+  const handleToggleBannerCollapse = (collapsed: boolean) => {
+    setIsBannerCollapsed(collapsed);
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem('jfll_datamyne_banner_collapsed', String(collapsed));
+      }
+    } catch {
+      // Ignored
+    }
+  };
+
   const {
     tab: tierTab,
     setTab: setTierTab,
@@ -649,11 +671,33 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             </div>
           </div>
 
-          {/* Current Scope total count on the right */}
-          <div className="hidden lg:flex items-center gap-1.5 text-xs text-slate-500 shrink-0 pl-2">
-            <span className="text-slate-400">Scope:</span>
-            <strong className="text-slate-800 font-semibold">{displayTotalFormatted}</strong>
-            <span className="text-slate-500">Leads</span>
+          {/* Current Scope total count and Maximize Table toggle */}
+          <div className="flex items-center gap-2 text-xs text-slate-500 shrink-0 pl-2">
+            <div className="hidden lg:flex items-center gap-1.5">
+              <span className="text-slate-400">Scope:</span>
+              <strong className="text-slate-800 font-semibold">{displayTotalFormatted}</strong>
+              <span className="text-slate-500">Leads</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => handleToggleBannerCollapse(!isBannerCollapsed)}
+              aria-expanded={!isBannerCollapsed}
+              aria-label={isBannerCollapsed ? 'Show category guidance banner' : 'Maximize table vertical space'}
+              className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 transition-colors cursor-pointer"
+              title={isBannerCollapsed ? 'Show category guidance banner' : 'Maximize table vertical space'}
+            >
+              {isBannerCollapsed ? (
+                <>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="hidden sm:inline">Show Banner</span>
+                </>
+              ) : (
+                <>
+                  <ChevronUp className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="hidden sm:inline">Maximize Table</span>
+                </>
+              )}
+            </button>
           </div>
         </div>
 
@@ -699,7 +743,7 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
           onClearAll={clearAllFilters}
         />
 
-        <div className="flex-1 flex flex-col px-3 sm:px-4 py-2 min-h-0 overflow-hidden">
+        <div className="flex-1 flex flex-col px-3 sm:px-4 py-1.5 min-h-0 overflow-hidden">
           <SegmentContextBanner
             title={bannerConfig.title}
             count={bannerConfig.count}
@@ -707,7 +751,9 @@ export const DatamyneView: React.FC<DatamyneViewProps> = ({
             criteria={bannerConfig.criteria}
             actionTip={bannerConfig.actionTip}
             variant={bannerConfig.variant}
-            className="mb-2 shrink-0"
+            isDismissed={isBannerCollapsed}
+            onDismissChange={handleToggleBannerCollapse}
+            className="mb-1.5 shrink-0"
           />
           <DatamyneTable
             leads={displayItems}
