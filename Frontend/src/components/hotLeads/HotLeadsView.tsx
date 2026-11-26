@@ -541,7 +541,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                   </th>
                   <th
                     scope="col"
-                    className="py-2.5 px-3.5 min-w-[120px] font-semibold cursor-pointer hover:text-blue-700 transition-colors"
+                    className="py-2.5 px-3.5 min-w-[210px] font-semibold cursor-pointer hover:text-blue-700 transition-colors"
                     onClick={() => handleSortToggle('status')}
                   >
                     <div className="flex items-center gap-1.5">
@@ -635,34 +635,34 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                             </span>
                           </div>
                         </td>
-                        <td className="py-3 px-3.5 align-middle">
-                          <div className="flex flex-col gap-1 items-start">
+                        <td className="py-3 px-3.5 align-middle whitespace-nowrap">
+                          <div className="flex items-center gap-1.5 whitespace-nowrap">
                             {cat === 'active' && (
-                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 whitespace-nowrap">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 whitespace-nowrap shrink-0">
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                 JFLL Active
                               </span>
                             )}
                             {cat === 'inactive' && (
-                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 whitespace-nowrap">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 whitespace-nowrap shrink-0">
                                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                                 JFLL Inactive
                               </span>
                             )}
                             {cat === 'fresh' && (
-                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap">
+                              <span className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap shrink-0">
                                 <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                                 Fresh Data
                               </span>
                             )}
 
                             {hasContact ? (
-                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap shrink-0">
                                 <CheckCircle2 className="w-2.5 h-2.5" />
                                 With Contacts
                               </span>
                             ) : (
-                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-500 border border-slate-200">
+                              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-500 border border-slate-200 whitespace-nowrap shrink-0">
                                 Without Contacts
                               </span>
                             )}

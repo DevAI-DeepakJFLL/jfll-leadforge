@@ -104,7 +104,6 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   initialHub,
   initialSearchQuery,
   onFilterChange,
-  onFindInDatamyne,
   onFindInApollo,
   onNavigateToReport,
   className = '',
@@ -1072,23 +1071,10 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
                               type="button"
                               onClick={() => setDrawerRecord(record)}
                               className="px-2.5 py-1 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors shadow-2xs"
-                              title="View Playbook & Pitch Script"
+                              title="View Operational Playbook"
                             >
                               Playbook
                             </button>
-                            {onFindInDatamyne && (
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const targetTerm = getPrimaryCommodity(record) || (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
-                                  onFindInDatamyne(targetTerm);
-                                }}
-                                className="p-1.5 text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg transition-colors shadow-2xs"
-                                title="Find in DataMyne"
-                              >
-                                <Ship className="w-3.5 h-3.5 text-blue-600" />
-                              </button>
-                            )}
                             {onFindInApollo && (
                               <button
                                 type="button"
@@ -1265,27 +1251,13 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
                       type="button"
                       onClick={() => setDrawerRecord(record)}
                       className="px-3 py-1.5 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
+                      title="View Operational Playbook"
                     >
                       <FileText className="w-3.5 h-3.5" />
-                      <span>View Playbook &amp; Pitch Script</span>
+                      <span>View Operational Playbook</span>
                     </button>
 
                     <div className="flex items-center gap-1.5">
-                      {onFindInDatamyne && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const targetTerm = getPrimaryCommodity(record) || (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
-                            onFindInDatamyne(targetTerm);
-                          }}
-                          className="px-2.5 py-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors flex items-center gap-1 shadow-2xs"
-                          title="Find in DataMyne"
-                        >
-                          <Ship className="w-3.5 h-3.5 text-blue-600" />
-                          <span className="hidden sm:inline">Find in DataMyne</span>
-                        </button>
-                      )}
-
                       {onFindInApollo && (
                         <button
                           type="button"
@@ -1314,7 +1286,6 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
         isOpen={!!drawerRecord}
         record={drawerRecord}
         onClose={() => setDrawerRecord(null)}
-        onFindInDatamyne={onFindInDatamyne}
         onFindInApollo={onFindInApollo}
         onNavigateToReport={onNavigateToReport}
       />

@@ -7,8 +7,6 @@ import {
   Thermometer,
   MapPin,
   Clock,
-  Copy,
-  Check,
   Users,
   Compass,
   FileText,
@@ -37,21 +35,15 @@ export const CommodityDetailDrawer: React.FC<CommodityDetailDrawerProps> = ({
   isOpen,
   record,
   onClose,
-  onFindInDatamyne,
   onFindInApollo,
   onNavigateToReport,
 }) => {
-  const [copiedPitch, setCopiedPitch] = useState(false);
-  const [activeTab, setActiveTab] = useState<'playbook' | 'coldchain' | 'pitch'>('playbook');
-  const copyTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [activeTab, setActiveTab] = useState<'playbook' | 'coldchain'>('playbook');
   const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
 
-  // Clean up copy notification timer on unmount and restore focus if open
+  // Restore focus if open
   useEffect(() => {
     return () => {
-      if (copyTimerRef.current) {
-        clearTimeout(copyTimerRef.current);
-      }
       if (previouslyFocusedElementRef.current) {
         previouslyFocusedElementRef.current.focus?.();
         previouslyFocusedElementRef.current = null;
@@ -88,62 +80,6 @@ export const CommodityDetailDrawer: React.FC<CommodityDetailDrawerProps> = ({
 
   const hubInfo = HUB_GATEWAYS[record.hubId as GatewayHubId] || HUB_GATEWAYS.ALL;
   const coldChainSpecs: ColdChainSpec[] = getColdChainSpecsByHub(record.hubId as GatewayHubId);
-
-  // Generate tailored pitch copy
-  const pitchSubject = `Jet Freight Logistics: Dedicated Capacity & Handling for ${record.hubName} ${record.monthName} Shipments`;
-  const pitchBody = `Dear Supply Chain Team,
-
-As the peak shipping window for ${record.season} ramps up across ${record.hubName}, securing reliable freight allocation and temperature integrity is critical.
-
-At Jet Freight Logistics, we have locked dedicated capacities for:
-• Air Outbound: ${record.airExport}
-• Ocean FCL & Reefers: ${record.seaExport}
-• Drayage Corridors: ${record.gateways}
-• Specialized Equipment: ${record.equipment}
-
-Given current commercial booking lead times (${record.bookingWindow}), we recommend reserving space 4-6 weeks prior to vessel/flight departure to guarantee carrier space and competitive tariff tiers.
-
-Could we schedule a brief 10-minute briefing call this week to review your volume forecasts for ${record.tradeLanes}?
-
-Best regards,
-Commercial Trade Lane Team | Jet Freight Logistics Ltd.`;
-
-  const handleCopyPitch = async () => {
-    const textToCopy = `${pitchSubject}\n\n${pitchBody}`;
-    let success = false;
-
-    // Primary: Modern Async Clipboard API in secure contexts
-    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
-      try {
-        await navigator.clipboard.writeText(textToCopy);
-        success = true;
-      } catch {
-        // Fall through to fallback
-      }
-    }
-
-    // Defensive Fallback: Ephemeral textarea for sandboxed or legacy contexts
-    if (!success && typeof document !== 'undefined') {
-      try {
-        const textArea = document.createElement('textarea');
-        textArea.value = textToCopy;
-        textArea.style.position = 'fixed';
-        textArea.style.opacity = '0';
-        document.body.appendChild(textArea);
-        textArea.select();
-        success = document.execCommand('copy');
-        document.body.removeChild(textArea);
-      } catch {
-        success = false;
-      }
-    }
-
-    if (success) {
-      setCopiedPitch(true);
-      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-      copyTimerRef.current = setTimeout(() => setCopiedPitch(false), 2000);
-    }
-  };
 
   const getStatusBadge = () => {
     if (record.bookingStatus === 'active') {
@@ -246,18 +182,6 @@ Commercial Trade Lane Team | Jet Freight Logistics Ltd.`;
               >
                 <Thermometer className="w-4 h-4" />
                 Cold-Chain Regimes ({coldChainSpecs.length})
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab('pitch')}
-                className={`py-3 border-b-2 transition-colors flex items-center gap-1.5 ${
-                  activeTab === 'pitch'
-                    ? 'border-blue-600 text-blue-600'
-                    : 'border-transparent text-slate-500 hover:text-slate-900'
-                }`}
-              >
-                <FileText className="w-4 h-4" />
-                Sales Pitch Script
               </button>
             </div>
           </div>
@@ -485,119 +409,37 @@ Commercial Trade Lane Team | Jet Freight Logistics Ltd.`;
                 )}
               </div>
             )}
-
-            {activeTab === 'pitch' && (
-              <div className="space-y-4">
-                <div className="p-3 rounded-lg bg-blue-50/60 border border-blue-200 flex items-center justify-between text-xs text-blue-900">
-                  <span>
-                    Auto-generated sales outreach template for <strong>{record.hubName}</strong> prospects.
-                  </span>
-                  <div className="flex items-center">
-                    <span role="status" aria-live="polite" className="sr-only">
-                      {copiedPitch ? 'Sales pitch copied to clipboard' : ''}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={handleCopyPitch}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition-all shadow-2xs ${
-                        copiedPitch ? 'ring-2 ring-emerald-400/50' : ''
-                      }`}
-                    >
-                      {copiedPitch ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-white" />
-                          Copied!
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5 text-white" />
-                          Copy Pitch
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 font-mono text-xs text-slate-800 whitespace-pre-wrap leading-relaxed select-all">
-                  <p className="font-bold text-slate-900 pb-2 border-b border-slate-200 mb-2">
-                    Subject: {pitchSubject}
-                  </p>
-                  {pitchBody}
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Drawer Sticky Footer Actions */}
-          <div className="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between gap-3 shrink-0">
-            <div className="flex items-center">
-              <span role="status" aria-live="polite" className="sr-only">
-                {copiedPitch ? 'Sales pitch copied to clipboard' : ''}
-              </span>
+          <div className="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-end gap-2 shrink-0">
+            {onNavigateToReport && (
               <button
                 type="button"
-                onClick={handleCopyPitch}
-                className={`px-3.5 py-2 text-xs font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-200/70 border border-slate-300 rounded-lg transition-all flex items-center gap-1.5 ${
-                  copiedPitch ? 'ring-2 ring-emerald-400/50' : ''
-                }`}
+                onClick={() => {
+                  const firstCluster = (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
+                  onNavigateToReport(firstCluster);
+                }}
+                className="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
               >
-                {copiedPitch ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Copied to Clipboard</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-slate-500" />
-                    <span>Copy Sales Pitch</span>
-                  </>
-                )}
+                <FileText className="w-3.5 h-3.5 text-slate-500" />
+                <span>Report</span>
               </button>
-            </div>
+            )}
 
-            <div className="flex items-center gap-2">
-              {onNavigateToReport && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const firstCluster = (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
-                    onNavigateToReport(firstCluster);
-                  }}
-                  className="px-3 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-100 border border-slate-300 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
-                >
-                  <FileText className="w-3.5 h-3.5 text-slate-500" />
-                  <span>Report</span>
-                </button>
-              )}
-
-              {onFindInDatamyne && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const firstCluster = (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
-                    onFindInDatamyne(firstCluster);
-                  }}
-                  className="px-3.5 py-2 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors flex items-center gap-1.5"
-                >
-                  <Ship className="w-3.5 h-3.5" />
-                  <span>Find Shippers in DataMyne</span>
-                </button>
-              )}
-
-              {onFindInApollo && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const firstCluster = (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
-                    onFindInApollo(firstCluster);
-                  }}
-                  className="px-3.5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
-                >
-                  <Users className="w-3.5 h-3.5" />
-                  <span>Find in Apollo</span>
-                </button>
-              )}
-            </div>
+            {onFindInApollo && (
+              <button
+                type="button"
+                onClick={() => {
+                  const firstCluster = (record.clusters || '').split(',')[0]?.split('(')[0]?.trim() || record.hubName;
+                  onFindInApollo(firstCluster);
+                }}
+                className="px-3.5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
+              >
+                <Users className="w-3.5 h-3.5" />
+                <span>Find in Apollo</span>
+              </button>
+            )}
           </div>
         </aside>
       </div>

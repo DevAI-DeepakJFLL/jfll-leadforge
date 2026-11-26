@@ -356,7 +356,7 @@ export const CommoditySwimlaneTimeline: React.FC<CommoditySwimlaneTimelineProps>
             </span>
             <span className="text-slate-400 hidden md:inline">•</span>
             <span className="text-[11px] text-slate-500 hidden md:inline truncate">
-              Hover any commodity bar for live specs, or click to lock month &amp; launch commercial pitch script.
+              Hover any commodity bar for live specs, or click to lock month &amp; view operational playbook.
             </span>
           </div>
         )}

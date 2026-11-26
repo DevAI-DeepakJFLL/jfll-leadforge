@@ -139,12 +139,12 @@ export const HotLeadDetailDrawer: React.FC<HotLeadDetailDrawerProps> = ({
               </span>
               {getCrmStatusBadge(lead.crmStatus)}
               {hasHotLeadContact(lead) ? (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap shrink-0">
                   <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                   With Contacts
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200 whitespace-nowrap shrink-0">
                   Without Contacts
                 </span>
               )}

@@ -147,21 +147,21 @@ describe('CommodityRadarView Component Suite', () => {
     expect(html).toContain('Sea Raw Materials');
 
     // Action buttons rendered on each card
-    expect(html).toContain('View Playbook &amp; Pitch Script');
-    expect(html).toContain('Find in DataMyne');
+    expect(html).toContain('View Operational Playbook');
+    expect(html).not.toContain('Find in DataMyne');
+    expect(html).not.toContain('Pitch Script');
     expect(html).toContain('Find in Apollo');
   });
 
   it('renders 1-click action triggers when callbacks are provided', () => {
     const html = renderToString(
       <CommodityRadarView
-        onFindInDatamyne={() => {}}
         onFindInApollo={() => {}}
         onNavigateToReport={() => {}}
       />
     );
 
-    expect(html).toContain('Find in DataMyne');
+    expect(html).not.toContain('Find in DataMyne');
     expect(html).toContain('Find in Apollo');
   });
 
@@ -433,18 +433,16 @@ describe('CommodityRadarView Component Suite', () => {
     expect(html).toContain('FLOW');
   });
 
-  it('triggers onFindInDatamyne and onFindInApollo with clean primary commodity keywords', () => {
-    let datamyneTarget = '';
+  it('triggers onFindInApollo with clean primary commodity keywords and confirms DataMyne button is removed', () => {
     let apolloTarget = '';
 
     const runner = renderRunner(CommodityRadarView, {
       initialMonth: 1,
       initialHub: 'BOM',
-      onFindInDatamyne: (term: string) => { datamyneTarget = term; },
       onFindInApollo: (term: string) => { apolloTarget = term; },
     });
 
-    // Find and click the DataMyne button on the BOM card
+    // Find and verify action buttons on the BOM card
     function findButtons(node: any): any[] {
       const results: any[] = [];
       function traverse(n: any) {
@@ -469,11 +467,9 @@ describe('CommodityRadarView Component Suite', () => {
     const dmBtn = buttons.find((b) => b.props.title?.includes('Find in DataMyne'));
     const apBtn = buttons.find((b) => b.props.title?.includes('Find in Apollo'));
 
-    expect(dmBtn).toBeDefined();
+    // DataMyne button deleted in Commodity Radar
+    expect(dmBtn).toBeUndefined();
     expect(apBtn).toBeDefined();
-
-    dmBtn.props.onClick();
-    expect(datamyneTarget).toContain('Table Grapes');
 
     apBtn.props.onClick();
     expect(apolloTarget).toContain('Table Grapes');
@@ -481,14 +477,13 @@ describe('CommodityRadarView Component Suite', () => {
 });
 
 describe('CommodityDetailDrawer Component Suite', () => {
-  it('renders complete tabs, cold-chain regimes, and pre-composed pitch script when open', () => {
+  it('renders complete tabs and cold-chain regimes without pitch script or datamyne when open', () => {
     const record = MONTHLY_COMMODITY_RECORDS[0]; // Delhi NCR M01
     const html = renderToString(
       <CommodityDetailDrawer
         isOpen={true}
         record={record}
         onClose={() => {}}
-        onFindInDatamyne={() => {}}
         onFindInApollo={() => {}}
       />
     );
@@ -496,7 +491,10 @@ describe('CommodityDetailDrawer Component Suite', () => {
     expect(html).toContain('Delhi NCR');
     expect(html).toContain('Operational Playbook');
     expect(html).toContain('Cold-Chain Regimes');
-    expect(html).toContain('Sales Pitch Script');
+    // Sales Pitch Script and Find in DataMyne deleted in Commodity Radar
+    expect(html).not.toContain('Sales Pitch Script');
+    expect(html).not.toContain('Copy Sales Pitch');
+    expect(html).not.toContain('Find Shippers in DataMyne');
 
     // Verify equipment and gateways in drawer
     expect(html).toContain('Air LD3/LD7');
@@ -504,8 +502,6 @@ describe('CommodityDetailDrawer Component Suite', () => {
     expect(html).toContain('Dec – Jan Booking');
 
     // Verify action buttons in sticky drawer footer
-    expect(html).toContain('Copy Sales Pitch');
-    expect(html).toContain('Find Shippers in DataMyne');
     expect(html).toContain('Find in Apollo');
   });
 
@@ -525,9 +521,6 @@ describe('CommodityDetailDrawer Component Suite', () => {
     // MWG-2: h-[100svh] max-h-[100svh] on aside
     expect(html).toContain('h-[100svh] max-h-[100svh]');
 
-    // MWG-3: Screen reader live announcement element outside copy buttons
-    expect(html).toContain('role="status" aria-live="polite" class="sr-only"');
-
     // IMP-1: Clean title without decorative uppercase kicker
     expect(html).not.toContain('Seasonal Cycle &amp; Trade Driver');
     expect(html).toContain(record.season);
@@ -540,7 +533,6 @@ describe('CommodityDetailDrawer Component Suite', () => {
     };
 
     let reportedTarget = '';
-    let datamyneTarget = '';
     let apolloTarget = '';
 
     const runner = renderRunner(CommodityDetailDrawer, {
@@ -548,7 +540,6 @@ describe('CommodityDetailDrawer Component Suite', () => {
       record: mockRecord,
       onClose: () => {},
       onNavigateToReport: (q: string) => { reportedTarget = q; },
-      onFindInDatamyne: (q: string) => { datamyneTarget = q; },
       onFindInApollo: (q: string) => { apolloTarget = q; },
     });
 
@@ -576,7 +567,6 @@ describe('CommodityDetailDrawer Component Suite', () => {
     buttons.forEach((b) => b.props.onClick());
 
     expect(reportedTarget).toBe('Nashik');
-    expect(datamyneTarget).toBe('Nashik');
     expect(apolloTarget).toBe('Nashik');
 
     // Test with empty cluster string falling back to hubName
@@ -589,7 +579,6 @@ describe('CommodityDetailDrawer Component Suite', () => {
       record: emptyClusterRecord,
       onClose: () => {},
       onNavigateToReport: (q: string) => { reportedTarget = q; },
-      onFindInDatamyne: (q: string) => { datamyneTarget = q; },
       onFindInApollo: (q: string) => { apolloTarget = q; },
     });
 
@@ -597,7 +586,6 @@ describe('CommodityDetailDrawer Component Suite', () => {
     emptyButtons.forEach((b) => b.props.onClick());
 
     expect(reportedTarget).toBe(emptyClusterRecord.hubName);
-    expect(datamyneTarget).toBe(emptyClusterRecord.hubName);
     expect(apolloTarget).toBe(emptyClusterRecord.hubName);
   });
 
