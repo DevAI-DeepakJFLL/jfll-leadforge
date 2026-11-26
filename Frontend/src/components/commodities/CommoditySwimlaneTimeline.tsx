@@ -6,7 +6,6 @@ import {
   Thermometer,
   ArrowRight,
   Clock,
-  ChevronRight,
 } from 'lucide-react';
 import { GatewayHubId, MonthlyRecord } from '@/types/freightCommodities';
 import {
@@ -47,7 +46,6 @@ export const CommoditySwimlaneTimeline: React.FC<CommoditySwimlaneTimelineProps>
   className = '',
 }) => {
   const [hoveredBar, setHoveredBar] = useState<TimelineBar | null>(null);
-  const [activeTooltipPos, setActiveTooltipPos] = useState<{ x: number; y: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Compile timeline tracks based on current filters
@@ -55,23 +53,12 @@ export const CommoditySwimlaneTimeline: React.FC<CommoditySwimlaneTimelineProps>
     return buildTimelineTracks(selectedHub, urgencyFilter, searchQuery);
   }, [selectedHub, urgencyFilter, searchQuery]);
 
-  // Handle bar mouse hover with coordinate positioning
-  const handleBarMouseEnter = (bar: TimelineBar, e: React.MouseEvent) => {
+  const handleBarMouseEnter = (bar: TimelineBar) => {
     setHoveredBar(bar);
-    if (containerRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const x = Math.min(
-        Math.max(e.clientX - containerRect.left, 160),
-        containerRect.width - 240
-      );
-      const y = Math.max(e.clientY - containerRect.top - 120, 20);
-      setActiveTooltipPos({ x, y });
-    }
   };
 
   const handleBarMouseLeave = () => {
     setHoveredBar(null);
-    setActiveTooltipPos(null);
   };
 
   const handleBarClick = (bar: TimelineBar) => {
@@ -144,12 +131,13 @@ export const CommoditySwimlaneTimeline: React.FC<CommoditySwimlaneTimelineProps>
                 key={mName}
                 type="button"
                 onClick={() => onMonthChange(monthNum)}
-                className={`px-2.5 py-1 text-xs font-mono font-bold rounded-md transition-all flex items-center gap-1 ${
+                className={`px-2.5 py-1 text-xs font-mono font-bold rounded-md transition-all flex items-center gap-1 cursor-pointer ${
                   isSelected
                     ? 'bg-blue-600 text-white shadow-xs scale-105 ring-2 ring-blue-300'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/70'
                 }`}
                 title={`Jump to Month ${monthNum}: ${FULL_MONTH_NAMES[idx]}`}
+                aria-pressed={isSelected}
               >
                 <span>{mName}</span>
                 {isSelected && (
@@ -179,6 +167,7 @@ export const CommoditySwimlaneTimeline: React.FC<CommoditySwimlaneTimelineProps>
                       ? 'bg-blue-100 text-blue-900 font-extrabold'
                       : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
                   }`}
+                  title={`View ${FULL_MONTH_NAMES[idx]}`}
                 >
                   {m}
                 </div>
@@ -229,6 +218,7 @@ export const CommoditySwimlaneTimeline: React.FC<CommoditySwimlaneTimelineProps>
                       const isCurrentMonth = bar.month === selectedMonth;
                       const isActiveSurge = bar.status === 'active';
                       const isUpcoming = bar.status === 'upcoming';
+                      const isHovered = hoveredBar?.id === bar.id;
 
                       let barStyles = 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300';
                       if (isActiveSurge) {
@@ -245,12 +235,24 @@ export const CommoditySwimlaneTimeline: React.FC<CommoditySwimlaneTimelineProps>
                       return (
                         <div
                           key={bar.id}
+                          role="button"
+                          tabIndex={0}
+                          aria-label={`${bar.hubId} ${bar.monthName}: ${bar.label}`}
+                          title={`${bar.hubId} · ${bar.monthName}: ${bar.label} (${isActiveSurge ? 'Peak Harvest Surge' : isUpcoming ? 'Lead Booking Window' : 'Steady Flow'})${bar.temp ? ` | Temp: ${bar.temp}` : ''} | Equip: ${bar.equipment} — Click to lock month & open Playbook`}
                           onClick={() => handleBarClick(bar)}
-                          onMouseEnter={(e) => handleBarMouseEnter(bar, e)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              handleBarClick(bar);
+                            }
+                          }}
+                          onMouseEnter={() => handleBarMouseEnter(bar)}
                           onMouseLeave={handleBarMouseLeave}
                           className={`relative p-1 rounded-md text-[10px] cursor-pointer transition-all border flex flex-col items-center justify-center min-h-[46px] ${barStyles} ${
                             isCurrentMonth
                               ? 'ring-2 ring-blue-600 ring-offset-1 z-10 scale-102 shadow-xs'
+                              : isHovered
+                              ? 'scale-102 shadow-xs ring-2 ring-blue-400 ring-offset-1 z-10'
                               : 'hover:scale-102 hover:shadow-2xs'
                           }`}
                         >
@@ -304,95 +306,79 @@ export const CommoditySwimlaneTimeline: React.FC<CommoditySwimlaneTimelineProps>
         </div>
       </div>
 
-      {/* 4. Floating Interactive Detail HUD Tooltip */}
-      {hoveredBar && (
-        <div
-          className="absolute z-30 w-72 bg-slate-900 text-white rounded-xl shadow-xl p-3 text-xs pointer-events-none transition-all duration-100 border border-slate-700/80"
-          style={{
-            left: `${activeTooltipPos?.x || 100}px`,
-            top: `${activeTooltipPos?.y || 50}px`,
-          }}
-        >
-          <div className="flex items-center justify-between border-b border-slate-800 pb-1.5 mb-2">
-            <div className="flex items-center gap-1.5">
-              <span className="font-mono font-bold px-1.5 py-0.5 rounded bg-blue-500 text-white text-[10px]">
-                {hoveredBar.hubId} · {hoveredBar.monthName}
-              </span>
-              <span className="text-[11px] font-bold text-slate-100 truncate">
-                {hoveredBar.label}
-              </span>
-            </div>
+      {/* 4. Docked Live Context Inspector (Non-Intrusive, Zero Grid Blocking) */}
+      <div
+        className={`pt-2 border-t border-slate-100 transition-all rounded-lg border p-2.5 min-h-[50px] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs ${
+          hoveredBar
+            ? 'bg-blue-50/70 border-blue-200 shadow-2xs'
+            : 'bg-slate-50/70 border-slate-200/70'
+        }`}
+        aria-live="polite"
+      >
+        {hoveredBar ? (
+          <div className="flex flex-wrap items-center gap-2 min-w-0">
+            <span className="font-mono font-bold px-2 py-0.5 rounded bg-blue-600 text-white text-[11px] shrink-0 shadow-2xs">
+              {hoveredBar.hubId} · {hoveredBar.monthName}
+            </span>
+            <span className="font-bold text-xs text-slate-900 shrink-0">
+              {hoveredBar.label}
+            </span>
             <span
-              className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
+              className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tight shrink-0 ${
                 hoveredBar.status === 'active'
-                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                   : hoveredBar.status === 'upcoming'
-                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                  : 'bg-slate-800 text-slate-400'
+                  ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                  : 'bg-slate-200 text-slate-700'
               }`}
             >
-              {hoveredBar.status === 'active' ? 'PEAK HARVEST' : hoveredBar.status === 'upcoming' ? 'LEAD WINDOW' : 'FLOW'}
+              {hoveredBar.status === 'active' ? 'Peak Harvest Surge' : hoveredBar.status === 'upcoming' ? 'Lead Booking Window' : 'Steady Flow'}
+            </span>
+            {hoveredBar.temp && (
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 shrink-0">
+                <Thermometer className="w-3 h-3 text-emerald-600" />
+                <span>{hoveredBar.temp}</span>
+              </span>
+            )}
+            <span className="font-mono text-[11px] text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200 shrink-0 hidden md:inline">
+              {hoveredBar.equipment}
+            </span>
+            {hoveredBar.tradeLanes && hoveredBar.tradeLanes !== '-' && (
+              <span className="text-[11px] text-slate-500 truncate max-w-[260px] hidden lg:inline" title={hoveredBar.tradeLanes}>
+                Lanes: {hoveredBar.tradeLanes}
+              </span>
+            )}
+          </div>
+        ) : (
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 shrink-0">
+              {`Selected: ${FULL_MONTH_NAMES[selectedMonth - 1]} · ${selectedHub === 'ALL' ? 'All 8 Gateways' : selectedHub}`}
+            </span>
+            <span className="text-slate-400 hidden md:inline">•</span>
+            <span className="text-[11px] text-slate-500 hidden md:inline truncate">
+              Hover any commodity bar for live specs, or click to lock month &amp; launch commercial pitch script.
             </span>
           </div>
+        )}
 
-          <div className="space-y-1.5 text-[11px] text-slate-300">
-            <div className="flex items-start gap-1.5">
-              <span className="text-slate-400 text-[10px] w-16 shrink-0">Cycle:</span>
-              <span className="text-slate-100 font-medium">{hoveredBar.season}</span>
-            </div>
-            <div className="flex items-start gap-1.5">
-              <span className="text-slate-400 text-[10px] w-16 shrink-0">Equipment:</span>
-              <span className="font-mono text-emerald-300">{hoveredBar.equipment}</span>
-            </div>
-            {hoveredBar.temp && (
-              <div className="flex items-start gap-1.5">
-                <span className="text-slate-400 text-[10px] w-16 shrink-0">Cold Chain:</span>
-                <span className="text-emerald-400 font-semibold">{hoveredBar.temp}</span>
-              </div>
-            )}
-            <div className="flex items-start gap-1.5">
-              <span className="text-slate-400 text-[10px] w-16 shrink-0">Trade Lanes:</span>
-              <span className="truncate">{hoveredBar.tradeLanes}</span>
-            </div>
-            <div className="flex items-start gap-1.5">
-              <span className="text-slate-400 text-[10px] w-16 shrink-0">Clusters:</span>
-              <span className="truncate">{hoveredBar.clusters}</span>
-            </div>
-          </div>
-
-          <div className="mt-2 pt-1.5 border-t border-slate-800 flex items-center justify-between text-[10px] text-blue-400 font-medium">
-            <span>Click to lock &amp; open Playbook</span>
-            <ChevronRight className="w-3 h-3" />
-          </div>
-        </div>
-      )}
-
-      {/* 5. Bottom Selected Context Strip */}
-      <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs bg-slate-50/70 p-2.5 rounded-lg border border-slate-200/70">
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-            {`Selected: ${FULL_MONTH_NAMES[selectedMonth - 1]} · ${selectedHub === 'ALL' ? 'All 8 Gateways' : selectedHub}`}
-          </span>
-          <span className="text-slate-400 hidden md:inline">•</span>
-          <span className="text-[11px] text-slate-500 hidden md:inline">
-            Clicking any commodity bar locks the month and launches its commercial pitch script.
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
           <button
             type="button"
             onClick={() => {
-              const currentRec = tracks
-                .flatMap((t) => t.bars)
-                .find((b) => b.month === selectedMonth && (selectedHub === 'ALL' || b.hubId === selectedHub));
-              if (currentRec && onSelectRecord) {
-                onSelectRecord(currentRec.record);
+              if (hoveredBar) {
+                handleBarClick(hoveredBar);
+              } else {
+                const currentRec = tracks
+                  .flatMap((t) => t.bars)
+                  .find((b) => b.month === selectedMonth && (selectedHub === 'ALL' || b.hubId === selectedHub));
+                if (currentRec && onSelectRecord) {
+                  onSelectRecord(currentRec.record);
+                }
               }
             }}
-            className="px-2.5 py-1 text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md transition-colors flex items-center gap-1 shadow-2xs"
+            className="px-2.5 py-1 text-xs font-semibold text-blue-700 bg-white hover:bg-blue-600 hover:text-white border border-blue-200 hover:border-blue-600 rounded-md transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
           >
-            <span>View Month Playbook</span>
+            <span>{hoveredBar ? 'Lock & View Playbook' : 'View Month Playbook'}</span>
             <ArrowRight className="w-3 h-3" />
           </button>
         </div>

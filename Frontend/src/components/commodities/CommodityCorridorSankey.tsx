@@ -53,7 +53,6 @@ export const CommodityCorridorSankey: React.FC<CommodityCorridorSankeyProps> = (
 }) => {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [hoveredLink, setHoveredLink] = useState<CustomSankeyLink | null>(null);
-  const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Compute raw Sankey graph data
@@ -94,20 +93,12 @@ export const CommodityCorridorSankey: React.FC<CommodityCorridorSankeyProps> = (
     return sankeyLinkHorizontal<SankeyGraphNode, SankeyGraphLink>();
   }, []);
 
-  const handleLinkMouseEnter = (link: CustomSankeyLink, e: React.MouseEvent) => {
+  const handleLinkMouseEnter = (link: CustomSankeyLink) => {
     setHoveredLink(link);
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      setTooltipPos({
-        x: Math.min(Math.max(e.clientX - rect.left, 100), rect.width - 240),
-        y: Math.max(e.clientY - rect.top - 80, 20),
-      });
-    }
   };
 
   const handleLinkMouseLeave = () => {
     setHoveredLink(null);
-    setTooltipPos(null);
   };
 
   const handleNodeClick = (node: CustomSankeyNode) => {
@@ -256,9 +247,11 @@ export const CommodityCorridorSankey: React.FC<CommodityCorridorSankeyProps> = (
                     strokeWidth={Math.max(1.5, link.width || 2)}
                     strokeOpacity={strokeOpacity}
                     className="transition-all duration-150 cursor-pointer hover:stroke-opacity-90"
-                    onMouseEnter={(e) => handleLinkMouseEnter(link, e)}
+                    onMouseEnter={() => handleLinkMouseEnter(link)}
                     onMouseLeave={handleLinkMouseLeave}
-                  />
+                  >
+                    <title>{`${sourceNode.name} → ${targetNode.name} (${link.commodity || 'Freight'} · ${link.value} units)`}</title>
+                  </path>
                 );
               })}
             </g>
@@ -320,69 +313,55 @@ export const CommodityCorridorSankey: React.FC<CommodityCorridorSankeyProps> = (
         )}
       </div>
 
-      {/* 4. Floating Ribbon Tooltip */}
-      {hoveredLink && (
-        <div
-          className="absolute z-30 w-64 bg-slate-900 text-white rounded-xl shadow-xl p-3 text-xs pointer-events-none transition-all duration-100 border border-slate-700"
-          style={{
-            left: `${tooltipPos?.x || 120}px`,
-            top: `${tooltipPos?.y || 60}px`,
-          }}
-        >
-          <div className="flex items-center justify-between border-b border-slate-800 pb-1.5 mb-2">
-            <span className="font-mono font-bold text-indigo-400 text-[10px]">
-              Active Freight Corridor
+      {/* 4. Bottom Context Strip / Docked Corridor Inspector */}
+      <div
+        className={`pt-2 border-t border-slate-100 transition-all rounded-lg border p-2.5 min-h-[50px] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs ${
+          hoveredLink
+            ? 'bg-indigo-50/70 border-indigo-200 shadow-2xs'
+            : 'bg-slate-50/70 border-slate-200/70'
+        }`}
+        aria-live="polite"
+      >
+        {hoveredLink ? (
+          <div className="flex flex-wrap items-center gap-2 min-w-0">
+            <span className="font-mono font-bold px-2 py-0.5 rounded bg-indigo-600 text-white text-[11px] shrink-0 shadow-2xs">
+              Corridor Flow
             </span>
-            <span className="text-[10px] text-slate-400">Flow Unit: {hoveredLink.value}</span>
-          </div>
-
-          <div className="space-y-1 text-[11px] text-slate-300">
-            <div className="flex items-center gap-1.5">
-              <span className="text-slate-400 text-[10px]">From:</span>
-              <span className="font-semibold text-slate-100">
-                {(hoveredLink.source as CustomSankeyNode).name}
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-slate-400 text-[10px]">To:</span>
-              <span className="font-semibold text-slate-100">
-                {(hoveredLink.target as CustomSankeyNode).name}
-              </span>
-            </div>
+            <span className="font-semibold text-slate-900 text-xs shrink-0">
+              {(hoveredLink.source as CustomSankeyNode).name} → {(hoveredLink.target as CustomSankeyNode).name}
+            </span>
             {hoveredLink.commodity && (
-              <div className="flex items-center gap-1.5">
-                <span className="text-slate-400 text-[10px]">Cargo:</span>
-                <span className="text-purple-300 font-medium">{hoveredLink.commodity}</span>
-              </div>
+              <span className="font-medium text-purple-800 bg-purple-50 px-2 py-0.5 rounded border border-purple-200 shrink-0 text-[11px]">
+                {hoveredLink.commodity}
+              </span>
             )}
             {hoveredLink.equipment && (
-              <div className="flex items-center gap-1.5">
-                <span className="text-slate-400 text-[10px]">Spec:</span>
-                <span className="text-emerald-300 font-mono text-[10px]">{hoveredLink.equipment}</span>
-              </div>
+              <span className="font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 shrink-0 text-[11px]">
+                {hoveredLink.equipment}
+              </span>
             )}
+            <span className="font-mono text-[11px] text-slate-500 shrink-0">
+              Volume: {hoveredLink.value} units
+            </span>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-[11px] font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 shrink-0">
+              {`Active Month: ${FULL_MONTH_NAMES[selectedMonth - 1]}`}
+            </span>
+            <span className="text-slate-400 hidden md:inline">•</span>
+            <span className="text-[11px] text-slate-500 hidden md:inline truncate">
+              Hover any flow ribbon for route and equipment specs, or click any node to filter.
+            </span>
+          </div>
+        )}
 
-      {/* 5. Bottom Context Strip */}
-      <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs bg-slate-50/70 p-2.5 rounded-lg border border-slate-200/70">
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
-            {`Active Month: ${FULL_MONTH_NAMES[selectedMonth - 1]}`}
-          </span>
-          <span className="text-slate-400 hidden md:inline">•</span>
-          <span className="text-[11px] text-slate-500 hidden md:inline">
-            Click any gateway node on the left to filter by hub, or click any commodity to filter sales leads.
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           {selectedHub !== 'ALL' && (
             <button
               type="button"
               onClick={() => onHubChange('ALL')}
-              className="px-2.5 py-1 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 rounded-md transition-colors"
+              className="px-2.5 py-1 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 rounded-md transition-colors cursor-pointer"
             >
               Reset to All 8 Hubs
             </button>
