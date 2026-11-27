@@ -13,7 +13,6 @@ import {
   ExternalLink,
   Copy,
   Check,
-  Bookmark,
   ShieldCheck,
   Briefcase,
   Linkedin,
@@ -34,7 +33,6 @@ export interface LeadDetailDrawerProps {
   isOpen: boolean;
   lead: Lead | null;
   onClose: () => void;
-  onSaveToggle?: (lead: Lead) => void;
   onCopy?: (text: string, type: 'email' | 'phone') => void;
   onAddToSequence?: (lead: Lead) => void;
   onAddToList?: (lead: Lead, listName?: string) => void;
@@ -46,7 +44,6 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
   isOpen,
   lead,
   onClose,
-  onSaveToggle,
   onCopy,
   onAddToSequence: _onAddToSequence,
   onAddToList,
@@ -453,13 +450,6 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                         100% confidence &bull; Direct inbox verification OK
                       </div>
                     </div>
-
-                    <div className="relative">
-                      <div className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-slate-400 ring-4 ring-white" />
-                      <div className="text-xs font-bold text-slate-800">
-                        Pipeline Status: {lead.saved ? 'Saved in personal pipeline' : 'Unsaved prospect'}
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -479,20 +469,6 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
           {/* Frosted Glass Sticky Bottom Action Dock */}
           <div className="p-3.5 bg-white/95 backdrop-blur-md border-t border-slate-200 flex items-center justify-between gap-2 shrink-0 shadow-lg relative">
             <div className="flex items-center gap-2 flex-1 min-w-0">
-              <button
-                type="button"
-                onClick={() => onSaveToggle?.(lead)}
-                className={`flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-lg shadow-2xs transition-colors min-h-[40px] truncate cursor-pointer ${
-                  lead.saved
-                    ? 'bg-blue-50 border border-blue-300 text-apollo hover:bg-blue-100'
-                    : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] text-white'
-                }`}
-                title={lead.saved ? 'Saved in pipeline' : 'Save lead to pipeline'}
-              >
-                <Bookmark className={`w-3.5 h-3.5 shrink-0 ${lead.saved ? 'fill-apollo text-apollo' : ''}`} />
-                <span className="truncate">{lead.saved ? 'Saved in Pipeline' : 'Save to Pipeline'}</span>
-              </button>
-
               {/* Add to List Dropdown */}
               <div className="relative shrink-0" ref={listMenuRef}>
                 <button

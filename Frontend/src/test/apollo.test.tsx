@@ -326,7 +326,6 @@ describe('Apollo Sourcing Tool Suite', () => {
         employees: '500+ Enterprise',
         revenue: '$10M+ Enterprise',
         funding: 'Commercial Freight Shipper',
-        saved: false,
       };
 
       const html = renderToString(
@@ -653,7 +652,6 @@ describe('Apollo Sourcing Tool Suite', () => {
         employees: '500+ Enterprise',
         revenue: '$10M+ Enterprise',
         funding: 'Commercial Freight Shipper',
-        saved: false,
       },
       {
         id: 'dm-2',
@@ -674,7 +672,6 @@ describe('Apollo Sourcing Tool Suite', () => {
         employees: '500+ Enterprise',
         revenue: '$10M+ Enterprise',
         funding: 'Commercial Freight Shipper',
-        saved: true,
       },
       {
         id: 'dm-3',
@@ -694,7 +691,6 @@ describe('Apollo Sourcing Tool Suite', () => {
         employees: '500+ Enterprise',
         revenue: '$10M+ Enterprise',
         funding: 'Commercial Freight Shipper',
-        saved: false,
       },
     ];
 

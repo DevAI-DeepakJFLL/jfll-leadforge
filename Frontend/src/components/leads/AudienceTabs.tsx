@@ -10,7 +10,6 @@ export interface AudienceTabsProps {
   formattedCounts?: {
     all?: string;
     new?: string;
-    saved?: string;
   };
   className?: string;
   rightContent?: React.ReactNode;
@@ -47,10 +46,6 @@ export const AudienceTabs: React.FC<AudienceTabsProps> = ({
     formattedCounts?.new ||
     (counts?.new !== undefined ? formatAudienceCount(counts.new, '1.48m') : '1.48m');
 
-  const savedCountStr =
-    formattedCounts?.saved ||
-    (counts?.saved !== undefined ? formatAudienceCount(counts.saved, '48.4k') : '48.4k');
-
   const tabs: PeopleTabDefinition[] = [
     {
       id: 'all',
@@ -77,19 +72,6 @@ export const AudienceTabs: React.FC<AudienceTabsProps> = ({
       ],
       actionTip: 'Select candidates and click "Export" or enroll into automated email cadences.',
       badge: { text: 'Fresh Prospects', variant: 'emerald' },
-    },
-    {
-      id: 'saved',
-      label: 'Saved People',
-      count: savedCountStr,
-      description: 'Bookmarked or shortlisted decision-makers marked by sales reps for targeted high-priority outreach.',
-      criteria: [
-        'Shortlisted by sales rep for active follow-up',
-        'High-priority VIP contacts tagged for custom pitch',
-        'Saved to personal working pipeline',
-      ],
-      actionTip: 'Focus your daily call block here: conduct personalized multi-touch follow-up.',
-      badge: { text: 'Shortlist', variant: 'purple' },
     },
   ];
 

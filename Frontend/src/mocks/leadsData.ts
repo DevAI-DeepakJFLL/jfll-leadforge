@@ -28,7 +28,6 @@ const referenceLeads: Lead[] = [
     revenue: '$10M - $50M',
     funding: 'Bootstrapped',
     technologies: ['Google Analytics', 'HubSpot', 'Slack', 'WordPress'],
-    saved: true,
     jobChange: false,
     createdAt: '2026-03-12T08:30:00Z',
   },
@@ -56,7 +55,6 @@ const referenceLeads: Lead[] = [
     revenue: '$50M - $100M',
     funding: 'Series B',
     technologies: ['Salesforce', 'Marketo', 'AWS', 'Looker'],
-    saved: true,
     jobChange: false,
     createdAt: '2026-02-18T11:15:00Z',
   },
@@ -84,7 +82,6 @@ const referenceLeads: Lead[] = [
     revenue: '$1M - $10M',
     funding: 'Bootstrapped',
     technologies: ['HubSpot', 'Segment', 'Webflow', 'Notion'],
-    saved: true,
     jobChange: false,
     createdAt: '2026-04-01T14:20:00Z',
   },
@@ -112,7 +109,6 @@ const referenceLeads: Lead[] = [
     revenue: '$100M+',
     funding: 'Public',
     technologies: ['Workday', 'SAP', 'Microsoft 365', 'ServiceNow'],
-    saved: true,
     jobChange: false,
     createdAt: '2026-01-25T09:45:00Z',
   },
@@ -140,7 +136,6 @@ const referenceLeads: Lead[] = [
     revenue: '$10M - $50M',
     funding: 'Bootstrapped',
     technologies: ['Google Analytics', 'HubSpot', 'Slack'],
-    saved: true,
     jobChange: false,
     createdAt: '2026-03-12T08:30:00Z',
   },
@@ -168,7 +163,6 @@ const referenceLeads: Lead[] = [
     revenue: '$50M - $100M',
     funding: 'Series B',
     technologies: ['Salesforce', 'Marketo', 'AWS'],
-    saved: true,
     jobChange: true,
     createdAt: '2026-02-18T11:15:00Z',
   },
@@ -579,7 +573,6 @@ function generateSyntheticLeads(): Lead[] {
       ? `+44 20 ${num1} 0100`
       : `+1 (${loc.phoneArea}) 555-${(num2 + 10).toString().padStart(4, '0')}`;
 
-    const saved = rand() < 0.18; // ~18% saved
     const jobChange = rand() < 0.12; // ~12% recent job changes
 
     const daysAgo = Math.floor(rand() * 90);
@@ -609,7 +602,6 @@ function generateSyntheticLeads(): Lead[] {
       revenue: companyTemplate.revenue,
       funding: companyTemplate.funding,
       technologies: companyTemplate.technologies,
-      saved,
       jobChange,
       createdAt,
     });

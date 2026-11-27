@@ -2,8 +2,6 @@ import { http, HttpResponse, delay } from 'msw';
 import {
   queryLeads,
   getLeadById,
-  toggleLeadSaved,
-  batchSaveLeads,
   getFilterOptions,
   generateExportCsv,
   getLeadsDatabase,
@@ -128,33 +126,5 @@ export const handlers = [
         'Content-Disposition': 'attachment; filename="apollo_leads_export.csv"',
       },
     });
-  }),
-
-  // PATCH /api/leads/:id/save - Toggle lead saved state
-  http.patch('/api/leads/:id/save', async ({ params }) => {
-    const id = params.id as string;
-    const updated = toggleLeadSaved(id);
-
-    if (!updated) {
-      return HttpResponse.json(
-        { message: `Lead with ID "${id}" was not found.` },
-        { status: 404 }
-      );
-    }
-
-    return HttpResponse.json(updated);
-  }),
-
-  // POST /api/leads/save - Batch save / unsave leads
-  http.post('/api/leads/save', async ({ request }) => {
-    let body: { leadIds: string[]; saved: boolean } = { leadIds: [], saved: true };
-    try {
-      body = (await request.json()) as { leadIds: string[]; saved: boolean };
-    } catch {
-      // Body error handling
-    }
-
-    const updated = batchSaveLeads(body.leadIds || [], body.saved ?? true);
-    return HttpResponse.json({ updatedCount: updated.length, items: updated });
   }),
 ];

@@ -20,7 +20,6 @@ export interface TopHeaderProps {
   isSidebarCollapsed?: boolean;
   activeFilterCount?: number;
   showSearch?: boolean;
-  savedCount?: number;
   currentUser?: UserSession | null;
   className?: string;
 }
@@ -33,7 +32,6 @@ const TOP_NAV_TABS: TopNavTab[] = [
   { id: 'hot-leads', label: 'Hot Leads', badge: '₹47.6Cr' },
   { id: 'report', label: 'Client Reports' },
   { id: 'saved-searches', label: 'Saved Searches' },
-  { id: 'saved-lists', label: 'Saved Lists' },
 ];
 
 
@@ -48,7 +46,6 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   isSidebarCollapsed = false,
   activeFilterCount = 0,
   showSearch = false,
-  savedCount,
   currentUser,
   className = '',
 }) => {
@@ -116,10 +113,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 tab.id === 'apollo'
                   ? activeTab === 'apollo' || activeTab === 'companies' || activeTab === 'people'
                   : activeTab === tab.id;
-              const badge =
-                tab.id === 'saved-lists' && savedCount !== undefined && savedCount > 0
-                  ? String(savedCount)
-                  : tab.badge;
+              const badge = tab.badge;
               return (
                 <button
                   key={tab.id}

@@ -10,7 +10,6 @@ export const JfllCustomerSchema = z.object({
   status: z.enum(['Active', 'Not Active']).default('Active'),
   customerGroup: z.string(),
   type: z.string(),
-  saved: z.boolean().default(false),
   inDataMyne: z.boolean().optional(),
   creditStatus: z.string().nullable().optional(),
   salesPerson: z.string().nullable().optional(),

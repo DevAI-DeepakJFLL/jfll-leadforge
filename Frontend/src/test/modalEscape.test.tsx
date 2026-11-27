@@ -257,7 +257,6 @@ const mockJfllCustomer: JfllCustomer = {
   status: 'Active',
   customerGroup: 'Enterprise Key Accounts',
   type: 'Shipper',
-  saved: false,
 };
 
 describe('Modal Escape Key & Event Propagation Control Suite', () => {
@@ -612,7 +611,6 @@ describe('Drawer Body Scroll Lock Suite', () => {
       revenue: '$50M-$100M',
       funding: 'Series B',
       status: 'NET NEW',
-      saved: false,
     };
 
     const { rerender, unmount } = renderComponent(LeadDetailDrawer, {
@@ -730,7 +728,6 @@ describe('Drawer Body Scroll Lock Suite', () => {
       totalBusinessTillDate: 5000000,
       businessLast3m: 120000,
       status: 'Active',
-      saved: false,
     };
 
     const jfll = renderComponent(JfllCustomerDetailDrawer, {
@@ -769,7 +766,6 @@ describe('Drawer Body Scroll Lock Suite', () => {
       revenue: '$50M-$100M',
       funding: 'Series B',
       status: 'NET NEW',
-      saved: false,
     };
 
     const leadDrawer = renderComponent(LeadDetailDrawer, {

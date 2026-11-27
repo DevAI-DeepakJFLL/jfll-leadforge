@@ -63,7 +63,6 @@ describe('People Contact Information Validation & UI Resilience', () => {
       employees: '10,000+ Enterprise',
       revenue: '$1B+ Enterprise',
       funding: 'Commercial Freight Shipper',
-      saved: false,
     };
 
     const leadWithVerifiedContact: Lead = {
@@ -84,7 +83,6 @@ describe('People Contact Information Validation & UI Resilience', () => {
       employees: '5,000+ Enterprise',
       revenue: '$500M+ Enterprise',
       funding: 'Commercial Freight Shipper',
-      saved: false,
     };
 
     it('displays "No contact information available" cleanly when email and phone are unavailable', () => {
@@ -144,7 +142,6 @@ describe('People Contact Information Validation & UI Resilience', () => {
         employees: '10,000+ Enterprise',
         revenue: '$1B+ Enterprise',
         funding: 'Commercial Freight Shipper',
-        saved: false,
       },
       {
         id: 'row-2',
@@ -160,7 +157,6 @@ describe('People Contact Information Validation & UI Resilience', () => {
         employees: '500+ Enterprise',
         revenue: '$10M+ Enterprise',
         funding: 'Commercial Freight Shipper',
-        saved: false,
       },
     ];
 

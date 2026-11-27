@@ -43,7 +43,6 @@ const mockCustomer: JfllCustomer = {
   creditStatus: 'Approved',
   businessLast3m: 2400000,
   totalBusinessTillDate: 8900000,
-  saved: false,
 };
 
 // Polyfill minimal localStorage to suppress approach store warning in Node environment

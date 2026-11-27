@@ -5,7 +5,6 @@ import {
   ListPlus,
   Download,
   Loader2,
-  BookmarkCheck,
   Search,
   X,
 } from 'lucide-react';
@@ -20,7 +19,6 @@ export interface TableActionBarProps {
   onSelectAllPage?: () => void;
   onSelectAllTotal?: () => void;
   onDeselectAll?: () => void;
-  onSave?: () => void;
   onAddToList?: (listName: string) => void;
   onExport?: () => void | Promise<void>;
   isExporting?: boolean;
@@ -43,7 +41,6 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
   onSelectAllPage,
   onSelectAllTotal,
   onDeselectAll,
-  onSave,
   onAddToList,
   onExport,
   isExporting = false,
@@ -244,23 +241,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
           </div>
         )}
 
-        {/* 2. "+ Save to Pipeline" */}
-        <button
-          type="button"
-          onClick={onSave}
-          disabled={!hasSelection}
-          className={`shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 ${
-            hasSelection
-              ? 'bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 border border-slate-200'
-              : 'bg-slate-100 text-slate-400 border border-slate-200/60 cursor-not-allowed opacity-60'
-          }`}
-          title="Save selected leads to Saved People tab"
-        >
-          <BookmarkCheck className="w-3.5 h-3.5 text-apollo" />
-          <span>Save Leads</span>
-        </button>
-
-        {/* 3. Add to List */}
+        {/* 2. Add to List */}
         <div className="relative shrink-0">
           <button
             type="button"

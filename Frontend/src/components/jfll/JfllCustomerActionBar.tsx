@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Download, Bookmark, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet, ShieldAlert } from 'lucide-react';
+import { Download, CheckSquare, Square, MinusSquare, Loader2, Search, X, FileSpreadsheet, ShieldAlert } from 'lucide-react';
 import { UserSession } from '@/types/auth';
 
 export interface JfllCustomerActionBarProps {
@@ -11,7 +11,6 @@ export interface JfllCustomerActionBarProps {
   onToggleSelectAllPage: () => void;
   onDeselectAll: () => void;
   onExport: () => void;
-  onSaveSelected?: () => void;
   isExporting?: boolean;
   onDownloadSummaryReport?: () => void;
   isExportingSummary?: boolean;
@@ -32,7 +31,6 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
   onToggleSelectAllPage,
   onDeselectAll,
   onExport,
-  onSaveSelected,
   isExporting = false,
   onDownloadSummaryReport,
   isExportingSummary = false,
@@ -176,16 +174,6 @@ export const JfllCustomerActionBar: React.FC<JfllCustomerActionBarProps> = ({
             <span className="hidden sm:inline">Viewing Mode · Contact Admin for Export Privileges</span>
             <span className="sm:hidden">Viewing Mode</span>
           </span>
-        )}
-
-        {selectedCount > 0 && onSaveSelected && !isViewerUser && (
-          <button
-            onClick={onSaveSelected}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded transition-colors cursor-pointer"
-          >
-            <Bookmark className="w-3.5 h-3.5 text-slate-500" />
-            <span>Save ({selectedCount})</span>
-          </button>
         )}
 
         {onDownloadSummaryReport && (

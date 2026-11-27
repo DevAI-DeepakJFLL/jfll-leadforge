@@ -130,16 +130,11 @@ export function queryLeads(params: Partial<FilterParams> = {}): LeadsResponse {
   const newAudienceCount = hasSearchOrFilters
     ? baseMatching.filter((l) => l.status === 'NET NEW').length
     : 1480000;
-  const savedAudienceCount = hasSearchOrFilters
-    ? baseMatching.filter((l) => l.saved).length
-    : 48400;
 
   // 2. Apply tab filter
   let finalMatching = baseMatching;
   if (tab === 'new') {
     finalMatching = baseMatching.filter((l) => l.status === 'NET NEW');
-  } else if (tab === 'saved') {
-    finalMatching = baseMatching.filter((l) => l.saved);
   }
 
   // 3. Sorting
@@ -176,9 +171,6 @@ export function queryLeads(params: Partial<FilterParams> = {}): LeadsResponse {
     } else if (tab === 'new') {
       totalEstimate = 1480000;
       totalFormatted = '1.48m';
-    } else if (tab === 'saved') {
-      totalEstimate = 48400;
-      totalFormatted = '48.4k';
     }
   }
 
@@ -192,7 +184,6 @@ export function queryLeads(params: Partial<FilterParams> = {}): LeadsResponse {
     audienceCounts: {
       all: allAudienceCount,
       new: newAudienceCount,
-      saved: savedAudienceCount,
     },
   };
 }
@@ -202,32 +193,6 @@ export function queryLeads(params: Partial<FilterParams> = {}): LeadsResponse {
  */
 export function getLeadById(id: string): Lead | undefined {
   return leadsDatabase.find((lead) => lead.id === id);
-}
-
-/**
- * Toggle the saved status of a lead
- */
-export function toggleLeadSaved(id: string): Lead | undefined {
-  const lead = leadsDatabase.find((l) => l.id === id);
-  if (lead) {
-    lead.saved = !lead.saved;
-  }
-  return lead;
-}
-
-/**
- * Batch update saved status for multiple leads
- */
-export function batchSaveLeads(leadIds: string[], saved: boolean): Lead[] {
-  const updated: Lead[] = [];
-  for (const id of leadIds) {
-    const lead = leadsDatabase.find((l) => l.id === id);
-    if (lead) {
-      lead.saved = saved;
-      updated.push(lead);
-    }
-  }
-  return updated;
 }
 
 /**

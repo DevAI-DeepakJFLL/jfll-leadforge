@@ -28,7 +28,6 @@ describe('Apollo People Filter Rigor Suite', () => {
       funding: 'Public',
       decisionMaker: true,
       seniority: 'vp',
-      saved: false,
     },
     {
       id: 'dm-2',
@@ -50,7 +49,6 @@ describe('Apollo People Filter Rigor Suite', () => {
       funding: 'Public',
       decisionMaker: true,
       seniority: 'director',
-      saved: false,
     },
     {
       id: 'dm-3',
@@ -72,7 +70,6 @@ describe('Apollo People Filter Rigor Suite', () => {
       funding: 'Private',
       decisionMaker: false,
       seniority: 'entry',
-      saved: true,
     },
     {
       id: 'dm-4',
@@ -95,7 +92,6 @@ describe('Apollo People Filter Rigor Suite', () => {
       funding: 'Private',
       decisionMaker: true,
       seniority: 'c_suite',
-      saved: false,
     },
     {
       id: 'dm-5',
@@ -117,7 +113,6 @@ describe('Apollo People Filter Rigor Suite', () => {
       funding: 'Private',
       decisionMaker: true,
       seniority: 'owner',
-      saved: false,
     },
   ];
 

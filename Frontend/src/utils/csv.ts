@@ -91,7 +91,6 @@ export function generateLeadsCsv(leads: Lead[]): string {
     'Employees',
     'Revenue',
     'Funding',
-    'Saved',
   ];
 
   const rows = leads.map((l) => [
@@ -108,7 +107,6 @@ export function generateLeadsCsv(leads: Lead[]): string {
     l.employees,
     l.revenue,
     l.funding,
-    l.saved ? 'Yes' : 'No',
   ]);
 
   return buildCsvString(headers, rows);

@@ -131,7 +131,6 @@ export async function fetchJfllCustomersFromApi(
             ? (() => { try { return JSON.parse(row.merged_aliases); } catch { return undefined; } })()
             : row.merged_aliases)
         : undefined,
-      saved: false,
       inDataMyne: false,
     }));
 

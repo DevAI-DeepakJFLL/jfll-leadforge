@@ -42,7 +42,6 @@ const mockCustomer: JfllCustomer = {
   creditStatus: 'Approved',
   businessLast3m: 1250000,
   totalBusinessTillDate: 4500000,
-  saved: false,
 };
 
 describe('Table Alignment and Badge Hierarchy', () => {

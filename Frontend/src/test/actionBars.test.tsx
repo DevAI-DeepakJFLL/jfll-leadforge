@@ -142,7 +142,6 @@ describe('Table Action Bars with Inline Search Bar', () => {
         onSelectAllPage={() => {}}
         onSelectAllTotal={() => {}}
         onDeselectAll={() => {}}
-        onSave={() => {}}
         onAddToList={() => {}}
         onExport={() => {}}
         searchQuery=""
@@ -160,7 +159,7 @@ describe('Table Action Bars with Inline Search Bar', () => {
     expect(html).toContain('⌘K');
 
     // Verify action buttons
-    expect(html).toContain('Save Leads');
+    expect(html).not.toContain('Save Leads');
     expect(html).toContain('Add to List');
     expect(html).toContain('Export All');
   });

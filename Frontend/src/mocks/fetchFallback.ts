@@ -1,11 +1,9 @@
 import {
   queryLeads,
   getLeadById,
-  toggleLeadSaved,
   getFilterOptions,
   generateExportCsv,
   getLeadsDatabase,
-  batchSaveLeads,
 } from './leadsService';
 import { LeadStatus, AudienceTab, ExportRequest } from '@/types/lead';
 
@@ -159,37 +157,6 @@ export function setupFetchFallback(): void {
             headers: { 'Content-Type': 'application/json' },
           });
         }
-
-        if (method === 'PATCH') {
-          const updated = toggleLeadSaved(id);
-          if (!updated) {
-            return new Response(
-              JSON.stringify({ message: `Lead with ID "${id}" was not found.` }),
-              { status: 404, headers: { 'Content-Type': 'application/json' } }
-            );
-          }
-          return new Response(JSON.stringify(updated), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' },
-          });
-        }
-      }
-
-      // 5. POST /api/leads/save
-      if (url.pathname === '/api/leads/save' && method === 'POST') {
-        let body = { leadIds: [] as string[], saved: true };
-        if (init?.body) {
-          try {
-            body = JSON.parse(init.body as string);
-          } catch {
-            // Ignore
-          }
-        }
-        const updated = batchSaveLeads(body.leadIds || [], body.saved ?? true);
-        return new Response(
-          JSON.stringify({ updatedCount: updated.length, items: updated }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } }
-        );
       }
 
       return originalFetch(input, init);

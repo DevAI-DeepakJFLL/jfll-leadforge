@@ -31,7 +31,7 @@ const DEFAULT_FILTERS: FilterParams = {
 };
 
 const VALID_STATUSES: LeadStatus[] = ['NET NEW', 'COLD', 'IN SEQUENCE'];
-const VALID_TABS: AudienceTab[] = ['all', 'new', 'saved'];
+const VALID_TABS: AudienceTab[] = ['all', 'new'];
 
 /**
  * Parses query string into strongly typed FilterParams with safe defaults

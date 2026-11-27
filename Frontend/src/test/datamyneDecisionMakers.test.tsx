@@ -286,7 +286,7 @@ describe('DataMyne to Apollo Decision Makers Integration Suite', () => {
               page: 1,
               page_size: 250,
               total_pages: 0,
-              audience_counts: { all: 0, new: 0, saved: 0 },
+              audience_counts: { all: 0, new: 0 },
             }),
         });
       });

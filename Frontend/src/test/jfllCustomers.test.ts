@@ -128,7 +128,6 @@ describe('JFLL Customers Dataset & Query Service', () => {
         status: 'Active' as const,
         customerGroup: 'Subagent',
         type: 'Company',
-        saved: false,
         mergedCount: 1,
       },
     ];

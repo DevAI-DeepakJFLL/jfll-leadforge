@@ -2,8 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import {
   queryLeads,
   getLeadById,
-  toggleLeadSaved,
-  batchSaveLeads,
   getFilterOptions,
   generateExportCsv,
   resetLeadsDatabase,
@@ -201,18 +199,6 @@ describe('Leads Data & Service Test Suite', () => {
       });
     });
 
-    it('filters by audience tab "saved"', () => {
-      // First save a lead
-      const db = getLeadsDatabase();
-      db[0].saved = true;
-
-      const result = queryLeads({ tab: 'saved' });
-      expect(result.items.length).toBeGreaterThan(0);
-      result.items.forEach((item) => {
-        expect(item.saved).toBe(true);
-      });
-    });
-
     it('sorts leads ascending and descending by column', () => {
       const asc = queryLeads({ sortBy: 'name', sortOrder: 'asc' });
       const desc = queryLeads({ sortBy: 'name', sortOrder: 'desc' });
@@ -222,7 +208,7 @@ describe('Leads Data & Service Test Suite', () => {
     });
   });
 
-  describe('4. Bulk Selection & Saved State Mutation', () => {
+  describe('4. Lead Retrieval by ID', () => {
     it('retrieves single lead by ID', () => {
       const lead = getLeadById('lead-1');
       expect(lead).toBeDefined();
@@ -232,45 +218,6 @@ describe('Leads Data & Service Test Suite', () => {
     it('returns undefined for non-existent lead ID', () => {
       const lead = getLeadById('invalid-id');
       expect(lead).toBeUndefined();
-    });
-
-    it('toggles lead saved status on toggleLeadSaved', () => {
-      const lead = getLeadById('lead-2')!;
-      const initialSaved = lead.saved;
-
-      const updated = toggleLeadSaved('lead-2');
-      expect(updated?.saved).toBe(!initialSaved);
-
-      // Toggle back
-      const reverted = toggleLeadSaved('lead-2');
-      expect(reverted?.saved).toBe(initialSaved);
-    });
-
-    it('batch saves multiple selected leads', () => {
-      const leadIds = ['lead-1', 'lead-2', 'lead-3'];
-      const updated = batchSaveLeads(leadIds, true);
-
-      expect(updated).toHaveLength(3);
-      updated.forEach((l) => {
-        expect(l.saved).toBe(true);
-      });
-
-      // Verify in database
-      leadIds.forEach((id) => {
-        const lead = getLeadById(id);
-        expect(lead?.saved).toBe(true);
-      });
-    });
-
-    it('batch un-saves multiple selected leads', () => {
-      const leadIds = ['lead-1', 'lead-2'];
-      batchSaveLeads(leadIds, true);
-      const unsaved = batchSaveLeads(leadIds, false);
-
-      expect(unsaved).toHaveLength(2);
-      unsaved.forEach((l) => {
-        expect(l.saved).toBe(false);
-      });
     });
   });
 
@@ -295,7 +242,6 @@ describe('Leads Data & Service Test Suite', () => {
           employees: '51-200',
           revenue: '$15M',
           funding: 'Series B',
-          saved: true,
         },
       ];
 
@@ -304,12 +250,11 @@ describe('Leads Data & Service Test Suite', () => {
 
       expect(lines.length).toBe(2); // Header + 1 row
       expect(lines[0]).toBe(
-        'ID,Name,Title,Company,Industry,Department,Status,Location,Email,Phone,Employees,Revenue,Funding,Saved'
+        'ID,Name,Title,Company,Industry,Department,Status,Location,Email,Phone,Employees,Revenue,Funding'
       );
       // Verify escaping of company name with comma
       expect(lines[1]).toContain('"TechFlow, Inc."');
       expect(lines[1]).toContain('"Sarah Jenkins"');
-      expect(lines[1]).toContain('"Yes"'); // Saved status
     });
 
     it('escapes embedded double quotes properly', () => {
@@ -328,13 +273,11 @@ describe('Leads Data & Service Test Suite', () => {
         employees: '10-50',
         revenue: '$1M',
         funding: 'Seed',
-        saved: false,
       };
 
       const csv = generateExportCsv([leadWithQuotes]);
       expect(csv).toContain('"John ""The Boss"" Doe"');
       expect(csv).toContain('"Quote ""Corp"""');
-      expect(csv).toContain('"No"'); // Saved is false
     });
 
     it('exports all leads when passed full database array', () => {
@@ -417,7 +360,7 @@ describe('Leads Data & Service Test Suite', () => {
         limit: 50,
         sortBy: 'company',
         sortOrder: 'desc',
-        tab: 'saved',
+        tab: 'new',
       };
 
       const serialized = serializeFiltersToUrl(initial);

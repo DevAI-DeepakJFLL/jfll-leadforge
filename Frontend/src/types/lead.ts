@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const LeadStatusSchema = z.enum(['NET NEW', 'COLD', 'IN SEQUENCE']);
 export type LeadStatus = z.infer<typeof LeadStatusSchema>;
 
-export const AudienceTabSchema = z.enum(['all', 'new', 'saved']);
+export const AudienceTabSchema = z.enum(['all', 'new']);
 export type AudienceTab = z.infer<typeof AudienceTabSchema>;
 
 export const LeadSchema = z.object({
@@ -30,7 +30,6 @@ export const LeadSchema = z.object({
   revenue: z.string(),
   funding: z.string(),
   technologies: z.array(z.string()).optional(),
-  saved: z.boolean().default(false),
   jobChange: z.boolean().optional(),
   createdAt: z.string().optional(),
   decisionMaker: z.boolean().optional(),
@@ -68,7 +67,6 @@ export type FilterParams = z.infer<typeof FilterParamsSchema>;
 export const AudienceCountsSchema = z.object({
   all: z.number(),
   new: z.number(),
-  saved: z.number(),
 });
 
 export type AudienceCounts = z.infer<typeof AudienceCountsSchema>;

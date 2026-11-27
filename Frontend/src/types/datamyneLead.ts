@@ -22,7 +22,6 @@ export const DatamyneLeadSchema = z.object({
   total_value_usd: z.number().default(0),
   latest_activity_date: z.string().default(''),
   dataset_type: z.enum(['valid', 'missing']).default('valid'),
-  saved: z.boolean().optional(),
 });
 
 export type DatamyneLead = Omit<z.infer<typeof DatamyneLeadSchema>, 'country'> & {

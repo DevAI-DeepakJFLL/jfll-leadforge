@@ -574,7 +574,6 @@ function mapApolloContactToLead(contact: ApolloContact): Lead {
     revenue: '$10M+ Enterprise',
     funding: 'Commercial Freight Shipper',
     technologies: ['CargoWise', 'EDI', 'TMS', 'WMS', 'Supply Chain ERP'],
-    saved: false,
     jobChange: false,
   };
 }
@@ -802,7 +801,6 @@ export function queryApolloPeopleLeadsLocal(params: PeopleLeadsFilterOptions = {
     audienceCounts: {
       all: isGlobal ? 684087 : filtered.length,
       new: isGlobal ? 370673 : filtered.filter((c) => c.is_decision_maker).length,
-      saved: 0,
     },
   };
 }
@@ -866,8 +864,6 @@ export function filterLeadsInMemory(
       }
       return lead.status === 'NET NEW';
     });
-  } else if (filters.tab === 'saved') {
-    result = result.filter((lead) => lead.saved === true);
   }
 
   // 3. Freight Role Focus: Logistics Roles Only
@@ -1195,7 +1191,6 @@ export async function fetchApolloPeopleLeads(params: PeopleLeadsFilterOptions = 
         audienceCounts: {
           all: totalRecords,
           new: result.audience_counts?.new ?? (result.decision_makers_count ?? rawContacts.filter((c) => c.is_decision_maker).length),
-          saved: 0,
         },
       };
     } else if (response.status === 422 && effectiveLimit > 100) {
@@ -1231,7 +1226,6 @@ export async function fetchApolloPeopleLeads(params: PeopleLeadsFilterOptions = 
           audienceCounts: {
             all: totalRecords,
             new: retryResult.audience_counts?.new ?? (retryResult.decision_makers_count ?? rawContacts.filter((c) => c.is_decision_maker).length),
-            saved: 0,
           },
         };
       }

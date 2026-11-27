@@ -25,7 +25,6 @@ export interface PeopleViewProps {
   onSelectAllPage: () => void;
   onSelectAllTotal: () => void;
   onDeselectAll: () => void;
-  onSave: () => void;
   onAddToList: (listName: string) => void;
   onExport: () => void;
   isExporting: boolean;
@@ -33,7 +32,6 @@ export interface PeopleViewProps {
   selectedSavedLists?: string[];
   onToggleSavedList?: (listName: string) => void;
   onClearSavedLists?: () => void;
-  onToggleSave?: (lead: Lead) => void;
   onSearchChange: (query: string) => void;
   onToggleArrayFilter: (category: 'departments' | 'jobTitles' | 'seniority' | 'locations' | 'industries' | 'companySize', value: string) => void;
   onToggleBooleanFilter?: (key: 'logisticsOnly' | 'decisionMakersOnly' | 'hasEmailOnly' | 'hasLinkedinOnly') => void;
@@ -72,7 +70,6 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
   onSelectAllPage,
   onSelectAllTotal,
   onDeselectAll,
-  onSave,
   onAddToList,
   onExport,
   isExporting,
@@ -80,7 +77,6 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
   selectedSavedLists,
   onToggleSavedList,
   onClearSavedLists,
-  onToggleSave,
   onSearchChange,
   onToggleArrayFilter,
   onToggleBooleanFilter,
@@ -149,7 +145,6 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
           onSelectAllPage={onSelectAllPage}
           onSelectAllTotal={onSelectAllTotal}
           onDeselectAll={onDeselectAll}
-          onSave={onSave}
           onAddToList={onAddToList}
           onExport={onExport}
           isExporting={isExporting}
@@ -178,9 +173,6 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
             onRowSelectionChange={onRowSelectionChange}
             onLeadClick={onLeadClick}
             onViewEmail={onViewEmail}
-            onToggleSave={onToggleSave}
-            activeTab={filters.tab}
-            onTabChange={onTabChange}
             currentPage={data?.page || 1}
             totalPages={data?.totalPages || 1}
             pageSize={data?.limit || 25}
