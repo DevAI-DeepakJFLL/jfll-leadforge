@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo } from 'react';
 import { JfllCustomerFilterParams, JfllCustomerSortField } from '@/types/jfllCustomer';
+import { toggleArrayItem } from '@/utils/formatters';
 
 export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams = {}) {
   const [filters, setFilters] = useState<JfllCustomerFilterParams>({
@@ -53,53 +54,43 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
   }, []);
 
   const toggleCustomerGroup = useCallback((group: string) => {
-    setFilters((prev) => {
-      const current = prev.customerGroups || [];
-      const updated = current.includes(group)
-        ? current.filter((g) => g !== group)
-        : [...current, group];
-      return { ...prev, customerGroups: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      customerGroups: toggleArrayItem(prev.customerGroups, group),
+      page: 1,
+    }));
   }, []);
 
   const toggleType = useCallback((type: string) => {
-    setFilters((prev) => {
-      const current = prev.types || [];
-      const updated = current.includes(type)
-        ? current.filter((t) => t !== type)
-        : [...current, type];
-      return { ...prev, types: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      types: toggleArrayItem(prev.types, type),
+      page: 1,
+    }));
   }, []);
 
   const toggleCreditStatus = useCallback((creditStatus: string) => {
-    setFilters((prev) => {
-      const current = prev.creditStatuses || [];
-      const updated = current.includes(creditStatus)
-        ? current.filter((c) => c !== creditStatus)
-        : [...current, creditStatus];
-      return { ...prev, creditStatuses: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      creditStatuses: toggleArrayItem(prev.creditStatuses, creditStatus),
+      page: 1,
+    }));
   }, []);
 
   const toggleSalesPerson = useCallback((salesPerson: string) => {
-    setFilters((prev) => {
-      const current = prev.salesPersons || [];
-      const updated = current.includes(salesPerson)
-        ? current.filter((s) => s !== salesPerson)
-        : [...current, salesPerson];
-      return { ...prev, salesPersons: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      salesPersons: toggleArrayItem(prev.salesPersons, salesPerson),
+      page: 1,
+    }));
   }, []);
 
   const toggleRevenueRange = useCallback((rangeId: string) => {
-    setFilters((prev) => {
-      const current = prev.revenueRanges || [];
-      const updated = current.includes(rangeId)
-        ? current.filter((r) => r !== rangeId)
-        : [...current, rangeId];
-      return { ...prev, revenueRanges: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      revenueRanges: toggleArrayItem(prev.revenueRanges, rangeId),
+      page: 1,
+    }));
   }, []);
 
   const handleSortChange = useCallback((field: JfllCustomerSortField) => {
@@ -133,13 +124,11 @@ export function useJfllCustomersFilter(initialParams: JfllCustomerFilterParams =
   );
 
   const toggleApproachStatus = useCallback((status: string) => {
-    setFilters((prev) => {
-      const current = prev.approachStatuses || [];
-      const updated = current.includes(status)
-        ? current.filter((s) => s !== status)
-        : [...current, status];
-      return { ...prev, approachStatuses: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      approachStatuses: toggleArrayItem(prev.approachStatuses, status),
+      page: 1,
+    }));
   }, []);
 
   const setApproachStatuses = useCallback((statuses: string[]) => {

@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo } from 'react';
 import { ApolloFilterParams, ApolloAudienceTab } from '@/types/apolloLead';
+import { toggleArrayItem } from '@/utils/formatters';
 
 export function useApolloFilter(initialParams: ApolloFilterParams = {}) {
   const [filters, setFilters] = useState<ApolloFilterParams>({
@@ -32,43 +33,35 @@ export function useApolloFilter(initialParams: ApolloFilterParams = {}) {
   }, []);
 
   const toggleIndustry = useCallback((industry: string) => {
-    setFilters((prev) => {
-      const current = prev.industries || [];
-      const updated = current.includes(industry)
-        ? current.filter((i) => i !== industry)
-        : [...current, industry];
-      return { ...prev, industries: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      industries: toggleArrayItem(prev.industries, industry),
+      page: 1,
+    }));
   }, []);
 
   const toggleCountry = useCallback((country: string) => {
-    setFilters((prev) => {
-      const current = prev.countries || [];
-      const updated = current.includes(country)
-        ? current.filter((c) => c !== country)
-        : [...current, country];
-      return { ...prev, countries: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      countries: toggleArrayItem(prev.countries, country),
+      page: 1,
+    }));
   }, []);
 
   const toggleEmployeeTier = useCallback((tierId: string) => {
-    setFilters((prev) => {
-      const current = prev.employeeTiers || [];
-      const updated = current.includes(tierId)
-        ? current.filter((t) => t !== tierId)
-        : [...current, tierId];
-      return { ...prev, employeeTiers: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      employeeTiers: toggleArrayItem(prev.employeeTiers, tierId),
+      page: 1,
+    }));
   }, []);
 
   const toggleRevenueRange = useCallback((rangeId: string) => {
-    setFilters((prev) => {
-      const current = prev.revenueRanges || [];
-      const updated = current.includes(rangeId)
-        ? current.filter((r) => r !== rangeId)
-        : [...current, rangeId];
-      return { ...prev, revenueRanges: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      revenueRanges: toggleArrayItem(prev.revenueRanges, rangeId),
+      page: 1,
+    }));
   }, []);
 
   const toggleHasWebsite = useCallback(() => {

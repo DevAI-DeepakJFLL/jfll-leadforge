@@ -30,3 +30,14 @@ export function formatDate(dateString?: string): string {
     return dateString;
   }
 }
+
+/**
+ * Toggles an item in an array immutably.
+ * If the item is present, returns an array without it; otherwise returns an array with it appended.
+ */
+export function toggleArrayItem<T>(list: readonly T[] | T[] | undefined, item: T): T[] {
+  const current = list || [];
+  return current.includes(item)
+    ? current.filter((x) => x !== item)
+    : [...current, item];
+}

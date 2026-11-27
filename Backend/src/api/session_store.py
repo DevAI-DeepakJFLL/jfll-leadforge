@@ -6,6 +6,7 @@ Thread-safe accessors protect the registry against concurrent access under multi
 asyncio runtimes.
 """
 
+import json
 import os
 import threading
 from typing import Any
@@ -64,7 +65,6 @@ def set_active_session(
         try:
             _REDIS_CLIENT.set(f"session:{clean}", session_id, ex=ttl_seconds)
             if clean_fp:
-                import json
                 existing_json = _REDIS_CLIENT.get(f"session_dev:{clean}")
                 session_ids_list = [session_id]
                 if existing_json:
@@ -74,7 +74,7 @@ def set_active_session(
                             prev_ids = existing_data.get("session_ids", [])
                             if session_id not in prev_ids:
                                 session_ids_list = prev_ids + [session_id]
-                    except Exception:
+                    except (json.JSONDecodeError, TypeError, ValueError):
                         pass
                 _REDIS_CLIENT.set(
                     f"session_dev:{clean}",
@@ -136,7 +136,6 @@ def is_session_valid_on_device(
 
     if _REDIS_CLIENT:
         try:
-            import json
             dev_json = _REDIS_CLIENT.get(f"session_dev:{clean}")
             if dev_json:
                 dev_data = json.loads(dev_json)

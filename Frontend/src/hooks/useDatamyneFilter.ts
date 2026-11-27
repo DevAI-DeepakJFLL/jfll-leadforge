@@ -10,6 +10,7 @@ import {
   BRAZIL_CORRIDORS,
   CATEGORY_TO_TAB_MAP,
 } from '@/types/datamyneLead';
+import { toggleArrayItem } from '@/utils/formatters';
 
 export function pruneFiltersForCountry(
   countries: string[],
@@ -97,10 +98,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
       if (country === 'All' || country === 'all') {
         updated = [];
       } else {
-        const current = prev.countries || [];
-        updated = current.includes(country)
-          ? current.filter((c) => c !== country)
-          : [...current, country];
+        updated = toggleArrayItem(prev.countries, country);
       }
 
       // Smart Context-Aware Filter Pruning:
@@ -124,10 +122,7 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
 
   const toggleCategory = useCallback((category: string) => {
     setFilters((prev) => {
-      const current = prev.categories || [];
-      const updated = current.includes(category)
-        ? current.filter((c) => c !== category)
-        : [...current, category];
+      const updated = toggleArrayItem(prev.categories, category);
 
       // Auto-Sync with top vertical tabs:
       let nextTab: DatamyneAudienceTab = prev.tab || 'all';
@@ -156,73 +151,59 @@ export function useDatamyneFilter(initialParams: DatamyneFilterParams = {}) {
   }, []);
 
   const toggleSubcategory = useCallback((subcategory: string) => {
-    setFilters((prev) => {
-      const current = prev.subcategories || [];
-      const updated = current.includes(subcategory)
-        ? current.filter((s) => s !== subcategory)
-        : [...current, subcategory];
-      return { ...prev, subcategories: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      subcategories: toggleArrayItem(prev.subcategories, subcategory),
+      page: 1,
+    }));
   }, []);
 
   const toggleRole = useCallback((role: string) => {
-    setFilters((prev) => {
-      const current = prev.roles || [];
-      const updated = current.includes(role)
-        ? current.filter((r) => r !== role)
-        : [...current, role];
-      return { ...prev, roles: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      roles: toggleArrayItem(prev.roles, role),
+      page: 1,
+    }));
   }, []);
 
   const toggleCity = useCallback((city: string) => {
-    setFilters((prev) => {
-      const current = prev.cities || [];
-      const updated = current.includes(city)
-        ? current.filter((c) => c !== city)
-        : [...current, city];
-      return { ...prev, cities: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      cities: toggleArrayItem(prev.cities, city),
+      page: 1,
+    }));
   }, []);
 
   const toggleTradeLane = useCallback((lane: string) => {
-    setFilters((prev) => {
-      const current = prev.tradeLanes || [];
-      const updated = current.includes(lane)
-        ? current.filter((l) => l !== lane)
-        : [...current, lane];
-      return { ...prev, tradeLanes: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      tradeLanes: toggleArrayItem(prev.tradeLanes, lane),
+      page: 1,
+    }));
   }, []);
 
   const toggleTransportMode = useCallback((mode: TransportMode) => {
-    setFilters((prev) => {
-      const current = prev.transportModes || [];
-      const updated = current.includes(mode)
-        ? current.filter((m) => m !== mode)
-        : [...current, mode];
-      return { ...prev, transportModes: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      transportModes: toggleArrayItem(prev.transportModes, mode),
+      page: 1,
+    }));
   }, []);
 
   const toggleContactStatus = useCallback((status: string) => {
-    setFilters((prev) => {
-      const current = prev.contactStatus || [];
-      const updated = current.includes(status)
-        ? current.filter((s) => s !== status)
-        : [...current, status];
-      return { ...prev, contactStatus: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      contactStatus: toggleArrayItem(prev.contactStatus, status),
+      page: 1,
+    }));
   }, []);
 
   const toggleApproachStatus = useCallback((status: string) => {
-    setFilters((prev) => {
-      const current = prev.approachStatuses || [];
-      const updated = current.includes(status)
-        ? current.filter((s) => s !== status)
-        : [...current, status];
-      return { ...prev, approachStatuses: updated, page: 1 };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      approachStatuses: toggleArrayItem(prev.approachStatuses, status),
+      page: 1,
+    }));
   }, []);
 
   const setApproachStatuses = useCallback((statuses: string[]) => {

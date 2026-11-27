@@ -3,4 +3,5 @@ export * from './ErrorBoundary';
 export * from './CategoryInfoTooltip';
 export * from './SegmentContextBanner';
 export * from './ConfirmDialog';
+export * from './AssignedBadge';
 

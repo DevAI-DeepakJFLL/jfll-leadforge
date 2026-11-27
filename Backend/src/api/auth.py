@@ -24,7 +24,6 @@ from src.api.models import (
     UserSessionResponse,
 )
 from src.api.session_store import (
-    get_active_session,
     is_session_valid_on_device,
     set_active_session,
 )

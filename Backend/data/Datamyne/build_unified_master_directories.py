@@ -139,7 +139,7 @@ def parse_date(d):
         import datetime
         dt = datetime.datetime(1899, 12, 30) + datetime.timedelta(days=val)
         return dt.strftime("%Y-%m-%d")
-    except:
+    except (ValueError, TypeError):
         pass
     return d_str[:10]
 
@@ -185,11 +185,11 @@ def build_directories():
         # Traded metrics
         try:
             shipments = int(float(rec.get("total_shipments", 1) or 1))
-        except:
+        except (ValueError, TypeError):
             shipments = 1
         try:
             val_usd = float(rec.get("total_value_usd", 0.0) or 0.0)
-        except:
+        except (ValueError, TypeError):
             val_usd = 0.0
 
         activity_date = parse_date(rec.get("latest_activity_date", "2023-01-01"))

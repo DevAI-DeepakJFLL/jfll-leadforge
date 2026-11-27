@@ -76,6 +76,70 @@ def get_client_ip(request: Request) -> str:
     return "unknown"
 
 
+def _validate_bearer_session(
+    authorization: str | None,
+    x_device_fingerprint: str | None = None,
+    resource_name: str = "leads",
+    permission: Permission | None = None,
+    check_password_setup: bool = True,
+) -> dict[str, Any] | None:
+    """
+    Validates Bearer token from authorization header, checks active account status,
+    single-device session consistency, and optional password setup requirement.
+    Returns user dict on success, or None if authorization header is absent/non-Bearer.
+    Raises HTTPException 401/403 on invalid tokens, revoked access, superseded sessions,
+    or required password setup.
+    """
+    if not authorization or not authorization.startswith("Bearer "):
+        return None
+
+    token = authorization.split("Bearer ", 1)[1].strip()
+    user = verify_token(token)
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid or expired session token")
+
+    user_email = user.get("sub", "").strip().lower()
+
+    if user_email and not is_email_active(user_email):
+        audit_extra = {"event": "ACCESS_REVOKED", "user_email": user_email}
+        if permission:
+            audit_extra["permission"] = permission.value
+        else:
+            audit_extra["resource"] = resource_name
+        logger.warning(
+            f"Audit: Data request rejected (access revoked) for {user_email}",
+            extra=audit_extra,
+        )
+        raise HTTPException(
+            status_code=401,
+            detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
+        )
+
+    effective_fp = x_device_fingerprint
+    if not check_session_active(user, device_fingerprint=effective_fp):
+        audit_extra = {"event": "SESSION_SUPERSEDED", "user_email": user_email}
+        if permission:
+            audit_extra["permission"] = permission.value
+        else:
+            audit_extra["resource"] = resource_name
+        logger.warning(
+            f"Audit: Data request rejected (session displaced) for {user_email}",
+            extra=audit_extra,
+        )
+        raise HTTPException(
+            status_code=401,
+            detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
+        )
+
+    if check_password_setup and user.get("requires_password_setup"):
+        raise HTTPException(
+            status_code=403,
+            detail="PASSWORD_SETUP_REQUIRED: You must configure an account password before accessing application data.",
+        )
+
+    return user
+
+
 def require_auth(
     authorization: str | None,
     resource_name: str = "leads",
@@ -86,43 +150,15 @@ def require_auth(
     and enforces authentication in production environments.
     Automated headless bots are rejected globally by AntiBotMiddleware.
     """
-    if authorization and authorization.startswith("Bearer "):
-        token = authorization.split("Bearer ", 1)[1].strip()
-        user = verify_token(token)
-        if not user:
-            raise HTTPException(status_code=401, detail="Invalid or expired session token")
-
-        user_email = user.get("sub", "").strip().lower()
-
-        if user_email and not is_email_active(user_email):
-            logger.warning(
-                f"Audit: Data request rejected (access revoked) for {user_email}",
-                extra={"event": "ACCESS_REVOKED", "user_email": user_email, "resource": resource_name},
-            )
-            raise HTTPException(
-                status_code=401,
-                detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
-            )
-
-        effective_fp = x_device_fingerprint
-        if not check_session_active(user, device_fingerprint=effective_fp):
-            logger.warning(
-                f"Audit: Data request rejected (session displaced) for {user_email}",
-                extra={"event": "SESSION_SUPERSEDED", "user_email": user_email, "resource": resource_name},
-            )
-            raise HTTPException(
-                status_code=401,
-                detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
-            )
-
-        if user.get("requires_password_setup"):
-            raise HTTPException(
-                status_code=403,
-                detail="PASSWORD_SETUP_REQUIRED: You must configure an account password before accessing application data.",
-            )
-
+    user = _validate_bearer_session(
+        authorization,
+        x_device_fingerprint=x_device_fingerprint,
+        resource_name=resource_name,
+        check_password_setup=True,
+    )
+    if user is not None:
         return user
-    elif settings.env == "production" or not settings.allow_dev_auth_bypass:
+    if settings.env == "production" or not settings.allow_dev_auth_bypass:
         raise HTTPException(status_code=401, detail=f"Authentication required to access {resource_name}")
     return {}
 
@@ -138,41 +174,14 @@ def require_permission(perm: Permission):
         authorization: str | None = Header(None),
         x_device_fingerprint: str | None = Header(None, alias="X-Device-Fingerprint"),
     ) -> dict[str, Any]:
-        if authorization and authorization.startswith("Bearer "):
-            token = authorization.split("Bearer ", 1)[1].strip()
-            user = verify_token(token)
-            if not user:
-                raise HTTPException(status_code=401, detail="Invalid or expired session token")
-
+        user = _validate_bearer_session(
+            authorization,
+            x_device_fingerprint=x_device_fingerprint,
+            permission=perm,
+            check_password_setup=True,
+        )
+        if user is not None:
             user_email = user.get("sub", "").strip().lower()
-
-            if user_email and not is_email_active(user_email):
-                logger.warning(
-                    f"Audit: Data request rejected (access revoked) for {user_email}",
-                    extra={"event": "ACCESS_REVOKED", "user_email": user_email, "permission": perm.value},
-                )
-                raise HTTPException(
-                    status_code=401,
-                    detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
-                )
-
-            effective_fp = x_device_fingerprint
-            if not check_session_active(user, device_fingerprint=effective_fp):
-                logger.warning(
-                    f"Audit: Data request rejected (session displaced) for {user_email}",
-                    extra={"event": "SESSION_SUPERSEDED", "user_email": user_email, "permission": perm.value},
-                )
-                raise HTTPException(
-                    status_code=401,
-                    detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
-                )
-
-            if user.get("requires_password_setup"):
-                raise HTTPException(
-                    status_code=403,
-                    detail="PASSWORD_SETUP_REQUIRED: You must configure an account password before accessing application data.",
-                )
-
             user_role = user.get("role", "")
             if not user_role and user_email in ROOT_ADMIN_EMAILS:
                 user_role = "Root Admin"
@@ -222,39 +231,18 @@ def require_role(allowed_roles: set[str] | list[str]):
         authorization: str | None = Header(None),
         x_device_fingerprint: str | None = Header(None, alias="X-Device-Fingerprint"),
     ) -> dict[str, Any]:
-        if authorization and authorization.startswith("Bearer "):
-            token = authorization.split("Bearer ", 1)[1].strip()
-            user = verify_token(token)
-            if not user:
-                raise HTTPException(status_code=401, detail="Invalid or expired session token")
-
+        user = _validate_bearer_session(
+            authorization,
+            x_device_fingerprint=x_device_fingerprint,
+            resource_name="role-protected-resource",
+            check_password_setup=False,
+        )
+        if user is not None:
             user_email = user.get("sub", "").strip().lower()
-
-            if user_email and not is_email_active(user_email):
-                logger.warning(
-                    f"Audit: Data request rejected (access revoked) for {user_email}",
-                    extra={"event": "ACCESS_REVOKED", "user_email": user_email},
-                )
-                raise HTTPException(
-                    status_code=401,
-                    detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
-                )
-
-            effective_fp = x_device_fingerprint
-            if not check_session_active(user, device_fingerprint=effective_fp):
-                logger.warning(
-                    f"Audit: Data request rejected (session displaced) for {user_email}",
-                    extra={"event": "SESSION_SUPERSEDED", "user_email": user_email},
-                )
-                raise HTTPException(
-                    status_code=401,
-                    detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
-                )
-
-            user_role = user.get("role", "").strip()
             if user_email in ROOT_ADMIN_EMAILS:
                 return user
 
+            user_role = user.get("role", "").strip()
             if user_role.lower() not in allowed_set:
                 logger.warning(
                     "Security: User '%s' with role '%s' not in allowed roles: %s",
