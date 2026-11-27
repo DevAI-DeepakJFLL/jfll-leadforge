@@ -39,6 +39,7 @@ class Settings(BaseModel):
 
     env: str = Field(default_factory=lambda: os.getenv("ENV", "local"))
     floci_endpoint: str = Field(default_factory=lambda: os.getenv("FLOCI_ENDPOINT", "localhost:4566"))
+    dsql_endpoint: str | None = Field(default_factory=lambda: os.getenv("DSQL_ENDPOINT"))
     aws_region: str = Field(default_factory=lambda: os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION") or "ap-southeast-2")
     s3_bucket: str = Field(default_factory=lambda: os.getenv("S3_DATA_BUCKET") or os.getenv("S3_BUCKET") or "jfll-leadforge-data")
     parquet_key: str = Field(default_factory=lambda: os.getenv("PARQUET_KEY", "leads/active_customers_leads_zstd.parquet"))
