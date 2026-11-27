@@ -25,6 +25,7 @@ import {
   LeadTrackerItem,
   LeadTrackerUpdatePayload,
   RoutingType,
+  STANDARD_SALES_REPS,
   TrackerActivityCreatePayload,
   TrackerStatus,
   TransportMode,
@@ -51,20 +52,7 @@ export interface LeadTrackerDrawerProps {
   className?: string;
 }
 
-export const STANDARD_SALES_REPS = [
-  { name: 'Tester', branch: 'Mumbai', email: 'tester@jfll.com' },
-  { name: 'Edward', branch: 'Mumbai', email: 'edward@jfll.com' },
-  { name: 'Tasneem', branch: 'Mumbai', email: 'tasneem@jfll.com' },
-  { name: 'Priyanka Sardesai', branch: 'Mumbai', email: 'priyanka.sardesai@jfll.com' },
-  { name: 'Utkarsha', branch: 'Mumbai', email: 'utkarsha@jfll.com' },
-  { name: 'Sanjay', branch: 'Mumbai', email: 'sanjay@jfll.com' },
-  { name: 'Sidhart Ji', branch: 'Gujarat', email: 'sidhart@jfll.com' },
-  { name: 'Jaya', branch: 'South India', email: 'jaya@jfll.com' },
-  { name: 'Snehal Birje', branch: 'Mumbai', email: 'snehal.birje@jfll.com' },
-  { name: 'Akash Dhara', branch: 'Mumbai', email: 'akash.dhara@jfll.com' },
-  { name: 'Alexander', branch: 'Mumbai', email: 'alexander@jfll.com' },
-];
-
+export { STANDARD_SALES_REPS };
 export const STANDARD_BRANCHES = ['Mumbai', 'Gujarat', 'South India', 'Delhi', 'Other'];
 
 export const QUICK_TOUCHPOINT_ACTIONS = [

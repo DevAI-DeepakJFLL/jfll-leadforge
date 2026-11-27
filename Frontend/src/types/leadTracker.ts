@@ -71,6 +71,26 @@ export type TrackerFollowupStatus = 'overdue' | 'due_today' | 'upcoming' | 'none
 
 export type RateValidityStatus = 'valid' | 'expiring_soon' | 'expired' | 'none';
 
+export interface SalesRep {
+  name: string;
+  branch: string;
+  email: string;
+}
+
+export const STANDARD_SALES_REPS: readonly SalesRep[] = [
+  { name: 'Tester', branch: 'Mumbai', email: 'tester@jfll.com' },
+  { name: 'Edward', branch: 'Mumbai', email: 'edward@jfll.com' },
+  { name: 'Tasneem', branch: 'Mumbai', email: 'tasneem@jfll.com' },
+  { name: 'Priyanka Sardesai', branch: 'Mumbai', email: 'priyanka.sardesai@jfll.com' },
+  { name: 'Utkarsha', branch: 'Mumbai', email: 'utkarsha@jfll.com' },
+  { name: 'Sanjay', branch: 'Mumbai', email: 'sanjay@jfll.com' },
+  { name: 'Sidhart Ji', branch: 'Gujarat', email: 'sidhart@jfll.com' },
+  { name: 'Jaya', branch: 'South India', email: 'jaya@jfll.com' },
+  { name: 'Snehal Birje', branch: 'Mumbai', email: 'snehal.birje@jfll.com' },
+  { name: 'Akash Dhara', branch: 'Mumbai', email: 'akash.dhara@jfll.com' },
+  { name: 'Alexander', branch: 'Mumbai', email: 'alexander@jfll.com' },
+];
+
 export interface RateValidityInfo {
   status: RateValidityStatus;
   daysRemaining: number | null;

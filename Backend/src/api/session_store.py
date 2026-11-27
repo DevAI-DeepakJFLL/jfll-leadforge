@@ -59,14 +59,30 @@ def set_active_session(
     if not email or not session_id:
         return
     clean = email.strip().lower()
+    clean_fp = device_fingerprint.strip() if device_fingerprint else None
     if _REDIS_CLIENT:
         try:
             _REDIS_CLIENT.set(f"session:{clean}", session_id, ex=ttl_seconds)
-            if device_fingerprint:
+            if clean_fp:
                 import json
+                existing_json = _REDIS_CLIENT.get(f"session_dev:{clean}")
+                session_ids_list = [session_id]
+                if existing_json:
+                    try:
+                        existing_data = json.loads(existing_json)
+                        if existing_data.get("fp") == clean_fp:
+                            prev_ids = existing_data.get("session_ids", [])
+                            if session_id not in prev_ids:
+                                session_ids_list = prev_ids + [session_id]
+                    except Exception:
+                        pass
                 _REDIS_CLIENT.set(
                     f"session_dev:{clean}",
-                    json.dumps({"fp": device_fingerprint, "active": session_id}),
+                    json.dumps({
+                        "fp": clean_fp,
+                        "active": session_id,
+                        "session_ids": session_ids_list,
+                    }),
                     ex=ttl_seconds,
                 )
         except Exception as err:
@@ -74,7 +90,6 @@ def set_active_session(
     with _SESSION_LOCK:
         ACTIVE_USER_SESSIONS[clean] = session_id
         current_dev = ACTIVE_USER_DEVICES.get(clean)
-        clean_fp = device_fingerprint.strip() if device_fingerprint else None
         
         if current_dev and clean_fp and current_dev.get("device_fingerprint") == clean_fp:
             # Same device: record new session ID alongside previous ones for tab coexistence
@@ -118,6 +133,18 @@ def is_session_valid_on_device(
     clean_fp = device_fingerprint.strip() if device_fingerprint else None
     if not clean_fp:
         return False
+
+    if _REDIS_CLIENT:
+        try:
+            import json
+            dev_json = _REDIS_CLIENT.get(f"session_dev:{clean}")
+            if dev_json:
+                dev_data = json.loads(dev_json)
+                if dev_data.get("fp") == clean_fp:
+                    valid_sessions = dev_data.get("session_ids", [])
+                    return session_id in valid_sessions
+        except Exception as err:
+            logger.debug(f"Redis get failed for session_dev:{clean}: {err}")
 
     with _SESSION_LOCK:
         dev_info = ACTIVE_USER_DEVICES.get(clean)

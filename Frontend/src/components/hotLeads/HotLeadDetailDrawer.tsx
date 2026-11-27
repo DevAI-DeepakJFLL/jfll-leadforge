@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { HotLead } from '@/types/hotLeads';
 import { formatInrCurrency, hasHotLeadContact } from '@/services/hotLeadsService';
+import { getTrackedLeadByCompanyOrId } from '@/services/leadTrackerService';
+import { AssignedBadge } from '@/components/ui/AssignedBadge';
 
 interface HotLeadDetailDrawerProps {
   isOpen: boolean;
@@ -217,14 +219,18 @@ export const HotLeadDetailDrawer: React.FC<HotLeadDetailDrawerProps> = ({
             <div className="grid grid-cols-2 gap-3 text-xs">
               <div className="p-3 rounded-lg bg-white border border-slate-200/90 shadow-2xs">
                 <span className="text-slate-500 block mb-1.5 text-[11px] font-medium">Assigned Sales Rep</span>
-                {lead.salesRep && lead.salesRep !== '-' ? (
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs">
-                    <UserCheck className="w-3.5 h-3.5 text-blue-600" />
-                    <span>{lead.salesRep}</span>
-                  </span>
-                ) : (
-                  <span className="font-semibold text-slate-400 text-xs">None (Unassigned)</span>
-                )}
+                {(() => {
+                  const tracked = getTrackedLeadByCompanyOrId(lead.customerName, lead.srNo);
+                  const effectiveRep = (tracked && tracked.assigned_to) || (lead.salesRep && lead.salesRep !== '-' ? lead.salesRep : null);
+                  return effectiveRep ? (
+                    <AssignedBadge
+                      assignedTo={effectiveRep}
+                      branch={tracked?.branch}
+                    />
+                  ) : (
+                    <span className="font-semibold text-slate-400 text-xs">None (Unassigned)</span>
+                  );
+                })()}
               </div>
               <div className="p-3 rounded-lg bg-white border border-slate-200/90 shadow-2xs">
                 <span className="text-slate-500 block mb-1 text-[11px] font-medium">Internal Contact</span>

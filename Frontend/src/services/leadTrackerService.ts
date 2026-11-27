@@ -18,12 +18,15 @@ import {
   LeadTrackerUpdatePayload,
   RateValidityInfo,
   RateValidityStatus,
+  SalesRep,
+  STANDARD_SALES_REPS,
   TrackerActivityCreatePayload,
   TrackerFollowupStatus,
   TrackerKPIs,
 } from '@/types/leadTracker';
 
-export type { RateValidityInfo, RateValidityStatus };
+export type { RateValidityInfo, RateValidityStatus, SalesRep };
+export { STANDARD_SALES_REPS };
 
 export const TRACKER_API_BASE_URL = `${API_BASE_URL}/api/v1/lead-tracker`;
 export const TRACKER_CACHE_STORAGE_KEY = 'jfll_lead_tracker_cache_v2';
@@ -31,25 +34,18 @@ export const LEGACY_TRACKER_CACHE_STORAGE_KEY = 'jfll_lead_tracker_cache_v1';
 export const TRACKER_UPDATED_EVENT = 'jfll-tracker-lead-updated';
 
 /**
- * Standard sales rep email mappings for automatic rep notification and assignment.
+ * Standard sales rep email mappings derived directly from the unified sales rep list.
  */
 export const SALES_REP_EMAILS: Record<string, string> = {
-  'tester': 'tester@jfll.com',
-  'edward': 'edward@jfll.com',
-  'tasneem': 'tasneem@jfll.com',
-  'priyanka sardesai': 'priyanka.sardesai@jfll.com',
+  ...Object.fromEntries(
+    STANDARD_SALES_REPS.flatMap((r) => [
+      [r.name.toLowerCase(), r.email],
+      [r.name.toLowerCase().split(' ')[0], r.email],
+    ])
+  ),
   'priyanka': 'priyanka.sardesai@jfll.com',
-  'utkarsha': 'utkarsha@jfll.com',
-  'sanjay': 'sanjay@jfll.com',
-  'sidhart ji': 'sidhart@jfll.com',
   'sidhart': 'sidhart@jfll.com',
-  'jaya': 'jaya@jfll.com',
   'sheela': 'sheela@jfll.com',
-  'snehal birje': 'snehal.birje@jfll.com',
-  'snehal': 'snehal.birje@jfll.com',
-  'akash dhara': 'akash.dhara@jfll.com',
-  'akash': 'akash.dhara@jfll.com',
-  'alexander': 'alexander@jfll.com',
 };
 
 /**
@@ -60,9 +56,40 @@ export const DEFAULT_TRACKER_STARTER_LEADS: LeadTrackerItem[] = [];
 
 /**
  * In-memory cache: Map<id, LeadTrackerItem> providing O(1) random access.
+ * Secondary indexed Maps provide O(1) identification of assigned records
+ * by company name and linked entity ID.
  */
 const leadTrackerCache = new Map<string, LeadTrackerItem>();
+const _trackedByCompany = new Map<string, LeadTrackerItem>();
+const _trackedByEntityId = new Map<string, LeadTrackerItem>();
 let _cacheInitialized = false;
+
+function _indexItem(item: LeadTrackerItem): void {
+  if (item.company_name) {
+    _trackedByCompany.set(item.company_name.trim().toLowerCase(), item);
+  }
+  if (item.linked_entity_id) {
+    _trackedByEntityId.set(String(item.linked_entity_id).trim().toLowerCase(), item);
+  }
+}
+
+function _deindexItem(item?: LeadTrackerItem): void {
+  if (!item) return;
+  if (item.company_name) {
+    _trackedByCompany.delete(item.company_name.trim().toLowerCase());
+  }
+  if (item.linked_entity_id) {
+    _trackedByEntityId.delete(String(item.linked_entity_id).trim().toLowerCase());
+  }
+}
+
+function _rebuildLookupIndexes(): void {
+  _trackedByCompany.clear();
+  _trackedByEntityId.clear();
+  for (const item of leadTrackerCache.values()) {
+    _indexItem(item);
+  }
+}
 
 /**
  * Ensures the in-memory cache is populated from localStorage.
@@ -86,6 +113,7 @@ function ensureCacheInitialized(): void {
           for (const item of parsed) {
             leadTrackerCache.set(item.id, item);
           }
+          _rebuildLookupIndexes();
           _cacheInitialized = true;
           return;
         }
@@ -99,6 +127,7 @@ function ensureCacheInitialized(): void {
 
   // Initialize clean empty cache (no mock leads auto-seeding)
   leadTrackerCache.clear();
+  _rebuildLookupIndexes();
   _cacheInitialized = true;
 }
 
@@ -123,6 +152,7 @@ function persistCache(): void {
  */
 export function resetTrackerLocalCache(): void {
   leadTrackerCache.clear();
+  _rebuildLookupIndexes();
   _cacheInitialized = true;
   persistCache();
 }
@@ -152,27 +182,24 @@ export function getAllTrackerCachedItems(): LeadTrackerItem[] {
 
 /**
  * Returns the tracked lead record matching a company name or linked entity ID, if already assigned.
- * Enables O(1) identification of assigned records across DataMyne, Apollo, and Hot Leads.
+ * Uses indexed maps to guarantee high-performance O(1) identification of assigned records across DataMyne, Apollo, and Hot Leads.
  */
 export function getTrackedLeadByCompanyOrId(
   companyName?: string,
   linkedEntityId?: string | number
 ): LeadTrackerItem | undefined {
-  const items = getAllTrackerCachedItems();
-  if (!items || items.length === 0) return undefined;
-
-  const cleanId = linkedEntityId ? String(linkedEntityId).trim().toLowerCase() : null;
-  const cleanName = companyName ? companyName.trim().toLowerCase() : null;
-
-  return items.find((item) => {
-    if (cleanId && item.linked_entity_id && item.linked_entity_id.trim().toLowerCase() === cleanId) {
-      return true;
-    }
-    if (cleanName && item.company_name && item.company_name.trim().toLowerCase() === cleanName) {
-      return true;
-    }
-    return false;
-  });
+  ensureCacheInitialized();
+  if (linkedEntityId) {
+    const cleanId = String(linkedEntityId).trim().toLowerCase();
+    const match = _trackedByEntityId.get(cleanId);
+    if (match) return match;
+  }
+  if (companyName) {
+    const cleanName = companyName.trim().toLowerCase();
+    const match = _trackedByCompany.get(cleanName);
+    if (match) return match;
+  }
+  return undefined;
 }
 
 /**
@@ -183,6 +210,7 @@ export function setTrackerCachedItems(items: LeadTrackerItem[]): void {
   for (const item of items) {
     leadTrackerCache.set(item.id, item);
   }
+  _rebuildLookupIndexes();
   _cacheInitialized = true;
   persistCache();
 }
@@ -472,9 +500,12 @@ export async function fetchTrackedLeads(
 
     if (noFilters) {
       leadTrackerCache.clear();
+      _trackedByCompany.clear();
+      _trackedByEntityId.clear();
     }
     for (const item of data) {
       leadTrackerCache.set(item.id, item);
+      _indexItem(item);
     }
     persistCache();
 
@@ -533,6 +564,7 @@ export async function fetchTrackedLeadById(id: string): Promise<LeadTrackerItem>
     if (response.ok) {
       const data: LeadTrackerItem = await response.json();
       leadTrackerCache.set(data.id, data);
+      _indexItem(data);
       persistCache();
       return data;
     }
@@ -569,6 +601,7 @@ export async function createTrackedLead(
     if (response.ok) {
       const created: LeadTrackerItem = await response.json();
       leadTrackerCache.set(created.id, created);
+      _indexItem(created);
       persistCache();
       notifyTrackerLeadUpdated(created);
       return created;
@@ -625,6 +658,7 @@ export async function createTrackedLead(
   };
 
   leadTrackerCache.set(id, localItem);
+  _indexItem(localItem);
   persistCache();
   notifyTrackerLeadUpdated(localItem);
   return localItem;
@@ -650,6 +684,7 @@ export async function updateTrackedLead(
     if (response.ok) {
       const updated: LeadTrackerItem = await response.json();
       leadTrackerCache.set(updated.id, updated);
+      _indexItem(updated);
       persistCache();
       notifyTrackerLeadUpdated(updated);
       return updated;
@@ -734,6 +769,7 @@ export async function updateTrackedLead(
   };
 
   leadTrackerCache.set(id, mergedItem);
+  _indexItem(mergedItem);
   persistCache();
   notifyTrackerLeadUpdated(mergedItem);
   return mergedItem;
@@ -758,6 +794,7 @@ export async function logTrackerActivity(
     if (response.ok) {
       const updated: LeadTrackerItem = await response.json();
       leadTrackerCache.set(updated.id, updated);
+      _indexItem(updated);
       persistCache();
       notifyTrackerLeadUpdated(updated);
       return updated;
@@ -798,6 +835,7 @@ export async function logTrackerActivity(
   };
 
   leadTrackerCache.set(id, updatedItem);
+  _indexItem(updatedItem);
   persistCache();
   notifyTrackerLeadUpdated(updatedItem);
   return updatedItem;
@@ -816,6 +854,8 @@ export async function deleteTrackedLead(id: string): Promise<boolean> {
     });
 
     if (response.ok) {
+      const existing = leadTrackerCache.get(id);
+      _deindexItem(existing);
       leadTrackerCache.delete(id);
       persistCache();
       return true;
@@ -827,6 +867,8 @@ export async function deleteTrackedLead(id: string): Promise<boolean> {
   }
 
   // Local deletion
+  const existing = leadTrackerCache.get(id);
+  _deindexItem(existing);
   const deleted = leadTrackerCache.delete(id);
   persistCache();
   return deleted;

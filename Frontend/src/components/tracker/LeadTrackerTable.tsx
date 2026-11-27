@@ -16,7 +16,6 @@ import {
   Check,
   Edit3,
   User,
-  UserCheck,
   ArrowUpDown,
   SearchX,
 } from 'lucide-react';
@@ -380,10 +379,6 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
                     </div>
                     <div className="flex items-center gap-1.5 flex-wrap">
                       {renderEntityBadge(lead.linked_entity_type)}
-                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">
-                        <UserCheck className="w-2.5 h-2.5 text-blue-600" />
-                        <span>Assigned: {lead.assigned_to}</span>
-                      </span>
                       <span className="text-[10px] text-slate-400">
                         {formatShortDate(lead.assigned_date)}
                       </span>

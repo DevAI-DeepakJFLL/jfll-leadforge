@@ -14,12 +14,13 @@ import {
   ClipboardList,
   Sparkles,
   Loader2,
-  UserCheck,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
+import { TieredLead } from '@/types/tierSegmentation';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
 import { TierScoreBadge } from '@/components/tiers';
 import { SalesStatusBadge } from '@/components/approach';
+import { AssignedBadge } from '@/components/ui/AssignedBadge';
 import {
   APPROACH_STATUS_CHANGED_EVENT,
   getCachedApproachStatus,
@@ -30,6 +31,10 @@ import {
   TRACKER_UPDATED_EVENT,
 } from '@/services/leadTrackerService';
 
+
+function isTieredLead(lead: DatamyneLead): lead is TieredLead {
+  return 'segment_status' in lead && typeof (lead as unknown as Record<string, unknown>).segment_status === 'string';
+}
 
 export interface DatamyneTableProps {
   leads: DatamyneLead[];
@@ -321,21 +326,18 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                         <div className="flex items-center gap-1.5 mt-0.5 text-[11px] text-slate-500 font-normal truncate">
                           {/* Already Assigned Tag with Rep Ownership */}
                           {tracked && (
-                            <span
-                              className="inline-flex items-center gap-1 font-semibold px-2 py-0.5 rounded-full text-[10px] bg-blue-50 text-blue-700 border border-blue-200 shrink-0 shadow-2xs"
-                              title={`Assigned to ${tracked.assigned_to} (${tracked.branch}) in Lead Tracker`}
-                            >
-                              <UserCheck className="w-2.5 h-2.5 text-blue-600" />
-                              <span>Assigned: {tracked.assigned_to}</span>
-                            </span>
+                            <AssignedBadge
+                              assignedTo={tracked.assigned_to}
+                              branch={tracked.branch}
+                            />
                           )}
 
                           {/* SOP Tier Score Badge if segmented */}
-                          {(l as any).segment_status && (
+                          {isTieredLead(l) && (
                             <TierScoreBadge
-                              status={(l as any).segment_status}
-                              score={(l as any).total_score || 0}
-                              breakdown={(l as any).score_breakdown}
+                              status={l.segment_status}
+                              score={l.total_score || 0}
+                              breakdown={l.score_breakdown}
                             />
                           )}
 

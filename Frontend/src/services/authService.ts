@@ -20,28 +20,15 @@ export const DEFAULT_ANONYMOUS_SESSION: UserSession = {
 };
 
 /**
- * Retrieves the persisted UserSession from browser storage safely.
- * Checks sessionStorage first; falls back to localStorage so duplicated tabs
- * and new windows on the same device seamlessly share the authenticated session.
+ * Retrieves the persisted UserSession from tab sessionStorage safely.
+ * Session tokens are kept in-memory and in per-tab sessionStorage (which browser tab duplication automatically clones),
+ * adhering to TECH_STACK.md § "Security" by never persisting auth tokens in window.localStorage.
  */
 export function getStoredSession(): UserSession | null {
   try {
-    if (typeof window !== 'undefined') {
-      if (window.sessionStorage) {
-        const raw = window.sessionStorage.getItem(AUTH_STORAGE_KEY);
-        if (raw) return JSON.parse(raw);
-      }
-      if (window.localStorage) {
-        const localRaw = window.localStorage.getItem(AUTH_STORAGE_KEY);
-        if (localRaw) {
-          const parsed = JSON.parse(localRaw);
-          // Sync to current tab's sessionStorage
-          try {
-            window.sessionStorage?.setItem(AUTH_STORAGE_KEY, localRaw);
-          } catch {}
-          return parsed;
-        }
-      }
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const raw = window.sessionStorage.getItem(AUTH_STORAGE_KEY);
+      if (raw) return JSON.parse(raw);
     }
   } catch {
     // Graceful handling of storage access exceptions
@@ -57,20 +44,14 @@ export function isOfflineSession(session?: UserSession | null): boolean {
 }
 
 /**
- * Persists active UserSession to browser storage safely across both sessionStorage
- * and localStorage, allowing tabs on the same device to share session state without re-authenticating.
+ * Persists active UserSession to in-memory store and tab sessionStorage.
+ * In accordance with TECH_STACK.md § "Security", auth tokens are strictly NOT written to window.localStorage.
  */
 export function setStoredSession(session: UserSession): void {
   _inMemorySession = session;
   try {
-    if (typeof window !== 'undefined') {
-      const serialized = JSON.stringify(session);
-      if (window.sessionStorage) {
-        window.sessionStorage.setItem(AUTH_STORAGE_KEY, serialized);
-      }
-      if (window.localStorage) {
-        window.localStorage.setItem(AUTH_STORAGE_KEY, serialized);
-      }
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      window.sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
     }
   } catch {
     // Graceful handling of storage access exceptions
@@ -78,7 +59,8 @@ export function setStoredSession(session: UserSession): void {
 }
 
 /**
- * Clears persisted UserSession from all browser storage vaults upon logout.
+ * Clears persisted UserSession from memory and sessionStorage upon logout.
+ * Also cleans up any legacy localStorage tokens and cached tracker entries.
  */
 export function clearStoredSession(): void {
   _inMemorySession = null;
@@ -122,7 +104,6 @@ export function getAuthHeaders(options?: {
       headers['Authorization'] = `Bearer ${session.token}`;
     } else if (typeof window !== 'undefined') {
       const fallbackToken =
-        window.localStorage?.getItem('token') ||
         window.sessionStorage?.getItem('token') ||
         null;
       if (fallbackToken && !fallbackToken.startsWith('offline_session_')) {

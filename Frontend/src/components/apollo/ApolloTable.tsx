@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RowSelectionState } from '@tanstack/react-table';
 import { ApolloLead, toSafeExternalUrl } from '@/types/apolloLead';
 import {
@@ -12,12 +12,15 @@ import {
   Eye,
   AlertCircle,
   Users,
-  UserCheck,
   MapPin,
   Loader2,
 } from 'lucide-react';
-import { getTrackedLeadByCompanyOrId } from '@/services/leadTrackerService';
+import {
+  getTrackedLeadByCompanyOrId,
+  TRACKER_UPDATED_EVENT,
+} from '@/services/leadTrackerService';
 import { ApolloVerticalBadge } from './ApolloVerticalBadge';
+import { AssignedBadge } from '@/components/ui/AssignedBadge';
 import {
   getCompanyInitials,
   getAvatarStyle,
@@ -68,6 +71,17 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
   className = '',
 }) => {
   const [copiedPhoneId, setCopiedPhoneId] = useState<string | null>(null);
+  const [, setTrackerVersion] = useState(0);
+
+  useEffect(() => {
+    const handleTrackerUpdate = () => {
+      setTrackerVersion((v) => v + 1);
+    };
+    window.addEventListener(TRACKER_UPDATED_EVENT, handleTrackerUpdate);
+    return () => {
+      window.removeEventListener(TRACKER_UPDATED_EVENT, handleTrackerUpdate);
+    };
+  }, []);
 
   const handleCopyPhone = (e: React.MouseEvent, phone: string, id: string) => {
     e.stopPropagation();
@@ -273,13 +287,10 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                         </div>
                         <div className="flex items-center space-x-1.5 text-[11px] text-slate-500 font-normal truncate mt-0.5 leading-tight">
                           {tracked && (
-                            <span
-                              className="inline-flex items-center gap-1 font-semibold px-2 py-0.5 rounded-full text-[10px] bg-blue-50 text-blue-700 border border-blue-200 shrink-0 shadow-2xs"
-                              title={`Assigned to ${tracked.assigned_to} (${tracked.branch}) in Lead Tracker`}
-                            >
-                              <UserCheck className="w-2.5 h-2.5 text-blue-600" />
-                              <span>Assigned: {tracked.assigned_to}</span>
-                            </span>
+                            <AssignedBadge
+                              assignedTo={tracked.assigned_to}
+                              branch={tracked.branch}
+                            />
                           )}
                           <span className="truncate max-w-[160px]">{lead.domain}</span>
                           {toSafeExternalUrl(lead.website_url) && (

@@ -59,7 +59,7 @@ def check_session_active(payload: dict[str, Any], device_fingerprint: str | None
     if not is_email_active(email):
         return False
 
-    effective_fp = device_fingerprint or payload.get("device_fingerprint")
+    effective_fp = device_fingerprint
     return is_session_valid_on_device(email, token_session_id, effective_fp)
 
 

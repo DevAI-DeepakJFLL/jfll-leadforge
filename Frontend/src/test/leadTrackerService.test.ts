@@ -12,6 +12,7 @@ import {
   getAuthHeaders,
   getFollowupStatus,
   getRateValidityInfo,
+  getTrackedLeadByCompanyOrId,
   getTrackerCachedItem,
   logTrackerActivity,
   resetTrackerLocalCache,
@@ -630,6 +631,34 @@ describe('Lead Tracker Service Suite', () => {
       expect(headers['Content-Type']).toBe('application/json');
       expect(headers['Accept']).toBe('application/json');
       expect(headers['X-Device-Fingerprint']).toBeDefined();
+    });
+
+    it('getTrackedLeadByCompanyOrId performs O(1) indexed lookup by company or linked entity ID', () => {
+      resetTrackerLocalCache();
+      const mockLead = {
+        ...MOCK_TRACKER_STARTER_LEADS[0],
+        company_name: 'Apex Logistics India',
+        linked_entity_id: 'dm-lead-12345',
+      };
+      setTrackerCachedItems([mockLead]);
+
+      // Lookup by company name
+      const byCompany = getTrackedLeadByCompanyOrId('Apex Logistics India');
+      expect(byCompany).toBeDefined();
+      expect(byCompany?.id).toBe(mockLead.id);
+
+      // Case-insensitive lookup with padding
+      const byCompanyTrimmed = getTrackedLeadByCompanyOrId('  apex logistics india  ');
+      expect(byCompanyTrimmed).toBeDefined();
+      expect(byCompanyTrimmed?.id).toBe(mockLead.id);
+
+      // Lookup by linked entity ID
+      const byEntityId = getTrackedLeadByCompanyOrId(undefined, 'dm-lead-12345');
+      expect(byEntityId).toBeDefined();
+      expect(byEntityId?.id).toBe(mockLead.id);
+
+      // Unmatched returns undefined
+      expect(getTrackedLeadByCompanyOrId('Unknown Enterprise', 'nonexistent')).toBeUndefined();
     });
   });
 });

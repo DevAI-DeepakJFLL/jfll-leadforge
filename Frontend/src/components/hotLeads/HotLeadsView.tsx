@@ -34,6 +34,11 @@ import {
 } from '@/services/hotLeadsService';
 import { HotLeadDetailDrawer } from './HotLeadDetailDrawer';
 import { IndiaFlagIcon, formatPhoneNumber } from '../jfll/JfllCustomerTable';
+import {
+  getTrackedLeadByCompanyOrId,
+  TRACKER_UPDATED_EVENT,
+} from '@/services/leadTrackerService';
+import { AssignedBadge } from '@/components/ui/AssignedBadge';
 
 export interface HotLeadsViewProps {
   initialSearchQuery?: string;
@@ -76,6 +81,17 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
   const [records, setRecords] = useState<HotLead[]>(() => HOT_LEADS_DATA);
   const [metrics, setMetrics] = useState(() => computeHotLeadsMetrics(HOT_LEADS_DATA));
   const [, setCopiedKey] = useState<string | null>(null);
+  const [, setTrackerVersion] = useState(0);
+
+  useEffect(() => {
+    const handleTrackerUpdate = () => {
+      setTrackerVersion((v) => v + 1);
+    };
+    window.addEventListener(TRACKER_UPDATED_EVENT, handleTrackerUpdate);
+    return () => {
+      window.removeEventListener(TRACKER_UPDATED_EVENT, handleTrackerUpdate);
+    };
+  }, []);
   const [isOverviewCollapsed, setIsOverviewCollapsed] = useState<boolean>(() => {
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
@@ -608,16 +624,20 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                                 {lead.customerName}
                               </div>
                               <div className="text-[11px] text-slate-500 font-normal truncate mt-0.5 flex items-center gap-1.5 flex-wrap">
-                                {lead.salesRep && lead.salesRep !== '-' ? (
-                                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs">
-                                    <UserCheck className="w-2.5 h-2.5 text-blue-600" />
-                                    <span>Assigned: {lead.salesRep}</span>
-                                  </span>
-                                ) : (
-                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium text-slate-400 bg-slate-100 border border-slate-200/80">
-                                    Unassigned
-                                  </span>
-                                )}
+                                {(() => {
+                                  const tracked = getTrackedLeadByCompanyOrId(lead.customerName, lead.srNo);
+                                  const effectiveRep = (tracked && tracked.assigned_to) || (lead.salesRep && lead.salesRep !== '-' ? lead.salesRep : null);
+                                  return effectiveRep ? (
+                                    <AssignedBadge
+                                      assignedTo={effectiveRep}
+                                      branch={tracked?.branch}
+                                    />
+                                  ) : (
+                                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium text-slate-400 bg-slate-100 border border-slate-200/80">
+                                      Unassigned
+                                    </span>
+                                  );
+                                })()}
                                 {lead.datamyneTradeActivity && lead.datamyneTradeActivity !== '-' && (
                                   <>
                                     <span className="text-slate-300">•</span>

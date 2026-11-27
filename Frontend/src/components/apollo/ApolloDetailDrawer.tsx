@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ApolloLead, ApolloContact, TOP_APOLLO_CARGO_VERTICALS, toSafeExternalUrl } from '@/types/apolloLead';
 import { fetchCompanyContacts } from '@/services/apolloService';
 import { getTrackedLeadByCompanyOrId } from '@/services/leadTrackerService';
+import { AssignedBadge } from '@/components/ui/AssignedBadge';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { useDebounce } from '@/hooks/useDebounce';
 import {
@@ -181,13 +182,10 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                   </h2>
                   <div className="flex flex-wrap items-center gap-1.5 mt-1">
                     {trackedLead && (
-                      <span
-                        className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs"
-                        title={`Assigned to ${trackedLead.assigned_to} (${trackedLead.branch}) in Lead Tracker`}
-                      >
-                        <UserCheck className="w-2.5 h-2.5 text-blue-600" />
-                        <span>Assigned: {trackedLead.assigned_to}</span>
-                      </span>
+                      <AssignedBadge
+                        assignedTo={trackedLead.assigned_to}
+                        branch={trackedLead.branch}
+                      />
                     )}
                     <span className="font-mono text-[11px] text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">
                       {lead.domain}

@@ -104,7 +104,7 @@ def require_auth(
                 detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
             )
 
-        effective_fp = x_device_fingerprint or user.get("device_fingerprint")
+        effective_fp = x_device_fingerprint
         if not check_session_active(user, device_fingerprint=effective_fp):
             logger.warning(
                 f"Audit: Data request rejected (session displaced) for {user_email}",
@@ -156,7 +156,7 @@ def require_permission(perm: Permission):
                     detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
                 )
 
-            effective_fp = x_device_fingerprint or user.get("device_fingerprint")
+            effective_fp = x_device_fingerprint
             if not check_session_active(user, device_fingerprint=effective_fp):
                 logger.warning(
                     f"Audit: Data request rejected (session displaced) for {user_email}",
@@ -240,7 +240,7 @@ def require_role(allowed_roles: set[str] | list[str]):
                     detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
                 )
 
-            effective_fp = x_device_fingerprint or user.get("device_fingerprint")
+            effective_fp = x_device_fingerprint
             if not check_session_active(user, device_fingerprint=effective_fp):
                 logger.warning(
                     f"Audit: Data request rejected (session displaced) for {user_email}",
