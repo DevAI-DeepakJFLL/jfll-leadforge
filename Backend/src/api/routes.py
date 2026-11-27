@@ -1243,6 +1243,15 @@ def list_hot_leads(
     where_clauses = ["1=1"]
     params = []
 
+    has_contact_sql = """(
+        (apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND trim(apollo_decision_maker) != '')
+        OR (jfll_direct_phone IS NOT NULL AND jfll_direct_phone != '-' AND trim(jfll_direct_phone) != '')
+        OR (jfll_direct_email IS NOT NULL AND jfll_direct_email != '-' AND trim(jfll_direct_email) != '')
+        OR (decision_maker_direct_email IS NOT NULL AND decision_maker_direct_email != '-' AND trim(decision_maker_direct_email) != '')
+        OR (jfll_contact_person IS NOT NULL AND jfll_contact_person != '-' AND trim(jfll_contact_person) != '')
+    )"""
+    no_contact_sql = f"(NOT {has_contact_sql})"
+
     # Segment taxonomy: JFLL Active | JFLL Inactive | Fresh Data (split by With Contacts / Without Contacts)
     if segment in ("prospects", "fresh"):
         where_clauses.append("jfll_crm_status = 'Prospect (Not in JFLL)'")
@@ -1251,21 +1260,21 @@ def list_hot_leads(
     elif segment == "active":
         where_clauses.append("jfll_crm_status = 'Active Customer'")
     elif segment in ("with-decision-makers", "with-contacts"):
-        where_clauses.append("apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != ''")
+        where_clauses.append(has_contact_sql)
     elif segment == "without-contacts":
-        where_clauses.append("(apollo_decision_maker IS NULL OR apollo_decision_maker = '-' OR apollo_decision_maker = '')")
+        where_clauses.append(no_contact_sql)
     elif segment in ("active-with-contacts", "active_with_contacts"):
-        where_clauses.append("jfll_crm_status = 'Active Customer' AND apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != ''")
+        where_clauses.append(f"jfll_crm_status = 'Active Customer' AND {has_contact_sql}")
     elif segment in ("active-without-contacts", "active_without_contacts"):
-        where_clauses.append("jfll_crm_status = 'Active Customer' AND (apollo_decision_maker IS NULL OR apollo_decision_maker = '-' OR apollo_decision_maker = '')")
+        where_clauses.append(f"jfll_crm_status = 'Active Customer' AND {no_contact_sql}")
     elif segment in ("inactive-with-contacts", "inactive_with_contacts"):
-        where_clauses.append("jfll_crm_status = 'Not Active Customer' AND apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != ''")
+        where_clauses.append(f"jfll_crm_status = 'Not Active Customer' AND {has_contact_sql}")
     elif segment in ("inactive-without-contacts", "inactive_without_contacts"):
-        where_clauses.append("jfll_crm_status = 'Not Active Customer' AND (apollo_decision_maker IS NULL OR apollo_decision_maker = '-' OR apollo_decision_maker = '')")
+        where_clauses.append(f"jfll_crm_status = 'Not Active Customer' AND {no_contact_sql}")
     elif segment in ("fresh-with-contacts", "fresh_with_contacts"):
-        where_clauses.append("jfll_crm_status = 'Prospect (Not in JFLL)' AND apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != ''")
+        where_clauses.append(f"jfll_crm_status = 'Prospect (Not in JFLL)' AND {has_contact_sql}")
     elif segment in ("fresh-without-contacts", "fresh_without_contacts"):
-        where_clauses.append("jfll_crm_status = 'Prospect (Not in JFLL)' AND (apollo_decision_maker IS NULL OR apollo_decision_maker = '-' OR apollo_decision_maker = '')")
+        where_clauses.append(f"jfll_crm_status = 'Prospect (Not in JFLL)' AND {no_contact_sql}")
 
     if search:
         search_pattern = f"%{search.strip().lower()}%"
@@ -1289,13 +1298,13 @@ def list_hot_leads(
                 count(CASE WHEN jfll_crm_status = 'Prospect (Not in JFLL)' THEN 1 END) as prospects_count,
                 count(CASE WHEN jfll_crm_status = 'Not Active Customer' THEN 1 END) as reactivations_count,
                 count(CASE WHEN jfll_crm_status = 'Active Customer' THEN 1 END) as active_count,
-                count(CASE WHEN apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != '' THEN 1 END) as dm_count,
-                count(CASE WHEN jfll_crm_status = 'Prospect (Not in JFLL)' AND apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != '' THEN 1 END) as fresh_with_contacts,
-                count(CASE WHEN jfll_crm_status = 'Prospect (Not in JFLL)' AND (apollo_decision_maker IS NULL OR apollo_decision_maker = '-' OR apollo_decision_maker = '') THEN 1 END) as fresh_without_contacts,
-                count(CASE WHEN jfll_crm_status = 'Not Active Customer' AND apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != '' THEN 1 END) as inactive_with_contacts,
-                count(CASE WHEN jfll_crm_status = 'Not Active Customer' AND (apollo_decision_maker IS NULL OR apollo_decision_maker = '-' OR apollo_decision_maker = '') THEN 1 END) as inactive_without_contacts,
-                count(CASE WHEN jfll_crm_status = 'Active Customer' AND apollo_decision_maker IS NOT NULL AND apollo_decision_maker != '-' AND apollo_decision_maker != '' THEN 1 END) as active_with_contacts,
-                count(CASE WHEN jfll_crm_status = 'Active Customer' AND (apollo_decision_maker IS NULL OR apollo_decision_maker = '-' OR apollo_decision_maker = '') THEN 1 END) as active_without_contacts
+                count(CASE WHEN {has_contact_sql} THEN 1 END) as dm_count,
+                count(CASE WHEN jfll_crm_status = 'Prospect (Not in JFLL)' AND {has_contact_sql} THEN 1 END) as fresh_with_contacts,
+                count(CASE WHEN jfll_crm_status = 'Prospect (Not in JFLL)' AND {no_contact_sql} THEN 1 END) as fresh_without_contacts,
+                count(CASE WHEN jfll_crm_status = 'Not Active Customer' AND {has_contact_sql} THEN 1 END) as inactive_with_contacts,
+                count(CASE WHEN jfll_crm_status = 'Not Active Customer' AND {no_contact_sql} THEN 1 END) as inactive_without_contacts,
+                count(CASE WHEN jfll_crm_status = 'Active Customer' AND {has_contact_sql} THEN 1 END) as active_with_contacts,
+                count(CASE WHEN jfll_crm_status = 'Active Customer' AND {no_contact_sql} THEN 1 END) as active_without_contacts
             FROM '{data_source}'
         """
         m_row = con.execute(metrics_query).fetchone()

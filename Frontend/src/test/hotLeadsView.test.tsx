@@ -5,6 +5,7 @@ import {
   computeHotLeadsMetrics,
   filterHotLeadsInMemory,
   formatInrCurrency,
+  hasHotLeadContact,
 } from '@/services/hotLeadsService';
 import { HotLeadsView } from '@/components/hotLeads/HotLeadsView';
 import { HotLeadDetailDrawer } from '@/components/hotLeads/HotLeadDetailDrawer';
@@ -21,20 +22,20 @@ describe('HotLeads Data & Service Suite', () => {
     expect(metrics.freshWithoutContactsCount).toBe(17);
 
     expect(metrics.inactiveCount).toBe(8);
-    expect(metrics.inactiveWithContactsCount).toBe(4);
-    expect(metrics.inactiveWithoutContactsCount).toBe(4);
+    expect(metrics.inactiveWithContactsCount).toBe(6);
+    expect(metrics.inactiveWithoutContactsCount).toBe(2);
 
     expect(metrics.activeCount).toBe(14);
-    expect(metrics.activeWithContactsCount).toBe(7);
-    expect(metrics.activeWithoutContactsCount).toBe(7);
+    expect(metrics.activeWithContactsCount).toBe(12);
+    expect(metrics.activeWithoutContactsCount).toBe(2);
 
-    expect(metrics.withContactsCount).toBe(32);
-    expect(metrics.withoutContactsCount).toBe(28);
+    expect(metrics.withContactsCount).toBe(39);
+    expect(metrics.withoutContactsCount).toBe(21);
 
     // Backward compatibility aliases
     expect(metrics.prospectsCount).toBe(38);
     expect(metrics.reactivationsCount).toBe(8);
-    expect(metrics.decisionMakersCount).toBe(32);
+    expect(metrics.decisionMakersCount).toBe(39);
   });
 
   it('filters by new taxonomy segments and contact splits correctly', () => {
@@ -50,32 +51,32 @@ describe('HotLeads Data & Service Suite', () => {
     expect(freshWithoutContacts.totalRecords).toBe(17);
     expect(freshWithoutContacts.items.every((i) => !i.apolloDecisionMaker || i.apolloDecisionMaker === '-')).toBe(true);
 
-    // JFLL Inactive (8 total: 4 with contacts, 4 without)
+    // JFLL Inactive (8 total: 6 with contacts, 2 without)
     const inactive = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'inactive' });
     expect(inactive.totalRecords).toBe(8);
 
     const inactiveWithContacts = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'inactive-with-contacts' });
-    expect(inactiveWithContacts.totalRecords).toBe(4);
+    expect(inactiveWithContacts.totalRecords).toBe(6);
 
     const inactiveWithoutContacts = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'inactive-without-contacts' });
-    expect(inactiveWithoutContacts.totalRecords).toBe(4);
+    expect(inactiveWithoutContacts.totalRecords).toBe(2);
 
-    // JFLL Active (14 total: 7 with contacts, 7 without)
+    // JFLL Active (14 total: 12 with contacts, 2 without)
     const active = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'active' });
     expect(active.totalRecords).toBe(14);
 
     const activeWithContacts = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'active-with-contacts' });
-    expect(activeWithContacts.totalRecords).toBe(7);
+    expect(activeWithContacts.totalRecords).toBe(12);
 
     const activeWithoutContacts = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'active-without-contacts' });
-    expect(activeWithoutContacts.totalRecords).toBe(7);
+    expect(activeWithoutContacts.totalRecords).toBe(2);
 
-    // Overall With Contacts (32) and Without Contacts (28)
+    // Overall With Contacts (39) and Without Contacts (21)
     const allWithContacts = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'with-contacts' });
-    expect(allWithContacts.totalRecords).toBe(32);
+    expect(allWithContacts.totalRecords).toBe(39);
 
     const allWithoutContacts = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'without-contacts' });
-    expect(allWithoutContacts.totalRecords).toBe(28);
+    expect(allWithoutContacts.totalRecords).toBe(21);
 
     // Legacy segment aliases
     const legacyProspects = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'prospects' });
@@ -85,7 +86,7 @@ describe('HotLeads Data & Service Suite', () => {
     expect(legacyReactivations.totalRecords).toBe(8);
 
     const legacyDms = filterHotLeadsInMemory(HOT_LEADS_DATA, { segment: 'with-decision-makers' });
-    expect(legacyDms.totalRecords).toBe(32);
+    expect(legacyDms.totalRecords).toBe(39);
   });
 
   it('searches by company name, GSTIN, and sales rep', () => {
@@ -111,6 +112,22 @@ describe('HotLeads Data & Service Suite', () => {
     expect(formatInrCurrency(50000)).toBe('₹50,000');
     expect(formatInrCurrency(0)).toBe('₹0');
   });
+
+  it('correctly classifies inactive records with phone or email as with-contacts (e.g. Linkers and Farthest)', () => {
+    const linkers = HOT_LEADS_DATA.find((item) => item.srNo === 31);
+    expect(linkers).toBeDefined();
+    expect(linkers?.apolloDecisionMaker).toBe('-');
+    expect(linkers?.phone).toBeTruthy();
+    expect(linkers?.email).toBeTruthy();
+    expect(hasHotLeadContact(linkers!)).toBe(true);
+
+    const farthest = HOT_LEADS_DATA.find((item) => item.srNo === 34);
+    expect(farthest).toBeDefined();
+    expect(farthest?.apolloDecisionMaker).toBe('-');
+    expect(farthest?.phone).toBeTruthy();
+    expect(farthest?.email).toBeTruthy();
+    expect(hasHotLeadContact(farthest!)).toBe(true);
+  });
 });
 
 describe('HotLeadsView & HotLeadDetailDrawer UI Components', () => {
@@ -134,8 +151,8 @@ describe('HotLeadsView & HotLeadDetailDrawer UI Components', () => {
     expect(html).toContain('JFLL Active (14)');
     expect(html).toContain('JFLL Inactive (8)');
     expect(html).toContain('Fresh Data (38)');
-    expect(html).toContain('With Contacts (32)');
-    expect(html).toContain('Without Contacts (28)');
+    expect(html).toContain('With Contacts (39)');
+    expect(html).toContain('Without Contacts (21)');
 
     // Table headers adopting JLL format (stripped non-salesperson tax clutter like GSTIN)
     expect(html).toContain('Company Name');

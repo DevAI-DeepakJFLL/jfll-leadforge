@@ -38,7 +38,7 @@ def test_list_hot_leads_default():
     assert metrics["prospects_count"] == 38
     assert metrics["reactivations_count"] == 8
     assert metrics["active_count"] == 14
-    assert metrics["decision_makers_count"] == 32
+    assert metrics["decision_makers_count"] == 39
 
     # Verify descending turnover sort
     first = payload["data"][0]
@@ -67,14 +67,21 @@ def test_list_hot_leads_segment_reactivations():
         assert item["jfll_crm_status"] == "Not Active Customer"
 
 def test_list_hot_leads_segment_decision_makers():
-    """Verify segment=with-decision-makers filters exactly to 32 accounts."""
+    """Verify segment=with-decision-makers filters exactly to 39 accounts with contact info."""
     response = client.get("/api/v1/hot-leads?segment=with-decision-makers&page_size=100")
     assert response.status_code == 200
     payload = response.json()
-    assert payload["total_records"] == 32
-    assert len(payload["data"]) == 32
+    assert payload["total_records"] == 39
+    assert len(payload["data"]) == 39
     for item in payload["data"]:
-        assert item["apollo_decision_maker"] not in ("-", "", None)
+        has_contact = (
+            (item.get("apollo_decision_maker") not in ("-", "", None)) or
+            (item.get("jfll_direct_phone") not in ("-", "", None)) or
+            (item.get("jfll_direct_email") not in ("-", "", None)) or
+            (item.get("decision_maker_direct_email") not in ("-", "", None)) or
+            (item.get("jfll_contact_person") not in ("-", "", None))
+        )
+        assert has_contact
 
 def test_list_hot_leads_search():
     """Verify search by company name, GSTIN, and sales rep."""
@@ -106,40 +113,45 @@ def test_list_hot_leads_new_taxonomy_and_contact_splits():
     assert res_fresh_woc.status_code == 200
     assert res_fresh_woc.json()["total_records"] == 17
 
-    # JFLL Active (14 total: 7 with contacts, 7 without)
+    # JFLL Active (14 total: 12 with contacts, 2 without)
     res_active = client.get("/api/v1/hot-leads?segment=active&page_size=100")
     assert res_active.status_code == 200
     assert res_active.json()["total_records"] == 14
 
     res_active_wc = client.get("/api/v1/hot-leads?segment=active-with-contacts&page_size=100")
     assert res_active_wc.status_code == 200
-    assert res_active_wc.json()["total_records"] == 7
+    assert res_active_wc.json()["total_records"] == 12
 
     res_active_woc = client.get("/api/v1/hot-leads?segment=active-without-contacts&page_size=100")
     assert res_active_woc.status_code == 200
-    assert res_active_woc.json()["total_records"] == 7
+    assert res_active_woc.json()["total_records"] == 2
 
-    # JFLL Inactive (8 total: 4 with contacts, 4 without)
+    # JFLL Inactive (8 total: 6 with contacts, 2 without)
     res_inactive = client.get("/api/v1/hot-leads?segment=inactive&page_size=100")
     assert res_inactive.status_code == 200
     assert res_inactive.json()["total_records"] == 8
 
     res_inactive_wc = client.get("/api/v1/hot-leads?segment=inactive-with-contacts&page_size=100")
     assert res_inactive_wc.status_code == 200
-    assert res_inactive_wc.json()["total_records"] == 4
+    assert res_inactive_wc.json()["total_records"] == 6
+
+    # Verify LINKERS (sr_no 31) and FARTHEST (sr_no 34) are included in inactive-with-contacts
+    inactive_wc_sr_nos = [x["sr_no"] for x in res_inactive_wc.json()["data"]]
+    assert 31 in inactive_wc_sr_nos
+    assert 34 in inactive_wc_sr_nos
 
     res_inactive_woc = client.get("/api/v1/hot-leads?segment=inactive-without-contacts&page_size=100")
     assert res_inactive_woc.status_code == 200
-    assert res_inactive_woc.json()["total_records"] == 4
+    assert res_inactive_woc.json()["total_records"] == 2
 
-    # With Contacts (32) and Without Contacts (28) across entire dataset
+    # With Contacts (39) and Without Contacts (21) across entire dataset
     res_wc = client.get("/api/v1/hot-leads?segment=with-contacts&page_size=100")
     assert res_wc.status_code == 200
-    assert res_wc.json()["total_records"] == 32
+    assert res_wc.json()["total_records"] == 39
 
     res_woc = client.get("/api/v1/hot-leads?segment=without-contacts&page_size=100")
     assert res_woc.status_code == 200
-    assert res_woc.json()["total_records"] == 28
+    assert res_woc.json()["total_records"] == 21
 
     # Verify metrics fields in response
     m = res_fresh.json()["metrics"]
@@ -147,11 +159,11 @@ def test_list_hot_leads_new_taxonomy_and_contact_splits():
     assert m["fresh_with_contacts_count"] == 21
     assert m["fresh_without_contacts_count"] == 17
     assert m["active_count"] == 14
-    assert m["active_with_contacts_count"] == 7
-    assert m["active_without_contacts_count"] == 7
+    assert m["active_with_contacts_count"] == 12
+    assert m["active_without_contacts_count"] == 2
     assert m["inactive_count"] == 8
-    assert m["inactive_with_contacts_count"] == 4
-    assert m["inactive_without_contacts_count"] == 4
-    assert m["with_contacts_count"] == 32
-    assert m["without_contacts_count"] == 28
+    assert m["inactive_with_contacts_count"] == 6
+    assert m["inactive_without_contacts_count"] == 2
+    assert m["with_contacts_count"] == 39
+    assert m["without_contacts_count"] == 21
 

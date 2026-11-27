@@ -9,13 +9,18 @@ import { API_BASE_URL } from '@/config/api';
 import { getAuthHeaders } from '@/services/authService';
 import { logger } from '@/utils/logger';
 
-/** Determines whether a lead has an identified executive decision maker contact */
+/** Determines whether a lead has an identified contact (phone, email, contact person, or executive decision maker) */
 export function hasHotLeadContact(item: HotLead): boolean {
-  return Boolean(
-    item.apolloDecisionMaker &&
-    item.apolloDecisionMaker !== '-' &&
-    item.apolloDecisionMaker.trim() !== ''
+  const hasPhone = Boolean(item.phone && item.phone !== '-' && item.phone.trim() !== '');
+  const hasEmail = Boolean(
+    (item.email && item.email !== '-' && item.email.trim() !== '') ||
+    (item.decisionMakerEmail && item.decisionMakerEmail !== '-' && item.decisionMakerEmail.trim() !== '')
   );
+  const hasPerson = Boolean(
+    (item.contactPerson && item.contactPerson !== '-' && item.contactPerson.trim() !== '') ||
+    (item.apolloDecisionMaker && item.apolloDecisionMaker !== '-' && item.apolloDecisionMaker.trim() !== '')
+  );
+  return hasPhone || hasEmail || hasPerson;
 }
 
 /** Resolves CRM status string to the unified 3 categories */
