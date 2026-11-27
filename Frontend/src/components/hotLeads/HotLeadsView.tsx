@@ -17,20 +17,31 @@ import {
   Eye,
   ChevronDown,
   ChevronUp,
+  MapPin,
+  Globe,
+  Clock,
+  Pencil,
+  Plus,
+  Check,
+  Loader2,
 } from 'lucide-react';
 import {
   HotLead,
   HotLeadSegment,
   HotLeadCategory,
   HotLeadContactFilter,
+  HotLeadRegionId,
+  HotLeadContactUpdatePayload,
 } from '@/types/hotLeads';
-import { HOT_LEADS_DATA } from '@/data/hotLeadsData';
+import { HOT_LEADS_DATA, HOT_LEAD_REGIONS } from '@/data/hotLeadsData';
 import {
   fetchHotLeads,
   formatInrCurrency,
   computeHotLeadsMetrics,
   hasHotLeadContact,
   getHotLeadCategory,
+  updateHotLeadContact,
+  HOT_LEADS_UPDATED_EVENT,
 } from '@/services/hotLeadsService';
 import { HotLeadDetailDrawer } from './HotLeadDetailDrawer';
 import { IndiaFlagIcon, formatPhoneNumber } from '../jfll/JfllCustomerTable';
@@ -43,7 +54,8 @@ import { AssignedBadge } from '@/components/ui/AssignedBadge';
 export interface HotLeadsViewProps {
   initialSearchQuery?: string;
   initialSegment?: HotLeadSegment;
-  onFilterChange?: (segment: HotLeadSegment, query: string) => void;
+  initialRegion?: HotLeadRegionId;
+  onFilterChange?: (segment: HotLeadSegment, query: string, region: HotLeadRegionId) => void;
   onFindInDatamyne?: (query: string) => void;
   onFindInApollo?: (query: string) => void;
   onNavigateToReport?: (companyName: string) => void;
@@ -52,6 +64,7 @@ export interface HotLeadsViewProps {
 export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
   initialSearchQuery = '',
   initialSegment = 'all',
+  initialRegion = 'all',
   onFilterChange,
   onFindInDatamyne,
   onFindInApollo,
@@ -73,21 +86,39 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
 
   const [category, setCategory] = useState<HotLeadCategory>(initialCat);
   const [contactFilter, setContactFilter] = useState<HotLeadContactFilter>(initialContact);
+  const [selectedRegion, setSelectedRegion] = useState<HotLeadRegionId>(initialRegion || 'all');
   const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery);
-  const [sortBy, setSortBy] = useState<'turnover' | 'name' | 'status'>('turnover');
+  const [sortBy, setSortBy] = useState<'turnover' | 'name' | 'status' | 'region'>('turnover');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [selectedLead, setSelectedLead] = useState<HotLead | null>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [records, setRecords] = useState<HotLead[]>(() => HOT_LEADS_DATA);
-  const [metrics, setMetrics] = useState(() => computeHotLeadsMetrics(HOT_LEADS_DATA));
+  const [records, setRecords] = useState<HotLead[]>(() => {
+    if (!initialRegion || initialRegion === 'all') return HOT_LEADS_DATA;
+    return HOT_LEADS_DATA.filter((l) => (l.regionId || 'delhi') === initialRegion);
+  });
+  const [metrics, setMetrics] = useState(() => computeHotLeadsMetrics(HOT_LEADS_DATA, initialRegion || 'all'));
   const [, setCopiedKey] = useState<string | null>(null);
   const [, setTrackerVersion] = useState(0);
+
+  // Inline editing state for sales coordinators (persists directly to SQLite database)
+  const [editingCell, setEditingCell] = useState<{
+    srNo: number;
+    field: 'phone' | 'contactPerson' | 'email';
+    value: string;
+  } | null>(null);
+  const [isSavingCell, setIsSavingCell] = useState<boolean>(false);
 
   // Sync state if props change externally
   useEffect(() => {
     setCategory(initialCat);
     setContactFilter(initialContact);
   }, [initialCat, initialContact]);
+
+  useEffect(() => {
+    if (initialRegion) {
+      setSelectedRegion(initialRegion);
+    }
+  }, [initialRegion]);
 
   useEffect(() => {
     setSearchQuery(initialSearchQuery);
@@ -107,6 +138,81 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
       window.removeEventListener(TRACKER_UPDATED_EVENT, handleTrackerUpdate);
     };
   }, []);
+
+  // Sync with hot leads contact updates dispatched across views
+  useEffect(() => {
+    const handleHotLeadUpdated = (e: Event) => {
+      const customEvent = e as CustomEvent<{ srNo: number; phone?: string; contactPerson?: string; email?: string }>;
+      if (customEvent.detail) {
+        const { srNo, phone, contactPerson, email } = customEvent.detail;
+        setRecords((prev) =>
+          prev.map((item) => {
+            if (item.srNo === srNo) {
+              const updated = { ...item };
+              if (phone !== undefined && phone !== null) updated.phone = phone;
+              if (contactPerson !== undefined && contactPerson !== null) updated.contactPerson = contactPerson;
+              if (email !== undefined && email !== null) updated.email = email;
+              updated.isCustomContact = true;
+              return updated;
+            }
+            return item;
+          })
+        );
+      }
+    };
+    window.addEventListener(HOT_LEADS_UPDATED_EVENT, handleHotLeadUpdated);
+    return () => {
+      window.removeEventListener(HOT_LEADS_UPDATED_EVENT, handleHotLeadUpdated);
+    };
+  }, []);
+
+  const handleSaveInlineEdit = async (_lead?: HotLead) => {
+    if (!editingCell || isSavingCell) return;
+    setIsSavingCell(true);
+    try {
+      const val = editingCell.value.trim();
+      const payload: HotLeadContactUpdatePayload = {
+        phone: editingCell.field === 'phone' ? val : undefined,
+        contactPerson: editingCell.field === 'contactPerson' ? val : undefined,
+        email: editingCell.field === 'email' ? val : undefined,
+      };
+      await updateHotLeadContact(editingCell.srNo, payload);
+
+      setRecords((prev) => {
+        const next = prev.map((item) => {
+          if (item.srNo === editingCell.srNo) {
+            const updated = { ...item };
+            if (editingCell.field === 'phone') updated.phone = val;
+            if (editingCell.field === 'contactPerson') updated.contactPerson = val;
+            if (editingCell.field === 'email') updated.email = val;
+            updated.isCustomContact = true;
+            return updated;
+          }
+          return item;
+        });
+        setMetrics(computeHotLeadsMetrics(next, selectedRegion));
+        return next;
+      });
+
+      if (selectedLead?.srNo === editingCell.srNo) {
+        setSelectedLead((prev) => {
+          if (!prev) return null;
+          const updated = { ...prev };
+          if (editingCell.field === 'phone') updated.phone = val;
+          if (editingCell.field === 'contactPerson') updated.contactPerson = val;
+          if (editingCell.field === 'email') updated.email = val;
+          updated.isCustomContact = true;
+          return updated;
+        });
+      }
+
+      setEditingCell(null);
+    } catch {
+      // Revert editing on failure
+    } finally {
+      setIsSavingCell(false);
+    }
+  };
   const [isOverviewCollapsed, setIsOverviewCollapsed] = useState<boolean>(() => {
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
@@ -150,6 +256,7 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
         category,
         contactFilter,
         segment: currentSegment,
+        region: selectedRegion,
         sortBy,
         sortOrder,
       });
@@ -158,12 +265,16 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
     } catch {
       // Handled in service fallback
     }
-  }, [searchQuery, category, contactFilter, currentSegment, sortBy, sortOrder]);
+  }, [searchQuery, category, contactFilter, currentSegment, selectedRegion, sortBy, sortOrder]);
 
   useEffect(() => {
     loadData();
-    onFilterChangeRef.current?.(currentSegment, searchQuery);
-  }, [loadData, currentSegment, searchQuery]);
+    onFilterChangeRef.current?.(currentSegment, searchQuery, selectedRegion);
+  }, [loadData, currentSegment, searchQuery, selectedRegion]);
+
+  const activeRegionMeta = useMemo(() => {
+    return HOT_LEAD_REGIONS.find((r) => r.id === selectedRegion) || HOT_LEAD_REGIONS[0];
+  }, [selectedRegion]);
 
   const handleClearSearch = () => {
     setSearchQuery('');
@@ -176,12 +287,12 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
     }
   };
 
-  const handleSortToggle = (field: 'turnover' | 'name' | 'status') => {
+  const handleSortToggle = (field: 'turnover' | 'name' | 'status' | 'region') => {
     if (sortBy === field) {
       setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'));
     } else {
       setSortBy(field);
-      setSortOrder('desc');
+      setSortOrder(field === 'turnover' ? 'desc' : 'asc');
     }
   };
 
@@ -249,7 +360,15 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                 <h1 className="text-base sm:text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2 shrink-0">
                   <span>Hot High-Turnover Leads</span>
                   <span className="px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
-                    60 Enterprise Accounts
+                    {activeRegionMeta.status === 'live'
+                      ? `${metrics.totalCount} Enterprise Accounts`
+                      : activeRegionMeta.upcomingQuarter?.includes('Ingestion')
+                      ? activeRegionMeta.upcomingQuarter
+                      : `${activeRegionMeta.upcomingQuarter || 'Pipeline'} Ingestion`}
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full text-[11px] sm:text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-blue-600" />
+                    {activeRegionMeta.shortName}
                   </span>
                 </h1>
 
@@ -275,7 +394,11 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
 
               {!isOverviewCollapsed && (
                 <p className="text-xs text-slate-500 mt-1.5 max-w-3xl leading-relaxed">
-                  60 verified enterprise freight accounts with high commercial turnover (₹47.66 Cr billing). Segmented into JFLL Active, JFLL Inactive, and Fresh Data with direct decision-maker contact details.
+                  {activeRegionMeta.id === 'all'
+                    ? 'Consolidated pan-India enterprise freight accounts with high commercial turnover (₹47.66 Cr billing). Multi-region expansion connects regional operating branches with decision-maker intelligence.'
+                    : activeRegionMeta.id === 'delhi'
+                    ? '60 verified enterprise freight accounts in Delhi NCR with high commercial turnover (₹47.66 Cr billing). Segmented into JFLL Active, JFLL Inactive, and Fresh Data with direct decision-maker contact details.'
+                    : `${activeRegionMeta.description} Target gateways: ${activeRegionMeta.gateways?.join(', ')}.`}
                 </p>
               )}
             </div>
@@ -307,6 +430,64 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
         </div>
       </div>
 
+      {/* Regional Sourcing Hub Selector Bar */}
+      <div className="bg-slate-100/90 border-b border-slate-200 px-4 sm:px-6 py-2 shrink-0">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-2.5">
+          <div className="flex items-center gap-1.5 min-w-0 overflow-x-auto scrollbar-none py-0.5">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1 shrink-0 mr-1">
+              <MapPin className="w-3.5 h-3.5 text-blue-600" />
+              <span>Sourcing Hub:</span>
+            </span>
+            {HOT_LEAD_REGIONS.map((region) => {
+              const isSelected = selectedRegion === region.id;
+              const isLive = region.status === 'live';
+              return (
+                <button
+                  key={region.id}
+                  type="button"
+                  onClick={() => setSelectedRegion(region.id)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-blue-600 text-white shadow-xs'
+                      : 'bg-white text-slate-700 hover:bg-slate-200/80 hover:text-slate-900 border border-slate-200'
+                  }`}
+                >
+                  {region.id === 'all' ? (
+                    <Globe className={`w-3.5 h-3.5 ${isSelected ? 'text-blue-100' : 'text-slate-500'}`} />
+                  ) : (
+                    <MapPin className={`w-3.5 h-3.5 ${isSelected ? 'text-blue-100' : 'text-slate-500'}`} />
+                  )}
+                  <span>{region.name}</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.2 rounded font-mono font-medium ${
+                      isSelected
+                        ? 'bg-blue-700/80 text-blue-100'
+                        : isLive
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        : 'bg-slate-100 text-slate-500 border border-slate-200'
+                    }`}
+                  >
+                    {region.code} {isLive ? `(${region.totalAccounts})` : 'Pipeline'}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Regional Summary Chip */}
+          <div className="hidden lg:flex items-center gap-2 text-xs text-slate-600 shrink-0">
+            <span className="text-slate-400">Coverage:</span>
+            <span className="font-medium text-slate-800">{activeRegionMeta.coverage}</span>
+            {activeRegionMeta.status === 'upcoming' && (
+              <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                <Clock className="w-3 h-3" />
+                Ingestion {activeRegionMeta.upcomingQuarter || 'Pipeline'}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+
       {/* Quick Metrics Strip */}
       {!isOverviewCollapsed && (
         <div className="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 shrink-0">
@@ -321,7 +502,11 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                 <span className="text-lg font-extrabold text-emerald-700 mt-1 font-mono tracking-tight">
                   {formatInrCurrency(metrics.totalTurnover)}
                 </span>
-                <span className="text-[11px] text-slate-500 mt-0.5">Across 60 enterprise accounts</span>
+                <span className="text-[11px] text-slate-500 mt-0.5">
+                  {activeRegionMeta.status === 'live'
+                    ? `Across ${metrics.totalCount} enterprise accounts`
+                    : `${activeRegionMeta.name} in pipeline`}
+                </span>
               </div>
 
               {/* Metric 2: JFLL Active */}
@@ -562,6 +747,16 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                   </th>
                   <th
                     scope="col"
+                    className="py-2.5 px-3.5 min-w-[130px] font-semibold cursor-pointer hover:text-blue-700 transition-colors"
+                    onClick={() => handleSortToggle('region')}
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <span>Region / Hub</span>
+                      <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
+                    </div>
+                  </th>
+                  <th
+                    scope="col"
                     className="py-2.5 px-3.5 min-w-[125px] text-right font-semibold cursor-pointer hover:text-blue-700 transition-colors"
                     onClick={() => handleSortToggle('turnover')}
                   >
@@ -665,6 +860,12 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                             </div>
                           </div>
                         </td>
+                        <td className="py-3 px-3.5 align-middle whitespace-nowrap">
+                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200">
+                            <MapPin className="w-3 h-3 text-slate-500 shrink-0" />
+                            <span>{lead.region || 'Delhi NCR'}</span>
+                          </span>
+                        </td>
                         <td className="py-3 px-3.5 align-middle whitespace-nowrap text-right font-mono tabular-nums">
                           <div className="flex flex-col items-end">
                             <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
@@ -709,24 +910,130 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                           </div>
                         </td>
                         <td className="py-3 px-3.5 align-middle">
-                          {contactName ? (
-                            <div>
-                              <span className="text-xs text-slate-900 font-semibold truncate max-w-[150px] block leading-tight">
-                                {contactName}
-                              </span>
-                              {contactTitle && (
-                                <span className="text-[11px] text-slate-500 truncate max-w-[150px] block leading-tight mt-0.5" title={contactTitle}>
-                                  {contactTitle}
+                          {editingCell?.srNo === lead.srNo && editingCell?.field === 'contactPerson' ? (
+                            <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                              <input
+                                autoFocus
+                                type="text"
+                                value={editingCell.value}
+                                onChange={(e) => setEditingCell({ ...editingCell, value: e.target.value })}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter') handleSaveInlineEdit(lead);
+                                  if (e.key === 'Escape') setEditingCell(null);
+                                }}
+                                placeholder="Contact name"
+                                className="w-32 px-2 py-1 text-xs bg-white border border-blue-500 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-2xs"
+                                disabled={isSavingCell}
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleSaveInlineEdit(lead)}
+                                disabled={isSavingCell}
+                                className="p-1 rounded bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 cursor-pointer"
+                                title="Save to database (Enter)"
+                                aria-label="Save contact person"
+                              >
+                                {isSavingCell ? <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-600" /> : <Check className="w-3.5 h-3.5" />}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setEditingCell(null)}
+                                disabled={isSavingCell}
+                                className="p-1 rounded bg-slate-100 text-slate-500 hover:bg-slate-200 border border-slate-200 cursor-pointer"
+                                title="Cancel (Esc)"
+                                aria-label="Cancel contact edit"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ) : contactName ? (
+                            <div className="group/cell flex items-center justify-between gap-1">
+                              <div className="min-w-0">
+                                <span className="text-xs text-slate-900 font-semibold truncate max-w-[130px] block leading-tight">
+                                  {contactName}
                                 </span>
-                              )}
+                                {contactTitle && (
+                                  <span className="text-[11px] text-slate-500 truncate max-w-[130px] block leading-tight mt-0.5" title={contactTitle}>
+                                    {contactTitle}
+                                  </span>
+                                )}
+                              </div>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setEditingCell({
+                                    srNo: lead.srNo,
+                                    field: 'contactPerson',
+                                    value: lead.contactPerson && lead.contactPerson !== '-' ? lead.contactPerson : '',
+                                  });
+                                }}
+                                className="p-1 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded opacity-0 group-hover/cell:opacity-100 focus:opacity-100 transition-opacity cursor-pointer shrink-0"
+                                title="Edit contact person (persists to DB)"
+                                aria-label={`Edit contact person for ${lead.customerName}`}
+                              >
+                                <Pencil className="w-3 h-3" />
+                              </button>
                             </div>
                           ) : (
-                            <span className="text-slate-400 italic text-xs">—</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingCell({
+                                  srNo: lead.srNo,
+                                  field: 'contactPerson',
+                                  value: '',
+                                });
+                              }}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium text-slate-600 hover:text-blue-700 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 transition-colors shadow-2xs cursor-pointer group/add"
+                              title="Add contact person (persists to DB)"
+                              aria-label={`Add contact person for ${lead.customerName}`}
+                            >
+                              <Plus className="w-3 h-3 text-slate-400 group-hover/add:text-blue-600" />
+                              <span>Add Contact</span>
+                            </button>
                           )}
                         </td>
                         <td className="py-3 px-3.5 align-middle whitespace-nowrap">
-                          {phoneData ? (
-                            <div className="flex items-center gap-1.5 text-slate-800">
+                          {editingCell?.srNo === lead.srNo && editingCell?.field === 'phone' ? (
+                            <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                              <input
+                                autoFocus
+                                type="text"
+                                value={editingCell.value}
+                                onChange={(e) => setEditingCell({ ...editingCell, value: e.target.value })}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter') handleSaveInlineEdit(lead);
+                                  if (e.key === 'Escape') setEditingCell(null);
+                                }}
+                                placeholder="+91 98765 43210"
+                                className="w-32 px-2 py-1 text-xs font-mono bg-white border border-blue-500 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-2xs"
+                                disabled={isSavingCell}
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleSaveInlineEdit(lead)}
+                                disabled={isSavingCell}
+                                className="p-1 rounded bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 cursor-pointer"
+                                title="Save to database (Enter)"
+                                aria-label="Save phone number"
+                              >
+                                {isSavingCell ? <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-600" /> : <Check className="w-3.5 h-3.5" />}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setEditingCell(null)}
+                                disabled={isSavingCell}
+                                className="p-1 rounded bg-slate-100 text-slate-500 hover:bg-slate-200 border border-slate-200 cursor-pointer"
+                                title="Cancel (Esc)"
+                                aria-label="Cancel phone edit"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ) : phoneData ? (
+                            <div className="flex items-center gap-1.5 text-slate-800 group/cell">
                               <IndiaFlagIcon className="w-4 h-3 shrink-0" />
                               <a
                                 href={`tel:${phoneData.raw}`}
@@ -738,25 +1045,96 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                               <button
                                 type="button"
                                 onClick={(e) => handleCopy(phoneData.raw, `phone-${lead.srNo}`, e)}
-                                className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
+                                className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-100 sm:opacity-0 sm:group-hover/cell:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
                                 title="Copy phone"
                                 aria-label={`Copy phone number ${phoneData.number}`}
                               >
                                 <Copy className="w-3 h-3" />
                               </button>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setEditingCell({
+                                    srNo: lead.srNo,
+                                    field: 'phone',
+                                    value: lead.phone && lead.phone !== '-' ? lead.phone : '',
+                                  });
+                                }}
+                                className="p-1 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded opacity-100 sm:opacity-0 sm:group-hover/cell:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
+                                title="Edit phone number (persists to DB)"
+                                aria-label={`Edit phone number for ${lead.customerName}`}
+                              >
+                                <Pencil className="w-3 h-3" />
+                              </button>
+                              {lead.isCustomContact && (
+                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" title="Updated by sales coordinator (persisted in DB)" />
+                              )}
                             </div>
                           ) : (
-                            <span className="text-slate-400 italic text-xs">—</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingCell({
+                                  srNo: lead.srNo,
+                                  field: 'phone',
+                                  value: '',
+                                });
+                              }}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium text-blue-700 hover:text-blue-800 bg-blue-50 hover:bg-blue-100/80 border border-blue-200/80 transition-colors shadow-2xs cursor-pointer group/add"
+                              title="Add missing contact number (persists to DB)"
+                              aria-label={`Add phone number for ${lead.customerName}`}
+                            >
+                              <Plus className="w-3 h-3 text-blue-600 group-hover/add:scale-110 transition-transform" />
+                              <span>Add Phone</span>
+                            </button>
                           )}
                         </td>
                         <td className="py-3 px-3.5 align-middle">
-                          {leadEmail ? (
-                            <div className="flex items-center gap-1.5 text-slate-700">
+                          {editingCell?.srNo === lead.srNo && editingCell?.field === 'email' ? (
+                            <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                              <input
+                                autoFocus
+                                type="email"
+                                value={editingCell.value}
+                                onChange={(e) => setEditingCell({ ...editingCell, value: e.target.value })}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter') handleSaveInlineEdit(lead);
+                                  if (e.key === 'Escape') setEditingCell(null);
+                                }}
+                                placeholder="email@company.com"
+                                className="w-36 px-2 py-1 text-xs bg-white border border-blue-500 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-2xs"
+                                disabled={isSavingCell}
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleSaveInlineEdit(lead)}
+                                disabled={isSavingCell}
+                                className="p-1 rounded bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 cursor-pointer"
+                                title="Save to database (Enter)"
+                                aria-label="Save email"
+                              >
+                                {isSavingCell ? <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-600" /> : <Check className="w-3.5 h-3.5" />}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setEditingCell(null)}
+                                disabled={isSavingCell}
+                                className="p-1 rounded bg-slate-100 text-slate-500 hover:bg-slate-200 border border-slate-200 cursor-pointer"
+                                title="Cancel (Esc)"
+                                aria-label="Cancel email edit"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ) : leadEmail ? (
+                            <div className="flex items-center gap-1.5 text-slate-700 group/cell">
                               <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                               <a
                                 href={`mailto:${leadEmail}`}
                                 onClick={(e) => e.stopPropagation()}
-                                className="truncate max-w-[170px] text-xs text-slate-700 font-normal hover:text-blue-700 hover:underline leading-tight"
+                                className="truncate max-w-[150px] text-xs text-slate-700 font-normal hover:text-blue-700 hover:underline leading-tight"
                                 title={leadEmail}
                               >
                                 {leadEmail}
@@ -764,15 +1142,47 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                               <button
                                 type="button"
                                 onClick={(e) => handleCopy(leadEmail, `email-${lead.srNo}`, e)}
-                                className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-100 sm:opacity-0 sm:group-hover:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
+                                className="p-1 text-slate-400 hover:text-slate-700 rounded opacity-100 sm:opacity-0 sm:group-hover/cell:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
                                 title="Copy email"
                                 aria-label={`Copy email ${leadEmail}`}
                               >
                                 <Copy className="w-3 h-3" />
                               </button>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setEditingCell({
+                                    srNo: lead.srNo,
+                                    field: 'email',
+                                    value: lead.email && lead.email !== '-' ? lead.email : '',
+                                  });
+                                }}
+                                className="p-1 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded opacity-100 sm:opacity-0 sm:group-hover/cell:opacity-100 focus:opacity-100 transition-opacity cursor-pointer"
+                                title="Edit email (persists to DB)"
+                                aria-label={`Edit email for ${lead.customerName}`}
+                              >
+                                <Pencil className="w-3 h-3" />
+                              </button>
                             </div>
                           ) : (
-                            <span className="text-slate-400 italic text-xs">—</span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingCell({
+                                  srNo: lead.srNo,
+                                  field: 'email',
+                                  value: '',
+                                });
+                              }}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium text-slate-600 hover:text-blue-700 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 transition-colors shadow-2xs cursor-pointer group/add"
+                              title="Add email address (persists to DB)"
+                              aria-label={`Add email for ${lead.customerName}`}
+                            >
+                              <Plus className="w-3 h-3 text-slate-400 group-hover/add:text-blue-600" />
+                              <span>Add Email</span>
+                            </button>
                           )}
                         </td>
                         <td className="min-w-[150px] py-3 px-4 text-center align-middle" onClick={(e) => e.stopPropagation()}>
@@ -820,9 +1230,67 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                       </tr>
                     );
                   })
+                ) : activeRegionMeta.status === 'upcoming' ? (
+                  <tr>
+                    <td colSpan={9} className="py-12 px-6 text-center">
+                      <div className="max-w-lg mx-auto bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-2xs space-y-4">
+                        <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center mx-auto shadow-2xs">
+                          <MapPin className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200 mb-2">
+                            <Clock className="w-3 h-3" />
+                            {`Scheduled Ingestion: ${activeRegionMeta.upcomingQuarter || 'Upcoming Quarter'}`}
+                          </div>
+                          <h3 className="text-base font-bold text-slate-900">
+                            {`${activeRegionMeta.name} Sourcing Hub`}
+                          </h3>
+                          <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                            {activeRegionMeta.description}
+                          </p>
+                        </div>
+
+                        {activeRegionMeta.gateways && activeRegionMeta.gateways.length > 0 && (
+                          <div className="pt-2 border-t border-slate-200 text-left">
+                            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-2">
+                              Target Trade Gateways & Logistics Hubs:
+                            </span>
+                            <div className="flex flex-wrap gap-1.5">
+                              {activeRegionMeta.gateways.map((gw) => (
+                                <span
+                                  key={gw}
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium bg-white border border-slate-200 text-slate-700 shadow-2xs"
+                                >
+                                  <Ship className="w-3 h-3 text-slate-400" />
+                                  {gw}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setSelectedRegion('delhi')}
+                            className="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-all shadow-2xs cursor-pointer"
+                          >
+                            View Delhi NCR Accounts (60 Active)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedRegion('all')}
+                            className="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition-all shadow-2xs cursor-pointer"
+                          >
+                            View All Regions
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                 ) : (
                   <tr>
-                    <td colSpan={8} className="py-12 text-center">
+                    <td colSpan={9} className="py-12 text-center">
                       <div className="max-w-md mx-auto space-y-3">
                         <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 text-slate-500 flex items-center justify-center mx-auto">
                           <Search className="w-5 h-5" />
@@ -858,6 +1326,14 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
         onNavigateToReport={onNavigateToReport}
         onFindInApollo={onFindInApollo}
         onFindInDatamyne={onFindInDatamyne}
+        onLeadUpdated={(updatedLead) => {
+          setSelectedLead(updatedLead);
+          setRecords((prev) => {
+            const next = prev.map((item) => (item.srNo === updatedLead.srNo ? updatedLead : item));
+            setMetrics(computeHotLeadsMetrics(next, selectedRegion));
+            return next;
+          });
+        }}
       />
     </div>
   );

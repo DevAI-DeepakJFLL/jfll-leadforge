@@ -128,6 +128,32 @@ describe('HotLeads Data & Service Suite', () => {
     expect(farthest?.email).toBeTruthy();
     expect(hasHotLeadContact(farthest!)).toBe(true);
   });
+
+  it('supports multi-region filtering and scoped metrics across hubs', () => {
+    // Delhi NCR returns 60 active enterprise records
+    const delhiRes = filterHotLeadsInMemory(HOT_LEADS_DATA, { region: 'delhi' });
+    expect(delhiRes.totalRecords).toBe(60);
+    expect(delhiRes.items.every((i) => i.region === 'Delhi NCR')).toBe(true);
+
+    const delhiMetrics = computeHotLeadsMetrics(HOT_LEADS_DATA, 'delhi');
+    expect(delhiMetrics.totalCount).toBe(60);
+    expect(delhiMetrics.totalTurnover).toBe(476606748);
+    expect(delhiMetrics.regionBreakdown?.delhi?.count).toBe(60);
+    expect(delhiMetrics.regionBreakdown?.delhi?.turnover).toBe(476606748);
+
+    // Consolidated 'all' returns all accounts
+    const allRes = filterHotLeadsInMemory(HOT_LEADS_DATA, { region: 'all' });
+    expect(allRes.totalRecords).toBe(60);
+
+    // Upcoming hubs return empty list and zeroed metrics cleanly
+    const mumbaiRes = filterHotLeadsInMemory(HOT_LEADS_DATA, { region: 'mumbai' });
+    expect(mumbaiRes.totalRecords).toBe(0);
+    expect(mumbaiRes.items).toEqual([]);
+
+    const mumbaiMetrics = computeHotLeadsMetrics(HOT_LEADS_DATA, 'mumbai');
+    expect(mumbaiMetrics.totalCount).toBe(0);
+    expect(mumbaiMetrics.totalTurnover).toBe(0);
+  });
 });
 
 describe('HotLeadsView & HotLeadDetailDrawer UI Components', () => {
@@ -154,14 +180,26 @@ describe('HotLeadsView & HotLeadDetailDrawer UI Components', () => {
     expect(html).toContain('With Contacts (39)');
     expect(html).toContain('Without Contacts (21)');
 
-    // Table headers adopting JLL format (stripped non-salesperson tax clutter like GSTIN)
+    // Table headers adopting JLL format with Region / Hub column
     expect(html).toContain('Company Name');
+    expect(html).toContain('Region / Hub');
     expect(html).toContain('Annual Turnover');
     expect(html).toContain('Status');
     expect(html).toContain('Contact Person');
     expect(html).toContain('Phone Number');
     expect(html).toContain('Email');
     expect(html).toContain('Action');
+
+    // Region pill in table row
+    expect(html).toContain('Delhi NCR');
+
+    // Multi-region sourcing hub selector rendered
+    expect(html).toContain('Sourcing Hub:');
+    expect(html).toContain('All Regions');
+    expect(html).toContain('Mumbai &amp; Western');
+    expect(html).toContain('Gujarat Corridor');
+    expect(html).toContain('South India');
+    expect(html).toContain('Kolkata &amp; Eastern');
 
     // Sample company rendered with decision maker and direct contact
     expect(html).toContain('EMO TRANS LOGISTICS INDIA PRIVATE LIMITED)');
@@ -236,5 +274,55 @@ describe('HotLeadsView & HotLeadDetailDrawer UI Components', () => {
     expect(html).toContain('overflow-hidden');
     expect(html).toContain('overflow-auto flex-1 min-h-0');
     expect(html).toContain('sticky top-0 z-10');
+  });
+
+  it('renders scheduled ingestion pipeline preview for upcoming regional hubs', () => {
+    const html = renderToString(<HotLeadsView initialRegion="mumbai" />);
+
+    expect(html).toContain('Mumbai &amp; Western Sourcing Hub');
+    expect(html).toContain('Scheduled Ingestion: Q1 Ingestion');
+    expect(html).toContain('Target Trade Gateways &amp; Logistics Hubs:');
+    expect(html).toContain('JNPT (Nhava Sheva Ocean Port)');
+    expect(html).toContain('BOM (Chhatrapati Shivaji Maharaj Air Cargo)');
+    expect(html).toContain('View Delhi NCR Accounts (60 Active)');
+    expect(html).toContain('View All Regions');
+  });
+
+  it('renders region badge in HotLeadDetailDrawer', () => {
+    const sampleLead = HOT_LEADS_DATA[0];
+    const html = renderToString(
+      <HotLeadDetailDrawer
+        isOpen={true}
+        lead={sampleLead}
+        onClose={() => {}}
+      />
+    );
+    expect(html).toContain('Delhi NCR');
+  });
+
+  it('renders inline contact editing triggers: Add Phone button for missing contacts and Edit buttons in table and drawer', () => {
+    const html = renderToString(<HotLeadsView />);
+
+    // Add Phone button for accounts with missing phone numbers
+    expect(html).toContain('Add Phone');
+    expect(html).toContain('Add missing contact number (persists to DB)');
+
+    // Add Contact button for missing contact persons
+    expect(html).toContain('Add Contact');
+
+    // Add Email button for missing emails
+    expect(html).toContain('Add Email');
+
+    // Drawer renders Edit Contacts button for coordinator database persistence
+    const sampleLead = HOT_LEADS_DATA[0];
+    const drawerHtml = renderToString(
+      <HotLeadDetailDrawer
+        isOpen={true}
+        lead={sampleLead}
+        onClose={() => {}}
+      />
+    );
+    expect(drawerHtml).toContain('Edit Contacts');
+    expect(drawerHtml).toContain('Edit contact details (persists directly to database)');
   });
 });

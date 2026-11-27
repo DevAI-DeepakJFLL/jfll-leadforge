@@ -4,9 +4,94 @@
  * Total Records: 60
  */
 
-import { HotLead } from '@/types/hotLeads';
+import { HotLead, HotLeadRegionMeta, HotLeadRegionId } from '@/types/hotLeads';
 
-export const HOT_LEADS_DATA: HotLead[] = [
+export const HOT_LEAD_REGIONS: HotLeadRegionMeta[] = [
+  {
+    id: 'all',
+    name: 'All Regions',
+    shortName: 'Pan-India',
+    code: 'ALL',
+    coverage: 'National Cross-Corridor View',
+    status: 'live',
+    badge: 'Consolidated View',
+    totalAccounts: 60,
+    totalTurnover: 476606748,
+    description: 'Consolidated view of verified commercial tax audit cross-reference leads across all operational JFLL hubs.',
+    gateways: ['DEL', 'BOM', 'BLR', 'MAA', 'HYD', 'AMD', 'CCU'],
+  },
+  {
+    id: 'delhi',
+    name: 'Delhi NCR',
+    shortName: 'Delhi',
+    code: 'DEL',
+    coverage: 'Delhi, Gurugram, Noida, Faridabad, Sonipat',
+    status: 'live',
+    badge: 'Live · 60 Accounts',
+    totalAccounts: 60,
+    totalTurnover: 476606748,
+    description: 'Northern corridor commercial audit. Sourced from Client Tax Invoice Ledger cross-referenced with Apollo Decision Makers.',
+    gateways: ['DEL (IGI Air Cargo)', 'ICD Tughlakabad (TKD)', 'ICD Patparganj (PPG)'],
+  },
+  {
+    id: 'mumbai',
+    name: 'Mumbai & Western',
+    shortName: 'Mumbai',
+    code: 'BOM',
+    coverage: 'Mumbai, Navi Mumbai, Thane, Pune, JNPT Nhava Sheva',
+    status: 'upcoming',
+    badge: 'Pipeline · Ingestion',
+    totalAccounts: 0,
+    totalTurnover: 0,
+    description: 'Western corridor maritime and air freight audit covering Nhava Sheva (JNPT) container lines and BOM air cargo shippers.',
+    gateways: ['BOM (Chhatrapati Shivaji Maharaj Air Cargo)', 'JNPT (Nhava Sheva Ocean Port)'],
+    upcomingQuarter: 'Q1 Ingestion',
+  },
+  {
+    id: 'gujarat',
+    name: 'Gujarat Corridor',
+    shortName: 'Gujarat',
+    code: 'AMD',
+    coverage: 'Ahmedabad, Vadodara, Surat, Rajkot, Mundra',
+    status: 'upcoming',
+    badge: 'Pipeline · Ingestion',
+    totalAccounts: 0,
+    totalTurnover: 0,
+    description: 'Industrial manufacturing, ceramics, engineering, and chemical cargo shipper cluster across Saurashtra and South Gujarat.',
+    gateways: ['Mundra Port', 'Kandla / Deendayal Port', 'AMD (SVP Air Cargo)'],
+    upcomingQuarter: 'Q1 Ingestion',
+  },
+  {
+    id: 'south',
+    name: 'South India',
+    shortName: 'South India',
+    code: 'BLR',
+    coverage: 'Bengaluru, Chennai, Hyderabad, Coimbatore, Kochi',
+    status: 'upcoming',
+    badge: 'Pipeline · Ingestion',
+    totalAccounts: 0,
+    totalTurnover: 0,
+    description: 'High-tech electronics, aerospace, pharmaceuticals, and automotive supply chain corridor covering Karnataka, Tamil Nadu, and Telangana.',
+    gateways: ['BLR (Kempegowda Air Cargo)', 'MAA (Chennai Port & Air Cargo)', 'HYD (RGIA Air Cargo)', 'COK (Vallarpadam Terminal)'],
+    upcomingQuarter: 'Q2 Ingestion',
+  },
+  {
+    id: 'east',
+    name: 'Kolkata & Eastern',
+    shortName: 'Kolkata',
+    code: 'CCU',
+    coverage: 'Kolkata, Howrah, Haldia, Durgapur, Assam/NE',
+    status: 'upcoming',
+    badge: 'Pipeline · Ingestion',
+    totalAccounts: 0,
+    totalTurnover: 0,
+    description: 'Eastern corridor and ASEAN trade gateway covering heavy engineering, tea, metallurgy, and mining equipment shippers.',
+    gateways: ['CCU (Netaji Subhash Chandra Bose Air Cargo)', 'Syama Prasad Mookerjee Port (Kolkata & Haldia)'],
+    upcomingQuarter: 'Q2 Ingestion',
+  },
+];
+
+const RAW_HOT_LEADS_DATA: HotLead[] = [
   {
     "srNo": 1,
     "gstin": "07AAHCE5990P1ZT",
@@ -1208,3 +1293,9 @@ export const HOT_LEADS_DATA: HotLead[] = [
     "linkedinProfile": "-"
   }
 ];
+
+export const HOT_LEADS_DATA: HotLead[] = RAW_HOT_LEADS_DATA.map((lead) => ({
+  ...lead,
+  region: lead.region || 'Delhi NCR',
+  regionId: (lead.regionId || 'delhi') as HotLeadRegionId,
+}));

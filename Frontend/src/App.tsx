@@ -78,7 +78,7 @@ import { LeadStatusTrackerView } from '@/components/tracker';
 import { createTrackedLead } from '@/services/leadTrackerService';
 import { LeadTrackerCreatePayload } from '@/types/leadTracker';
 import { GatewayHubId } from '@/types/freightCommodities';
-import { HotLeadSegment } from '@/types/hotLeads';
+import { HotLeadSegment, HotLeadRegionId } from '@/types/hotLeads';
 
 
 const DEFAULT_TOP_TAB = 'jfll-customers';
@@ -162,18 +162,19 @@ function getInitialCommodityParams(): { month: number; hub: GatewayHubId } {
   return { month: 11, hub: 'ALL' };
 }
 
-function getInitialHotLeadsParams(): { segment: HotLeadSegment; q: string } {
+function getInitialHotLeadsParams(): { segment: HotLeadSegment; q: string; region: HotLeadRegionId } {
   try {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const segment = (urlParams.get('segment') as HotLeadSegment) || 'all';
       const q = urlParams.get('q') || '';
-      return { segment, q };
+      const region = (urlParams.get('region') as HotLeadRegionId) || 'all';
+      return { segment, q, region };
     }
   } catch {
     // Ignore URL errors
   }
-  return { segment: 'all', q: '' };
+  return { segment: 'all', q: '', region: 'all' };
 }
 
 function getInitialActiveNav(tab: string): string {
@@ -215,6 +216,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   const [commodityHub, setCommodityHub] = useState<GatewayHubId>(() => getInitialCommodityParams().hub);
   const [hotLeadsSegment, setHotLeadsSegment] = useState<HotLeadSegment>(() => getInitialHotLeadsParams().segment);
   const [hotLeadsSearch, setHotLeadsSearch] = useState<string>(() => getInitialHotLeadsParams().q);
+  const [hotLeadsRegion, setHotLeadsRegion] = useState<HotLeadRegionId>(() => getInitialHotLeadsParams().region);
 
   const handleNavigateToReport = (companyName: string, id?: string, source?: string) => {
     setSelectedReportTarget({ name: companyName, id, source });
@@ -1007,8 +1009,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
             if (hotLeadsSearch && hotLeadsSearch.trim()) {
               url.searchParams.set('q', hotLeadsSearch.trim());
             }
+            if (hotLeadsRegion && hotLeadsRegion !== 'all') {
+              url.searchParams.set('region', hotLeadsRegion);
+            }
           } else {
             url.searchParams.delete('segment');
+            url.searchParams.delete('q');
+            url.searchParams.delete('region');
           }
           window.history.replaceState({}, '', url.toString());
         }
@@ -1316,9 +1323,11 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         <HotLeadsView
           initialSegment={hotLeadsSegment}
           initialSearchQuery={hotLeadsSearch}
-          onFilterChange={(seg, q) => {
+          initialRegion={hotLeadsRegion}
+          onFilterChange={(seg, q, reg) => {
             setHotLeadsSegment(seg);
             setHotLeadsSearch(q);
+            setHotLeadsRegion(reg);
             try {
               if (typeof window !== 'undefined' && window.history?.replaceState) {
                 const url = new URL(window.location.href);
@@ -1332,6 +1341,11 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
                   url.searchParams.set('q', q.trim());
                 } else {
                   url.searchParams.delete('q');
+                }
+                if (reg && reg !== 'all') {
+                  url.searchParams.set('region', reg);
+                } else {
+                  url.searchParams.delete('region');
                 }
                 window.history.replaceState({}, '', url.toString());
               }

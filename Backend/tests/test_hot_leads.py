@@ -13,6 +13,40 @@ from src.api.main import app
 
 client = TestClient(app)
 
+@pytest.fixture(autouse=True)
+def clean_hot_lead_contacts():
+    """Ensure test isolation by clearing hot_lead_contacts table before and after each test."""
+    from src.api.lead_tracker_db import get_db_connection, _DB_LOCK
+    with _DB_LOCK:
+        conn = get_db_connection()
+        try:
+            with conn:
+                conn.execute("""
+                    CREATE TABLE IF NOT EXISTS hot_lead_contacts (
+                        sr_no INTEGER PRIMARY KEY,
+                        customer_name TEXT,
+                        gstin TEXT,
+                        phone TEXT,
+                        contact_person TEXT,
+                        email TEXT,
+                        notes TEXT,
+                        updated_at TEXT NOT NULL,
+                        updated_by TEXT
+                    );
+                """)
+                conn.execute("DELETE FROM hot_lead_contacts")
+        finally:
+            conn.close()
+    yield
+    with _DB_LOCK:
+        conn = get_db_connection()
+        try:
+            with conn:
+                conn.execute("DELETE FROM hot_lead_contacts")
+        finally:
+            conn.close()
+
+
 def test_hot_leads_config_and_parquet_resolution():
     """Verify that client_tax_cross_reference is registered in config and resolves to valid parquet."""
     assert "client_tax_cross_reference" in settings.DATASET_FILES
@@ -166,4 +200,97 @@ def test_list_hot_leads_new_taxonomy_and_contact_splits():
     assert m["inactive_without_contacts_count"] == 2
     assert m["with_contacts_count"] == 39
     assert m["without_contacts_count"] == 21
+
+
+def test_list_hot_leads_multi_region_support():
+    """Verify multi-region queries: Delhi NCR returns live 60 records with region tags, upcoming returns empty state cleanly."""
+    # 1. Default query includes region metadata
+    res_default = client.get("/api/v1/hot-leads?page_size=10")
+    assert res_default.status_code == 200
+    first_item = res_default.json()["data"][0]
+    assert first_item["region"] == "Delhi NCR"
+    assert first_item["region_id"] == "delhi"
+    assert res_default.json()["metrics"]["region"] == "all"
+
+    # 2. Explicit region=delhi
+    res_delhi = client.get("/api/v1/hot-leads?region=delhi&page_size=100")
+    assert res_delhi.status_code == 200
+    assert res_delhi.json()["total_records"] == 60
+    assert len(res_delhi.json()["data"]) == 60
+    assert all(item["region_id"] == "delhi" for item in res_delhi.json()["data"])
+    assert res_delhi.json()["metrics"]["region"] == "delhi"
+
+    # 3. Explicit region=all
+    res_all = client.get("/api/v1/hot-leads?region=all&page_size=100")
+    assert res_all.status_code == 200
+    assert res_all.json()["total_records"] == 60
+
+    # 4. Upcoming region (e.g., mumbai, gujarat, south, east)
+    res_mumbai = client.get("/api/v1/hot-leads?region=mumbai")
+    assert res_mumbai.status_code == 200
+    payload_mumbai = res_mumbai.json()
+    assert payload_mumbai["total_records"] == 0
+    assert payload_mumbai["data"] == []
+    assert payload_mumbai["metrics"]["total_count"] == 0
+    assert payload_mumbai["metrics"]["total_turnover"] == 0
+    assert payload_mumbai["metrics"]["region"] == "mumbai"
+
+
+def test_hot_leads_contact_inline_update_and_persistence():
+    """Verify sales coordinator inline contact editing persists to SQLite database and updates DuckDB query."""
+    # Find a record with NO initial contact (e.g. sr_no 17 or any without-contacts)
+    res_woc = client.get("/api/v1/hot-leads?segment=without-contacts&page_size=5")
+    assert res_woc.status_code == 200
+    woc_items = res_woc.json()["data"]
+    assert len(woc_items) > 0
+    target_lead = woc_items[0]
+    target_sr_no = target_lead["sr_no"]
+
+    # 1. Update contact number and person via PATCH endpoint
+    test_phone = "+91 98765 43210"
+    test_contact = "Rajesh Sharma (Logistics Head)"
+    test_email = "rajesh.sharma@enterprise.com"
+
+    update_res = client.patch(
+        f"/api/v1/hot-leads/{target_sr_no}/contact",
+        json={
+            "phone": test_phone,
+            "contact_person": test_contact,
+            "email": test_email,
+            "notes": "Verified via WhatsApp by coordinator",
+        },
+    )
+    assert update_res.status_code == 200
+    update_data = update_res.json()
+    assert update_data["success"] is True
+    assert update_data["sr_no"] == target_sr_no
+    assert update_data["phone"] == test_phone
+    assert update_data["contact_person"] == test_contact
+    assert update_data["email"] == test_email
+    assert "updated_at" in update_data
+
+    # 2. Verify GET /api/v1/hot-leads/{sr_no}/contact
+    get_contact_res = client.get(f"/api/v1/hot-leads/{target_sr_no}/contact")
+    assert get_contact_res.status_code == 200
+    contact_data = get_contact_res.json()
+    assert contact_data["phone"] == test_phone
+    assert contact_data["contact_person"] == test_contact
+    assert contact_data["email"] == test_email
+
+    # 3. Verify GET /api/v1/hot-leads now reflects the persisted database update
+    res_updated = client.get(f"/api/v1/hot-leads?search={target_lead['customer_name']}")
+    assert res_updated.status_code == 200
+    updated_items = res_updated.json()["data"]
+    match = next(x for x in updated_items if x["sr_no"] == target_sr_no)
+    assert match["jfll_direct_phone"] == test_phone
+    assert match["jfll_contact_person"] == test_contact
+    assert match["jfll_direct_email"] == test_email
+    assert match["is_custom_contact"] is True
+    assert match["contact_updated_at"] is not None
+
+    # 4. Verify 404 for nonexistent sr_no
+    res_404 = client.patch("/api/v1/hot-leads/9999/contact", json={"phone": "+91 99999 99999"})
+    assert res_404.status_code == 404
+
+
 

@@ -13,6 +13,22 @@ export type HotLeadCrmStatus =
 
 export type HotLeadCategory = 'all' | 'active' | 'inactive' | 'fresh';
 export type HotLeadContactFilter = 'all' | 'with-contacts' | 'without-contacts';
+export type HotLeadRegionId = 'all' | 'delhi' | 'mumbai' | 'gujarat' | 'south' | 'east';
+
+export interface HotLeadRegionMeta {
+  id: HotLeadRegionId;
+  name: string;
+  shortName: string;
+  code: string;
+  coverage: string;
+  status: 'live' | 'upcoming';
+  badge: string;
+  totalAccounts: number;
+  totalTurnover: number;
+  description: string;
+  gateways: string[];
+  upcomingQuarter?: string;
+}
 
 export type HotLeadSegment =
   | 'all'
@@ -51,6 +67,31 @@ export interface HotLead {
   decisionMakerEmail: string;
   emailStatus: string;
   linkedinProfile: string;
+  region?: string;
+  regionId?: HotLeadRegionId;
+  isCustomContact?: boolean;
+  contactUpdatedAt?: string;
+  contactUpdatedBy?: string;
+  notes?: string;
+}
+
+export interface HotLeadContactUpdatePayload {
+  phone?: string | null;
+  contactPerson?: string | null;
+  email?: string | null;
+  notes?: string | null;
+}
+
+export interface HotLeadContactUpdateResponse {
+  success: boolean;
+  srNo: number;
+  phone: string | null;
+  contactPerson: string | null;
+  email: string | null;
+  notes: string | null;
+  updatedAt: string;
+  updatedBy: string | null;
+  message: string;
 }
 
 export interface HotLeadsMetrics {
@@ -72,14 +113,18 @@ export interface HotLeadsMetrics {
   prospectsCount: number;
   reactivationsCount: number;
   decisionMakersCount: number;
+  // Multi-region breakdown
+  region?: HotLeadRegionId | string;
+  regionBreakdown?: Partial<Record<HotLeadRegionId, { count: number; turnover: number }>>;
 }
 
 export interface HotLeadsFilterParams {
   q?: string;
+  region?: HotLeadRegionId;
   segment?: HotLeadSegment;
   category?: HotLeadCategory;
   contactFilter?: HotLeadContactFilter;
-  sortBy?: 'turnover' | 'name' | 'status';
+  sortBy?: 'turnover' | 'name' | 'status' | 'region';
   sortOrder?: 'asc' | 'desc';
 }
 

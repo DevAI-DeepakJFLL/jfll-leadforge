@@ -202,6 +202,30 @@ class HotLeadItem(BaseModel):
     decision_maker_direct_email: str
     email_status: str
     linkedin_profile: str
+    region: str = "Delhi NCR"
+    region_id: str = "delhi"
+    is_custom_contact: bool = False
+    contact_updated_at: str | None = None
+    contact_updated_by: str | None = None
+
+
+class HotLeadContactUpdatePayload(BaseModel):
+    phone: str | None = None
+    contact_person: str | None = None
+    email: str | None = None
+    notes: str | None = None
+
+
+class HotLeadContactUpdateResponse(BaseModel):
+    success: bool
+    sr_no: int
+    phone: str | None = None
+    contact_person: str | None = None
+    email: str | None = None
+    notes: str | None = None
+    updated_at: str
+    updated_by: str | None = None
+    message: str
 
 
 class HotLeadsMetrics(BaseModel):
@@ -221,6 +245,7 @@ class HotLeadsMetrics(BaseModel):
     active_without_contacts_count: int = 0
     with_contacts_count: int = 0
     without_contacts_count: int = 0
+    region: str = "all"
 
 
 class HotLeadsPaginatedResponse(BaseModel):

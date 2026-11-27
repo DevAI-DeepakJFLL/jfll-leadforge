@@ -37,6 +37,13 @@ from src.api.models import (
     HotLeadItem,
     HotLeadsMetrics,
     HotLeadsPaginatedResponse,
+    HotLeadContactUpdatePayload,
+    HotLeadContactUpdateResponse,
+)
+from src.api.hot_leads_db import (
+    get_all_hot_lead_contacts,
+    get_hot_lead_contact,
+    upsert_hot_lead_contact,
 )
 
 router = APIRouter(prefix="/api/v1", tags=["Leads"])
@@ -1231,14 +1238,94 @@ def list_hot_leads(
     search: str | None = Query(default=None, max_length=100, description="Search query"),
     sort_by: str | None = Query(default="turnover", description="Sort field: turnover, name, status"),
     sort_order: str | None = Query(default="desc", description="Sort order: asc or desc"),
+    region: str | None = Query(default="all", description="Region filter: all, delhi, mumbai, gujarat, south, east"),
     authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
 ):
     """
     Queries the 60 high-turnover tax audit cross-referenced client accounts from Parquet via DuckDB.
+    Supports multi-region filtering with Delhi NCR live dataset and pipeline regions.
     """
     require_auth(authorization)
+    normalized_region = (region or "all").strip().lower()
+    if normalized_region not in ("all", "delhi", "del"):
+        # Upcoming regional pipeline dataset with 0 records yet
+        return HotLeadsPaginatedResponse(
+            page=page,
+            page_size=page_size,
+            total_records=0,
+            total_pages=1,
+            has_next=False,
+            data=[],
+            metrics=HotLeadsMetrics(region=normalized_region),
+        )
+
     con = get_db_connection()
     data_source = get_data_source(con, "client_tax_cross_reference")
+
+    # Load custom contact overrides persisted to SQLite database by sales coordinators
+    contact_overrides = get_all_hot_lead_contacts()
+    if contact_overrides:
+        con.execute("""
+            CREATE OR REPLACE TEMP TABLE hot_lead_contact_overrides (
+                sr_no INTEGER PRIMARY KEY,
+                override_phone TEXT,
+                override_contact_person TEXT,
+                override_email TEXT,
+                override_updated_at TEXT,
+                override_updated_by TEXT
+            );
+        """)
+        override_rows = [
+            (
+                c["sr_no"],
+                c.get("phone") or "",
+                c.get("contact_person") or "",
+                c.get("email") or "",
+                c.get("updated_at") or "",
+                c.get("updated_by") or "",
+            )
+            for c in contact_overrides.values()
+        ]
+        con.executemany("INSERT INTO hot_lead_contact_overrides VALUES (?, ?, ?, ?, ?, ?)", override_rows)
+        con.execute(f"""
+            CREATE OR REPLACE TEMP VIEW v_client_tax_cross_reference AS
+            SELECT
+                t.sr_no,
+                t.gstin,
+                t.customer_name,
+                t.taxable_turnover_inr,
+                t.jfll_crm_status,
+                t.jfll_sales_rep,
+                coalesce(nullif(trim(o.override_contact_person), ''), t.jfll_contact_person) as jfll_contact_person,
+                coalesce(nullif(trim(o.override_phone), ''), t.jfll_direct_phone) as jfll_direct_phone,
+                coalesce(nullif(trim(o.override_email), ''), t.jfll_direct_email) as jfll_direct_email,
+                t.datamyne_trade_activity,
+                t.apollo_matched_entity,
+                t.apollo_corporate_domain,
+                t.apollo_employees,
+                t.apollo_decision_maker,
+                t.decision_maker_title,
+                t.decision_maker_direct_email,
+                t.email_status,
+                t.linkedin_profile,
+                (o.sr_no IS NOT NULL) as is_custom_contact,
+                o.override_updated_at as contact_updated_at,
+                o.override_updated_by as contact_updated_by
+            FROM '{data_source}' t
+            LEFT JOIN hot_lead_contact_overrides o ON t.sr_no = o.sr_no;
+        """)
+    else:
+        con.execute(f"""
+            CREATE OR REPLACE TEMP VIEW v_client_tax_cross_reference AS
+            SELECT
+                *,
+                false as is_custom_contact,
+                cast(null as text) as contact_updated_at,
+                cast(null as text) as contact_updated_by
+            FROM '{data_source}';
+        """)
+
+    source_relation = "v_client_tax_cross_reference"
 
     where_clauses = ["1=1"]
     params = []
@@ -1283,9 +1370,12 @@ def list_hot_leads(
             lower(gstin) LIKE ? OR
             lower(jfll_sales_rep) LIKE ? OR
             lower(apollo_decision_maker) LIKE ? OR
-            lower(apollo_corporate_domain) LIKE ?
+            lower(apollo_corporate_domain) LIKE ? OR
+            lower(jfll_contact_person) LIKE ? OR
+            lower(jfll_direct_phone) LIKE ? OR
+            lower(jfll_direct_email) LIKE ?
         )""")
-        params.extend([search_pattern] * 5)
+        params.extend([search_pattern] * 8)
 
     where_sql = " AND ".join(where_clauses)
 
@@ -1305,7 +1395,7 @@ def list_hot_leads(
                 count(CASE WHEN jfll_crm_status = 'Not Active Customer' AND {no_contact_sql} THEN 1 END) as inactive_without_contacts,
                 count(CASE WHEN jfll_crm_status = 'Active Customer' AND {has_contact_sql} THEN 1 END) as active_with_contacts,
                 count(CASE WHEN jfll_crm_status = 'Active Customer' AND {no_contact_sql} THEN 1 END) as active_without_contacts
-            FROM '{data_source}'
+            FROM {source_relation}
         """
         m_row = con.execute(metrics_query).fetchone()
         fresh_count = int(m_row[2])
@@ -1336,10 +1426,11 @@ def list_hot_leads(
             active_without_contacts_count=active_woc,
             with_contacts_count=dm_count,
             without_contacts_count=int(m_row[1]) - dm_count,
+            region=normalized_region,
         )
 
         # Count matching
-        count_query = f"SELECT count(*) FROM '{data_source}' WHERE {where_sql}"
+        count_query = f"SELECT count(*) FROM {source_relation} WHERE {where_sql}"
         total_matching = con.execute(count_query, params).fetchone()[0]
 
         order_direction = "DESC" if sort_order and sort_order.lower() == "desc" else "ASC"
@@ -1356,8 +1447,9 @@ def list_hot_leads(
                 jfll_sales_rep, jfll_contact_person, jfll_direct_phone, jfll_direct_email,
                 datamyne_trade_activity, apollo_matched_entity, apollo_corporate_domain,
                 apollo_employees, apollo_decision_maker, decision_maker_title,
-                decision_maker_direct_email, email_status, linkedin_profile
-            FROM '{data_source}'
+                decision_maker_direct_email, email_status, linkedin_profile,
+                is_custom_contact, contact_updated_at, contact_updated_by
+            FROM {source_relation}
             WHERE {where_sql}
             ORDER BY {sort_column} {order_direction}
             LIMIT ? OFFSET ?
@@ -1372,9 +1464,9 @@ def list_hot_leads(
                 taxable_turnover_inr=r[3],
                 jfll_crm_status=r[4],
                 jfll_sales_rep=r[5],
-                jfll_contact_person=r[6],
-                jfll_direct_phone=r[7],
-                jfll_direct_email=r[8],
+                jfll_contact_person=r[6] or "-",
+                jfll_direct_phone=r[7] or "-",
+                jfll_direct_email=r[8] or "-",
                 datamyne_trade_activity=r[9],
                 apollo_matched_entity=r[10],
                 apollo_corporate_domain=r[11],
@@ -1384,6 +1476,11 @@ def list_hot_leads(
                 decision_maker_direct_email=r[15],
                 email_status=r[16],
                 linkedin_profile=r[17],
+                region="Delhi NCR",
+                region_id="delhi",
+                is_custom_contact=bool(r[18]),
+                contact_updated_at=r[19],
+                contact_updated_by=r[20],
             )
             for r in rows
         ]
@@ -1401,6 +1498,70 @@ def list_hot_leads(
         )
     except Exception as e:
         raise _handle_db_exception("Hot leads database query failure", e, data_source)
+
+
+@router.patch("/hot-leads/{sr_no}/contact", response_model=HotLeadContactUpdateResponse, summary="Add or update contact details for a hot lead")
+@router.put("/hot-leads/{sr_no}/contact", response_model=HotLeadContactUpdateResponse, summary="Add or update contact details for a hot lead")
+def update_hot_lead_contact_details(
+    sr_no: int,
+    payload: HotLeadContactUpdatePayload,
+    authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
+):
+    """
+    Persists sales coordinator added/updated contact details (phone, contact person, email, notes)
+    directly to SQLite database.
+    """
+    session = require_auth(authorization)
+    updater = getattr(session, "email", None) or getattr(session, "name", None) or "Sales Coordinator"
+
+    con = get_db_connection()
+    data_source = get_data_source(con, "client_tax_cross_reference")
+    row = con.execute(f"SELECT customer_name, gstin FROM '{data_source}' WHERE sr_no = ?", [sr_no]).fetchone()
+    if not row:
+        raise HTTPException(status_code=404, detail=f"Hot lead with sr_no {sr_no} not found")
+
+    customer_name, gstin = row[0], row[1]
+    res = upsert_hot_lead_contact(
+        sr_no=sr_no,
+        phone=payload.phone,
+        contact_person=payload.contact_person,
+        email=payload.email,
+        notes=payload.notes,
+        customer_name=customer_name,
+        gstin=gstin,
+        updated_by=updater,
+    )
+    return HotLeadContactUpdateResponse(
+        success=True,
+        sr_no=sr_no,
+        phone=res["phone"],
+        contact_person=res["contact_person"],
+        email=res["email"],
+        notes=res["notes"],
+        updated_at=res["updated_at"],
+        updated_by=res["updated_by"],
+        message="Contact details persisted to database successfully",
+    )
+
+
+@router.get("/hot-leads/{sr_no}/contact", summary="Get contact override details for a hot lead")
+def get_hot_lead_contact_details(
+    sr_no: int,
+    authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
+):
+    require_auth(authorization)
+    contact = get_hot_lead_contact(sr_no)
+    if not contact:
+        raise HTTPException(status_code=404, detail=f"No custom contact found for sr_no {sr_no}")
+    return contact
+
+
+@router.get("/hot-leads/contacts/all", summary="Get all custom contact overrides for hot leads")
+def list_all_hot_lead_contacts(
+    authorization: str | None = Header(None, description="Optional bearer token for authenticated session"),
+):
+    require_auth(authorization)
+    return {"contacts": get_all_hot_lead_contacts()}
 
 
 
