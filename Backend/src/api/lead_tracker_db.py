@@ -77,7 +77,14 @@ def get_db_connection(db_path: Path | str | None = None) -> sqlite3.Connection:
 
 
 def init_db(db_path: Path | str | None = None) -> None:
-    """Initializes SQLite schema, tables, and indexes."""
+    """Initializes SQLite schema, tables, and indexes (and DSQL if enabled)."""
+    try:
+        from src.api.dsql_client import init_dsql_schema, is_dsql_enabled
+        if is_dsql_enabled():
+            init_dsql_schema()
+    except Exception as err:
+        logger.warning("Could not auto-initialize DSQL schema: %s", err)
+
     with _DB_LOCK:
         conn = get_db_connection(db_path)
         try:
@@ -283,6 +290,164 @@ def get_lead_by_id(lead_id: str, db_path: Path | str | None = None) -> dict[str,
         conn.close()
 
 
+def _write_lead_to_dsql(lead_data: dict[str, Any]) -> bool:
+    """Writes a lead entry to Aurora DSQL when enabled."""
+    try:
+        from src.api.dsql_client import execute_dsql_query, is_dsql_enabled
+
+        if not is_dsql_enabled():
+            return False
+
+        sql = """
+        INSERT INTO lead_tracker_items (
+            id, company_name, contact_person, contact_phone, contact_email,
+            branch, assigned_to, assigned_to_email, assigned_by, assigned_date,
+            status, transport_mode, routing_type, feedback_notes, next_followup_date,
+            next_action, quote_date, rate_validity_date, rate_validity_days,
+            target_shipment_date, linked_entity_type, linked_entity_id,
+            created_at, updated_at, created_by, is_archived
+        ) VALUES (
+            ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?,
+            ?, ?, ?, ?,
+            ?, ?, ?,
+            ?, ?, ?, ?
+        ) ON CONFLICT (id) DO UPDATE SET
+            company_name = EXCLUDED.company_name,
+            contact_person = EXCLUDED.contact_person,
+            contact_phone = EXCLUDED.contact_phone,
+            contact_email = EXCLUDED.contact_email,
+            branch = EXCLUDED.branch,
+            assigned_to = EXCLUDED.assigned_to,
+            assigned_to_email = EXCLUDED.assigned_to_email,
+            assigned_by = EXCLUDED.assigned_by,
+            assigned_date = EXCLUDED.assigned_date,
+            status = EXCLUDED.status,
+            transport_mode = EXCLUDED.transport_mode,
+            routing_type = EXCLUDED.routing_type,
+            feedback_notes = EXCLUDED.feedback_notes,
+            next_followup_date = EXCLUDED.next_followup_date,
+            next_action = EXCLUDED.next_action,
+            quote_date = EXCLUDED.quote_date,
+            rate_validity_date = EXCLUDED.rate_validity_date,
+            rate_validity_days = EXCLUDED.rate_validity_days,
+            target_shipment_date = EXCLUDED.target_shipment_date,
+            linked_entity_type = EXCLUDED.linked_entity_type,
+            linked_entity_id = EXCLUDED.linked_entity_id,
+            updated_at = EXCLUDED.updated_at,
+            created_by = EXCLUDED.created_by,
+            is_archived = EXCLUDED.is_archived;
+        """.strip()
+
+        params = (
+            lead_data["id"],
+            lead_data.get("company_name", ""),
+            lead_data.get("contact_person"),
+            lead_data.get("contact_phone"),
+            lead_data.get("contact_email"),
+            lead_data.get("branch", "Mumbai"),
+            lead_data.get("assigned_to", "Unassigned"),
+            lead_data.get("assigned_to_email"),
+            lead_data.get("assigned_by", "Tyra Theknath"),
+            lead_data.get("assigned_date") or date.today().isoformat(),
+            lead_data.get("status", "Assigned"),
+            lead_data.get("transport_mode", "Air Freight"),
+            lead_data.get("routing_type", "Freehand"),
+            lead_data.get("feedback_notes"),
+            lead_data.get("next_followup_date"),
+            lead_data.get("next_action"),
+            lead_data.get("quote_date"),
+            lead_data.get("rate_validity_date"),
+            lead_data.get("rate_validity_days", 14),
+            lead_data.get("target_shipment_date"),
+            lead_data.get("linked_entity_type", "custom"),
+            lead_data.get("linked_entity_id"),
+            lead_data.get("created_at") or datetime.now(UTC).isoformat(),
+            lead_data.get("updated_at") or datetime.now(UTC).isoformat(),
+            lead_data.get("created_by", "Tyra Theknath"),
+            bool(lead_data.get("is_archived", False)),
+        )
+        execute_dsql_query(sql, params)
+        return True
+    except Exception as err:
+        logger.warning("Lead Tracker: Failed to sync lead to Aurora DSQL: %s", err)
+        return False
+
+
+def _write_activity_to_dsql(
+    act_id: str,
+    lead_id: str,
+    timestamp: str,
+    author_name: str,
+    author_email: str | None,
+    action: str,
+    old_status: str | None,
+    new_status: str | None,
+    notes: str | None,
+) -> bool:
+    """Writes an activity log entry to Aurora DSQL when enabled."""
+    try:
+        from src.api.dsql_client import execute_dsql_query, is_dsql_enabled
+
+        if not is_dsql_enabled():
+            return False
+
+        sql = """
+        INSERT INTO lead_tracker_activities (
+            id, lead_id, timestamp, author_name, author_email,
+            action, old_status, new_status, notes
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT (id) DO UPDATE SET
+            lead_id = EXCLUDED.lead_id,
+            timestamp = EXCLUDED.timestamp,
+            author_name = EXCLUDED.author_name,
+            author_email = EXCLUDED.author_email,
+            action = EXCLUDED.action,
+            old_status = EXCLUDED.old_status,
+            new_status = EXCLUDED.new_status,
+            notes = EXCLUDED.notes;
+        """.strip()
+
+        params = (
+            act_id,
+            lead_id,
+            timestamp,
+            author_name,
+            author_email or "",
+            action,
+            old_status,
+            new_status,
+            notes,
+        )
+        execute_dsql_query(sql, params)
+        return True
+    except Exception as err:
+        logger.warning("Lead Tracker: Failed to sync activity to Aurora DSQL: %s", err)
+        return False
+
+
+def _delete_lead_from_dsql(lead_id: str, hard_delete: bool = False) -> bool:
+    """Soft-archives or deletes a lead in Aurora DSQL when enabled."""
+    try:
+        from src.api.dsql_client import execute_dsql_query, is_dsql_enabled
+
+        if not is_dsql_enabled():
+            return False
+
+        if hard_delete:
+            execute_dsql_query("DELETE FROM lead_tracker_items WHERE id = ?", (lead_id,))
+        else:
+            execute_dsql_query(
+                "UPDATE lead_tracker_items SET is_archived = TRUE, updated_at = ? WHERE id = ?",
+                (datetime.now(UTC).isoformat(), lead_id),
+            )
+        return True
+    except Exception as err:
+        logger.warning("Lead Tracker: Failed to delete lead in Aurora DSQL: %s", err)
+        return False
+
+
 def create_lead(lead_data: dict[str, Any], db_path: Path | str | None = None) -> dict[str, Any]:
     """Inserts a new tracked lead and creates its initial audit log entry."""
     now_iso = datetime.now(UTC).isoformat()
@@ -393,7 +558,9 @@ def create_lead(lead_data: dict[str, Any], db_path: Path | str | None = None) ->
         finally:
             conn.close()
 
-    return get_lead_by_id(lead_id, db_path=db_path) or {}
+    res = get_lead_by_id(lead_id, db_path=db_path) or {}
+    _write_lead_to_dsql(res)
+    return res
 
 
 def update_lead(lead_id: str, update_data: dict[str, Any], db_path: Path | str | None = None) -> dict[str, Any] | None:
@@ -439,7 +606,10 @@ def update_lead(lead_id: str, update_data: dict[str, Any], db_path: Path | str |
         finally:
             conn.close()
 
-    return get_lead_by_id(lead_id, db_path=db_path)
+    res = get_lead_by_id(lead_id, db_path=db_path)
+    if res:
+        _write_lead_to_dsql(res)
+    return res
 
 
 def delete_lead(lead_id: str, hard_delete: bool = False, db_path: Path | str | None = None) -> bool:
@@ -455,6 +625,8 @@ def delete_lead(lead_id: str, hard_delete: bool = False, db_path: Path | str | N
                         "UPDATE lead_tracker_items SET is_archived = 1, updated_at = ? WHERE id = ?",
                         (datetime.now(UTC).isoformat(), lead_id),
                     )
+                if cur.rowcount > 0:
+                    _delete_lead_from_dsql(lead_id, hard_delete=hard_delete)
                 return cur.rowcount > 0
         finally:
             conn.close()
@@ -525,7 +697,7 @@ def add_activity(lead_id: str, activity_data: dict[str, Any], db_path: Path | st
         finally:
             conn.close()
 
-    return {
+    act_dict = {
         "id": act_id,
         "lead_id": lead_id,
         "timestamp": timestamp,
@@ -536,6 +708,22 @@ def add_activity(lead_id: str, activity_data: dict[str, Any], db_path: Path | st
         "new_status": new_status,
         "notes": notes,
     }
+    _write_activity_to_dsql(
+        act_id=act_id,
+        lead_id=lead_id,
+        timestamp=timestamp,
+        author_name=author_name,
+        author_email=author_email,
+        action=action,
+        old_status=old_status,
+        new_status=new_status,
+        notes=notes,
+    )
+    parent_lead = get_lead_by_id(lead_id, db_path=db_path)
+    if parent_lead:
+        _write_lead_to_dsql(parent_lead)
+
+    return act_dict
 
 
 def get_kpis(db_path: Path | str | None = None) -> dict[str, Any]:
@@ -652,7 +840,13 @@ def backup_db_to_s3(db_path: Path | str | None = None) -> bool:
         logger.info("Lead Tracker SQLite: Successfully backed up database to s3://%s/%s", settings.s3_bucket, S3_LEAD_TRACKER_DB_KEY)
         return True
     except Exception as err:
-        logger.debug("Lead Tracker SQLite: S3 backup skipped or failed: %s", err)
+        logger.warning(
+            "Lead Tracker SQLite: S3 backup failed: %s (Bucket: %s, Key: %s). "
+            "Ensure AWS Lambda IAM role has s3:PutObject permissions.",
+            err,
+            settings.s3_bucket,
+            S3_LEAD_TRACKER_DB_KEY,
+        )
         return False
     finally:
         if temp_backup.exists():
@@ -675,5 +869,11 @@ def restore_db_from_s3(db_path: Path | str | None = None) -> bool:
         logger.info("Lead Tracker SQLite: Restored database from s3://%s/%s", settings.s3_bucket, S3_LEAD_TRACKER_DB_KEY)
         return True
     except Exception as err:
-        logger.debug("Lead Tracker SQLite: S3 restore skipped or unavailable: %s", err)
+        logger.warning(
+            "Lead Tracker SQLite: S3 restore failed or unavailable: %s (Bucket: %s, Key: %s). "
+            "Ensure S3 bucket exists and Lambda IAM role has s3:GetObject permissions.",
+            err,
+            settings.s3_bucket,
+            S3_LEAD_TRACKER_DB_KEY,
+        )
         return False

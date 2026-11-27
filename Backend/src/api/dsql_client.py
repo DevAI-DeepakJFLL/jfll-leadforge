@@ -292,8 +292,9 @@ def execute_dsql_query(
         return []
     else:
         # Postgres / psycopg connection
+        pg_sql = sql.replace("?", "%s") if "?" in sql else sql
         with conn.cursor() as cur:
-            cur.execute(sql, params)
+            cur.execute(pg_sql, params)
             if cur.description is not None:
                 colnames = [desc[0] for desc in cur.description]
                 rows = (

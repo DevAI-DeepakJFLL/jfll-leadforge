@@ -18,6 +18,13 @@ logger = logging.getLogger(__name__)
 
 def init_hot_leads_db(db_path: Path | str | None = None) -> None:
     """Initializes the hot_lead_contacts table and associated index."""
+    try:
+        from src.api.dsql_client import init_dsql_schema, is_dsql_enabled
+        if is_dsql_enabled():
+            init_dsql_schema()
+    except Exception as err:
+        logger.warning("Could not auto-initialize DSQL schema for hot leads: %s", err)
+
     with _DB_LOCK:
         conn = get_db_connection(db_path)
         try:
@@ -101,6 +108,58 @@ def get_hot_lead_contact(sr_no: int, db_path: Path | str | None = None) -> dict[
             }
         finally:
             conn.close()
+
+
+def _write_hot_lead_to_dsql(
+    sr_no: int,
+    customer_name: str | None,
+    gstin: str | None,
+    phone: str | None,
+    contact_person: str | None,
+    email: str | None,
+    notes: str | None,
+    updated_at: str,
+    updated_by: str | None,
+) -> bool:
+    """Writes hot lead contact enrichment to Aurora DSQL when enabled."""
+    try:
+        from src.api.dsql_client import execute_dsql_query, is_dsql_enabled
+
+        if not is_dsql_enabled():
+            return False
+
+        sql = """
+        INSERT INTO hot_lead_contacts (
+            sr_no, customer_name, gstin, phone, contact_person, email, notes, updated_at, updated_by
+        ) VALUES (
+            ?, ?, ?, ?, ?, ?, ?, ?, ?
+        ) ON CONFLICT (sr_no) DO UPDATE SET
+            customer_name = EXCLUDED.customer_name,
+            gstin = EXCLUDED.gstin,
+            phone = EXCLUDED.phone,
+            contact_person = EXCLUDED.contact_person,
+            email = EXCLUDED.email,
+            notes = EXCLUDED.notes,
+            updated_at = EXCLUDED.updated_at,
+            updated_by = EXCLUDED.updated_by;
+        """.strip()
+
+        params = (
+            sr_no,
+            customer_name or "",
+            gstin or "",
+            phone or "",
+            contact_person or "",
+            email or "",
+            notes or "",
+            updated_at,
+            updated_by or "Sales Coordinator",
+        )
+        execute_dsql_query(sql, params)
+        return True
+    except Exception as err:
+        logger.warning("Hot Leads: Failed to sync contact to Aurora DSQL: %s", err)
+        return False
 
 
 def upsert_hot_lead_contact(
@@ -198,7 +257,7 @@ def upsert_hot_lead_contact(
                         ),
                     )
 
-            return {
+            res = {
                 "sr_no": sr_no,
                 "customer_name": final_customer,
                 "gstin": final_gstin,
@@ -209,5 +268,17 @@ def upsert_hot_lead_contact(
                 "updated_at": now_iso,
                 "updated_by": effective_updater,
             }
+            _write_hot_lead_to_dsql(
+                sr_no=sr_no,
+                customer_name=final_customer,
+                gstin=final_gstin,
+                phone=final_phone,
+                contact_person=final_person,
+                email=final_email,
+                notes=final_notes,
+                updated_at=now_iso,
+                updated_by=effective_updater,
+            )
+            return res
         finally:
             conn.close()
