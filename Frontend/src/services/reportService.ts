@@ -32,8 +32,8 @@ function getFormattedToday(): string {
  */
 export function createEmptyReportDraft(
   companyName: string,
-  preparedFor: string = 'Mumbai Sales Branch',
-  preparedBy: string = 'Tyra Theknath',
+  preparedFor: string = 'Commercial Sales Division',
+  preparedBy: string = 'Jet Freight Sales Team',
   initialContacts?: ContactItem[]
 ): ClientReportData {
   return {
@@ -48,42 +48,25 @@ export function createEmptyReportDraft(
     },
     section_1_background: {
       what_they_do: 'Commercial exporter / merchant trader of general commodities and industrial goods',
-      address: 'Mumbai Metropolitan Region, Maharashtra, India',
-      hq_facilities: 'Mumbai Metropolitan Region → Gateways: BOM Air / JNPT Sea',
+      address: 'Commercial Operating Address (Unlisted in primary customs sample)',
+      hq_facilities: 'Commercial Facilities → Gateways: Nearest Regional Airport / Seaport Hub',
       export_markets: 'Global emerging and regulated markets',
       scale_credibility: 'SME Exporter (Customs records unlisted in local primary sample)',
     },
     section_2_trade_lane: {
-      origin_destination: 'Mumbai (BOM/JNPT) → Global Destination Hubs',
+      origin_destination: 'Regional Origin → Global Destination Hubs',
       commodity: 'Commercial Goods & Industrial Supplies',
       primary_mode: 'AIR / OCEAN (LCL/FCL)',
       special_handling: 'Standard Cargo Handling & Export Customs Clearance',
       total_shipments: 0,
       total_value_usd: 0.0,
-      lading_port: 'INBOM4 (Mumbai Air) / INNSA1 (Nhava Sheva Sea)',
+      lading_port: 'Regional Gateway Hub',
     },
     section_3_jfll_fit: {
-      cargo_strength: 'Multimodal air + ocean network covers their global trade lanes; licensed CHA for fast Mumbai customs clearance; 150+ country partner network.',
-      pitch_angle: 'Multimodal sea + express air · Licensed CHA customs broker · ISO 9001:2015 · Listed since 1986 (NSE/BSE: JETFREIGHT) · Mumbai-local dedicated account team',
+      cargo_strength: 'Multimodal air + ocean network covers their global trade lanes; licensed CHA for fast customs clearance; 150+ country partner network.',
+      pitch_angle: 'Multimodal sea + express air · Licensed CHA customs broker · ISO 9001:2015 · Listed since 1986 (NSE/BSE: JETFREIGHT) · Dedicated account team',
     },
-    section_4_contacts: (initialContacts && initialContacts.length > 0) ? initialContacts : [
-      {
-        name: 'General / Switchboard',
-        designation: 'Corporate Inquiries',
-        phone: '+91 22 2830 7400',
-        email: 'info@company.com',
-        contact_info: 'info@company.com',
-        notes: 'Primary Corporate Contact',
-      },
-      {
-        name: 'Logistics Head',
-        designation: 'Supply Chain / Logistics Manager',
-        phone: '+91 98200 12345',
-        email: 'logistics@company.com',
-        contact_info: 'logistics@company.com',
-        notes: 'Key Freight Decision-Maker',
-      },
-    ],
+    section_4_contacts: (initialContacts && initialContacts.length > 0) ? initialContacts : [],
     section_5_feedback: {
       meeting_takeaways: '',
       preferred_carriers: '',

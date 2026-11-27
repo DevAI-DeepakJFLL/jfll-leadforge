@@ -105,7 +105,14 @@ def test_generate_client_report_unlisted_fallback():
     assert isinstance(report, ClientReportData)
     assert report.header.company_name == "NonExistentUnknownCo999"
     assert report.section_2_trade_lane.total_shipments == 0
-    assert len(report.section_4_contacts) >= 1
+    assert len(report.section_4_contacts) == 0
+
+
+def test_generate_client_report_default_attribution_and_clean_contacts():
+    report = generate_client_report_data("NonExistentUnknownCo999")
+    assert report.header.prepared_for == "Commercial Sales Division"
+    assert report.header.prepared_by == "Jet Freight Sales Team"
+    assert len(report.section_4_contacts) == 0
 
 def test_generate_client_report_extracts_apollo_decision_makers():
     """Verify that Apollo 15.5M contact directory is queried for verified logistics decision makers."""

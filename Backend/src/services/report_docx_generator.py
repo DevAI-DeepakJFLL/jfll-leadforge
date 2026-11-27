@@ -413,7 +413,8 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
             key=lambda c: 0 if getattr(c, "is_manually_edited", False) else 1
         )
 
-        tbl_contacts = doc.add_table(rows=len(contacts) + 1, cols=4)
+        num_rows = max(len(contacts), 1) + 1
+        tbl_contacts = doc.add_table(rows=num_rows, cols=4)
         tbl_contacts.alignment = WD_TABLE_ALIGNMENT.CENTER
         tbl_contacts.autofit = False
         _set_table_borders(tbl_contacts, color=COLOR_BORDER_HEX)
@@ -443,54 +444,73 @@ def generate_docx_stream(report: ClientReportData) -> io.BytesIO:
         for c_idx, w_in in enumerate(col_widths_c):
             tbl_contacts.columns[c_idx].width = Inches(w_in)
 
-        # Contact Rows
-        for r_idx, c in enumerate(contacts):
-            row = tbl_contacts.rows[r_idx + 1]
+        if not contacts:
+            row = tbl_contacts.rows[1]
             tr_pr = row._tr.get_or_add_trPr()
             tr_pr.append(parse_xml(f'<w:cantSplit {nsdecls("w")}/>'))
-
-            phone_val = str(getattr(c, "phone", "") or "").strip()
-            email_val = str(getattr(c, "email", "") or "").strip()
-            is_verified = bool(getattr(c, "is_manually_edited", False))
-
-            # Robust fallback: extract separate phone and email from contact_info if not explicitly set
-            if not phone_val or not email_val:
-                raw_info = str(getattr(c, "contact_info", "") or "").strip()
-                if raw_info:
-                    parts = [p.strip() for p in re.split(r"[|]", raw_info) if p.strip()]
-                    for p_part in parts:
-                        if not email_val and "@" in p_part:
-                            email_val = p_part
-                        elif not phone_val and re.search(r"\d{4,}", p_part):
-                            phone_val = p_part
-                    if not phone_val and not email_val:
-                        if "@" in raw_info:
-                            email_val = raw_info
-                        else:
-                            phone_val = raw_info
-
-            designation_text = c.designation
-            if is_verified:
-                designation_text = f"{designation_text} [Sales Verified]"
-
-            fields = [c.name, designation_text, phone_val or "—", email_val or "—"]
-            for c_idx, val in enumerate(fields):
+            empty_fields = ["—", "Log verified contact prior to outreach", "—", "—"]
+            for c_idx, val in enumerate(empty_fields):
                 cell = row.cells[c_idx]
                 _set_cell_width(cell, col_widths_c[c_idx])
                 _set_cell_margins(cell, top=80, bottom=80, left=100, right=100)
-                if is_verified:
-                    _set_cell_background(cell, "E6F4EA") # Soft Emerald highlight for sales-verified contact
-                elif r_idx % 2 == 1:
-                    _set_cell_background(cell, COLOR_ZEBRA_BG_HEX)
                 p = cell.paragraphs[0]
                 p.paragraph_format.space_before = Pt(0)
                 p.paragraph_format.space_after = Pt(0)
                 r = p.add_run(val)
                 r.font.name = "Calibri"
                 r.font.size = Pt(8.5)
-                r.font.color.rgb = COLOR_SLATE_DARK_RGB
-                if c_idx == 0:
-                    r.font.bold = True
+                r.font.color.rgb = RGBColor(0x64, 0x74, 0x8B)
+                if c_idx == 1:
+                    r.font.italic = True
+        else:
+            # Contact Rows
+            for r_idx, c in enumerate(contacts):
+                row = tbl_contacts.rows[r_idx + 1]
+                tr_pr = row._tr.get_or_add_trPr()
+                tr_pr.append(parse_xml(f'<w:cantSplit {nsdecls("w")}/>'))
+
+                phone_val = str(getattr(c, "phone", "") or "").strip()
+                email_val = str(getattr(c, "email", "") or "").strip()
+                is_verified = bool(getattr(c, "is_manually_edited", False))
+
+                # Robust fallback: extract separate phone and email from contact_info if not explicitly set
+                if not phone_val or not email_val:
+                    raw_info = str(getattr(c, "contact_info", "") or "").strip()
+                    if raw_info:
+                        parts = [p.strip() for p in re.split(r"[|]", raw_info) if p.strip()]
+                        for p_part in parts:
+                            if not email_val and "@" in p_part:
+                                email_val = p_part
+                            elif not phone_val and re.search(r"\d{4,}", p_part):
+                                phone_val = p_part
+                        if not phone_val and not email_val:
+                            if "@" in raw_info:
+                                email_val = raw_info
+                            else:
+                                phone_val = raw_info
+
+                designation_text = c.designation
+                if is_verified:
+                    designation_text = f"{designation_text} [Sales Verified]"
+
+                fields = [c.name, designation_text, phone_val or "—", email_val or "—"]
+                for c_idx, val in enumerate(fields):
+                    cell = row.cells[c_idx]
+                    _set_cell_width(cell, col_widths_c[c_idx])
+                    _set_cell_margins(cell, top=80, bottom=80, left=100, right=100)
+                    if is_verified:
+                        _set_cell_background(cell, "E6F4EA") # Soft Emerald highlight for sales-verified contact
+                    elif r_idx % 2 == 1:
+                        _set_cell_background(cell, COLOR_ZEBRA_BG_HEX)
+                    p = cell.paragraphs[0]
+                    p.paragraph_format.space_before = Pt(0)
+                    p.paragraph_format.space_after = Pt(0)
+                    r = p.add_run(val)
+                    r.font.name = "Calibri"
+                    r.font.size = Pt(8.5)
+                    r.font.color.rgb = COLOR_SLATE_DARK_RGB
+                    if c_idx == 0:
+                        r.font.bold = True
 
         doc.add_paragraph().paragraph_format.space_after = Pt(2)
 

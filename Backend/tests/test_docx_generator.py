@@ -188,3 +188,26 @@ def test_docx_generator_omits_removed_sections():
     assert "4 · Decision-Makers / Logistics Contacts" in doc_text
 
 
+def test_docx_generator_handles_zero_contacts_gracefully():
+    report = _create_sample_report_for_docx()
+    report.section_4_contacts = []
+
+    stream = generate_docx_stream(report)
+    doc = docx.Document(stream)
+    
+    # Check Section 4 table exists
+    c_tbl = None
+    for tbl in doc.tables:
+        cell_texts = [c.text for row in tbl.rows for c in row.cells]
+        if "Designation / Role" in cell_texts and "Email ID" in cell_texts:
+            c_tbl = tbl
+            break
+
+    assert c_tbl is not None
+    # Header row + 1 placeholder row
+    assert len(c_tbl.rows) == 2
+    placeholder_text = [c.text.strip() for c in c_tbl.rows[1].cells]
+    assert placeholder_text[0] == "—"
+    assert "Log verified contact prior to outreach" in placeholder_text[1]
+
+

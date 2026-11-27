@@ -119,12 +119,12 @@ export const ReportView: React.FC<ReportViewProps> = ({
   currentUser = null,
   initialIsLoading = false,
 }) => {
-  const defaultPreparedBy = currentUser?.name || 'Tyra Theknath';
+  const defaultPreparedBy = currentUser?.name || 'Jet Freight Sales Team';
   const isViewer = currentUser?.role === 'Viewer';
   const [searchQuery, setSearchQuery] = useState(initialCompany || '');
   const [selectedLeadId, setSelectedLeadId] = useState<string | null>(initialLeadId);
   const [selectedSource, setSelectedSource] = useState<string | null>(initialSource);
-  const [preparedFor, setPreparedFor] = useState('Mumbai Sales Branch');
+  const [preparedFor, setPreparedFor] = useState('Commercial Sales Division');
   const [preparedBy, setPreparedBy] = useState(defaultPreparedBy);
   const [isLoading, setIsLoading] = useState(initialIsLoading);
   const [isExporting, setIsExporting] = useState(false);
@@ -1117,137 +1117,155 @@ export const ReportView: React.FC<ReportViewProps> = ({
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-200 bg-white">
-                      {(report.section_4_contacts || []).map((contact, idx) => (
-                        <tr
-                          key={idx}
-                          className={`transition-colors ${
-                            contact.is_manually_edited
-                              ? 'bg-emerald-50/70 hover:bg-emerald-50/90 border-l-4 border-l-emerald-600'
-                              : 'hover:bg-slate-50/60 even:bg-slate-50/50'
-                          }`}
-                        >
-                          <td className="p-1.5 text-center align-middle whitespace-nowrap">
-                            <div className="flex items-center justify-center gap-1">
-                              <span
-                                className="inline-flex items-center justify-center w-6 h-5 rounded bg-slate-100 text-slate-700 font-bold text-[11px] border border-slate-300"
-                                title={`Priority #${idx + 1}`}
+                      {(report.section_4_contacts || []).length === 0 ? (
+                        <tr>
+                          <td colSpan={7} className="p-8 text-center text-slate-500 bg-slate-50/50">
+                            <div className="flex flex-col items-center justify-center gap-2">
+                              <p className="text-xs text-slate-600 font-medium">
+                                No direct decision-maker records found in customs or Apollo directories for this account.
+                              </p>
+                              <button
+                                type="button"
+                                onClick={addContactRow}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold rounded-md border border-blue-200 cursor-pointer transition-colors shadow-2xs focus:outline-none focus:ring-2 focus:ring-blue-400"
                               >
-                                #{idx + 1}
-                              </span>
-                              <div className="flex flex-col print:hidden">
-                                <button
-                                  type="button"
-                                  disabled={idx === 0}
-                                  onClick={() => moveContact(idx, 'up')}
-                                  className="p-0.5 text-slate-400 hover:text-blue-600 disabled:opacity-20 disabled:hover:text-slate-400 cursor-pointer disabled:cursor-not-allowed transition-colors"
-                                  title="Move up priority"
-                                  aria-label={`Move contact ${contact.name || idx + 1} up priority`}
-                                >
-                                  <ChevronUp className="w-3 h-3" />
-                                </button>
-                                <button
-                                  type="button"
-                                  disabled={idx === (report.section_4_contacts || []).length - 1}
-                                  onClick={() => moveContact(idx, 'down')}
-                                  className="p-0.5 text-slate-400 hover:text-blue-600 disabled:opacity-20 disabled:hover:text-slate-400 cursor-pointer disabled:cursor-not-allowed transition-colors"
-                                  title="Move down priority"
-                                  aria-label={`Move contact ${contact.name || idx + 1} down priority`}
-                                >
-                                  <ChevronDown className="w-3 h-3" />
-                                </button>
-                              </div>
+                                <Plus className="w-3.5 h-3.5" />
+                                <span>Add Verified Contact</span>
+                              </button>
                             </div>
                           </td>
-                          <td className="p-1.5">
-                            <div className="flex items-center gap-1.5">
+                        </tr>
+                      ) : (
+                        (report.section_4_contacts || []).map((contact, idx) => (
+                          <tr
+                            key={idx}
+                            className={`transition-colors ${
+                              contact.is_manually_edited
+                                ? 'bg-emerald-50/70 hover:bg-emerald-50/90 border-l-4 border-l-emerald-600'
+                                : 'hover:bg-slate-50/60 even:bg-slate-50/50'
+                            }`}
+                          >
+                            <td className="p-1.5 text-center align-middle whitespace-nowrap">
+                              <div className="flex items-center justify-center gap-1">
+                                <span
+                                  className="inline-flex items-center justify-center w-6 h-5 rounded bg-slate-100 text-slate-700 font-bold text-[11px] border border-slate-300"
+                                  title={`Priority #${idx + 1}`}
+                                >
+                                  #{idx + 1}
+                                </span>
+                                <div className="flex flex-col print:hidden">
+                                  <button
+                                    type="button"
+                                    disabled={idx === 0}
+                                    onClick={() => moveContact(idx, 'up')}
+                                    className="p-0.5 text-slate-400 hover:text-blue-600 disabled:opacity-20 disabled:hover:text-slate-400 cursor-pointer disabled:cursor-not-allowed transition-colors"
+                                    title="Move up priority"
+                                    aria-label={`Move contact ${contact.name || idx + 1} up priority`}
+                                  >
+                                    <ChevronUp className="w-3 h-3" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    disabled={idx === (report.section_4_contacts || []).length - 1}
+                                    onClick={() => moveContact(idx, 'down')}
+                                    className="p-0.5 text-slate-400 hover:text-blue-600 disabled:opacity-20 disabled:hover:text-slate-400 cursor-pointer disabled:cursor-not-allowed transition-colors"
+                                    title="Move down priority"
+                                    aria-label={`Move contact ${contact.name || idx + 1} down priority`}
+                                  >
+                                    <ChevronDown className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="p-1.5">
+                              <div className="flex items-center gap-1.5">
+                                <input
+                                  type="text"
+                                  value={contact.name}
+                                  onChange={(e) => updateContact(idx, 'name', e.target.value)}
+                                  placeholder="Contact Name..."
+                                  aria-label={`Contact ${idx + 1} Name`}
+                                  className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-900 font-semibold transition-colors print:hidden"
+                                />
+                                {contact.is_manually_edited && (
+                                  <span
+                                    className="shrink-0 text-[9px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-1.5 py-0.5 rounded print:hidden"
+                                    title="Updated by sales team"
+                                  >
+                                    Updated
+                                  </span>
+                                )}
+                              </div>
+                              <div className="hidden print:block p-1 text-slate-900 font-semibold">
+                                {contact.name || '—'}
+                                {contact.is_manually_edited ? ' [Updated]' : ''}
+                              </div>
+                            </td>
+                            <td className="p-1.5">
                               <input
                                 type="text"
-                                value={contact.name}
-                                onChange={(e) => updateContact(idx, 'name', e.target.value)}
-                                placeholder="Contact Name..."
-                                aria-label={`Contact ${idx + 1} Name`}
-                                className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-900 font-semibold transition-colors print:hidden"
+                                value={contact.designation}
+                                onChange={(e) => updateContact(idx, 'designation', e.target.value)}
+                                placeholder="Role (e.g. Logistics Head)"
+                                aria-label={`Contact ${idx + 1} Designation`}
+                                className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
                               />
-                              {contact.is_manually_edited && (
-                                <span
-                                  className="shrink-0 text-[9px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-1.5 py-0.5 rounded print:hidden"
-                                  title="Updated by sales team"
-                                >
-                                  Updated
-                                </span>
-                              )}
-                            </div>
-                            <div className="hidden print:block p-1 text-slate-900 font-semibold">
-                              {contact.name || '—'}
-                              {contact.is_manually_edited ? ' [Updated]' : ''}
-                            </div>
-                          </td>
-                          <td className="p-1.5">
-                            <input
-                              type="text"
-                              value={contact.designation}
-                              onChange={(e) => updateContact(idx, 'designation', e.target.value)}
-                              placeholder="Role (e.g. Logistics Head)"
-                              aria-label={`Contact ${idx + 1} Designation`}
-                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
-                            />
-                            <div className="hidden print:block p-1 text-slate-800">
-                              {contact.designation || '—'}
-                            </div>
-                          </td>
-                          <td className="p-1.5">
-                            <input
-                              type="text"
-                              value={contact.phone || ''}
-                              onChange={(e) => updateContact(idx, 'phone', e.target.value)}
-                              placeholder="+91..."
-                              aria-label={`Contact ${idx + 1} Phone`}
-                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 font-mono text-[11px] transition-colors print:hidden"
-                            />
-                            <div className="hidden print:block p-1 text-slate-800 font-mono text-[11px]">
-                              {contact.phone || '—'}
-                            </div>
-                          </td>
-                          <td className="p-1.5">
-                            <input
-                              type="text"
-                              value={contact.email || ''}
-                              onChange={(e) => updateContact(idx, 'email', e.target.value)}
-                              placeholder="email@company.com"
-                              aria-label={`Contact ${idx + 1} Email ID`}
-                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
-                            />
-                            <div className="hidden print:block p-1 text-slate-800 truncate">
-                              {contact.email || '—'}
-                            </div>
-                          </td>
-                          <td className="p-1.5">
-                            <input
-                              type="text"
-                              value={contact.notes || ''}
-                              onChange={(e) => updateContact(idx, 'notes', e.target.value)}
-                              placeholder="Provenance (Customs / Apollo)"
-                              aria-label={`Contact ${idx + 1} Notes / Provenance`}
-                              className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-600 transition-colors print:hidden"
-                            />
-                            <div className="hidden print:block p-1 text-slate-600">
-                              {contact.notes || '—'}
-                            </div>
-                          </td>
-                          <td className="p-1.5 text-center print:hidden">
-                            {(report.section_4_contacts || []).length > 1 && (
+                              <div className="hidden print:block p-1 text-slate-800">
+                                {contact.designation || '—'}
+                              </div>
+                            </td>
+                            <td className="p-1.5">
+                              <input
+                                type="text"
+                                value={contact.phone || ''}
+                                onChange={(e) => updateContact(idx, 'phone', e.target.value)}
+                                placeholder="+91..."
+                                aria-label={`Contact ${idx + 1} Phone`}
+                                className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 font-mono text-[11px] transition-colors print:hidden"
+                              />
+                              <div className="hidden print:block p-1 text-slate-800 font-mono text-[11px]">
+                                {contact.phone || '—'}
+                              </div>
+                            </td>
+                            <td className="p-1.5">
+                              <input
+                                type="text"
+                                value={contact.email || ''}
+                                onChange={(e) => updateContact(idx, 'email', e.target.value)}
+                                placeholder="email@company.com"
+                                aria-label={`Contact ${idx + 1} Email ID`}
+                                className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-800 transition-colors print:hidden"
+                              />
+                              <div className="hidden print:block p-1 text-slate-800 truncate">
+                                {contact.email || '—'}
+                              </div>
+                            </td>
+                            <td className="p-1.5">
+                              <input
+                                type="text"
+                                value={contact.notes || ''}
+                                onChange={(e) => updateContact(idx, 'notes', e.target.value)}
+                                placeholder="Provenance (Customs / Apollo)"
+                                aria-label={`Contact ${idx + 1} Notes / Provenance`}
+                                className="w-full p-1 bg-transparent hover:bg-white focus:bg-white border border-transparent hover:border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none rounded text-slate-600 transition-colors print:hidden"
+                              />
+                              <div className="hidden print:block p-1 text-slate-600">
+                                {contact.notes || '—'}
+                              </div>
+                            </td>
+                            <td className="p-1.5 text-center print:hidden">
                               <button
                                 onClick={() => removeContactRow(idx)}
-                                className="p-1 text-slate-500 hover:text-red-600 rounded cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-red-400"
+                                className="p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-red-400"
                                 aria-label={`Remove contact ${contact.name || idx + 1}`}
                                 title="Remove contact"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </button>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
+                            </td>
+                          </tr>
+                        ))
+                      )}
                     </tbody>
                   </table>
                 </div>

@@ -188,8 +188,8 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
 
       const preseeded = createEmptyReportDraft(
         lead.company_name,
-        'Mumbai Sales Branch',
-        'Tyra Theknath',
+        'Commercial Sales Division',
+        'Jet Freight Sales Team',
         manifestContacts.length > 0 ? manifestContacts : undefined
       );
       preseeded.lead_id = lead.id;

@@ -17,7 +17,7 @@ describe('Report Service Suite', () => {
     vi.restoreAllMocks();
   });
 
-  it('createEmptyReportDraft creates a valid blank briefing structure', () => {
+  it('createEmptyReportDraft creates a valid blank briefing structure with clean empty contacts', () => {
     const draft = createEmptyReportDraft('Acme Corp', 'Utkarsha / Mumbai', 'Tyra Theknath');
     expect(draft.header.company_name).toBe('Acme Corp');
     expect(draft.header.prepared_for).toBe('Utkarsha / Mumbai');
@@ -25,7 +25,14 @@ describe('Report Service Suite', () => {
     expect(draft.section_1_background.what_they_do).toBeDefined();
     expect(draft.section_2_trade_lane.total_shipments).toBe(0);
     expect(draft.section_3_jfll_fit.cargo_strength).toBeDefined();
-    expect(draft.section_4_contacts.length).toBeGreaterThanOrEqual(1);
+    expect(draft.section_4_contacts).toEqual([]);
+  });
+
+  it('createEmptyReportDraft defaults to Commercial Sales Division and Jet Freight Sales Team', () => {
+    const draft = createEmptyReportDraft('Acme Corp');
+    expect(draft.header.prepared_for).toBe('Commercial Sales Division');
+    expect(draft.header.prepared_by).toBe('Jet Freight Sales Team');
+    expect(draft.section_4_contacts).toEqual([]);
   });
 
   it('fetchReportCompanySuggestions queries API successfully', async () => {

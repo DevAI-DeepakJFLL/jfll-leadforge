@@ -56,8 +56,8 @@ def post_generate_report(
     if not payload.company_name_or_id or not payload.company_name_or_id.strip():
         raise HTTPException(status_code=400, detail="Company name or ID is required")
     
-    prep_for = payload.prepared_for or "Mumbai Sales Branch"
-    prep_by = payload.prepared_by or "Deepak Naidu"
+    prep_for = payload.prepared_for or "Commercial Sales Division"
+    prep_by = payload.prepared_by or "Jet Freight Sales Team"
 
     try:
         return generate_client_report_data(
