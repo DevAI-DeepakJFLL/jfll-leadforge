@@ -12,9 +12,11 @@ import {
   Eye,
   AlertCircle,
   Users,
+  UserCheck,
   MapPin,
   Loader2,
 } from 'lucide-react';
+import { getTrackedLeadByCompanyOrId } from '@/services/leadTrackerService';
 import { ApolloVerticalBadge } from './ApolloVerticalBadge';
 import {
   getCompanyInitials,
@@ -227,6 +229,7 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
               const isPhoneCopied = copiedPhoneId === lead.organization_id;
               const avatarStyle = getAvatarStyle(lead.organization_name);
               const initials = getCompanyInitials(lead.organization_name);
+              const tracked = getTrackedLeadByCompanyOrId(lead.organization_name, lead.organization_id);
 
               return (
                 <tr
@@ -269,6 +272,15 @@ export const ApolloTable: React.FC<ApolloTableProps> = ({
                           {lead.organization_name}
                         </div>
                         <div className="flex items-center space-x-1.5 text-[11px] text-slate-500 font-normal truncate mt-0.5 leading-tight">
+                          {tracked && (
+                            <span
+                              className="inline-flex items-center gap-1 font-semibold px-2 py-0.5 rounded-full text-[10px] bg-blue-50 text-blue-700 border border-blue-200 shrink-0 shadow-2xs"
+                              title={`Assigned to ${tracked.assigned_to} (${tracked.branch}) in Lead Tracker`}
+                            >
+                              <UserCheck className="w-2.5 h-2.5 text-blue-600" />
+                              <span>Assigned: {tracked.assigned_to}</span>
+                            </span>
+                          )}
                           <span className="truncate max-w-[160px]">{lead.domain}</span>
                           {toSafeExternalUrl(lead.website_url) && (
                             <a

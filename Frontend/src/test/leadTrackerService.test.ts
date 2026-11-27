@@ -542,6 +542,21 @@ describe('Lead Tracker Service Suite', () => {
       expect(getTrackerCachedItem(result.id)).toBeDefined();
     });
 
+    it('createTrackedLead resolves Alexander to alexander@jfll.com', async () => {
+      global.fetch = vi.fn().mockRejectedValue(new Error('Offline'));
+
+      const result = await createTrackedLead({
+        company_name: 'Alexander Shipping Enterprise',
+        assigned_to: 'Alexander',
+        branch: 'Mumbai',
+        status: 'Assigned',
+        transport_mode: 'Ocean FCL',
+      });
+
+      expect(result.assigned_to).toBe('Alexander');
+      expect(result.assigned_to_email).toBe('alexander@jfll.com');
+    });
+
     it('updateTrackedLead updates cache optimistically and appends history', async () => {
       global.fetch = vi.fn().mockRejectedValue(new Error('Offline'));
 

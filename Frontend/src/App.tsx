@@ -1665,6 +1665,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           }
           onLogApproach={handleOpenDatamyneApproach}
           onConvertToActive={handleOpenDatamyneConvert}
+          onAssignToTracker={handleAssignToTracker}
           onGenerateReport={(name, id, source) => {
             setSelectedDatamyneLead(null);
             handleNavigateToReport(name, id, source);

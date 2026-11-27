@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ApolloLead, ApolloContact, TOP_APOLLO_CARGO_VERTICALS, toSafeExternalUrl } from '@/types/apolloLead';
 import { fetchCompanyContacts } from '@/services/apolloService';
+import { getTrackedLeadByCompanyOrId } from '@/services/leadTrackerService';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { useDebounce } from '@/hooks/useDebounce';
 import {
@@ -55,6 +56,7 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
   className = '',
 }) => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const trackedLead = lead ? getTrackedLeadByCompanyOrId(lead.organization_name, lead.organization_id) : undefined;
   const [contacts, setContacts] = useState<ApolloContact[]>([]);
   const [totalContacts, setTotalContacts] = useState<number>(0);
   const [isLoadingContacts, setIsLoadingContacts] = useState<boolean>(false);
@@ -178,6 +180,15 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                     {lead.organization_name}
                   </h2>
                   <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                    {trackedLead && (
+                      <span
+                        className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs"
+                        title={`Assigned to ${trackedLead.assigned_to} (${trackedLead.branch}) in Lead Tracker`}
+                      >
+                        <UserCheck className="w-2.5 h-2.5 text-blue-600" />
+                        <span>Assigned: {trackedLead.assigned_to}</span>
+                      </span>
+                    )}
                     <span className="font-mono text-[11px] text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200">
                       {lead.domain}
                     </span>
@@ -199,6 +210,21 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
                 <X className="w-5 h-5" />
               </button>
             </div>
+
+            {/* Already Assigned Lead Ownership Banner */}
+            {trackedLead && (
+              <div className="mt-3 px-3 py-2 rounded-lg bg-blue-50/90 border border-blue-200/90 flex items-center justify-between text-xs text-blue-900 shadow-2xs">
+                <div className="flex items-center gap-2 min-w-0">
+                  <UserCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                  <div className="truncate">
+                    <span className="font-semibold text-blue-950">Assigned:</span> Owned by{' '}
+                    <strong className="text-blue-900 font-bold">{trackedLead.assigned_to}</strong>{' '}
+                    <span className="text-blue-600">({trackedLead.branch})</span>
+                    <span className="text-blue-500 font-normal ml-1.5">· Status: {trackedLead.status}</span>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Bento Key Metric Strip */}
             <div className="grid grid-cols-4 gap-2 mt-3.5 pt-3 border-t border-slate-200/70">
@@ -611,15 +637,22 @@ export const ApolloDetailDrawer: React.FC<ApolloDetailDrawerProps> = ({
               )}
 
               {onAssignToTracker && (
-                <button
-                  type="button"
-                  onClick={() => onAssignToTracker(lead)}
-                  className="inline-flex items-center space-x-1.5 px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[40px] shrink-0 cursor-pointer"
-                  title={`Assign ${lead.organization_name} to freight sales coordinator`}
-                >
-                  <ClipboardList className="w-3.5 h-3.5" />
-                  <span>Assign & Track</span>
-                </button>
+                trackedLead ? (
+                  <div className="inline-flex items-center space-x-1.5 px-3 py-2 bg-blue-50 border border-blue-200 text-blue-800 rounded-lg text-xs font-semibold shadow-2xs min-h-[40px] shrink-0" title={`Assigned to ${trackedLead.assigned_to}`}>
+                    <UserCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Assigned to {trackedLead.assigned_to}</span>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => onAssignToTracker(lead)}
+                    className="inline-flex items-center space-x-1.5 px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition-colors shadow-2xs min-h-[40px] shrink-0 cursor-pointer"
+                    title={`Assign ${lead.organization_name} to freight sales coordinator`}
+                  >
+                    <ClipboardList className="w-3.5 h-3.5" />
+                    <span>Assign & Track</span>
+                  </button>
+                )
               )}
             </div>
 

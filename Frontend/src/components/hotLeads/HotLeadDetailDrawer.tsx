@@ -138,6 +138,12 @@ export const HotLeadDetailDrawer: React.FC<HotLeadDetailDrawerProps> = ({
                 #{lead.srNo}
               </span>
               {getCrmStatusBadge(lead.crmStatus)}
+              {lead.salesRep && lead.salesRep !== '-' && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs">
+                  <UserCheck className="w-3 h-3 text-blue-600" />
+                  <span>Assigned: {lead.salesRep}</span>
+                </span>
+              )}
               {hasHotLeadContact(lead) ? (
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap shrink-0">
                   <CheckCircle2 className="w-3 h-3 text-emerald-600" />
@@ -210,10 +216,15 @@ export const HotLeadDetailDrawer: React.FC<HotLeadDetailDrawerProps> = ({
 
             <div className="grid grid-cols-2 gap-3 text-xs">
               <div className="p-3 rounded-lg bg-white border border-slate-200/90 shadow-2xs">
-                <span className="text-slate-500 block mb-1 text-[11px] font-medium">Assigned Sales Rep</span>
-                <span className="font-semibold text-slate-900 text-xs">
-                  {lead.salesRep !== '-' ? lead.salesRep : 'None (Unassigned)'}
-                </span>
+                <span className="text-slate-500 block mb-1.5 text-[11px] font-medium">Assigned Sales Rep</span>
+                {lead.salesRep && lead.salesRep !== '-' ? (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs">
+                    <UserCheck className="w-3.5 h-3.5 text-blue-600" />
+                    <span>{lead.salesRep}</span>
+                  </span>
+                ) : (
+                  <span className="font-semibold text-slate-400 text-xs">None (Unassigned)</span>
+                )}
               </div>
               <div className="p-3 rounded-lg bg-white border border-slate-200/90 shadow-2xs">
                 <span className="text-slate-500 block mb-1 text-[11px] font-medium">Internal Contact</span>

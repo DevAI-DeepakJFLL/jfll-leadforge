@@ -62,6 +62,7 @@ export const STANDARD_SALES_REPS = [
   { name: 'Jaya', branch: 'South India', email: 'jaya@jfll.com' },
   { name: 'Snehal Birje', branch: 'Mumbai', email: 'snehal.birje@jfll.com' },
   { name: 'Akash Dhara', branch: 'Mumbai', email: 'akash.dhara@jfll.com' },
+  { name: 'Alexander', branch: 'Mumbai', email: 'alexander@jfll.com' },
 ];
 
 export const STANDARD_BRANCHES = ['Mumbai', 'Gujarat', 'South India', 'Delhi', 'Other'];

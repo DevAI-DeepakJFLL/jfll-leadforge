@@ -609,9 +609,14 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
                               </div>
                               <div className="text-[11px] text-slate-500 font-normal truncate mt-0.5 flex items-center gap-1.5 flex-wrap">
                                 {lead.salesRep && lead.salesRep !== '-' ? (
-                                  <span className="text-indigo-600 font-medium">Rep: {lead.salesRep}</span>
+                                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs">
+                                    <UserCheck className="w-2.5 h-2.5 text-blue-600" />
+                                    <span>Assigned: {lead.salesRep}</span>
+                                  </span>
                                 ) : (
-                                  <span className="text-slate-400">Unassigned</span>
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium text-slate-400 bg-slate-100 border border-slate-200/80">
+                                    Unassigned
+                                  </span>
                                 )}
                                 {lead.datamyneTradeActivity && lead.datamyneTradeActivity !== '-' && (
                                   <>

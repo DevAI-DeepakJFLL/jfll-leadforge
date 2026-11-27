@@ -16,6 +16,7 @@ import {
   Check,
   Edit3,
   User,
+  UserCheck,
   ArrowUpDown,
   SearchX,
 } from 'lucide-react';
@@ -377,29 +378,28 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
                         {lead.company_name}
                       </span>
                     </div>
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       {renderEntityBadge(lead.linked_entity_type)}
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">
+                        <UserCheck className="w-2.5 h-2.5 text-blue-600" />
+                        <span>Assigned: {lead.assigned_to}</span>
+                      </span>
                       <span className="text-[10px] text-slate-400">
-                        Assigned {formatShortDate(lead.assigned_date)}
+                        {formatShortDate(lead.assigned_date)}
                       </span>
                     </div>
                   </div>
                 </td>
 
-                {/* 2. Rep & Branch */}
+                {/* 2. Rep & Branch (Assigned Ownership) */}
                 <td className="py-2.5 px-3 whitespace-nowrap">
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-slate-100 border border-slate-200 text-slate-700 flex items-center justify-center text-[10px] font-bold">
-                      {lead.assigned_to.charAt(0).toUpperCase()}
-                    </div>
-                    <div>
-                      <div className="font-medium text-slate-900 leading-tight">
-                        {lead.assigned_to}
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50/90 text-blue-800 border border-blue-200 shadow-2xs">
+                      <div className="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[9px] font-bold shrink-0">
+                        {lead.assigned_to.charAt(0).toUpperCase()}
                       </div>
-                      <div className="text-[10px] text-slate-500 flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-slate-300 inline-block" />
-                        <span>{lead.branch}</span>
-                      </div>
+                      <span className="font-semibold text-slate-900">{lead.assigned_to}</span>
+                      <span className="text-blue-600 font-normal text-[10px]">({lead.branch})</span>
                     </div>
                   </div>
                 </td>

@@ -79,6 +79,7 @@ def get_client_ip(request: Request) -> str:
 def require_auth(
     authorization: str | None,
     resource_name: str = "leads",
+    x_device_fingerprint: str | None = None,
 ) -> dict[str, Any]:
     """
     Validates Bearer token if provided, enforces active single-device session,
@@ -103,7 +104,8 @@ def require_auth(
                 detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
             )
 
-        if not check_session_active(user):
+        effective_fp = x_device_fingerprint or user.get("device_fingerprint")
+        if not check_session_active(user, device_fingerprint=effective_fp):
             logger.warning(
                 f"Audit: Data request rejected (session displaced) for {user_email}",
                 extra={"event": "SESSION_SUPERSEDED", "user_email": user_email, "resource": resource_name},
@@ -134,6 +136,7 @@ def require_permission(perm: Permission):
     """
     def dependency(
         authorization: str | None = Header(None),
+        x_device_fingerprint: str | None = Header(None, alias="X-Device-Fingerprint"),
     ) -> dict[str, Any]:
         if authorization and authorization.startswith("Bearer "):
             token = authorization.split("Bearer ", 1)[1].strip()
@@ -153,7 +156,8 @@ def require_permission(perm: Permission):
                     detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
                 )
 
-            if not check_session_active(user):
+            effective_fp = x_device_fingerprint or user.get("device_fingerprint")
+            if not check_session_active(user, device_fingerprint=effective_fp):
                 logger.warning(
                     f"Audit: Data request rejected (session displaced) for {user_email}",
                     extra={"event": "SESSION_SUPERSEDED", "user_email": user_email, "permission": perm.value},
@@ -216,6 +220,7 @@ def require_role(allowed_roles: set[str] | list[str]):
 
     def dependency(
         authorization: str | None = Header(None),
+        x_device_fingerprint: str | None = Header(None, alias="X-Device-Fingerprint"),
     ) -> dict[str, Any]:
         if authorization and authorization.startswith("Bearer "):
             token = authorization.split("Bearer ", 1)[1].strip()
@@ -235,7 +240,8 @@ def require_role(allowed_roles: set[str] | list[str]):
                     detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
                 )
 
-            if not check_session_active(user):
+            effective_fp = x_device_fingerprint or user.get("device_fingerprint")
+            if not check_session_active(user, device_fingerprint=effective_fp):
                 logger.warning(
                     f"Audit: Data request rejected (session displaced) for {user_email}",
                     extra={"event": "SESSION_SUPERSEDED", "user_email": user_email},

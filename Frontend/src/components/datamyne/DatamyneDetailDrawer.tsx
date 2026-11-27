@@ -17,7 +17,9 @@ import {
   Sparkles,
   Loader2,
   MoreHorizontal,
+  ClipboardList,
 } from 'lucide-react';
+import { getTrackedLeadByCompanyOrId } from '@/services/leadTrackerService';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { Lead } from '@/types/lead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -58,11 +60,13 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
   onFindDecisionMakers,
   onLogApproach,
   onConvertToActive,
+  onAssignToTracker,
   onGenerateReport,
   initialIsLoadingContacts = false,
   className = '',
 }) => {
   const { showToast } = useToast();
+  const trackedLead = lead ? getTrackedLeadByCompanyOrId(lead.company_name, lead.id) : undefined;
   const [isTierModalOpen, setIsTierModalOpen] = useState(false);
   const [contacts, setContacts] = useState<Lead[]>([]);
   const [totalContacts, setTotalContacts] = useState<number>(0);
@@ -237,6 +241,17 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                     {lead.company_name}
                   </h2>
                   <div className="flex items-center flex-nowrap overflow-x-auto no-scrollbar gap-1.5 mt-1.5 py-0.5 text-[11px]">
+                    {/* Already Assigned Ownership Pill */}
+                    {trackedLead && (
+                      <span
+                        className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 whitespace-nowrap shrink-0 shadow-2xs"
+                        title={`Assigned to ${trackedLead.assigned_to} (${trackedLead.branch}) in Lead Tracker`}
+                      >
+                        <UserCheck className="w-2.5 h-2.5 text-blue-600" />
+                        <span>Assigned: {trackedLead.assigned_to}</span>
+                      </span>
+                    )}
+
                     {tieredLead && (
                       <div className="shrink-0">
                         <TierScoreBadge
@@ -310,6 +325,21 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 </button>
               </div>
             </div>
+
+            {/* Already Assigned Lead Ownership Banner */}
+            {trackedLead && (
+              <div className="mt-2.5 px-3 py-2 rounded-lg bg-blue-50/90 border border-blue-200/90 flex items-center justify-between text-xs text-blue-900 shadow-2xs">
+                <div className="flex items-center gap-2 min-w-0">
+                  <UserCheck className="w-4 h-4 text-blue-600 shrink-0" />
+                  <div className="truncate">
+                    <span className="font-semibold text-blue-950">Assigned:</span> Owned by{' '}
+                    <strong className="text-blue-900 font-bold">{trackedLead.assigned_to}</strong>{' '}
+                    <span className="text-blue-600">({trackedLead.branch})</span>
+                    <span className="text-blue-500 font-normal ml-1.5">· Status: {trackedLead.status}</span>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Bento Trade Metric Strip */}
             <div className="grid grid-cols-4 gap-1.5 mt-3 pt-2.5 border-t border-slate-200/70">
@@ -993,6 +1023,25 @@ export const DatamyneDetailDrawer: React.FC<DatamyneDetailDrawerProps> = ({
                 >
                   <span>Log Approach</span>
                 </button>
+              )}
+
+              {onAssignToTracker && (
+                trackedLead ? (
+                  <div className="inline-flex items-center gap-1.5 px-3 py-2 bg-blue-50 border border-blue-200 text-blue-800 rounded-lg text-xs font-semibold shadow-2xs min-h-[40px] shrink-0" title={`Assigned to ${trackedLead.assigned_to}`}>
+                    <UserCheck className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Assigned to {trackedLead.assigned_to}</span>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => onAssignToTracker(lead)}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold shadow-2xs transition-colors min-h-[40px] shrink-0 cursor-pointer"
+                    title={`Assign ${lead.company_name} to freight sales coordinator`}
+                  >
+                    <ClipboardList className="w-3.5 h-3.5" />
+                    <span>Assign & Track</span>
+                  </button>
+                )
               )}
             </div>
 

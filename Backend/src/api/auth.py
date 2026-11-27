@@ -25,6 +25,7 @@ from src.api.models import (
 )
 from src.api.session_store import (
     get_active_session,
+    is_session_valid_on_device,
     set_active_session,
 )
 
@@ -48,8 +49,8 @@ def is_headless_user_agent(user_agent: str | None) -> bool:
     return any(bot in ua_lower for bot in HEADLESS_USER_AGENTS)
 
 
-def check_session_active(payload: dict[str, Any]) -> bool:
-    """Verifies that the session_id in the token is still the currently active session for this user."""
+def check_session_active(payload: dict[str, Any], device_fingerprint: str | None = None) -> bool:
+    """Verifies that the session_id in the token is still active and not displaced by a different device."""
     email = payload.get("sub", "").strip().lower()
     token_session_id = payload.get("session_id")
     if not token_session_id or not email:
@@ -58,11 +59,8 @@ def check_session_active(payload: dict[str, Any]) -> bool:
     if not is_email_active(email):
         return False
 
-    active_session_id = get_active_session(email)
-    if active_session_id is None:
-        set_active_session(email, token_session_id)
-        return True
-    return token_session_id == active_session_id
+    effective_fp = device_fingerprint or payload.get("device_fingerprint")
+    return is_session_valid_on_device(email, token_session_id, effective_fp)
 
 
 def _base64url_encode(data: bytes) -> str:
@@ -284,7 +282,11 @@ def request_access(
 
 
 @router.post("/login", response_model=UserSessionResponse, summary="Authenticate enterprise user")
-def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
+def login(
+    credentials: LoginRequest,
+    user_agent: str | None = Header(None),
+    x_device_fingerprint: str | None = Header(None, alias="X-Device-Fingerprint"),
+):
     """
     Validates work email against enterprise allowed whitelist.
     Enforces scrypt password verification when a password has been set.
@@ -348,9 +350,9 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
 
     name, role = get_user_profile(input_email)
 
-    # Issue unique session ID and invalidate any prior session for this user
+    # Issue unique session ID keyed to device fingerprint
     session_id = f"sess_{secrets.token_hex(16)}"
-    set_active_session(input_email, session_id)
+    set_active_session(input_email, session_id, device_fingerprint=x_device_fingerprint)
 
     token, expires_at = create_token(
         {
@@ -358,6 +360,7 @@ def login(credentials: LoginRequest, user_agent: str | None = Header(None)):
             "name": name,
             "role": role,
             "session_id": session_id,
+            "device_fingerprint": x_device_fingerprint,
             "requires_password_setup": requires_password_setup,
         },
         expires_in_hours=settings.auth_token_expire_hours,
@@ -395,6 +398,7 @@ def set_password(
     payload: SetPasswordRequest,
     authorization: str | None = Header(None),
     user_agent: str | None = Header(None),
+    x_device_fingerprint: str | None = Header(None, alias="X-Device-Fingerprint"),
 ):
     """
     Sets or updates an account password using scrypt hashing.
@@ -464,7 +468,7 @@ def set_password(
 
     name, role = get_user_profile(clean_email)
     session_id = f"sess_{secrets.token_hex(16)}"
-    set_active_session(clean_email, session_id)
+    set_active_session(clean_email, session_id, device_fingerprint=x_device_fingerprint)
 
     token, expires_at = create_token(
         {
@@ -472,6 +476,7 @@ def set_password(
             "name": name,
             "role": role,
             "session_id": session_id,
+            "device_fingerprint": x_device_fingerprint,
             "requires_password_setup": False,
         },
         expires_in_hours=settings.auth_token_expire_hours,
@@ -498,7 +503,11 @@ def set_password(
 
 
 @router.get("/me", response_model=UserSessionResponse, summary="Verify active bearer session token")
-def get_current_user(authorization: str | None = Header(None), user_agent: str | None = Header(None)):
+def get_current_user(
+    authorization: str | None = Header(None),
+    user_agent: str | None = Header(None),
+    x_device_fingerprint: str | None = Header(None, alias="X-Device-Fingerprint"),
+):
     """Verifies active Bearer session token and returns authenticated user profile."""
     if is_headless_user_agent(user_agent):
         raise HTTPException(
@@ -523,7 +532,7 @@ def get_current_user(authorization: str | None = Header(None), user_agent: str |
             detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
         )
 
-    if not check_session_active(payload):
+    if not check_session_active(payload, device_fingerprint=x_device_fingerprint):
         user_email = payload.get("sub", "unknown")
         logger.warning(
             f"Audit: Session displaced on /me for {user_email}",
@@ -551,7 +560,11 @@ def get_current_user(authorization: str | None = Header(None), user_agent: str |
 
 
 @router.get("/heartbeat", summary="Check if active single-device session is still valid")
-def session_heartbeat(authorization: str | None = Header(None), user_agent: str | None = Header(None)):
+def session_heartbeat(
+    authorization: str | None = Header(None),
+    user_agent: str | None = Header(None),
+    x_device_fingerprint: str | None = Header(None, alias="X-Device-Fingerprint"),
+):
     """Validates whether caller's session_id is still the active session for the account."""
     if is_headless_user_agent(user_agent):
         raise HTTPException(
@@ -576,7 +589,7 @@ def session_heartbeat(authorization: str | None = Header(None), user_agent: str 
             detail="ACCESS_REVOKED: Your account access has been revoked by an administrator.",
         )
 
-    if not check_session_active(payload):
+    if not check_session_active(payload, device_fingerprint=x_device_fingerprint):
         logger.warning(
             f"Audit: Session displaced on heartbeat for {user_email}",
             extra={"event": "SESSION_SUPERSEDED", "user_email": user_email},

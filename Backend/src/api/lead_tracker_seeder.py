@@ -44,6 +44,7 @@ SALES_REP_EMAILS: dict[str, str] = {
     "snehal": "snehal.birje@jfll.com",
     "akash dhara": "akash.dhara@jfll.com",
     "akash": "akash.dhara@jfll.com",
+    "alexander": "alexander@jfll.com",
 }
 
 

@@ -339,6 +339,59 @@ def test_session_store_redis_adapter(monkeypatch):
     assert store.get_active_session(email) is None
 
 
+def test_same_device_multi_tab_session_preserved():
+    """Verify that multiple tabs on the same device do not displace each other."""
+    from src.api.auth import check_session_active
+    from src.api.session_store import clear_all_sessions, set_active_session
+
+    clear_all_sessions()
+    email = "deepak@jfll.com"
+    device_fp = "fp_macbook_pro_16"
+
+    # Tab 1 logs in
+    tab1_session = "sess_tab1"
+    set_active_session(email, tab1_session, device_fingerprint=device_fp)
+
+    payload_tab1 = {"sub": email, "session_id": tab1_session, "device_fingerprint": device_fp}
+    assert check_session_active(payload_tab1, device_fingerprint=device_fp) is True
+
+    # Tab 2 logs in or acquires a session on the SAME device
+    tab2_session = "sess_tab2"
+    set_active_session(email, tab2_session, device_fingerprint=device_fp)
+
+    payload_tab2 = {"sub": email, "session_id": tab2_session, "device_fingerprint": device_fp}
+    assert check_session_active(payload_tab2, device_fingerprint=device_fp) is True
+
+    # Crucial: Tab 1 must STILL be valid because it is on the SAME device!
+    assert check_session_active(payload_tab1, device_fingerprint=device_fp) is True
+
+
+def test_different_device_displaces_previous_device_sessions():
+    """Verify that a login from a genuinely different device displaces prior device sessions."""
+    from src.api.auth import check_session_active
+    from src.api.session_store import clear_all_sessions, set_active_session
+
+    clear_all_sessions()
+    email = "deepak@jfll.com"
+    device_office = "fp_mac_office"
+    device_home = "fp_windows_home"
+
+    # Office device logs in
+    office_session = "sess_office"
+    set_active_session(email, office_session, device_fingerprint=device_office)
+    payload_office = {"sub": email, "session_id": office_session, "device_fingerprint": device_office}
+    assert check_session_active(payload_office, device_fingerprint=device_office) is True
+
+    # Home device logs in with a different fingerprint
+    home_session = "sess_home"
+    set_active_session(email, home_session, device_fingerprint=device_home)
+    payload_home = {"sub": email, "session_id": home_session, "device_fingerprint": device_home}
+    assert check_session_active(payload_home, device_fingerprint=device_home) is True
+
+    # Office device session must now be displaced!
+    assert check_session_active(payload_office, device_fingerprint=device_office) is False
+
+
 def test_legacy_password_auto_upgrade_to_jet123():
     """Verifies that an account holding the legacy JetFreight@2026! password auto-upgrades to Jet@123 on login."""
     from src.api.access_control import (

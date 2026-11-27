@@ -21,12 +21,27 @@ export const DEFAULT_ANONYMOUS_SESSION: UserSession = {
 
 /**
  * Retrieves the persisted UserSession from browser storage safely.
+ * Checks sessionStorage first; falls back to localStorage so duplicated tabs
+ * and new windows on the same device seamlessly share the authenticated session.
  */
 export function getStoredSession(): UserSession | null {
   try {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
-      const raw = window.sessionStorage.getItem(AUTH_STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
+    if (typeof window !== 'undefined') {
+      if (window.sessionStorage) {
+        const raw = window.sessionStorage.getItem(AUTH_STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      }
+      if (window.localStorage) {
+        const localRaw = window.localStorage.getItem(AUTH_STORAGE_KEY);
+        if (localRaw) {
+          const parsed = JSON.parse(localRaw);
+          // Sync to current tab's sessionStorage
+          try {
+            window.sessionStorage?.setItem(AUTH_STORAGE_KEY, localRaw);
+          } catch {}
+          return parsed;
+        }
+      }
     }
   } catch {
     // Graceful handling of storage access exceptions
@@ -42,13 +57,20 @@ export function isOfflineSession(session?: UserSession | null): boolean {
 }
 
 /**
- * Persists active UserSession to browser storage safely.
+ * Persists active UserSession to browser storage safely across both sessionStorage
+ * and localStorage, allowing tabs on the same device to share session state without re-authenticating.
  */
 export function setStoredSession(session: UserSession): void {
   _inMemorySession = session;
   try {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
-      window.sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
+    if (typeof window !== 'undefined') {
+      const serialized = JSON.stringify(session);
+      if (window.sessionStorage) {
+        window.sessionStorage.setItem(AUTH_STORAGE_KEY, serialized);
+      }
+      if (window.localStorage) {
+        window.localStorage.setItem(AUTH_STORAGE_KEY, serialized);
+      }
     }
   } catch {
     // Graceful handling of storage access exceptions
@@ -56,22 +78,20 @@ export function setStoredSession(session: UserSession): void {
 }
 
 /**
- * Clears persisted UserSession from browser storage safely upon logout.
+ * Clears persisted UserSession from all browser storage vaults upon logout.
  */
 export function clearStoredSession(): void {
   _inMemorySession = null;
   try {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
-      window.sessionStorage.removeItem(AUTH_STORAGE_KEY);
-    }
-  } catch {
-    // Graceful handling of storage access exceptions
-  }
-
-  try {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.removeItem('jfll_lead_tracker_cache_v2');
-      window.localStorage.removeItem('jfll_lead_tracker_cache_v1');
+    if (typeof window !== 'undefined') {
+      if (window.sessionStorage) {
+        window.sessionStorage.removeItem(AUTH_STORAGE_KEY);
+      }
+      if (window.localStorage) {
+        window.localStorage.removeItem(AUTH_STORAGE_KEY);
+        window.localStorage.removeItem('jfll_lead_tracker_cache_v2');
+        window.localStorage.removeItem('jfll_lead_tracker_cache_v1');
+      }
     }
   } catch {
     // Graceful handling of storage access exceptions

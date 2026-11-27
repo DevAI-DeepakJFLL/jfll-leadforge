@@ -14,6 +14,7 @@ import {
   ClipboardList,
   Sparkles,
   Loader2,
+  UserCheck,
 } from 'lucide-react';
 import { DatamyneLead } from '@/types/datamyneLead';
 import { DatamyneCategoryBadge } from './DatamyneCategoryBadge';
@@ -24,6 +25,10 @@ import {
   getCachedApproachStatus,
   getCachedApproachLatestNote,
 } from '@/services/approachLogService';
+import {
+  getTrackedLeadByCompanyOrId,
+  TRACKER_UPDATED_EVENT,
+} from '@/services/leadTrackerService';
 
 
 export interface DatamyneTableProps {
@@ -79,7 +84,11 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
   React.useEffect(() => {
     const handler = () => setUpdateTrigger((v) => v + 1);
     window.addEventListener(APPROACH_STATUS_CHANGED_EVENT, handler);
-    return () => window.removeEventListener(APPROACH_STATUS_CHANGED_EVENT, handler);
+    window.addEventListener(TRACKER_UPDATED_EVENT, handler);
+    return () => {
+      window.removeEventListener(APPROACH_STATUS_CHANGED_EVENT, handler);
+      window.removeEventListener(TRACKER_UPDATED_EVENT, handler);
+    };
   }, []);
   const handleToggleRow = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -259,6 +268,7 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                 .toUpperCase();
 
               const isMissing = l.dataset_type === 'missing';
+              const tracked = getTrackedLeadByCompanyOrId(l.company_name, l.id);
 
               return (
                 <tr
@@ -309,6 +319,17 @@ export const DatamyneTable: React.FC<DatamyneTableProps> = ({
                         </div>
                         {/* Streamlined Metadata Row with Tier Badge + Clean Dot Separators */}
                         <div className="flex items-center gap-1.5 mt-0.5 text-[11px] text-slate-500 font-normal truncate">
+                          {/* Already Assigned Tag with Rep Ownership */}
+                          {tracked && (
+                            <span
+                              className="inline-flex items-center gap-1 font-semibold px-2 py-0.5 rounded-full text-[10px] bg-blue-50 text-blue-700 border border-blue-200 shrink-0 shadow-2xs"
+                              title={`Assigned to ${tracked.assigned_to} (${tracked.branch}) in Lead Tracker`}
+                            >
+                              <UserCheck className="w-2.5 h-2.5 text-blue-600" />
+                              <span>Assigned: {tracked.assigned_to}</span>
+                            </span>
+                          )}
+
                           {/* SOP Tier Score Badge if segmented */}
                           {(l as any).segment_status && (
                             <TierScoreBadge

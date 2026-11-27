@@ -45,6 +45,11 @@ export const SALES_REP_EMAILS: Record<string, string> = {
   'sidhart': 'sidhart@jfll.com',
   'jaya': 'jaya@jfll.com',
   'sheela': 'sheela@jfll.com',
+  'snehal birje': 'snehal.birje@jfll.com',
+  'snehal': 'snehal.birje@jfll.com',
+  'akash dhara': 'akash.dhara@jfll.com',
+  'akash': 'akash.dhara@jfll.com',
+  'alexander': 'alexander@jfll.com',
 };
 
 /**
@@ -143,6 +148,31 @@ export function getTrackerCachedItem(id: string): LeadTrackerItem | undefined {
 export function getAllTrackerCachedItems(): LeadTrackerItem[] {
   ensureCacheInitialized();
   return Array.from(leadTrackerCache.values());
+}
+
+/**
+ * Returns the tracked lead record matching a company name or linked entity ID, if already assigned.
+ * Enables O(1) identification of assigned records across DataMyne, Apollo, and Hot Leads.
+ */
+export function getTrackedLeadByCompanyOrId(
+  companyName?: string,
+  linkedEntityId?: string | number
+): LeadTrackerItem | undefined {
+  const items = getAllTrackerCachedItems();
+  if (!items || items.length === 0) return undefined;
+
+  const cleanId = linkedEntityId ? String(linkedEntityId).trim().toLowerCase() : null;
+  const cleanName = companyName ? companyName.trim().toLowerCase() : null;
+
+  return items.find((item) => {
+    if (cleanId && item.linked_entity_id && item.linked_entity_id.trim().toLowerCase() === cleanId) {
+      return true;
+    }
+    if (cleanName && item.company_name && item.company_name.trim().toLowerCase() === cleanName) {
+      return true;
+    }
+    return false;
+  });
 }
 
 /**
