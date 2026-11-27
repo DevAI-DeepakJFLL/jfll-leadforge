@@ -16,7 +16,6 @@ export interface AppLayoutProps {
   onToggleSidebar?: () => void;
   isSidebarCollapsed?: boolean;
   activeFilterCount?: number;
-  savedSearchesCount?: number;
   onOpenSettings?: () => void;
   onOpenAdminPortal?: () => void;
   pendingRequestsCount?: number;
@@ -38,7 +37,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onToggleSidebar,
   isSidebarCollapsed = false,
   activeFilterCount = 0,
-  savedSearchesCount = 0,
   onOpenSettings,
   onOpenAdminPortal,
   pendingRequestsCount = 0,
@@ -53,7 +51,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         <AppDock
           activeNav={activeNav}
           onNavChange={onNavChange}
-          savedSearchesCount={savedSearchesCount}
           onOpenSettings={onOpenSettings}
           onOpenAdminPortal={onOpenAdminPortal}
           pendingRequestsCount={pendingRequestsCount}

@@ -56,7 +56,7 @@ describe('AppDock Navigation & User Logout Details Suite', () => {
     expect(html).toContain('JFLL Customers');
     expect(html).toContain('DataMyne Leads');
     expect(html).toContain('Client Reports');
-    expect(html).toContain('Saved Searches');
+    expect(html).not.toContain('Saved Searches');
   });
 
   it('renders distinct mobile navigation labels including Reports without duplicate Home', () => {

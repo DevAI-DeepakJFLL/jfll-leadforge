@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Filter,
   RotateCcw,
-  RotateCw,
   Search,
   Building2,
   Users,
@@ -10,19 +9,16 @@ import {
   MapPin,
   Mail,
   Linkedin,
-  List,
   SlidersHorizontal,
   ShieldCheck,
   Truck,
   Briefcase,
-  Tag,
   X,
   CheckCircle2,
   PanelLeftClose,
   PanelLeftOpen,
 } from 'lucide-react';
 import { FilterAccordion } from './FilterAccordion';
-import { SearchableCheckboxList } from './SearchableCheckboxList';
 import { FilterParams, LeadStatus } from '@/types/lead';
 
 export interface FilterSidebarProps {
@@ -36,12 +32,6 @@ export interface FilterSidebarProps {
   ) => void;
   onToggleStatusFilter?: (status: LeadStatus) => void;
   onClearCategory?: (key: keyof FilterParams) => void;
-  savedLists?: string[];
-  selectedSavedLists?: string[];
-  onToggleSavedList?: (listName: string) => void;
-  onClearSavedLists?: () => void;
-  onSaveSearch?: () => void;
-  onLoadSearch?: () => void;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
   isMobileOpen?: boolean;
@@ -126,12 +116,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   onToggleArrayFilter,
   onToggleBooleanFilter,
   onClearCategory,
-  savedLists,
-  selectedSavedLists: propSelectedSavedLists,
-  onToggleSavedList,
-  onClearSavedLists,
-  onSaveSearch,
-  onLoadSearch,
   isCollapsed = false,
   onToggleCollapse,
   isMobileOpen = false,
@@ -148,7 +132,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     industries: true,
     outreach: true,
     companySize: false,
-    savedLists: false,
   });
 
   const [jobTitleSearch, setJobTitleSearch] = useState('');
@@ -159,30 +142,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       ...prev,
       [sectionKey]: !prev[sectionKey],
     }));
-  };
-
-  // Local state for UI-only facet selections
-  const [localSelectedSavedLists, setLocalSelectedSavedLists] = useState<string[]>([]);
-  const selectedSavedLists =
-    propSelectedSavedLists !== undefined ? propSelectedSavedLists : localSelectedSavedLists;
-  const availableSavedLists = savedLists || [];
-
-  const handleToggleList = (item: string) => {
-    if (onToggleSavedList) {
-      onToggleSavedList(item);
-    } else {
-      setLocalSelectedSavedLists((prev) =>
-        prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item]
-      );
-    }
-  };
-
-  const handleClearSavedLists = () => {
-    if (onClearSavedLists) {
-      onClearSavedLists();
-    } else {
-      setLocalSelectedSavedLists([]);
-    }
   };
 
   // Filtered job titles and countries based on search inputs
@@ -239,16 +198,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             >
               <RotateCcw className="w-3 h-3" />
               <span>Reset</span>
-            </button>
-          )}
-          {onLoadSearch && (
-            <button
-              type="button"
-              onClick={onLoadSearch}
-              className="text-xs text-slate-400 hover:text-slate-700 p-1 rounded"
-              title="Reload default presets"
-            >
-              <RotateCw className="w-3.5 h-3.5" />
             </button>
           )}
           {onToggleCollapse && (
@@ -580,41 +529,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             })}
           </div>
         </FilterAccordion>
-
-        {/* 9. Saved Prospecting Lists */}
-        <FilterAccordion
-          icon={<List className="w-4 h-4 text-slate-500" />}
-          label="Saved Lists"
-          isOpen={openSections.savedLists}
-          onToggle={() => toggleSection('savedLists')}
-          activeCount={selectedSavedLists.length}
-          onClear={handleClearSavedLists}
-        >
-          {availableSavedLists.length > 0 ? (
-            <SearchableCheckboxList
-              options={availableSavedLists}
-              selectedValues={selectedSavedLists}
-              onToggle={handleToggleList}
-              searchPlaceholder="Search lists..."
-            />
-          ) : (
-            <p className="text-xs text-slate-400 py-2 px-1 italic">
-              No custom lists created yet. Select leads from the table to save them.
-            </p>
-          )}
-        </FilterAccordion>
-      </div>
-
-      {/* Pinned Bottom CTA */}
-      <div className="p-3 border-t border-surface-border bg-slate-50/80 shrink-0">
-        <button
-          type="button"
-          onClick={onSaveSearch}
-          className="w-full py-2 px-3 bg-white hover:bg-slate-50 text-apollo border border-apollo/30 hover:border-apollo font-medium text-xs rounded-md shadow-2xs transition-all flex items-center justify-center space-x-1.5 focus:outline-none focus:ring-2 focus:ring-apollo/20 min-h-[44px]"
-        >
-          <Tag className="w-3.5 h-3.5" />
-          <span>Save Filter View</span>
-        </button>
       </div>
     </div>
   );

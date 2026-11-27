@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   Home,
   Search,
-  Bookmark,
   Bell,
   Settings,
   X,
@@ -21,7 +20,6 @@ import { getStoredSession, DEFAULT_ANONYMOUS_SESSION } from '@/services/authServ
 export interface AppDockProps {
   activeNav?: string;
   onNavChange?: (navId: string) => void;
-  savedSearchesCount?: number;
   onOpenSettings?: () => void;
   onOpenAdminPortal?: () => void;
   pendingRequestsCount?: number;
@@ -49,7 +47,6 @@ const getInitials = (name?: string): string => {
 export const AppDock: React.FC<AppDockProps> = ({
   activeNav = 'search',
   onNavChange,
-  savedSearchesCount = 0,
   onOpenSettings,
   onOpenAdminPortal,
   pendingRequestsCount = 0,
@@ -119,12 +116,6 @@ export const AppDock: React.FC<AppDockProps> = ({
     { id: 'datamyne', label: 'DataMyne Leads', icon: Database },
     ...(isAdmin ? [{ id: 'tracker', label: 'Lead Tracker', icon: ClipboardList }] : []),
     { id: 'report', label: 'Client Reports', icon: FileText },
-    {
-      id: 'saved-searches',
-      label: 'Saved Searches',
-      icon: Bookmark,
-      badge: savedSearchesCount > 0 ? savedSearchesCount : undefined,
-    },
   ];
 
   const MOBILE_NAV_LABELS: Record<string, string> = {
@@ -134,7 +125,6 @@ export const AppDock: React.FC<AppDockProps> = ({
     datamyne: 'DataMyne',
     tracker: 'Tracker',
     report: 'Reports',
-    'saved-searches': 'Saved',
   };
 
   return (

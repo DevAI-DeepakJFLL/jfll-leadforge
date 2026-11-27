@@ -78,8 +78,8 @@ describe('People Tab Streamlined Logistics Filters', () => {
     expect(html).toContain('1.36m');
     expect(html).toContain('LinkedIn Profile Available');
 
-    // 8. Saved Lists
-    expect(html).toContain('Saved Lists');
+    // Saved Lists eliminated
+    expect(html).not.toContain('Saved Lists');
   });
 
   it('strictly excludes the 5 eliminated irrelevant/mock filters', () => {

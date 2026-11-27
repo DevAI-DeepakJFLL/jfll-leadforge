@@ -25,13 +25,8 @@ export interface PeopleViewProps {
   onSelectAllPage: () => void;
   onSelectAllTotal: () => void;
   onDeselectAll: () => void;
-  onAddToList: (listName: string) => void;
   onExport: () => void;
   isExporting: boolean;
-  savedLists: string[];
-  selectedSavedLists?: string[];
-  onToggleSavedList?: (listName: string) => void;
-  onClearSavedLists?: () => void;
   onSearchChange: (query: string) => void;
   onToggleArrayFilter: (category: 'departments' | 'jobTitles' | 'seniority' | 'locations' | 'industries' | 'companySize', value: string) => void;
   onToggleBooleanFilter?: (key: 'logisticsOnly' | 'decisionMakersOnly' | 'hasEmailOnly' | 'hasLinkedinOnly') => void;
@@ -39,8 +34,6 @@ export interface PeopleViewProps {
   onClearCategory: (category: keyof FilterParams) => void;
   onRemoveFilter: (category: keyof FilterParams, value: string) => void;
   onClearAllFilters: () => void;
-  onSaveSearch: () => void;
-  onLoadSearch: () => void;
   onTabChange: (tab: AudienceTab) => void;
   onPageChange: (page: number) => void;
   onLeadClick: (lead: Lead) => void;
@@ -70,13 +63,8 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
   onSelectAllPage,
   onSelectAllTotal,
   onDeselectAll,
-  onAddToList,
   onExport,
   isExporting,
-  savedLists,
-  selectedSavedLists,
-  onToggleSavedList,
-  onClearSavedLists,
   onSearchChange,
   onToggleArrayFilter,
   onToggleBooleanFilter,
@@ -84,8 +72,6 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
   onClearCategory,
   onRemoveFilter,
   onClearAllFilters,
-  onSaveSearch,
-  onLoadSearch,
   onTabChange,
   onPageChange,
   onLeadClick,
@@ -106,12 +92,6 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
         onToggleBooleanFilter={onToggleBooleanFilter}
         onToggleStatusFilter={onToggleStatusFilter}
         onClearCategory={onClearCategory}
-        savedLists={savedLists}
-        selectedSavedLists={selectedSavedLists}
-        onToggleSavedList={onToggleSavedList}
-        onClearSavedLists={onClearSavedLists}
-        onSaveSearch={onSaveSearch}
-        onLoadSearch={onLoadSearch}
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={onToggleSidebarCollapse}
         isMobileOpen={isMobileOpen}
@@ -145,10 +125,8 @@ export const PeopleView: React.FC<PeopleViewProps> = ({
           onSelectAllPage={onSelectAllPage}
           onSelectAllTotal={onSelectAllTotal}
           onDeselectAll={onDeselectAll}
-          onAddToList={onAddToList}
           onExport={onExport}
           isExporting={isExporting}
-          savedLists={savedLists}
           searchQuery={filters.q || ''}
           onSearchChange={onSearchChange}
           searchPlaceholder="Search leads by name, title, location..."

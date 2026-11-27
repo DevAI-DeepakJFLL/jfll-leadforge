@@ -64,11 +64,6 @@ import {
   filterLeadsInMemory,
 } from '@/services/apolloService';
 import { ApolloLead } from '@/types/apolloLead';
-import {
-  getSavedLists,
-  addLeadsToList,
-  subscribeToSavedChanges,
-} from '@/services/savedLeadsService';
 import { createCsvBlob, triggerCsvDownload } from '@/utils/csv';
 import { extractFirstDirectorName } from '@/utils/apolloUtils';
 import { LogApproachModal, ConvertToActiveModal } from '@/components/approach';
@@ -86,32 +81,8 @@ import { GatewayHubId } from '@/types/freightCommodities';
 import { HotLeadSegment } from '@/types/hotLeads';
 
 
-interface SavedSearchPreset {
-  id: string;
-  name: string;
-  filters: Partial<FilterParams>;
-}
-
 const DEFAULT_TOP_TAB = 'jfll-customers';
 const STORAGE_TAB_KEY = 'leadforge_active_top_tab';
-const STORAGE_SEARCHES_KEY = 'leadforge_saved_searches';
-
-function getInitialSavedSearches(): SavedSearchPreset[] {
-  try {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const raw = window.localStorage.getItem(STORAGE_SEARCHES_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          return parsed;
-        }
-      }
-    }
-  } catch {
-    // Ignore storage parse errors
-  }
-  return [];
-}
 
 function getInitialTopTab(): string {
   try {
@@ -120,7 +91,7 @@ function getInitialTopTab(): string {
       const tabParam = urlParams.get('tab');
       if (
         tabParam &&
-        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'hot-leads', 'report', 'tracker', 'saved-searches'].includes(tabParam)
+        ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'hot-leads', 'report', 'tracker'].includes(tabParam)
       ) {
         if (tabParam === 'companies' || tabParam === 'people') return 'apollo';
         return tabParam;
@@ -129,7 +100,7 @@ function getInitialTopTab(): string {
         const saved = window.localStorage.getItem(STORAGE_TAB_KEY);
         if (
           saved &&
-          ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'hot-leads', 'report', 'tracker', 'saved-searches'].includes(saved)
+          ['jfll-customers', 'apollo', 'companies', 'people', 'datamyne', 'commodity-radar', 'hot-leads', 'report', 'tracker'].includes(saved)
         ) {
           if (saved === 'companies' || saved === 'people') return 'apollo';
           return saved;
@@ -213,7 +184,6 @@ function getInitialActiveNav(tab: string): string {
   if (tab === 'jfll-customers') return 'jfll-customers';
   if (tab === 'report') return 'report';
   if (tab === 'apollo' || tab === 'companies') return 'companies';
-  if (tab === 'saved-searches') return 'saved-searches';
   return 'search'; // for 'people'
 }
 
@@ -277,31 +247,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     enabled: !!currentUser,
     refetchInterval: 30000,
   });
-
-  // Saved searches dynamically persisted in localStorage
-  const [savedSearches, setSavedSearches] = useState<SavedSearchPreset[]>(getInitialSavedSearches);
-
-  // Custom lists managed reactively with localStorage persistence
-  const [savedListsData, setSavedListsData] = useState(() => getSavedLists());
-  const [selectedSavedLists, setSelectedSavedLists] = useState<string[]>([]);
-
-  React.useEffect(() => {
-    return subscribeToSavedChanges(() => {
-      setSavedListsData(getSavedLists());
-    });
-  }, []);
-
-  const savedLists = useMemo(() => savedListsData.map((l) => l.name), [savedListsData]);
-
-  const handleToggleSavedList = (listName: string) => {
-    setSelectedSavedLists((prev) =>
-      prev.includes(listName) ? prev.filter((n) => n !== listName) : [...prev, listName]
-    );
-  };
-
-  const handleClearSavedLists = () => {
-    setSelectedSavedLists([]);
-  };
 
   // Row selection initialized to clean empty state
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -382,65 +327,13 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     },
   });
 
-  // Dynamic load preset search: loads target preset or latest saved search
-  const handleLoadPresetSearch = (preset?: SavedSearchPreset) => {
-    const target = preset || (savedSearches.length > 0 ? savedSearches[savedSearches.length - 1] : null);
-    if (!target) {
-      showToast("No saved searches yet. Click 'Save Search' on any query to save your criteria.");
-      return;
-    }
-    applyFilters({
-      ...filters,
-      ...target.filters,
-      page: 1,
-    });
-    showToast(`Loaded saved search: "${target.name}"`);
-  };
-
-  // Save current search to localStorage
-  const handleSaveSearch = () => {
-    // Exclude pagination counters so saved preset applies from page 1
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { page: _p, limit: _l, ...activeFilters } = filters;
-
-    const newPreset: SavedSearchPreset = {
-      id: `search-${Date.now()}`,
-      name: `Search (${new Date().toLocaleDateString()})`,
-      filters: activeFilters,
-    };
-    setSavedSearches((prev) => {
-      const updated = [...prev, newPreset];
-      try {
-        if (typeof window !== 'undefined' && window.localStorage) {
-          window.localStorage.setItem(STORAGE_SEARCHES_KEY, JSON.stringify(updated));
-        }
-      } catch {
-        // Ignore storage write errors
-      }
-      return updated;
-    });
-    showToast('Search criteria saved to your presets');
-  };
-
   // In-memory filtered leads for active company entity or server items in global mode
   const filteredLeads = useMemo(() => {
     if (isEntityScoped) {
-      let result = filterLeadsInMemory(data?.items || [], filters);
-      if (selectedSavedLists.length > 0) {
-        const activeLists = savedListsData.filter((l) => selectedSavedLists.includes(l.name));
-        const matchingLeadIds = new Set(activeLists.flatMap((l) => l.leadIds));
-        result = result.filter((lead) => matchingLeadIds.has(lead.id));
-      }
-      return result;
+      return filterLeadsInMemory(data?.items || [], filters);
     }
-    let result = data?.items || [];
-    if (selectedSavedLists.length > 0) {
-      const activeLists = savedListsData.filter((l) => selectedSavedLists.includes(l.name));
-      const matchingLeadIds = new Set(activeLists.flatMap((l) => l.leadIds));
-      result = result.filter((lead) => matchingLeadIds.has(lead.id));
-    }
-    return result;
-  }, [isEntityScoped, data?.items, filters, selectedSavedLists, savedListsData]);
+    return data?.items || [];
+  }, [isEntityScoped, data?.items, filters]);
 
   // Client-side pagination for Entity-Scoped Mode
   const page = filters.page || 1;
@@ -533,30 +426,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     filteredLeads.forEach((l) => map.set(l.id, l));
     items.forEach((l) => map.set(l.id, l));
     return map;
-  };
-
-  const handleAddToList = (listName: string) => {
-    if (selectedLeadIds.length === 0) return;
-    const leadMap = getUnifiedLeadMap();
-    const leadsToAdd = selectedLeadIds
-      .map((id) => leadMap.get(id))
-      .filter((l): l is Lead => Boolean(l));
-
-    addLeadsToList(listName, leadsToAdd);
-    setRowSelection({});
-    showToast(
-      `Added ${leadsToAdd.length} lead${leadsToAdd.length === 1 ? '' : 's'} to "${listName}"`
-    );
-  };
-
-  const handleAddDrawerLeadToList = (lead: Lead, listName?: string) => {
-    const targetList = listName || savedLists[0];
-    if (!targetList) {
-      showToast('Please create or select a list first');
-      return;
-    }
-    addLeadsToList(targetList, [lead]);
-    showToast(`Added ${lead.name} to "${targetList}"`);
   };
 
   // Functional CSV Export download handler with direct client-side generation & server fallback
@@ -1164,9 +1033,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       setActiveNav('report');
     } else if (normalizedTab === 'apollo') {
       setActiveNav(apolloSubTab === 'people' ? 'search' : 'companies');
-    } else if (normalizedTab === 'saved-searches') {
-      setActiveNav('saved-searches');
-      handleLoadPresetSearch();
     } else {
       setActiveNav('search');
     }
@@ -1253,8 +1119,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           setTopTab('apollo');
           setApolloSubTab('people');
           setActiveNav('search');
-        } else if (navId === 'saved-searches') {
-          handleAudienceTabChange('saved-searches');
         } else {
           setActiveNav(navId);
         }
@@ -1304,7 +1168,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           setSearch(q);
         }
       }}
-      savedSearchesCount={savedSearches.length}
       onOpenSettings={() => setIsSettingsOpen(true)}
       onOpenAdminPortal={() => setIsAdminPortalOpen(true)}
       pendingRequestsCount={adminStats?.pending_requests_count}
@@ -1557,13 +1420,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onSelectAllPage={handleSelectAllPage}
           onSelectAllTotal={handleSelectAllTotal}
           onDeselectAll={handleDeselectAll}
-          onAddToList={handleAddToList}
           onExport={handleExportCsv}
           isExporting={isExporting}
-          savedLists={savedLists}
-          selectedSavedLists={selectedSavedLists}
-          onToggleSavedList={handleToggleSavedList}
-          onClearSavedLists={handleClearSavedLists}
           onSearchChange={setSearch}
           onToggleArrayFilter={toggleArrayFilter}
           onToggleBooleanFilter={toggleBooleanFilter}
@@ -1571,8 +1429,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onClearCategory={clearFilterCategory}
           onRemoveFilter={removeFilterItem}
           onClearAllFilters={clearAllFilters}
-          onSaveSearch={handleSaveSearch}
-          onLoadSearch={handleLoadPresetSearch}
           onTabChange={setTab}
           onPageChange={setPage}
           onLeadClick={handleLeadClick}
@@ -1611,8 +1467,6 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           onClose={() => setSelectedDrawerLead(null)}
           onCopy={(_text, _type) => {}}
           onAddToSequence={(_l) => {}}
-          onAddToList={handleAddDrawerLeadToList}
-          savedLists={savedLists}
           onComposeEmail={(_l) => {}}
         />
       </ErrorBoundary>

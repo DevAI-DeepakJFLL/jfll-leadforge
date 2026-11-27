@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lead } from '@/types/lead';
 import { CompanyAvatar } from './CompanyAvatar';
 import {
@@ -17,14 +17,11 @@ import {
   Briefcase,
   Linkedin,
   Clock,
-  ListPlus,
   AlertCircle,
   CheckCircle2,
-  Plus,
 } from 'lucide-react';
 import { useModalDismiss } from '@/hooks/useModalDismiss';
 import { useClipboard } from '@/hooks/useClipboard';
-import { useClickOutside } from '@/hooks/useClickOutside';
 import { formatDate } from '@/utils/formatters';
 import { isValidEmailAddress, isValidPhoneNumber } from '@/utils/apolloUtils';
 import { toSafeExternalUrl } from '@/types/apolloLead';
@@ -35,9 +32,7 @@ export interface LeadDetailDrawerProps {
   onClose: () => void;
   onCopy?: (text: string, type: 'email' | 'phone') => void;
   onAddToSequence?: (lead: Lead) => void;
-  onAddToList?: (lead: Lead, listName?: string) => void;
   onComposeEmail?: (lead: Lead) => void;
-  savedLists?: string[];
 }
 
 export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
@@ -46,15 +41,9 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
   onClose,
   onCopy,
   onAddToSequence: _onAddToSequence,
-  onAddToList,
   onComposeEmail: _onComposeEmail,
-  savedLists = [],
 }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'company' | 'activity'>('overview');
-  const [isListMenuOpen, setIsListMenuOpen] = useState(false);
-  const [isCreatingList, setIsCreatingList] = useState(false);
-  const [newListName, setNewListName] = useState('');
-  const listMenuRef = useRef<HTMLDivElement>(null);
 
   useModalDismiss({ isOpen, onClose });
 
@@ -69,17 +58,6 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
     }
   }, [isOpen]);
 
-  // Click outside and Escape listener to close Add-to-List dropdown
-  useClickOutside(
-    listMenuRef,
-    () => {
-      setIsListMenuOpen(false);
-      setIsCreatingList(false);
-      setNewListName('');
-    },
-    isListMenuOpen
-  );
-
   const { copy: copyToClipboard, isCopied } = useClipboard({
     onSuccess: (text, field) => {
       onCopy?.(text, field?.includes('email') ? 'email' : 'phone');
@@ -90,9 +68,6 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
   useEffect(() => {
     if (lead) {
       setActiveTab('overview');
-      setIsListMenuOpen(false);
-      setIsCreatingList(false);
-      setNewListName('');
     }
   }, [lead?.id]);
 
@@ -467,99 +442,8 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
           </div>
 
           {/* Frosted Glass Sticky Bottom Action Dock */}
-          <div className="p-3.5 bg-white/95 backdrop-blur-md border-t border-slate-200 flex items-center justify-between gap-2 shrink-0 shadow-lg relative">
-            <div className="flex items-center gap-2 flex-1 min-w-0">
-              {/* Add to List Dropdown */}
-              <div className="relative shrink-0" ref={listMenuRef}>
-                <button
-                  type="button"
-                  onClick={() => setIsListMenuOpen((prev) => !prev)}
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg shadow-2xs transition-colors min-h-[40px] cursor-pointer"
-                  title="Add to prospect list"
-                >
-                  <ListPlus className="w-4 h-4 text-slate-500" />
-                  <span className="hidden sm:inline">Add to List</span>
-                </button>
-
-                {isListMenuOpen && (
-                  <div className="absolute right-0 sm:left-0 bottom-full mb-2 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50 text-xs animate-in fade-in zoom-in-95 duration-100">
-                    <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                      Add to List
-                    </div>
-                    {savedLists.length === 0 && (
-                      <div className="px-3 py-2 text-[11px] text-slate-400 italic">
-                        No custom lists yet.
-                      </div>
-                    )}
-                    {savedLists.map((name) => (
-                      <button
-                        key={name}
-                        type="button"
-                        onClick={() => {
-                          onAddToList?.(lead, name);
-                          setIsListMenuOpen(false);
-                        }}
-                        className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900 flex items-center justify-between"
-                      >
-                        <span className="truncate">{name}</span>
-                      </button>
-                    ))}
-                    <div className="my-1 border-t border-slate-100" />
-                    {!isCreatingList ? (
-                      <button
-                        type="button"
-                        onClick={() => setIsCreatingList(true)}
-                        className="w-full text-left px-3 py-1.5 text-apollo font-semibold hover:bg-blue-50 flex items-center gap-1 cursor-pointer"
-                      >
-                        <Plus className="w-3.5 h-3.5" />
-                        <span>Create New List</span>
-                      </button>
-                    ) : (
-                      <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          if (newListName.trim()) {
-                            onAddToList?.(lead, newListName.trim());
-                            setNewListName('');
-                            setIsCreatingList(false);
-                            setIsListMenuOpen(false);
-                          }
-                        }}
-                        className="p-2 space-y-1.5"
-                      >
-                        <input
-                          type="text"
-                          value={newListName}
-                          onChange={(e) => setNewListName(e.target.value)}
-                          placeholder="List name..."
-                          maxLength={50}
-                          autoFocus
-                          className="w-full px-2 py-1 text-xs border border-slate-300 rounded focus:outline-none focus:border-apollo"
-                        />
-                        <div className="flex items-center gap-1">
-                          <button
-                            type="submit"
-                            disabled={!newListName.trim()}
-                            className="px-2 py-1 bg-apollo text-white text-[11px] font-medium rounded hover:bg-apollo-600 disabled:opacity-50 cursor-pointer"
-                          >
-                            Save
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setIsCreatingList(false)}
-                            className="px-2 py-1 text-slate-500 hover:text-slate-700 text-[11px] cursor-pointer"
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      </form>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {hasValidEmail && (
+          {hasValidEmail && (
+            <div className="p-3.5 bg-white/95 backdrop-blur-md border-t border-slate-200 flex items-center justify-end gap-2 shrink-0 shadow-lg relative">
               <button
                 type="button"
                 onClick={() => copyToClipboard(lead.email, 'email')}
@@ -578,8 +462,8 @@ export const LeadDetailDrawer: React.FC<LeadDetailDrawerProps> = ({
                   </>
                 )}
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

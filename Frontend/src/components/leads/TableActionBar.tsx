@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   ChevronDown,
-  Plus,
-  ListPlus,
   Download,
   Loader2,
   Search,
@@ -19,10 +17,8 @@ export interface TableActionBarProps {
   onSelectAllPage?: () => void;
   onSelectAllTotal?: () => void;
   onDeselectAll?: () => void;
-  onAddToList?: (listName: string) => void;
   onExport?: () => void | Promise<void>;
   isExporting?: boolean;
-  savedLists?: string[];
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   searchPlaceholder?: string;
@@ -41,10 +37,8 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
   onSelectAllPage,
   onSelectAllTotal,
   onDeselectAll,
-  onAddToList,
   onExport,
   isExporting = false,
-  savedLists = [],
   searchQuery = '',
   onSearchChange,
   searchPlaceholder = 'Search leads by name, title, company...',
@@ -53,9 +47,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
   isViewer,
 }) => {
   const isViewerUser = Boolean(isViewer || currentUser?.role === 'Viewer');
-  const [activeMenu, setActiveMenu] = useState<'select' | 'lists' | null>(null);
-  const [newListName, setNewListName] = useState('');
-  const [isCreatingList, setIsCreatingList] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<'select' | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -93,7 +85,6 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
     const handleOutsideClick = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setActiveMenu(null);
-        setIsCreatingList(false);
       }
     };
     document.addEventListener('mousedown', handleOutsideClick);
@@ -112,16 +103,6 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onSearchChange]);
-
-  const handleCreateList = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newListName.trim()) {
-      onAddToList?.(newListName.trim());
-      setNewListName('');
-      setIsCreatingList(false);
-      setActiveMenu(null);
-    }
-  };
 
   return (
     <div
@@ -241,96 +222,7 @@ export const TableActionBar: React.FC<TableActionBarProps> = ({
           </div>
         )}
 
-        {/* 2. Add to List */}
-        <div className="relative shrink-0">
-          <button
-            type="button"
-            onClick={() => setActiveMenu(activeMenu === 'lists' ? null : 'lists')}
-            disabled={!hasSelection}
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md shadow-2xs transition-colors focus:outline-none focus:ring-2 focus:ring-apollo/20 ${
-              hasSelection
-                ? 'bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 border border-slate-200'
-                : 'bg-slate-100 text-slate-400 border border-slate-200/60 cursor-not-allowed opacity-60'
-            }`}
-            title="Add leads to a targeted prospecting list"
-          >
-            <ListPlus className="w-3.5 h-3.5 text-slate-500" />
-            <span>Add to List</span>
-            <ChevronDown
-              className={`w-3 h-3 text-slate-400 transition-transform duration-150 ${
-                activeMenu === 'lists' ? 'rotate-180' : ''
-              }`}
-            />
-          </button>
-
-          {activeMenu === 'lists' && (
-            <div className="absolute left-0 mt-1 w-56 bg-white rounded-lg shadow-xl border border-slate-200 py-1.5 z-30 text-xs animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                Select Prospect List
-              </div>
-              {savedLists.length === 0 && (
-                <div className="px-3 py-2 text-[11px] text-slate-400 italic">
-                  No custom lists yet.
-                </div>
-              )}
-              {savedLists.map((name) => (
-                <button
-                  key={name}
-                  type="button"
-                  onClick={() => {
-                    onAddToList?.(name);
-                    setActiveMenu(null);
-                  }}
-                  className="w-full text-left px-3 py-1.5 hover:bg-slate-50 text-slate-700 hover:text-slate-900 flex items-center justify-between"
-                >
-                  <span className="truncate">{name}</span>
-                </button>
-              ))}
-
-              <div className="my-1 border-t border-slate-100" />
-
-              {!isCreatingList ? (
-                <button
-                  type="button"
-                  onClick={() => setIsCreatingList(true)}
-                  className="w-full text-left px-3 py-1.5 text-apollo font-medium hover:bg-apollo-50 flex items-center gap-1"
-                >
-                  <Plus className="w-3 h-3" />
-                  <span>Create New List</span>
-                </button>
-              ) : (
-                <form onSubmit={handleCreateList} className="p-2 space-y-1.5">
-                  <input
-                    type="text"
-                    value={newListName}
-                    onChange={(e) => setNewListName(e.target.value)}
-                    placeholder="List name..."
-                    autoFocus
-                    className="w-full px-2 py-1 text-xs border border-slate-300 rounded focus:outline-none focus:border-apollo"
-                  />
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="submit"
-                      disabled={!newListName.trim()}
-                      className="px-2 py-1 bg-apollo text-white text-[11px] font-medium rounded hover:bg-apollo-600 disabled:opacity-50"
-                    >
-                      Save
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIsCreatingList(false)}
-                      className="px-2 py-1 text-slate-500 hover:text-slate-700 text-[11px]"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* 4. Export (CSV) */}
+        {/* Export (CSV) */}
         <button
           type="button"
           onClick={onExport}
