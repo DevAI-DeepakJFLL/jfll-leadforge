@@ -83,6 +83,21 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
   const [, setCopiedKey] = useState<string | null>(null);
   const [, setTrackerVersion] = useState(0);
 
+  // Sync state if props change externally
+  useEffect(() => {
+    setCategory(initialCat);
+    setContactFilter(initialContact);
+  }, [initialCat, initialContact]);
+
+  useEffect(() => {
+    setSearchQuery(initialSearchQuery);
+  }, [initialSearchQuery]);
+
+  const onFilterChangeRef = useRef(onFilterChange);
+  useEffect(() => {
+    onFilterChangeRef.current = onFilterChange;
+  }, [onFilterChange]);
+
   useEffect(() => {
     const handleTrackerUpdate = () => {
       setTrackerVersion((v) => v + 1);
@@ -147,8 +162,8 @@ export const HotLeadsView: React.FC<HotLeadsViewProps> = ({
 
   useEffect(() => {
     loadData();
-    onFilterChange?.(currentSegment, searchQuery);
-  }, [loadData, currentSegment, searchQuery, onFilterChange]);
+    onFilterChangeRef.current?.(currentSegment, searchQuery);
+  }, [loadData, currentSegment, searchQuery]);
 
   const handleClearSearch = () => {
     setSearchQuery('');

@@ -83,6 +83,7 @@ import { LeadStatusTrackerView } from '@/components/tracker';
 import { createTrackedLead } from '@/services/leadTrackerService';
 import { LeadTrackerCreatePayload } from '@/types/leadTracker';
 import { GatewayHubId } from '@/types/freightCommodities';
+import { HotLeadSegment } from '@/types/hotLeads';
 
 
 interface SavedSearchPreset {
@@ -190,6 +191,20 @@ function getInitialCommodityParams(): { month: number; hub: GatewayHubId } {
   return { month: 11, hub: 'ALL' };
 }
 
+function getInitialHotLeadsParams(): { segment: HotLeadSegment; q: string } {
+  try {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const segment = (urlParams.get('segment') as HotLeadSegment) || 'all';
+      const q = urlParams.get('q') || '';
+      return { segment, q };
+    }
+  } catch {
+    // Ignore URL errors
+  }
+  return { segment: 'all', q: '' };
+}
+
 function getInitialActiveNav(tab: string): string {
   if (tab === 'tracker') return 'tracker';
   if (tab === 'datamyne') return 'datamyne';
@@ -228,6 +243,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
   } | null>(getInitialReportTarget);
   const [commodityMonth, setCommodityMonth] = useState<number>(() => getInitialCommodityParams().month);
   const [commodityHub, setCommodityHub] = useState<GatewayHubId>(() => getInitialCommodityParams().hub);
+  const [hotLeadsSegment, setHotLeadsSegment] = useState<HotLeadSegment>(() => getInitialHotLeadsParams().segment);
+  const [hotLeadsSearch, setHotLeadsSearch] = useState<string>(() => getInitialHotLeadsParams().q);
 
   const handleNavigateToReport = (companyName: string, id?: string, source?: string) => {
     setSelectedReportTarget({ name: companyName, id, source });
@@ -1071,7 +1088,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
     return count;
   }, [jfllFilters]);
 
-  const currentActiveFilterCount = isTrackerCategory
+  const currentActiveFilterCount = isTrackerCategory || isHotLeadsCategory
     ? 0
     : isDatamyneCategory
     ? datamyneActiveFilterCount
@@ -1113,6 +1130,16 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
           } else {
             url.searchParams.delete('month');
             url.searchParams.delete('hub');
+          }
+          if (normalizedTab === 'hot-leads') {
+            if (hotLeadsSegment && hotLeadsSegment !== 'all') {
+              url.searchParams.set('segment', hotLeadsSegment);
+            }
+            if (hotLeadsSearch && hotLeadsSearch.trim()) {
+              url.searchParams.set('q', hotLeadsSearch.trim());
+            }
+          } else {
+            url.searchParams.delete('segment');
           }
           window.history.replaceState({}, '', url.toString());
         }
@@ -1156,7 +1183,7 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         }),
         true
       );
-    } else if (typeof window !== 'undefined' && window.location.search && normalizedTab !== 'people' && normalizedTab !== 'apollo') {
+    } else if (typeof window !== 'undefined' && window.location.search && normalizedTab !== 'people' && normalizedTab !== 'apollo' && normalizedTab !== 'hot-leads' && normalizedTab !== 'commodity-radar') {
       window.history.replaceState(null, '', window.location.pathname);
     }
   };
@@ -1237,6 +1264,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       searchQuery={
         isTrackerCategory
           ? ''
+          : isHotLeadsCategory
+          ? hotLeadsSearch
           : isDatamyneCategory
           ? datamyneFilters.q || ''
           : isJfllCategory
@@ -1248,6 +1277,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       onSearchChange={(q) => {
         if (isTrackerCategory) {
           // LeadStatusTrackerView manages its own search
+        } else if (isHotLeadsCategory) {
+          setHotLeadsSearch(q);
         } else if (isDatamyneCategory) {
           setDatamyneSearch(q);
         } else if (isJfllCategory) {
@@ -1261,6 +1292,8 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
       onSearchSubmit={(q) => {
         if (isTrackerCategory) {
           // LeadStatusTrackerView manages its own search
+        } else if (isHotLeadsCategory) {
+          setHotLeadsSearch(q);
         } else if (isDatamyneCategory) {
           setDatamyneSearch(q);
         } else if (isJfllCategory) {
@@ -1418,6 +1451,31 @@ const AppContent: React.FC<AppContentProps> = ({ onLogout, currentUser }) => {
         />
       ) : isHotLeadsCategory ? (
         <HotLeadsView
+          initialSegment={hotLeadsSegment}
+          initialSearchQuery={hotLeadsSearch}
+          onFilterChange={(seg, q) => {
+            setHotLeadsSegment(seg);
+            setHotLeadsSearch(q);
+            try {
+              if (typeof window !== 'undefined' && window.history?.replaceState) {
+                const url = new URL(window.location.href);
+                url.searchParams.set('tab', 'hot-leads');
+                if (seg && seg !== 'all') {
+                  url.searchParams.set('segment', seg);
+                } else {
+                  url.searchParams.delete('segment');
+                }
+                if (q && q.trim()) {
+                  url.searchParams.set('q', q.trim());
+                } else {
+                  url.searchParams.delete('q');
+                }
+                window.history.replaceState({}, '', url.toString());
+              }
+            } catch {
+              // Ignore navigation history errors
+            }
+          }}
           onFindInDatamyne={(query) => {
             handleAudienceTabChange('datamyne');
             setDatamyneSearch(query);

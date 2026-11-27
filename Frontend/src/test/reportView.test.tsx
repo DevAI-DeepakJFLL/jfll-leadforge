@@ -39,9 +39,10 @@ describe('ReportView Component Suite', () => {
 
     // Export actions
     expect(html).toContain('Export Word (.docx)');
-    expect(html).toContain('Print / Save PDF');
-    // Gemini web search enrichment affordance
+    // Gemini web search enrichment affordance (disabled)
     expect(html).toContain('Enrich with Gemini (Web)');
+    expect(html).toContain('JFLL strength');
+    expect(html).not.toContain('Cargo → JFLL strength');
   });
 
   it('renders contacts table with interactive add button affordance', () => {

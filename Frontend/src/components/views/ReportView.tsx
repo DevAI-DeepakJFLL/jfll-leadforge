@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   FileText,
   Download,
-  Printer,
   Sparkles,
   Search,
   Plus,
@@ -130,7 +129,6 @@ export const ReportView: React.FC<ReportViewProps> = ({
   const [isLoading, setIsLoading] = useState(initialIsLoading);
   const [isExporting, setIsExporting] = useState(false);
   const [isEnrichingWeb, setIsEnrichingWeb] = useState(false);
-  const [copiedPitch, setCopiedPitch] = useState(false);
   const [copiedFeedback, setCopiedFeedback] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successNotice, setSuccessNotice] = useState<string | null>(null);
@@ -295,24 +293,6 @@ export const ReportView: React.FC<ReportViewProps> = ({
     }
   };
 
-  const handlePrintPdf = () => {
-    if (typeof window !== 'undefined') {
-      window.print();
-    }
-  };
-
-  const handleCopyPitch = () => {
-    const text = `JFLL FIT & PITCH ANGLE FOR ${report.header.company_name.toUpperCase()}:\n\n` +
-      `Cargo Fit: ${report.section_3_jfll_fit?.cargo_strength || 'N/A'}\n\n` +
-      `Lead Pitch With: ${report.section_3_jfll_fit?.pitch_angle || 'N/A'}`;
-    
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(text);
-      setCopiedPitch(true);
-      setTimeout(() => setCopiedPitch(false), 2000);
-    }
-  };
-
   // State mutators for live inline editing
   const updateSection1 = (key: keyof ClientReportData['section_1_background'], val: string) => {
     setReport((prev) => ({
@@ -445,35 +425,19 @@ export const ReportView: React.FC<ReportViewProps> = ({
           {/* Action Export Buttons */}
           <div className="flex items-center gap-2.5 shrink-0 flex-wrap sm:flex-nowrap">
             <button
+              type="button"
               onClick={handleEnrichWeb}
-              disabled={isEnrichingWeb || isLoading}
-              className="inline-flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 text-blue-800 border border-blue-300 rounded-lg text-xs font-semibold shadow-2xs transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              title="Enrich company background and contacts with web search"
+              disabled={true}
+              className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 text-slate-400 border border-slate-200 rounded-lg text-xs font-semibold shadow-2xs opacity-60 cursor-not-allowed focus:outline-none"
+              title="Enrichment currently disabled"
+              aria-label="Enrich with Gemini (Web) (Disabled)"
             >
               {isEnrichingWeb ? (
-                <RefreshCw className="w-4 h-4 text-blue-600 animate-spin" />
+                <RefreshCw className="w-4 h-4 text-slate-400 animate-spin" />
               ) : (
-                <Globe className="w-4 h-4 text-blue-600" />
+                <Globe className="w-4 h-4 text-slate-400" />
               )}
-              <span>{isEnrichingWeb ? 'Searching Web...' : 'Enrich with Gemini (Web)'}</span>
-            </button>
-
-            <button
-              onClick={handleCopyPitch}
-              className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              title="Copy pitch angles to clipboard"
-            >
-              {copiedPitch ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-slate-500" />}
-              <span>{copiedPitch ? 'Copied Pitch!' : 'Copy Pitch'}</span>
-            </button>
-
-            <button
-              onClick={handlePrintPdf}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              title="Print document or save as PDF"
-            >
-              <Printer className="w-4 h-4 text-slate-600" />
-              <span>Print / Save PDF</span>
+              <span>Enrich with Gemini (Web)</span>
             </button>
 
             {isViewer && (
@@ -1040,18 +1004,6 @@ export const ReportView: React.FC<ReportViewProps> = ({
                 </h2>
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={handleCopyPitch}
-                    className="print:hidden inline-flex items-center gap-1 text-[11px] font-bold text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-md px-2.5 py-1 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    title="Copy pitch angle to clipboard"
-                  >
-                    {copiedPitch ? (
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    ) : (
-                      <Copy className="w-3.5 h-3.5 text-blue-600" />
-                    )}
-                    <span>{copiedPitch ? 'Copied Pitch!' : 'Copy Pitch'}</span>
-                  </button>
-                  <button
                     type="button"
                     onClick={() => handleRemoveSection(3)}
                     className="print:hidden p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-400"
@@ -1065,7 +1017,7 @@ export const ReportView: React.FC<ReportViewProps> = ({
               <div className="border border-slate-300 rounded-lg overflow-hidden divide-y divide-slate-200 text-xs">
                 <ReportFieldRow
                   id="sec3-cargo-strength"
-                  label="Cargo → JFLL strength"
+                  label="JFLL strength"
                   value={report.section_3_jfll_fit.cargo_strength}
                   onChange={(val) => updateSection3('cargo_strength', val)}
                   rows={3}

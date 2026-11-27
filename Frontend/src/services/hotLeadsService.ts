@@ -116,7 +116,7 @@ export function filterHotLeadsInMemory(
   }
 
   // 2. Composite or legacy segment filter
-  if (!category && segment && segment !== 'all') {
+  if ((!category || category === 'all') && (!contactFilter || contactFilter === 'all') && segment && segment !== 'all') {
     if (segment === 'fresh' || segment === 'prospects') {
       filtered = filtered.filter((i) => getHotLeadCategory(i.crmStatus) === 'fresh');
     } else if (segment === 'fresh-with-contacts') {
@@ -236,11 +236,11 @@ export async function fetchHotLeads(
         totalTurnover: rawMetrics.total_turnover ?? 0,
         totalCount: rawMetrics.total_count ?? items.length,
         activeCount,
-        activeWithContactsCount: rawMetrics.active_with_contacts_count ?? 7,
-        activeWithoutContactsCount: rawMetrics.active_without_contacts_count ?? 7,
+        activeWithContactsCount: rawMetrics.active_with_contacts_count ?? 12,
+        activeWithoutContactsCount: rawMetrics.active_without_contacts_count ?? 2,
         inactiveCount,
-        inactiveWithContactsCount: rawMetrics.inactive_with_contacts_count ?? 4,
-        inactiveWithoutContactsCount: rawMetrics.inactive_without_contacts_count ?? 4,
+        inactiveWithContactsCount: rawMetrics.inactive_with_contacts_count ?? 6,
+        inactiveWithoutContactsCount: rawMetrics.inactive_without_contacts_count ?? 2,
         freshCount,
         freshWithContactsCount: rawMetrics.fresh_with_contacts_count ?? 21,
         freshWithoutContactsCount: rawMetrics.fresh_without_contacts_count ?? 17,
