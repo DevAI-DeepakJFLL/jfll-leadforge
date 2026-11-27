@@ -6,15 +6,15 @@ import {
   FileText,
   Truck,
   Phone,
-  Mail,
   Calendar,
   Clock,
   AlertTriangle,
   ChevronUp,
   ChevronDown,
+  ChevronRight,
   Copy,
   Check,
-  Edit3,
+  Building2,
   User,
   ArrowUpDown,
   SearchX,
@@ -188,6 +188,20 @@ export function getStatusStyle(status: TrackerStatus | string): {
 }
 
 /**
+ * Extracts 1-2 uppercase initials from company name for the avatar badge.
+ */
+function getCompanyInitials(name?: string | null): string {
+  if (!name) return '';
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase();
+}
+
+/**
  * Formats ISO date string to a human readable short date: "16 Aug 2026".
  */
 function formatShortDate(dateStr?: string | null): string {
@@ -245,22 +259,22 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
 
   if (isLoading) {
     return (
-      <div className={`w-full overflow-hidden border border-slate-200 rounded-lg bg-white shadow-xs ${className}`}>
-        <div className="p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
-          <div className="h-4 w-48 bg-slate-200 rounded animate-pulse" />
-          <div className="h-4 w-24 bg-slate-200 rounded animate-pulse" />
+      <div className={`border border-slate-200/80 rounded-xl bg-white shadow-2xs overflow-hidden flex-1 flex flex-col min-h-0 ${className}`}>
+        <div className="p-3.5 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
+          <div className="h-4 w-40 bg-slate-200/80 rounded animate-pulse" />
+          <div className="h-4 w-20 bg-slate-200/80 rounded animate-pulse" />
         </div>
-        <div className="divide-y divide-slate-100">
+        <div className="divide-y divide-slate-100 flex-1 overflow-auto">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="p-4 flex items-center gap-4 animate-pulse">
-              <div className="h-4 w-32 bg-slate-200 rounded" />
+            <div key={i} className="p-3.5 flex items-center gap-4 animate-pulse">
+              <div className="w-8 h-8 rounded-lg bg-slate-200/70 shrink-0" />
+              <div className="h-4 w-36 bg-slate-200/70 rounded" />
+              <div className="h-4 w-28 bg-slate-100 rounded" />
               <div className="h-4 w-24 bg-slate-100 rounded" />
-              <div className="h-4 w-24 bg-slate-100 rounded" />
-              <div className="h-4 w-36 bg-slate-100 rounded" />
-              <div className="h-5 w-20 bg-slate-200 rounded-full" />
+              <div className="h-4 w-28 bg-slate-100 rounded" />
+              <div className="h-5 w-24 bg-slate-200/70 rounded-full" />
               <div className="h-4 flex-1 bg-slate-100 rounded" />
-              <div className="h-5 w-24 bg-slate-200 rounded-full" />
-              <div className="h-7 w-16 bg-slate-200 rounded" />
+              <div className="w-6 h-6 rounded-md bg-slate-100 shrink-0" />
             </div>
           ))}
         </div>
@@ -270,7 +284,7 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
 
   if (leads.length === 0) {
     return (
-      <div className={`w-full border border-slate-200 rounded-lg bg-white p-12 text-center shadow-xs ${className}`}>
+      <div className={`border border-slate-200/80 rounded-xl bg-white p-12 text-center shadow-2xs flex-1 flex flex-col items-center justify-center min-h-[320px] ${className}`}>
         <div className="w-12 h-12 mx-auto rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3">
           <SearchX className="w-6 h-6" />
         </div>
@@ -284,282 +298,266 @@ export const LeadTrackerTable: React.FC<LeadTrackerTableProps> = ({
   }
 
   return (
-    <div className={`flex-1 h-full min-h-0 overflow-auto border border-slate-200 rounded-lg bg-white shadow-xs ${className}`}>
-      <table className="min-w-full text-left text-xs divide-y divide-slate-200 border-collapse table-auto">
-        <thead className="bg-slate-50 sticky top-0 z-20 border-b border-slate-200">
-          <tr className="text-slate-600 font-semibold tracking-wider uppercase text-[11px]">
-            <th
-              scope="col"
-              className="py-3 px-3.5 group cursor-pointer hover:bg-slate-100 transition-colors sticky left-0 top-0 z-30 bg-slate-50 border-r border-slate-200 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)] min-w-[200px] max-w-[260px]"
-              onClick={() => handleSort('company_name')}
-            >
-              <div className="flex items-center gap-1.5">
-                <span>Company Name</span>
-                {renderSortArrow('company_name')}
-              </div>
-            </th>
-
-            <th
-              scope="col"
-              className="py-3 px-3 group cursor-pointer hover:bg-slate-100 transition-colors min-w-[150px] whitespace-nowrap"
-              onClick={() => handleSort('assigned_to')}
-            >
-              <div className="flex items-center gap-1.5">
-                <span>Rep &amp; Branch</span>
-                {renderSortArrow('assigned_to')}
-              </div>
-            </th>
-
-            <th scope="col" className="py-3 px-3 min-w-[140px] whitespace-nowrap">
-              <span>Mode &amp; Routing</span>
-            </th>
-
-            <th scope="col" className="py-3 px-3 min-w-[150px]">
-              <span>Contact Person</span>
-            </th>
-
-            <th scope="col" className="py-3 px-3 min-w-[130px] whitespace-nowrap">
-              <span>Status</span>
-            </th>
-
-            <th scope="col" className="py-3 px-3 min-w-[200px] max-w-[280px]">
-              <span>Feedback Notes</span>
-            </th>
-
-            <th
-              scope="col"
-              className="py-3 px-3 group cursor-pointer hover:bg-slate-100 transition-colors whitespace-nowrap min-w-[140px]"
-              onClick={() => handleSort('next_followup_date')}
-            >
-              <div className="flex items-center gap-1.5">
-                <span>Next Follow-up</span>
-                {renderSortArrow('next_followup_date')}
-              </div>
-            </th>
-
-            <th scope="col" className="py-3 px-3 min-w-[160px] max-w-[220px]">
-              <span>Next Action</span>
-            </th>
-
-            <th scope="col" className="py-3 px-3.5 text-right min-w-[120px] whitespace-nowrap">
-              <span>Actions</span>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody className="divide-y divide-slate-150 bg-white">
-          {leads.map((lead) => {
-            const followupUrgency: TrackerFollowupStatus = getFollowupStatus(
-              lead.next_followup_date,
-              lead.status,
-              todayStr
-            );
-            const statusConfig = getStatusStyle(lead.status);
-
-            return (
-              <tr
-                key={lead.id}
-                onClick={() => onSelectLead(lead)}
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onSelectLead(lead);
-                  }
-                }}
-                className="hover:bg-slate-50/90 transition-colors cursor-pointer group focus:outline-hidden focus:bg-blue-50/50"
+    <div className={`border border-slate-200/80 rounded-xl bg-white shadow-2xs overflow-hidden flex-1 flex flex-col min-h-0 ${className}`}>
+      <div className="overflow-auto flex-1 min-h-0">
+        <table className="w-full text-left border-collapse text-xs">
+          <thead className="bg-slate-50/80 sticky top-0 z-10 border-b border-slate-200 select-none">
+            <tr className="text-slate-600 font-semibold text-[11px] uppercase tracking-wider">
+              {/* 1. Company Name */}
+              <th
+                scope="col"
+                className="py-2.5 px-3.5 min-w-[220px] font-semibold cursor-pointer hover:text-blue-700 transition-colors"
+                onClick={() => handleSort('company_name')}
               >
-                {/* 1. Company Name & Linked Entity (Sticky Left Pinned Column) */}
-                <td className="py-2.5 px-3.5 min-w-[200px] max-w-[260px] sticky left-0 z-10 bg-white group-hover:bg-slate-50/90 group-focus:bg-blue-50/50 border-r border-slate-200 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.06)]">
-                  <div className="flex flex-col gap-0.5">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
-                        {lead.company_name}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      {renderEntityBadge(lead.linked_entity_type)}
-                      <span className="text-[10px] text-slate-400">
-                        {formatShortDate(lead.assigned_date)}
-                      </span>
-                    </div>
-                  </div>
-                </td>
+                <div className="flex items-center gap-1.5">
+                  <span>Company Name</span>
+                  {renderSortArrow('company_name')}
+                </div>
+              </th>
 
-                {/* 2. Rep & Branch (Assigned Ownership) */}
-                <td className="py-2.5 px-3 whitespace-nowrap">
-                  <div className="flex items-center gap-2">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50/90 text-blue-800 border border-blue-200 shadow-2xs">
+              {/* 2. Rep & Branch */}
+              <th
+                scope="col"
+                className="py-2.5 px-3.5 min-w-[150px] font-semibold cursor-pointer hover:text-blue-700 transition-colors whitespace-nowrap"
+                onClick={() => handleSort('assigned_to')}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span>Rep &amp; Branch</span>
+                  {renderSortArrow('assigned_to')}
+                </div>
+              </th>
+
+              {/* 3. Mode & Routing */}
+              <th scope="col" className="py-2.5 px-3.5 min-w-[140px] font-semibold text-slate-600 whitespace-nowrap">
+                <span>Mode &amp; Routing</span>
+              </th>
+
+              {/* 4. Contact Person */}
+              <th scope="col" className="py-2.5 px-3.5 min-w-[150px] font-semibold text-slate-600">
+                <span>Contact Person</span>
+              </th>
+
+              {/* 5. Status */}
+              <th
+                scope="col"
+                className="py-2.5 px-3.5 min-w-[160px] font-semibold cursor-pointer hover:text-blue-700 transition-colors whitespace-nowrap"
+                onClick={() => handleSort('status')}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span>Status</span>
+                  {renderSortArrow('status')}
+                </div>
+              </th>
+
+              {/* 6. Follow-up & Cadence */}
+              <th
+                scope="col"
+                className="py-2.5 px-3.5 min-w-[170px] font-semibold cursor-pointer hover:text-blue-700 transition-colors whitespace-nowrap"
+                onClick={() => handleSort('next_followup_date')}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span>Follow-up &amp; Cadence</span>
+                  {renderSortArrow('next_followup_date')}
+                </div>
+              </th>
+
+              {/* 7. Action */}
+              <th scope="col" className="py-2.5 px-3.5 text-right w-12 font-semibold text-slate-600 whitespace-nowrap">
+                <span className="sr-only">Actions</span>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody className="divide-y divide-slate-100 bg-white">
+            {leads.map((lead) => {
+              const followupUrgency: TrackerFollowupStatus = getFollowupStatus(
+                lead.next_followup_date,
+                lead.status,
+                todayStr
+              );
+              const statusConfig = getStatusStyle(lead.status);
+              const initials = getCompanyInitials(lead.company_name);
+
+              return (
+                <tr
+                  key={lead.id}
+                  onClick={() => onSelectLead(lead)}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSelectLead(lead);
+                    }
+                  }}
+                  className="divide-y divide-slate-100 bg-white hover:bg-slate-50/80 cursor-pointer transition-colors group focus:outline-hidden focus:bg-blue-50/40"
+                >
+                  {/* 1. Company Avatar & Name */}
+                  <td className="py-3 px-3.5 align-middle">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shrink-0 shadow-2xs">
+                        {initials || <Building2 className="w-4 h-4 text-slate-400" />}
+                      </div>
+                      <div className="min-w-0">
+                        <div
+                          className="font-semibold text-xs text-slate-900 group-hover:text-blue-700 transition-colors truncate max-w-[200px]"
+                          title={lead.company_name}
+                        >
+                          {lead.company_name}
+                        </div>
+                        <div className="mt-0.5 flex items-center gap-1.5 flex-wrap">
+                          {renderEntityBadge(lead.linked_entity_type)}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+
+                  {/* 2. Sales Rep Badge */}
+                  <td className="py-3 px-3.5 align-middle whitespace-nowrap">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-50 border border-slate-200/80 text-slate-800 shadow-2xs">
                       <div className="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[9px] font-bold shrink-0">
-                        {lead.assigned_to.charAt(0).toUpperCase()}
+                        {lead.assigned_to ? lead.assigned_to.charAt(0).toUpperCase() : 'U'}
                       </div>
                       <span className="font-semibold text-slate-900">{lead.assigned_to}</span>
-                      <span className="text-blue-600 font-normal text-[10px]">({lead.branch})</span>
+                      {lead.branch && (
+                        <span className="text-slate-500 text-[10px] font-normal">({lead.branch})</span>
+                      )}
                     </div>
-                  </div>
-                </td>
+                  </td>
 
-                {/* 3. Mode & Routing */}
-                <td className="py-2.5 px-3 whitespace-nowrap">
-                  <div className="flex flex-col gap-1 items-start">
-                    <div className="inline-flex items-center gap-1.5 font-medium text-slate-800">
-                      {getTransportModeIcon(lead.transport_mode)}
-                      <span>{lead.transport_mode}</span>
-                    </div>
-                    <div>{renderRoutingPill(lead.routing_type)}</div>
-                  </div>
-                </td>
-
-                {/* 4. Contact Person */}
-                <td className="py-2.5 px-3">
-                  {lead.contact_person ? (
-                    <div className="flex flex-col gap-0.5">
-                      <div className="font-medium text-slate-900 leading-tight flex items-center gap-1">
-                        <User className="w-3 h-3 text-slate-400" />
-                        <span>{lead.contact_person}</span>
+                  {/* 3. Mode & Routing */}
+                  <td className="py-3 px-3.5 align-middle whitespace-nowrap">
+                    <div className="flex flex-col gap-1 items-start">
+                      <div className="inline-flex items-center gap-1.5 font-medium text-slate-800 text-xs">
+                        {getTransportModeIcon(lead.transport_mode)}
+                        <span>{lead.transport_mode}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-[10px] text-slate-500">
-                        {lead.contact_phone && (
-                          <button
-                            type="button"
-                            onClick={(e) => handleCopy(e, lead.contact_phone!, `phone-${lead.id}`)}
-                            className="hover:text-blue-600 flex items-center gap-0.5"
-                            title={`Copy phone: ${lead.contact_phone}`}
-                          >
-                            <Phone className="w-2.5 h-2.5" />
-                            <span>{lead.contact_phone}</span>
-                            {copiedId === `phone-${lead.id}` ? (
-                              <Check className="w-2.5 h-2.5 text-emerald-600" />
-                            ) : (
-                              <Copy className="w-2.5 h-2.5 text-slate-400 opacity-60" />
-                            )}
-                          </button>
-                        )}
-                        {lead.contact_email && (
-                          <button
-                            type="button"
-                            onClick={(e) => handleCopy(e, lead.contact_email!, `email-${lead.id}`)}
-                            className="hover:text-blue-600 flex items-center gap-0.5"
-                            title={`Copy email: ${lead.contact_email}`}
-                          >
-                            <Mail className="w-2.5 h-2.5" />
-                            <span className="truncate max-w-[100px]">{lead.contact_email}</span>
-                          </button>
-                        )}
+                      <div>{renderRoutingPill(lead.routing_type)}</div>
+                    </div>
+                  </td>
+
+                  {/* 4. Contact Person */}
+                  <td className="py-3 px-3.5 align-middle">
+                    {lead.contact_person ? (
+                      <div className="flex flex-col gap-0.5">
+                        <div className="font-semibold text-xs text-slate-900 leading-tight flex items-center gap-1.5">
+                          <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span className="truncate max-w-[140px]">{lead.contact_person}</span>
+                        </div>
+                        {lead.contact_phone ? (
+                          <div className="flex items-center gap-1 text-[11px] text-slate-500">
+                            <button
+                              type="button"
+                              onClick={(e) => handleCopy(e, lead.contact_phone!, `phone-${lead.id}`)}
+                              className="hover:text-blue-700 flex items-center gap-1 group/phone cursor-pointer"
+                              title={`Copy phone: ${lead.contact_phone}`}
+                            >
+                              <Phone className="w-2.5 h-2.5 text-slate-400 group-hover/phone:text-blue-700 shrink-0" />
+                              <span className="font-mono text-[11px]">{lead.contact_phone}</span>
+                              {copiedId === `phone-${lead.id}` ? (
+                                <Check className="w-2.5 h-2.5 text-emerald-600 shrink-0" />
+                              ) : (
+                                <Copy className="w-2.5 h-2.5 text-slate-400 opacity-60 group-hover/phone:opacity-100 shrink-0" />
+                              )}
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <span className="text-slate-400 italic text-xs">No contact details</span>
+                    )}
+                  </td>
+
+                  {/* 5. Status Pill & Inline Dropdown */}
+                  <td className="py-3 px-3.5 align-middle whitespace-nowrap min-w-[160px]" onClick={(e) => e.stopPropagation()}>
+                    <div className="relative inline-block">
+                      <select
+                        value={lead.status}
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => {
+                          e.stopPropagation();
+                          const newStatus = e.target.value as TrackerStatus;
+                          if (onStatusChange) {
+                            onStatusChange(lead.id, newStatus);
+                          }
+                        }}
+                        aria-label={`Status for ${lead.company_name}`}
+                        className={`text-[11px] font-semibold py-1 px-2.5 pr-6 rounded-full border shadow-2xs appearance-none cursor-pointer focus:ring-2 focus:ring-blue-500/20 focus:outline-hidden transition-colors ${statusConfig.badge}`}
+                      >
+                        {ALL_TRACKER_STATUSES.map((st) => (
+                          <option key={st} value={st} className="bg-white text-slate-900 font-normal">
+                            {st}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1.5 text-current opacity-60">
+                        <ChevronDown className="w-3 h-3" />
                       </div>
                     </div>
-                  ) : (
-                    <span className="text-slate-400 italic">No contact details</span>
-                  )}
-                </td>
+                  </td>
 
-                {/* 5. Status Pill & Inline Dropdown */}
-                <td className="py-2.5 px-3 whitespace-nowrap min-w-[130px]" onClick={(e) => e.stopPropagation()}>
-                  <div className="relative inline-block">
-                    <select
-                      value={lead.status}
-                      onClick={(e) => e.stopPropagation()}
-                      onChange={(e) => {
-                        e.stopPropagation();
-                        const newStatus = e.target.value as TrackerStatus;
-                        if (onStatusChange) {
-                          onStatusChange(lead.id, newStatus);
-                        }
-                      }}
-                      aria-label={`Status for ${lead.company_name}`}
-                      className={`text-[11px] font-medium py-1 px-2.5 pr-6 rounded-full border shadow-2xs appearance-none cursor-pointer focus:ring-2 focus:ring-blue-500/20 focus:outline-hidden transition-colors ${statusConfig.badge}`}
-                    >
-                      {ALL_TRACKER_STATUSES.map((st) => (
-                        <option key={st} value={st}>
-                          {st}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1.5 text-current opacity-60">
-                      <ChevronDown className="w-3 h-3" />
+                  {/* 6. Follow-up & Cadence */}
+                  <td className="py-3 px-3.5 align-middle">
+                    <div className="flex flex-col gap-1 items-start">
+                      {followupUrgency === 'overdue' && (
+                        <span
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200"
+                          title={`Overdue since ${lead.next_followup_date}`}
+                        >
+                          <AlertTriangle className="w-3 h-3 text-rose-500 shrink-0" />
+                          <span>Overdue · {formatShortDate(lead.next_followup_date)}</span>
+                        </span>
+                      )}
+                      {followupUrgency === 'due_today' && (
+                        <span
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200"
+                          title="Follow-up is due today"
+                        >
+                          <Clock className="w-3 h-3 text-amber-600 shrink-0" />
+                          <span>Due Today</span>
+                        </span>
+                      )}
+                      {followupUrgency === 'upcoming' && (
+                        <span
+                          className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-50 text-slate-700 border border-slate-200"
+                          title={`Scheduled for ${lead.next_followup_date}`}
+                        >
+                          <Calendar className="w-3 h-3 text-slate-500 shrink-0" />
+                          <span>{formatShortDate(lead.next_followup_date)}</span>
+                        </span>
+                      )}
+                      {followupUrgency === 'none' && (
+                        <span className="text-slate-400 italic text-[11px]">—</span>
+                      )}
+
+                      {lead.next_action && (
+                        <div
+                          className="text-slate-600 text-[11px] truncate max-w-[200px] leading-tight"
+                          title={lead.next_action}
+                        >
+                          {lead.next_action}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                </td>
+                  </td>
 
-                {/* 6. Feedback Notes */}
-                <td className="py-2.5 px-3 max-w-[260px]">
-                  {lead.feedback_notes ? (
-                    <p
-                      className="text-slate-600 text-xs line-clamp-2 leading-relaxed"
-                      title={lead.feedback_notes}
+                  {/* 7. Action Button */}
+                  <td className="py-3 px-3.5 text-right align-middle whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                    <button
+                      type="button"
+                      onClick={() => onSelectLead(lead)}
+                      className="p-1.5 text-slate-400 hover:text-blue-700 hover:bg-blue-50 border border-transparent hover:border-blue-200 rounded-lg transition-colors cursor-pointer group-hover:text-slate-600"
+                      title="Open lead details"
+                      aria-label={`Open lead details for ${lead.company_name}`}
                     >
-                      {lead.feedback_notes}
-                    </p>
-                  ) : (
-                    <span className="text-slate-400 italic">No feedback logged</span>
-                  )}
-                </td>
-
-                {/* 7. Next Follow-up Badge */}
-                <td className="py-2.5 px-3 whitespace-nowrap">
-                  {followupUrgency === 'overdue' && (
-                    <span
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200"
-                      title={`Overdue since ${lead.next_followup_date}`}
-                    >
-                      <AlertTriangle className="w-3 h-3 text-rose-500 shrink-0" />
-                      <span>Overdue · {formatShortDate(lead.next_followup_date)}</span>
-                    </span>
-                  )}
-                  {followupUrgency === 'due_today' && (
-                    <span
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200"
-                      title="Follow-up is due today"
-                    >
-                      <Clock className="w-3 h-3 text-amber-600 shrink-0" />
-                      <span>Due Today</span>
-                    </span>
-                  )}
-                  {followupUrgency === 'upcoming' && (
-                    <span
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-50 text-slate-700 border border-slate-200"
-                      title={`Scheduled for ${lead.next_followup_date}`}
-                    >
-                      <Calendar className="w-3 h-3 text-slate-500 shrink-0" />
-                      <span>{formatShortDate(lead.next_followup_date)}</span>
-                    </span>
-                  )}
-                  {followupUrgency === 'none' && (
-                    <span className="text-slate-400 italic text-[11px]">—</span>
-                  )}
-                </td>
-
-                {/* 8. Next Action */}
-                <td className="py-2.5 px-3 max-w-[200px]">
-                  {lead.next_action ? (
-                    <div
-                      className="text-slate-700 font-medium text-[11px] truncate"
-                      title={lead.next_action}
-                    >
-                      {lead.next_action}
-                    </div>
-                  ) : (
-                    <span className="text-slate-400 italic">—</span>
-                  )}
-                </td>
-
-                {/* 9. Actions */}
-                <td className="py-2.5 px-3.5 text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
-                  <button
-                    type="button"
-                    onClick={() => onSelectLead(lead)}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-700 bg-white hover:bg-slate-100 hover:text-blue-700 border border-slate-200 rounded shadow-2xs transition-colors"
-                    title="Open edit & touchpoint drawer"
-                  >
-                    <Edit3 className="w-3 h-3 text-slate-500" />
-                    <span>Edit / Touchpoint</span>
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
