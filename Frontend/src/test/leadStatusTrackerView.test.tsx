@@ -85,9 +85,7 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
       expect(html).toContain('Mode &amp; Routing');
       expect(html).toContain('Contact Person');
       expect(html).toContain('Status');
-      expect(html).toContain('Feedback Notes');
-      expect(html).toContain('Next Follow-up');
-      expect(html).toContain('Next Action');
+      expect(html).toContain('Follow-up &amp; Cadence');
       expect(html).toContain('Actions');
     });
 
@@ -108,7 +106,6 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
       expect(html).toContain('Freehand');
       expect(html).toContain('Trith Amrania');
       expect(html).toContain('+91 98200 11223');
-      expect(html).toContain('Competitive rate required for 25 containers per month');
       expect(html).toContain('Send revised quotation with volume discount');
 
       // Company 2
@@ -168,7 +165,7 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
       expect(html).toContain('value="Closed / Lost"');
     });
 
-    it('renders Edit / Touchpoint action button on each row', () => {
+    it('renders detail action button on each row', () => {
       const html = renderToString(
         <LeadTrackerTable
           leads={mockLeads}
@@ -176,7 +173,7 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
         />
       );
 
-      expect(html).toContain('Edit / Touchpoint');
+      expect(html).toContain('aria-label="Open lead details for Royal Arc Steels"');
     });
 
     it('renders empty state when leads array is empty', () => {
@@ -408,6 +405,17 @@ describe('Lead Status Tracker (Phase 2) Component Suite', () => {
       expect(html).toContain('Overdue Only');
       expect(html).toContain('Search Lead / Shipper');
       expect(html).toContain('Add Lead');
+    });
+
+    it('renders segmented switcher for Table View vs Pipeline Board', () => {
+      const html = renderToString(<LeadStatusTrackerView />);
+
+      expect(html).toContain('data-testid="view-toggle-table"');
+      expect(html).toContain('Table View');
+      expect(html).toContain('data-testid="view-toggle-kanban"');
+      expect(html).toContain('Pipeline Board');
+      expect(html).not.toContain('Freight Horizon');
+      expect(html).not.toContain('view-toggle-gantt');
     });
   });
 

@@ -8,8 +8,8 @@ import {
   Plus,
   RefreshCw,
   TrendingUp,
-  Table as TableIcon,
-  CalendarRange,
+  LayoutList,
+  Columns3,
 } from 'lucide-react';
 import {
   LeadTrackerFilterParams,
@@ -25,7 +25,7 @@ import {
   TRACKER_UPDATED_EVENT,
 } from '@/services/leadTrackerService';
 import { LeadTrackerTable } from './LeadTrackerTable';
-import { LeadTrackerGantt } from './LeadTrackerGantt';
+import { LeadTrackerKanban } from './LeadTrackerKanban';
 import { LeadTrackerDrawer } from './LeadTrackerDrawer';
 import { LeadTrackerFilterSidebar } from './LeadTrackerFilterSidebar';
 
@@ -75,8 +75,8 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
   const [isOverdueOnly, setIsOverdueOnly] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // View mode switcher: Table View vs Freight Horizon (Gantt)
-  const [viewMode, setViewMode] = useState<'table' | 'gantt'>('table');
+  // View mode switcher: Table View vs Pipeline Board (Kanban)
+  const [viewMode, setViewMode] = useState<'table' | 'kanban'>('table');
 
   // Sorting state
   const [sortBy, setSortBy] = useState<string>('updated_at');
@@ -345,23 +345,23 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <TableIcon className="w-3.5 h-3.5" />
+                <LayoutList className="w-3.5 h-3.5" />
                 <span>Table View</span>
               </button>
               <button
                 type="button"
                 role="tab"
-                data-testid="view-toggle-gantt"
-                aria-selected={viewMode === 'gantt'}
-                onClick={() => setViewMode('gantt')}
+                data-testid="view-toggle-kanban"
+                aria-selected={viewMode === 'kanban'}
+                onClick={() => setViewMode('kanban')}
                 className={`px-3 py-1 rounded-md transition-all flex items-center gap-1.5 cursor-pointer ${
-                  viewMode === 'gantt'
-                    ? 'bg-blue-600 text-white font-semibold shadow-2xs'
+                  viewMode === 'kanban'
+                    ? 'bg-white text-slate-900 font-semibold shadow-2xs'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <CalendarRange className="w-3.5 h-3.5" />
-                <span>Freight Horizon (Gantt)</span>
+                <Columns3 className="w-3.5 h-3.5" />
+                <span>Pipeline Board</span>
               </button>
             </div>
           </div>
@@ -486,10 +486,11 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
               }
             />
           ) : (
-            <LeadTrackerGantt
+            <LeadTrackerKanban
               leads={leads}
               isLoading={isLoading}
               onSelectLead={handleSelectLead}
+              onStatusChange={handleInlineStatusChange}
               todayStr={todayStr}
               emptyStateAction={
                 <button
