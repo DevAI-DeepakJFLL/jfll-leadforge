@@ -15,8 +15,8 @@ import {
   Globe,
   Loader2,
   UserCheck,
-  Phone,
-  Mail,
+  ChevronUp,
+  ChevronDown,
 } from 'lucide-react';
 import { ClientReportData, ClientReportExportPayload, ContactItem, ReportCompanySuggestion } from '@/types/report';
 import {
@@ -370,6 +370,17 @@ export const ReportView: React.FC<ReportViewProps> = ({
     setReport((prev) => {
       const nextContacts = (prev.section_4_contacts || []).filter((_, i) => i !== idx);
       return { ...prev, section_4_contacts: nextContacts };
+    });
+  };
+
+  const moveContact = (idx: number, direction: 'up' | 'down') => {
+    setReport((prev) => {
+      const list = [...(prev.section_4_contacts || [])];
+      const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
+      if (targetIdx < 0 || targetIdx >= list.length) return prev;
+      const [moved] = list.splice(idx, 1);
+      list.splice(targetIdx, 0, moved);
+      return { ...prev, section_4_contacts: list };
     });
   };
 
@@ -907,72 +918,6 @@ export const ReportView: React.FC<ReportViewProps> = ({
             </div>
           )}
 
-          {/* Actionable Executive Outreach Callout (Sales-Verified Contacts) */}
-          {verifiedContacts.length > 0 && !removedSections.has(4) && (
-            <div className="mb-8 p-4 rounded-xl bg-gradient-to-r from-emerald-50/90 via-teal-50/50 to-slate-50 border border-emerald-200/90 shadow-2xs">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 pb-2.5 border-b border-emerald-200/60">
-                <div className="flex items-center gap-2.5">
-                  <span className="p-1.5 rounded-lg bg-emerald-600 text-white shadow-2xs">
-                    <UserCheck className="w-4 h-4" />
-                  </span>
-                  <div>
-                    <h3 className="text-xs font-bold text-emerald-950 uppercase tracking-wider flex items-center gap-2">
-                      <span>Actionable Executive Outreach</span>
-                      <span className="bg-emerald-100 text-emerald-800 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-emerald-300">
-                        {`${verifiedContacts.length} Verified Contact${verifiedContacts.length > 1 ? 's' : ''}`}
-                      </span>
-                    </h3>
-                    <p className="text-[11px] text-emerald-800/80">
-                      Direct contact details prioritized for immediate sales outreach and executive engagement.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
-                {verifiedContacts.map((contact, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 rounded-lg bg-white/95 border border-emerald-200 shadow-2xs flex flex-col justify-between"
-                  >
-                    <div className="mb-2">
-                      <div className="flex items-start justify-between gap-1">
-                        <div className="font-bold text-xs text-slate-900 truncate">
-                          {contact.name || 'Unnamed Contact'}
-                        </div>
-                        {contact.is_manually_edited && (
-                          <span className="shrink-0 text-[9px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
-                            Sales Verified
-                          </span>
-                        )}
-                      </div>
-                      <div className="text-[11px] text-slate-600 truncate">
-                        {contact.designation || 'Decision-Maker'}
-                      </div>
-                    </div>
-                    <div className="space-y-1 text-[11px]">
-                      {contact.phone && (
-                        <div className="flex items-center gap-1.5 text-slate-800 font-mono font-medium">
-                          <Phone className="w-3 h-3 text-emerald-600 shrink-0" />
-                          <a href={`tel:${contact.phone}`} className="hover:underline hover:text-emerald-700">
-                            {contact.phone}
-                          </a>
-                        </div>
-                      )}
-                      {contact.email && (
-                        <div className="flex items-center gap-1.5 text-slate-700 truncate">
-                          <Mail className="w-3 h-3 text-blue-600 shrink-0" />
-                          <a href={`mailto:${contact.email}`} className="hover:underline hover:text-blue-700 truncate">
-                            {contact.email}
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Section 1: Company Background */}
           {!removedSections.has(1) && report.section_1_background && (
             <section className="mb-8">
@@ -1208,11 +1153,12 @@ export const ReportView: React.FC<ReportViewProps> = ({
                   <table className="w-full border-collapse">
                     <thead>
                       <tr className="bg-slate-100/90 border-b border-slate-300 text-slate-700">
-                        <th className="p-2.5 text-left font-bold w-[22%]">Name</th>
-                        <th className="p-2.5 text-left font-bold w-[22%]">Designation / Role</th>
-                        <th className="p-2.5 text-left font-bold w-[18%]">Phone</th>
-                        <th className="p-2.5 text-left font-bold w-[20%]">Email ID</th>
-                        <th className="p-2.5 text-left font-bold w-[18%]">Notes / Provenance</th>
+                        <th className="p-2.5 text-center font-bold w-16" title="Approach Priority Order">Priority</th>
+                        <th className="p-2.5 text-left font-bold w-[20%]">Name</th>
+                        <th className="p-2.5 text-left font-bold w-[20%]">Designation / Role</th>
+                        <th className="p-2.5 text-left font-bold w-[16%]">Phone</th>
+                        <th className="p-2.5 text-left font-bold w-[18%]">Email ID</th>
+                        <th className="p-2.5 text-left font-bold w-[16%]">Notes / Provenance</th>
                         <th className="p-2.5 text-center font-bold w-10 print:hidden">
                           <span className="sr-only">Actions</span>
                         </th>
@@ -1224,10 +1170,42 @@ export const ReportView: React.FC<ReportViewProps> = ({
                           key={idx}
                           className={`transition-colors ${
                             contact.is_manually_edited
-                              ? 'bg-emerald-50/50 hover:bg-emerald-50/80 border-l-4 border-l-emerald-500'
+                              ? 'bg-emerald-50/70 hover:bg-emerald-50/90 border-l-4 border-l-emerald-600'
                               : 'hover:bg-slate-50/60 even:bg-slate-50/50'
                           }`}
                         >
+                          <td className="p-1.5 text-center align-middle whitespace-nowrap">
+                            <div className="flex items-center justify-center gap-1">
+                              <span
+                                className="inline-flex items-center justify-center w-6 h-5 rounded bg-slate-100 text-slate-700 font-bold text-[11px] border border-slate-300"
+                                title={`Priority #${idx + 1}`}
+                              >
+                                #{idx + 1}
+                              </span>
+                              <div className="flex flex-col print:hidden">
+                                <button
+                                  type="button"
+                                  disabled={idx === 0}
+                                  onClick={() => moveContact(idx, 'up')}
+                                  className="p-0.5 text-slate-400 hover:text-blue-600 disabled:opacity-20 disabled:hover:text-slate-400 cursor-pointer disabled:cursor-not-allowed transition-colors"
+                                  title="Move up priority"
+                                  aria-label={`Move contact ${contact.name || idx + 1} up priority`}
+                                >
+                                  <ChevronUp className="w-3 h-3" />
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={idx === (report.section_4_contacts || []).length - 1}
+                                  onClick={() => moveContact(idx, 'down')}
+                                  className="p-0.5 text-slate-400 hover:text-blue-600 disabled:opacity-20 disabled:hover:text-slate-400 cursor-pointer disabled:cursor-not-allowed transition-colors"
+                                  title="Move down priority"
+                                  aria-label={`Move contact ${contact.name || idx + 1} down priority`}
+                                >
+                                  <ChevronDown className="w-3 h-3" />
+                                </button>
+                              </div>
+                            </div>
+                          </td>
                           <td className="p-1.5">
                             <div className="flex items-center gap-1.5">
                               <input
@@ -1240,16 +1218,16 @@ export const ReportView: React.FC<ReportViewProps> = ({
                               />
                               {contact.is_manually_edited && (
                                 <span
-                                  className="shrink-0 text-[9px] font-bold text-emerald-700 bg-emerald-100/80 border border-emerald-300 px-1.5 py-0.5 rounded print:hidden"
-                                  title="Verified by sales team"
+                                  className="shrink-0 text-[9px] font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-1.5 py-0.5 rounded print:hidden"
+                                  title="Updated by sales team"
                                 >
-                                  Verified
+                                  Updated
                                 </span>
                               )}
                             </div>
                             <div className="hidden print:block p-1 text-slate-900 font-semibold">
                               {contact.name || '—'}
-                              {contact.is_manually_edited ? ' [Sales Verified]' : ''}
+                              {contact.is_manually_edited ? ' [Updated]' : ''}
                             </div>
                           </td>
                           <td className="p-1.5">

@@ -197,7 +197,7 @@ describe('ReportView Component Suite', () => {
     expect(html).not.toContain('Add Contact');
   });
 
-  it('renders Actionable Executive Outreach callout banner and flags sales-verified contacts', () => {
+  it('highlights updated contact rows in Section 4 with priority ranking and excludes separate outreach banner', () => {
     const draft = createEmptyReportDraft('Titan Laboratories Pvt Ltd');
     draft.section_4_contacts = [
       {
@@ -219,21 +219,23 @@ describe('ReportView Component Suite', () => {
 
     const html = renderToString(<ReportView initialReport={draft} />);
 
-    // Top Actionable Executive Outreach Callout Banner renders above Section 1
-    expect(html).toContain('Actionable Executive Outreach');
-    expect(html).toContain('1 Verified Contact');
-    expect(html).toContain('Direct contact details prioritized for immediate sales outreach');
-    expect(html).toContain('Sweety Theknath');
-    expect(html).toContain('Logistics Manager');
-    expect(html).toContain('+91 98200 54321');
-    expect(html).toContain('sweety@titanlab.com');
-    expect(html).toContain('Sales Verified');
+    // Top separate outreach block dropped
+    expect(html).not.toContain('Actionable Executive Outreach');
 
-    // Section 4 header has Sales Verified count badge
+    // Section 4 in place as-is
+    expect(html).toContain('4 · Decision-Makers / Logistics Contacts');
     expect(html).toContain('1 Sales Verified');
 
-    // Contact row has Verified badge and highlight class
-    expect(html).toContain('title="Verified by sales team"');
-    expect(html).toContain('border-l-emerald-500');
+    // Section 4 table has Priority column & badges
+    expect(html).toContain('title="Approach Priority Order">Priority</th>');
+    expect(html).toContain('#1');
+    expect(html).toContain('#2');
+    expect(html).toContain('aria-label="Move contact Sweety Theknath up priority"');
+    expect(html).toContain('aria-label="Move contact Sweety Theknath down priority"');
+
+    // Updated contact row highlighted directly in Section 4 table
+    expect(html).toContain('border-l-emerald-600');
+    expect(html).toContain('title="Updated by sales team"');
+    expect(html).toContain('Updated');
   });
 });
