@@ -14,6 +14,7 @@ import {
   getRateValidityInfo,
   getTrackedLeadByCompanyOrId,
   getTrackerCachedItem,
+  isOfflineNetworkError,
   logTrackerActivity,
   resetTrackerLocalCache,
   seedTrackerLocalCacheForTesting,
@@ -659,6 +660,113 @@ describe('Lead Tracker Service Suite', () => {
 
       // Unmatched returns undefined
       expect(getTrackedLeadByCompanyOrId('Unknown Enterprise', 'nonexistent')).toBeUndefined();
+    });
+
+    it('distinguishes genuine offline network errors from HTTP server status errors', () => {
+      // Offline network errors
+      expect(isOfflineNetworkError(new TypeError('Failed to fetch'))).toBe(true);
+      expect(isOfflineNetworkError(new Error('Network offline or backend down'))).toBe(true);
+      expect(isOfflineNetworkError(new Error('ECONNREFUSED'))).toBe(true);
+
+      // HTTP status errors
+      const http403 = new Error('Only coordinators and administrators can reassign leads');
+      (http403 as any).status = 403;
+      (http403 as any).isHttpError = true;
+      expect(isOfflineNetworkError(http403)).toBe(false);
+
+      const http422 = new Error('Unprocessable Entity');
+      (http422 as any).status = 422;
+      (http422 as any).isHttpError = true;
+      expect(isOfflineNetworkError(http422)).toBe(false);
+
+      const http500 = new Error('Internal Server Error');
+      (http500 as any).status = 500;
+      (http500 as any).isHttpError = true;
+      expect(isOfflineNetworkError(http500)).toBe(false);
+    });
+
+    it('createTrackedLead throws HTTP 403 Forbidden with server detail and does NOT swallow into cache', async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 403,
+        statusText: 'Forbidden',
+        json: async () => ({ detail: 'Only coordinators and administrators can reassign leads' }),
+      });
+
+      await expect(
+        createTrackedLead({
+          company_name: 'Forbidden Cargo Ltd',
+          assigned_to: 'Priyanka Sardesai',
+          branch: 'Mumbai',
+        })
+      ).rejects.toThrow('Only coordinators and administrators can reassign leads');
+
+      // Cache must NOT contain Forbidden Cargo Ltd
+      expect(getTrackedLeadByCompanyOrId('Forbidden Cargo Ltd')).toBeUndefined();
+    });
+
+    it('updateTrackedLead throws HTTP 403 with server detail and preserves original cache state', async () => {
+      const initialLead = {
+        ...MOCK_TRACKER_STARTER_LEADS[0],
+        id: 'trk_reassign_test',
+        assigned_to: 'Edward',
+        status: 'Assigned' as const,
+      };
+      setTrackerCachedItems([initialLead]);
+
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 403,
+        statusText: 'Forbidden',
+        json: async () => ({ detail: 'Only coordinators and administrators can reassign leads' }),
+      });
+
+      await expect(
+        updateTrackedLead('trk_reassign_test', {
+          assigned_to: 'Alexander',
+          assigned_by: 'Unauthorized Rep',
+        })
+      ).rejects.toThrow('Only coordinators and administrators can reassign leads');
+
+      // Cache must NOT have been updated
+      const preserved = getTrackerCachedItem('trk_reassign_test');
+      expect(preserved?.assigned_to).toBe('Edward');
+    });
+
+    it('logTrackerActivity throws HTTP 422 with validation detail and does NOT update local history', async () => {
+      const initialLead = {
+        ...MOCK_TRACKER_STARTER_LEADS[0],
+        id: 'trk_act_test',
+        history: [],
+      };
+      setTrackerCachedItems([initialLead]);
+
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 422,
+        statusText: 'Unprocessable Entity',
+        json: async () => ({ detail: 'Action type is invalid or deprecated' }),
+      });
+
+      await expect(
+        logTrackerActivity('trk_act_test', {
+          action: 'Invalid Action' as any,
+          notes: 'Test note',
+        })
+      ).rejects.toThrow('Action type is invalid or deprecated');
+
+      expect(getTrackerCachedItem('trk_act_test')?.history).toHaveLength(0);
+    });
+
+    it('fetchTrackedLeads throws HTTP 401 Unauthorized directly rather than masking with local fallback', async () => {
+      global.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 401,
+        statusText: 'Unauthorized',
+        json: async () => ({ detail: 'Session expired or invalid credentials' }),
+      });
+
+      await expect(fetchTrackedLeads()).rejects.toThrow('Session expired or invalid credentials');
     });
   });
 });

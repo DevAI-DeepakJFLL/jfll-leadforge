@@ -923,5 +923,55 @@ describe('Sales Approach & Active Conversion Suite', () => {
       expect(persisted?.company_statuses['starlight global']).toBe('In Progress');
       expect(persisted?.company_notes['starlight global']).toBe('Meeting conducted with operations team');
     });
+
+    it('logApproachActivity throws HTTP 403 Forbidden with server detail without caching to localStorage', async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 403,
+        statusText: 'Forbidden',
+        json: async () => ({ detail: 'Only coordinators and administrators can log activity for this lead' }),
+      } as unknown as Response);
+
+      try {
+        await expect(
+          logApproachActivity('jfll_customer', 'cust_err_403', {
+            action: 'Called customer',
+            status: 'Contacted',
+            note: 'Tried outreach',
+          })
+        ).rejects.toThrow('Only coordinators and administrators can log activity for this lead');
+
+        // Confirm outbox does NOT contain this rejected item
+        const outbox = getPendingOutbox();
+        expect(outbox.some((item) => item.entityId === 'cust_err_403')).toBe(false);
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
+
+    it('convertClientToActive throws HTTP 403 Forbidden with server detail without caching to localStorage', async () => {
+      const originalFetch = globalThis.fetch;
+      globalThis.fetch = vi.fn().mockResolvedValue({
+        ok: false,
+        status: 403,
+        statusText: 'Forbidden',
+        json: async () => ({ detail: 'Permission denied: Coordinator role required for active conversion' }),
+      } as unknown as Response);
+
+      try {
+        await expect(
+          convertClientToActive('jfll_customer', 'cust_convert_403', {
+            start_date: '2026-12-01',
+            note: 'Contract executed',
+          })
+        ).rejects.toThrow('Permission denied: Coordinator role required for active conversion');
+
+        const outbox = getPendingOutbox();
+        expect(outbox.some((item) => item.entityId === 'cust_convert_403')).toBe(false);
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
   });
 });

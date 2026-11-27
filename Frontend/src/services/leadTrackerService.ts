@@ -34,6 +34,68 @@ export const LEGACY_TRACKER_CACHE_STORAGE_KEY = 'jfll_lead_tracker_cache_v1';
 export const TRACKER_UPDATED_EVENT = 'jfll-tracker-lead-updated';
 
 /**
+ * Distinguishes genuine offline network errors (!navigator.onLine or TypeError: Failed to fetch)
+ * vs HTTP status errors (401, 403, 404, 422, 500) returned from the backend.
+ */
+export function isOfflineNetworkError(err: unknown): boolean {
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+    return true;
+  }
+  if (err instanceof Error) {
+    if ((err as any).isHttpError || (err as any).status !== undefined) {
+      return false;
+    }
+    const msg = err.message.toLowerCase();
+    if (
+      err.name === 'TypeError' ||
+      msg === 'offline' ||
+      msg.includes('offline') ||
+      msg.includes('failed to fetch') ||
+      msg.includes('networkerror') ||
+      msg.includes('load failed') ||
+      msg.includes('econnrefused')
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Extracts human-readable error detail message from a Fetch Response.
+ */
+export async function extractResponseErrorDetail(response: Response, fallbackMessage: string): Promise<string> {
+  try {
+    const data = await response.json();
+    if (data) {
+      if (typeof data.detail === 'string') return data.detail;
+      if (Array.isArray(data.detail)) {
+        return data.detail.map((e: any) => e.msg || JSON.stringify(e)).join(', ');
+      }
+      if (typeof data.message === 'string') return data.message;
+      if (typeof data.error === 'string') return data.error;
+    }
+  } catch {
+    try {
+      const text = await response.text();
+      if (text && text.trim().length > 0 && text.length < 300) {
+        return text.trim();
+      }
+    } catch {
+      // Ignore text extraction failure
+    }
+  }
+  return response.statusText || fallbackMessage;
+}
+
+function createHttpError(status: number, message: string): Error {
+  const error = new Error(message);
+  (error as any).status = status;
+  (error as any).isHttpError = true;
+  return error;
+}
+
+/**
  * Standard sales rep email mappings derived directly from the unified sales rep list.
  */
 export const SALES_REP_EMAILS: Record<string, string> = {
@@ -484,7 +546,11 @@ export async function fetchTrackedLeads(
     });
 
     if (!response.ok) {
-      throw new Error(`Lead Tracker API returned HTTP ${response.status}`);
+      const errorDetail = await extractResponseErrorDetail(
+        response,
+        `Lead Tracker API returned HTTP ${response.status}`
+      );
+      throw createHttpError(response.status, errorDetail);
     }
 
     const data: LeadTrackerItem[] = await response.json();
@@ -511,6 +577,9 @@ export async function fetchTrackedLeads(
 
     return data;
   } catch (err) {
+    if (!isOfflineNetworkError(err)) {
+      throw err;
+    }
     logger.warn('LEAD_TRACKER_SERVICE', 'Failed to fetch live tracked leads, using local fallback', {
       error: String(err),
     });
@@ -568,7 +637,16 @@ export async function fetchTrackedLeadById(id: string): Promise<LeadTrackerItem>
       persistCache();
       return data;
     }
+
+    const errorDetail = await extractResponseErrorDetail(
+      response,
+      `Lead Tracker API returned HTTP ${response.status}`
+    );
+    throw createHttpError(response.status, errorDetail);
   } catch (err) {
+    if (!isOfflineNetworkError(err)) {
+      throw err;
+    }
     logger.debug('LEAD_TRACKER_SERVICE', `Fetch lead '${id}' failed, checking local cache`, {
       error: String(err),
     });
@@ -584,7 +662,7 @@ export async function fetchTrackedLeadById(id: string): Promise<LeadTrackerItem>
 
 /**
  * Creates and assigns a new tracked lead.
- * Persists optimistically to local cache on network error.
+ * Persists optimistically to local cache on genuine network error.
  */
 export async function createTrackedLead(
   payload: LeadTrackerCreatePayload
@@ -606,7 +684,16 @@ export async function createTrackedLead(
       notifyTrackerLeadUpdated(created);
       return created;
     }
+
+    const errorDetail = await extractResponseErrorDetail(
+      response,
+      `Lead Tracker create API returned HTTP ${response.status}`
+    );
+    throw createHttpError(response.status, errorDetail);
   } catch (err) {
+    if (!isOfflineNetworkError(err)) {
+      throw err;
+    }
     logger.warn('LEAD_TRACKER_SERVICE', 'Backend unavailable, creating tracked lead locally', {
       error: String(err),
     });
@@ -689,7 +776,16 @@ export async function updateTrackedLead(
       notifyTrackerLeadUpdated(updated);
       return updated;
     }
+
+    const errorDetail = await extractResponseErrorDetail(
+      response,
+      `Lead Tracker update API returned HTTP ${response.status}`
+    );
+    throw createHttpError(response.status, errorDetail);
   } catch (err) {
+    if (!isOfflineNetworkError(err)) {
+      throw err;
+    }
     logger.warn('LEAD_TRACKER_SERVICE', `Backend unavailable, updating lead '${id}' locally`, {
       error: String(err),
     });
@@ -799,7 +895,16 @@ export async function logTrackerActivity(
       notifyTrackerLeadUpdated(updated);
       return updated;
     }
+
+    const errorDetail = await extractResponseErrorDetail(
+      response,
+      `Lead Tracker activity API returned HTTP ${response.status}`
+    );
+    throw createHttpError(response.status, errorDetail);
   } catch (err) {
+    if (!isOfflineNetworkError(err)) {
+      throw err;
+    }
     logger.warn('LEAD_TRACKER_SERVICE', `Backend unavailable, logging activity for '${id}' locally`, {
       error: String(err),
     });
@@ -860,7 +965,16 @@ export async function deleteTrackedLead(id: string): Promise<boolean> {
       persistCache();
       return true;
     }
+
+    const errorDetail = await extractResponseErrorDetail(
+      response,
+      `Lead Tracker delete API returned HTTP ${response.status}`
+    );
+    throw createHttpError(response.status, errorDetail);
   } catch (err) {
+    if (!isOfflineNetworkError(err)) {
+      throw err;
+    }
     logger.warn('LEAD_TRACKER_SERVICE', `Backend unavailable, deleting lead '${id}' locally`, {
       error: String(err),
     });

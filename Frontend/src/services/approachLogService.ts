@@ -499,10 +499,16 @@ interface LocalStorageRecord {
   logs: ApproachLogEntry[];
 }
 
-function isNetworkError(err: unknown): boolean {
+export function isNetworkError(err: unknown): boolean {
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+    return true;
+  }
   if (!(err instanceof Error)) return false;
+  if ((err as any).isHttpError || (err as any).status !== undefined) return false;
   const msg = err.message.toLowerCase();
   return (
+    msg === 'offline' ||
+    msg.includes('offline') ||
     msg.includes('fetch') ||
     msg.includes('network') ||
     msg.includes('econnrefused') ||
@@ -670,9 +676,22 @@ export async function logApproachActivity(
     }
 
     const errJson = await res.json().catch(() => ({}));
-    throw new Error(errJson.detail || 'Failed to log approach activity.');
+    const detail =
+      (typeof errJson?.detail === 'string' ? errJson.detail : null) ||
+      (Array.isArray(errJson?.detail) ? errJson.detail.map((e: any) => e.msg || JSON.stringify(e)).join(', ') : null) ||
+      errJson?.message ||
+      res.statusText ||
+      'Failed to log approach activity.';
+    const httpErr = new Error(detail);
+    (httpErr as any).status = res.status;
+    (httpErr as any).isHttpError = true;
+    throw httpErr;
   } catch (err: unknown) {
-    if (err instanceof Error && !isNetworkError(err)) {
+    if (err instanceof Error) {
+      if ((err as any).isHttpError || !isNetworkError(err)) {
+        throw err;
+      }
+    } else {
       throw err;
     }
 
@@ -767,9 +786,22 @@ export async function convertClientToActive(
     }
 
     const errJson = await res.json().catch(() => ({}));
-    throw new Error(errJson.detail || 'Failed to convert client to active.');
+    const detail =
+      (typeof errJson?.detail === 'string' ? errJson.detail : null) ||
+      (Array.isArray(errJson?.detail) ? errJson.detail.map((e: any) => e.msg || JSON.stringify(e)).join(', ') : null) ||
+      errJson?.message ||
+      res.statusText ||
+      'Failed to convert client to active.';
+    const httpErr = new Error(detail);
+    (httpErr as any).status = res.status;
+    (httpErr as any).isHttpError = true;
+    throw httpErr;
   } catch (err: unknown) {
-    if (err instanceof Error && !isNetworkError(err)) {
+    if (err instanceof Error) {
+      if ((err as any).isHttpError || !isNetworkError(err)) {
+        throw err;
+      }
+    } else {
       throw err;
     }
 

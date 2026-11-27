@@ -157,6 +157,30 @@ export const LeadStatusTrackerView: React.FC<LeadStatusTrackerViewProps> = ({
     }
   }, [loadTrackerData]);
 
+  // Multi-user team synchronization: 30-second background cadence & tab visibility refocus
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const intervalId = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadTrackerData(true);
+      }
+    }, 30000);
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        loadTrackerData(true);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      clearInterval(intervalId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [loadTrackerData]);
+
   // Handlers for drawer actions
   const handleOpenAddLead = () => {
     setSelectedLead(null);
