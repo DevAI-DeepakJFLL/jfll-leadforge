@@ -2,11 +2,9 @@ import { describe, it, expect } from 'vitest';
 import { renderToString } from 'react-dom/server';
 import {
   buildTimelineTracks,
-  buildSankeyData,
   extractTemperature,
 } from '@/data/commodityVisualData';
 import { CommoditySwimlaneTimeline } from '@/components/commodities/CommoditySwimlaneTimeline';
-import { CommodityCorridorSankey } from '@/components/commodities/CommodityCorridorSankey';
 import { CommodityRadarView } from '@/components/commodities/CommodityRadarView';
 
 describe('Commodity Visual Data Engine', () => {
@@ -60,27 +58,6 @@ describe('Commodity Visual Data Engine', () => {
     const queryTracks = buildTimelineTracks('ALL', 'all', 'Grapes');
     const totalBars = queryTracks.reduce((acc, t) => acc + t.bars.length, 0);
     expect(totalBars).toBeGreaterThan(0);
-  });
-
-  it('buildSankeyData compiles valid multi-stage nodes and links without cycles', () => {
-    const data = buildSankeyData(11, 'ALL');
-    expect(data.nodes.length).toBeGreaterThan(0);
-    expect(data.links.length).toBeGreaterThan(0);
-
-    // Verify 4 distinct categories exist
-    const categories = new Set(data.nodes.map((n) => n.category));
-    expect(categories.has('hub')).toBe(true);
-    expect(categories.has('equipment')).toBe(true);
-    expect(categories.has('commodity')).toBe(true);
-    expect(categories.has('corridor')).toBe(true);
-
-    // Verify every link has valid source and target matching node IDs
-    const nodeIds = new Set(data.nodes.map((n) => n.id));
-    data.links.forEach((link) => {
-      expect(nodeIds.has(link.source as string)).toBe(true);
-      expect(nodeIds.has(link.target as string)).toBe(true);
-      expect(link.value).toBeGreaterThan(0);
-    });
   });
 });
 
@@ -140,59 +117,10 @@ describe('CommoditySwimlaneTimeline Component', () => {
   });
 });
 
-describe('CommodityCorridorSankey Component', () => {
-  it('renders SVG canvas, column headers, nodes, and flow ribbons', () => {
-    const html = renderToString(
-      <CommodityCorridorSankey
-        selectedMonth={11}
-        selectedHub="ALL"
-        onMonthChange={() => {}}
-        onHubChange={() => {}}
-      />
-    );
-
-    expect(html).toContain('Multi-Tier Freight Corridor Flow (Sankey)');
-    expect(html).toContain('Indian Gateways');
-    expect(html).toContain('Equipment &amp; Mode');
-    expect(html).toContain('Surging Commodities');
-    expect(html).toContain('Global Corridors');
-
-    // SVG elements present
-    expect(html).toContain('<svg');
-    expect(html).toContain('viewBox="0 0 920 440"');
-    expect(html).toContain('class="links"');
-    expect(html).toContain('class="nodes"');
-
-    // Key corridors and equipment
-    expect(html).toContain('Middle East / GCC');
-    expect(html).toContain('Europe / UK');
-    expect(html).toContain('Active Month: November');
-  });
-
-  it('renders filtered hub sankey view', () => {
-    const html = renderToString(
-      <CommodityCorridorSankey
-        selectedMonth={1}
-        selectedHub="BOM"
-        onMonthChange={() => {}}
-        onHubChange={() => {}}
-      />
-    );
-
-    expect(html).toContain('BOM · Mumbai');
-    expect(html).toContain('Reset to All 8 Hubs');
-  });
-});
-
-describe('CommodityRadarView Hybrid Presentation Switcher', () => {
-  it('allows switching between Swimlane Timeline and Trade Flow Sankey modes', () => {
+describe('CommodityRadarView Visual Presentation', () => {
+  it('renders Seasonal Swimlane Timeline directly without trade flow sankey', () => {
     const html = renderToString(<CommodityRadarView />);
-
-    // Switcher buttons
-    expect(html).toContain('Seasonal Timeline (Swimlane)');
-    expect(html).toContain('Trade Flow (Sankey)');
-
-    // Default mode is timeline
     expect(html).toContain('Annual Freight Commodity Swimlane');
+    expect(html).not.toContain('Trade Flow (Sankey)');
   });
 });

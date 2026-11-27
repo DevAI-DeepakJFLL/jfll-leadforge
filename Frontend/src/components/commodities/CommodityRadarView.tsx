@@ -20,9 +20,7 @@ import {
   Flame,
   ArrowRight,
   Thermometer,
-  Calendar,
   Globe,
-  GitFork,
 } from 'lucide-react';
 import {
   MonthlyRecord,
@@ -36,7 +34,6 @@ import {
 } from '@/data/freightCommoditiesData';
 import { CommodityDetailDrawer } from './CommodityDetailDrawer';
 import { CommoditySwimlaneTimeline } from './CommoditySwimlaneTimeline';
-import { CommodityCorridorSankey } from './CommodityCorridorSankey';
 
 export interface CommodityRadarViewProps {
   initialMonth?: number;
@@ -116,9 +113,6 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>(initialSearchQuery || '');
   const [viewMode, setViewMode] = useState<'cards' | 'matrix'>('cards');
   const [urgencyFilter, setUrgencyFilter] = useState<'all' | 'active' | 'upcoming'>('all');
-
-  // Interactive visual presentation: 'timeline' (Seasonal Swimlane) or 'sankey' (Trade Flow)
-  const [visualMode, setVisualMode] = useState<'timeline' | 'sankey'>('timeline');
 
   // Selected record for the right-side detail drawer
   const [drawerRecord, setDrawerRecord] = useState<MonthlyRecord | null>(null);
@@ -663,65 +657,16 @@ export const CommodityRadarView: React.FC<CommodityRadarViewProps> = ({
           </div>
         )}
 
-        {/* HYBRID VISUAL RADAR: Interactive Seasonal Swimlane Timeline & Trade Flow Sankey */}
-        <div className="space-y-2">
-          {/* View Switcher Controls */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => setVisualMode('timeline')}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
-                  visualMode === 'timeline'
-                    ? 'bg-white text-blue-700 shadow-2xs font-bold border border-slate-200/80'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-                }`}
-              >
-                <Calendar className="w-3.5 h-3.5 text-blue-600" />
-                <span>Seasonal Timeline (Swimlane)</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setVisualMode('sankey')}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
-                  visualMode === 'sankey'
-                    ? 'bg-white text-indigo-700 shadow-2xs font-bold border border-slate-200/80'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
-                }`}
-              >
-                <GitFork className="w-3.5 h-3.5 text-indigo-600" />
-                <span>Trade Flow (Sankey)</span>
-              </button>
-            </div>
-
-            <div className="text-[11px] font-medium text-slate-500 px-2 hidden md:inline">
-              {visualMode === 'timeline'
-                ? 'Chronological 12-month harvest surges, booking lead windows & cold-chain regimes'
-                : 'End-to-end multi-tier logistics pathways from Indian Gateways to Global Corridors'}
-            </div>
-          </div>
-
-          {/* Active Visualization Mode */}
-          {visualMode === 'timeline' ? (
-            <CommoditySwimlaneTimeline
-              selectedMonth={selectedMonth}
-              selectedHub={selectedHub}
-              onMonthChange={handleMonthChange}
-              onHubChange={handleHubChange}
-              onSelectRecord={(rec) => setDrawerRecord(rec)}
-              urgencyFilter={urgencyFilter}
-              searchQuery={searchQuery}
-            />
-          ) : (
-            <CommodityCorridorSankey
-              selectedMonth={selectedMonth}
-              selectedHub={selectedHub}
-              onMonthChange={handleMonthChange}
-              onHubChange={handleHubChange}
-              onSelectCommodity={(comm) => setSearchQuery(comm.split(' ')[0])}
-            />
-          )}
-        </div>
+        {/* Seasonal Swimlane Timeline */}
+        <CommoditySwimlaneTimeline
+          selectedMonth={selectedMonth}
+          selectedHub={selectedHub}
+          onMonthChange={handleMonthChange}
+          onHubChange={handleHubChange}
+          onSelectRecord={(rec) => setDrawerRecord(rec)}
+          urgencyFilter={urgencyFilter}
+          searchQuery={searchQuery}
+        />
 
         {/* VISUALISATION 2 & 3: Regional Demand Matrix + Global Trade Corridor Radar */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">

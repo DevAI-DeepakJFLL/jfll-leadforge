@@ -355,15 +355,14 @@ describe('CommodityRadarView Component Suite', () => {
     expect(html).toContain('Basmati Rice');
   });
 
-  it('renders Annual Freight Commodity Swimlane, Trade Flow Sankey switcher, and Global Corridors', () => {
+  it('renders Annual Freight Commodity Swimlane and Global Corridors', () => {
     const html = renderToString(<CommodityRadarView />);
 
-    // Hybrid Visual Radar controls
-    expect(html).toContain('Seasonal Timeline (Swimlane)');
-    expect(html).toContain('Trade Flow (Sankey)');
+    // Visual Radar Swimlane Timeline
     expect(html).toContain('Annual Freight Commodity Swimlane');
     expect(html).toContain('Active Peak Surge');
     expect(html).toContain('Lead Booking Window');
+    expect(html).not.toContain('Trade Flow (Sankey)');
 
     // Global Trade Corridors & Multi-Modal Flow Radar
     expect(html).toContain('Global Trade Corridors &amp; Multi-Modal Flow Radar');
