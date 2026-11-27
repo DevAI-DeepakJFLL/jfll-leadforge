@@ -430,6 +430,68 @@ def test_log_approach_auto_syncs_to_lead_tracker(tmp_path, monkeypatch):
     assert lead["feedback_notes"] == "Reefer container trial discussed"
 
 
+def test_approach_log_written_to_dsql_when_enabled(tmp_path, monkeypatch):
+    """When DSQL is enabled via dsql_client, approach logs and conversions are written to prospect_approach_logs."""
+    import sqlite3
+    from src.api import dsql_client
+    from src.api.dsql_schema import init_dsql_tables
+
+    dsql_db = tmp_path / "test_dsql_approach.db"
+    conn = sqlite3.connect(str(dsql_db), check_same_thread=False)
+    conn.row_factory = sqlite3.Row
+    init_dsql_tables(conn)
+
+    monkeypatch.setattr(dsql_client, "is_dsql_enabled", lambda: True)
+    monkeypatch.setattr(dsql_client, "get_connection", lambda: conn)
+
+    headers = _auth_header(email="snehal.birje@jfll.com", name="Snehal Birje", role="Commercial")
+
+    # 1. Standard approach activity log
+    payload = {
+        "action": "Called customer",
+        "status": "Contacted",
+        "note": "Connected with logistics manager on import rates",
+        "company_name": "DSQL Testing Logistics Ltd",
+    }
+    res = client.post("/api/v1/approach-logs/datamyne/dm_dsql_01", json=payload, headers=headers)
+    assert res.status_code == 200
+
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM prospect_approach_logs WHERE entity_id = 'dm_dsql_01'")
+    row = cur.fetchone()
+    assert row is not None
+    assert row["entity_type"] == "datamyne"
+    assert row["entity_id"] == "dm_dsql_01"
+    assert row["company_name"] == "DSQL Testing Logistics Ltd"
+    assert row["action"] == "Called customer"
+    assert row["status"] == "Contacted"
+    assert row["note"] == "Connected with logistics manager on import rates"
+    assert row["logged_by"] == "Snehal Birje"
+    assert row["logged_by_email"] == "snehal.birje@jfll.com"
+
+    # 2. Convert to active milestone log
+    convert_payload = {
+        "start_date": "2026-12-01",
+        "note": "Signed quarterly freight forwarding SLA",
+    }
+    res_conv = client.post(
+        "/api/v1/approach-logs/datamyne/dm_dsql_01/convert-to-active",
+        json=convert_payload,
+        headers=headers,
+    )
+    assert res_conv.status_code == 200
+
+    cur.execute("SELECT * FROM prospect_approach_logs WHERE entity_id = 'dm_dsql_01' AND status = 'Converted to Active'")
+    conv_row = cur.fetchone()
+    assert conv_row is not None
+    assert conv_row["action"] == "Other"
+    assert "Converted to Active" in conv_row["note"]
+    assert conv_row["logged_by_email"] == "snehal.birje@jfll.com"
+
+    conn.close()
+
+
+
 
 
 

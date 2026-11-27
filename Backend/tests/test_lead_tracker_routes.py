@@ -469,3 +469,93 @@ def test_sorting_by_updated_at_and_next_followup_date():
     leads_date = res_date.json()
     # Mega Fine (next_followup_date is None) should be at the end
     assert leads_date[-1]["next_followup_date"] is None
+
+
+# ---------------------------------------------------------------------------
+# 7. Team Collaboration & Sales Representative Permissions
+# ---------------------------------------------------------------------------
+
+def test_standard_sales_rep_can_view_leads_and_append_activity():
+    """Standard sales rep (e.g. Snehal Birje) can view team leads and append interaction logs with attribution integrity."""
+    h_rep = _auth_header(
+        email="snehal.birje@jfll.com",
+        name="Snehal Birje",
+        role="Sales Representative",
+    )
+
+    # 1. Rep can fetch unified leads list
+    res = client.get("/api/v1/lead-tracker", headers=h_rep)
+    assert res.status_code == 200
+    leads = res.json()
+    assert len(leads) >= 1
+    target_lead = leads[0]
+    lead_id = target_lead["id"]
+
+    # 2. Rep can view KPIs and lead details
+    res_kpis = client.get("/api/v1/lead-tracker/kpis", headers=h_rep)
+    assert res_kpis.status_code == 200
+    res_detail = client.get(f"/api/v1/lead-tracker/{lead_id}", headers=h_rep)
+    assert res_detail.status_code == 200
+
+    # 3. Rep can append activity with audit attribution integrity
+    payload = {
+        "action": "Client Meeting",
+        "notes": "Discussed 20TEU ocean cargo allocation for next month.",
+        "status": "Feedback Received",
+        "next_followup_date": "2026-12-15",
+        # Attempt to spoof attribution:
+        "author_email": "spoofed.admin@jfll.com",
+        "author_name": "Spoofed Admin",
+    }
+    res_act = client.post(f"/api/v1/lead-tracker/{lead_id}/activity", json=payload, headers=h_rep)
+    assert res_act.status_code == 200
+    updated = res_act.json()
+    assert updated["status"] == "Feedback Received"
+    assert updated["next_followup_date"] == "2026-12-15"
+    assert len(updated["history"]) >= 1
+
+    # Verify audit attribution integrity: strictly bound to session identity
+    latest_log = updated["history"][-1]
+    assert latest_log["author_email"] == "snehal.birje@jfll.com"
+    assert latest_log["author_name"] == "Snehal Birje"
+    assert latest_log["action"] == "Client Meeting"
+
+
+def test_standard_sales_rep_cannot_reassign_or_delete_lead():
+    """Standard sales reps cannot reassign leads or delete/archive them, but can update operational fields."""
+    h_rep = _auth_header(
+        email="snehal.birje@jfll.com",
+        name="Snehal Birje",
+        role="Sales Representative",
+    )
+
+    res = client.get("/api/v1/lead-tracker", headers=h_rep)
+    assert res.status_code == 200
+    leads = res.json()
+    assert len(leads) >= 1
+    lead_id = leads[0]["id"]
+    original_assigned_to = leads[0]["assigned_to"]
+
+    # 1. Attempt to reassign lead -> 403 Forbidden
+    res_reassign = client.patch(
+        f"/api/v1/lead-tracker/{lead_id}",
+        json={"assigned_to": "Another Sales Coordinator"},
+        headers=h_rep,
+    )
+    assert res_reassign.status_code == 403
+    assert "Only coordinators and administrators can reassign leads" in res_reassign.json()["detail"]
+
+    # 2. Operational updates (status, feedback_notes, next_action) are permitted
+    res_update = client.patch(
+        f"/api/v1/lead-tracker/{lead_id}",
+        json={"feedback_notes": "Valid update from sales rep", "next_action": "Send updated tariff schedule"},
+        headers=h_rep,
+    )
+    assert res_update.status_code == 200
+    assert res_update.json()["feedback_notes"] == "Valid update from sales rep"
+    assert res_update.json()["assigned_to"] == original_assigned_to
+
+    # 3. Attempt to delete lead -> 403 Forbidden
+    res_del = client.delete(f"/api/v1/lead-tracker/{lead_id}", headers=h_rep)
+    assert res_del.status_code == 403
+    assert "coordinators and administrators" in res_del.json()["detail"]

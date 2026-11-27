@@ -370,6 +370,87 @@ def get_entity_approach_history(
                         break
 
     if not record:
+        # Check Aurora DSQL prospect_approach_logs fallback if enabled
+        try:
+            from src.api.dsql_client import is_dsql_enabled, get_connection
+            if is_dsql_enabled():
+                conn = get_connection()
+                is_sqlite = (
+                    type(conn).__module__.lower().startswith("sqlite")
+                    or hasattr(conn, "row_factory")
+                    or "sqlite" in type(conn).__name__.lower()
+                )
+                query = """
+                SELECT id, entity_type, entity_id, company_name, action, status, note,
+                       logged_by, logged_by_email, created_at
+                FROM prospect_approach_logs
+                WHERE entity_type = ? AND entity_id = ?
+                ORDER BY created_at DESC;
+                """.strip()
+                if not is_sqlite:
+                    query = query.replace("?", "%s")
+                rows = []
+                if hasattr(conn, "cursor") and callable(conn.cursor):
+                    cursor_obj = conn.cursor()
+                    if hasattr(cursor_obj, "__enter__") and hasattr(cursor_obj, "__exit__"):
+                        with cursor_obj as cur:
+                            cur.execute(query, (entity_type, entity_id))
+                            if cur.description:
+                                colnames = [d[0] for d in cur.description]
+                                for r in cur.fetchall():
+                                    rows.append(dict(r) if isinstance(r, dict) else dict(zip(colnames, r)))
+                    else:
+                        try:
+                            cursor_obj.execute(query, (entity_type, entity_id))
+                            if cursor_obj.description:
+                                colnames = [d[0] for d in cursor_obj.description]
+                                for r in cursor_obj.fetchall():
+                                    rows.append(dict(r) if isinstance(r, dict) else dict(zip(colnames, r)))
+                        finally:
+                            if hasattr(cursor_obj, "close"):
+                                cursor_obj.close()
+                elif hasattr(conn, "execute"):
+                    cur = conn.execute(query, (entity_type, entity_id))
+                    rows = [dict(r) for r in cur.fetchall()]
+
+                if rows:
+                    dsql_logs = []
+                    for r in rows:
+                        st_val = r["status"]
+                        try:
+                            st_enum = SalesStatus(st_val)
+                        except ValueError:
+                            st_enum = SalesStatus.CONTACTED
+                        act_val = r["action"]
+                        try:
+                            act_enum = SalesAction(act_val)
+                        except ValueError:
+                            act_enum = SalesAction.CALLED_CUSTOMER
+                        dsql_logs.append(
+                            ApproachLogEntry(
+                                id=r["id"],
+                                action=act_enum,
+                                previous_status=SalesStatus.NOT_CONTACTED,
+                                status=st_enum,
+                                note=r.get("note"),
+                                company_name=r.get("company_name"),
+                                salesperson_name=r.get("logged_by") or "Sales Coordinator",
+                                salesperson_email=r.get("logged_by_email") or "sales@jfll.com",
+                                created_at=str(r.get("created_at") or datetime.now(UTC).isoformat()),
+                            )
+                        )
+                    latest_status = dsql_logs[0].status
+                    is_conv = any(l.status == SalesStatus.CONVERTED_TO_ACTIVE for l in dsql_logs)
+                    return EntityApproachHistory(
+                        entity_type=entity_type,
+                        entity_id=entity_id,
+                        current_status=latest_status,
+                        is_active_converted=is_conv,
+                        logs=dsql_logs,
+                    )
+        except Exception as err:
+            logger.debug("Failed to query DSQL prospect_approach_logs fallback: %s", err)
+
         # Check SQLite lead_tracker_items fallback
         if company_name and company_name.strip():
             try:
@@ -583,6 +664,90 @@ def _sync_to_lead_tracker(
         logger.warning("Lead Tracker Sync: Failed to sync activity for %s %s: %s", entity_type, entity_id, err)
 
 
+def _write_approach_log_to_dsql(
+    log_id: str,
+    entity_type: str,
+    entity_id: str,
+    company_name: str | None,
+    action: str,
+    status: str,
+    note: str | None,
+    user_name: str,
+    user_email: str,
+    created_at: str | None = None,
+) -> bool:
+    """Writes a prospect approach log record to Aurora DSQL when enabled.
+
+    Returns True if successfully written to DSQL, False if DSQL is not enabled or on error.
+    """
+    try:
+        from src.api.dsql_client import is_dsql_enabled, get_connection
+
+        if not is_dsql_enabled():
+            return False
+
+        conn = get_connection()
+        is_sqlite = (
+            type(conn).__module__.lower().startswith("sqlite")
+            or hasattr(conn, "row_factory")
+            or "sqlite" in type(conn).__name__.lower()
+        )
+        sql = """
+        INSERT INTO prospect_approach_logs (
+            id, entity_type, entity_id, company_name,
+            action, status, note, logged_by, logged_by_email, created_at
+        ) VALUES (
+            ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?
+        ) ON CONFLICT (id) DO UPDATE SET
+            entity_type = EXCLUDED.entity_type,
+            entity_id = EXCLUDED.entity_id,
+            company_name = EXCLUDED.company_name,
+            action = EXCLUDED.action,
+            status = EXCLUDED.status,
+            note = EXCLUDED.note,
+            logged_by = EXCLUDED.logged_by,
+            logged_by_email = EXCLUDED.logged_by_email,
+            created_at = EXCLUDED.created_at;
+        """.strip()
+        params = (
+            log_id,
+            entity_type,
+            entity_id,
+            company_name or "",
+            action,
+            status,
+            note or "",
+            user_name,
+            user_email,
+            created_at or datetime.now(UTC).isoformat(),
+        )
+        if not is_sqlite:
+            sql = sql.replace("?", "%s")
+        if hasattr(conn, "cursor") and callable(conn.cursor):
+            cursor_obj = conn.cursor()
+            if hasattr(cursor_obj, "__enter__") and hasattr(cursor_obj, "__exit__"):
+                with cursor_obj as cur:
+                    cur.execute(sql, params)
+            else:
+                try:
+                    cursor_obj.execute(sql, params)
+                finally:
+                    if hasattr(cursor_obj, "close"):
+                        cursor_obj.close()
+            if hasattr(conn, "commit"):
+                conn.commit()
+        elif hasattr(conn, "execute"):
+            conn.execute(sql, params)
+            if hasattr(conn, "commit"):
+                conn.commit()
+        logger.debug("Approach Logs: Written log %s for %s %s to DSQL", log_id, entity_type, entity_id)
+        return True
+    except Exception as err:
+        logger.warning("Approach Logs: Failed to write prospect approach log to DSQL: %s", err)
+        return False
+
+
 class ApproachLogDirectRequest(BaseModel):
     entity_type: Literal["datamyne", "jfll_customer"] = "datamyne"
     entity_id: str
@@ -696,6 +861,20 @@ def log_approach_activity(
 
         save_approach_data(data, background_tasks=background_tasks)
 
+    # Persist to Aurora DSQL when enabled
+    _write_approach_log_to_dsql(
+        log_id=new_entry["id"],
+        entity_type=entity_type,
+        entity_id=entity_id,
+        company_name=payload.company_name,
+        action=payload.action.value,
+        status=target_status.value,
+        note=payload.note,
+        user_name=user_name,
+        user_email=user_email,
+        created_at=new_entry["created_at"],
+    )
+
     # Sync touchpoint to Lead Status Tracker SQLite database
     _sync_to_lead_tracker(
         entity_type=entity_type,
@@ -799,6 +978,20 @@ def convert_client_to_active(
         entity["logs"].append(new_entry)
 
         save_approach_data(data, background_tasks=background_tasks)
+
+    # Persist conversion milestone to Aurora DSQL when enabled
+    _write_approach_log_to_dsql(
+        log_id=new_entry["id"],
+        entity_type=entity_type,
+        entity_id=entity_id,
+        company_name=entity.get("company_name"),
+        action=SalesAction.OTHER.value,
+        status=SalesStatus.CONVERTED_TO_ACTIVE.value,
+        note=activation_note,
+        user_name=user_name,
+        user_email=user_email,
+        created_at=conversion_time,
+    )
 
     # Sync touchpoint to Lead Status Tracker SQLite database
     _sync_to_lead_tracker(

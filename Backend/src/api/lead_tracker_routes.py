@@ -73,6 +73,55 @@ TRACKER_ADMIN_ROLES = {
     "tech lead",
 }
 
+TRACKER_COORDINATOR_ROLES = {
+    "coordinator",
+    "sales coordinator",
+}
+
+TRACKER_ALLOWED_ROLES = {
+    "root admin",
+    "admin",
+    "leadership",
+    "tech lead",
+    "commercial lead",
+    "commercial",
+    "sales",
+    "sales representative",
+    "sales rep",
+    "sales coordinator",
+    "coordinator",
+    "sales executive",
+    "operations",
+}
+
+
+def is_tracker_admin(user: dict[str, Any]) -> bool:
+    """Checks whether the user has administrator or leadership privileges."""
+    user_email = (user.get("sub") or "").strip().lower()
+    role = (user.get("role") or "").strip().lower()
+    return (
+        user_email in TRACKER_ADMIN_EMAILS
+        or user_email in ROOT_ADMIN_EMAILS
+        or role in TRACKER_ADMIN_ROLES
+        or has_permission(role, Permission.ADMIN_PORTAL)
+    )
+
+
+def is_tracker_coordinator_or_admin(user: dict[str, Any]) -> bool:
+    """Checks whether the user is a coordinator, leadership, or admin."""
+    if is_tracker_admin(user):
+        return True
+    role = (user.get("role") or "").strip().lower()
+    return role in TRACKER_COORDINATOR_ROLES or "coordinator" in role
+
+
+def is_tracker_team_member(user: dict[str, Any]) -> bool:
+    """Checks whether user belongs to authorized sales, operations, or admin roles."""
+    if is_tracker_admin(user) or is_tracker_coordinator_or_admin(user):
+        return True
+    role = (user.get("role") or "").strip().lower()
+    return role in TRACKER_ALLOWED_ROLES or has_permission(role, Permission.LOG_APPROACH)
+
 
 def get_storage_path() -> Path:
     """Resolves legacy json persistence path."""
@@ -181,8 +230,8 @@ def compute_tracker_kpis(entities: dict[str, dict[str, Any]], today_str: str | N
 def require_lead_tracker_auth(authorization: str | None = Header(None)) -> dict[str, Any]:
     """Validates session token and RBAC for Lead Status Tracker endpoints.
     
-    Tyra (tyra.theknath@jfll.com, tyra@jfll.com), Deepak (deepak@jfll.com),
-    and users with Admin / Leadership / Tech Lead / Root Admin roles have full access.
+    Permits sales team members, coordinators, leadership, and administrators with
+    active accounts to access the shared team Lead Status Tracker.
     Unauthenticated requests (missing or invalid Bearer token) are rejected with 401.
     """
     if not authorization:
@@ -217,20 +266,10 @@ def require_lead_tracker_auth(authorization: str | None = Header(None)) -> dict[
             detail="SESSION_SUPERSEDED: Your account was signed in from another device.",
         )
 
-    role = (user.get("role") or "").strip().lower()
-    is_root = (
-        user_email in TRACKER_ADMIN_EMAILS
-        or user_email in ROOT_ADMIN_EMAILS
-    )
-    is_admin = (
-        role in TRACKER_ADMIN_ROLES
-        or has_permission(role, Permission.ADMIN_PORTAL)
-    )
-
-    if not is_root and not is_admin:
+    if not is_tracker_team_member(user):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="PERMISSION_DENIED: Lead Status Tracker is restricted to leadership and administrators.",
+            detail="PERMISSION_DENIED: Lead Status Tracker is restricted to sales team members, coordinators, and administrators.",
         )
 
     return user
@@ -319,6 +358,11 @@ def create_tracked_lead(
 ) -> LeadTrackerItem:
     """Creates a new lead entry with automatic ID generation, rep email lookup, and initial log."""
     user = require_lead_tracker_auth(authorization)
+    if not is_tracker_coordinator_or_admin(user):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only coordinators and administrators can create leads",
+        )
     db_path = _ensure_db_initialized()
 
     lead_dict = payload.model_dump() if hasattr(payload, "model_dump") else payload.dict()
@@ -359,13 +403,25 @@ def update_tracked_lead(
     if not update_data:
         return LeadTrackerItem(**existing)
 
-    author_name = user.get("name") or "Leadership"
-    author_email = user.get("sub") or "admin@jfll.com"
+    author_name = user.get("name") or "Sales Team"
+    author_email = user.get("sub") or "sales@jfll.com"
 
-    # Detect reassignment and log activity
+    # Detect reassignment and enforce RBAC: standard reps cannot reassign
     new_rep = update_data.get("assigned_to")
     old_rep = existing.get("assigned_to")
-    if new_rep and new_rep != old_rep:
+    new_rep_email = update_data.get("assigned_to_email")
+    old_rep_email = existing.get("assigned_to_email")
+
+    is_reassignment = (
+        (new_rep is not None and new_rep.strip() != (old_rep or "").strip())
+        or (new_rep_email is not None and new_rep_email.strip().lower() != (old_rep_email or "").strip().lower())
+    )
+    if is_reassignment:
+        if not is_tracker_coordinator_or_admin(user):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Only coordinators and administrators can reassign leads",
+            )
         add_activity(
             id,
             {
@@ -426,12 +482,7 @@ def append_tracker_activity(
         )
 
     user_email = (user.get("sub") or "").strip().lower()
-    user_role = (user.get("role") or "").strip().lower()
-    is_privileged = (
-        user_email in TRACKER_ADMIN_EMAILS
-        or user_email in ROOT_ADMIN_EMAILS
-        or user_role in TRACKER_ADMIN_ROLES
-    )
+    is_privileged = is_tracker_admin(user)
 
     # Prevent audit log author spoofing: bind attribution to verified JWT identity
     # Privileged admins may override author attribution; standard callers are locked to session
@@ -480,7 +531,12 @@ def delete_tracked_lead(
     authorization: str | None = Header(None),
 ) -> dict[str, Any]:
     """Deletes or archives a tracked lead record by ID."""
-    require_lead_tracker_auth(authorization)
+    user = require_lead_tracker_auth(authorization)
+    if not is_tracker_coordinator_or_admin(user):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only coordinators and administrators can delete or archive leads",
+        )
     db_path = _ensure_db_initialized()
 
     existing = get_lead_by_id(id, db_path=db_path)
