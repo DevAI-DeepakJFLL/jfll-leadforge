@@ -23,6 +23,11 @@ logger = logging.getLogger(__name__)
 def _has_postgres_driver() -> bool:
     """Checks whether a PostgreSQL driver is installed in the current environment."""
     try:
+        import aurora_dsql_psycopg  # noqa: F401
+        return True
+    except ImportError:
+        pass
+    try:
         import psycopg  # noqa: F401
         return True
     except ImportError:
@@ -97,9 +102,13 @@ class DSQLTokenManager:
 
             client = boto3.client("dsql", region_name=region)
             if hasattr(client, "generate_db_connect_admin_auth_token"):
-                return client.generate_db_connect_admin_auth_token(endpoint, region)
+                return client.generate_db_connect_admin_auth_token(
+                    Hostname=endpoint, Region=region
+                )
             elif hasattr(client, "generate_db_connect_auth_token"):
-                return client.generate_db_connect_auth_token(endpoint, region)
+                return client.generate_db_connect_auth_token(
+                    Hostname=endpoint, Region=region
+                )
         except Exception as exc:
             logger.warning(
                 "Could not generate DSQL token via boto3: %s. Using local token.", exc
@@ -158,9 +167,19 @@ class DSQLConnectionManager:
             )
             return get_sqlite_connection()
 
+        # 1. Try official aurora_dsql_psycopg if available
+        try:
+            import aurora_dsql_psycopg as dsql_psycopg
+
+            return dsql_psycopg.connect(f"postgresql://{endpoint}/postgres?user=admin")
+        except ImportError:
+            pass
+        except Exception as exc:
+            logger.warning("Failed connecting via aurora_dsql_psycopg: %s; trying psycopg.", exc)
+
+        # 2. Try psycopg with IAM auth token
         token = self.token_manager.get_token(endpoint, region)
 
-        # Try psycopg v3
         try:
             import psycopg
 

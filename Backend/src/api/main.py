@@ -292,12 +292,19 @@ async def global_exception_handler(request: Request, exc: Exception):
 @app.get("/health", response_model=HealthResponse, tags=["Health"])
 @app.get("/api/v1/health", response_model=HealthResponse, tags=["Health"])
 def health_check():
-    """Service health and Floci emulator connectivity probe."""
+    """Service health, DSQL connectivity, and storage connectivity probe."""
+    from src.api.dsql_client import get_dsql_endpoint, is_dsql_enabled
+
+    ep = get_dsql_endpoint()
+    dsql_info = f"configured ({ep})" if is_dsql_enabled() else "disabled (local sqlite)"
+    logger.info("Health check probe invoked. DSQL status: %s", dsql_info)
+
     return {
         "status": "healthy",
         "backend": "Floci AWS Emulator" if settings.env == "local" else "AWS S3 Production",
         "floci_endpoint": f"http://{settings.floci_endpoint}",
         "s3_target": settings.s3_uri,
+        "dsql_status": dsql_info,
     }
 
 

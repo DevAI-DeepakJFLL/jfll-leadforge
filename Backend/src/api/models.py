@@ -46,6 +46,7 @@ class HealthResponse(BaseModel):
     backend: str
     floci_endpoint: str
     s3_target: str
+    dsql_status: str | None = None
 
 
 class LoginRequest(BaseModel):
